@@ -12,7 +12,11 @@ const Announcement = ({ text, to, isVisible }) =>
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <Text as="p" sx={{ fontSize: 0, letterSpacing: 'wider' }} variant="caps">
+      <Text
+        as="p"
+        sx={{ fontSize: 0, letterSpacing: '.05em', fontWeight: 'heading' }}
+        variant="caps"
+      >
         <Link
           as={GatsbyLink}
           color="inherit"

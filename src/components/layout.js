@@ -8,10 +8,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useStaticQuery, graphql } from 'gatsby'
-import { Styled } from 'theme-ui'
+import { Styled, Flex } from 'theme-ui'
 import Announcements from './Announcements'
 
 import Header from './header'
+import Footer from './footer'
 
 const announcements = [
   { text: 'Book a Virtual Appointment', to: '/book-an-appointment' },
@@ -32,8 +33,18 @@ const Layout = ({ children }) => {
   return (
     <>
       <Styled.root>
-        <Announcements announcements={announcements} />
-        <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
+        <Flex
+          sx={{
+            minHeight: '100vh',
+            flexDirection: 'column',
+            alignItems: 'stretch',
+          }}
+        >
+          <Announcements announcements={announcements} />
+          <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
+          {children}
+          <Footer />
+        </Flex>
       </Styled.root>
     </>
   )

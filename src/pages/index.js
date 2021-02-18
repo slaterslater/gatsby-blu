@@ -8,15 +8,15 @@ import SEO from '../components/seo'
 const IndexPage = () => (
   <Layout>
     <SEO title="Home" />
-    <Hero
-      images={[]}
-      title="Shed Your Skin"
-      subtitle="Poignant &bull; Beautiful . Enduring"
-      button={{
-        label: 'Shop New Beginnings',
-        path: '/shop/new-beginnings',
-      }}
-    />
+    {/* <Hero */}
+    {/*   images={[]} */}
+    {/*   title="Shed Your Skin" */}
+    {/*   subtitle="Poignant &bull; Beautiful . Enduring" */}
+    {/*   button={{ */}
+    {/*     label: 'Shop New Beginnings', */}
+    {/*     path: '/shop/new-beginnings', */}
+    {/*   }} */}
+    {/* /> */}
     <Box>category list</Box>
     <Box>big links</Box>
     <Box>brand statement</Box>

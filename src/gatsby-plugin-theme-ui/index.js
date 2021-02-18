@@ -20,6 +20,7 @@ export default {
   },
   fontSizes: [12, 14, 16, 20, 24, 32, 48, 64],
   fontWeights: {
+    light: 300,
     body: 400,
     heading: 500,
     bold: 700,
@@ -38,6 +39,38 @@ export default {
     caps: {
       textTransform: 'uppercase',
       letterSpacing: '0.2em',
+    },
+  },
+  buttons: {
+    inverted: {
+      border: '1px solid',
+      borderColor: 'cream',
+      borderRadius: 0,
+      bg: 'cream',
+      color: 'primary',
+      py: 3,
+      px: 4,
+      fontSize: 1,
+      fontFamily: 'body',
+      fontWeight: 'heading',
+      textTransform: 'uppercase',
+      letterSpacing: '.1em',
+      cursor: 'pointer',
+    },
+  },
+  forms: {
+    inverted: {
+      border: '1px solid',
+      borderColor: 'cream',
+      borderRadius: 0,
+      color: 'cream',
+      p: 3,
+      fontSize: 1,
+      fontFamily: 'body',
+      '&::placeholder': {
+        color: 'gray',
+        fontSize: 0,
+      },
     },
   },
   styles: {

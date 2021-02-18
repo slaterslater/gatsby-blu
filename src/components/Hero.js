@@ -3,7 +3,7 @@ import { Box, Text, Heading, Button, Grid } from 'theme-ui'
 import { GatsbyLink } from 'gatsby'
 
 const Hero = ({ images, title, subtitle, button }) => (
-  <Box>
+  <Box sx={{ height: '50vh', bg: 'cream' }}>
     <Grid>
       <Box>
         <Heading as="h1">{title}</Heading>
