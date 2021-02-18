@@ -1,0 +1,6 @@
+{
+  "extends": ["wesbos"],
+  "rules": {
+    "react/jsx-pascal-case": "off"
+  }
+}

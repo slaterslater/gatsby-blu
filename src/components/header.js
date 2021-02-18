@@ -1,34 +1,34 @@
-import { Link } from "gatsby"
-import PropTypes from "prop-types"
-import React from "react"
+import { Box, Image, Link, Grid } from 'theme-ui'
+import { Link as GatsbyLink } from 'gatsby'
+import { IoIosMenu, IoIosSearch } from 'react-icons/io'
+import PropTypes from 'prop-types'
+import React from 'react'
+import logo from '../images/bluboho-logo-vector-white.svg'
 
 const Header = ({ siteTitle }) => (
-  <header
-    style={{
-      background: `rebeccapurple`,
-      marginBottom: `1.45rem`,
-    }}
+  <Box
+    as="header"
+    bg="#14191f"
+    p={3}
+    sx={{ position: 'sticky', top: 0, zIndex: 1 }}
   >
-    <div
-      style={{
-        margin: `0 auto`,
-        maxWidth: 960,
-        padding: `1.45rem 1.0875rem`,
-      }}
-    >
-      <h1 style={{ margin: 0 }}>
-        <Link
-          to="/"
-          style={{
-            color: `white`,
-            textDecoration: `none`,
-          }}
-        >
-          {siteTitle}
-        </Link>
-      </h1>
-    </div>
-  </header>
+    <Grid sx={{ gridTemplateColumns: 'repeat(3, 1fr)', alignItems: 'center' }}>
+      <Box>
+        <Box as={IoIosMenu} color="white" size={24} />
+      </Box>
+      <Link as={GatsbyLink} to="/" sx={{ justifySelf: 'center' }}>
+        <Image
+          src={logo}
+          alt="bluboho"
+          title="bluboho"
+          sx={{ height: 32, display: 'block' }}
+        />
+      </Link>
+      <Box sx={{ justifySelf: 'end' }}>
+        <Box as={IoIosSearch} color="white" size={24} />
+      </Box>
+    </Grid>
+  </Box>
 )
 
 Header.propTypes = {
