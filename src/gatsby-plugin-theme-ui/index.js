@@ -42,6 +42,17 @@ export default {
     },
   },
   buttons: {
+    primary: {
+      borderRadius: 0,
+      py: 3,
+      px: 4,
+      fontSize: 1,
+      fontFamily: 'body',
+      fontWeight: 'heading',
+      textTransform: 'uppercase',
+      letterSpacing: '.1em',
+      cursor: 'pointer',
+    },
     inverted: {
       border: '1px solid',
       borderColor: 'cream',

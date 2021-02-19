@@ -21,7 +21,7 @@ const Header = ({ siteTitle }) => (
           src={logo}
           alt="bluboho"
           title="bluboho"
-          sx={{ height: 32, display: 'block' }}
+          sx={{ height: 28, display: 'block' }}
         />
       </Link>
       <Box sx={{ justifySelf: 'end' }}>

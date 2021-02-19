@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, Text, Heading, Button, Grid } from 'theme-ui'
-import { GatsbyLink } from 'gatsby'
+import { Link as GatsbyLink } from 'gatsby'
 
 const Hero = ({ images, title, subtitle, button }) => (
   <Box sx={{ height: '50vh', bg: 'cream' }}>

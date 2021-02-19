@@ -8,7 +8,7 @@ const NewsletterForm = () => (
     onSubmit={() => console.log('form go!')}
   >
     <Form>
-      <Box pb={3}>
+      <Box pb={4}>
         <Field
           as={Input}
           name="email"
