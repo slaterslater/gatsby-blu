@@ -1,15 +1,26 @@
 import React, { useRef } from 'react'
 import PropTypes from 'prop-types'
-import { Box, Heading, Grid } from 'theme-ui'
-import { motion } from 'framer-motion'
+import { Box, Button, Heading, Grid } from 'theme-ui'
+import { motion, useMotionValue } from 'framer-motion'
 import CollectionSlide from './CollectionSlide'
-import useSliderConstraint from '../lib/useSliderConstraint'
+import { useSlider } from '../lib/useSliderConstraint'
 
 const AnimatedGrid = motion.custom(Grid)
 
 const CollectionSlider = ({ title, subtitle, slides }) => {
   const ref = useRef(null)
-  const sliderConstraints = useSliderConstraint(ref)
+  const x = useMotionValue(0)
+  const {
+    left,
+    sliderWidth,
+    updatePageMeta,
+    hasNextPage,
+    hasPrevPage,
+    // currentPage,
+    // setCurrentPage,
+  } = useSlider(ref, x)
+
+  console.log({ hasNextPage, hasPrevPage })
 
   return (
     <Box py={6} pl={[5, 6, 6, 7]}>
@@ -34,15 +45,36 @@ const CollectionSlider = ({ title, subtitle, slides }) => {
           {subtitle}
         </Heading>
       </Box>
+      <Grid sx={{ gridAutoFlow: 'column' }}>
+        <Button
+          type="button"
+          onClick={() => {
+            const nextXPosition = Math.min(0, x.get() + sliderWidth)
+            x.set(nextXPosition)
+          }}
+        >
+          Prev
+        </Button>
+        <Button
+          type="button"
+          onClick={() => {
+            const nextXPosition = Math.max(left, x.get() - sliderWidth)
+            x.set(nextXPosition)
+          }}
+        >
+          Next
+        </Button>
+      </Grid>
       <Box sx={{ width: '100%', overflow: 'hidden' }}>
         <AnimatedGrid
           ref={ref}
           dragConstraints={{
             right: 0,
-            left: -sliderConstraints,
+            left,
           }}
           gap={0}
           drag="x"
+          style={{ x }}
           sx={{
             gridAutoColumns: ['60%', '45%', '30%'],
             gridAutoFlow: 'column',
