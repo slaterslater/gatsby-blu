@@ -43,6 +43,9 @@ export default {
   },
   buttons: {
     primary: {
+      '&:disabled': {
+        opacity: 0.5,
+      },
       borderRadius: 0,
       py: 3,
       px: 4,
@@ -67,6 +70,9 @@ export default {
       textTransform: 'uppercase',
       letterSpacing: '.1em',
       cursor: 'pointer',
+    },
+    unset: {
+      all: 'unset',
     },
   },
   forms: {
