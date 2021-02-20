@@ -55,7 +55,6 @@ const IndexPage = ({ data }) => (
         },
       ]}
     />
-    <Box>category list</Box>
     <Box>big links</Box>
     <Box>brand statement</Box>
     <Box>book engagement section</Box>
