@@ -9,6 +9,7 @@ import CollectionSlider from '../components/CollectionSlider'
 import SEO from '../components/seo'
 import BrandStatement from '../components/BrandStatement'
 import InstagramFeed from '../components/InstagramFeed'
+import BookConsultation from '../components/BookConsultation'
 
 const IndexPage = ({ data }) => (
   <Layout>
@@ -60,7 +61,7 @@ const IndexPage = ({ data }) => (
     />
     <BelovedLinks />
     <BrandStatement />
-    <Box>book engagement section</Box>
+    <BookConsultation />
     <Box>reviews</Box>
     <InstagramFeed />
   </Layout>
