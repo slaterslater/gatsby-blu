@@ -3,9 +3,12 @@ import { Box } from 'theme-ui'
 import { graphql } from 'gatsby'
 import Layout from '../components/layout'
 import Hero from '../components/Hero'
+import BelovedLinks from '../components/BelovedLinks'
 import CollectionSlider from '../components/CollectionSlider'
 
 import SEO from '../components/seo'
+import BrandStatement from '../components/BrandStatement'
+import InstagramFeed from '../components/InstagramFeed'
 
 const IndexPage = ({ data }) => (
   <Layout>
@@ -55,11 +58,11 @@ const IndexPage = ({ data }) => (
         },
       ]}
     />
-    <Box>big links</Box>
-    <Box>brand statement</Box>
+    <BelovedLinks />
+    <BrandStatement />
     <Box>book engagement section</Box>
     <Box>reviews</Box>
-    <Box>instagram</Box>
+    <InstagramFeed />
   </Layout>
 )
 

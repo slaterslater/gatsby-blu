@@ -41,31 +41,20 @@ export default function useSliderDimensions(ref) {
   return { left: -sliderLeftConstraint, sliderWidth }
 }
 
-// const useSliderPageNavigation = ref => {}
-//
 export const useSlider = (ref, x, controls) => {
   const { left, sliderWidth } = useSliderDimensions(ref)
-  // const [hasNextPage, setHasNextPage] = useState(true)
-  // const [hasPrevPage, setHasPrevPage] = useState(false)
-
-  //   const prevPositionSpring = useSpring(
-  //   const nextPositionSpring = useSpring(
 
   return useMemo(
     () => ({
       left,
       sliderWidth,
       goToNextPage: () => {
-        // const nextXPosition = Math.max(left, x.get() - sliderWidth)
-        // x.set(nextXPosition)
         controls.start({ x: Math.max(left, x.get() - sliderWidth) })
       },
       goToPrevPage: () => {
-        // const nextXPosition = Math.min(0, x.get() + sliderWidth)
-        // x.set(nextXPosition)
         controls.start({ x: Math.min(0, x.get() + sliderWidth) })
       },
     }),
-    [left, sliderWidth, x]
+    [left, sliderWidth, x, controls]
   )
 }

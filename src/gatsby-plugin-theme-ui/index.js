@@ -39,6 +39,13 @@ export default {
     caps: {
       textTransform: 'uppercase',
       letterSpacing: '0.2em',
+      fontFamily: 'body',
+    },
+    lightCaps: {
+      textTransform: 'uppercase',
+      letterSpacing: '0.2em',
+      fontWeight: 'light',
+      fontFamily: 'body',
     },
   },
   buttons: {
@@ -49,12 +56,28 @@ export default {
       borderRadius: 0,
       py: 3,
       px: 4,
-      fontSize: 1,
+      fontSize: 0,
       fontFamily: 'body',
       fontWeight: 'heading',
       textTransform: 'uppercase',
       letterSpacing: '.1em',
       cursor: 'pointer',
+    },
+    secondary: {
+      '&:disabled': {
+        opacity: 0.5,
+      },
+      borderRadius: 0,
+      py: 3,
+      px: 4,
+      fontSize: 0,
+      fontFamily: 'body',
+      fontWeight: 'heading',
+      textTransform: 'uppercase',
+      letterSpacing: '.1em',
+      cursor: 'pointer',
+      bg: 'white',
+      color: 'primary',
     },
     inverted: {
       border: '1px solid',
@@ -64,7 +87,7 @@ export default {
       color: 'primary',
       py: 3,
       px: 4,
-      fontSize: 1,
+      fontSize: 0,
       fontFamily: 'body',
       fontWeight: 'heading',
       textTransform: 'uppercase',
@@ -88,6 +111,12 @@ export default {
         color: 'gray',
         fontSize: 0,
       },
+    },
+  },
+  variants: {
+    sectionWrap: {
+      py: 6,
+      px: [5, 6, 6, 7],
     },
   },
   styles: {
