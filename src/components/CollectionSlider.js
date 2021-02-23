@@ -63,7 +63,7 @@ const CollectionSlider = ({ title, subtitle, slides }) => {
           animate={controls}
           style={{ x }}
           sx={{
-            gridAutoColumns: ['60%', '45%', '30%'],
+            gridAutoColumns: ['60%', '45%'],
             gridAutoFlow: 'column',
           }}
         >

@@ -1,5 +1,4 @@
 import React from 'react'
-import { Box } from 'theme-ui'
 import { graphql } from 'gatsby'
 import Layout from '../components/layout'
 import Hero from '../components/Hero'
@@ -10,17 +9,18 @@ import SEO from '../components/seo'
 import BrandStatement from '../components/BrandStatement'
 import InstagramFeed from '../components/InstagramFeed'
 import BookConsultation from '../components/BookConsultation'
+import ReviewsSlider from '../components/ReviewsSlider'
 
 const IndexPage = ({ data }) => (
   <Layout>
     <SEO title="Home" />
     <Hero
       images={[]}
-      title="Shed Your Skin"
+      title="shed your skin"
       subtitle="Poignant &bull; Beautiful &bull; Enduring"
       button={{
         label: 'Shop New Beginnings',
-        path: '/shop/new-beginnings',
+        path: '/shop/collections/new-beginnings',
       }}
     />
     <CollectionSlider
@@ -62,7 +62,7 @@ const IndexPage = ({ data }) => (
     <BelovedLinks />
     <BrandStatement />
     <BookConsultation />
-    <Box>reviews</Box>
+    <ReviewsSlider />
     <InstagramFeed />
   </Layout>
 )

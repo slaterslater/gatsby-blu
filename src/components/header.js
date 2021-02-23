@@ -1,42 +1,61 @@
-import { Box, Image, Link, Grid } from 'theme-ui'
+import { Button, Text, Box, Image, Link, Grid } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
 import { IoIosMenu, IoIosSearch } from 'react-icons/io'
-import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useState } from 'react'
 import logo from '../images/bluboho-logo-vector-white.svg'
+import HeaderSearch from './HeaderSearch'
 
-const Header = ({ siteTitle }) => (
-  <Box
-    as="header"
-    bg="#14191f"
-    p={3}
-    sx={{ position: 'sticky', top: 0, zIndex: 1 }}
-  >
-    <Grid sx={{ gridTemplateColumns: 'repeat(3, 1fr)', alignItems: 'center' }}>
-      <Box>
-        <Box as={IoIosMenu} color="white" size={24} />
-      </Box>
-      <Link as={GatsbyLink} to="/" sx={{ justifySelf: 'center' }}>
-        <Image
-          src={logo}
-          alt="bluboho"
-          title="bluboho"
-          sx={{ height: 28, display: 'block' }}
+const Header = () => {
+  const [searchOpen, setSearchOpen] = useState(false)
+
+  return (
+    <Box sx={{ position: 'sticky', top: 0, zIndex: 10, boxShadow: 'small' }}>
+      <Box
+        as="header"
+        bg="#14191f"
+        sx={{
+          position: 'relative',
+          zIndex: 2,
+        }}
+      >
+        <Grid
+          sx={{
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            alignItems: 'center',
+            gap: 4,
+            position: 'relative',
+            zIndex: 3,
+          }}
+          p={4}
+        >
+          <Box>
+            <Box as={IoIosMenu} color="white" size={24} />
+          </Box>
+          <Link as={GatsbyLink} to="/" sx={{ justifySelf: 'center' }}>
+            <Image
+              src={logo}
+              alt="bluboho"
+              title="bluboho"
+              sx={{ height: 28, display: 'block' }}
+            />
+          </Link>
+          <Box sx={{ justifySelf: 'end' }}>
+            <Button
+              type="button"
+              variant="unset"
+              onClick={() => setSearchOpen(state => !state)}
+            >
+              <Text as={IoIosSearch} color="white" size={24} />
+            </Button>
+          </Box>
+        </Grid>
+        <HeaderSearch
+          isOpen={searchOpen}
+          onClose={() => setSearchOpen(state => !state)}
         />
-      </Link>
-      <Box sx={{ justifySelf: 'end' }}>
-        <Box as={IoIosSearch} color="white" size={24} />
       </Box>
-    </Grid>
-  </Box>
-)
-
-Header.propTypes = {
-  siteTitle: PropTypes.string,
-}
-
-Header.defaultProps = {
-  siteTitle: ``,
+    </Box>
+  )
 }
 
 export default Header
