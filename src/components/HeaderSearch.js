@@ -28,13 +28,25 @@ const HeaderSearch = ({ isOpen, onClose }) => {
         },
       }}
     >
-      <Grid sx={{ gridTemplateColumns: 'max-content 1fr max-content' }}>
+      <Grid
+        sx={{
+          gridTemplateColumns: 'max-content 1fr max-content',
+          alignItems: 'center',
+        }}
+      >
         <Box as={IoIosSearch} size={24} color="primary" />
         <Box>
           <Input
             type="input"
             onChange={e => setValue(e.target.value)}
             value={value}
+            sx={{
+              letterSpacing: 'caps',
+              border: 'none',
+              fontFamily: 'body',
+              textTransform: 'uppercase',
+              fontSize: 3,
+            }}
           />
         </Box>
         <Button type="button" variant="unset" onClick={onClose}>

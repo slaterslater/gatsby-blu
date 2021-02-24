@@ -1,7 +1,23 @@
 import React from 'react'
-import { Box, Flex, Text, Link } from 'theme-ui'
+import path from 'path-browserify'
+import { Image, Grid, Box, Flex, Text } from 'theme-ui'
+import { Link } from 'gatsby'
 import { useQuery } from 'urql'
 import { PRODUCT_QUERY } from '../queries/search'
+import ProductTitle from './ProductTitle'
+
+const getSrcWithSize = (src, size) => {
+  const extName = path.extname(src)
+  return src.replace(extName, `_${size}${extName}`)
+}
+
+const ProductThumbnail = ({ originalSrc, alt }) => {
+  const srcs = [200, 400, 600].map(
+    width => `${getSrcWithSize(originalSrc, `${width}x`)} ${width}w`
+  )
+
+  return <Image src={srcs[0]} srcSet={srcs.join(', ')} alt={alt} />
+}
 
 const SearchPreview = ({ term = '' }) => {
   const [query] = useQuery({
@@ -17,17 +33,35 @@ const SearchPreview = ({ term = '' }) => {
     .map(({ node }) => node)
 
   return (
-    <Box pt={5}>
-      <Flex sx={{ justifyContent: 'space-between' }}>
-        <Text variant="caps">{availableProducts.length} results</Text>
-        <Link to={`/shop/search?q=${term}`}>See All</Link>
+    <Box pt={6}>
+      <Flex
+        pb={3}
+        sx={{
+          justifyContent: 'space-between',
+          borderBottom: '1px solid',
+          borderColor: 'border',
+        }}
+      >
+        <Text variant="caps" sx={{ fontSize: 0 }}>
+          {availableProducts.length} results
+        </Text>
+        <Text variant="caps" sx={{ fontSize: 0 }}>
+          <Link to={`/shop/search?q=${term}`}>See All</Link>
+        </Text>
       </Flex>
       {availableProducts.length ? (
-        <Box pt={5}>
+        <Grid py={5} sx={{ gridTemplateColumns: 'repeat(4, 1fr)', gap: 5 }}>
           {availableProducts.slice(0, 4).map(product => (
-            <Box>{product.handle}</Box>
+            <Box key={`${product.id}-search-preview`}>
+              <ProductThumbnail
+                originalSrc={product.images.edges[0].node.originalSrc}
+              />
+              <Text variant="caps" sx={{ fontSize: 0, textAlign: 'center' }}>
+                <ProductTitle title={product.title} />
+              </Text>
+            </Box>
           ))}
-        </Box>
+        </Grid>
       ) : (
         <Box pt={5}>no results :(</Box>
       )}
