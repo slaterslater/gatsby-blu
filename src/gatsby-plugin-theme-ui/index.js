@@ -40,6 +40,8 @@ export default {
       textTransform: 'uppercase',
       letterSpacing: '0.2em',
       fontFamily: 'body',
+      fontWeight: 'body',
+      fontSize: 0,
     },
     lightCaps: {
       textTransform: 'uppercase',

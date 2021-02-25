@@ -1,5 +1,18 @@
 import React from 'react'
+import path from 'path-browserify'
+import { Image } from 'theme-ui'
 
-const ProductThumbnail = props => null
+const getSrcWithSize = (src, size) => {
+  const extName = path.extname(src)
+  return src.replace(extName, `_${size}${extName}`)
+}
+
+const ProductThumbnail = ({ originalSrc, alt }) => {
+  const srcs = [200, 400, 600].map(
+    width => `${getSrcWithSize(originalSrc, `${width}x`)} ${width}w`
+  )
+
+  return <Image src={srcs[0]} srcSet={srcs.join(', ')} alt={alt} />
+}
 
 export default ProductThumbnail

@@ -5,6 +5,7 @@ export const PRODUCT_QUERY = `
     products(first: $first, query: $query, sortKey: RELEVANCE) {
     edges {
       node {
+        id
         handle
         title
         availableForSale
