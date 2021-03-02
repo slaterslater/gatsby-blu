@@ -1,0 +1,32 @@
+[
+  {
+    "path": "/shop/necklaces",
+    "param": "necklaces",
+    "text": "Necklaces",
+    "productType": "Necklace"
+  },
+  {
+    "path": "/shop/rings",
+    "param": "rings",
+    "text": "Rings",
+    "productType": "Ring"
+  },
+  {
+    "path": "/shop/earrings",
+    "param": "earrings",
+    "text": "Earrings",
+    "productType": "Earring"
+  },
+  {
+    "path": "/shop/engagement",
+    "param": "engagement",
+    "text": "Engagement",
+    "productType": "Engagement"
+  },
+  {
+    "path": "/shop/bracelets",
+    "param": "bracelets",
+    "text": "Bracelets",
+    "productType": "Bracelet"
+  }
+]

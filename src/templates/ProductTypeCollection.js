@@ -1,39 +1,41 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import CollectionPage from '../../components/CollectionPage'
-import Layout from '../../components/layout'
+import Layout from '../components/layout'
+import CollectionPageHeader from '../components/CollectionPageHeader'
+import CollectionPage from '../components/CollectionPage'
 
-function ShopAllPage({ data }) {
+const ProductTypeCollection = ({ data }) => {
   const { nodes, totalCount } = data.allShopifyProduct
+  const { text } = data.productTypeNavigationJson
 
   return (
     <Layout>
-      <CollectionPage
-        collectionTitle="Shop All Products"
-        products={nodes}
-        totalCount={totalCount}
-      />
+      <CollectionPage products={nodes}>
+        <CollectionPageHeader title={text} description="" />
+      </CollectionPage>
     </Layout>
   )
 }
 
-export default ShopAllPage
+export default ProductTypeCollection
 
 export const query = graphql`
-  query ShopAllQuery {
+  query ProductTypeCollection($productType: String!) {
+    productTypeNavigationJson(productType: { eq: "Ring" }) {
+      text
+    }
+
     allShopifyProduct(
       filter: {
+        productType: { eq: $productType }
         availableForSale: { eq: true }
-        productType: {
-          in: ["Necklace", "Ring", "Bracelet", "Earring", "Wedding Ring"]
-        }
       }
     ) {
       totalCount
       nodes {
-        title
+        handle
         description
-        tags
+        title
         id
         priceRange {
           minVariantPrice {
@@ -41,6 +43,8 @@ export const query = graphql`
             currencyCode
           }
         }
+        tags
+        id
         images {
           localFile {
             childImageSharp {

@@ -10,14 +10,9 @@ const CollectionProductGroup = ({ groupType, children }) => {
       <Box pb={2} sx={{ borderBottom: '1px solid', borderColor: '#e5e5e5' }}>
         <Text
           as="h3"
-          color="gray"
-          fontSize={3}
+          variant="caps"
           sx={{
-            fontWeight: 400,
-            fontFamily: 'Montserrat, sans-serif',
-            letterSpacing: '.2em',
-            textTransform: 'uppercase',
-            opacity: 0.7,
+            fontSize: 3,
           }}
         >
           {title}

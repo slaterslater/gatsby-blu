@@ -11,36 +11,32 @@ const CollectionProduct = ({ product }) => {
   })
   const title = useProductTitle(product.title)
   return (
-    <Flex flexDirection="column" as="article">
-      <Box flex="1">
+    <Flex sx={{ flexDirection: 'column' }} as="article">
+      <Box sx={{ flex: 1 }}>
         <Img fluid={product.images[0]?.localFile.childImageSharp.fluid} />
       </Box>
-      <Box mt="auto" height={80} pt={2}>
+      <Box mt="auto" sx={{ height: 80 }} pt={2}>
         <Grid
-          sx={{ gridTemplateColumns: '1fr max-content', gap: 2 }}
-          justifyContent="space-between"
+          sx={{
+            gridTemplateColumns: '1fr max-content',
+            gap: 2,
+            justifyContent: 'space-between',
+          }}
         >
           <Text
             as="h6"
+            variant="caps"
             sx={{
-              fontWeight: 400,
-              fontFamily: 'Montserrat, sans-serif',
-              letterSpacing: '.15em',
-              textTransform: 'uppercase',
               color: '#454545',
             }}
-            fontSize={0}
           >
             {title}
           </Text>
           <Text
             as="p"
-            fontSize={0}
+            variant="caps"
             sx={{
               fontWeight: 500,
-              fontFamily: 'Montserrat, sans-serif',
-              letterSpacing: '.15em',
-              textTransform: 'uppercase',
               color: '#454545',
             }}
           >

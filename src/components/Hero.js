@@ -31,10 +31,15 @@ const Hero = ({ title, subtitle, button }) => {
           gap: 0,
           gridColumn: '1 / -1',
           gridRow: '1 / -1',
+          overflow: 'hidden',
         }}
       >
-        <GatsbyImage fluid={data.leftImage.childImageSharp.fluid} />
-        <GatsbyImage fluid={data.rightImage.childImageSharp.fluid} />
+        <Box sx={{ height: '70vh' }}>
+          <GatsbyImage fluid={data.leftImage.childImageSharp.fluid} />
+        </Box>
+        <Box sx={{ display: ['none', 'block'] }}>
+          <GatsbyImage fluid={data.rightImage.childImageSharp.fluid} />
+        </Box>
       </Grid>
       <Flex
         sx={{

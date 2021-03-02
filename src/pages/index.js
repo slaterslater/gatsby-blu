@@ -63,7 +63,7 @@ const IndexPage = ({ data }) => (
     <BrandStatement />
     <BookConsultation />
     <ReviewsSlider />
-    <InstagramFeed />
+    {/* <InstagramFeed /> */}
   </Layout>
 )
 

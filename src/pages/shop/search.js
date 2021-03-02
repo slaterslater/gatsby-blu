@@ -30,11 +30,13 @@ const SearchPage = ({ location: { search } }) => {
           const firstImage = node.images?.edges[0]?.node || {}
           return (
             <Box key={`search-result-${node.id}`}>
-              <RemoteShopifyImage
-                originalSrc={firstImage.originalSrc}
-                altText={firstImage.altText}
-                lazy
-              />
+              {firstImage.originalSrc && (
+                <RemoteShopifyImage
+                  originalSrc={firstImage.originalSrc}
+                  altText={firstImage.altText}
+                  lazy
+                />
+              )}
               <Text variant="caps" sx={{ textAlign: 'center', fontSize: 10 }}>
                 <ProductTitle title={node.title} />
               </Text>

@@ -1,11 +1,30 @@
-/**
- * Implement Gatsby's Node APIs in this file.
- *
- * See: https://www.gatsbyjs.com/docs/node-apis/
- */
+import path from 'path'
 
-// You can delete this file if you're not using it
-// const path = require('path')
+async function createProductTypeCollectionPages({ graphql, actions }) {
+  const component = path.resolve('./src/templates/ProductTypeCollection.js')
+
+  // move this to sanity eventually
+  const { data } = await graphql(`
+    {
+      allProductTypeNavigationJson {
+        nodes {
+          path
+          productType
+        }
+      }
+    }
+  `)
+
+  data.allProductTypeNavigationJson.nodes.forEach(node => {
+    actions.createPage({
+      path: node.path,
+      component,
+      context: {
+        productType: node.productType,
+      },
+    })
+  })
+}
 
 // async function createProductPages({ graphql, actions }) {
 //   // 1. Get a template for this page
@@ -37,8 +56,11 @@
 //   })
 // }
 
-// // export async function createPages(params) {
-// //   // Create pages dynamically
-// //   // Wait for all promises to be resolved before finishing this function
-// //   await Promise.all([createProductPages(params)])
-// // }
+export async function createPages(params) {
+  // Create pages dynamically
+  // Wait for all promises to be resolved before finishing this function
+  await Promise.all([
+    createProductTypeCollectionPages(params),
+    // createProductPages(params),
+  ])
+}
