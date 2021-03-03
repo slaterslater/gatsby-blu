@@ -11,7 +11,11 @@ const ProductTypeCollection = ({ data }) => {
   return (
     <Layout>
       <CollectionPage products={nodes}>
-        <CollectionPageHeader title={text} description="" />
+        <CollectionPageHeader
+          title={text}
+          description="a longer bit of description text, soon to come from collection facets"
+          mb={6}
+        />
       </CollectionPage>
     </Layout>
   )
@@ -21,7 +25,7 @@ export default ProductTypeCollection
 
 export const query = graphql`
   query ProductTypeCollection($productType: String!) {
-    productTypeNavigationJson(productType: { eq: "Ring" }) {
+    productTypeNavigationJson(productType: { eq: $productType }) {
       text
     }
 

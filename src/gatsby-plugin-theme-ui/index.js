@@ -18,7 +18,7 @@ export default {
     heading: '"Sorts Mill Goudy", Georgia, serif',
     monospace: 'Menlo, monospace',
   },
-  fontSizes: [12, 14, 16, 20, 24, 32, 48, 64],
+  fontSizes: [11, 12, 14, 16, 20, 24, 32, 48, 64],
   fontWeights: {
     light: 300,
     body: 400,
@@ -35,6 +35,13 @@ export default {
     caps: '0.2em',
   },
   space: [0, 4, 8, 12, 16, 24, 32, 64, 96, 128, 256, 512],
+  links: {
+    nav: {
+      textDecoration: 'none',
+      color: 'inherit',
+      cursor: 'pointer',
+    },
+  },
   text: {
     caps: {
       textTransform: 'uppercase',

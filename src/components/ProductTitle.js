@@ -1,5 +1,8 @@
-import React from 'react'
+import { useMemo } from 'react'
 
-const ProductTitle = ({ title }) => title.split(' - ')[0]
+export const useProductTitle = title =>
+  useMemo(() => title.split(' - ')[0], [title])
+
+const ProductTitle = ({ title }) => useProductTitle(title)
 
 export default ProductTitle

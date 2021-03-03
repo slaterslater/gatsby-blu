@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react'
 import Img from 'gatsby-image'
 import { Box, Flex, Text, Grid } from 'theme-ui'
+import { Link } from 'gatsby'
 import { useProductTitle } from '../hooks/product'
 import { useFormattedPrice } from '../hooks/utils'
 
@@ -30,7 +31,7 @@ const CollectionProduct = ({ product }) => {
               color: '#454545',
             }}
           >
-            {title}
+            <Link to={`/shop/products/${product.handle}`}>{title}</Link>
           </Text>
           <Text
             as="p"

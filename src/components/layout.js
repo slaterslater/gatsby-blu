@@ -17,11 +17,6 @@ import Announcements from './Announcements'
 import Header from './header'
 import Footer from './footer'
 
-const announcements = [
-  { text: 'Book a Virtual Appointment', to: '/book-an-appointment' },
-  { text: 'Limited Time Free Shipping in Canada', to: '/shipping' },
-]
-
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
@@ -43,7 +38,7 @@ const Layout = ({ children }) => {
             alignItems: 'stretch',
           }}
         >
-          <Announcements announcements={announcements} />
+          <Announcements />
           <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
           {children}
           <Footer />

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Flex, Box, Text, Link } from 'theme-ui'
-import { Link as GatsbyLink } from 'gatsby'
+import { graphql, Link as GatsbyLink, useStaticQuery } from 'gatsby'
 import PropTypes from 'prop-types'
 import { motion, AnimatePresence } from 'framer-motion'
 import useInterval from '../lib/useInterval'
@@ -35,7 +35,18 @@ Announcement.propTypes = {
   isVisible: PropTypes.bool.isRequired,
 }
 
-const Announcements = ({ announcements }) => {
+const Announcements = () => {
+  const data = useStaticQuery(graphql`
+    query {
+      allAnnouncementsJson {
+        nodes {
+          text
+          to
+        }
+      }
+    }
+  `)
+  const { nodes: announcements } = data.allAnnouncementsJson
   const [delay] = useState(5000)
   const [isPaused, setIsPaused] = useState(false)
   const [current, setCurrent] = useState(0)

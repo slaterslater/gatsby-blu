@@ -8,7 +8,6 @@ import CollectionSidebar from './CollectionSidebar'
 const groupProducts = (products, fallback = 'Fallback Subgroup') =>
   products.reduce((acc, el) => {
     const { subgroup } = el
-    console.log(subgroup)
     if (subgroup) {
       return {
         ...acc,

@@ -1,13 +1,21 @@
-import { Box, Text, Heading } from 'theme-ui'
+import { Grid, Box, Text, Heading } from 'theme-ui'
 import React from 'react'
 
-const CollectionPageHeader = ({ title, description }) => (
-  <Box sx={{ bg: 'gray' }} p={5}>
-    <Text as="h1" variant="caps">
-      {title}
-    </Text>
-    <Heading as="h2">{description}</Heading>
-  </Box>
+const CollectionPageHeader = ({ title, description, ...props }) => (
+  <Grid
+    sx={{ bg: 'gray', gridTemplateColumns: ['1fr', '1fr', '2fr 1fr'] }}
+    p={6}
+    {...props}
+  >
+    <Box sx={{ textAlign: 'center' }}>
+      <Text as="h1" variant="caps" pb={3}>
+        {title}
+      </Text>
+      <Heading as="h2" sx={{ lineHeight: 'body' }}>
+        {description}
+      </Heading>
+    </Box>
+  </Grid>
 )
 
 export default CollectionPageHeader

@@ -20,6 +20,7 @@ const ProductListItem = ({
           as="h6"
           variant="caps"
           sx={{
+            fontSize: 0,
             color: '#454545',
           }}
         >
@@ -29,6 +30,7 @@ const ProductListItem = ({
           as="p"
           variant="caps"
           sx={{
+            fontSize: 0,
             fontWeight: 500,
             color: '#454545',
           }}

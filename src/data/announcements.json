@@ -1,0 +1,5 @@
+[
+  { "text": "Book a Virtual Appointment", "to": "/book-an-appointment" },
+  { "text": "Limited Time Free Shipping in Canada", "to": "/shipping" }
+]
+
