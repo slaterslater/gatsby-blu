@@ -4,6 +4,7 @@ import { pluralize } from 'inflected'
 import { useProductTitle } from '../ProductTitle'
 import Breadcrumbs from '../Breadcrumbs'
 import { useFormattedPrice } from '../../hooks/utils'
+import ProductReviewsTopline from './ProductReviewsTopline'
 
 const ProductPage = ({
   product: { title, description, productType, variants },
@@ -56,7 +57,7 @@ const ProductPage = ({
                 {productPrice}
               </Text>
             </Flex>
-            reviews
+            <ProductReviewsTopline score={3.3} possibleScore={5} />
           </Box>
           <Box>Related Colours</Box>
           <Box>Size Variants | link to size guide</Box>

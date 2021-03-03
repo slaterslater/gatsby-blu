@@ -23,6 +23,10 @@ module.exports = {
         ignore: [`**/\.*`], // ignore files starting with a dot
       },
     },
+    `gatsby-plugin-image`,
+    // {
+    //   resolve: `gatsby-source-yotpo`,
+    // }
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
