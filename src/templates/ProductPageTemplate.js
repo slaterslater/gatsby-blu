@@ -18,6 +18,16 @@ export const query = graphql`
       title
       description
       productType
+      vendor
+      images {
+        localFile {
+          childImageSharp {
+            fluid(maxWidth: 800) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
+      }
       variants {
         priceNumber
         availableForSale

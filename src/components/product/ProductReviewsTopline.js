@@ -1,4 +1,4 @@
-import { Flex, Grid, Box } from 'theme-ui'
+import { Text, Flex, Grid, Box, Link } from 'theme-ui'
 import React from 'react'
 import { IoIosStarOutline, IoIosStar } from 'react-icons/io'
 
@@ -31,11 +31,29 @@ const ReviewStars = ({ starPercentage }) => (
 const ProductReviewsTopline = ({ score, possibleScore, totalReviews }) => {
   const starPercentage = (score / possibleScore) * 100
   const starPercentageRounded = Math.round(starPercentage / 10) * 10
+  const numericalAverage = Number.parseFloat(
+    starPercentage * possibleScore * 0.01
+  ).toPrecision(3)
+
+  if (!totalReviews) return false
 
   return (
-    <Flex>
+    <Grid
+      sx={{
+        gridTemplateColumns: 'repeat(4, max-content)',
+        alignItems: 'baseline',
+        gap: 3,
+      }}
+    >
       <ReviewStars starPercentage={starPercentageRounded} />
-    </Flex>
+      <Text sx={{ fontSize: 2, fontWeight: 'medium' }}>{numericalAverage}</Text>
+      <Box sx={{ width: 1, height: '100%', bg: 'border' }} />
+      <Text sx={{ fontSize: 1 }}>
+        <Link variant="nav">
+          See {totalReviews} {totalReviews > 1 ? 'Reviews' : 'Review'}
+        </Link>
+      </Text>
+    </Grid>
   )
 }
 

@@ -1,25 +1,19 @@
 import { Text, Flex, Box, Grid, Heading } from 'theme-ui'
 import React, { useState } from 'react'
 import { pluralize } from 'inflected'
+import GatsbyImage from 'gatsby-image'
 import { useProductTitle } from '../ProductTitle'
+import ProductDetails from './ProductDetails'
 import Breadcrumbs from '../Breadcrumbs'
-import { useFormattedPrice } from '../../hooks/utils'
-import ProductReviewsTopline from './ProductReviewsTopline'
 
 const ProductPage = ({
-  product: { title, description, productType, variants },
+  product: { title, description, productType, variants, vendor, images },
 }) => {
-  const [selectedVariant, setSelectedVariant] = useState(variants[0])
   const productTitle = useProductTitle(title)
-  const productPrice = useFormattedPrice({
-    amount: selectedVariant.priceNumber,
-    currency: 'CAD',
-  })
-
   return (
-    <Box p={4}>
+    <Box p={4} mx="auto" sx={{ maxWidth: 1680 }}>
       <Breadcrumbs
-        currentPage={productTitle}
+        currentPage={{ path: '', text: productTitle }}
         links={[
           {
             path: '/',
@@ -32,39 +26,24 @@ const ProductPage = ({
         ]}
       />
       <Grid
-        sx={{ gridTemplateColumns: ['1fr', '3fr 2fr'], columnGap: 5 }}
+        sx={{ gridTemplateColumns: ['1fr', '2fr 1fr'], columnGap: 5 }}
         pt={6}
       >
-        <Box>images</Box>
-        <Box>
-          <Box
-            pb={5}
-            sx={{
-              borderBottom: '1px solid',
-              borderColor: 'border',
-            }}
-          >
-            <Flex
-              sx={{
-                justifyContent: 'space-between',
-                alignItems: 'baseline',
-              }}
-            >
-              <Heading as="h1" sx={{ fontSize: 5 }} mr={4}>
-                {productTitle}
-              </Heading>
-              <Text sx={{ whiteSpace: 'nowrap', fontSize: 3 }}>
-                {productPrice}
-              </Text>
-            </Flex>
-            <ProductReviewsTopline score={3.3} possibleScore={5} />
-          </Box>
-          <Box>Related Colours</Box>
-          <Box>Size Variants | link to size guide</Box>
-          <Box>Add to Cart Button</Box>
-          <Box>details</Box>
-          <Box>description | link to collection</Box>
-          <Box>model wearing thumbnails</Box>
+        <Grid sx={{ gridTemplateColumns: '1fr 1fr', gridGap: 4 }}>
+          {images.map(image => (
+            <GatsbyImage
+              fluid={image.localFile.childImageSharp.fluid}
+              alt={image.altText}
+            />
+          ))}
+        </Grid>
+        <Box sx={{ position: 'relative' }}>
+          <ProductDetails
+            title={title}
+            description={description}
+            variants={variants}
+            vendor={vendor}
+          />
         </Box>
       </Grid>
     </Box>

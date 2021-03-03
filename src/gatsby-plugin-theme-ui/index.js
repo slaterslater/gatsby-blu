@@ -1,14 +1,20 @@
 const colors = {
   black: '#040404',
   navy: '#040404',
-  border: '#e3e3e3',
   gray: '#BDC2BF',
+  lightGray: '#e4e7ea',
+  lightBlueGray: '#ced6df',
+  blueGray: '#7b92a3',
   cream: '#EEE9E3',
   white: '#FFFFFF',
+  yellowGold: '#e9d68f',
+  sterlingSilver: '#c7c7c7',
+  roseGold: '#e0c5ae',
 }
 colors.text = colors.black
 colors.primary = colors.navy
 colors.background = colors.white
+colors.border = colors.lightGray
 
 export default {
   colors,
@@ -126,6 +132,11 @@ export default {
     sectionWrap: {
       py: 6,
       px: [5, 6, 6, 7],
+    },
+    productDetailSection: {
+      py: 4,
+      borderBottom: '1px solid',
+      borderColor: 'border',
     },
   },
   styles: {

@@ -11,4 +11,8 @@ export default css`
     -webkit-font-feature-settings: 'kern', 'liga', 'clig', 'calt';
     font-feature-settings: 'kern', 'liga', 'clig', 'calt';
   }
+
+  a {
+    color: inherit;
+  }
 `
