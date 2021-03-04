@@ -56,8 +56,48 @@ const shopMenus = [
   },
 ]
 
+const giftMenus = [
+  {
+    title: 'Gift Guides',
+    links: [
+      { path: '/gift-guides/pisces-gift-guide', text: 'Pisces Gift Guide' },
+      { path: '/gift-guides/gifts-under-1000', text: 'Gifts Under 1000$' },
+      { path: '/gift-guides/gifts-under-500', text: 'Gifts Under 500$' },
+      { path: '/gift-guides/gifts-under-300', text: 'Gifts Under 300$' },
+      {
+        path: '/gift-guides/gifts-to-personalize',
+        text: 'Gifts To Personalize',
+      },
+      { path: '/products/gift-card', text: 'Gift Cards' },
+    ],
+  },
+]
+
+const storiesMenu = [
+  {
+    title: 'Stories',
+    links: [
+      { path: '/bride-stories', text: 'Bride Stories' },
+      { path: '/blog', text: 'Style Blog' },
+    ],
+  },
+]
+
+const bluMenu = [
+  {
+    title: 'Everything Blu',
+    links: [
+      { path: '/info/about-us', text: 'Our Story' },
+      { path: '/info/locations', text: 'Locations' },
+    ],
+  },
+]
+
 const menus = {
   shop: shopMenus,
+  'gift-guides': giftMenus,
+  'stories-menu': storiesMenu,
+  'everything-blu-menu': bluMenu,
 }
 
 const MegaMenuLink = ({ children, path, menu }) => {
@@ -77,7 +117,13 @@ const MegaMenuLink = ({ children, path, menu }) => {
         as="span"
         ref={triggerRef}
         variant="caps"
-        sx={{ color: 'gray', fontSize: 1 }}
+        sx={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          height: '100%',
+          color: 'gray',
+          fontSize: 1,
+        }}
       >
         {children}
       </Text>
@@ -125,41 +171,30 @@ const MegaMenuLink = ({ children, path, menu }) => {
   )
 }
 
-const MegaMenu = props => {
-  const [currentMenu, setCurrentMenu] = useState(null)
-
-  return (
-    <Grid
-      sx={{
-        display: ['none', 'none', 'grid'],
-        gap: 5,
-        gridTemplateColumns: 'repeat(4, max-content)',
-        alignItems: 'baseline',
-      }}
-    >
-      <MegaMenuLink path="/shop/all" menu="shop">
-        Shop
-      </MegaMenuLink>
-      <HeaderLink
-        to="/gift-guides"
-        onMouseEnter={() => setCurrentMenu('gift-guides')}
-      >
-        Gifts
-      </HeaderLink>
-      <HeaderLink
-        to="/stories"
-        onMouseEnter={() => setCurrentMenu('gift-guides')}
-      >
-        Stories
-      </HeaderLink>
-      <HeaderLink
-        to="/about"
-        onMouseEnter={() => setCurrentMenu('gift-guides')}
-      >
-        Everything Blu
-      </HeaderLink>
-    </Grid>
-  )
-}
+const MegaMenu = props => (
+  <Grid
+    pl={4}
+    sx={{
+      alignSelf: 'stretch',
+      display: ['none', 'none', 'grid'],
+      gap: 5,
+      gridTemplateColumns: 'repeat(4, max-content)',
+      alignItems: 'stretch',
+    }}
+  >
+    <MegaMenuLink path="/shop/all" menu="shop">
+      Shop
+    </MegaMenuLink>
+    <MegaMenuLink path="/gift-guides" menu="gift-guides">
+      Gifts
+    </MegaMenuLink>
+    <MegaMenuLink path="/blog" menu="stories-menu">
+      Stories
+    </MegaMenuLink>
+    <MegaMenuLink path="/about-us" menu="everything-blu-menu">
+      Everything Blu
+    </MegaMenuLink>
+  </Grid>
+)
 
 export default MegaMenu

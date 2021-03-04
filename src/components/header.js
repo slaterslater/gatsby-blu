@@ -28,18 +28,16 @@ const Header = () => {
             position: 'relative',
             zIndex: 3,
           }}
-          p={4}
         >
-          <Box>
-            <MegaMenu />
-            <Box
-              as={IoIosMenu}
-              color="white"
-              size={24}
-              sx={{ display: ['block', 'block', 'none'] }}
-            />
-          </Box>
-          <Link as={GatsbyLink} to="/" sx={{ justifySelf: 'center' }}>
+          <MegaMenu />
+          <Box
+            as={IoIosMenu}
+            color="white"
+            size={24}
+            sx={{ display: ['block', 'block', 'none'] }}
+            ml={4}
+          />
+          <Link as={GatsbyLink} to="/" sx={{ justifySelf: 'center' }} p={4}>
             <Image
               src={logo}
               alt="bluboho"
@@ -47,7 +45,7 @@ const Header = () => {
               sx={{ height: 28, display: 'block' }}
             />
           </Link>
-          <Box sx={{ justifySelf: 'end' }}>
+          <Box sx={{ justifySelf: 'end' }} p={4}>
             <Button
               type="button"
               variant="unset"
