@@ -12,30 +12,27 @@ const ProductPageTemplate = ({ data }) =>
 
 export default ProductPageTemplate
 
-export const query = graphql`
-  query ProductPage($handle: String!) {
-    shopifyProduct(handle: { eq: $handle }) {
-      title
-      description
-      productType
-      vendor
-      images {
-        localFile {
-          childImageSharp {
-            fluid(maxWidth: 800) {
-              ...GatsbyImageSharpFluid
-            }
-          }
-        }
-      }
-      variants {
-        priceNumber
-        availableForSale
-        selectedOptions {
-          name
-          value
+export const query = graphql`query ProductPage($handle: String!) {
+  shopifyProduct(handle: {eq: $handle}) {
+    title
+    description
+    productType
+    vendor
+    images {
+      localFile {
+        childImageSharp {
+          gatsbyImageData(width: 800, layout: CONSTRAINED)
         }
       }
     }
+    variants {
+      priceNumber
+      availableForSale
+      selectedOptions {
+        name
+        value
+      }
+    }
   }
+}
 `

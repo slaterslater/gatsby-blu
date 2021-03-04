@@ -9,7 +9,7 @@ const ProductListItem = ({
 }) => (
   <Flex flexDirection="column" as="article">
     <Box flex="1">
-      <Img fluid={product.images[0]?.localFile.childImageSharp.fluid} />
+      <Img fluid={product.images[0]?.localFile.childImageSharp?.gatsbyImageData} />
     </Box>
     <Box mt="auto" height={80} pt={2}>
       <Grid

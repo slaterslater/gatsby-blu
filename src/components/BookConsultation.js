@@ -10,24 +10,19 @@ const StyledBackground = styled(BackgroundImage)`
 `
 
 const BookConsultation = () => {
-  const data = useStaticQuery(graphql`
-    query {
-      bookEngagementBackground: file(
-        relativePath: { eq: "book-background.jpg" }
-      ) {
-        childImageSharp {
-          fluid(maxWidth: 1920) {
-            ...GatsbyImageSharpFluid
-          }
-        }
-      }
+  const data = useStaticQuery(graphql`{
+  bookEngagementBackground: file(relativePath: {eq: "book-background.jpg"}) {
+    childImageSharp {
+      gatsbyImageData(layout: FULL_WIDTH)
     }
-  `)
+  }
+}
+`)
 
   return (
     <Box py={6}>
       <StyledBackground
-        fluid={data.bookEngagementBackground.childImageSharp.fluid}
+        fluid={data.bookEngagementBackground.childImageSharp.gatsbyImageData}
       >
         <Flex
           p={5}
@@ -55,7 +50,7 @@ const BookConsultation = () => {
         </Flex>
       </StyledBackground>
     </Box>
-  )
+  );
 }
 
 export default BookConsultation

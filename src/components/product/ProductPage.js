@@ -1,7 +1,7 @@
 import { Text, Flex, Box, Grid, Heading } from 'theme-ui'
 import React, { useState } from 'react'
 import { pluralize } from 'inflected'
-import GatsbyImage from 'gatsby-image'
+import { GatsbyImage } from "gatsby-plugin-image";
 import { useProductTitle } from '../ProductTitle'
 import ProductDetails from './ProductDetails'
 import Breadcrumbs from '../Breadcrumbs'
@@ -32,9 +32,8 @@ const ProductPage = ({
         <Grid sx={{ gridTemplateColumns: '1fr 1fr', gridGap: 3 }}>
           {images.map(image => (
             <GatsbyImage
-              fluid={image.localFile.childImageSharp.fluid}
-              alt={image.altText}
-            />
+              image={image.localFile.childImageSharp.gatsbyImageData}
+              alt={image.altText} />
           ))}
         </Grid>
         <Box sx={{ position: 'relative' }}>
@@ -47,7 +46,7 @@ const ProductPage = ({
         </Box>
       </Grid>
     </Box>
-  )
+  );
 }
 
 export default ProductPage

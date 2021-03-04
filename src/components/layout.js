@@ -11,7 +11,7 @@ import 'slick-carousel/slick/slick-theme.css'
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useStaticQuery, graphql } from 'gatsby'
-import { Styled, Flex } from 'theme-ui'
+import { Flex } from 'theme-ui'
 import Announcements from './Announcements'
 
 import Header from './header'
@@ -30,20 +30,20 @@ const Layout = ({ children }) => {
 
   return (
     <>
-      <Styled.root>
-        <Flex
-          sx={{
-            minHeight: '100vh',
-            flexDirection: 'column',
-            alignItems: 'stretch',
-          }}
-        >
-          <Announcements />
-          <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
-          {children}
-          <Footer />
-        </Flex>
-      </Styled.root>
+      {/* <Styled.root> */}
+      <Flex
+        sx={{
+          minHeight: '100vh',
+          flexDirection: 'column',
+          alignItems: 'stretch',
+        }}
+      >
+        <Announcements />
+        <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
+        {children}
+        <Footer />
+      </Flex>
+      {/* </Styled.root> */}
     </>
   )
 }

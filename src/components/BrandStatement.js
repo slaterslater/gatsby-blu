@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { graphql, Link, useStaticQuery } from 'gatsby'
 import { Grid, Button, Text, Heading, Box, Flex } from 'theme-ui'
-import GatsbyImage from 'gatsby-image'
+import { GatsbyImage } from "gatsby-plugin-image";
 // import tree from '../images/brand/tree.svg'
 // import hand from '../images/brand/hand.svg'
 // import peace from '../images/brand/peace.svg'
@@ -22,46 +22,29 @@ StatementBox.propTypes = {
 }
 
 const BrandStatement = () => {
-  const data = useStaticQuery(graphql`
-    query {
-      image1: file(
-        relativePath: { eq: "brand-statement/website-icons-FINAL-01.jpg" }
-      ) {
-        childImageSharp {
-          fixed(width: 140) {
-            ...GatsbyImageSharpFixed
-          }
-        }
-      }
-      image2: file(
-        relativePath: { eq: "brand-statement/website-icons-FINAL-02.jpg" }
-      ) {
-        childImageSharp {
-          fixed(width: 140) {
-            ...GatsbyImageSharpFixed
-          }
-        }
-      }
-      image3: file(
-        relativePath: { eq: "brand-statement/website-icons-FINAL-03.jpg" }
-      ) {
-        childImageSharp {
-          fixed(width: 140) {
-            ...GatsbyImageSharpFixed
-          }
-        }
-      }
-      image4: file(
-        relativePath: { eq: "brand-statement/website-icons-FINAL-04.jpg" }
-      ) {
-        childImageSharp {
-          fixed(width: 140) {
-            ...GatsbyImageSharpFixed
-          }
-        }
-      }
+  const data = useStaticQuery(graphql`{
+  image1: file(relativePath: {eq: "brand-statement/website-icons-FINAL-01.jpg"}) {
+    childImageSharp {
+      gatsbyImageData(width: 140, layout: FIXED)
     }
-  `)
+  }
+  image2: file(relativePath: {eq: "brand-statement/website-icons-FINAL-02.jpg"}) {
+    childImageSharp {
+      gatsbyImageData(width: 140, layout: FIXED)
+    }
+  }
+  image3: file(relativePath: {eq: "brand-statement/website-icons-FINAL-03.jpg"}) {
+    childImageSharp {
+      gatsbyImageData(width: 140, layout: FIXED)
+    }
+  }
+  image4: file(relativePath: {eq: "brand-statement/website-icons-FINAL-04.jpg"}) {
+    childImageSharp {
+      gatsbyImageData(width: 140, layout: FIXED)
+    }
+  }
+}
+`)
 
   return (
     <Box variant="sectionWrap">
@@ -98,32 +81,22 @@ const BrandStatement = () => {
         }}
       >
         <div>
-          <GatsbyImage
-            alt="Made in Canada"
-            fixed={data.image1.childImageSharp.fixed}
-          />
+          <GatsbyImage image={data.image1.childImageSharp.gatsbyImageData} alt="Made in Canada" />
+        </div>
+        <div>
+          <GatsbyImage image={data.image2.childImageSharp.gatsbyImageData} alt="Hand Crafted" />
         </div>
         <div>
           <GatsbyImage
-            alt="Hand Crafted"
-            fixed={data.image2.childImageSharp.fixed}
-          />
+            image={data.image3.childImageSharp.gatsbyImageData}
+            alt="Ethically Sourced" />
         </div>
         <div>
-          <GatsbyImage
-            alt="Ethically Sourced"
-            fixed={data.image3.childImageSharp.fixed}
-          />
-        </div>
-        <div>
-          <GatsbyImage
-            alt="Recycled Metals"
-            fixed={data.image4.childImageSharp.fixed}
-          />
+          <GatsbyImage image={data.image4.childImageSharp.gatsbyImageData} alt="Recycled Metals" />
         </div>
       </Grid>
     </Box>
-  )
+  );
 }
 
 export default BrandStatement

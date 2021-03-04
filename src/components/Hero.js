@@ -1,27 +1,22 @@
 import React from 'react'
 import { Box, Text, Heading, Button, Grid, Flex } from 'theme-ui'
 import { graphql, Link as GatsbyLink, useStaticQuery } from 'gatsby'
-import GatsbyImage from 'gatsby-image'
+import { GatsbyImage } from "gatsby-plugin-image";
 
 const Hero = ({ title, subtitle, button }) => {
-  const data = useStaticQuery(graphql`
-    query {
-      leftImage: file(relativePath: { eq: "hero/on-body.jpg" }) {
-        childImageSharp {
-          fluid {
-            ...GatsbyImageSharpFluid
-          }
-        }
-      }
-      rightImage: file(relativePath: { eq: "hero/ring.jpg" }) {
-        childImageSharp {
-          fluid {
-            ...GatsbyImageSharpFluid
-          }
-        }
-      }
+  const data = useStaticQuery(graphql`{
+  leftImage: file(relativePath: {eq: "hero/on-body.jpg"}) {
+    childImageSharp {
+      gatsbyImageData(layout: FULL_WIDTH)
     }
-  `)
+  }
+  rightImage: file(relativePath: {eq: "hero/ring.jpg"}) {
+    childImageSharp {
+      gatsbyImageData(layout: FULL_WIDTH)
+    }
+  }
+}
+`)
 
   return (
     <Grid sx={{ height: '70vh', bg: 'cream', position: 'relative', zIndex: 1 }}>
@@ -35,10 +30,10 @@ const Hero = ({ title, subtitle, button }) => {
         }}
       >
         <Box sx={{ height: '70vh' }}>
-          <GatsbyImage fluid={data.leftImage.childImageSharp.fluid} />
+          <GatsbyImage image={data.leftImage.childImageSharp.gatsbyImageData} />
         </Box>
         <Box sx={{ display: ['none', 'block'] }}>
-          <GatsbyImage fluid={data.rightImage.childImageSharp.fluid} />
+          <GatsbyImage image={data.rightImage.childImageSharp.gatsbyImageData} />
         </Box>
       </Grid>
       <Flex
@@ -76,7 +71,7 @@ const Hero = ({ title, subtitle, button }) => {
         </Box>
       </Flex>
     </Grid>
-  )
+  );
 }
 
 export default Hero

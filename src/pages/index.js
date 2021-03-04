@@ -31,31 +31,31 @@ const IndexPage = ({ data }) => (
           title: 'Necklaces',
           to: '/shop/necklaces',
           buttonLabel: 'Shop All',
-          fluid: data.necklaceFile.childImageSharp.fluid,
+          fluid: data.necklaceFile.childImageSharp.gatsbyImageData,
         },
         {
           title: 'Rings',
           to: '/shop/rings',
           buttonLabel: 'Shop All',
-          fluid: data.ringFile.childImageSharp.fluid,
+          fluid: data.ringFile.childImageSharp.gatsbyImageData,
         },
         {
           title: 'Earrings',
           to: '/shop/earrings',
           buttonLabel: 'Shop All',
-          fluid: data.earringFile.childImageSharp.fluid,
+          fluid: data.earringFile.childImageSharp.gatsbyImageData,
         },
         {
           title: 'Engagement',
           to: '/shop/engagement',
           buttonLabel: 'Shop All',
-          fluid: data.engagementFile.childImageSharp.fluid,
+          fluid: data.engagementFile.childImageSharp.gatsbyImageData,
         },
         {
           title: 'Bracelets',
           to: '/shop/bracelets',
           buttonLabel: 'Shop All',
-          fluid: data.braceletFile.childImageSharp.fluid,
+          fluid: data.braceletFile.childImageSharp.gatsbyImageData,
         },
       ]}
     />
@@ -69,58 +69,31 @@ const IndexPage = ({ data }) => (
 
 export default IndexPage
 
-export const query = graphql`
-  query {
-    necklaceFile: file(
-      relativePath: { eq: "collection-slider-necklaces.jpg" }
-    ) {
-      childImageSharp {
-        # Specify a fluid image and fragment
-        # The default maxWidth is 800 pixels
-        fluid {
-          ...GatsbyImageSharpFluid
-        }
-      }
-    }
-    ringFile: file(relativePath: { eq: "collection-slider-rings.jpg" }) {
-      childImageSharp {
-        # Specify a fluid image and fragment
-        # The default maxWidth is 800 pixels
-        fluid {
-          ...GatsbyImageSharpFluid
-        }
-      }
-    }
-    earringFile: file(relativePath: { eq: "collection-slider-earrings.jpg" }) {
-      childImageSharp {
-        # Specify a fluid image and fragment
-        # The default maxWidth is 800 pixels
-        fluid {
-          ...GatsbyImageSharpFluid
-        }
-      }
-    }
-    engagementFile: file(
-      relativePath: { eq: "collection-slider-engagement.jpg" }
-    ) {
-      childImageSharp {
-        # Specify a fluid image and fragment
-        # The default maxWidth is 800 pixels
-        fluid {
-          ...GatsbyImageSharpFluid
-        }
-      }
-    }
-    braceletFile: file(
-      relativePath: { eq: "collection-slider-bracelets.jpg" }
-    ) {
-      childImageSharp {
-        # Specify a fluid image and fragment
-        # The default maxWidth is 800 pixels
-        fluid {
-          ...GatsbyImageSharpFluid
-        }
-      }
+export const query = graphql`{
+  necklaceFile: file(relativePath: {eq: "collection-slider-necklaces.jpg"}) {
+    childImageSharp {
+      gatsbyImageData(layout: FULL_WIDTH)
     }
   }
+  ringFile: file(relativePath: {eq: "collection-slider-rings.jpg"}) {
+    childImageSharp {
+      gatsbyImageData(layout: FULL_WIDTH)
+    }
+  }
+  earringFile: file(relativePath: {eq: "collection-slider-earrings.jpg"}) {
+    childImageSharp {
+      gatsbyImageData(layout: FULL_WIDTH)
+    }
+  }
+  engagementFile: file(relativePath: {eq: "collection-slider-engagement.jpg"}) {
+    childImageSharp {
+      gatsbyImageData(layout: FULL_WIDTH)
+    }
+  }
+  braceletFile: file(relativePath: {eq: "collection-slider-bracelets.jpg"}) {
+    childImageSharp {
+      gatsbyImageData(layout: FULL_WIDTH)
+    }
+  }
+}
 `

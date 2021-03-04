@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import Img from 'gatsby-image'
+import { GatsbyImage } from "gatsby-plugin-image";
 import { Box, Flex, Text, Grid } from 'theme-ui'
 import { Link } from 'gatsby'
 import { useProductTitle } from '../hooks/product'
@@ -14,7 +14,7 @@ const CollectionProduct = ({ product }) => {
   return (
     <Flex sx={{ flexDirection: 'column' }} as="article">
       <Box sx={{ flex: 1 }}>
-        <Img fluid={product.images[0]?.localFile.childImageSharp.fluid} />
+        <GatsbyImage image={product.images[0]?.localFile?.childImageSharp?.gatsbyImageData} />
       </Box>
       <Box mt="auto" sx={{ height: 80 }} pt={2}>
         <Grid
@@ -47,7 +47,7 @@ const CollectionProduct = ({ product }) => {
         {/* <div>metal variants</div> */}
       </Box>
     </Flex>
-  )
+  );
 }
 
 export default CollectionProduct

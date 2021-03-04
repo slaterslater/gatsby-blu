@@ -23,7 +23,7 @@ module.exports = {
         ignore: [`**/\.*`], // ignore files starting with a dot
       },
     },
-    // `gatsby-plugin-image`,
+    `gatsby-plugin-image`,
     // {
     //   resolve: `gatsby-source-yotpo`,
     // }
@@ -64,12 +64,12 @@ module.exports = {
         display: 'swap',
       },
     },
-    {
-      resolve: `gatsby-source-instagram`,
-      options: {
-        username: `54085446`,
-      },
-    },
+    // {
+    //   // resolve: `gatsby-source-instagram`,
+    //   options: {
+    //     username: `54085446`,
+    //   },
+    // },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,

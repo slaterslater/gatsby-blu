@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'gatsby'
 import { Box, Button, Text } from 'theme-ui'
 import PropTypes from 'prop-types'
-import GatsbyImage from 'gatsby-image'
+import { GatsbyImage } from "gatsby-plugin-image";
 
 const CollectionSlide = ({ title, to, buttonLabel, fluid }) => {
   const toPath = to || `/shop/${title?.toLowerCase()}`
@@ -10,7 +10,7 @@ const CollectionSlide = ({ title, to, buttonLabel, fluid }) => {
   return (
     <Box pr={4}>
       <Box sx={{ pointerEvents: 'none' }}>
-        <GatsbyImage fluid={fluid} />
+        <GatsbyImage image={fluid} />
       </Box>
       <Text
         as="h4"
@@ -29,7 +29,7 @@ const CollectionSlide = ({ title, to, buttonLabel, fluid }) => {
         {buttonLabel}
       </Button>
     </Box>
-  )
+  );
 }
 
 CollectionSlide.propTypes = {
