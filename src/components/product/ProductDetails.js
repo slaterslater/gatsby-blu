@@ -19,6 +19,12 @@ const ProductDetails = ({ title, description, variants, vendor }) => {
     opt => opt.name === 'metal'
   )
 
+  const hasSizeVariants = !!variants.find(variant =>
+    variant.selectedOptions.find(opt => opt.name === 'Size')
+  )
+
+  console.log({ hasSizeVariants })
+
   // get related metal options from sanity
 
   return (
@@ -39,36 +45,43 @@ const ProductDetails = ({ title, description, variants, vendor }) => {
         </Grid>
         <ProductReviewsTopline score={3.3} possibleScore={5} totalReviews={4} />
       </Box>
+      {metalOption && (
+        <Box variant="productDetailSection">
+          <Heading as="h5" sx={{ fontSize: 3 }}>
+            {metalOption.value}
+          </Heading>
+          <Flex pt={2}>
+            <MetalOptionSwatch metal={metalOption.value} />
+          </Flex>
+        </Box>
+      )}
       <Box variant="productDetailSection">
-        <Heading as="h5" sx={{ fontSize: 3 }}>
-          {metalOption.value}
-        </Heading>
-        <Flex pt={2}>
-          <MetalOptionSwatch metal={metalOption.value} />
-        </Flex>
-      </Box>
-      <Box variant="productDetailSection">
-        <Heading as="h5" sx={{ fontSize: 3 }} pb={4}>
-          Select a size
-        </Heading>
-        <Grid
-          sx={{
-            gridAutoFlow: 'column',
-            gridColumn: 'max-content',
-            gap: 2,
-            pb: 3,
-          }}
-        >
-          {variants.map((variant, i) => (
-            <VariantSize
-              value={
-                variant.selectedOptions.find(opt => opt.name === 'Size')?.value
-              }
-              isSelected={variant.id === selectedVariant.id}
-              onClick={() => setSelectedVariant(variants[i])}
-            />
-          ))}
-        </Grid>
+        {hasSizeVariants && (
+          <>
+            <Heading as="h5" sx={{ fontSize: 3 }} pb={4}>
+              Select a size
+            </Heading>
+            <Grid
+              sx={{
+                gridAutoFlow: 'column',
+                gridColumn: 'max-content',
+                gap: 2,
+                pb: 3,
+              }}
+            >
+              {variants.map((variant, i) => (
+                <VariantSize
+                  value={
+                    variant.selectedOptions.find(opt => opt.name === 'Size')
+                      ?.value
+                  }
+                  isSelected={variant.id === selectedVariant.id}
+                  onClick={() => setSelectedVariant(variants[i])}
+                />
+              ))}
+            </Grid>
+          </>
+        )}
         <Button
           type="button"
           onClick={() => console.log('launch size modal')}
