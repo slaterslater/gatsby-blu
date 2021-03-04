@@ -1,13 +1,13 @@
 import { graphql, Link as GatsbyLink, useStaticQuery } from 'gatsby'
-import { Flex, Text } from 'theme-ui'
+import { Box, Flex, Text, Link, Divider } from 'theme-ui'
 import React from 'react'
 import PropTypes from 'prop-types'
 
 const NavigationLink = ({ to, children }) => (
-  <Text
+  <Link
     as={GatsbyLink}
     to={to}
-    variant="caps"
+    variant="nav"
     key={`${to}-${children}-sidebar`}
     py={1}
     pr={[3, 0]}
@@ -18,7 +18,7 @@ const NavigationLink = ({ to, children }) => (
     }}
   >
     {children}
-  </Text>
+  </Link>
 )
 NavigationLink.propTypes = {
   to: PropTypes.string.isRequired,
@@ -49,6 +49,8 @@ const CollectionSidebar = () => {
     >
       <NavigationLink to="/shop/new-arrivals">New Arrivals</NavigationLink>
       <NavigationLink to="/shop/best-sellers">Best Sellers</NavigationLink>
+
+      <Divider />
       {data.allProductTypeNavigationJson.nodes.map(({ path, text }) => (
         <NavigationLink to={path} key={`${text}-sidebar`}>
           {text}

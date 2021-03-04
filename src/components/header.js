@@ -1,9 +1,11 @@
-import { Button, Text, Box, Image, Link, Grid } from 'theme-ui'
+import { Flex, Button, Text, Box, Image, Link, Grid } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
 import { IoIosMenu, IoIosSearch } from 'react-icons/io'
 import React, { useState } from 'react'
 import logo from '../images/bluboho-logo-vector-white.svg'
 import HeaderSearch from './HeaderSearch'
+import MegaMenu from './header/MegaMenu'
+// import HeaderDropdown from './header/HeaderDropdown'
 
 const Header = () => {
   const [searchOpen, setSearchOpen] = useState(false)
@@ -29,7 +31,13 @@ const Header = () => {
           p={4}
         >
           <Box>
-            <Box as={IoIosMenu} color="white" size={24} />
+            <MegaMenu />
+            <Box
+              as={IoIosMenu}
+              color="white"
+              size={24}
+              sx={{ display: ['block', 'block', 'none'] }}
+            />
           </Box>
           <Link as={GatsbyLink} to="/" sx={{ justifySelf: 'center' }}>
             <Image

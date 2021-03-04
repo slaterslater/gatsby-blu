@@ -15,7 +15,7 @@ const HeaderSearch = ({ isOpen, onClose }) => {
       {isOpen && (
         <AnimatedBox
           p={5}
-          sx={{ bg: 'white', width: '100%', position: 'absolute' }}
+          sx={{ bg: 'white', width: '100vw', position: 'absolute' }}
           initial={{ opacity: 0, y: -5 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -5 }}

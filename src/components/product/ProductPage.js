@@ -29,7 +29,7 @@ const ProductPage = ({
         sx={{ gridTemplateColumns: ['1fr', '2fr 1fr'], columnGap: 5 }}
         pt={6}
       >
-        <Grid sx={{ gridTemplateColumns: '1fr 1fr', gridGap: 4 }}>
+        <Grid sx={{ gridTemplateColumns: '1fr 1fr', gridGap: 3 }}>
           {images.map(image => (
             <GatsbyImage
               fluid={image.localFile.childImageSharp.fluid}

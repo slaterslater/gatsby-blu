@@ -151,5 +151,12 @@ export default {
       '-webkit-font-feature-settings': "'kern', 'liga', 'clig', 'calt'",
       'font-feature-settings': "'kern', 'liga', 'clig', 'calt'",
     },
+    a: {
+      color: 'inherit',
+    },
+    hr: {
+      borderBottom: '1px solid',
+      borderColor: 'border',
+    },
   },
 }

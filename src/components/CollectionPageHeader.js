@@ -3,7 +3,7 @@ import React from 'react'
 
 const CollectionPageHeader = ({ title, description, ...props }) => (
   <Grid
-    sx={{ bg: 'gray', gridTemplateColumns: ['1fr', '1fr', '2fr 1fr'] }}
+    sx={{ bg: 'lightBlueGray', gridTemplateColumns: ['1fr', '1fr', '2fr 1fr'] }}
     p={6}
     {...props}
   >
