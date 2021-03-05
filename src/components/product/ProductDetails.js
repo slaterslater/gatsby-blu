@@ -23,8 +23,6 @@ const ProductDetails = ({ title, description, variants, vendor }) => {
     variant.selectedOptions.find(opt => opt.name === 'Size')
   )
 
-  console.log({ hasSizeVariants })
-
   // get related metal options from sanity
 
   return (

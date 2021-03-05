@@ -14,7 +14,7 @@ const SearchPage = ({ location: { search } }) => {
   const [query] = useQuery({
     query: PRODUCT_QUERY,
     variables: { query: term, first: 250 },
-    pause: term.length < 3,
+    pause: !term || term.length < 3,
   })
 
   return (
