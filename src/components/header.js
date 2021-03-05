@@ -1,6 +1,15 @@
-import { Flex, Button, Text, Box, Image, Link, Grid } from 'theme-ui'
+import {
+  Flex,
+  Button,
+  Text,
+  Box,
+  Image,
+  Link,
+  Grid,
+  IconButton,
+} from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
-import { IoIosMenu, IoIosSearch } from 'react-icons/io'
+import { IoBagSharp, IoIosMenu, IoIosSearch } from 'react-icons/io'
 import React, { useState } from 'react'
 import logo from '../images/bluboho-logo-vector-white.svg'
 import HeaderSearch from './HeaderSearch'
@@ -55,10 +64,17 @@ const Header = () => {
             </Button>
           </Box>
         </Grid>
-        <HeaderSearch
-          isOpen={searchOpen}
-          onClose={() => setSearchOpen(state => !state)}
-        />
+        <Grid
+          sx={{ gridTemplateColumns: 'repeat(auto-fit, max-content)', gap: 3 }}
+        >
+          <HeaderSearch
+            isOpen={searchOpen}
+            onClose={() => setSearchOpen(state => !state)}
+          />
+          <IconButton onClick={() => console.log('open cart')}>
+            <IoBagSharp />
+          </IconButton>
+        </Grid>
       </Box>
     </Box>
   )
