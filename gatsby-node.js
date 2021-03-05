@@ -24,6 +24,35 @@ async function createProductTypeCollectionPages({ graphql, actions }) {
     })
   })
 }
+async function createCollectionPages({ graphql, actions }) {
+  const component = path.resolve('./src/templates/CollectionPageTemplate.js')
+  // move this to sanity
+  const { data } = await graphql(`
+    query Collections {
+      allShopifyCollection(
+        filter: {
+          handle: {
+            nin: ["bracelets", "rings", "necklaces", "earrings", "all"]
+          }
+        }
+      ) {
+        nodes {
+          handle
+        }
+      }
+    }
+  `)
+
+  data.allShopifyCollection.nodes.forEach(({ handle }) => {
+    actions.createPage({
+      path: `/shop/collections/${handle}`,
+      component,
+      context: {
+        handle,
+      },
+    })
+  })
+}
 
 async function createProductPages({ graphql, actions }) {
   // 1. Get a template for this page
@@ -57,5 +86,6 @@ export async function createPages(params) {
   await Promise.all([
     createProductTypeCollectionPages(params),
     createProductPages(params),
+    createCollectionPages(params),
   ])
 }

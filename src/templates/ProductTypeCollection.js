@@ -2,7 +2,7 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import Layout from '../components/layout'
 import CollectionPageHeader from '../components/CollectionPageHeader'
-import CollectionPage from '../components/CollectionPage'
+import ProductTypeCollectionPage from '../components/ProductTypeCollectionPage'
 
 const ProductTypeCollection = ({ data }) => {
   const { nodes, totalCount } = data.allShopifyProduct
@@ -10,13 +10,13 @@ const ProductTypeCollection = ({ data }) => {
 
   return (
     <Layout>
-      <CollectionPage products={nodes}>
+      <ProductTypeCollectionPage products={nodes}>
         <CollectionPageHeader
           title={text}
           description="a longer bit of description text, soon to come from collection facets"
           mb={6}
         />
-      </CollectionPage>
+      </ProductTypeCollectionPage>
     </Layout>
   )
 }

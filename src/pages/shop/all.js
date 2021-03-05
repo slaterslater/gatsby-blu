@@ -1,6 +1,6 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import CollectionPage from '../../components/CollectionPage'
+import ProductTypeCollectionPage from '../../components/ProductTypeCollectionPage'
 import Layout from '../../components/layout'
 
 function ShopAllPage({ data }) {
@@ -8,7 +8,7 @@ function ShopAllPage({ data }) {
 
   return (
     <Layout>
-      <CollectionPage
+      <ProductTypeCollectionPage
         collectionTitle="Shop All Products"
         products={nodes}
         totalCount={totalCount}
