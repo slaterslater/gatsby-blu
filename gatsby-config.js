@@ -50,7 +50,7 @@ module.exports = {
         accessToken: `99ee5e5e176719e7737fcb389281ef22`,
         paginationSize: 80,
         collections: ['shop'],
-        // downloadImages: false,
+        downloadImages: false,
       },
     },
     `gatsby-plugin-emotion`,

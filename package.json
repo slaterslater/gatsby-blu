@@ -24,7 +24,7 @@
     "gatsby-plugin-offline": "^4.0.0",
     "gatsby-plugin-react-helmet": "^4.0.0",
     "gatsby-plugin-sharp": "^3.0.0",
-    "gatsby-plugin-theme-ui": "https://gitpkg.now.sh/graydiant/theme-ui/packages/gatsby-plugin-theme-ui?develop",
+    "gatsby-plugin-theme-ui": "^0.6.0-alpha.7",
     "gatsby-source-filesystem": "^3.0.0",
     "gatsby-source-shopify": "^4.0.0",
     "gatsby-source-yotpo": "^0.8.14",

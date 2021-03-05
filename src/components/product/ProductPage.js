@@ -1,10 +1,11 @@
-import { Text, Flex, Box, Grid, Heading } from 'theme-ui'
-import React, { useState } from 'react'
+import { Box, Grid } from 'theme-ui'
+import React from 'react'
 import { pluralize } from 'inflected'
-import { GatsbyImage } from "gatsby-plugin-image";
+// import { GatsbyImage } from 'gatsby-plugin-image'
 import { useProductTitle } from '../ProductTitle'
 import ProductDetails from './ProductDetails'
 import Breadcrumbs from '../Breadcrumbs'
+import RemoteShopifyImage from '../RemoteShopifyImage'
 
 const ProductPage = ({
   product: { title, description, productType, variants, vendor, images },
@@ -31,9 +32,10 @@ const ProductPage = ({
       >
         <Grid sx={{ gridTemplateColumns: '1fr 1fr', gridGap: 3 }}>
           {images.map(image => (
-            <GatsbyImage
-              image={image.localFile.childImageSharp.gatsbyImageData}
-              alt={image.altText} />
+            <RemoteShopifyImage
+              originalSrc={image.originalSrc}
+              altText={image.altText}
+            />
           ))}
         </Grid>
         <Box sx={{ position: 'relative' }}>
@@ -46,7 +48,7 @@ const ProductPage = ({
         </Box>
       </Grid>
     </Box>
-  );
+  )
 }
 
 export default ProductPage

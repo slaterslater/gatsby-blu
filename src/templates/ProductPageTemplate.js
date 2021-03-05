@@ -3,36 +3,32 @@ import { graphql } from 'gatsby'
 import Layout from '../components/layout'
 import ProductPage from '../components/product/ProductPage'
 
-const ProductPageTemplate = ({ data }) =>
-  console.log(data) || (
-    <Layout>
-      <ProductPage product={data.shopifyProduct} />
-    </Layout>
-  )
+const ProductPageTemplate = ({ data }) => (
+  <Layout>
+    <ProductPage product={data.shopifyProduct} />
+  </Layout>
+)
 
 export default ProductPageTemplate
 
-export const query = graphql`query ProductPage($handle: String!) {
-  shopifyProduct(handle: {eq: $handle}) {
-    title
-    description
-    productType
-    vendor
-    images {
-      localFile {
-        childImageSharp {
-          gatsbyImageData(width: 800, layout: CONSTRAINED)
+export const query = graphql`
+  query ProductPage($handle: String!) {
+    shopifyProduct(handle: { eq: $handle }) {
+      title
+      description
+      productType
+      vendor
+      images {
+        originalSrc
+      }
+      variants {
+        priceNumber
+        availableForSale
+        selectedOptions {
+          name
+          value
         }
       }
     }
-    variants {
-      priceNumber
-      availableForSale
-      selectedOptions {
-        name
-        value
-      }
-    }
   }
-}
 `

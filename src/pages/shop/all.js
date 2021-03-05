@@ -19,30 +19,33 @@ function ShopAllPage({ data }) {
 
 export default ShopAllPage
 
-export const query = graphql`query ShopAllQuery {
-  allShopifyProduct(
-    filter: {availableForSale: {eq: true}, productType: {in: ["Necklace", "Ring", "Bracelet", "Earring", "Wedding Ring"]}}
-  ) {
-    totalCount
-    nodes {
-      title
-      description
-      tags
-      id
-      priceRange {
-        minVariantPrice {
-          amount
-          currencyCode
+export const query = graphql`
+  query ShopAllQuery {
+    allShopifyProduct(
+      filter: {
+        availableForSale: { eq: true }
+        productType: {
+          in: ["Necklace", "Ring", "Bracelet", "Earring", "Wedding Ring"]
         }
       }
-      images {
-        localFile {
-          childImageSharp {
-            gatsbyImageData(width: 400, layout: CONSTRAINED)
+    ) {
+      totalCount
+      nodes {
+        title
+        description
+        tags
+        id
+        priceRange {
+          minVariantPrice {
+            amount
+            currencyCode
           }
+        }
+        images {
+          originalSrc
+          altText
         }
       }
     }
   }
-}
 `
