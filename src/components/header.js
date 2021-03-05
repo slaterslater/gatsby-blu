@@ -9,7 +9,8 @@ import {
   IconButton,
 } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
-import { IoBagSharp, IoIosMenu, IoIosSearch } from 'react-icons/io'
+import { IoIosMenu, IoIosSearch } from 'react-icons/io'
+import { IoBagSharp } from 'react-icons/io5'
 import React, { useState } from 'react'
 import logo from '../images/bluboho-logo-vector-white.svg'
 import HeaderSearch from './HeaderSearch'
@@ -54,27 +55,24 @@ const Header = () => {
               sx={{ height: 28, display: 'block' }}
             />
           </Link>
-          <Box sx={{ justifySelf: 'end' }} p={4}>
-            <Button
-              type="button"
-              variant="unset"
-              onClick={() => setSearchOpen(state => !state)}
-            >
-              <Text as={IoIosSearch} color="white" size={24} />
-            </Button>
-          </Box>
+          <Flex sx={{ alignItems: 'center', justifySelf: 'end' }} p={4}>
+            <IconButton onClick={() => setSearchOpen(state => !state)} mr={2}>
+              <Text
+                as={IoIosSearch}
+                color="white"
+                size={24}
+                sx={{ transform: 'translateY(1px)' }}
+              />
+            </IconButton>
+            <IconButton onClick={() => console.log('launch cart')}>
+              <Text as={IoBagSharp} color="white" size={24} />
+            </IconButton>
+          </Flex>
         </Grid>
-        <Grid
-          sx={{ gridTemplateColumns: 'repeat(auto-fit, max-content)', gap: 3 }}
-        >
-          <HeaderSearch
-            isOpen={searchOpen}
-            onClose={() => setSearchOpen(state => !state)}
-          />
-          <IconButton onClick={() => console.log('open cart')}>
-            <IoBagSharp />
-          </IconButton>
-        </Grid>
+        <HeaderSearch
+          isOpen={searchOpen}
+          onClose={() => setSearchOpen(state => !state)}
+        />
       </Box>
     </Box>
   )
