@@ -16,6 +16,7 @@ import Announcements from './Announcements'
 
 import Header from './header'
 import Footer from './footer'
+import Drawers from './drawers'
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -31,18 +32,20 @@ const Layout = ({ children }) => {
   return (
     <>
       {/* <Styled.root> */}
-      <Flex
-        sx={{
-          minHeight: '100vh',
-          flexDirection: 'column',
-          alignItems: 'stretch',
-        }}
-      >
-        <Announcements />
-        <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
-        {children}
-        <Footer />
-      </Flex>
+      <Drawers>
+        <Flex
+          sx={{
+            minHeight: '100vh',
+            flexDirection: 'column',
+            alignItems: 'stretch',
+          }}
+        >
+          <Announcements />
+          <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
+          {children}
+          <Footer />
+        </Flex>
+      </Drawers>
       {/* </Styled.root> */}
     </>
   )

@@ -45,7 +45,7 @@ async function createCollectionPages({ graphql, actions }) {
 
   data.allShopifyCollection.nodes.forEach(({ handle }) => {
     actions.createPage({
-      path: `/shop/collections/${handle}`,
+      path: `/collections/${handle}`,
       component,
       context: {
         handle,

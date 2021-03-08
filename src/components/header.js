@@ -11,14 +11,16 @@ import {
 import { Link as GatsbyLink } from 'gatsby'
 import { IoIosMenu, IoIosSearch } from 'react-icons/io'
 import { IoBagSharp } from 'react-icons/io5'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import logo from '../images/bluboho-logo-vector-white.svg'
 import HeaderSearch from './HeaderSearch'
 import MegaMenu from './header/MegaMenu'
+import { DrawerContext } from './drawers'
 // import HeaderDropdown from './header/HeaderDropdown'
 
 const Header = () => {
   const [searchOpen, setSearchOpen] = useState(false)
+  const [, setOpenDrawer] = useContext(DrawerContext)
 
   return (
     <Box sx={{ position: 'sticky', top: 0, zIndex: 10, boxShadow: 'small' }}>
@@ -64,7 +66,7 @@ const Header = () => {
                 sx={{ transform: 'translateY(1px)' }}
               />
             </IconButton>
-            <IconButton onClick={() => console.log('launch cart')}>
+            <IconButton onClick={() => setOpenDrawer('cart')}>
               <Text as={IoBagSharp} color="white" size={24} />
             </IconButton>
           </Flex>

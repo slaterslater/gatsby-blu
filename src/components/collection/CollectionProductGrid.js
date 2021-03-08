@@ -3,7 +3,7 @@ import React from 'react'
 import CollectionProduct from '../CollectionProduct'
 import CollectionProductGroup from '../CollectionProductGroup'
 
-const groupProducts = (products, fallback = 'Fallback Subgroup') =>
+const groupProducts = (products, fallback = '') =>
   products.reduce((acc, el) => {
     const { subgroup } = el
     if (subgroup) {

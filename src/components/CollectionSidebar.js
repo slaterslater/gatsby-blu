@@ -47,8 +47,12 @@ const CollectionSidebar = () => {
         flexWrap: 'nowrap',
       }}
     >
-      <NavigationLink to="/shop/new-arrivals">New Arrivals</NavigationLink>
-      <NavigationLink to="/shop/best-sellers">Best Sellers</NavigationLink>
+      <NavigationLink to="/collections/new-arrivals">
+        New Arrivals
+      </NavigationLink>
+      <NavigationLink to="/collections/best-sellers">
+        Best Sellers
+      </NavigationLink>
 
       <Divider />
       {data.allProductTypeNavigationJson.nodes.map(({ path, text }) => (

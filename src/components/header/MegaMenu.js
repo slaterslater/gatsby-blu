@@ -24,12 +24,12 @@ const shopMenus = [
   {
     title: 'Latest',
     links: [
-      { path: '/shop/new-arrivals', text: 'New Arrivals' },
-      { path: '/shop/best-sellers', text: 'Best Sellers' },
-      { path: '/shop/last-chance', text: 'Last Chance' },
-      { path: '/shop/revival', text: 'Revival' },
-      { path: '/shop/imprint', text: 'Imprint' },
-      { path: '/shop/tashi', text: 'Tashi Silver Jewelry' },
+      { path: '/collections/new-arrivals', text: 'New Arrivals' },
+      { path: '/collections/best-sellers', text: 'Best Sellers' },
+      { path: '/collections/last-chance', text: 'Last Chance' },
+      { path: '/collections/revival', text: 'Revival' },
+      { path: '/collections/imprint', text: 'Imprint' },
+      { path: '/collections/tashi', text: 'Tashi Silver Jewelry' },
     ],
   },
   {
@@ -46,12 +46,12 @@ const shopMenus = [
   {
     title: 'Collections',
     links: [
-      { path: '/shop/wanderess', text: 'Wandress' },
-      { path: '/shop/tie-dye', text: 'Tie Dye' },
-      { path: '/shop/littles', text: 'Littles' },
-      { path: '/shop/inseparable', text: 'Inseparable' },
-      { path: '/shop/seedling', text: 'Seedling' },
-      { path: '/shop/dhalia', text: 'Dhalia' },
+      { path: '/collections/wanderess', text: 'Wandress' },
+      { path: '/collections/tie-dye', text: 'Tie Dye' },
+      { path: '/collections/littles', text: 'Littles' },
+      { path: '/collections/inseparable', text: 'Inseparable' },
+      { path: '/collections/seedling', text: 'Seedling' },
+      { path: '/collections/dhalia', text: 'Dhalia' },
     ],
   },
 ]

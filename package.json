@@ -33,6 +33,7 @@
     "inflected": "^2.1.0",
     "lodash": "^4.17.21",
     "path-browserify": "^0.0.1",
+    "pluralize": "^8.0.0",
     "prop-types": "^15.7.2",
     "qs": "^6.7.0",
     "react": "^16.12.0",
