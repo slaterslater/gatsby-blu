@@ -1,22 +1,23 @@
 import React from 'react'
 import { Box, Text, Heading, Button, Grid, Flex } from 'theme-ui'
 import { graphql, Link as GatsbyLink, useStaticQuery } from 'gatsby'
-import { GatsbyImage } from "gatsby-plugin-image";
+import { GatsbyImage } from 'gatsby-plugin-image'
 
 const Hero = ({ title, subtitle, button }) => {
-  const data = useStaticQuery(graphql`{
-  leftImage: file(relativePath: {eq: "hero/on-body.jpg"}) {
-    childImageSharp {
-      gatsbyImageData(layout: FULL_WIDTH)
+  const data = useStaticQuery(graphql`
+    {
+      leftImage: file(relativePath: { eq: "hero/on-body.jpg" }) {
+        childImageSharp {
+          gatsbyImageData(layout: FULL_WIDTH)
+        }
+      }
+      rightImage: file(relativePath: { eq: "hero/ring.jpg" }) {
+        childImageSharp {
+          gatsbyImageData(layout: FULL_WIDTH)
+        }
+      }
     }
-  }
-  rightImage: file(relativePath: {eq: "hero/ring.jpg"}) {
-    childImageSharp {
-      gatsbyImageData(layout: FULL_WIDTH)
-    }
-  }
-}
-`)
+  `)
 
   return (
     <Grid sx={{ height: '70vh', bg: 'cream', position: 'relative', zIndex: 1 }}>
@@ -29,12 +30,23 @@ const Hero = ({ title, subtitle, button }) => {
           overflow: 'hidden',
         }}
       >
-        <Box sx={{ height: '70vh' }}>
-          <GatsbyImage image={data.leftImage.childImageSharp.gatsbyImageData} />
-        </Box>
-        <Box sx={{ display: ['none', 'block'] }}>
-          <GatsbyImage image={data.rightImage.childImageSharp.gatsbyImageData} />
-        </Box>
+        <Flex sx={{ height: '70vh' }}>
+          <GatsbyImage
+            image={data.leftImage.childImageSharp.gatsbyImageData}
+            style={{ flex: 1 }}
+          />
+        </Flex>
+        <Flex
+          sx={{
+            display: ['none', 'flex'],
+            height: '70vh',
+          }}
+        >
+          <GatsbyImage
+            image={data.rightImage.childImageSharp.gatsbyImageData}
+            style={{ flex: 1 }}
+          />
+        </Flex>
       </Grid>
       <Flex
         sx={{
@@ -71,7 +83,7 @@ const Hero = ({ title, subtitle, button }) => {
         </Box>
       </Flex>
     </Grid>
-  );
+  )
 }
 
 export default Hero
