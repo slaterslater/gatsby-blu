@@ -24,10 +24,10 @@ const shopMenus = [
   {
     title: 'Latest',
     links: [
-      { path: '/collections/new-arrivals', text: 'New Arrivals' },
+      { path: '/collections/newarrivals', text: 'New Arrivals' },
       { path: '/collections/best-sellers', text: 'Best Sellers' },
       { path: '/collections/last-chance', text: 'Last Chance' },
-      { path: '/collections/revival', text: 'Revival' },
+      { path: '/collections/the-revival-collection', text: 'Revival' },
       { path: '/collections/imprint', text: 'Imprint' },
       { path: '/collections/tashi', text: 'Tashi Silver Jewelry' },
     ],
@@ -128,8 +128,12 @@ const MegaMenu = props => {
   const [currentMenu, setCurrentMenu] = useState('')
 
   return (
-    <Flex
-      sx={{ position: 'relative', alignSelf: 'stretch' }}
+    <Box
+      sx={{
+        position: 'relative',
+        display: ['none', 'none', 'flex'],
+        alignSelf: 'stretch',
+      }}
       onMouseOver={() => setMenuOpen(true)}
       onMouseLeave={() => setMenuOpen(false)}
     >
@@ -137,7 +141,6 @@ const MegaMenu = props => {
         pl={4}
         sx={{
           alignSelf: 'stretch',
-          display: ['none', 'none', 'grid'],
           gap: 5,
           gridTemplateColumns: 'repeat(4, max-content)',
           alignItems: 'stretch',
@@ -210,7 +213,7 @@ const MegaMenu = props => {
           </MotionBox>
         )}
       </AnimatePresence>
-    </Flex>
+    </Box>
   )
 }
 

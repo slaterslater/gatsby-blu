@@ -1,13 +1,4 @@
-import {
-  Flex,
-  Button,
-  Text,
-  Box,
-  Image,
-  Link,
-  Grid,
-  IconButton,
-} from 'theme-ui'
+import { Flex, Text, Box, Image, Link, Grid, IconButton } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
 import { IoIosMenu, IoIosSearch } from 'react-icons/io'
 import { IoBagSharp } from 'react-icons/io5'
@@ -42,13 +33,15 @@ const Header = () => {
           }}
         >
           <MegaMenu />
-          <Box
-            as={IoIosMenu}
-            color="white"
-            size={24}
-            sx={{ display: ['block', 'block', 'none'] }}
+          <IconButton
+            p={0}
             ml={4}
-          />
+            type="button"
+            sx={{ display: ['block', 'block', 'none'] }}
+            onClick={() => setOpenDrawer('navigation')}
+          >
+            <Box as={IoIosMenu} color="white" size={24} />
+          </IconButton>
           <Link as={GatsbyLink} to="/" sx={{ justifySelf: 'center' }} p={4}>
             <Image
               src={logo}

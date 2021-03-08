@@ -1,7 +1,10 @@
 import { Box } from 'theme-ui'
-import React, { createContext, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
+import useKeyPress from 'react-use-keypress'
 import MotionBox from './util/MotionBox'
+import CartDrawer from './CartDrawer'
+import NavigationDrawer from './NavigationDrawer'
 
 export const DrawerContext = createContext()
 
@@ -26,6 +29,10 @@ const DrawerOuter = ({ origin, ...props }) => (
 
 const Drawers = ({ children }) => {
   const [openDrawer, setOpenDrawer] = useState('')
+
+  const closeDrawer = () => !!openDrawer && setOpenDrawer('')
+  useKeyPress('Escape', closeDrawer)
+
   return (
     <DrawerContext.Provider value={[openDrawer, setOpenDrawer]}>
       <Box>
@@ -49,7 +56,12 @@ const Drawers = ({ children }) => {
           )}
           {openDrawer === 'cart' && (
             <DrawerOuter key="cart-drawer" origin="right">
-              Cart Drawer
+              <CartDrawer onClose={() => setOpenDrawer('')} />
+            </DrawerOuter>
+          )}
+          {openDrawer === 'navigation' && (
+            <DrawerOuter key="navigation-drawer" origin="left">
+              <NavigationDrawer onClose={() => setOpenDrawer('')} />
             </DrawerOuter>
           )}
         </AnimatePresence>
