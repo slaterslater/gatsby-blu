@@ -100,101 +100,118 @@ const menus = {
   'everything-blu-menu': bluMenu,
 }
 
-const MegaMenuLink = ({ children, path, menu }) => {
+const MegaMenuLink = ({ children, path, onSetMenu }) => (
+  <HeaderLink
+    to={path}
+    sx={{ position: 'relative' }}
+    onMouseEnter={onSetMenu}
+    onMouseLeave={onSetMenu}
+  >
+    <Text
+      as="span"
+      variant="caps"
+      sx={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        height: '100%',
+        color: 'gray',
+        fontSize: 1,
+      }}
+    >
+      {children}
+    </Text>
+  </HeaderLink>
+)
+
+const MegaMenu = props => {
   const [menuOpen, setMenuOpen] = useState(false)
-  const toggleMenu = () => setMenuOpen(prev => !prev)
-  const triggerRef = useRef()
-  const rect = useRect(triggerRef, { observe: false })
+  const [currentMenu, setCurrentMenu] = useState('')
 
   return (
-    <HeaderLink
-      to={path}
-      sx={{ position: 'relative' }}
-      onMouseEnter={toggleMenu}
-      onMouseLeave={toggleMenu}
+    <Flex
+      sx={{ position: 'relative', alignSelf: 'stretch' }}
+      onMouseOver={() => setMenuOpen(true)}
+      onMouseLeave={() => setMenuOpen(false)}
     >
-      <Text
-        as="span"
-        ref={triggerRef}
-        variant="caps"
+      <Grid
+        pl={4}
         sx={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          height: '100%',
-          color: 'gray',
-          fontSize: 1,
+          alignSelf: 'stretch',
+          display: ['none', 'none', 'grid'],
+          gap: 5,
+          gridTemplateColumns: 'repeat(4, max-content)',
+          alignItems: 'stretch',
         }}
       >
-        {children}
-      </Text>
+        <MegaMenuLink path="/shop/all" onSetMenu={() => setCurrentMenu('shop')}>
+          Shop
+        </MegaMenuLink>
+        <MegaMenuLink
+          path="/gift-guides"
+          onSetMenu={() => setCurrentMenu('gift-guides')}
+        >
+          Gifts
+        </MegaMenuLink>
+        <MegaMenuLink
+          path="/blog"
+          onSetMenu={() => setCurrentMenu('stories-menu')}
+        >
+          Stories
+        </MegaMenuLink>
+        <MegaMenuLink
+          path="/about-us"
+          onSetMenu={() => setCurrentMenu('everything-blu-menu')}
+        >
+          Everything Blu
+        </MegaMenuLink>
+      </Grid>
       <AnimatePresence>
         {menuOpen && (
           <MotionBox
-            initial={{ opacity: 0, y: -5 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -5 }}
+            initial={{ opacity: 0, x: -2 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -2 }}
             p={6}
             sx={{
               bg: 'white',
               position: 'absolute',
-              left: rect ? -rect.x : 0,
+              left: 0,
+              top: '100%',
               width: '100vw',
               borderBottom: '1px solid',
               borderColor: 'border',
             }}
           >
             <Flex>
-              {menus[menu].map(list => (
-                <Box mr={7}>
-                  <Heading as="h4" pb={1}>
-                    {list.title}
-                  </Heading>
-                  {list.links.map(link => (
-                    <Box key={`dropdown-link-${link.path}-${link.text}`} py={1}>
-                      <Link
-                        as={GatsbyLink}
-                        to={link.path}
-                        variant="nav"
-                        sx={{ fontSize: 1 }}
+              {currentMenu &&
+                menus[currentMenu].map(list => (
+                  <Box mr={7}>
+                    <Heading as="h4" pb={1}>
+                      {list.title}
+                    </Heading>
+                    {list.links.map(link => (
+                      <Box
+                        key={`dropdown-link-${link.path}-${link.text}`}
+                        py={1}
                       >
-                        {link.text}
-                      </Link>
-                    </Box>
-                  ))}
-                </Box>
-              ))}
+                        <Link
+                          as={GatsbyLink}
+                          to={link.path}
+                          variant="nav"
+                          sx={{ fontSize: 1 }}
+                        >
+                          {link.text}
+                        </Link>
+                      </Box>
+                    ))}
+                  </Box>
+                ))}
             </Flex>
           </MotionBox>
         )}
       </AnimatePresence>
-    </HeaderLink>
+    </Flex>
   )
 }
-
-const MegaMenu = props => (
-  <Grid
-    pl={4}
-    sx={{
-      alignSelf: 'stretch',
-      display: ['none', 'none', 'grid'],
-      gap: 5,
-      gridTemplateColumns: 'repeat(4, max-content)',
-      alignItems: 'stretch',
-    }}
-  >
-    <MegaMenuLink path="/shop/all" menu="shop">
-      Shop
-    </MegaMenuLink>
-    <MegaMenuLink path="/gift-guides" menu="gift-guides">
-      Gifts
-    </MegaMenuLink>
-    <MegaMenuLink path="/blog" menu="stories-menu">
-      Stories
-    </MegaMenuLink>
-    <MegaMenuLink path="/about-us" menu="everything-blu-menu">
-      Everything Blu
-    </MegaMenuLink>
-  </Grid>
-)
 
 export default MegaMenu

@@ -5,7 +5,6 @@ import ProductGrid from '../components/collection/CollectionProductGrid'
 
 const CollectionPageTemplate = ({ data }) => {
   const { products, title } = data.shopifyCollection
-  console.log(data.shopifyCollection)
 
   return (
     <Layout>
