@@ -93,7 +93,7 @@ const bluMenu = [
   },
 ]
 
-const menus = {
+export const menus = {
   shop: shopMenus,
   'gift-guides': giftMenus,
   'stories-menu': storiesMenu,
