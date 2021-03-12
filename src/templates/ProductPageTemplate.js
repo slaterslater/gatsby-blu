@@ -22,6 +22,7 @@ export const query = graphql`
         originalSrc
       }
       variants {
+        shopifyId
         priceNumber
         availableForSale
         selectedOptions {

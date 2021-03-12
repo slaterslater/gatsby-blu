@@ -11,6 +11,7 @@
     "@types/inflected": "^1.1.29",
     "@types/theme-ui": "^0.3.7",
     "cross-env": "^7.0.3",
+    "dotenv": "^8.2.0",
     "esm": "^3.2.25",
     "formik": "^2.2.6",
     "framer-motion": "^3.5.2",

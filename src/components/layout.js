@@ -30,24 +30,20 @@ const Layout = ({ children }) => {
   `)
 
   return (
-    <>
-      {/* <Styled.root> */}
-      <Drawers>
-        <Flex
-          sx={{
-            minHeight: '100vh',
-            flexDirection: 'column',
-            alignItems: 'stretch',
-          }}
-        >
-          <Announcements />
-          <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
-          {children}
-          <Footer />
-        </Flex>
-      </Drawers>
-      {/* </Styled.root> */}
-    </>
+    <Drawers>
+      <Flex
+        sx={{
+          minHeight: '100vh',
+          flexDirection: 'column',
+          alignItems: 'stretch',
+        }}
+      >
+        <Announcements />
+        <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
+        {children}
+        <Footer />
+      </Flex>
+    </Drawers>
   )
 }
 

@@ -6,8 +6,10 @@ import { useFormattedPrice } from '../../hooks/utils'
 import ProductReviewsTopline from './ProductReviewsTopline'
 import MetalOptionSwatch from '../MetalOptionSwatch'
 import VariantSize from './VariantSize'
+import { StoreContext } from '../../contexts/StoreContext'
 
 const ProductDetails = ({ title, description, variants, vendor }) => {
+  const { addProductToCart } = useContext(StoreContext)
   const [selectedVariant, setSelectedVariant] = useState(variants[0])
   const productTitle = useProductTitle(title)
   const productPrice = useFormattedPrice({
@@ -22,6 +24,8 @@ const ProductDetails = ({ title, description, variants, vendor }) => {
   const hasSizeVariants = !!variants.find(variant =>
     variant.selectedOptions.find(opt => opt.name === 'Size')
   )
+
+  const addToCart = () => addProductToCart(selectedVariant.shopifyId)
 
   // get related metal options from sanity
 
@@ -96,7 +100,7 @@ const ProductDetails = ({ title, description, variants, vendor }) => {
         <Flex pt={4}>
           <Button
             type="button"
-            onClick={() => console.log('add to cart')}
+            onClick={addToCart}
             sx={{ flex: 1, fontSize: 1, py: 4 }}
           >
             Add To Cart

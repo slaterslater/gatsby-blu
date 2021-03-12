@@ -1,3 +1,9 @@
+import dotenv from 'dotenv'
+
+dotenv.config({
+  path: `.env`,
+})
+
 module.exports = {
   siteMetadata: {
     title: `Gatsby Default Starter`,
@@ -45,9 +51,9 @@ module.exports = {
       resolve: `gatsby-source-shopify`,
       options: {
         // The domain name of your Shopify shop.
-        shopName: `blubohoo.myshopify.com`,
+        shopName: process.env.SHOPIFY_SHOP_NAME,
         // The storefront access token
-        accessToken: `99ee5e5e176719e7737fcb389281ef22`,
+        accessToken: process.env.SHOPIFY_STOREFRONT_KEY,
         paginationSize: 80,
         collections: ['shop'],
         downloadImages: false,
