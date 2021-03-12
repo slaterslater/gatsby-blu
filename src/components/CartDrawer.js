@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { Box, Flex, Text, Divider, IconButton } from 'theme-ui'
 import { IoIosClose } from 'react-icons/io'
 import { StoreContext } from '../contexts/StoreContext'
+import LineItem from './cart/LineItem'
 
 const EmptyCart = () => (
   <Box py={5} px={4} sx={{ textAlign: 'center' }}>
@@ -12,19 +13,29 @@ const EmptyCart = () => (
 )
 
 const CartDrawer = ({ onClose }) => {
-  const { client } = useContext(StoreContext)
+  const { checkout, updateLineItem } = useContext(StoreContext)
   return (
     <Box>
       <Flex p={4}>
-        <Text sx={{ fontSize: 4, fontWeight: 'heading', flex: 1 }}>
-          Your Cart
-        </Text>
+        <Text sx={{ fontSize: 4, flex: 1 }}>Your Cart</Text>
         <IconButton p={0} ml={6} onClick={onClose}>
           <Text as={IoIosClose} size={36} />
         </IconButton>
       </Flex>
       <Divider mb={4} />
-      <EmptyCart />
+      {checkout?.lineItems.map(item => (
+        <LineItem
+          item={item}
+          key={item.id}
+          onUpdateQuantity={delta =>
+            updateLineItem({
+              lineItemId: item.id,
+              quantity: item.quantity + delta,
+            })
+          }
+        />
+      ))}
+      {!checkout.lineItems.length && <EmptyCart />}
     </Box>
   )
 }

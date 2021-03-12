@@ -7,8 +7,8 @@ const ReviewStars = ({ starPercentage }) => (
     <Box sx={{ display: 'inline-block', gridArea: '1 / -1 / 1 / -1' }}>
       {Array(5)
         .fill()
-        .map(() => (
-          <IoIosStarOutline />
+        .map((_, i) => (
+          <IoIosStarOutline key={`outline-${i}`} />
         ))}
     </Box>
     <Box
@@ -20,8 +20,8 @@ const ReviewStars = ({ starPercentage }) => (
       >
         {Array(5)
           .fill()
-          .map(() => (
-            <IoIosStar />
+          .map((_, i) => (
+            <IoIosStar key={`full-${i}`} />
           ))}
       </Box>
     </Box>

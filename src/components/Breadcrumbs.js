@@ -14,7 +14,7 @@ const Breadcrumbs = ({ links, currentPage }) => (
     }}
   >
     {links.map(({ path, text }) => (
-      <>
+      <React.Fragment key={`breadcrumb-${path}-${text}`}>
         <Text variant="caps">
           <Link variant="nav" as={GatsbyLink} to={path}>
             {text}
@@ -23,7 +23,7 @@ const Breadcrumbs = ({ links, currentPage }) => (
         <Box px={2}>
           <Text>&bull;</Text>
         </Box>
-      </>
+      </React.Fragment>
     ))}
     <Text variant="caps">{currentPage.text}</Text>
   </Flex>

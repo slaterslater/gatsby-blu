@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence } from 'framer-motion'
 import { Box, Grid, Button, Input, Text } from 'theme-ui'
 import PropTypes from 'prop-types'
 import { IoIosClose, IoIosSearch } from 'react-icons/io'
 import SearchPreview from './SearchPreview'
-
-const AnimatedBox = motion.custom(Box)
+import MotionBox from './util/MotionBox'
 
 const HeaderSearch = ({ isOpen, onClose }) => {
   const [value, setValue] = useState('')
@@ -13,7 +12,7 @@ const HeaderSearch = ({ isOpen, onClose }) => {
   return (
     <AnimatePresence>
       {isOpen && (
-        <AnimatedBox
+        <MotionBox
           p={5}
           sx={{ bg: 'white', width: '100vw', position: 'absolute' }}
           initial={{ opacity: 0, y: -5 }}
@@ -46,7 +45,7 @@ const HeaderSearch = ({ isOpen, onClose }) => {
             </Button>
           </Grid>
           <SearchPreview term={value} />
-        </AnimatedBox>
+        </MotionBox>
       )}
     </AnimatePresence>
   )

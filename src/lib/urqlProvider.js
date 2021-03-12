@@ -3,7 +3,7 @@ import { createClient, Provider } from 'urql'
 
 const SHOPIFY_GRAPHQL_URL = `https://${process.env.GATSBY_SHOPIFY_SHOP_NAME}/api/2021-01/graphql.json`
 
-const client = createClient({
+export const client = createClient({
   url: SHOPIFY_GRAPHQL_URL,
   fetchOptions: () => ({
     headers: {

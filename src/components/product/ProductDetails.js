@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link, Button, Text, Flex, Box, Grid, Heading } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
 import { useProductTitle } from '../ProductTitle'
@@ -9,6 +9,7 @@ import VariantSize from './VariantSize'
 import { StoreContext } from '../../contexts/StoreContext'
 
 const ProductDetails = ({ title, description, variants, vendor }) => {
+  const [loading, setLoading] = useState(false)
   const { addProductToCart } = useContext(StoreContext)
   const [selectedVariant, setSelectedVariant] = useState(variants[0])
   const productTitle = useProductTitle(title)
@@ -25,7 +26,12 @@ const ProductDetails = ({ title, description, variants, vendor }) => {
     variant.selectedOptions.find(opt => opt.name === 'Size')
   )
 
-  const addToCart = () => addProductToCart(selectedVariant.shopifyId)
+  const addToCart = async () => {
+    setLoading(true)
+    addProductToCart(selectedVariant.shopifyId).then(() => {
+      setLoading(false)
+    })
+  }
 
   // get related metal options from sanity
 
@@ -99,6 +105,7 @@ const ProductDetails = ({ title, description, variants, vendor }) => {
         </Button>
         <Flex pt={4}>
           <Button
+            disabled={loading}
             type="button"
             onClick={addToCart}
             sx={{ flex: 1, fontSize: 1, py: 4 }}

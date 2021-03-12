@@ -35,6 +35,7 @@ const ProductPage = ({
             <RemoteShopifyImage
               originalSrc={image.originalSrc}
               altText={image.altText}
+              key={image.id}
             />
           ))}
         </Grid>

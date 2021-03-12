@@ -8,12 +8,17 @@ const client = Client.buildClient({
   storefrontAccessToken: process.env.GATSBY_SHOPIFY_STOREFRONT_KEY,
 })
 
-const initialValues = { cart: [], addProductToCart: () => {}, client }
+const initialValues = {
+  cart: [],
+  addProductToCart: () => {},
+  client,
+  checkout: { lineItems: [] },
+}
 
 export const StoreContext = createContext(initialValues)
 
 const StoreProvider = props => {
-  const [checkout, setCheckout] = useState({})
+  const [checkout, setCheckout] = useState(initialValues.checkout)
 
   const initializeCheckout = async () => {
     try {
@@ -49,16 +54,36 @@ const StoreProvider = props => {
         },
       ]
 
-      const addItems = await client.checkout.addLineItems(
+      const newCheckout = await client.checkout.addLineItems(
         checkout.id,
         lineItems
       )
+      setCheckout(newCheckout)
+    } catch (e) {
+      console.log('add to cart error')
+    }
+  }
+
+  const updateLineItem = async ({ lineItemId, quantity }) => {
+    try {
+      const lineItems = [
+        {
+          id: lineItemId,
+          quantity,
+        },
+      ]
+
+      const newCheckout = await client.checkout.updateLineItems(
+        checkout.id,
+        lineItems
+      )
+      setCheckout(newCheckout)
     } catch (e) {}
   }
 
   return (
     <StoreContext.Provider
-      value={{ ...initialValues, addProductToCart }}
+      value={{ ...initialValues, checkout, addProductToCart, updateLineItem }}
       {...props}
     />
   )

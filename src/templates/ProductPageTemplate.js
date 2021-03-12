@@ -19,9 +19,11 @@ export const query = graphql`
       productType
       vendor
       images {
+        id
         originalSrc
       }
       variants {
+        id
         shopifyId
         priceNumber
         availableForSale
