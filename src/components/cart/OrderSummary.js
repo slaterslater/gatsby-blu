@@ -22,11 +22,8 @@ const SummaryItem = ({ bold, term, children }) => (
 const OrderSummary = props => {
   const { checkout, loading } = useContext(StoreContext)
 
-  console.log({ loading })
-
   return (
     <MotionBox p={4} animate={{ opacity: loading ? 0.5 : 1 }}>
-      <Text sx={{ fontSize: 2, fontWeight: 'medium' }}>Order Summary</Text>
       <Divider my={4} />
       <Grid sx={{ gridAutoFlow: 'row', gap: 2 }}>
         <SummaryItem term="subtotal">
@@ -49,7 +46,6 @@ const OrderSummary = props => {
           )}
         </SummaryItem>
       </Grid>
-      <Divider my={4} />
     </MotionBox>
   )
 }
