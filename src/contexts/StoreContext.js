@@ -9,16 +9,20 @@ const client = Client.buildClient({
 })
 
 const initialValues = {
+  loading: false,
   cart: [],
   addProductToCart: () => {},
   client,
-  checkout: { lineItems: [] },
+  checkout: {
+    lineItems: [],
+  },
 }
 
 export const StoreContext = createContext(initialValues)
 
 const StoreProvider = props => {
   const [checkout, setCheckout] = useState(initialValues.checkout)
+  const [loading, setLoading] = useState(initialValues.loading)
 
   const initializeCheckout = async () => {
     try {
@@ -31,6 +35,7 @@ const StoreProvider = props => {
       let newCheckout = null
       if (currentCheckoutId) {
         newCheckout = await client.checkout.fetch(currentCheckoutId)
+        console.log(newCheckout)
       } else {
         newCheckout = await client.checkout.create()
         localStorage.setItem(STORAGE_CHECKOUT_ID, newCheckout.id)
@@ -46,6 +51,7 @@ const StoreProvider = props => {
   }, [])
 
   const addProductToCart = async variantId => {
+    setLoading(true)
     try {
       const lineItems = [
         {
@@ -62,9 +68,23 @@ const StoreProvider = props => {
     } catch (e) {
       console.log('add to cart error')
     }
+    setLoading(false)
+  }
+
+  const removeLineItem = async ({ lineItemId }) => {
+    try {
+      const lineItems = [lineItemId]
+
+      const newCheckout = await client.checkout.removeLineItems(
+        checkout.id,
+        lineItems
+      )
+      setCheckout(newCheckout)
+    } catch (e) {}
   }
 
   const updateLineItem = async ({ lineItemId, quantity }) => {
+    setLoading(true)
     try {
       const lineItems = [
         {
@@ -79,11 +99,19 @@ const StoreProvider = props => {
       )
       setCheckout(newCheckout)
     } catch (e) {}
+    setLoading(false)
   }
 
   return (
     <StoreContext.Provider
-      value={{ ...initialValues, checkout, addProductToCart, updateLineItem }}
+      value={{
+        ...initialValues,
+        loading,
+        checkout,
+        addProductToCart,
+        updateLineItem,
+        removeLineItem,
+      }}
       {...props}
     />
   )

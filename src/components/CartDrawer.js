@@ -3,6 +3,7 @@ import { Box, Flex, Text, Divider, IconButton } from 'theme-ui'
 import { IoIosClose } from 'react-icons/io'
 import { StoreContext } from '../contexts/StoreContext'
 import LineItem from './cart/LineItem'
+import OrderSummary from './cart/OrderSummary'
 
 const EmptyCart = () => (
   <Box py={5} px={4} sx={{ textAlign: 'center' }}>
@@ -13,7 +14,7 @@ const EmptyCart = () => (
 )
 
 const CartDrawer = ({ onClose }) => {
-  const { checkout, updateLineItem } = useContext(StoreContext)
+  const { checkout, updateLineItem, removeLineItem } = useContext(StoreContext)
   return (
     <Box>
       <Flex p={4}>
@@ -23,6 +24,7 @@ const CartDrawer = ({ onClose }) => {
         </IconButton>
       </Flex>
       <Divider mb={4} />
+      {!checkout.lineItems.length && <EmptyCart />}
       {checkout?.lineItems.map(item => (
         <LineItem
           item={item}
@@ -33,9 +35,10 @@ const CartDrawer = ({ onClose }) => {
               quantity: item.quantity + delta,
             })
           }
+          onRemoveItem={() => removeLineItem(item.id)}
         />
       ))}
-      {!checkout.lineItems.length && <EmptyCart />}
+      <OrderSummary />
     </Box>
   )
 }

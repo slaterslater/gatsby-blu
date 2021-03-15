@@ -31,6 +31,7 @@
     "gatsby-source-yotpo": "^0.8.14",
     "gatsby-transformer-json": "^3.0.0",
     "gatsby-transformer-sharp": "^3.0.0",
+    "immer": "^8.0.1",
     "inflected": "^2.1.0",
     "lodash": "^4.17.21",
     "path-browserify": "^0.0.1",
@@ -47,7 +48,8 @@
     "slick-carousel": "^1.8.1",
     "styled-system": "^5.1.5",
     "theme-ui": "^0.6.0-alpha.7",
-    "urql": "^2.0.1"
+    "urql": "^2.0.1",
+    "use-immer": "^0.4.2"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
