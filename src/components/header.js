@@ -7,6 +7,7 @@ import logo from '../images/bluboho-logo-vector-white.svg'
 import HeaderSearch from './HeaderSearch'
 import MegaMenu from './header/MegaMenu'
 import { DrawerContext } from './drawers'
+import CartBadge from './cart/CartBadge'
 // import HeaderDropdown from './header/HeaderDropdown'
 
 const Header = () => {
@@ -51,7 +52,11 @@ const Header = () => {
             />
           </Link>
           <Flex sx={{ alignItems: 'center', justifySelf: 'end' }} p={4}>
-            <IconButton onClick={() => setSearchOpen(state => !state)} mr={2}>
+            <IconButton
+              sx={{ cursor: 'pointer' }}
+              onClick={() => setSearchOpen(state => !state)}
+              mr={2}
+            >
               <Text
                 as={IoIosSearch}
                 color="white"
@@ -59,9 +64,15 @@ const Header = () => {
                 sx={{ transform: 'translateY(1px)' }}
               />
             </IconButton>
-            <IconButton onClick={() => setOpenDrawer('cart')}>
-              <Text as={IoBagSharp} color="white" size={24} />
-            </IconButton>
+            <Box sx={{ position: 'relative' }}>
+              <CartBadge />
+              <IconButton
+                sx={{ cursor: 'pointer' }}
+                onClick={() => setOpenDrawer('cart')}
+              >
+                <Text as={IoBagSharp} color="white" size={24} />
+              </IconButton>
+            </Box>
           </Flex>
         </Grid>
         <HeaderSearch

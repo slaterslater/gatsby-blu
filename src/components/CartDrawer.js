@@ -25,15 +25,15 @@ const CartDrawer = ({ onClose }) => {
       }}
     >
       <Box>
-        <Flex p={4}>
-          <Text sx={{ fontSize: 4, flex: 1 }}>Your Cart</Text>
+        <Flex p={4} sx={{ alignItems: 'center' }}>
+          <Text sx={{ fontSize: 3, flex: 1 }}>Your Cart</Text>
           <IconButton p={0} ml={6} onClick={onClose}>
-            <Text as={IoIosClose} size={36} />
+            <Text as={IoIosClose} size={24} />
           </IconButton>
         </Flex>
       </Box>
       <Box>
-        <Divider mb={4} />
+        <Divider mb={4} mt={0} />
         {!checkout.lineItems.length && <EmptyCart />}
         {checkout?.lineItems.map(item => (
           <LineItem

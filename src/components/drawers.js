@@ -28,7 +28,7 @@ const DrawerOuter = ({ origin, ...props }) => (
 )
 
 const Drawers = ({ children }) => {
-  const [openDrawer, setOpenDrawer] = useState('cart')
+  const [openDrawer, setOpenDrawer] = useState('')
 
   const closeDrawer = () => !!openDrawer && setOpenDrawer('')
   useKeyPress('Escape', closeDrawer)

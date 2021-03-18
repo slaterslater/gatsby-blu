@@ -70,6 +70,10 @@ module.exports = {
         display: 'swap',
       },
     },
+    {
+      resolve: `gatsby-plugin-create-client-paths`,
+      options: { prefixes: [`/account/*`] },
+    },
     // {
     //   // resolve: `gatsby-source-instagram`,
     //   options: {

@@ -1,8 +1,9 @@
-import { Flex, IconButton, Text, Box, Grid } from 'theme-ui'
+import { Heading, Flex, IconButton, Text, Box, Grid } from 'theme-ui'
 import React, { useState } from 'react'
-import { IoIosRemove, IoIosAdd, IoIosClose } from 'react-icons/io'
+import { IoIosRemove, IoIosAdd } from 'react-icons/io'
 import RemoteShopifyImage from '../RemoteShopifyImage'
 import { useProductTitle } from '../ProductTitle'
+import FormattedPrice from '../util/FormattedPrice'
 
 const LineItem = ({ item, onUpdateQuantity, onRemoveItem }) => {
   const [loading, setLoading] = useState(false)
@@ -24,6 +25,8 @@ const LineItem = ({ item, onUpdateQuantity, onRemoveItem }) => {
     setLoading(false)
   }
 
+  console.log(item.variant)
+
   return (
     <Grid sx={{ gridTemplateColumns: '80px 1fr', gap: 3 }} py={3} px={4}>
       <RemoteShopifyImage
@@ -32,44 +35,64 @@ const LineItem = ({ item, onUpdateQuantity, onRemoveItem }) => {
         originalSrc={item.variant.image.src}
       />
       <Box>
-        <Flex sx={{ alignItems: 'center' }}>
-          <Text sx={{ flex: 1, fontSize: 2 }}>{title}</Text>
-          <IconButton
-            type="button"
-            onClick={onRemoveItem}
-            sx={{ height: 24, width: 24, fontSize: 4 }}
-          >
-            <IoIosClose />
-          </IconButton>
-        </Flex>
+        <Heading sx={{ flex: 1, fontSize: 2 }}>{title}</Heading>
         {sizeOption && (
           <Box>
-            <Text sx={{ fontSize: 1 }}>Size: {sizeOption.value}</Text>
+            <Text sx={{ fontSize: 1, color: 'darkGray', fontWeight: '' }}>
+              Size: {sizeOption.value}
+            </Text>
           </Box>
         )}
-        {optionsDescription && <Box>{optionsDescription}</Box>}
-        <Flex sx={{ alignItems: 'center' }}>
-          <IconButton
-            disabled={loading}
-            type="button"
-            onClick={() => updateQuantity(-1)}
-            sx={{ cursor: 'pointer' }}
-          >
-            <IoIosRemove size={16} />
-          </IconButton>
-          <Box mx={2}>
-            <Text sx={{ fontSize: 1 }}>{item.quantity}</Text>
+        {optionsDescription && (
+          <Box>
+            <Text sx={{ fontSize: 1, color: 'darkGray' }}>
+              {optionsDescription}
+            </Text>
           </Box>
-          <IconButton
-            disabled={loading}
-            type="button"
-            onClick={() => updateQuantity(1)}
-            sx={{ cursor: 'pointer' }}
+        )}
+        <Flex
+          py={2}
+          sx={{ justifyContent: 'space-between', alignItems: 'baseline' }}
+        >
+          <Flex
+            sx={{
+              alignItems: 'center',
+              border: '1px solid',
+              borderColor: 'border',
+              borderRadius: 'small',
+            }}
           >
-            <IoIosAdd size={16} />
-          </IconButton>
+            <IconButton
+              disabled={loading}
+              type="button"
+              onClick={() => updateQuantity(-1)}
+              sx={{ cursor: 'pointer' }}
+            >
+              <Box
+                as={IoIosRemove}
+                size={16}
+                sx={{ transform: 'translateY(1px)' }}
+              />
+            </IconButton>
+            <Box mx={2}>
+              <Text sx={{ fontSize: 1 }}>{item.quantity}</Text>
+            </Box>
+            <IconButton
+              disabled={loading && item.variant.available}
+              type="button"
+              onClick={() => updateQuantity(1)}
+              sx={{ cursor: 'pointer' }}
+            >
+              <IoIosAdd size={16} />
+            </IconButton>
+          </Flex>
+          <Text sx={{ fontSize: 1, fontWeight: 'heading' }}>
+            <FormattedPrice
+              amount={item.quantity * item.variant.priceV2.amount}
+              currency={item.variant.priceV2.currencyCode}
+            />
+          </Text>
         </Flex>
-        price remove from cart
       </Box>
     </Grid>
   )

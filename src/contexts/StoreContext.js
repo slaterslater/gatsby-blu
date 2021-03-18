@@ -35,7 +35,6 @@ const StoreProvider = props => {
       let newCheckout = null
       if (currentCheckoutId) {
         newCheckout = await client.checkout.fetch(currentCheckoutId)
-        console.log(newCheckout)
       } else {
         newCheckout = await client.checkout.create()
         localStorage.setItem(STORAGE_CHECKOUT_ID, newCheckout.id)

@@ -7,10 +7,12 @@ import ProductReviewsTopline from './ProductReviewsTopline'
 import MetalOptionSwatch from '../MetalOptionSwatch'
 import VariantSize from './VariantSize'
 import { StoreContext } from '../../contexts/StoreContext'
+import { DrawerContext } from '../drawers'
 
 const ProductDetails = ({ title, description, variants, vendor }) => {
   const [loading, setLoading] = useState(false)
   const { addProductToCart } = useContext(StoreContext)
+  const [, setOpenDrawer] = useContext(DrawerContext)
   const [selectedVariant, setSelectedVariant] = useState(variants[0])
   const productTitle = useProductTitle(title)
   const productPrice = useFormattedPrice({
@@ -30,6 +32,7 @@ const ProductDetails = ({ title, description, variants, vendor }) => {
     setLoading(true)
     addProductToCart(selectedVariant.shopifyId).then(() => {
       setLoading(false)
+      setOpenDrawer('cart')
     })
   }
 
