@@ -1,6 +1,6 @@
-import { Field, Form, Formik } from 'formik'
+import { ErrorMessage, Field, Form, Formik } from 'formik'
 import React, { useEffect } from 'react'
-import { Box, Button, Label, Heading, Input } from 'theme-ui'
+import { Text, Box, Button, Label, Input } from 'theme-ui'
 import { useMutation } from 'urql'
 import * as yup from 'yup'
 import { CustomerAccessTokenCreate } from '../../mutations/auth'
@@ -47,22 +47,30 @@ const LoginForm = props => {
       }}
     >
       <Form>
-        <Label htmlFor="login_email">Email</Label>
-        <Field
-          name="email"
-          id="login_email"
-          as={Input}
-          type="email"
-          placeholder="enter your email address"
-        />
-        <Label htmlFor="login_password">Password</Label>
-        <Field
-          name="password"
-          id="login_password"
-          as={Input}
-          type="password"
-          placeholder="enter your password"
-        />
+        <Box pb={3}>
+          <Label htmlFor="login_email" pb={2}>
+            Email
+          </Label>
+          <Field
+            name="email"
+            id="login_email"
+            as={Input}
+            type="email"
+            placeholder="enter your email address"
+          />
+          <ErrorMessage component={Text} pt={3} name="email" />
+        </Box>
+        <Box pb={3}>
+          <Label htmlFor="login_password">Password</Label>
+          <Field
+            name="password"
+            id="login_password"
+            as={Input}
+            type="password"
+            placeholder="enter your password"
+          />
+          <ErrorMessage component={Text} name="password" />
+        </Box>
         <Button type="submit" disabled={fetching}>
           Submit
         </Button>

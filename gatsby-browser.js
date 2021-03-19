@@ -1,8 +1,11 @@
-import Provider from './src/lib/urqlProvider'
+import UrqlProvider from './src/lib/urqlProvider'
 import StoreProvider from './src/contexts/StoreContext'
+import AuthProvider from './src/contexts/AuthContext'
 
 export const wrapRootElement = ({ element }) => (
   <StoreProvider>
-    <Provider element={element} />
+    <UrqlProvider>
+      <AuthProvider>{element}</AuthProvider>
+    </UrqlProvider>
   </StoreProvider>
 )
