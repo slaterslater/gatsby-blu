@@ -1,4 +1,4 @@
-import { gql } from 'graphql-tag'
+import gql from 'graphql-tag'
 
 export const PRODUCT_QUERY = gql`
   query($query: String!, $first: Int!) {

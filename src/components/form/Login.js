@@ -1,9 +1,9 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik'
-import React, { useEffect } from 'react'
+import { navigate } from 'gatsby'
+import React, { useContext } from 'react'
 import { Text, Box, Button, Label, Input } from 'theme-ui'
-import { useMutation } from 'urql'
 import * as yup from 'yup'
-import { CustomerAccessTokenCreate } from '../../mutations/auth'
+import { AuthContext } from '../../contexts/AuthContext'
 
 const initialValues = { email: '', password: '' }
 const validationSchema = yup.object({
@@ -12,69 +12,49 @@ const validationSchema = yup.object({
 })
 
 const LoginForm = props => {
-  const [{ data, error, fetching }, createAccessToken] = useMutation(
-    CustomerAccessTokenCreate
-  )
-
-  const { accessToken, expiresAt } = data?.customerAccessTokenCreate
-    .customerAccessToken || { accessToken: '', expiresAt: '' }
-
-  console.log(data, error, fetching)
-
-  useEffect(() => {
-    if (accessToken && expiresAt) {
-      console.log({ accessToken, expiresAt })
-      localStorage.setItem('accessToken', accessToken)
-      localStorage.setItem('expiresAt', expiresAt)
-    }
-  }, [accessToken, expiresAt])
+  const { accessToken, login } = useContext(AuthContext)
+  console.info(accessToken)
 
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={async ({ email, password }, { setSubmitting }) => {
-        console.log({ email, password })
-        const variables = { input: { email, password } }
-        console.log({ variables })
-        await createAccessToken({ input: { email, password } })
-        // localStorage.setItem('accessToken', accessToken)
-        // localStorage.setItem('expiresAt', expiresAt)
-        setSubmitting(false)
-        console.log('done')
-        // await createAccessToken({ input: { email, password } })
-        // console.log('done')
+      onSubmit={async ({ email, password }) => {
+        await login({ email, password })
+        navigate('/account/orders')
       }}
     >
-      <Form>
-        <Box pb={3}>
-          <Label htmlFor="login_email" pb={2}>
-            Email
-          </Label>
-          <Field
-            name="email"
-            id="login_email"
-            as={Input}
-            type="email"
-            placeholder="enter your email address"
-          />
-          <ErrorMessage component={Text} pt={3} name="email" />
-        </Box>
-        <Box pb={3}>
-          <Label htmlFor="login_password">Password</Label>
-          <Field
-            name="password"
-            id="login_password"
-            as={Input}
-            type="password"
-            placeholder="enter your password"
-          />
-          <ErrorMessage component={Text} name="password" />
-        </Box>
-        <Button type="submit" disabled={fetching}>
-          Submit
-        </Button>
-      </Form>
+      {({ submitting }) => (
+        <Form>
+          <Box pb={3}>
+            <Label htmlFor="login_email" pb={2}>
+              Email
+            </Label>
+            <Field
+              name="email"
+              id="login_email"
+              as={Input}
+              type="email"
+              placeholder="enter your email address"
+            />
+            <ErrorMessage component={Text} pt={3} name="email" />
+          </Box>
+          <Box pb={3}>
+            <Label htmlFor="login_password">Password</Label>
+            <Field
+              name="password"
+              id="login_password"
+              as={Input}
+              type="password"
+              placeholder="enter your password"
+            />
+            <ErrorMessage component={Text} name="password" />
+          </Box>
+          <Button type="submit" disabled={submitting}>
+            Submit
+          </Button>
+        </Form>
+      )}
     </Formik>
   )
 }

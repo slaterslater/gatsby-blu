@@ -1,9 +1,10 @@
-import { Divider, Link, Box, Text, IconButton, Flex } from 'theme-ui'
+import { Button, Divider, Link, Box, Text, IconButton, Flex } from 'theme-ui'
 import { IoIosClose, IoIosAdd } from 'react-icons/io'
 import { Link as GatsbyLink } from 'gatsby'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import { menus } from './header/MegaMenu'
+import { AuthContext } from '../contexts/AuthContext'
 
 const NavGroup = ({ menu, children }) => {
   const [open, set] = useState(false)
@@ -47,24 +48,31 @@ const NavGroup = ({ menu, children }) => {
   )
 }
 
-const NavigationDrawer = ({ onClose }) => (
-  <Box sx={{ position: 'relative' }}>
-    <Flex p={4} sx={{ position: 'sticky' }}>
-      <IconButton p={0} onClick={onClose}>
-        <Text as={IoIosClose} size={36} />
-      </IconButton>
-    </Flex>
-    <Divider mt={0} />
-    <Box px={5} py={2}>
-      <NavGroup menu={menus.shop}>Shop</NavGroup>
-      <NavGroup menu={menus['gift-guides']}>Gifts</NavGroup>
-      <NavGroup menu={menus['stories-menu']}>Stories</NavGroup>
-      <NavGroup menu={menus['everything-blu-menu']}>Everything Blu</NavGroup>
+const NavigationDrawer = ({ onClose }) => {
+  const { logout } = useContext(AuthContext)
+
+  return (
+    <Box sx={{ position: 'relative' }}>
+      <Flex p={4} sx={{ position: 'sticky' }}>
+        <IconButton p={0} onClick={onClose}>
+          <Text as={IoIosClose} size={36} />
+        </IconButton>
+      </Flex>
+      <Divider mt={0} />
+      <Box px={5} py={2}>
+        <NavGroup menu={menus.shop}>Shop</NavGroup>
+        <NavGroup menu={menus['gift-guides']}>Gifts</NavGroup>
+        <NavGroup menu={menus['stories-menu']}>Stories</NavGroup>
+        <NavGroup menu={menus['everything-blu-menu']}>Everything Blu</NavGroup>
+      </Box>
+      <Box>
+        <GatsbyLink to="/account/login">Login</GatsbyLink>
+        <Button onClick={logout} type="button" variant="unset">
+          Logout
+        </Button>
+      </Box>
     </Box>
-    <Box>
-      <GatsbyLink to="/account/login">Login</GatsbyLink>
-    </Box>
-  </Box>
-)
+  )
+}
 
 export default NavigationDrawer

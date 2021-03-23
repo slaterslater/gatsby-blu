@@ -1,18 +1,26 @@
 import React, { useContext } from 'react'
 import { Box, Heading } from 'theme-ui'
+import { useQuery } from 'urql'
 import { AuthContext } from '../../contexts/AuthContext'
 import { CUSTOMER_QUERY } from '../../queries/customer'
 
 const OrdersPage = props => {
   const { accessToken } = useContext(AuthContext)
 
-  const [query] = useQuery(CUSTOMER_QUERY, { customerAccessToken: accessToken })
+  const [{ data, fetching, error }] = useQuery({
+    query: CUSTOMER_QUERY,
+    variables: { customerAccessToken: accessToken },
+  })
 
-  console.log(query)
+  console.log({ data, accessToken })
   return (
     <Box as="main" sx={{ maxWidth: 600 }} variant="sectionWrap" mx="auto">
       <Heading>Orders Page</Heading>
-      <Box>orders!</Box>
+      {data?.customer.orders.edges.map(({ node: { orderNumber } }) => (
+        <Box>
+          <Box>{orderNumber}</Box>
+        </Box>
+      ))}
     </Box>
   )
 }

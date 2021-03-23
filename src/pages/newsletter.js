@@ -2,7 +2,7 @@ import { LayoutGroupContext } from 'framer-motion'
 import React from 'react'
 import { Box, Heading } from 'theme-ui'
 import NewsletterForm from '../components/NewsletterForm'
-import Layout from '../components/Layout'
+import Layout from '../components/layout'
 
 const NewsletterPage = props => (
   <Layout>

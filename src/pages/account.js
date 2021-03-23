@@ -6,6 +6,7 @@ import ForgotPasswordPage from '../components/account/ForgotPasswordPage'
 import OrdersPage from '../components/account/OrdersPage'
 import OrderDetailPage from '../components/account/OrderDetailPage'
 import Layout from '../components/layout'
+import AuthenticatedRoute from '../components/AuthenticatedRoute'
 
 const Account = props => (
   <Layout>
@@ -13,8 +14,8 @@ const Account = props => (
       <LoginPage path="/login" />
       <CreateAccountPage path="/create" />
       <ForgotPasswordPage path="/forgot-password" />
-      <OrderDetailPage path="/orders/:orderId" />
-      <OrdersPage path="/orders" />
+      <AuthenticatedRoute component={OrderDetailPage} path="/orders/:orderId" />
+      <AuthenticatedRoute component={OrdersPage} path="/orders" />
     </Router>
   </Layout>
 )
