@@ -140,6 +140,13 @@ export default {
       borderColor: 'border',
     },
   },
+  layout: {
+    container: {
+      maxWidth: 1444,
+      py: 6,
+      px: [5, 6, 6, 7],
+    },
+  },
   styles: {
     root: {
       fontFamily: 'body',

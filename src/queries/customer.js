@@ -5,9 +5,10 @@ export const CUSTOMER_QUERY = gql`
     customer(customerAccessToken: $customerAccessToken) {
       displayName
       firstName
-      orders(first: 250) {
+      orders(first: 250, reverse: true) {
         edges {
           node {
+            id
             orderNumber
             fulfillmentStatus
             totalPriceV2 {
@@ -15,6 +16,7 @@ export const CUSTOMER_QUERY = gql`
               currencyCode
             }
             financialStatus
+            processedAt
           }
         }
       }

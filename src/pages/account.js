@@ -15,7 +15,7 @@ const Account = props => (
       <CreateAccountPage path="/create" />
       <ForgotPasswordPage path="/forgot-password" />
       <AuthenticatedRoute component={OrderDetailPage} path="/orders/:orderId" />
-      <AuthenticatedRoute component={OrdersPage} path="/orders" />
+      <AuthenticatedRoute component={OrdersPage} path="/" />
     </Router>
   </Layout>
 )
