@@ -53,9 +53,16 @@ const Header = () => {
             />
           </Link>
           <Flex sx={{ alignItems: 'center', justifySelf: 'end' }} p={4}>
-            <GatsbyLink to="/account">
-              <Text as={AiOutlineUser} color="white" size={24} />
-            </GatsbyLink>
+            <Box mr={2}>
+              <GatsbyLink to="/account">
+                <Text
+                  as={AiOutlineUser}
+                  color="white"
+                  size={24}
+                  sx={{ transform: 'translateY(3px)' }}
+                />
+              </GatsbyLink>
+            </Box>
             <IconButton
               sx={{ cursor: 'pointer' }}
               onClick={() => setSearchOpen(state => !state)}
