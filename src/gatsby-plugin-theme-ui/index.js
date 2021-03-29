@@ -50,6 +50,9 @@ export default {
     },
   },
   text: {
+    default: {
+      fontSize: 1,
+    },
     caps: {
       textTransform: 'uppercase',
       letterSpacing: '0.2em',
@@ -62,6 +65,9 @@ export default {
       letterSpacing: '0.2em',
       fontWeight: 'light',
       fontFamily: 'body',
+    },
+    strike: {
+      textDecoration: 'line-through',
     },
   },
   buttons: {

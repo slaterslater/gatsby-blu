@@ -26,26 +26,15 @@ export const OrderSummary = ({
   totalPriceV2,
 }) => (
   <MotionBox p={4} animate={{ opacity: loading ? 0.5 : 1 }}>
-    <Divider my={4} />
     <Grid sx={{ gridAutoFlow: 'row', gap: 2 }}>
       <SummaryItem term="subtotal">
-        {subtotalPriceV2 && (
-          <FormattedPrice
-            amount={subtotalPriceV2.amount}
-            currency={subtotalPriceV2.currencyCode}
-          />
-        )}
+        {subtotalPriceV2 && <FormattedPrice priceV2={subtotalPriceV2} />}
       </SummaryItem>
       {requiresShipping && (
         <SummaryItem term="estimated shipping">free</SummaryItem>
       )}
       <SummaryItem term="estimated total" bold>
-        {totalPriceV2 && (
-          <FormattedPrice
-            amount={totalPriceV2.amount}
-            currency={totalPriceV2.currencyCode}
-          />
-        )}
+        {totalPriceV2 && <FormattedPrice priceV2={totalPriceV2} />}
       </SummaryItem>
     </Grid>
   </MotionBox>
@@ -80,15 +69,18 @@ export const CartOrderSummary = () => {
   } = useContext(StoreContext)
 
   return (
-    <OrderSummary
-      {...{
-        subtotalPriceV2,
-        shippingPriceV2,
-        totalPriceV2,
-        loading,
-        requiresShipping,
-      }}
-    />
+    <>
+      <Divider my={4} />
+      <OrderSummary
+        {...{
+          subtotalPriceV2,
+          shippingPriceV2,
+          totalPriceV2,
+          loading,
+          requiresShipping,
+        }}
+      />
+    </>
   )
 }
 

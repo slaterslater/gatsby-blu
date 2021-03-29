@@ -1,12 +1,14 @@
 import PropTypes from 'prop-types'
 import { useFormattedPrice } from '../../hooks/utils'
 
-const FormattedPrice = ({ amount, currency }) =>
-  useFormattedPrice({ amount, currency })
+const FormattedPrice = ({ priceV2: { amount, currencyCode } }) =>
+  useFormattedPrice({ amount, currency: currencyCode })
 
 FormattedPrice.propTypes = {
-  amount: PropTypes.number.isRequired,
-  currency: PropTypes.string.isRequired,
+  priceV2: PropTypes.shape({
+    amount: PropTypes.number.isRequired,
+    currency: PropTypes.string.isRequired,
+  }).isRequired,
 }
 
 export default FormattedPrice

@@ -55,10 +55,7 @@ export const CartLineItem = ({ item, onUpdateQuantity, onRemoveItem }) => {
           </IconButton>
         </Flex>
         <Text sx={{ fontSize: 1, fontWeight: 'heading' }}>
-          <FormattedPrice
-            amount={item.quantity * item.variant.priceV2.amount}
-            currency={item.variant.priceV2.currencyCode}
-          />
+          <FormattedPrice priceV2={item.originalTotalPrice} />
         </Text>
       </Flex>
     </LineItem>

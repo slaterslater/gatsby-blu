@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { IoIosRemove, IoIosAdd } from 'react-icons/io'
 import RemoteShopifyImage from './RemoteShopifyImage'
 import { useProductTitle } from './ProductTitle'
-import FormattedPrice from './util/FormattedPrice'
+import LineItemPrice from './LineItemPrice'
 
 const LineItem = ({ item, children }) => {
   console.log(item)
@@ -17,10 +17,8 @@ const LineItem = ({ item, children }) => {
 
   const title = useProductTitle(item.title)
 
-  console.info(item)
-
   return (
-    <Grid sx={{ gridTemplateColumns: '80px 1fr', gap: 3 }} py={3} px={4}>
+    <Grid sx={{ gridTemplateColumns: '80px 1fr', gap: 3 }}>
       {item.variant ? (
         <RemoteShopifyImage
           height={80}
@@ -36,18 +34,24 @@ const LineItem = ({ item, children }) => {
         <Heading sx={{ flex: 1, fontSize: 2 }}>{title}</Heading>
         {sizeOption && (
           <Box>
-            <Text sx={{ fontSize: 1, color: 'darkGray', fontWeight: '' }}>
+            <Text sx={{ color: 'darkGray', fontWeight: '' }}>
               Size: {sizeOption.value}
             </Text>
           </Box>
         )}
         {optionsDescription && (
           <Box>
-            <Text sx={{ fontSize: 1, color: 'darkGray' }}>
-              {optionsDescription}
-            </Text>
+            <Text sx={{ color: 'darkGray' }}>{optionsDescription}</Text>
           </Box>
         )}
+        <Box>
+          <Text>
+            <LineItemPrice
+              originalTotalPrice={item.originalTotalPrice}
+              discountAllocations={item.discountAllocations}
+            />
+          </Text>
+        </Box>
         {children}
       </Box>
     </Grid>

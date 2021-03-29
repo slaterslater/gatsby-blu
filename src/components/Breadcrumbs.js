@@ -11,9 +11,10 @@ const Breadcrumbs = ({ links, currentPage }) => (
       borderBottom: '1px solid',
       borderColor: 'border',
       alignItems: 'center',
+      height: 46,
     }}
   >
-    {links.map(({ path, text }) => (
+    {links?.map(({ path, text }) => (
       <React.Fragment key={`breadcrumb-${path}-${text}`}>
         <Text variant="caps">
           <Link variant="nav" as={GatsbyLink} to={path}>

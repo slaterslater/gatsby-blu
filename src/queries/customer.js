@@ -11,25 +11,36 @@ export const CUSTOMER_QUERY = gql`
           node {
             orderNumber
             shippingAddress {
-              firstName
-              lastName
               name
               address1
               address2
-              city
-              provinceCode
+              company
+              formattedArea
               zip
-              countryCodeV2
+            }
+            subtotalPriceV2 {
+              amount
+              currencyCode
             }
             totalPriceV2 {
               amount
               currencyCode
             }
+            fulfillmentStatus
+            financialStatus
             lineItems(first: 250) {
               edges {
                 node {
                   title
                   quantity
+                  originalTotalPrice {
+                    amount
+                    currencyCode
+                  }
+                  discountedTotalPrice {
+                    amount
+                    currencyCode
+                  }
                   discountAllocations {
                     allocatedAmount {
                       amount

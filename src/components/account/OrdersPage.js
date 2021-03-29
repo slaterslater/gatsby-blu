@@ -2,9 +2,11 @@ import React, { useContext } from 'react'
 import { Link } from 'gatsby'
 import { Box, Container, Grid, Text, Heading } from 'theme-ui'
 import { useQuery } from 'urql'
+import { titleize } from 'inflected'
 import { AuthContext } from '../../contexts/AuthContext'
 import { CUSTOMER_QUERY } from '../../queries/customer'
 import FormattedPrice from '../util/FormattedPrice'
+import AccountPage from './AccountPage'
 
 const OrdersPage = props => {
   const { accessToken } = useContext(AuthContext)
@@ -16,11 +18,11 @@ const OrdersPage = props => {
 
   if (data) {
     return (
-      <Container as="main">
-        <Heading>My Account</Heading>
-        <Text sx={{ fontSize: 2 }}>
-          Welcome back, {data.customer.displayName}
-        </Text>
+      <AccountPage
+        title="My Orders"
+        subtitle={`Welcome back, ${data.customer.displayName}`}
+        currentPage={{ text: 'Orders', path: '/account' }}
+      >
         <Box pt={6}>
           <Grid
             py={3}
@@ -67,22 +69,19 @@ const OrdersPage = props => {
                   </Link>
                 </Text>
                 <Text px={2} sx={{ fontSize: 2 }}>
-                  {financialStatus}
+                  {titleize(financialStatus)}
                 </Text>
                 <Text px={2} sx={{ fontSize: 2 }}>
-                  {fulfillmentStatus}
+                  {titleize(fulfillmentStatus)}
                 </Text>
                 <Text px={2} sx={{ fontSize: 2 }}>
-                  <FormattedPrice
-                    amount={totalPriceV2.amount}
-                    currency={totalPriceV2.currencyCode}
-                  />
+                  <FormattedPrice priceV2={totalPriceV2} />
                 </Text>
               </Grid>
             )
           )}
         </Box>
-      </Container>
+      </AccountPage>
     )
   }
 
