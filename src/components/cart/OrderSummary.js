@@ -4,6 +4,7 @@ import { Box, Flex, Text, Divider, Grid } from 'theme-ui'
 import { StoreContext } from '../../contexts/StoreContext'
 import FormattedPrice from '../util/FormattedPrice'
 import MotionBox from '../util/MotionBox'
+import { CHECKOUT_QUERY } from '../../queries/checkout'
 
 const SummaryItem = ({ bold, term, children }) => (
   <Flex>
@@ -56,32 +57,4 @@ OrderSummary.propTypes = {
   requiresShipping: PropTypes.bool.isRequired,
 }
 OrderSummary.defaultProps = { shippingPriceV2: null }
-
-export const CartOrderSummary = () => {
-  const {
-    checkout: {
-      subtotalPriceV2,
-      shippingPriceV2,
-      totalPriceV2,
-      requiresShipping,
-    },
-    loading,
-  } = useContext(StoreContext)
-
-  return (
-    <>
-      <Divider my={4} />
-      <OrderSummary
-        {...{
-          subtotalPriceV2,
-          shippingPriceV2,
-          totalPriceV2,
-          loading,
-          requiresShipping,
-        }}
-      />
-    </>
-  )
-}
-
-export default CartOrderSummary
+export default OrderSummary

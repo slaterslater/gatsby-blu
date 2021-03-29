@@ -1,10 +1,13 @@
 import React, { useContext } from 'react'
 import { Grid, Box, Flex, Text, Divider, IconButton, Button } from 'theme-ui'
 import { IoIosClose } from 'react-icons/io'
+import store from 'store'
+import { useQuery } from 'urql'
 import { StoreContext } from '../contexts/StoreContext'
 import CartLineItem from './cart/CartLineItem'
-import OrderSummary from './cart/OrderSummary'
+import { OrderSummary } from './cart/OrderSummary'
 import CheckoutButton from './cart/CheckoutButton'
+import { CHECKOUT_QUERY } from '../queries/checkout'
 
 const EmptyCart = () => (
   <Box py={5} px={4} sx={{ textAlign: 'center' }}>
@@ -15,7 +18,13 @@ const EmptyCart = () => (
 )
 
 const CartDrawer = ({ onClose }) => {
+  const checkoutId = store.get('checkoutId')
+  const [{ data, fetching }] = useQuery({
+    query: CHECKOUT_QUERY,
+    variables: { checkoutId },
+  })
   const { checkout, updateLineItem, removeLineItem } = useContext(StoreContext)
+  console.log(data)
   return (
     <Grid
       sx={{
@@ -32,27 +41,37 @@ const CartDrawer = ({ onClose }) => {
           </IconButton>
         </Flex>
       </Box>
-      <Box>
-        <Divider mb={4} mt={0} />
-        {!checkout.lineItems.length && <EmptyCart />}
-        {checkout?.lineItems.map(item => (
-          <CartLineItem
-            item={item}
-            key={item.id}
-            onUpdateQuantity={delta =>
-              updateLineItem({
-                lineItemId: item.id,
-                quantity: item.quantity + delta,
-              })
-            }
-            onRemoveItem={() => removeLineItem(item.id)}
-          />
-        ))}
-      </Box>
-      <Box>
-        <OrderSummary />
-        <CheckoutButton />
-      </Box>
+      {data && (
+        <>
+          <Box>
+            <Divider mb={4} mt={0} />
+            {!data.node.lineItems?.edges.length && <EmptyCart />}
+            {data.node.lineItems.edges.map(({ node }) => (
+              <Box key={node.id} px={3} py={2}>
+                <CartLineItem
+                  item={node}
+                  onUpdateQuantity={delta =>
+                    updateLineItem({
+                      lineItemId: node.id,
+                      quantity: node.quantity + delta,
+                    })
+                  }
+                  onRemoveItem={() => removeLineItem(node.id)}
+                />
+              </Box>
+            ))}
+          </Box>
+          <Box>
+            <OrderSummary
+              subtotalPriceV2={data.node.subtotalPriceV2}
+              totalPriceV2={data.node.totalPriceV2}
+              requiresShipping={data.node.requiresShipping}
+              loading={fetching}
+            />
+            <CheckoutButton />
+          </Box>
+        </>
+      )}
     </Grid>
   )
 }

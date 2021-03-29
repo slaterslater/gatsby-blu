@@ -4,7 +4,7 @@ import { IoIosRemove, IoIosAdd } from 'react-icons/io'
 import FormattedPrice from '../util/FormattedPrice'
 import LineItem from '../LineItem'
 
-export const CartLineItem = ({ item, onUpdateQuantity, onRemoveItem }) => {
+const CartLineItem = ({ item, onUpdateQuantity, onRemoveItem }) => {
   const [loading, setLoading] = useState(false)
   const updateQuantity = async delta => {
     setLoading(true)
