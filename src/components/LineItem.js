@@ -6,7 +6,6 @@ import { useProductTitle } from './ProductTitle'
 import LineItemPrice from './LineItemPrice'
 
 const LineItem = ({ item, children }) => {
-  console.log(item)
   const sizeOption = item.variant?.selectedOptions.find(
     option => option.name === 'Size'
   )
@@ -47,8 +46,10 @@ const LineItem = ({ item, children }) => {
         <Box>
           <Text>
             <LineItemPrice
-              originalTotalPrice={item.originalTotalPrice}
-              discountAllocations={item.discountAllocations}
+              originalTotalPrice={{
+                ...item.variant.priceV2,
+                amount: Number(item.variant.priceV2.amount) * item.quantity,
+              }}
             />
           </Text>
         </Box>

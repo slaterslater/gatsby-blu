@@ -34,7 +34,7 @@ const LineItemPrice = ({
       sx={{ display: 'inline-grid', gridAutoFlow: 'column', gap: 2 }}
       {...props}
     >
-      {discountedPrice && (
+      {!!discountedPrice && (
         <Text>
           <FormattedPrice priceV2={discountedPrice} />
         </Text>

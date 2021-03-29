@@ -54,9 +54,6 @@ export const CartLineItem = ({ item, onUpdateQuantity, onRemoveItem }) => {
             <IoIosAdd size={16} />
           </IconButton>
         </Flex>
-        <Text sx={{ fontSize: 1, fontWeight: 'heading' }}>
-          <FormattedPrice priceV2={item.originalTotalPrice} />
-        </Text>
       </Flex>
     </LineItem>
   )
