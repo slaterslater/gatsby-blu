@@ -14,7 +14,10 @@ const Account = props => (
       <LoginPage path="/login" />
       <CreateAccountPage path="/create" />
       <ForgotPasswordPage path="/forgot-password" />
-      <AuthenticatedRoute component={OrderDetailPage} path="/orders/:orderId" />
+      <AuthenticatedRoute
+        component={OrderDetailPage}
+        path="/orders/:orderNumber"
+      />
       <AuthenticatedRoute component={OrdersPage} path="/" />
     </Router>
   </Layout>

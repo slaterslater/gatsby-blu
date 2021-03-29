@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { Grid, Box, Flex, Text, Divider, IconButton, Button } from 'theme-ui'
 import { IoIosClose } from 'react-icons/io'
 import { StoreContext } from '../contexts/StoreContext'
-import LineItem from './cart/LineItem'
+import CartLineItem from './cart/CartLineItem'
 import OrderSummary from './cart/OrderSummary'
 import CheckoutButton from './cart/CheckoutButton'
 
@@ -36,7 +36,7 @@ const CartDrawer = ({ onClose }) => {
         <Divider mb={4} mt={0} />
         {!checkout.lineItems.length && <EmptyCart />}
         {checkout?.lineItems.map(item => (
-          <LineItem
+          <CartLineItem
             item={item}
             key={item.id}
             onUpdateQuantity={delta =>

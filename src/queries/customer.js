@@ -1,22 +1,64 @@
 import gql from 'graphql-tag'
 
 export const CUSTOMER_QUERY = gql`
-  query($customerAccessToken: String!) {
+  query CustomerQuery($customerAccessToken: String!) {
     customer(customerAccessToken: $customerAccessToken) {
       displayName
       firstName
-      orders(first: 250, reverse: true) {
+      lastName
+      orders(first: 250) {
         edges {
           node {
-            id
             orderNumber
-            fulfillmentStatus
+            shippingAddress {
+              firstName
+              lastName
+              name
+              address1
+              address2
+              city
+              provinceCode
+              zip
+              countryCodeV2
+            }
             totalPriceV2 {
               amount
               currencyCode
             }
-            financialStatus
-            processedAt
+            lineItems(first: 250) {
+              edges {
+                node {
+                  title
+                  quantity
+                  discountAllocations {
+                    allocatedAmount {
+                      amount
+                      currencyCode
+                    }
+                    discountApplication {
+                      allocationMethod
+                      targetSelection
+                      targetType
+                    }
+                  }
+                  customAttributes {
+                    key
+                    value
+                  }
+                  variant {
+                    selectedOptions {
+                      name
+                      value
+                    }
+                    image {
+                      originalSrc
+                      altText
+                      id
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }

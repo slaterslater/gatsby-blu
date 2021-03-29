@@ -1,6 +1,7 @@
 import { Flex, Text, Box, Image, Link, Grid, IconButton } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
 import { IoIosMenu, IoIosSearch } from 'react-icons/io'
+import { AiOutlineUser } from 'react-icons/ai'
 import { IoBagSharp } from 'react-icons/io5'
 import React, { useContext, useState } from 'react'
 import logo from '../images/bluboho-logo-vector-white.svg'
@@ -52,6 +53,9 @@ const Header = () => {
             />
           </Link>
           <Flex sx={{ alignItems: 'center', justifySelf: 'end' }} p={4}>
+            <GatsbyLink to="/account">
+              <Text as={AiOutlineUser} color="white" size={24} />
+            </GatsbyLink>
             <IconButton
               sx={{ cursor: 'pointer' }}
               onClick={() => setSearchOpen(state => !state)}

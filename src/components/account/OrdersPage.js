@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import { Link } from 'gatsby'
 import { Box, Container, Grid, Text, Heading } from 'theme-ui'
 import { useQuery } from 'urql'
 import { AuthContext } from '../../contexts/AuthContext'
@@ -17,7 +18,9 @@ const OrdersPage = props => {
     return (
       <Container as="main">
         <Heading>My Account</Heading>
-        <Text>Welcome back, {data.customer.displayName}</Text>
+        <Text sx={{ fontSize: 2 }}>
+          Welcome back, {data.customer.displayName}
+        </Text>
         <Box pt={6}>
           <Grid
             py={3}
@@ -58,10 +61,18 @@ const OrdersPage = props => {
                 }}
                 py={3}
               >
-                <Box px={2}>{orderNumber}</Box>
-                <Text px={2}>{financialStatus}</Text>
-                <Text px={2}>{fulfillmentStatus}</Text>
-                <Text px={2}>
+                <Text px={2} sx={{ fontSize: 2 }}>
+                  <Link to={`/account/orders/${orderNumber}`}>
+                    {orderNumber}
+                  </Link>
+                </Text>
+                <Text px={2} sx={{ fontSize: 2 }}>
+                  {financialStatus}
+                </Text>
+                <Text px={2} sx={{ fontSize: 2 }}>
+                  {fulfillmentStatus}
+                </Text>
+                <Text px={2} sx={{ fontSize: 2 }}>
                   <FormattedPrice
                     amount={totalPriceV2.amount}
                     currency={totalPriceV2.currencyCode}
