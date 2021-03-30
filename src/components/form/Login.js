@@ -21,7 +21,7 @@ const LoginForm = props => {
       validationSchema={validationSchema}
       onSubmit={async ({ email, password }) => {
         await login({ email, password })
-        navigate('/account/orders')
+        navigate('/account')
       }}
     >
       {({ submitting }) => (

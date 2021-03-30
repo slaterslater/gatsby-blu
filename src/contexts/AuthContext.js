@@ -2,6 +2,7 @@ import React, { useMemo, useEffect, createContext, useState } from 'react'
 import { useMutation } from 'urql'
 import { DateTime } from 'luxon'
 import store from 'store'
+import { navigate } from '@reach/router'
 import {
   CustomerAccessTokenCreate,
   CustomerAccessTokenRenew,
@@ -73,7 +74,7 @@ const AuthProvider = props => {
   const logout = () => {
     store.remove('accessToken')
     store.remove('expiresAt')
-    console.info('logged out')
+    setAuthState(prev => ({ ...prev, accessToken: null, isLoggedIn: false }))
   }
 
   return (

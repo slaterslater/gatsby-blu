@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Box, Text, Link, Flex } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
 
-const Breadcrumbs = ({ links, currentPage }) => (
+const Breadcrumbs = ({ links, currentPage, children }) => (
   <Flex
     py={3}
     px={4}
@@ -27,6 +27,7 @@ const Breadcrumbs = ({ links, currentPage }) => (
       </React.Fragment>
     ))}
     <Text variant="caps">{currentPage.text}</Text>
+    {children && <Box ml="auto">{children}</Box>}
   </Flex>
 )
 
