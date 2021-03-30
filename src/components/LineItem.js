@@ -43,17 +43,7 @@ const LineItem = ({ item, children }) => {
             <Text sx={{ color: 'darkGray' }}>{optionsDescription}</Text>
           </Box>
         )}
-        <Box>
-          <Text>
-            <LineItemPrice
-              originalTotalPrice={{
-                ...item.variant.priceV2,
-                amount: Number(item.variant.priceV2.amount) * item.quantity,
-              }}
-            />
-          </Text>
-        </Box>
-        {children}
+        <Box>{children}</Box>
       </Box>
     </Grid>
   )

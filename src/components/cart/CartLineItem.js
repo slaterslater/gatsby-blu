@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { IoIosRemove, IoIosAdd } from 'react-icons/io'
 import FormattedPrice from '../util/FormattedPrice'
 import LineItem from '../LineItem'
+import LineItemPrice from '../LineItemPrice'
 
 const CartLineItem = ({ item, onUpdateQuantity, onRemoveItem }) => {
   const [loading, setLoading] = useState(false)
@@ -18,6 +19,14 @@ const CartLineItem = ({ item, onUpdateQuantity, onRemoveItem }) => {
 
   return (
     <LineItem item={item}>
+      <Text>
+        <LineItemPrice
+          originalTotalPrice={{
+            ...item.variant.priceV2,
+            amount: Number(item.variant.priceV2.amount) * item.quantity,
+          }}
+        />
+      </Text>
       <Flex
         py={2}
         sx={{ justifyContent: 'space-between', alignItems: 'baseline' }}

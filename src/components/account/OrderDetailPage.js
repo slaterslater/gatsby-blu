@@ -8,6 +8,7 @@ import OrderLineItem from './OrderLineItem'
 import { OrderSummary } from '../cart/OrderSummary'
 import MailingAddress from '../Address'
 import AccountPage from './AccountPage'
+import LineItemPrice from '../LineItemPrice'
 
 const OrderDetailPage = props => {
   const params = useParams()

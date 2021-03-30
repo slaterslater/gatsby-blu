@@ -23,7 +23,8 @@ const CartDrawer = ({ onClose }) => {
     query: CHECKOUT_QUERY,
     variables: { checkoutId },
   })
-  const { checkout, updateLineItem, removeLineItem } = useContext(StoreContext)
+
+  const { updateLineItem, removeLineItem } = useContext(StoreContext)
   console.log(data)
   return (
     <Grid
