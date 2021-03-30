@@ -8,7 +8,7 @@ import {
   CustomerAccessTokenRenew,
 } from '../mutations/auth'
 
-export const AuthContext = createContext()
+export const AuthContext = createContext({})
 
 const getShouldRenew = () => {
   const expiresAt = store.get('expiresAt')
@@ -24,9 +24,10 @@ const getShouldRenew = () => {
 
 const AuthProvider = props => {
   const [{ isLoggedIn, shouldRenew, accessToken }, setAuthState] = useState({
-    accessToken: store.get('accessToken'),
+    accessToken:
+      typeof window !== 'undefined' ? store.get('accessToken') : undefined,
     isLoggedIn: false,
-    shouldRenew: getShouldRenew(),
+    shouldRenew: typeof window !== 'undefined' ? getShouldRenew() : true,
   })
 
   // mutations

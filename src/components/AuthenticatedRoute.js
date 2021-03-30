@@ -1,11 +1,15 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { navigate } from 'gatsby'
 import { AuthContext } from '../contexts/AuthContext'
 
 const AuthenticatedRoute = ({ component: Component, location, ...props }) => {
   const { isLoggedIn, shouldRenew } = useContext(AuthContext)
 
-  if (!shouldRenew && !isLoggedIn) navigate('/account/login')
+  useEffect(() => {
+    if (!shouldRenew && !isLoggedIn) {
+      navigate('/account/login')
+    }
+  }, [shouldRenew, isLoggedIn])
 
   if (isLoggedIn) return <Component {...props} />
 

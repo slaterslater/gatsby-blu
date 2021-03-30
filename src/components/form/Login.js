@@ -13,7 +13,6 @@ const validationSchema = yup.object({
 
 const LoginForm = props => {
   const { accessToken, login } = useContext(AuthContext)
-  console.info(accessToken)
 
   return (
     <Formik
