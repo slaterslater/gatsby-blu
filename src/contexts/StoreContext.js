@@ -13,6 +13,7 @@ const initialValues = {
   cart: [],
   addProductToCart: () => {},
   client,
+  checkoutId: undefined,
   checkout: {
     lineItems: [],
   },
@@ -21,6 +22,7 @@ const initialValues = {
 export const StoreContext = createContext(initialValues)
 
 const StoreProvider = props => {
+  const [checkoutId, setCheckoutId] = useState(initialValues.checkoutId)
   const [checkout, setCheckout] = useState(initialValues.checkout)
   const [loading, setLoading] = useState(initialValues.loading)
 
@@ -40,6 +42,7 @@ const StoreProvider = props => {
         localStorage.setItem(STORAGE_CHECKOUT_ID, newCheckout.id)
       }
       setCheckout(newCheckout)
+      setCheckoutId(newCheckout.id)
     } catch (e) {
       console.log('initialize checkout error')
     }
@@ -110,6 +113,7 @@ const StoreProvider = props => {
         addProductToCart,
         updateLineItem,
         removeLineItem,
+        checkoutId,
       }}
       {...props}
     />

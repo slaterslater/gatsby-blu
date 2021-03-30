@@ -1,17 +1,18 @@
 import { Flex, Button, Box, Container, Grid } from 'theme-ui'
-import React from 'react'
-import store from 'store'
+import React, { useContext } from 'react'
 import { useQuery } from 'urql'
 import Layout from '../components/layout'
 import { CHECKOUT_QUERY } from '../queries/checkout'
 import CartLineItem from '../components/cart/CartLineItem'
 import { OrderSummary } from '../components/cart/OrderSummary'
+import { StoreContext } from '../contexts/StoreContext'
 
 const ShoppingCartPage = props => {
-  const checkoutId = store.get('checkoutId')
+  const { checkoutId } = useContext(StoreContext)
   const [{ data, fetching }] = useQuery({
     query: CHECKOUT_QUERY,
     variables: { checkoutId },
+    pause: !checkoutId,
   })
 
   return (
