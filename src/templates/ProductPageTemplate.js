@@ -5,14 +5,17 @@ import ProductPage from '../components/product/ProductPage'
 
 const ProductPageTemplate = ({ data }) => (
   <Layout>
-    <ProductPage product={data.shopifyProduct} />
+    <ProductPage
+      product={data.shopifyProduct}
+      yotpoProductBottomline={data.yotpoProductBottomline}
+    />
   </Layout>
 )
 
 export default ProductPageTemplate
 
 export const query = graphql`
-  query ProductPage($handle: String!) {
+  query ProductPage($handle: String!, $productIdentifier: String!) {
     shopifyProduct(handle: { eq: $handle }) {
       title
       description
@@ -32,6 +35,10 @@ export const query = graphql`
           value
         }
       }
+    }
+    yotpoProductBottomline(productIdentifier: { eq: $productIdentifier }) {
+      totalReviews
+      score
     }
   }
 `

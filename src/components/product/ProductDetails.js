@@ -9,7 +9,13 @@ import VariantSize from './VariantSize'
 import { StoreContext } from '../../contexts/StoreContext'
 import { DrawerContext } from '../drawers'
 
-const ProductDetails = ({ title, description, variants, vendor }) => {
+const ProductDetails = ({
+  title,
+  description,
+  variants,
+  vendor,
+  yotpoProductBottomline,
+}) => {
   const [loading, setLoading] = useState(false)
   const { addProductToCart } = useContext(StoreContext)
   const [, setOpenDrawer] = useContext(DrawerContext)
@@ -54,7 +60,11 @@ const ProductDetails = ({ title, description, variants, vendor }) => {
           </Heading>
           <Text sx={{ whiteSpace: 'nowrap', fontSize: 3 }}>{productPrice}</Text>
         </Grid>
-        <ProductReviewsTopline score={3.3} possibleScore={5} totalReviews={4} />
+        <ProductReviewsTopline
+          score={yotpoProductBottomline?.score}
+          possibleScore={5}
+          totalReviews={yotpoProductBottomline?.totalReviews}
+        />
       </Box>
       {metalOption && (
         <Box variant="productDetailSection">

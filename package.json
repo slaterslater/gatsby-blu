@@ -33,7 +33,7 @@
     "gatsby-plugin-theme-ui": "https://gitpkg.now.sh/graydiant/theme-ui/packages/gatsby-plugin-theme-ui?develop",
     "gatsby-source-filesystem": "^3.0.0",
     "gatsby-source-shopify": "^4.0.0",
-    "gatsby-source-yotpo": "^0.8.14",
+    "gatsby-source-yotpo": "github:unimprobable/gatsby-source-yotpo#fix/change-boundActionCreators-to-actions",
     "gatsby-transformer-json": "^3.0.0",
     "gatsby-transformer-sharp": "^3.0.0",
     "graphql-tag": "^2.11.0",

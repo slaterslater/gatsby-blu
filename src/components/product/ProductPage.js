@@ -9,6 +9,7 @@ import RemoteShopifyImage from '../RemoteShopifyImage'
 
 const ProductPage = ({
   product: { title, description, productType, variants, vendor, images },
+  yotpoProductBottomline,
 }) => {
   const productTitle = useProductTitle(title)
   return (
@@ -45,6 +46,7 @@ const ProductPage = ({
             description={description}
             variants={variants}
             vendor={vendor}
+            yotpoProductBottomline={yotpoProductBottomline}
           />
         </Box>
       </Grid>

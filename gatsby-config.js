@@ -60,6 +60,13 @@ module.exports = {
         downloadImages: false,
       },
     },
+    {
+      resolve: `gatsby-source-yotpo`,
+      options: {
+        appKey: process.env.YOTPO_APP_KEY,
+        appSecret: process.env.YOTPO_APP_SECRET,
+      },
+    },
     `gatsby-plugin-emotion`,
     {
       resolve: `gatsby-plugin-google-fonts`,
