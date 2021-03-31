@@ -15,6 +15,7 @@ const SectionHeading = props => (
 )
 const SectionLink = props => (
   <Text
+    as="p"
     sx={{
       fontSize: 0,
     }}
@@ -84,7 +85,7 @@ const Footer = props => (
     </Box>
     <Box>
       <SectionHeading>Become a Pen Pal</SectionHeading>
-      <Text sx={{ fontSize: 0, color: 'gray', pb: 4 }}>
+      <Text as="p" sx={{ fontSize: 0, color: 'gray', pb: 4 }}>
         Subscribe to receive updates, access to exclusive deals, and more.
       </Text>
       <NewsletterForm />
