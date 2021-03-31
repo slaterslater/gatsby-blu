@@ -22,7 +22,7 @@ const ShoppingCartPage = props => {
           <Grid sx={{ gridTemplateColumns: '2fr 1fr', gap: 7 }}>
             <Grid sx={{ gridAutoFlow: 'row', gap: 4 }}>
               {data?.node.lineItems?.edges.map(({ node }) => (
-                <CartLineItem item={node} key={node.id} />
+                <CartLineItem item={node} key={node.id} imgSize={150} />
               ))}
             </Grid>
             <Box>

@@ -5,7 +5,7 @@ import RemoteShopifyImage from './RemoteShopifyImage'
 import { useProductTitle } from './ProductTitle'
 import LineItemPrice from './LineItemPrice'
 
-const LineItem = ({ item, children }) => {
+const LineItem = ({ item, imgSize, children }) => {
   const sizeOption = item.variant?.selectedOptions.find(
     option => option.name === 'Size'
   )
@@ -17,11 +17,9 @@ const LineItem = ({ item, children }) => {
   const title = useProductTitle(item.title)
 
   return (
-    <Grid sx={{ gridTemplateColumns: '80px 1fr', gap: 3 }}>
+    <Grid sx={{ gridTemplateColumns: `${imgSize}px 1fr`, gap: 3 }}>
       {item.variant ? (
         <RemoteShopifyImage
-          height={80}
-          width={80}
           originalSrc={
             item.variant?.image.src || item.variant?.image.originalSrc
           }
@@ -47,5 +45,9 @@ const LineItem = ({ item, children }) => {
       </Box>
     </Grid>
   )
+}
+
+LineItem.defaultProps = {
+  imgSize: 80,
 }
 export default LineItem

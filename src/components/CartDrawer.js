@@ -18,14 +18,12 @@ const EmptyCart = () => (
 )
 
 const CartDrawer = ({ onClose }) => {
-  const checkoutId = store.get('checkoutId')
+  const { checkoutId } = useContext(StoreContext)
   const [{ data, fetching }] = useQuery({
     query: CHECKOUT_QUERY,
     variables: { checkoutId },
   })
 
-  const { updateLineItem, removeLineItem } = useContext(StoreContext)
-  console.log(data)
   return (
     <Grid
       sx={{
@@ -49,16 +47,7 @@ const CartDrawer = ({ onClose }) => {
             {!data.node.lineItems?.edges.length && <EmptyCart />}
             {data.node.lineItems.edges.map(({ node }) => (
               <Box key={node.id} px={3} py={2}>
-                <CartLineItem
-                  item={node}
-                  onUpdateQuantity={delta =>
-                    updateLineItem({
-                      lineItemId: node.id,
-                      quantity: node.quantity + delta,
-                    })
-                  }
-                  onRemoveItem={() => removeLineItem(node.id)}
-                />
+                <CartLineItem item={node} />
               </Box>
             ))}
           </Box>
