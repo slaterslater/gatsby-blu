@@ -8,6 +8,7 @@ const ProductPageTemplate = ({ data }) => (
     <ProductPage
       product={data.shopifyProduct}
       yotpoProductBottomline={data.yotpoProductBottomline}
+      allYotpoProductReview={data.allYotpoProductReview}
     />
   </Layout>
 )
@@ -34,6 +35,21 @@ export const query = graphql`
           name
           value
         }
+      }
+    }
+    allYotpoProductReview(
+      filter: { productIdentifier: { eq: $productIdentifier } }
+    ) {
+      nodes {
+        id
+        title
+        content
+        name
+        email
+        updatedAt
+        score
+        votesUp
+        votesDown
       }
     }
     yotpoProductBottomline(productIdentifier: { eq: $productIdentifier }) {

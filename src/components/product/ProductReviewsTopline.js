@@ -2,7 +2,7 @@ import { Text, Flex, Grid, Box, Link } from 'theme-ui'
 import React from 'react'
 import { IoIosStarOutline, IoIosStar } from 'react-icons/io'
 
-const ReviewStars = ({ starPercentage }) => (
+export const ReviewStars = ({ starPercentage }) => (
   <Grid>
     <Box sx={{ display: 'inline-block', gridArea: '1 / -1 / 1 / -1' }}>
       {Array(5)

@@ -6,10 +6,12 @@ import { useProductTitle } from '../ProductTitle'
 import ProductDetails from './ProductDetails'
 import Breadcrumbs from '../Breadcrumbs'
 import RemoteShopifyImage from '../RemoteShopifyImage'
+import ProductReviews from './ProductReviews'
 
 const ProductPage = ({
   product: { title, description, productType, variants, vendor, images },
   yotpoProductBottomline,
+  allYotpoProductReview,
 }) => {
   const productTitle = useProductTitle(title)
   return (
@@ -50,6 +52,7 @@ const ProductPage = ({
           />
         </Box>
       </Grid>
+      <ProductReviews allYotpoProductReview={allYotpoProductReview} />
     </Box>
   )
 }
