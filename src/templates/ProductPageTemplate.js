@@ -50,6 +50,7 @@ export const query = graphql`
         score
         votesUp
         votesDown
+        reviewerType
       }
     }
     yotpoProductBottomline(productIdentifier: { eq: $productIdentifier }) {

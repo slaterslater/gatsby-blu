@@ -1,41 +1,30 @@
-import React from 'react'
-import { Grid, Avatar, Box, Heading, Flex, Text, Container } from 'theme-ui'
-import { DateTime } from 'luxon'
-import { ReviewStars } from './ProductReviewsTopline'
+import React, { useState } from 'react'
+import { NavLink, Grid, Flex, Container } from 'theme-ui'
+import ProductReview from './ProductReview'
 
-const ProductReview = ({ name, score, title, content, updatedAt }) => {
-  const date = DateTime.fromISO(updatedAt).toLocaleString(DateTime.DATE_SHORT)
-  const starPercentage = (score / 5) * 100
-  console.log(starPercentage)
-
+const ProductReviews = ({ allYotpoProductReview }) => {
+  const [currentTab, setCurrentTab] = useState('reviews')
   return (
-    <Flex>
-      <Box>
-        <Avatar />
-      </Box>
-      <Box sx={{ flex: 1 }} pl={6}>
-        <Flex>
-          <Text>{name}</Text>
-          <Text>Verified Buyer</Text>
-          <Text ml="auto">{date}</Text>
-        </Flex>
-        <ReviewStars starPercentage={starPercentage} />
-        <Heading>{title}</Heading>
-        <Text>{content}</Text>
-      </Box>
-    </Flex>
+    <Container>
+      <Flex pb={6}>
+        <NavLink onClick={() => setCurrentTab('reviews')} mr={4}>
+          Reviews
+        </NavLink>
+        <NavLink onClick={() => setCurrentTab('qa')}>Questions</NavLink>
+      </Flex>
+
+      {currentTab === 'reviews' && (
+        <Grid sx={{ gridAutoFlow: 'row', gap: 6 }}>
+          {allYotpoProductReview?.nodes.map(node => (
+            <ProductReview key={node.id} {...node} />
+          ))}
+        </Grid>
+      )}
+      {currentTab === 'qa' && (
+        <Grid sx={{ gridAutoFlow: 'row', gap: 6 }}>questions</Grid>
+      )}
+    </Container>
   )
 }
-
-const ProductReviews = ({ allYotpoProductReview }) => (
-  <Container>
-    <Heading pb={6}>Reviews</Heading>
-    <Grid sx={{ gridAutoFlow: 'row', gap: 6 }}>
-      {allYotpoProductReview?.nodes.map(node => (
-        <ProductReview key={node.id} {...node} />
-      ))}
-    </Grid>
-  </Container>
-)
 
 export default ProductReviews
