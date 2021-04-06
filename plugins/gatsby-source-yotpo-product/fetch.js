@@ -1,5 +1,4 @@
 import { GraphQLClient } from 'graphql-request'
-import gql from 'graphql-tag'
 import axios from 'axios'
 
 export const createShopifyClient = ({
@@ -66,7 +65,7 @@ export const getReviews = async ({ productIds, yotpoAppKey, yotpoPerPage }) => {
   return responses.filter(res => !!res)
 }
 
-const ALL_PRODUCTS = gql`
+const ALL_PRODUCTS = `
   query AllProducts($after: String) {
     products(first: 100, after: $after) {
       pageInfo {
