@@ -7,6 +7,7 @@ export const client = createClient({
   url: SHOPIFY_GRAPHQL_URL,
   fetchOptions: () => ({
     headers: {
+      'Content-Type': 'application/graphql',
       'X-Shopify-Storefront-Access-Token':
         process.env.GATSBY_SHOPIFY_STOREFRONT_KEY,
     },
