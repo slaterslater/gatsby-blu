@@ -1,24 +1,32 @@
 import { Box, Flex, Text, Badge, Avatar } from 'theme-ui'
 import React from 'react'
-import FormattedDate from '../FormattedDate'
+import YotpoPost from './YotpoPost'
 
-const ProductQuestion = ({ content, asker, createdAt }) => (
+const ProductQuestion = ({
+  content,
+  asker,
+  createdAt,
+  sortedPublicAnswers,
+}) => (
   <Box>
-    <Flex>
-      <Box>
-        <Avatar src={asker.socialImage} />
-      </Box>
-      <Box>
-        <Flex pb={2}>
-          <Text mr={4}>{asker.displayName}</Text>
-          <Badge>Verified Buyer</Badge>
-          <Text ml="auto">
-            <FormattedDate iso={createdAt} />
-          </Text>
-        </Flex>
-        <Text>{content}</Text>
-      </Box>
-    </Flex>
+    <YotpoPost
+      avatar={asker.socialImage}
+      displayName={asker.displayName}
+      date={createdAt}
+      content={content}
+    />
+    <Box pl={5} pt={5}>
+      {sortedPublicAnswers.map(answer => (
+        <Box sx={{ borderLeft: '2px solid', borderColor: 'border' }} pl={5}>
+          <YotpoPost
+            avatar={answer.answerer.socialImage}
+            displayName="Store Owner"
+            date={answer.createdAt}
+            content={answer.content}
+          />
+        </Box>
+      ))}
+    </Box>
   </Box>
 )
 

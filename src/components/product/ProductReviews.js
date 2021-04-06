@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, NavLink, Grid, Flex, Container } from 'theme-ui'
+import { Button, NavLink, Grid, Flex, Container, Divider } from 'theme-ui'
 import ProductReview from './ProductReview'
 import ProductQuestion from './ProductQuestion'
 
@@ -20,16 +20,22 @@ const ProductReviews = ({ yotpoProductReview, yotpoProductQa }) => {
       </Flex>
 
       {currentTab === 'reviews' && (
-        <Grid sx={{ gridAutoFlow: 'row', gap: 6 }}>
+        <Grid sx={{ gridAutoFlow: 'row', gap: 7 }}>
           {yotpoProductReview?.reviews.map(node => (
-            <ProductReview key={node.id} {...node} />
+            <>
+              <Divider />
+              <ProductReview key={node.id} {...node} />
+            </>
           ))}
         </Grid>
       )}
       {currentTab === 'qa' && (
-        <Grid sx={{ gridAutoFlow: 'row', gap: 6 }}>
+        <Grid sx={{ gridAutoFlow: 'row', gap: 7 }}>
           {yotpoProductQa?.questions.map(node => (
-            <ProductQuestion key={node.id} {...node} />
+            <>
+              <Divider />
+              <ProductQuestion key={node.id} {...node} />
+            </>
           ))}
         </Grid>
       )}
