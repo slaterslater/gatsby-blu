@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { Button, NavLink, Grid, Flex, Container } from 'theme-ui'
 import ProductReview from './ProductReview'
+import ProductQuestion from './ProductQuestion'
 
-const ProductReviews = ({ yotpoProductReview }) => {
-  console.log(yotpoProductReview)
+const ProductReviews = ({ yotpoProductReview, yotpoProductQa }) => {
   const [currentTab, setCurrentTab] = useState('reviews')
   return (
     <Container pt={8}>
@@ -27,7 +27,11 @@ const ProductReviews = ({ yotpoProductReview }) => {
         </Grid>
       )}
       {currentTab === 'qa' && (
-        <Grid sx={{ gridAutoFlow: 'row', gap: 6 }}>questions</Grid>
+        <Grid sx={{ gridAutoFlow: 'row', gap: 6 }}>
+          {yotpoProductQa?.questions.map(node => (
+            <ProductQuestion key={node.id} {...node} />
+          ))}
+        </Grid>
       )}
     </Container>
   )

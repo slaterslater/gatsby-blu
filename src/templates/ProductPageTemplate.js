@@ -8,6 +8,7 @@ const ProductPageTemplate = ({ data }) => (
     <ProductPage
       product={data.shopifyProduct}
       yotpoProductReview={data.yotpoProductReview}
+      yotpoProductQa={data.yotpoProductQa}
     />
   </Layout>
 )
@@ -43,6 +44,7 @@ export const query = graphql`
       }
       id
       reviews {
+        id
         createdAt
         content
         score
@@ -59,6 +61,27 @@ export const query = graphql`
           userType
           displayName
           socialImage
+        }
+      }
+    }
+    yotpoProductQa(productId: { eq: $productId }) {
+      questions {
+        id
+        createdAt
+        content
+        userType
+        asker {
+          displayName
+          socialImage
+        }
+        sortedPublicAnswers {
+          votesUp
+          votesDown
+          createdAt
+          content
+          answerer {
+            slug
+          }
         }
       }
     }
