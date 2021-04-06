@@ -31,9 +31,6 @@ module.exports = {
       },
     },
     `gatsby-plugin-image`,
-    // {
-    //   resolve: `gatsby-source-yotpo`,
-    // }
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
@@ -61,10 +58,11 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-source-yotpo`,
+      resolve: `gatsby-source-yotpo-product`,
       options: {
-        appKey: process.env.YOTPO_APP_KEY,
-        appSecret: process.env.YOTPO_APP_SECRET,
+        shopName: process.env.SHOPIFY_SHOP_NAME,
+        shopifyAccessToken: process.env.SHOPIFY_STOREFRONT_KEY,
+        yotpoAppKey: process.env.YOTPO_APP_KEY,
       },
     },
     `gatsby-plugin-emotion`,

@@ -3,20 +3,20 @@ import { graphql } from 'gatsby'
 import Layout from '../components/layout'
 import ProductPage from '../components/product/ProductPage'
 
-const ProductPageTemplate = ({ data }) => (
-  <Layout>
-    <ProductPage
-      product={data.shopifyProduct}
-      yotpoProductBottomline={data.yotpoProductBottomline}
-      allYotpoProductReview={data.allYotpoProductReview}
-    />
-  </Layout>
-)
+const ProductPageTemplate = ({ data }) =>
+  console.log(data) || (
+    <Layout>
+      <ProductPage
+        product={data.shopifyProduct}
+        yotpoProductReview={data.yotpoProductReview}
+      />
+    </Layout>
+  )
 
 export default ProductPageTemplate
 
 export const query = graphql`
-  query ProductPage($handle: String!, $productIdentifier: String!) {
+  query ProductPage($handle: String!) {
     shopifyProduct(handle: { eq: $handle }) {
       title
       description
@@ -36,26 +36,6 @@ export const query = graphql`
           value
         }
       }
-    }
-    allYotpoProductReview(
-      filter: { productIdentifier: { eq: $productIdentifier } }
-    ) {
-      nodes {
-        id
-        title
-        content
-        name
-        email
-        updatedAt
-        score
-        votesUp
-        votesDown
-        reviewerType
-      }
-    }
-    yotpoProductBottomline(productIdentifier: { eq: $productIdentifier }) {
-      totalReviews
-      score
     }
   }
 `

@@ -1,5 +1,12 @@
 import path from 'path'
-// import getAdminId from './src/li'
+
+const decodeShopifyId = id => {
+  const buff = Buffer.from(id, 'base64')
+  const gid = buff.toString()
+  const gidParts = gid.split('/')
+  const [decodedId] = gidParts.slice(-1)
+  return decodedId
+}
 
 async function createProductTypeCollectionPages({ graphql, actions }) {
   const component = path.resolve('./src/templates/ProductTypeCollection.js')
@@ -71,10 +78,7 @@ async function createProductPages({ graphql, actions }) {
   `)
 
   data.allShopifyProduct.nodes.forEach(product => {
-    const buff = Buffer.from(product.shopifyId, 'base64')
-    const gid = buff.toString()
-    const gidParts = gid.split('/')
-    const [productIdentifier] = gidParts.slice(-1)
+    const productIdentifier = decodeShopifyId(product.shopifyId)
 
     actions.createPage({
       // What is the URL for this new page??
