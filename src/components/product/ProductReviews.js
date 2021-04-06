@@ -39,7 +39,7 @@ const ProductReviews = ({ yotpoProductReview, yotpoProductQa }) => {
           ))}
           {!yotpoProductReview?.reviews?.length && (
             <Alert variant="empty">
-              <Text sx={{ fontSize: 1 }}>There are no questions</Text>
+              <Text sx={{ fontSize: 1 }}>There are no reviews</Text>
             </Alert>
           )}
         </Grid>

@@ -46,6 +46,14 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-source-yotpo-product`,
+      options: {
+        shopName: process.env.SHOPIFY_SHOP_NAME,
+        shopifyAccessToken: process.env.SHOPIFY_STOREFRONT_KEY,
+        yotpoAppKey: process.env.YOTPO_APP_KEY,
+      },
+    },
+    {
       resolve: `gatsby-source-shopify`,
       options: {
         // The domain name of your Shopify shop.
@@ -55,14 +63,6 @@ module.exports = {
         paginationSize: 80,
         collections: ['shop'],
         downloadImages: false,
-      },
-    },
-    {
-      resolve: `gatsby-source-yotpo-product`,
-      options: {
-        shopName: process.env.SHOPIFY_SHOP_NAME,
-        shopifyAccessToken: process.env.SHOPIFY_STOREFRONT_KEY,
-        yotpoAppKey: process.env.YOTPO_APP_KEY,
       },
     },
     `gatsby-plugin-emotion`,

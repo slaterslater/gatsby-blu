@@ -1,4 +1,5 @@
-import { GraphQLClient, gql } from 'graphql-request'
+import { GraphQLClient } from 'graphql-request'
+import gql from 'graphql-tag'
 import axios from 'axios'
 
 export const createShopifyClient = ({
