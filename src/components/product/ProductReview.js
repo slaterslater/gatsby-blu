@@ -13,12 +13,12 @@ import { ReviewStars } from './ProductReviewsTopline'
 import FormattedDate from '../FormattedDate'
 
 const ProductReview = ({
-  name,
+  user,
   score,
   title,
   content,
-  updatedAt,
-  images,
+  createdAt,
+  imagesData,
   comments,
 }) => {
   const starPercentage = (score / 5) * 100
@@ -27,14 +27,14 @@ const ProductReview = ({
     <Box>
       <Flex>
         <Box>
-          <Avatar />
+          <Avatar src={user.socialImage} />
         </Box>
         <Box sx={{ flex: 1 }} pl={6}>
           <Flex pb={2}>
-            <Text mr={4}>{name}</Text>
+            <Text mr={4}>{user.displayName}</Text>
             <Badge>Verified Buyer</Badge>
             <Text ml="auto">
-              <FormattedDate iso={updatedAt} />
+              <FormattedDate iso={createdAt} />
             </Text>
           </Flex>
           <Box pb={2}>
@@ -42,10 +42,15 @@ const ProductReview = ({
           </Box>
           <Heading>{title}</Heading>
           <Text dangerouslySetInnerHTML={{ __html: content }} />
-          {images?.length && (
-            <Flex>
-              {images.map(image => (
-                <Image src={image} key={image} />
+          {imagesData?.length && (
+            <Flex pt={4}>
+              {imagesData.map(image => (
+                <Image
+                  mr={3}
+                  sx={{ height: 100, width: 100 }}
+                  src={image.thumbUrl}
+                  key={image.thumbUrl}
+                />
               ))}
             </Flex>
           )}

@@ -78,7 +78,7 @@ async function createProductPages({ graphql, actions }) {
   `)
 
   data.allShopifyProduct.nodes.forEach(product => {
-    const productIdentifier = decodeShopifyId(product.shopifyId)
+    const productId = decodeShopifyId(product.shopifyId)
 
     actions.createPage({
       // What is the URL for this new page??
@@ -86,7 +86,7 @@ async function createProductPages({ graphql, actions }) {
       component: productTemplate,
       context: {
         handle: product.handle,
-        productIdentifier,
+        productId,
       },
     })
   })

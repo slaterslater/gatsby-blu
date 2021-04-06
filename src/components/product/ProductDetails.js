@@ -61,9 +61,9 @@ const ProductDetails = ({
           <Text sx={{ whiteSpace: 'nowrap', fontSize: 3 }}>{productPrice}</Text>
         </Grid>
         <ProductReviewsTopline
-          score={yotpoProductBottomline?.score}
+          score={yotpoProductBottomline?.averageScore}
           possibleScore={5}
-          totalReviews={yotpoProductBottomline?.totalReviews}
+          totalReviews={yotpoProductBottomline?.totalReview}
         />
       </Box>
       {metalOption && (

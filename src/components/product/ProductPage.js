@@ -10,10 +10,10 @@ import ProductReviews from './ProductReviews'
 
 const ProductPage = ({
   product: { title, description, productType, variants, vendor, images },
-  yotpoProductBottomline,
-  allYotpoProductReview,
+  yotpoProductReview,
 }) => {
   const productTitle = useProductTitle(title)
+  console.log(yotpoProductReview.bottomline)
   return (
     <Box p={4} mx="auto" sx={{ maxWidth: 1680 }}>
       <Breadcrumbs
@@ -48,11 +48,11 @@ const ProductPage = ({
             description={description}
             variants={variants}
             vendor={vendor}
-            yotpoProductBottomline={yotpoProductBottomline}
+            yotpoProductBottomline={yotpoProductReview.bottomline}
           />
         </Box>
       </Grid>
-      <ProductReviews allYotpoProductReview={allYotpoProductReview} />
+      <ProductReviews yotpoProductReview={yotpoProductReview} />
     </Box>
   )
 }
