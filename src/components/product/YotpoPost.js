@@ -1,4 +1,4 @@
-import { Box, Flex, Text, Badge, Avatar } from 'theme-ui'
+import { Heading, Box, Flex, Text, Badge, Avatar } from 'theme-ui'
 import React from 'react'
 import FormattedDate from '../FormattedDate'
 import { ReviewStars } from './ProductReviewsTopline'

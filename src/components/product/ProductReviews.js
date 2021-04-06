@@ -1,5 +1,15 @@
 import React, { useState } from 'react'
-import { Button, NavLink, Grid, Flex, Container, Divider } from 'theme-ui'
+import {
+  Text,
+  Box,
+  Button,
+  NavLink,
+  Grid,
+  Flex,
+  Container,
+  Divider,
+  Alert,
+} from 'theme-ui'
 import ProductReview from './ProductReview'
 import ProductQuestion from './ProductQuestion'
 
@@ -7,7 +17,7 @@ const ProductReviews = ({ yotpoProductReview, yotpoProductQa }) => {
   const [currentTab, setCurrentTab] = useState('reviews')
   return (
     <Container pt={8}>
-      <Flex sx={{ alignItems: 'baseline' }} pb={4}>
+      <Flex sx={{ alignItems: 'baseline' }}>
         <Flex pb={6}>
           <NavLink onClick={() => setCurrentTab('reviews')} mr={4}>
             Reviews
@@ -27,6 +37,11 @@ const ProductReviews = ({ yotpoProductReview, yotpoProductQa }) => {
               <ProductReview key={node.id} {...node} />
             </>
           ))}
+          {!yotpoProductReview?.reviews?.length && (
+            <Alert variant="empty">
+              <Text sx={{ fontSize: 1 }}>There are no questions</Text>
+            </Alert>
+          )}
         </Grid>
       )}
       {currentTab === 'qa' && (
@@ -37,6 +52,11 @@ const ProductReviews = ({ yotpoProductReview, yotpoProductQa }) => {
               <ProductQuestion key={node.id} {...node} />
             </>
           ))}
+          {!yotpoProductQa?.length && (
+            <Alert variant="empty">
+              <Text sx={{ fontSize: 1 }}>There are no questions</Text>
+            </Alert>
+          )}
         </Grid>
       )}
     </Container>

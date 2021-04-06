@@ -41,12 +41,20 @@ export default {
     wider: '.1em',
     caps: '0.2em',
   },
-  space: [0, 4, 8, 12, 16, 24, 32, 64, 96, 128, 256, 512],
+  space: [0, 4, 8, 12, 16, 24, 32, 48, 64, 96, 128, 256, 512],
   links: {
     nav: {
       textDecoration: 'none',
       color: 'inherit',
       cursor: 'pointer',
+    },
+  },
+  alerts: {
+    empty: {
+      bg: 'border',
+      color: 'darkGray',
+      justifyContent: 'center',
+      py: 5,
     },
   },
   text: {
