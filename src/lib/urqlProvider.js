@@ -5,8 +5,6 @@ const SHOPIFY_GRAPHQL_URL = `https://${process.env.GATSBY_SHOPIFY_SHOP_NAME}/api
 const SHOPIFY_STOREFRONT_ACCESS_TOKEN =
   process.env.GATSBY_SHOPIFY_STOREFRONT_KEY
 
-console.log(SHOPIFY_STOREFRONT_ACCESS_TOKEN)
-
 export const client = createClient({
   url: SHOPIFY_GRAPHQL_URL,
   fetchOptions: () => ({

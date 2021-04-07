@@ -19,3 +19,23 @@ export const UPDATE_LINE_ITEM = gql`
     }
   }
 `
+
+export const AddCheckoutLineItem = gql`
+  ${CHECKOUT_FRAGMENT}
+  mutation AddCheckoutLineItem(
+    $checkoutId: String!
+    $lineItems: [CheckoutLineItemInput!]!
+  ) {
+    mutation
+    checkoutLineItemsAdd(checkoutId: $checkoutId, lineItems: $lineItems) {
+      checkout {
+        ...CheckoutFields
+      }
+      checkoutUserErrors {
+        code
+        field
+        message
+      }
+    }
+  }
+`

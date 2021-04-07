@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { Link, Button, Text, Flex, Box, Grid, Heading } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
+import { useQuery, useMutation } from 'urql'
 import { useProductTitle } from '../ProductTitle'
 import { useFormattedPrice } from '../../hooks/utils'
 import ProductReviewsTopline from './ProductReviewsTopline'
@@ -8,6 +9,7 @@ import MetalOptionSwatch from '../MetalOptionSwatch'
 import VariantSize from './VariantSize'
 import { StoreContext } from '../../contexts/StoreContext'
 import { DrawerContext } from '../drawers'
+import { AddCheckoutLineItem } from '../../mutations/cart'
 
 const ProductDetails = ({
   title,
@@ -16,8 +18,6 @@ const ProductDetails = ({
   vendor,
   yotpoProductBottomline,
 }) => {
-  const [loading, setLoading] = useState(false)
-  const { addProductToCart } = useContext(StoreContext)
   const [, setOpenDrawer] = useContext(DrawerContext)
   const [selectedVariant, setSelectedVariant] = useState(variants[0])
   const productTitle = useProductTitle(title)
@@ -25,6 +25,9 @@ const ProductDetails = ({
     amount: selectedVariant.priceNumber,
     currency: 'CAD',
   })
+
+  const { checkoutId } = useContext(StoreContext)
+  const [{ fetching }, addCheckoutLineItem] = useMutation(AddCheckoutLineItem)
 
   const metalOption = selectedVariant.selectedOptions.find(
     opt => opt.name === 'metal'
@@ -35,9 +38,10 @@ const ProductDetails = ({
   )
 
   const addToCart = async () => {
-    setLoading(true)
-    addProductToCart(selectedVariant.shopifyId).then(() => {
-      setLoading(false)
+    addCheckoutLineItem({
+      checkoutId,
+      lineItems: [{ quantity: 1, variantId: selectedVariant.shopifyId }],
+    }).then(() => {
       setOpenDrawer('cart')
     })
   }
@@ -118,7 +122,7 @@ const ProductDetails = ({
         </Button>
         <Flex pt={4}>
           <Button
-            disabled={loading}
+            disabled={fetching}
             type="button"
             onClick={addToCart}
             sx={{ flex: 1, fontSize: 1, py: 4 }}
