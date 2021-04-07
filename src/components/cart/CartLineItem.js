@@ -1,16 +1,23 @@
 import { Flex, IconButton, Text, Box } from 'theme-ui'
 import React, { useContext } from 'react'
 import { IoIosRemove, IoIosAdd } from 'react-icons/io'
+import { FiTrash } from 'react-icons/fi'
 import { useMutation } from 'urql'
 import FormattedPrice from '../util/FormattedPrice'
 import LineItem from '../LineItem'
 import LineItemPrice from '../LineItemPrice'
-import { UPDATE_LINE_ITEM } from '../../mutations/cart'
+import {
+  UpdateCheckoutLineItem,
+  RemoveCheckoutLineItem,
+} from '../../mutations/cart'
 import { StoreContext } from '../../contexts/StoreContext'
 
 const CartLineItem = ({ onRemoveItem, item, imgSize }) => {
   const { checkoutId } = useContext(StoreContext)
-  const [updateLineItemResult, updateLineItem] = useMutation(UPDATE_LINE_ITEM)
+  const [updateLineItemResult, updateLineItem] = useMutation(
+    UpdateCheckoutLineItem
+  )
+  const [removeResult, removeLineItem] = useMutation(RemoveCheckoutLineItem)
 
   const updateQuantity = async delta => {
     try {
@@ -70,6 +77,12 @@ const CartLineItem = ({ onRemoveItem, item, imgSize }) => {
             <IoIosAdd size={16} />
           </IconButton>
         </Flex>
+        <IconButton
+          type="button"
+          onClick={() => removeLineItem({ checkoutId, lineItemIds: [item.id] })}
+        >
+          <FiTrash />
+        </IconButton>
       </Flex>
     </LineItem>
   )

@@ -1,8 +1,17 @@
 import gql from 'graphql-tag'
 import { CHECKOUT_FRAGMENT } from '../queries/checkout'
 
-export const UPDATE_LINE_ITEM = gql`
+const ERROR_FRAGMENT = gql`
+  fragment ErrorFields on CheckoutUserError {
+    code
+    field
+    message
+  }
+`
+
+export const UpdateCheckoutLineItem = gql`
   ${CHECKOUT_FRAGMENT}
+  ${ERROR_FRAGMENT}
   mutation UpdateLineItem(
     $checkoutId: ID!
     $lineItems: [CheckoutLineItemUpdateInput!]!
@@ -12,9 +21,7 @@ export const UPDATE_LINE_ITEM = gql`
         ...CheckoutFields
       }
       checkoutUserErrors {
-        code
-        field
-        message
+        ...ErrorFields
       }
     }
   }
@@ -22,19 +29,35 @@ export const UPDATE_LINE_ITEM = gql`
 
 export const AddCheckoutLineItem = gql`
   ${CHECKOUT_FRAGMENT}
+  ${ERROR_FRAGMENT}
   mutation AddCheckoutLineItem(
-    $checkoutId: String!
+    $checkoutId: ID!
     $lineItems: [CheckoutLineItemInput!]!
   ) {
-    mutation
     checkoutLineItemsAdd(checkoutId: $checkoutId, lineItems: $lineItems) {
       checkout {
         ...CheckoutFields
       }
       checkoutUserErrors {
-        code
-        field
-        message
+        ...ErrorFields
+      }
+    }
+  }
+`
+
+export const RemoveCheckoutLineItem = gql`
+  ${CHECKOUT_FRAGMENT}
+  ${ERROR_FRAGMENT}
+  mutation RemoveCheckoutLineItem($checkoutId: ID!, $lineItemIds: [ID!]!) {
+    checkoutLineItemsRemove(
+      checkoutId: $checkoutId
+      lineItemIds: $lineItemIds
+    ) {
+      checkout {
+        ...CheckoutFields
+      }
+      checkoutUserErrors {
+        ...ErrorFields
       }
     }
   }
