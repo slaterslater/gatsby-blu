@@ -2,14 +2,17 @@ import React from 'react'
 import { createClient, Provider } from 'urql'
 
 const SHOPIFY_GRAPHQL_URL = `https://${process.env.GATSBY_SHOPIFY_SHOP_NAME}/api/2021-01/graphql.json`
+const SHOPIFY_STOREFRONT_ACCESS_TOKEN =
+  process.env.GATSBY_SHOPIFY_STOREFRONT_KEY
+
+console.log(SHOPIFY_STOREFRONT_ACCESS_TOKEN)
 
 export const client = createClient({
   url: SHOPIFY_GRAPHQL_URL,
   fetchOptions: () => ({
     headers: {
       'Content-Type': 'application/graphql',
-      'X-Shopify-Storefront-Access-Token':
-        process.env.GATSBY_SHOPIFY_STOREFRONT_KEY,
+      'X-Shopify-Storefront-Access-Token': SHOPIFY_STOREFRONT_ACCESS_TOKEN,
     },
   }),
 })
