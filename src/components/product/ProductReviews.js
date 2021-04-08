@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useReducer, useState } from 'react'
 import {
   Text,
   Box,
@@ -12,22 +12,72 @@ import {
 } from 'theme-ui'
 import ProductReview from './ProductReview'
 import ProductQuestion from './ProductQuestion'
+import Modal from '../Modal'
+import ReviewForm from '../ReviewForm'
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'SET_CURRENT_TAB':
+      return { ...state, currentTab: action.currentTab }
+    case 'SET_CURRENT_MODAL':
+      return {
+        ...state,
+        modalOpen: !!action.currentModal,
+        currentModal: action.currentModal || null,
+      }
+    default:
+      return state
+  }
+}
 
 const ProductReviews = ({ yotpoProductReview, yotpoProductQa }) => {
-  const [currentTab, setCurrentTab] = useState('reviews')
+  const [{ currentTab, currentModal, modalOpen }, dispatch] = useReducer(
+    reducer,
+    {
+      currentTab: 'reviews',
+      currentModal: null,
+      modalOpen: false,
+    }
+  )
+
   return (
     <Container pt={8}>
       <Flex sx={{ alignItems: 'baseline' }}>
         <Flex pb={6}>
-          <NavLink onClick={() => setCurrentTab('reviews')} mr={4}>
+          <NavLink
+            onClick={() =>
+              dispatch({ type: 'SET_CURRENT_TAB', currentTab: 'reviews' })
+            }
+            mr={4}
+          >
             Reviews
           </NavLink>
-          <NavLink onClick={() => setCurrentTab('qa')}>Questions</NavLink>
+          <NavLink
+            onClick={() =>
+              dispatch({ type: 'SET_CURRENT_TAB', currentTab: 'questions' })
+            }
+          >
+            Questions
+          </NavLink>
         </Flex>
-        <Button type="button" ml="auto">
+        <Button
+          type="button"
+          ml="auto"
+          onClick={() =>
+            dispatch({ type: 'SET_CURRENT_MODAL', currentModal: 'review' })
+          }
+        >
           Write a Review
         </Button>
       </Flex>
+      <Modal
+        isOpen={modalOpen}
+        setOpen={nextIsOpen =>
+          dispatch({ type: 'SET_CURRENT_MODAL', currentModal: false })
+        }
+      >
+        {currentModal === 'review' && <ReviewForm />}
+      </Modal>
 
       {currentTab === 'reviews' && (
         <Grid sx={{ gridAutoFlow: 'row', gap: 7 }}>
