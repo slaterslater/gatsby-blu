@@ -9,7 +9,15 @@ import RemoteShopifyImage from '../RemoteShopifyImage'
 import ProductReviews from './ProductReviews'
 
 const ProductPage = ({
-  product: { title, description, productType, variants, vendor, images },
+  product: {
+    title,
+    description,
+    productType,
+    variants,
+    vendor,
+    images,
+    onlineStoreUrl,
+  },
   yotpoProductReview,
   yotpoProductQa,
 }) => {
@@ -55,6 +63,14 @@ const ProductPage = ({
       <ProductReviews
         yotpoProductReview={yotpoProductReview}
         yotpoProductQa={yotpoProductQa}
+        yotpoProductDetails={{
+          appkey: process.env.GATSBY_YOTPO_APP_KEY,
+          product_title: title,
+          sku: variants[0]?.sku,
+          product_description: description,
+          product_url: onlineStoreUrl,
+          product_image_url: images[0].originalSrc,
+        }}
       />
     </Box>
   )

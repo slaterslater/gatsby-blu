@@ -22,6 +22,7 @@ export const query = graphql`
       description
       productType
       vendor
+      onlineStoreUrl
       images {
         id
         originalSrc
@@ -31,6 +32,7 @@ export const query = graphql`
         shopifyId
         priceNumber
         availableForSale
+        sku
         selectedOptions {
           name
           value

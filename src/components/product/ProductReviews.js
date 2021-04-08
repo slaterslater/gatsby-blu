@@ -14,6 +14,7 @@ import ProductReview from './ProductReview'
 import ProductQuestion from './ProductQuestion'
 import Modal from '../Modal'
 import ReviewForm from '../ReviewForm'
+import QuestionForm from '../QuestionForm'
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -30,7 +31,11 @@ const reducer = (state, action) => {
   }
 }
 
-const ProductReviews = ({ yotpoProductReview, yotpoProductQa }) => {
+const ProductReviews = ({
+  yotpoProductReview,
+  yotpoProductQa,
+  yotpoProductDetails,
+}) => {
   const [{ currentTab, currentModal, modalOpen }, dispatch] = useReducer(
     reducer,
     {
@@ -62,7 +67,18 @@ const ProductReviews = ({ yotpoProductReview, yotpoProductQa }) => {
         </Flex>
         <Button
           type="button"
+          variant="inverted"
           ml="auto"
+          mr={2}
+          onClick={() =>
+            dispatch({ type: 'SET_CURRENT_MODAL', currentModal: 'question' })
+          }
+        >
+          Ask a Question
+        </Button>
+        <Button
+          type="button"
+          variant="inverted"
           onClick={() =>
             dispatch({ type: 'SET_CURRENT_MODAL', currentModal: 'review' })
           }
@@ -76,7 +92,12 @@ const ProductReviews = ({ yotpoProductReview, yotpoProductQa }) => {
           dispatch({ type: 'SET_CURRENT_MODAL', currentModal: false })
         }
       >
-        {currentModal === 'review' && <ReviewForm />}
+        {currentModal === 'review' && (
+          <ReviewForm yotpoProductDetails={yotpoProductDetails} />
+        )}
+        {currentModal === 'question' && (
+          <QuestionForm yotpoProductDetails={yotpoProductDetails} />
+        )}
       </Modal>
 
       {currentTab === 'reviews' && (

@@ -27,6 +27,10 @@ const Modal = ({ isOpen, setOpen, children }) => {
             exit={{ y: '20px', opacity: 0 }}
             transition={{ min: 0, max: 100, bounceDamping: 9, delay: '200ms' }}
             aria-label="Sidebar menu"
+            style={{
+              boxShadow: '0 0 48px rgba(0,0,0,.3)',
+              borderRadius: '3px',
+            }}
           >
             {children}
           </MotionDialogContent>

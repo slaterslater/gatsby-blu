@@ -14,16 +14,7 @@ import {
   Flex,
 } from 'theme-ui'
 import { IoIosStarOutline, IoIosStar } from 'react-icons/io'
-
-const ControlWrap = ({ label, id, name, children }) => (
-  <Box pb={3}>
-    <Label htmlFor={id} pb={2}>
-      {label}
-    </Label>
-    {children}
-    <ErrorMessage component={Text} pt={3} name={name} />
-  </Box>
-)
+import ControlWrap, { InputControl } from './util/FormControlWrap'
 
 const StarsControl = ({ label, id, name, count = 5 }) => {
   const [, { value }, { setValue }] = useField(name)
@@ -45,17 +36,6 @@ const StarsControl = ({ label, id, name, count = 5 }) => {
     </ControlWrap>
   )
 }
-const InputControl = ({ label, id, name, type, placeholder }) => (
-  <ControlWrap label={label} id={id} name={name}>
-    <Field
-      name={name}
-      id={id}
-      as={Input}
-      type={type}
-      placeholder={placeholder}
-    />
-  </ControlWrap>
-)
 
 const validationSchema = Yup.object({
   score: Yup.number().required(),
