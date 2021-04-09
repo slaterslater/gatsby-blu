@@ -26,6 +26,12 @@ const reducer = (state, action) => {
         modalOpen: !!action.currentModal,
         currentModal: action.currentModal || null,
       }
+    case 'CLOSE_MODAL':
+      return {
+        ...state,
+        modalOpen: false,
+        currentModal: null,
+      }
     default:
       return state
   }
@@ -96,7 +102,10 @@ const ProductReviews = ({
           <ReviewForm yotpoProductDetails={yotpoProductDetails} />
         )}
         {currentModal === 'question' && (
-          <QuestionForm yotpoProductDetails={yotpoProductDetails} />
+          <QuestionForm
+            yotpoProductDetails={yotpoProductDetails}
+            onClose={() => dispatch({ type: 'CLOSE_MODAL' })}
+          />
         )}
       </Modal>
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Field, ErrorMessage } from 'formik'
-import { Box, Label, Input } from 'theme-ui'
+import { Box, Label, Input, Text } from 'theme-ui'
 
 const FormControlWrap = ({ label, id, name, children }) => (
   <Box pb={3}>
