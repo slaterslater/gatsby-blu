@@ -69,7 +69,7 @@ const ProductPage = ({
           sku: variants[0]?.sku,
           product_description: description,
           product_url: onlineStoreUrl,
-          product_image_url: images[0].originalSrc,
+          product_image_url: images[0]?.originalSrc,
         }}
       />
     </Box>
