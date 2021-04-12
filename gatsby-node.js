@@ -32,6 +32,7 @@ async function createProductTypeCollectionPages({ graphql, actions }) {
     })
   })
 }
+
 async function createCollectionPages({ graphql, actions }) {
   const component = path.resolve('./src/templates/CollectionPageTemplate.js')
   // move this to sanity
@@ -92,6 +93,78 @@ async function createProductPages({ graphql, actions }) {
   })
 }
 
+async function createBlogArticlePages({ graphql, actions }) {
+  const component = path.resolve('./src/templates/BlogArticleTemplate.js')
+  const { data } = await graphql(`
+    {
+      allShopifyArticle(
+        sort: { fields: [publishedAt], order: DESC }
+        filter: { blog: { title: { eq: "blog" } } }
+      ) {
+        nodes {
+          handle
+        }
+      }
+    }
+  `)
+
+  data.allShopifyArticle.nodes.forEach(article => {
+    actions.createPage({
+      path: `/blog/news/${article.handle}`,
+      component,
+      context: {
+        handle: article.handle,
+      },
+    })
+  })
+}
+
+async function createBlogPages({ graphql, actions }) {
+  const component = path.resolve('./src/templates/BlogTemplate.js')
+
+  const { data } = await graphql(`
+    {
+      allShopifyArticle(
+        sort: { fields: [publishedAt], order: DESC }
+        filter: { blog: { title: { eq: "blog" } } }
+      ) {
+        totalCount
+      }
+    }
+  `)
+
+  const perPage = 13
+  const { totalCount } = data.allShopifyArticle
+  const totalPages = Math.ceil(totalCount / perPage)
+
+  // // paginated blog index pages
+  Array(totalPages)
+    .fill()
+    .forEach((_, i) => {
+      const skip = i * perPage
+      const limit = perPage
+
+      actions.createPage({
+        path: `/blog/news/page-${i + 1}`,
+        component,
+        context: {
+          skip,
+          limit,
+        },
+      })
+    })
+
+  // non-paginated first page
+  actions.createPage({
+    path: `/blog/news`,
+    component,
+    context: {
+      skip: 0,
+      limit: perPage,
+    },
+  })
+}
+
 export async function createPages(params) {
   // Create pages dynamically
   // Wait for all promises to be resolved before finishing this function
@@ -99,5 +172,7 @@ export async function createPages(params) {
     createProductTypeCollectionPages(params),
     createProductPages(params),
     createCollectionPages(params),
+    createBlogPages(params),
+    createBlogArticlePages(params),
   ])
 }

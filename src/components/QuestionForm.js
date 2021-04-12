@@ -24,6 +24,7 @@ const QuestionForm = ({ yotpoProductDetails, onClose }) => {
   const [success, setSuccess] = useState(false)
   if (success)
     return <YotpoFormConfirmation onClose={onClose} type="question" />
+
   return (
     <Box>
       <Heading>Ask A Question</Heading>
