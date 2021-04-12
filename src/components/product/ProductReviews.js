@@ -99,7 +99,10 @@ const ProductReviews = ({
         }
       >
         {currentModal === 'review' && (
-          <ReviewForm yotpoProductDetails={yotpoProductDetails} />
+          <ReviewForm
+            yotpoProductDetails={yotpoProductDetails}
+            onClose={() => dispatch({ type: 'CLOSE_MODAL' })}
+          />
         )}
         {currentModal === 'question' && (
           <QuestionForm
