@@ -3,13 +3,18 @@ import { Link as GatsbyLink } from 'gatsby'
 import { Grid, Box, Text, Heading, Link } from 'theme-ui'
 import RemoteShopifyImage from '../RemoteShopifyImage'
 import { truncateString } from '../../lib/truncate'
+import FluidShopifyImage from '../FluidShopifyImage'
 
 const ArticleListItem = ({ article: { handle, title, content, image } }) => {
   const to = `/blog/news/${handle}`
   return (
     <Box as="article">
       <Link as={GatsbyLink} to={to} sx={{ textDecoration: 'none' }}>
-        <RemoteShopifyImage originalSrc={image.src} altText={image.altText} />
+        <FluidShopifyImage
+          ratio={10 / 6}
+          originalSrc={image.src}
+          altText={image.altText}
+        />
       </Link>
       <Grid sx={{ gridAutoFlow: 'row', gap: 4 }} px={3} pt={4}>
         <Heading as="h6" variant="caps" sx={{ fontSize: 3 }}>

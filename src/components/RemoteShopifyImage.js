@@ -1,14 +1,20 @@
 import React, { useMemo } from 'react'
 import path from 'path-browserify'
 import PropTypes from 'prop-types'
-import { Image } from 'theme-ui'
+import { AspectImage, Image } from 'theme-ui'
 
 const getSrcWithSize = (src, size) => {
   const extName = path.extname(src)
   return src.replace(extName, `_${size}${extName}`)
 }
 
-const RemoteShopifyImage = ({ originalSrc, sizes, altText, ...props }) => {
+const RemoteShopifyImage = ({
+  originalSrc,
+  sizes,
+  ratio,
+  altText,
+  ...props
+}) => {
   const [src, srcSet] = useMemo(() => {
     const sizesArray = sizes.split(',')
 
@@ -20,6 +26,17 @@ const RemoteShopifyImage = ({ originalSrc, sizes, altText, ...props }) => {
 
     return [baseSrc, formattedSrcSet]
   }, [sizes, originalSrc])
+
+  if (ratio)
+    return (
+      <AspectImage
+        ratio={ratio}
+        src={src}
+        srcSet={srcSet}
+        alt={altText}
+        {...props}
+      />
+    )
 
   return <Image src={src} srcSet={srcSet} alt={altText} {...props} />
 }
