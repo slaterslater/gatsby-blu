@@ -1,9 +1,10 @@
 import React from 'react'
-import { graphql, Link } from 'gatsby'
-import { Heading, Box, Container } from 'theme-ui'
+import { graphql } from 'gatsby'
+import { Heading, Grid, Box, Container } from 'theme-ui'
 
 import Layout from '../components/layout'
 import TopStory from '../components/blog/TopStory'
+import ArticleListItem from '../components/blog/ArticleListItem'
 
 const BlogTemplate = props => {
   const topStory = props.data.allShopifyArticle.nodes[0]
@@ -16,11 +17,11 @@ const BlogTemplate = props => {
           title={topStory.title}
           path={topStory.handle}
         />
-        {props.data.allShopifyArticle.nodes.slice(1).map(story => (
-          <Box key={story.id}>
-            <Link to={`/blog/news/${story.handle}`}>{story.title}</Link>
-          </Box>
-        ))}
+        <Grid sx={{ gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
+          {props.data.allShopifyArticle.nodes.slice(1).map(article => (
+            <ArticleListItem article={article} key={article.id} />
+          ))}
+        </Grid>
       </Container>
     </Layout>
   )
