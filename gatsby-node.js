@@ -24,7 +24,7 @@ async function createProductTypeCollectionPages({ graphql, actions }) {
 
   data.allProductTypeNavigationJson.nodes.forEach(node => {
     actions.createPage({
-      path: node.path,
+      path: `/shop/type/${node.path}`,
       component,
       context: {
         productType: node.productType,
@@ -83,7 +83,7 @@ async function createProductPages({ graphql, actions }) {
 
     actions.createPage({
       // What is the URL for this new page??
-      path: `shop/products/${product.handle}`,
+      path: `/shop/products/${product.handle}`,
       component: productTemplate,
       context: {
         handle: product.handle,
@@ -137,7 +137,7 @@ async function createBlogPages({ graphql, actions }) {
   const { totalCount } = data.allShopifyArticle
   const totalPages = Math.ceil(totalCount / perPage)
 
-  // // paginated blog index pages
+  //  paginated blog index pages
   Array(totalPages)
     .fill()
     .forEach((_, i) => {
@@ -168,6 +168,29 @@ async function createBlogPages({ graphql, actions }) {
   })
 }
 
+async function createPagePages({ graphql, actions }) {
+  const component = path.resolve('./src/templates/PageTemplate.js')
+  const { data } = await graphql(`
+    {
+      allShopifyPage {
+        nodes {
+          handle
+        }
+      }
+    }
+  `)
+
+  data.allShopifyPage.nodes.forEach(page => {
+    actions.createPage({
+      path: `/pages/${page.handle}`,
+      component,
+      context: {
+        handle: page.handle,
+      },
+    })
+  })
+}
+
 export async function createPages(params) {
   // Create pages dynamically
   // Wait for all promises to be resolved before finishing this function
@@ -177,5 +200,6 @@ export async function createPages(params) {
     createCollectionPages(params),
     createBlogPages(params),
     createBlogArticlePages(params),
+    createPagePages(params),
   ])
 }
