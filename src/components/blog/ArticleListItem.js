@@ -9,15 +9,15 @@ const ArticleListItem = ({ article: { handle, title, content, image } }) => {
   const to = `/blog/news/${handle}`
   return (
     <Box as="article">
-      <Link as={GatsbyLink} to={to} sx={{ textDecoration: 'none' }}>
-        {image && (
+      {image && (
+        <Link as={GatsbyLink} to={to} sx={{ textDecoration: 'none' }}>
           <FluidShopifyImage
             ratio={10 / 6}
             originalSrc={image.src}
             altText={image.altText}
           />
-        )}
-      </Link>
+        </Link>
+      )}
       <Grid sx={{ gridAutoFlow: 'row', gap: 4 }} px={3} pt={4}>
         <Heading as="h6" variant="caps" sx={{ fontSize: 3 }}>
           {title}
