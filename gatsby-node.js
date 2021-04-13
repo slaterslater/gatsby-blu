@@ -143,13 +143,15 @@ async function createBlogPages({ graphql, actions }) {
     .forEach((_, i) => {
       const skip = i * perPage
       const limit = perPage
+      const currentPage = i + 1
 
       actions.createPage({
-        path: `/blog/news/page-${i + 1}`,
+        path: `/blog/news/page-${currentPage}`,
         component,
         context: {
           skip,
           limit,
+          currentPage,
         },
       })
     })
@@ -161,6 +163,7 @@ async function createBlogPages({ graphql, actions }) {
     context: {
       skip: 0,
       limit: perPage,
+      currentPage: 1,
     },
   })
 }
