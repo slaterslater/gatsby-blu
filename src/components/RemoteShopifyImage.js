@@ -12,7 +12,6 @@ const getSrcWithSize = (src, size) => {
 
 const useShopifyImageCDNSizes = (originalSrc, sizes = defaultSizes) =>
   useMemo(() => {
-    console.log(sizes)
     const baseSrc = getSrcWithSize(originalSrc, `${sizes[0]}x`)
 
     const formattedSrcSet = sizes.map(
