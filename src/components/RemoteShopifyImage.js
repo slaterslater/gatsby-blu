@@ -3,29 +3,33 @@ import path from 'path-browserify'
 import PropTypes from 'prop-types'
 import { AspectImage, Image } from 'theme-ui'
 
+const defaultSizes = [400, 500, 600, 800]
+
 const getSrcWithSize = (src, size) => {
   const extName = path.extname(src)
   return src.replace(extName, `_${size}${extName}`)
 }
 
-const RemoteShopifyImage = ({
-  originalSrc,
-  sizes,
-  ratio,
-  altText,
-  ...props
-}) => {
-  const [src, srcSet] = useMemo(() => {
-    const sizesArray = sizes.split(',')
+const useShopifyImageCDNSizes = (originalSrc, sizes = defaultSizes) =>
+  useMemo(() => {
+    console.log(sizes)
+    const baseSrc = getSrcWithSize(originalSrc, `${sizes[0]}x`)
 
-    const baseSrc = getSrcWithSize(originalSrc, `${sizesArray[0]}x`)
-
-    const formattedSrcSet = sizesArray.map(
+    const formattedSrcSet = sizes.map(
       width => `${getSrcWithSize(originalSrc, `${width}x`)} ${width}w`
     )
 
     return [baseSrc, formattedSrcSet]
   }, [sizes, originalSrc])
+
+const RemoteShopifyImage = ({
+  originalSrc,
+  ratio,
+  sizes,
+  altText,
+  ...props
+}) => {
+  const [src, srcSet] = useShopifyImageCDNSizes(originalSrc, sizes)
 
   if (ratio)
     return (
@@ -42,13 +46,13 @@ const RemoteShopifyImage = ({
 }
 
 RemoteShopifyImage.defaultProps = {
-  sizes: '400,500,600,800',
+  sizes: defaultSizes,
   altText: '',
 }
 
 RemoteShopifyImage.propTypes = {
   originalSrc: PropTypes.string.isRequired,
-  sizes: PropTypes.string,
+  sizes: PropTypes.arrayOf(PropTypes.number),
   altText: PropTypes.string,
 }
 

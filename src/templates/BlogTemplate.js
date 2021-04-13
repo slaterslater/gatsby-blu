@@ -11,13 +11,9 @@ const BlogTemplate = props => {
   return (
     <Layout>
       <Container>
-        <Heading>Blog</Heading>
-        <TopStory
-          image={topStory.image}
-          title={topStory.title}
-          path={topStory.handle}
-        />
-        <Grid sx={{ gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
+        <Heading pb={4}>Blog</Heading>
+        <TopStory article={topStory} mb={[6, 6, 7]} />
+        <Grid sx={{ gridTemplateColumns: 'repeat(3, 1fr)', gap: [6, 6, 7] }}>
           {props.data.allShopifyArticle.nodes.slice(1).map(article => (
             <ArticleListItem article={article} key={article.id} />
           ))}
