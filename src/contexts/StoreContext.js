@@ -17,6 +17,17 @@ const initialValues = {
 
 export const StoreContext = createContext(initialValues)
 
+const getNewCheckout = async () => {
+  let newCheckout
+  try {
+    newCheckout = await client.checkout.create()
+    localStorage.setItem(STORAGE_CHECKOUT_ID, newCheckout.id)
+  } catch (e) {
+    console.error(e)
+  }
+  return newCheckout
+}
+
 const StoreProvider = props => {
   const [checkoutId, setCheckoutId] = useState(initialValues.checkoutId)
   const [checkout, setCheckout] = useState(initialValues.checkout)
@@ -32,9 +43,11 @@ const StoreProvider = props => {
       let newCheckout = null
       if (currentCheckoutId) {
         newCheckout = await client.checkout.fetch(currentCheckoutId)
+        if (newCheckout.completedAt) {
+          newCheckout = await getNewCheckout()
+        }
       } else {
-        newCheckout = await client.checkout.create()
-        localStorage.setItem(STORAGE_CHECKOUT_ID, newCheckout.id)
+        newCheckout = await getNewCheckout()
       }
       setCheckout(newCheckout)
       setCheckoutId(newCheckout.id)

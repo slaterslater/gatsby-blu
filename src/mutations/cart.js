@@ -62,3 +62,27 @@ export const RemoveCheckoutLineItem = gql`
     }
   }
 `
+
+export const AssociateCustomerWithCheckout = gql`
+  ${CHECKOUT_FRAGMENT}
+  ${ERROR_FRAGMENT}
+  mutation associateCustomerWithCheckout(
+    $checkoutId: ID!
+    $customerAccessToken: String!
+  ) {
+    checkoutCustomerAssociateV2(
+      checkoutId: $checkoutId
+      customerAccessToken: $customerAccessToken
+    ) {
+      checkout {
+        ...CheckoutFields
+      }
+      checkoutUserErrors {
+        ...ErrorFields
+      }
+      customer {
+        id
+      }
+    }
+  }
+`

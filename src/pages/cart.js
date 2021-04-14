@@ -1,19 +1,35 @@
 import { Flex, Button, Box, Container, Grid } from 'theme-ui'
-import React, { useContext } from 'react'
-import { useQuery } from 'urql'
+import React, { useContext, useEffect } from 'react'
+import { useQuery, useMutation } from 'urql'
 import Layout from '../components/layout'
 import { CHECKOUT_QUERY } from '../queries/checkout'
 import CartLineItem from '../components/cart/CartLineItem'
 import { OrderSummary } from '../components/cart/OrderSummary'
 import { StoreContext } from '../contexts/StoreContext'
+import { AuthContext } from '../contexts/AuthContext'
+import { AssociateCustomerWithCheckout } from '../mutations/cart'
 
 const ShoppingCartPage = props => {
   const { checkoutId } = useContext(StoreContext)
+  const { accessToken } = useContext(AuthContext)
   const [{ data, fetching }] = useQuery({
     query: CHECKOUT_QUERY,
     variables: { checkoutId },
     pause: !checkoutId,
   })
+
+  const [, associateCustomerWithCheckout] = useMutation(
+    AssociateCustomerWithCheckout
+  )
+
+  useEffect(() => {
+    if ((accessToken, checkoutId)) {
+      associateCustomerWithCheckout({
+        checkoutId,
+        customerAccessToken: accessToken,
+      })
+    }
+  }, [accessToken, checkoutId, associateCustomerWithCheckout])
 
   return (
     <Layout>
@@ -34,7 +50,12 @@ const ShoppingCartPage = props => {
                 requiresShipping={data.node.requiresShipping}
               />
               <Flex p={4}>
-                <Button type="button" sx={{ flex: 1 }}>
+                <Button
+                  as="a"
+                  href={data?.node.webUrl}
+                  type="button"
+                  sx={{ flex: 1 }}
+                >
                   Checkout
                 </Button>
               </Flex>

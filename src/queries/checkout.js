@@ -2,6 +2,9 @@ import gql from 'graphql-tag'
 
 export const CHECKOUT_FRAGMENT = gql`
   fragment CheckoutFields on Checkout {
+    id
+    webUrl
+    completedAt
     lineItems(first: 250) {
       edges {
         node {
