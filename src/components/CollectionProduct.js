@@ -1,10 +1,9 @@
 import React, { useMemo } from 'react'
-// import { GatsbyImage } from "gatsby-plugin-image";
-import { Box, Flex, Text, Grid } from 'theme-ui'
-import { Link } from 'gatsby'
+import { Box, Flex, Text, Grid, Link } from 'theme-ui'
+import { Link as GatsbyLink } from 'gatsby'
 import { useProductTitle } from '../hooks/product'
 import { useFormattedPrice } from '../hooks/utils'
-import RemoteShopifyImage from './RemoteShopifyImage'
+import FluidShopifyImage from './FluidShopifyImage'
 
 const CollectionProduct = ({ product }) => {
   const fromPrice = useFormattedPrice({
@@ -20,7 +19,8 @@ const CollectionProduct = ({ product }) => {
         {/*   image={product.images[0]?.localFile?.childImageSharp?.gatsbyImageData} */}
         {/* /> */}
         {firstImage && (
-          <RemoteShopifyImage
+          <FluidShopifyImage
+            ratio={1 / 1}
             originalSrc={firstImage.originalSrc}
             altText={firstImage.altText}
           />
@@ -41,7 +41,13 @@ const CollectionProduct = ({ product }) => {
               color: '#454545',
             }}
           >
-            <Link to={`/shop/products/${product.handle}`}>{title}</Link>
+            <Link
+              as={GatsbyLink}
+              to={`/shop/products/${product.handle}`}
+              sx={{ textDecoration: 'none' }}
+            >
+              {title}
+            </Link>
           </Text>
           <Text
             as="p"

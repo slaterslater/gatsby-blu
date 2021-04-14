@@ -36,20 +36,20 @@ const SectionLink = props => (
 )
 
 const exploreLinks = [
-  { to: '/faq', label: 'faq & help' },
-  { to: '/necklace-sizing-chart', label: 'necklace sizing chart' },
-  { to: '/ring-sizer', label: 'ring sizer' },
-  { to: '/exchanges', label: 'exchanges' },
-  { to: '/shipping', label: 'shipping & special info' },
-  { to: '/privacy-policy', label: 'privacy policy' },
-  { to: '/terms-of-service', label: 'terms of service' },
+  { to: '/pages/faq', label: 'faq & help' },
+  { to: '/pages/necklace-sizing-chart', label: 'necklace sizing chart' },
+  { to: '/shop/products/bluboho-ring-sizer', label: 'ring sizer' },
+  { to: '/pages/exchange-policy', label: 'exchanges' },
+  { to: '/pages/shipping', label: 'shipping & special info' },
+  { to: '/pages/privacy-policy', label: 'privacy policy' },
+  { to: '/pages/terms-of-service', label: 'terms of service' },
 ]
 
 const bluFamLinks = [
-  { to: '/contact', label: 'contact & locations' },
-  { to: '/gift-cards', label: 'gift cards' },
-  { to: '/subscribe', label: 'subscribe to keep in touch' },
-  { to: '/jewelry-care', label: 'jewelry care & wear' },
+  { to: '/pages/locations-and-hours', label: 'contact & locations' },
+  { to: '/shop/products/gift-card', label: 'gift cards' },
+  { to: '/newsletter', label: 'subscribe to keep in touch' },
+  { to: '/pages/care-and-wear-disclaimer', label: 'jewelry care & wear' },
 ]
 
 const Footer = props => (

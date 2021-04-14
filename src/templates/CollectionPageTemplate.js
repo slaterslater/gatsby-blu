@@ -1,6 +1,6 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import { Box, Divider, Flex, Heading, Text } from 'theme-ui'
+import { Container, Box, Divider, Flex, Heading, Text } from 'theme-ui'
 import pluralize from 'pluralize'
 import Layout from '../components/layout'
 import ProductGrid from '../components/collection/CollectionProductGrid'
@@ -10,7 +10,7 @@ const CollectionPageTemplate = ({ data }) => {
 
   return (
     <Layout>
-      <Box variant="sectionWrap" mx="auto" p={6} sx={{ maxWidth: 1444 }}>
+      <Container>
         <Flex sx={{ justifyContent: 'space-between', alignItems: 'baseline' }}>
           <Box>
             <Heading as="h1">{title}</Heading>
@@ -24,7 +24,7 @@ const CollectionPageTemplate = ({ data }) => {
         </Flex>
         <Divider my={3} />
         <ProductGrid products={products} />
-      </Box>
+      </Container>
     </Layout>
   )
 }

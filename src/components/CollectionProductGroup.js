@@ -19,7 +19,7 @@ const CollectionProductGroup = ({ groupType, children }) => (
     <Grid
       as="section"
       sx={{
-        gap: 5,
+        gap: 6,
         gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
       }}
       pt={4}

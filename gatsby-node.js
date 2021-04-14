@@ -24,7 +24,7 @@ async function createProductTypeCollectionPages({ graphql, actions }) {
 
   data.allProductTypeNavigationJson.nodes.forEach(node => {
     actions.createPage({
-      path: `/shop/type/${node.path}`,
+      path: node.path,
       component,
       context: {
         productType: node.productType,
