@@ -43,7 +43,7 @@ const CollectionProduct = ({ product }) => {
           >
             <Link
               as={GatsbyLink}
-              to={`/shop/products/${product.handle}`}
+              to={`/products/${product.handle}`}
               sx={{ textDecoration: 'none' }}
             >
               {title}

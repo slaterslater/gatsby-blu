@@ -83,7 +83,7 @@ async function createProductPages({ graphql, actions }) {
 
     actions.createPage({
       // What is the URL for this new page??
-      path: `/shop/products/${product.handle}`,
+      path: `/products/${product.handle}`,
       component: productTemplate,
       context: {
         handle: product.handle,
