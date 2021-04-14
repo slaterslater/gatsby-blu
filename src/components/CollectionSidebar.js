@@ -47,7 +47,7 @@ const CollectionSidebar = () => {
         flexWrap: 'nowrap',
       }}
     >
-      <NavigationLink to="/collections/new-arrivals">
+      <NavigationLink to="/collections/newarrivals">
         New Arrivals
       </NavigationLink>
       <NavigationLink to="/collections/best-sellers">

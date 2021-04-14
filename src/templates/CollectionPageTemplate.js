@@ -12,7 +12,7 @@ const CollectionPageTemplate = ({ data }) => {
     <Layout>
       <Container>
         <Flex sx={{ justifyContent: 'space-between', alignItems: 'baseline' }}>
-          <Box>
+          <Box sx={{ flex: 1 }} pr={4}>
             <Heading as="h1">{title}</Heading>
             {description && <Text>{description}</Text>}
           </Box>

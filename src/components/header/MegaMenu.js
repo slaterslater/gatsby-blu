@@ -28,7 +28,7 @@ const shopMenus = [
       { path: '/collections/best-sellers', text: 'Best Sellers' },
       { path: '/collections/last-chance', text: 'Last Chance' },
       { path: '/collections/the-revival-collection', text: 'Revival' },
-      { path: '/collections/imprint', text: 'Imprint' },
+      { path: '/collections/imprint-collection', text: 'Imprint' },
       { path: '/collections/tashi', text: 'Tashi Silver Jewelry' },
     ],
   },
