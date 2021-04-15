@@ -1,9 +1,43 @@
 import React, { useMemo } from 'react'
-import { Flex, Box, Text, Grid, Link } from 'theme-ui'
+import { Flex, Box, Text, Grid, Link, AspectRatio } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
+import { motion } from 'framer-motion'
 import { useProductTitle } from '../hooks/product'
 import { useFormattedPrice } from '../hooks/utils'
 import FluidShopifyImage from './FluidShopifyImage'
+
+const MotionBox = motion(Box)
+
+const CollectionThumbnail = ({ primary, alternate }) => {
+  if (!primary && !alternate)
+    return <AspectRatio sx={{ bg: 'cream' }} ratio={1 / 1} />
+
+  return (
+    <Grid>
+      {primary && (
+        <MotionBox
+          sx={{ gridArea: '1 / 1 / -1 / -1', zIndex: 1 }}
+          whileHover={{ opacity: alternate ? 0 : 1 }}
+        >
+          <FluidShopifyImage
+            ratio={1 / 1}
+            originalSrc={primary.originalSrc}
+            altText={primary.altText}
+          />
+        </MotionBox>
+      )}
+      {alternate && (
+        <Box sx={{ gridArea: '1 / 1 / -1 / -1' }}>
+          <FluidShopifyImage
+            ratio={1 / 1}
+            originalSrc={alternate.originalSrc}
+            altText={alternate.altText}
+          />
+        </Box>
+      )}
+    </Grid>
+  )
+}
 
 const CollectionProduct = ({ product, images }) => {
   const fromPrice = useFormattedPrice({
@@ -16,19 +50,9 @@ const CollectionProduct = ({ product, images }) => {
 
   return (
     <Flex sx={{ flexDirection: 'column' }} as="article">
-      <Box>
-        {/* <GatsbyImage */}
-        {/*   image={product.images[0]?.localFile?.childImageSharp?.gatsbyImageData} */}
-        {/* /> */}
-        {firstImage && (
-          <FluidShopifyImage
-            ratio={1 / 1}
-            originalSrc={firstImage.originalSrc}
-            altText={firstImage.altText}
-          />
-        )}
-      </Box>
+      <CollectionThumbnail primary={firstImage} alternate={secondImage} />
       <Flex
+        pt={2}
         sx={{ flex: 1, flexDirection: 'column', alignItems: 'space-between' }}
       >
         <Box mb="auto" sx={{ alignSelf: 'top', textAlign: 'center' }}>
@@ -59,7 +83,6 @@ const CollectionProduct = ({ product, images }) => {
           >
             {fromPrice}
           </Text>
-          {/* <div>metal variants</div> */}
         </Box>
       </Flex>
     </Flex>
