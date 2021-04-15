@@ -39,7 +39,7 @@ const CollectionSidebar = () => {
 
   return (
     <Flex
-      p={3}
+      mt={[0, 9]}
       as="nav"
       sx={{
         flexDirection: ['row', 'column'],
@@ -53,8 +53,6 @@ const CollectionSidebar = () => {
       <NavigationLink to="/collections/best-sellers">
         Best Sellers
       </NavigationLink>
-
-      <Divider />
       {data.allProductTypeNavigationJson.nodes.map(({ path, text }) => (
         <NavigationLink to={path} key={`${text}-sidebar`}>
           {text}

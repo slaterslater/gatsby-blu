@@ -1,7 +1,8 @@
 import React from 'react'
 import { graphql } from 'gatsby'
+import { Divider, Container } from 'theme-ui'
 import Layout from '../components/layout'
-import CollectionPageHeader from '../components/CollectionPageHeader'
+import ResultsHeader from '../components/collection/ResultsHeader'
 import ProductTypeCollectionPage from '../components/ProductTypeCollectionPage'
 
 const ProductTypeCollection = ({ data }) => {
@@ -10,13 +11,17 @@ const ProductTypeCollection = ({ data }) => {
 
   return (
     <Layout>
-      <ProductTypeCollectionPage products={nodes}>
-        <CollectionPageHeader
-          title={text}
-          description="a longer bit of description text, soon to come from collection facets"
-          mb={6}
-        />
-      </ProductTypeCollectionPage>
+      <Container>
+        <ProductTypeCollectionPage products={nodes}>
+          <ResultsHeader
+            title={text}
+            description={`${text}: pretty great`}
+            resultType="products"
+            count={totalCount}
+          />
+          <Divider mt={4} />
+        </ProductTypeCollectionPage>
+      </Container>
     </Layout>
   )
 }

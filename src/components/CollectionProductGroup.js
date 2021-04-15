@@ -20,7 +20,10 @@ const CollectionProductGroup = ({ groupType, children }) => (
       as="section"
       sx={{
         gap: 6,
-        gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
+        gridTemplateColumns: [
+          'repeat(2, 1fr)',
+          'repeat(auto-fill, minmax(240px, 1fr))',
+        ],
       }}
       pt={4}
     >

@@ -10,13 +10,14 @@ const CollectionPage = ({ children, products }) => (
       display: ['block', 'grid'],
       gridTemplateColumns: ['1fr', 'max-content 1fr'],
       position: 'relative',
+      gap: [0, 6],
     }}
   >
-    <Box as="aside" p={[0, 4]}>
+    <Box as="aside">
       <Box
         sx={{
           position: 'sticky',
-          top: 0,
+          top: [0, 80],
         }}
       >
         <CollectionSidebar />

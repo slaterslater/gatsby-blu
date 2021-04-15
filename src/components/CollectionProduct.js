@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { Box, Flex, Text, Grid, Link } from 'theme-ui'
+import { Flex, Box, Text, Grid, Link } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
 import { useProductTitle } from '../hooks/product'
 import { useFormattedPrice } from '../hooks/utils'
@@ -12,9 +12,10 @@ const CollectionProduct = ({ product }) => {
   })
   const title = useProductTitle(product.title)
   const firstImage = product.images[0]
+
   return (
     <Flex sx={{ flexDirection: 'column' }} as="article">
-      <Box sx={{ flex: 1 }}>
+      <Box>
         {/* <GatsbyImage */}
         {/*   image={product.images[0]?.localFile?.childImageSharp?.gatsbyImageData} */}
         {/* /> */}
@@ -26,14 +27,10 @@ const CollectionProduct = ({ product }) => {
           />
         )}
       </Box>
-      <Box mt="auto" sx={{ height: 80 }} pt={2}>
-        <Grid
-          sx={{
-            gridTemplateColumns: '1fr max-content',
-            gap: 2,
-            justifyContent: 'space-between',
-          }}
-        >
+      <Flex
+        sx={{ flex: 1, flexDirection: 'column', alignItems: 'space-between' }}
+      >
+        <Box mb="auto" sx={{ alignSelf: 'top', textAlign: 'center' }}>
           <Text
             as="h6"
             variant="caps"
@@ -49,6 +46,8 @@ const CollectionProduct = ({ product }) => {
               {title}
             </Link>
           </Text>
+        </Box>
+        <Box pt={1} sx={{ textAlign: 'center' }}>
           <Text
             as="p"
             variant="caps"
@@ -59,9 +58,9 @@ const CollectionProduct = ({ product }) => {
           >
             {fromPrice}
           </Text>
-        </Grid>
-        {/* <div>metal variants</div> */}
-      </Box>
+          {/* <div>metal variants</div> */}
+        </Box>
+      </Flex>
     </Flex>
   )
 }
