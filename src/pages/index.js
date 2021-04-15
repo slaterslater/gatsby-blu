@@ -69,31 +69,38 @@ const IndexPage = ({ data }) => (
 
 export default IndexPage
 
-export const query = graphql`{
-  necklaceFile: file(relativePath: {eq: "collection-slider-necklaces.jpg"}) {
-    childImageSharp {
-      gatsbyImageData(layout: FULL_WIDTH)
+export const query = graphql`
+  {
+    necklaceFile: file(
+      relativePath: { eq: "collection-slider-necklaces.jpg" }
+    ) {
+      childImageSharp {
+        gatsbyImageData(layout: FULL_WIDTH)
+      }
+    }
+    ringFile: file(relativePath: { eq: "collection-slider-rings.jpg" }) {
+      childImageSharp {
+        gatsbyImageData(layout: FULL_WIDTH)
+      }
+    }
+    earringFile: file(relativePath: { eq: "collection-slider-earrings.jpg" }) {
+      childImageSharp {
+        gatsbyImageData(layout: FULL_WIDTH)
+      }
+    }
+    engagementFile: file(
+      relativePath: { eq: "collection-slider-engagement.jpg" }
+    ) {
+      childImageSharp {
+        gatsbyImageData(layout: FULL_WIDTH)
+      }
+    }
+    braceletFile: file(
+      relativePath: { eq: "collection-slider-bracelets.jpg" }
+    ) {
+      childImageSharp {
+        gatsbyImageData(layout: FULL_WIDTH)
+      }
     }
   }
-  ringFile: file(relativePath: {eq: "collection-slider-rings.jpg"}) {
-    childImageSharp {
-      gatsbyImageData(layout: FULL_WIDTH)
-    }
-  }
-  earringFile: file(relativePath: {eq: "collection-slider-earrings.jpg"}) {
-    childImageSharp {
-      gatsbyImageData(layout: FULL_WIDTH)
-    }
-  }
-  engagementFile: file(relativePath: {eq: "collection-slider-engagement.jpg"}) {
-    childImageSharp {
-      gatsbyImageData(layout: FULL_WIDTH)
-    }
-  }
-  braceletFile: file(relativePath: {eq: "collection-slider-bracelets.jpg"}) {
-    childImageSharp {
-      gatsbyImageData(layout: FULL_WIDTH)
-    }
-  }
-}
 `
