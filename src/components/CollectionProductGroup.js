@@ -22,6 +22,7 @@ const CollectionProductGroup = ({ groupType, children }) => (
         gap: 6,
         gridTemplateColumns: [
           'repeat(2, 1fr)',
+          'repeat(auto-fill, minmax(190px, 1fr))',
           'repeat(auto-fill, minmax(240px, 1fr))',
         ],
       }}

@@ -9,6 +9,12 @@ export const PRODUCT_QUERY = gql`
           handle
           title
           availableForSale
+          priceRange {
+            minVariantPrice {
+              amount
+              currencyCode
+            }
+          }
           images(first: 2) {
             edges {
               node {

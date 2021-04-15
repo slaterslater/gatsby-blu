@@ -5,13 +5,14 @@ import { useProductTitle } from '../hooks/product'
 import { useFormattedPrice } from '../hooks/utils'
 import FluidShopifyImage from './FluidShopifyImage'
 
-const CollectionProduct = ({ product }) => {
+const CollectionProduct = ({ product, images }) => {
   const fromPrice = useFormattedPrice({
     currency: product.priceRange.minVariantPrice.currencyCode,
     amount: product.priceRange.minVariantPrice.amount,
   })
   const title = useProductTitle(product.title)
-  const firstImage = product.images[0]
+  const firstImage = images[0]
+  const secondImage = images[1]
 
   return (
     <Flex sx={{ flexDirection: 'column' }} as="article">

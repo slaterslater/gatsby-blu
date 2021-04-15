@@ -45,7 +45,11 @@ const ProductTypeCollectionPage = ({ children, products }) => {
           {Object.keys(productGroups).map(key => (
             <CollectionProductGroup groupType={key} key={key}>
               {productGroups[key].map(product => (
-                <CollectionProduct key={product.id} product={product} />
+                <CollectionProduct
+                  key={product.id}
+                  product={product}
+                  images={product.images}
+                />
               ))}
             </CollectionProductGroup>
           ))}
