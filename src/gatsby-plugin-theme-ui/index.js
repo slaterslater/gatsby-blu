@@ -148,11 +148,6 @@ export default {
       py: 6,
       px: [5, 6, 6, 7],
     },
-    productDetailSection: {
-      py: 4,
-      borderBottom: '1px solid',
-      borderColor: 'border',
-    },
   },
   layout: {
     container: {

@@ -8,8 +8,6 @@ const Breadcrumbs = ({ links, currentPage, children }) => (
     py={3}
     px={4}
     sx={{
-      borderBottom: '1px solid',
-      borderColor: 'border',
       alignItems: 'center',
       height: 46,
     }}

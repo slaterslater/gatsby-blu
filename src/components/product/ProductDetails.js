@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Link, Button, Text, Flex, Box, Grid, Heading } from 'theme-ui'
+import { Divider, Link, Button, Text, Flex, Box, Grid, Heading } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
 import { useQuery, useMutation } from 'urql'
 import { useProductTitle } from '../ProductTitle'
@@ -50,7 +50,7 @@ const ProductDetails = ({
 
   return (
     <Box sx={{ position: 'sticky', top: 0 }}>
-      <Box variant="productDetailSection" pt={0}>
+      <Box>
         <Grid
           sx={{
             gridTemplateColumns: '1fr max-content',
@@ -71,7 +71,7 @@ const ProductDetails = ({
         />
       </Box>
       {metalOption && (
-        <Box variant="productDetailSection">
+        <Box pt={4}>
           <Heading as="h5" sx={{ fontSize: 3 }}>
             {metalOption.value}
           </Heading>
@@ -80,11 +80,11 @@ const ProductDetails = ({
           </Flex>
         </Box>
       )}
-      <Box variant="productDetailSection">
+      <Box py={4}>
         {hasSizeVariants && (
           <>
             <Heading as="h5" sx={{ fontSize: 3 }} pb={4}>
-              Select a size
+              select a size
             </Heading>
             <Grid
               sx={{
@@ -131,42 +131,23 @@ const ProductDetails = ({
           </Button>
         </Flex>
       </Box>
-      <Box variant="productDetailSection">
+      <Box py={4}>
         <Heading as="h5" sx={{ fontSize: 3 }}>
-          Details
+          description
         </Heading>
-        <Box>
-          <Box
-            as="ul"
-            sx={{
-              lineHeight: 1.75,
-              fontSize: 1,
-              py: 1,
-              px: 4,
-              pb: 6,
-            }}
-          >
-            <li>
-              by{' '}
-              <Link as={GatsbyLink} to={`/shop/vendor/${vendor}`}>
-                {vendor}
-              </Link>
-            </li>
-            <li>made in toronto</li>
-            <li>recycled gold</li>
-            <li>model wearing size 7</li>
-            <li>this list is fixed</li>
-            <li>other details from sanity</li>
-          </Box>
+        <Box py={1}>
+          <Text sx={{ lineHeight: 1.75, fontSize: 1, maxWidth: '70ch' }}>
+            {description}
+          </Text>
         </Box>
-        <Heading as="h5" sx={{ fontSize: 3 }}>
-          Description
-        </Heading>
-        <Text
-          sx={{ lineHeight: 1.75, fontSize: 1, maxWidth: '70ch', py: 1, px: 2 }}
-        >
-          {description}
-        </Text>
+        <Box>
+          <Text>
+            by{' '}
+            <Link as={GatsbyLink} to={`/shop/vendor/${vendor}`}>
+              {vendor}
+            </Link>
+          </Text>
+        </Box>
       </Box>
       <Box>link to collection</Box>
       <Box>model wearing thumbnails</Box>

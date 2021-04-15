@@ -1,9 +1,9 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import { Container, Box, Divider, Flex, Heading, Text } from 'theme-ui'
-import pluralize from 'pluralize'
+import { Container, Divider, Text } from 'theme-ui'
 import Layout from '../components/layout'
 import ProductGrid from '../components/collection/CollectionProductGrid'
+import ResultsHeader from '../components/collection/ResultsHeader'
 
 const CollectionPageTemplate = ({ data }) => {
   const { products, title, description } = data.shopifyCollection
@@ -11,17 +11,12 @@ const CollectionPageTemplate = ({ data }) => {
   return (
     <Layout>
       <Container>
-        <Flex sx={{ justifyContent: 'space-between', alignItems: 'baseline' }}>
-          <Box sx={{ flex: 1 }} pr={4}>
-            <Heading as="h1">{title}</Heading>
-            {description && <Text>{description}</Text>}
-          </Box>
-          <Box>
-            <Text variant="caps">
-              {pluralize('Products', products?.length || 0, true)}
-            </Text>
-          </Box>
-        </Flex>
+        <ResultsHeader
+          title={title}
+          description={description}
+          resultType="products"
+          count={products?.length || 0}
+        />
         <Divider my={3} />
         <ProductGrid products={products} />
       </Container>
