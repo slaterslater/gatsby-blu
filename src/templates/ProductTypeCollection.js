@@ -12,6 +12,29 @@ const ProductTypeCollection = ({ data }) => {
   // if route has filter or sort param, make true
   const [isOpen, setOpen] = useState(false)
 
+  const filterOptions = nodes.reduce((acc, el) => {
+    const nextFilters = acc
+
+    el.variants.forEach(variant => {
+      variant.selectedOptions.forEach(option => {
+        const filterCategory = option.name.toLowerCase()
+        if (!nextFilters[filterCategory]) {
+          nextFilters[filterCategory] = []
+        }
+
+        nextFilters[filterCategory] = Array.from(
+          new Set([...nextFilters[filterCategory], option.value.toLowerCase()])
+        )
+      })
+    })
+
+    return nextFilters
+  }, {})
+
+  if (typeof window !== undefined) {
+    console.log(filterOptions)
+  }
+
   return (
     <Layout>
       <Container>
@@ -70,6 +93,12 @@ export const query = graphql`
         images {
           originalSrc
           altText
+        }
+        variants {
+          selectedOptions {
+            name
+            value
+          }
         }
       }
     }

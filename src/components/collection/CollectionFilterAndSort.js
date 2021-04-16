@@ -1,12 +1,14 @@
-import React from 'react'
-import { Grid, Box, Text } from 'theme-ui'
+import React, { useState } from 'react'
+import { Grid, Box, Text, Checkbox } from 'theme-ui'
+import { useLocation } from '@reach/router'
 
 const CollectionFilterAndSort = ({ isOpen }) => {
-  if (!isOpen) return false
+  const location = useLocation()
+
   return (
     <Grid>
       <Box>
-        <Text variant="caps">Filter</Text>
+        <Text>Sort</Text>
       </Box>
     </Grid>
   )
