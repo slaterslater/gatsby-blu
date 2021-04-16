@@ -1,13 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { graphql } from 'gatsby'
-import { Divider, Container } from 'theme-ui'
+import { Box, Link, Divider, Container } from 'theme-ui'
 import Layout from '../components/layout'
 import ResultsHeader from '../components/collection/ResultsHeader'
 import ProductTypeCollectionPage from '../components/ProductTypeCollectionPage'
+import CollectionFilterAndSort from '../components/collection/CollectionFilterAndSort'
 
 const ProductTypeCollection = ({ data }) => {
   const { nodes, totalCount } = data.allShopifyProduct
   const { text } = data.productTypeNavigationJson
+  // if route has filter or sort param, make true
+  const [isOpen, setOpen] = useState(false)
 
   return (
     <Layout>
@@ -18,7 +21,18 @@ const ProductTypeCollection = ({ data }) => {
             description={`${text}: pretty great`}
             resultType="products"
             count={totalCount}
-          />
+          >
+            <Box sx={{ textAlign: 'right' }} pt={3}>
+              <Link
+                sx={{ fontSize: 1 }}
+                variant="unset"
+                onClick={() => setOpen(prev => !prev)}
+              >
+                Filter &amp; Sort
+              </Link>
+            </Box>
+          </ResultsHeader>
+          <CollectionFilterAndSort isOpen={isOpen} />
           <Divider mt={4} />
         </ProductTypeCollectionPage>
       </Container>
