@@ -31,10 +31,6 @@ const ProductTypeCollection = ({ data }) => {
     return nextFilters
   }, {})
 
-  if (typeof window !== undefined) {
-    console.log(filterOptions)
-  }
-
   return (
     <Layout>
       <Container>
