@@ -12,9 +12,16 @@ export const getSrcWithSize = (src, size) => {
 
 const useShopifyImageCDNSizes = (originalSrc, sizes = defaultSizes) =>
   useMemo(() => {
+    const sizesWithRetina = Array.from(
+      new Set([
+        ...sizes,
+        ...sizes.map(size => size * 2),
+        ...sizes.map(size => size * 3),
+      ])
+    )
     const baseSrc = getSrcWithSize(originalSrc, `${sizes[0]}x`)
 
-    const formattedSrcSet = sizes.map(
+    const formattedSrcSet = sizesWithRetina.map(
       width => `${getSrcWithSize(originalSrc, `${width}x`)} ${width}w`
     )
 
