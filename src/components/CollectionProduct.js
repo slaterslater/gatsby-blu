@@ -49,43 +49,43 @@ const CollectionProduct = ({ product, images }) => {
   const secondImage = images[1]
 
   return (
-    <Flex sx={{ flexDirection: 'column' }} as="article">
-      <CollectionThumbnail primary={firstImage} alternate={secondImage} />
-      <Flex
-        pt={2}
-        sx={{ flex: 1, flexDirection: 'column', alignItems: 'space-between' }}
-      >
-        <Box mb="auto" sx={{ alignSelf: 'top', textAlign: 'center' }}>
-          <Text
-            as="h6"
-            variant="caps"
-            sx={{
-              color: '#454545',
-            }}
-          >
-            <Link
-              as={GatsbyLink}
-              to={`/products/${product.handle}`}
-              sx={{ textDecoration: 'none' }}
+    <Link
+      as={GatsbyLink}
+      to={`/products/${product.handle}`}
+      sx={{ textDecoration: 'none' }}
+    >
+      <Flex sx={{ flexDirection: 'column' }} as="article">
+        <CollectionThumbnail primary={firstImage} alternate={secondImage} />
+        <Flex
+          pt={2}
+          sx={{ flex: 1, flexDirection: 'column', alignItems: 'space-between' }}
+        >
+          <Box mb="auto" sx={{ alignSelf: 'top', textAlign: 'center' }}>
+            <Text
+              as="h6"
+              variant="caps"
+              sx={{
+                color: '#454545',
+              }}
             >
               {title}
-            </Link>
-          </Text>
-        </Box>
-        <Box pt={1} sx={{ textAlign: 'center' }}>
-          <Text
-            as="p"
-            variant="caps"
-            sx={{
-              fontWeight: 500,
-              color: '#454545',
-            }}
-          >
-            {fromPrice}
-          </Text>
-        </Box>
+            </Text>
+          </Box>
+          <Box pt={1} sx={{ textAlign: 'center' }}>
+            <Text
+              as="p"
+              variant="caps"
+              sx={{
+                fontWeight: 500,
+                color: '#454545',
+              }}
+            >
+              {fromPrice}
+            </Text>
+          </Box>
+        </Flex>
       </Flex>
-    </Flex>
+    </Link>
   )
 }
 
