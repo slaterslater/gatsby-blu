@@ -10,6 +10,7 @@ import VariantSize from './VariantSize'
 import { StoreContext } from '../../contexts/StoreContext'
 import { DrawerContext } from '../drawers'
 import { AddCheckoutLineItem } from '../../mutations/cart'
+import ShopifyHtml from '../ShopifyHtml'
 
 const ProductDetails = ({
   title,
@@ -132,7 +133,7 @@ const ProductDetails = ({
         </Flex>
       </Box>
       <Box py={4}>
-        <Box dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
+        <ShopifyHtml dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
         <Box>
           <Text>
             by{' '}
