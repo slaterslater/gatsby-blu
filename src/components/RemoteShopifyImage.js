@@ -5,7 +5,7 @@ import { AspectImage, Image } from 'theme-ui'
 
 const defaultSizes = [400, 500, 600, 800]
 
-const getSrcWithSize = (src, size) => {
+export const getSrcWithSize = (src, size) => {
   const extName = path.extname(src)
   return src.replace(extName, `_${size}${extName}`)
 }

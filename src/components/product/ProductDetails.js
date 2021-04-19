@@ -15,6 +15,7 @@ import ShopifyHtml from '../ShopifyHtml'
 const ProductDetails = ({
   title,
   descriptionHtml,
+  description,
   variants,
   vendor,
   yotpoProductBottomline,
@@ -50,7 +51,7 @@ const ProductDetails = ({
   // get related metal options from sanity
 
   return (
-    <Box sx={{ position: 'sticky', top: 80 }}>
+    <>
       <Box>
         <Grid
           sx={{
@@ -143,7 +144,7 @@ const ProductDetails = ({
           </Text>
         </Box>
       </Box>
-    </Box>
+    </>
   )
 }
 

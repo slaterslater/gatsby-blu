@@ -4,6 +4,7 @@ import { pluralize } from 'inflected'
 // import { GatsbyImage } from 'gatsby-plugin-image'
 import { useProductTitle } from '../ProductTitle'
 import ProductDetails from './ProductDetails'
+import ProductSocial from './ProductSocial'
 import Breadcrumbs from '../Breadcrumbs'
 import RemoteShopifyImage from '../RemoteShopifyImage'
 import ProductReviews from './ProductReviews'
@@ -47,13 +48,20 @@ const ProductPage = ({
         <ProductImageGallery images={images} />
 
         <Box sx={{ position: 'relative' }}>
-          <ProductDetails
-            title={title}
-            descriptionHtml={descriptionHtml}
-            variants={variants}
-            vendor={vendor}
-            yotpoProductBottomline={yotpoProductReview.bottomline}
-          />
+          <Box sx={{ position: 'sticky', top: 80 }}>
+            <ProductDetails
+              title={title}
+              descriptionHtml={descriptionHtml}
+              variants={variants}
+              vendor={vendor}
+              yotpoProductBottomline={yotpoProductReview.bottomline}
+            />
+            <ProductSocial
+              title={title}
+              description={description}
+              image={images?.[0].originalSrc}
+            />
+          </Box>
         </Box>
       </Grid>
       <ProductReviews
