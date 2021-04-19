@@ -1,4 +1,4 @@
-import { Box, Grid } from 'theme-ui'
+import { Box, Container, Grid } from 'theme-ui'
 import React from 'react'
 import { pluralize } from 'inflected'
 // import { GatsbyImage } from 'gatsby-plugin-image'
@@ -7,10 +7,12 @@ import ProductDetails from './ProductDetails'
 import Breadcrumbs from '../Breadcrumbs'
 import RemoteShopifyImage from '../RemoteShopifyImage'
 import ProductReviews from './ProductReviews'
+import ProductImageGallery from './ProductImageGallery'
 
 const ProductPage = ({
   product: {
     title,
+    descriptionHtml,
     description,
     productType,
     variants,
@@ -23,8 +25,9 @@ const ProductPage = ({
 }) => {
   const productTitle = useProductTitle(title)
   return (
-    <Box p={4} mx="auto" sx={{ maxWidth: 1680 }}>
+    <Container>
       <Breadcrumbs
+        pt={0}
         currentPage={{ path: '', text: productTitle }}
         links={[
           {
@@ -38,22 +41,15 @@ const ProductPage = ({
         ]}
       />
       <Grid
-        sx={{ gridTemplateColumns: ['1fr', '2fr 1fr'], columnGap: 5 }}
+        sx={{ gridTemplateColumns: ['1fr', '2fr 1fr'], columnGap: 6 }}
         pt={6}
       >
-        <Grid sx={{ gridTemplateColumns: '1fr 1fr', gridGap: 3 }}>
-          {images.map(image => (
-            <RemoteShopifyImage
-              originalSrc={image.originalSrc}
-              altText={image.altText}
-              key={image.id}
-            />
-          ))}
-        </Grid>
+        <ProductImageGallery images={images} />
+
         <Box sx={{ position: 'relative' }}>
           <ProductDetails
             title={title}
-            description={description}
+            descriptionHtml={descriptionHtml}
             variants={variants}
             vendor={vendor}
             yotpoProductBottomline={yotpoProductReview.bottomline}
@@ -72,7 +68,7 @@ const ProductPage = ({
           product_image_url: images[0]?.originalSrc,
         }}
       />
-    </Box>
+    </Container>
   )
 }
 

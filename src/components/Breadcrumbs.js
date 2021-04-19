@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Box, Text, Link, Flex } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
 
-const Breadcrumbs = ({ links, currentPage, children }) => (
+const Breadcrumbs = ({ links, currentPage, children, ...props }) => (
   <Flex
     py={3}
     px={4}
@@ -11,6 +11,7 @@ const Breadcrumbs = ({ links, currentPage, children }) => (
       alignItems: 'center',
       height: 46,
     }}
+    {...props}
   >
     {links?.map(({ path, text }) => (
       <React.Fragment key={`breadcrumb-${path}-${text}`}>

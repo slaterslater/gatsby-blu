@@ -13,7 +13,7 @@ import { AddCheckoutLineItem } from '../../mutations/cart'
 
 const ProductDetails = ({
   title,
-  description,
+  descriptionHtml,
   variants,
   vendor,
   yotpoProductBottomline,
@@ -49,7 +49,7 @@ const ProductDetails = ({
   // get related metal options from sanity
 
   return (
-    <Box sx={{ position: 'sticky', top: 0 }}>
+    <Box sx={{ position: 'sticky', top: 80 }}>
       <Box>
         <Grid
           sx={{
@@ -132,14 +132,7 @@ const ProductDetails = ({
         </Flex>
       </Box>
       <Box py={4}>
-        <Heading as="h5" sx={{ fontSize: 3 }}>
-          description
-        </Heading>
-        <Box py={1}>
-          <Text sx={{ lineHeight: 1.75, fontSize: 1, maxWidth: '70ch' }}>
-            {description}
-          </Text>
-        </Box>
+        <Box dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
         <Box>
           <Text>
             by{' '}
@@ -149,8 +142,6 @@ const ProductDetails = ({
           </Text>
         </Box>
       </Box>
-      <Box>link to collection</Box>
-      <Box>model wearing thumbnails</Box>
     </Box>
   )
 }

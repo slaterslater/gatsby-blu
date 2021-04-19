@@ -19,6 +19,7 @@ export const query = graphql`
   query ProductPage($handle: String!, $productId: String!) {
     shopifyProduct(handle: { eq: $handle }) {
       title
+      descriptionHtml
       description
       productType
       vendor
