@@ -10,28 +10,17 @@ function ShopAllPage({ data }) {
   const { nodes, totalCount } = data.allShopifyProduct
   const [isOpen, setOpen] = useState(false)
 
-  const allProducts = nodes.filter(node =>
-    [
-      'Ring',
-      'Bracelet',
-      'Earring',
-      'Engagement Ring',
-      'Necklace',
-      'Ring',
-    ].includes(node.productType)
-  )
-
   return (
     <Layout>
       <Container>
         <ProductTypeCollectionPage
           collectionTitle="Shop All Products"
-          products={allProducts}
+          products={nodes}
         >
           <ResultsHeader
             title="Shop All Products"
             resultType="products"
-            count={allProducts.length}
+            count={totalCount}
           >
             <Box sx={{ textAlign: 'right' }} pt={3}>
               <Link
@@ -55,13 +44,22 @@ export default ShopAllPage
 
 export const query = graphql`
   query ShopAllQuery {
-    allShopifyProduct(filter: { availableForSale: { eq: true } }) {
+    allShopifyProduct(
+      filter: {
+        productType: {
+          in: ["Ring", "Bracelet", "Earring", "Engagement Ring", "Necklace"]
+        }
+        availableForSale: { eq: true }
+      }
+    ) {
+      totalCount
       nodes {
         productType
         title
         description
         tags
         id
+        handle
         priceRange {
           minVariantPrice {
             amount
