@@ -38,13 +38,7 @@ async function createCollectionPages({ graphql, actions }) {
   // move this to sanity
   const { data } = await graphql(`
     query Collections {
-      allShopifyCollection(
-        filter: {
-          handle: {
-            nin: ["bracelets", "rings", "necklaces", "earrings", "all"]
-          }
-        }
-      ) {
+      allShopifyCollection {
         nodes {
           handle
         }
