@@ -1,12 +1,26 @@
 // adapted from https://codesandbox.io/s/pqvx3?file=/src/Example.tsx:838-977
 
-import { AspectRatio, Box, Button } from 'theme-ui'
+import { Flex, AspectRatio, Box, Button, IconButton } from 'theme-ui'
 import React, { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { wrap } from '@popmotion/popcorn'
+import { HiChevronLeft, HiChevronRight } from 'react-icons/hi'
 import RemoteShopifyImage from '../RemoteShopifyImage'
 
 const MotionBox = motion(Box)
+const Dot = ({ full, ...props }) => (
+  <MotionBox
+    sx={{
+      height: 12,
+      width: 12,
+      border: '2px solid',
+      borderColor: 'currentColor',
+      borderRadius: '50%',
+      bg: full ? 'currentColor' : 'transparent',
+    }}
+    {...props}
+  />
+)
 
 const swipeConfidenceThreshold = 10000
 const swipePower = (offset, velocity) => Math.abs(offset) * velocity
@@ -20,8 +34,12 @@ const MobileGallery = ({ images, onImageClick }) => {
     setCurrentPage([currentPage + newDirection, newDirection])
   }
 
+  const paginateTo = index => {
+    setCurrentPage([index, index > currentPage ? 1 : -1])
+  }
+
   return (
-    <>
+    <Box>
       <AspectRatio ratio={1}>
         <AnimatePresence initial={false}>
           <MotionBox
@@ -54,8 +72,39 @@ const MobileGallery = ({ images, onImageClick }) => {
           </MotionBox>
         </AnimatePresence>
       </AspectRatio>
-      <Box />
-    </>
+      <Flex pt={2} sx={{ justifyContent: 'center', alignItems: 'center' }}>
+        <IconButton
+          type="button"
+          onClick={() => paginate(-1)}
+          p={1}
+          sx={{ outline: 'none' }}
+        >
+          <HiChevronLeft size={16} />
+        </IconButton>
+        <Box mx={2}>
+          <Flex>
+            {Array(images.length)
+              .fill()
+              .map((_, i) => (
+                <Dot
+                  key={`dot-${i}`}
+                  full={i === currentPage}
+                  onClick={() => paginateTo(i)}
+                  m={1}
+                />
+              ))}
+          </Flex>
+        </Box>
+        <IconButton
+          type="button"
+          onClick={() => paginate(1)}
+          p={1}
+          sx={{ outline: 'none' }}
+        >
+          <HiChevronRight size={16} />
+        </IconButton>
+      </Flex>
+    </Box>
   )
 }
 

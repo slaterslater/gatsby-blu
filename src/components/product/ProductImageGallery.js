@@ -23,15 +23,13 @@ const ProductImageGallery = ({ images }) => {
           />
         )}
       </AnimatePresence>
+      <Box sx={{ display: ['block', 'none', 'none'], width: '100vw' }} mx={-5}>
+        <MobileGallery
+          images={images}
+          onImageClick={i => setGalleryState({ isOpen: true, initialPage: i })}
+        />
+      </Box>
       <Flex>
-        <Box sx={{ display: ['block', 'none', 'none'], width: '100vw' }}>
-          <MobileGallery
-            images={images}
-            onImageClick={i =>
-              setGalleryState({ isOpen: true, initialPage: i })
-            }
-          />
-        </Box>
         <Box sx={{ display: ['none', 'block', 'block'] }}>
           {images.map((image, i) => (
             <Button
