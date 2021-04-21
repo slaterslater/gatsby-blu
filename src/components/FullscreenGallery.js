@@ -1,26 +1,54 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { Flex, Button, Grid, Box } from 'theme-ui'
+import { Flex, IconButton, Grid, Box } from 'theme-ui'
 import PropTypes from 'prop-types'
+import { HiChevronLeft, HiChevronRight, HiX } from 'react-icons/hi'
 import React, { useEffect, useState } from 'react'
 import RemoteShopifyImage from './RemoteShopifyImage'
 import FluidShopifyImage from './FluidShopifyImage'
 
 const MotionBox = motion(Box)
-const MotionButton = motion(Button)
+const MotionButton = motion(IconButton)
+const MotionFlex = motion(Flex)
 
 const ControlButton = props => (
-  <MotionButton type="button" whileHover={{ scale: 1.1 }} {...props} />
+  <MotionButton
+    type="button"
+    sx={{
+      border: '1px solid',
+      borderColor: 'border',
+      borderRadius: '100%',
+      bg: 'white',
+      height: 48,
+      width: 48,
+      outline: 'none',
+    }}
+    whileHover={{ scale: 1.1 }}
+    {...props}
+  />
 )
 
 const FullscreenGallery = ({ isOpen, initialPage, onClose, images }) => {
-  const [currentPage, setCurrentPage] = useState(initialPage || 0)
+  const [[currentPage, direction], setCurrentPage] = useState([
+    initialPage || 0,
+    0,
+  ])
+
+  const paginate = newDirection => {
+    setCurrentPage([currentPage + newDirection, newDirection])
+  }
 
   useEffect(() => {
-    setCurrentPage(initialPage)
+    setCurrentPage([initialPage, 0])
   }, [initialPage])
 
   return (
     <MotionBox
+      initial={{
+        opacity: 0,
+        y: -7,
+      }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 12 }}
       sx={{
         bg: 'white',
         height: '100vh',
@@ -31,50 +59,64 @@ const FullscreenGallery = ({ isOpen, initialPage, onClose, images }) => {
         zIndex: 12,
       }}
     >
+      <AnimatePresence initial={false} custom={direction}>
+        <MotionFlex
+          key={currentPage}
+          custom={direction}
+          initial={{
+            opacity: 0,
+          }}
+          animate={{
+            opacity: 1,
+            x: 0,
+          }}
+          exit={{ opacity: 0 }}
+          transition={{}}
+          sx={{
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            position: 'absolute',
+          }}
+        >
+          <RemoteShopifyImage
+            originalSrc={images[currentPage].originalSrc}
+            sx={{ flex: 1, objectFit: 'contain' }}
+          />
+        </MotionFlex>
+      </AnimatePresence>
       <Flex
         sx={{
-          top: 0,
-          bottom: 0,
-          left: 0,
-          right: 0,
-          position: 'absolute',
-        }}
-      >
-        <RemoteShopifyImage
-          originalSrc={images[currentPage].originalSrc}
-          sx={{ flex: 1, objectFit: 'contain' }}
-        />
-      </Flex>
-      <Grid
-        sx={{
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          justifyItems: 'center',
+          justifyContent: 'center',
           position: 'absolute',
           zIndex: 1,
           bottom: 0,
           left: 0,
           right: 0,
         }}
-        p={4}
+        p={6}
       >
-        <Box>
+        <Box sx={{ width: 80, textAlign: 'center' }}>
           {!!currentPage && (
-            <ControlButton onClick={() => setCurrentPage(currentPage - 1)}>
-              back
+            <ControlButton onClick={() => paginate(-1)}>
+              <HiChevronLeft size={24} />
             </ControlButton>
           )}
         </Box>
-        <Box>
-          <ControlButton onClick={onClose}>close</ControlButton>
+        <Box sx={{ width: 80, textAlign: 'center' }}>
+          <ControlButton onClick={onClose}>
+            <HiX size={24} />
+          </ControlButton>
         </Box>
-        <Box>
-          {currentPage < images.length && (
-            <ControlButton onClick={() => setCurrentPage(currentPage + 1)}>
-              forward
+        <Box sx={{ width: 80, textAlign: 'center' }}>
+          {currentPage + 1 < images.length && (
+            <ControlButton onClick={() => paginate(1)}>
+              <HiChevronRight size={24} />
             </ControlButton>
           )}
         </Box>
-      </Grid>
+      </Flex>
     </MotionBox>
   )
 }
