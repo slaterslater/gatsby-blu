@@ -3,6 +3,7 @@ import { AnimatePresence } from 'framer-motion'
 import { Flex, Box, Button } from 'theme-ui'
 import FullscreenGallery from '../FullscreenGallery'
 import RemoteShopifyImage from '../RemoteShopifyImage'
+import MobileGallery from './MobileGallery'
 
 const ProductImageGallery = ({ images }) => {
   const [{ isOpen, initialPage }, setGalleryState] = useState({
@@ -23,7 +24,15 @@ const ProductImageGallery = ({ images }) => {
         )}
       </AnimatePresence>
       <Flex>
-        <Box>
+        <Box sx={{ display: ['block', 'none', 'none'], width: '100vw' }}>
+          <MobileGallery
+            images={images}
+            onImageClick={i =>
+              setGalleryState({ isOpen: true, initialPage: i })
+            }
+          />
+        </Box>
+        <Box sx={{ display: ['none', 'block', 'block'] }}>
           {images.map((image, i) => (
             <Button
               type="button"

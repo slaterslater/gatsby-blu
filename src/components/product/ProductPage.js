@@ -29,6 +29,7 @@ const ProductPage = ({
     <Container>
       <Breadcrumbs
         pt={0}
+        px={0}
         currentPage={{ path: '', text: productTitle }}
         links={[
           {

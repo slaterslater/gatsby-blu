@@ -44,7 +44,7 @@ const Header = () => {
           >
             <Box as={IoIosMenu} color="white" size={24} />
           </IconButton>
-          <Link as={GatsbyLink} to="/" sx={{ justifySelf: 'center' }} p={4}>
+          <Link as={GatsbyLink} to="/" sx={{ justifySelf: 'center' }}>
             <Image
               src={logo}
               alt="bluboho"
@@ -52,8 +52,14 @@ const Header = () => {
               sx={{ height: 28, display: 'block' }}
             />
           </Link>
-          <Flex sx={{ alignItems: 'center', justifySelf: 'end' }} p={4}>
-            <Box mr={2}>
+          <Flex
+            sx={{
+              alignItems: 'center',
+              justifySelf: 'end',
+            }}
+            p={4}
+          >
+            <Box mr={2} sx={{ display: ['none', 'auto'] }}>
               <GatsbyLink to="/account">
                 <Text
                   as={AiOutlineUser}
@@ -64,7 +70,7 @@ const Header = () => {
               </GatsbyLink>
             </Box>
             <IconButton
-              sx={{ cursor: 'pointer' }}
+              sx={{ cursor: 'pointer', display: ['none', 'flex'] }}
               onClick={() => setSearchOpen(state => !state)}
               mr={2}
             >
