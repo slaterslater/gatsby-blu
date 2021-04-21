@@ -6,7 +6,7 @@ import RemoteShopifyImage from '../RemoteShopifyImage'
 
 const ProductImageGallery = ({ images }) => {
   const [{ isOpen, initialPage }, setGalleryState] = useState({
-    isOpen: true,
+    isOpen: false,
     initialPage: 0,
   })
 
