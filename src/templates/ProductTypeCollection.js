@@ -7,12 +7,10 @@ import ProductTypeCollectionPage from '../components/ProductTypeCollectionPage'
 import CollectionFilterAndSort from '../components/collection/CollectionFilterAndSort'
 
 const ProductTypeCollection = ({ data }) => {
-  const { nodes } = data.allShopifyProduct
+  const { nodes, totalCount } = data.allShopifyProduct
   const { text } = data.productTypeNavigationJson
   // if route has filter or sort param, make true
   const [isOpen, setOpen] = useState(false)
-
-  const allProducts = nodes.filter(node => node.availableForSale)
 
   const filterOptions = nodes.reduce((acc, el) => {
     const nextFilters = acc
@@ -36,12 +34,12 @@ const ProductTypeCollection = ({ data }) => {
   return (
     <Layout>
       <Container>
-        <ProductTypeCollectionPage products={allProducts}>
+        <ProductTypeCollectionPage products={nodes}>
           <ResultsHeader
             title={text}
             description={`${text}: pretty great`}
             resultType="products"
-            count={allProducts.length}
+            count={totalCount}
           >
             <Box sx={{ textAlign: 'right' }} pt={3}>
               <Link
@@ -68,7 +66,13 @@ export const query = graphql`
     productTypeNavigationJson(productType: { eq: $productType }) {
       text
     }
-    allShopifyProduct(filter: { productType: { eq: $productType } }) {
+    allShopifyProduct(
+      filter: {
+        productType: { eq: $productType }
+        availableForSale: { eq: true }
+      }
+    ) {
+      totalCount
       nodes {
         availableForSale
         handle

@@ -17,7 +17,7 @@ const CollectionPageTemplate = ({ data }) => {
           resultType="products"
           count={products?.length || 0}
         />
-        <Divider my={3} />
+        <Divider />
         <ProductGrid products={products} />
       </Container>
     </Layout>
