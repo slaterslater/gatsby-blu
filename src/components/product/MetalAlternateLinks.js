@@ -8,7 +8,11 @@ const useVariantMetalColour = (variant = {}) =>
 const MetalAlternate = ({ product }) => {
   const metalOption = useVariantMetalColour(product.variants?.[0] || {})
 
-  return <MetalOptionSwatch metal={metalOption.value} />
+  if (metalOption) {
+    return <MetalOptionSwatch metal={metalOption.value} />
+  }
+
+  return null
 
   // get alternate colour
 }
