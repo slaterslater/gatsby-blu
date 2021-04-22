@@ -23,6 +23,7 @@ const ProductPage = ({
   },
   yotpoProductReview,
   yotpoProductQa,
+  alternates,
 }) => {
   const productTitle = useProductTitle(title)
   return (
@@ -56,6 +57,7 @@ const ProductPage = ({
               variants={variants}
               vendor={vendor}
               yotpoProductBottomline={yotpoProductReview.bottomline}
+              alternates={alternates}
             />
             <ProductSocial
               title={title}

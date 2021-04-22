@@ -8,9 +8,9 @@ import useInterval from '../lib/useInterval'
 const Announcement = ({ text, to, isVisible }) =>
   isVisible ? (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+      initial={{ opacity: 0, y: -3 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 2 }}
     >
       <Text
         as="p"

@@ -59,7 +59,7 @@ const Header = () => {
             }}
             p={4}
           >
-            <Box mr={2} sx={{ display: ['none', 'auto'] }}>
+            <Box mr={2} sx={{ display: ['none', 'block', 'block'] }}>
               <GatsbyLink to="/account">
                 <Text
                   as={AiOutlineUser}

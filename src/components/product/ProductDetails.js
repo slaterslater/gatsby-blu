@@ -6,6 +6,7 @@ import { useProductTitle } from '../ProductTitle'
 import { useFormattedPrice } from '../../hooks/utils'
 import ProductReviewsTopline from './ProductReviewsTopline'
 import MetalOptionSwatch from '../MetalOptionSwatch'
+import MetalAlternateLinks from './MetalAlternateLinks'
 import VariantSize from './VariantSize'
 import { StoreContext } from '../../contexts/StoreContext'
 import { DrawerContext } from '../drawers'
@@ -19,6 +20,7 @@ const ProductDetails = ({
   variants,
   vendor,
   yotpoProductBottomline,
+  alternates,
 }) => {
   const [, setOpenDrawer] = useContext(DrawerContext)
   const [selectedVariant, setSelectedVariant] = useState(variants[0])
@@ -32,7 +34,7 @@ const ProductDetails = ({
   const [{ fetching }, addCheckoutLineItem] = useMutation(AddCheckoutLineItem)
 
   const metalOption = selectedVariant.selectedOptions.find(
-    opt => opt.name === 'metal'
+    opt => opt.name?.toLowerCase() === 'metal'
   )
 
   const hasSizeVariants = !!variants.find(variant =>
@@ -79,6 +81,7 @@ const ProductDetails = ({
           </Heading>
           <Flex pt={2}>
             <MetalOptionSwatch metal={metalOption.value} />
+            <MetalAlternateLinks alternates={alternates} />
           </Flex>
         </Box>
       )}

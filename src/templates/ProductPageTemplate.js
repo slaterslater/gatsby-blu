@@ -47,6 +47,7 @@ export const query = graphql`
     }
     alternates: allShopifyProduct(filter: { shopifyId: { in: $alternates } }) {
       nodes {
+        id
         handle
         title
         variants {
