@@ -88,7 +88,7 @@ const MobileGallery = ({ images, onImageClick }) => {
               .map((_, i) => (
                 <Dot
                   key={`dot-${i}`}
-                  full={i === currentPage}
+                  full={i === imageIndex}
                   onClick={() => paginateTo(i)}
                   m={1}
                 />

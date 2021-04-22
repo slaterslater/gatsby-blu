@@ -26,9 +26,9 @@ const ProductPage = ({
 }) => {
   const productTitle = useProductTitle(title)
   return (
-    <Container>
+    <Container pt={0}>
       <Breadcrumbs
-        pt={0}
+        pt={6}
         px={0}
         currentPage={{ path: '', text: productTitle }}
         links={[

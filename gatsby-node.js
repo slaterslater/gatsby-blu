@@ -1,4 +1,5 @@
 import path from 'path'
+import { formatMetalAlternates } from './src/lib/formatMetalAlternates'
 
 const decodeShopifyId = id => {
   const buff = Buffer.from(id, 'base64')
@@ -67,6 +68,7 @@ async function createProductPages({ graphql, actions }) {
         nodes {
           handle
           shopifyId
+          tags
         }
       }
     }
@@ -74,6 +76,7 @@ async function createProductPages({ graphql, actions }) {
 
   data.allShopifyProduct.nodes.forEach(product => {
     const productId = decodeShopifyId(product.shopifyId)
+    const alternates = formatMetalAlternates(product.tags || [])
 
     actions.createPage({
       // What is the URL for this new page??
@@ -82,6 +85,7 @@ async function createProductPages({ graphql, actions }) {
       context: {
         handle: product.handle,
         productId,
+        alternates,
       },
     })
   })

@@ -9,6 +9,7 @@ const ProductPageTemplate = ({ data }) => (
       product={data.shopifyProduct}
       yotpoProductReview={data.yotpoProductReview}
       yotpoProductQa={data.yotpoProductQa}
+      alternates={data.alternates}
     />
   </Layout>
 )
@@ -16,7 +17,11 @@ const ProductPageTemplate = ({ data }) => (
 export default ProductPageTemplate
 
 export const query = graphql`
-  query ProductPage($handle: String!, $productId: String!) {
+  query ProductPage(
+    $handle: String!
+    $productId: String!
+    $alternates: [String]!
+  ) {
     shopifyProduct(handle: { eq: $handle }) {
       title
       descriptionHtml
@@ -37,6 +42,19 @@ export const query = graphql`
         selectedOptions {
           name
           value
+        }
+      }
+    }
+    alternates: allShopifyProduct(filter: { shopifyId: { in: $alternates } }) {
+      nodes {
+        handle
+        title
+        variants {
+          selectedOptions {
+            name
+            value
+          }
+          availableForSale
         }
       }
     }

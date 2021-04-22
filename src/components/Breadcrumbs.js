@@ -9,7 +9,7 @@ const Breadcrumbs = ({ links, currentPage, children, ...props }) => (
     px={4}
     sx={{
       alignItems: 'center',
-      height: 46,
+      overflowX: 'auto',
     }}
     {...props}
   >
