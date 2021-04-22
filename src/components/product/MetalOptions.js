@@ -32,7 +32,7 @@ const MetalOptions = ({ product, alternates }) => {
   const colors = [
     { metal: productMetalColor, isCurrent: true },
     ...alternateMetalColors,
-  ].sort((a, b) => (a.metal.toLowerCase() < b.metal.toLowerCase() ? 1 : -1))
+  ].sort((a, b) => (a.metal?.toLowerCase() < b.metal?.toLowerCase() ? 1 : -1))
 
   return (
     <Box pt={3}>
