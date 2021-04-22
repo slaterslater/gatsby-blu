@@ -6,12 +6,12 @@ import { useProductTitle } from '../ProductTitle'
 import { useFormattedPrice } from '../../hooks/utils'
 import ProductReviewsTopline from './ProductReviewsTopline'
 import MetalOptionSwatch from '../MetalOptionSwatch'
-import MetalAlternateLinks from './MetalAlternateLinks'
 import VariantSize from './VariantSize'
 import { StoreContext } from '../../contexts/StoreContext'
 import { DrawerContext } from '../drawers'
 import { AddCheckoutLineItem } from '../../mutations/cart'
 import ShopifyHtml from '../ShopifyHtml'
+import MetalOptions from './MetalOptions'
 
 const ProductDetails = ({
   title,
@@ -74,17 +74,7 @@ const ProductDetails = ({
           totalReviews={yotpoProductBottomline?.totalReview}
         />
       </Box>
-      {metalOption && (
-        <Box pt={4}>
-          <Heading as="h5" sx={{ fontSize: 3 }}>
-            {metalOption.value}
-          </Heading>
-          <Flex pt={2}>
-            <MetalOptionSwatch metal={metalOption.value} />
-            <MetalAlternateLinks alternates={alternates} />
-          </Flex>
-        </Box>
-      )}
+      <MetalOptions product={{ variants }} alternates={alternates} />
       <Box py={4}>
         {hasSizeVariants && (
           <>
