@@ -60,12 +60,12 @@ const giftMenus = [
   {
     title: 'Gift Guides',
     links: [
-      { path: '/gift-guides/pisces-gift-guide', text: 'Pisces Gift Guide' },
-      { path: '/gift-guides/gifts-under-1000', text: 'Gifts Under 1000$' },
-      { path: '/gift-guides/gifts-under-500', text: 'Gifts Under 500$' },
-      { path: '/gift-guides/gifts-under-300', text: 'Gifts Under 300$' },
+      { path: '/collections/pisces-gift-guide', text: 'Pisces Gift Guide' },
+      { path: '/collections/gifts-under-1000', text: 'Gifts Under 1000$' },
+      { path: '/collections/gifts-under-500', text: 'Gifts Under 500$' },
+      { path: '/collections/gifts-under-300', text: 'Gifts Under 300$' },
       {
-        path: '/gift-guides/gifts-to-personalize',
+        path: '/collections/gifts-to-personalize',
         text: 'Gifts To Personalize',
       },
       { path: '/products/gift-card', text: 'Gift Cards' },

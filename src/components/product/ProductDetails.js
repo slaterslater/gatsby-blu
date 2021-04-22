@@ -6,7 +6,7 @@ import { useProductTitle } from '../ProductTitle'
 import { useFormattedPrice } from '../../hooks/utils'
 import ProductReviewsTopline from './ProductReviewsTopline'
 import MetalOptionSwatch from '../MetalOptionSwatch'
-import VariantSize from './VariantSize'
+import VariantOption from './VariantOption'
 import { StoreContext } from '../../contexts/StoreContext'
 import { DrawerContext } from '../drawers'
 import { AddCheckoutLineItem } from '../../mutations/cart'
@@ -90,14 +90,17 @@ const ProductDetails = ({
               }}
             >
               {variants.map((variant, i) => (
-                <VariantSize
-                  value={
+                <VariantOption
+                  key={`${variant.id}-option`}
+                  disabled={!variant.availableForSale}
+                  isSelected={variant.id === selectedVariant.id}
+                  onClick={() => setSelectedVariant(variants[i])}
+                >
+                  {
                     variant.selectedOptions.find(opt => opt.name === 'Size')
                       ?.value
                   }
-                  isSelected={variant.id === selectedVariant.id}
-                  onClick={() => setSelectedVariant(variants[i])}
-                />
+                </VariantOption>
               ))}
             </Grid>
           </>
