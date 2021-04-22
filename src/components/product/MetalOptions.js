@@ -8,6 +8,8 @@ const getVariantMetalColor = (variant = {}) =>
     ?.value
 
 const MetalOption = ({ handle, metal, isCurrent, ...props }) => {
+  if (!metal) return false
+
   if (isCurrent)
     return <MetalOptionSwatch isCurrent={isCurrent} metal={metal} {...props} />
 
