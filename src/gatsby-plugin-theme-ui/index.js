@@ -189,10 +189,17 @@ export default {
     },
     a: {
       color: 'inherit',
+      textDecoration: 'underline',
     },
     hr: {
       borderBottom: '1px solid',
       borderColor: 'border',
+    },
+    h3: {
+      fontFamily: 'body',
+      textTransform: 'uppercase',
+      letterSpacing: 'caps',
+      fontWeight: 400,
     },
   },
 }
