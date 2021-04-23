@@ -18,6 +18,7 @@ import Announcements from './Announcements'
 import Header from './header'
 import Footer from './footer'
 import Drawers from './drawers'
+import SEO from './seo'
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -32,6 +33,7 @@ const Layout = ({ children }) => {
 
   return (
     <Drawers>
+      <SEO />
       <Flex
         sx={{
           minHeight: '100vh',

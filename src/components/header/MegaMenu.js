@@ -35,12 +35,12 @@ const shopMenus = [
   {
     title: 'Categories',
     links: [
-      { path: '/shop/all', text: 'Shop All' },
-      { path: '/shop/rings', text: 'Rings' },
-      { path: '/shop/earrings', text: 'Earrings' },
-      { path: '/shop/necklaces', text: 'Necklaces' },
-      { path: '/shop/bracelets', text: 'Bracelets' },
-      { path: '/shop/engagement', text: 'Engagement' },
+      { path: '/collections/all', text: 'Shop All' },
+      { path: '/collections/rings', text: 'Rings' },
+      { path: '/collections/earrings', text: 'Earrings' },
+      { path: '/collections/necklaces', text: 'Necklaces' },
+      { path: '/collections/bracelets', text: 'Bracelets' },
+      { path: '/collections/engagement', text: 'Engagement' },
     ],
   },
   {

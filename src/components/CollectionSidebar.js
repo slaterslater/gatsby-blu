@@ -1,14 +1,12 @@
-import { graphql, Link as GatsbyLink, useStaticQuery } from 'gatsby'
-import { Box, Flex, Text, Link, Divider } from 'theme-ui'
+import { Box, Flex, Text, Divider } from 'theme-ui'
 import React from 'react'
 import PropTypes from 'prop-types'
+import ThemeLink from './app/ThemeLink'
 
-const NavigationLink = ({ to, children }) => (
-  <Link
-    as={GatsbyLink}
-    to={to}
+const NavigationCollectionLink = ({ handle, children }) => (
+  <ThemeLink
+    to={`/collections/${handle}`}
     variant="nav"
-    key={`${to}-${children}-sidebar`}
     py={1}
     pr={[3, 0]}
     sx={{
@@ -18,48 +16,60 @@ const NavigationLink = ({ to, children }) => (
     }}
   >
     {children}
-  </Link>
+  </ThemeLink>
 )
-NavigationLink.propTypes = {
-  to: PropTypes.string.isRequired,
+NavigationCollectionLink.propTypes = {
+  handle: PropTypes.string.isRequired,
   children: PropTypes.string.isRequired,
 }
 
-const CollectionSidebar = () => {
-  const data = useStaticQuery(graphql`
-    query {
-      allProductTypeNavigationJson {
-        nodes {
-          path
-          text
-        }
-      }
-    }
-  `)
+const collectionLinks = [
+  {
+    handle: 'newarrivals',
+    label: 'New Arrivals',
+  },
+  {
+    handle: 'best-sellers',
+    label: 'Best Sellers',
+  },
+  {
+    handle: 'necklaces',
+    label: 'Necklaces',
+  },
+  {
+    handle: 'rings',
+    label: 'Rings',
+  },
+  {
+    handle: 'earrings',
+    label: 'Earrings',
+  },
+  {
+    handle: 'bridal',
+    label: 'Engagement',
+  },
+  {
+    handle: 'bracelets',
+    label: 'Bracelets',
+  },
+]
 
-  return (
-    <Flex
-      mt={[0, 9]}
-      as="nav"
-      sx={{
-        flexDirection: ['row', 'column'],
-        overflowX: 'auto',
-        flexWrap: 'nowrap',
-      }}
-    >
-      <NavigationLink to="/collections/newarrivals">
-        New Arrivals
-      </NavigationLink>
-      <NavigationLink to="/collections/best-sellers">
-        Best Sellers
-      </NavigationLink>
-      {data.allProductTypeNavigationJson.nodes.map(({ path, text }) => (
-        <NavigationLink to={path} key={`${text}-sidebar`}>
-          {text}
-        </NavigationLink>
-      ))}
-    </Flex>
-  )
-}
+const CollectionSidebar = () => (
+  <Flex
+    mt={[0, 9]}
+    as="nav"
+    sx={{
+      flexDirection: ['row', 'column'],
+      overflowX: 'auto',
+      flexWrap: 'nowrap',
+    }}
+  >
+    {collectionLinks.map(({ handle, label }) => (
+      <NavigationCollectionLink key={`sidebar-link-${handle}`} handle={handle}>
+        {label}
+      </NavigationCollectionLink>
+    ))}
+  </Flex>
+)
 
 export default CollectionSidebar

@@ -1,26 +1,27 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import { Container, Divider, Text } from 'theme-ui'
-import Layout from '../components/layout'
-import ProductGrid from '../components/collection/CollectionProductGrid'
-import ResultsHeader from '../components/collection/ResultsHeader'
+import CollectionPage from '../components/collection/CollectionPage'
 
 const CollectionPageTemplate = ({ data }) => {
-  const { products, title, description } = data.shopifyCollection
+  const { products, title, description, handle } = data.shopifyCollection
+  const topLevelCollections = [
+    'rings',
+    'necklaces',
+    'bracelets',
+    'bridal',
+    'newarrivals',
+    'best-sellers',
+    'earrings',
+  ]
 
   return (
-    <Layout>
-      <Container>
-        <ResultsHeader
-          title={title}
-          description={description}
-          resultType="products"
-          count={products?.length || 0}
-        />
-        <Divider />
-        <ProductGrid products={products} />
-      </Container>
-    </Layout>
+    <CollectionPage
+      title={title}
+      description={description}
+      products={products}
+      hasSidebar={topLevelCollections.includes(handle)}
+      hasFilters={topLevelCollections.includes(handle)}
+    />
   )
 }
 
@@ -31,6 +32,7 @@ export const query = graphql`
     shopifyCollection(handle: { eq: $handle }) {
       title
       description
+      handle
       products {
         handle
         title

@@ -9,31 +9,6 @@ const decodeShopifyId = id => {
   return decodedId
 }
 
-async function createProductTypeCollectionPages({ graphql, actions }) {
-  const component = path.resolve('./src/templates/ProductTypeCollection.js')
-  // move this to sanity
-  const { data } = await graphql(`
-    {
-      allProductTypeNavigationJson {
-        nodes {
-          path
-          productType
-        }
-      }
-    }
-  `)
-
-  data.allProductTypeNavigationJson.nodes.forEach(node => {
-    actions.createPage({
-      path: node.path,
-      component,
-      context: {
-        productType: node.productType,
-      },
-    })
-  })
-}
-
 async function createCollectionPages({ graphql, actions }) {
   const component = path.resolve('./src/templates/CollectionPageTemplate.js')
   // move this to sanity
@@ -193,7 +168,6 @@ export async function createPages(params) {
   // Create pages dynamically
   // Wait for all promises to be resolved before finishing this function
   await Promise.all([
-    createProductTypeCollectionPages(params),
     createProductPages(params),
     createCollectionPages(params),
     createBlogPages(params),
