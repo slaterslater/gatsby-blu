@@ -43,32 +43,27 @@ function ShopAllPage({ data }) {
 export default ShopAllPage
 
 export const query = graphql`
-  query ShopAllQuery {
-    allShopifyProduct(
-      filter: {
-        productType: {
-          in: ["Ring", "Bracelet", "Earring", "Engagement Ring", "Necklace"]
-        }
-        availableForSale: { eq: true }
-      }
-    ) {
-      totalCount
-      nodes {
-        productType
-        title
-        description
-        tags
-        id
+  query AllPage {
+    shopifyCollection(handle: { eq: "all" }) {
+      title
+      description
+      handle
+      products {
         handle
-        priceRange {
-          minVariantPrice {
-            amount
-            currencyCode
-          }
-        }
+        title
         images {
           originalSrc
           altText
+        }
+        priceRange {
+          minVariantPrice {
+            currencyCode
+            amount
+          }
+          maxVariantPrice {
+            currencyCode
+            amount
+          }
         }
       }
     }

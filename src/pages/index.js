@@ -29,31 +29,31 @@ const IndexPage = ({ data }) => (
       slides={[
         {
           title: 'Necklaces',
-          to: '/shop/necklaces',
+          to: '/collections/necklaces',
           buttonLabel: 'Shop All',
           fluid: data.necklaceFile.childImageSharp.gatsbyImageData,
         },
         {
           title: 'Rings',
-          to: '/shop/rings',
+          to: '/collections/rings',
           buttonLabel: 'Shop All',
           fluid: data.ringFile.childImageSharp.gatsbyImageData,
         },
         {
           title: 'Earrings',
-          to: '/shop/earrings',
+          to: '/collections/earrings',
           buttonLabel: 'Shop All',
           fluid: data.earringFile.childImageSharp.gatsbyImageData,
         },
         {
           title: 'Engagement',
-          to: '/shop/engagement',
+          to: '/collections/engagement',
           buttonLabel: 'Shop All',
           fluid: data.engagementFile.childImageSharp.gatsbyImageData,
         },
         {
           title: 'Bracelets',
-          to: '/shop/bracelets',
+          to: '/collections/bracelets',
           buttonLabel: 'Shop All',
           fluid: data.braceletFile.childImageSharp.gatsbyImageData,
         },

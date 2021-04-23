@@ -12,6 +12,7 @@ const CollectionPageTemplate = ({ data }) => {
     'newarrivals',
     'best-sellers',
     'earrings',
+    'all',
   ]
 
   return (
