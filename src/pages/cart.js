@@ -1,6 +1,7 @@
 import { Flex, Button, Box, Container, Grid } from 'theme-ui'
 import React, { useContext, useEffect } from 'react'
 import { useQuery, useMutation } from 'urql'
+import { OutboundLink } from 'gatsby-plugin-google-gtag'
 import Layout from '../components/layout'
 import { CHECKOUT_QUERY } from '../queries/checkout'
 import CartLineItem from '../components/cart/CartLineItem'
@@ -51,9 +52,8 @@ const ShoppingCartPage = props => {
               />
               <Flex p={4}>
                 <Button
-                  as="a"
+                  as={OutboundLink}
                   href={data?.node.webUrl}
-                  type="button"
                   sx={{ flex: 1 }}
                 >
                   Checkout

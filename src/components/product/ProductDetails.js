@@ -12,6 +12,7 @@ import { DrawerContext } from '../drawers'
 import { AddCheckoutLineItem } from '../../mutations/cart'
 import ShopifyHtml from '../ShopifyHtml'
 import MetalOptions from './MetalOptions'
+import { useGAEvent } from '../../lib/useGAEvent'
 
 const ProductDetails = ({
   title,
@@ -21,7 +22,13 @@ const ProductDetails = ({
   vendor,
   yotpoProductBottomline,
   alternates,
+  productType,
 }) => {
+  const sendGAEvent = useGAEvent({
+    category: productType,
+    action: 'Added Product',
+  })
+
   const [, setOpenDrawer] = useContext(DrawerContext)
   const [selectedVariant, setSelectedVariant] = useState(variants[0])
   const productTitle = useProductTitle(title)
@@ -42,6 +49,7 @@ const ProductDetails = ({
   )
 
   const addToCart = async () => {
+    sendGAEvent()
     addCheckoutLineItem({
       checkoutId,
       lineItems: [{ quantity: 1, variantId: selectedVariant.shopifyId }],

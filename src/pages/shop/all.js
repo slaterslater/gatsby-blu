@@ -7,7 +7,7 @@ import ResultsHeader from '../../components/collection/ResultsHeader'
 import CollectionFilterAndSort from '../../components/collection/CollectionFilterAndSort'
 
 function ShopAllPage({ data }) {
-  const { nodes, totalCount } = data.allShopifyProduct
+  const { nodes, totalCount } = data.shopifyCollection
   const [isOpen, setOpen] = useState(false)
 
   return (

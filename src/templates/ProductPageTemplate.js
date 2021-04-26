@@ -1,18 +1,28 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { graphql } from 'gatsby'
 import Layout from '../components/layout'
 import ProductPage from '../components/product/ProductPage'
+import { useGAEvent } from '../lib/useGAEvent'
 
-const ProductPageTemplate = ({ data }) => (
-  <Layout>
-    <ProductPage
-      product={data.shopifyProduct}
-      yotpoProductReview={data.yotpoProductReview}
-      yotpoProductQa={data.yotpoProductQa}
-      alternates={data.alternates}
-    />
-  </Layout>
-)
+const ProductPageTemplate = ({ data }) => {
+  const sendGAEvent = useGAEvent({
+    category: data.shopifyProduct.productType,
+    action: 'Viewed Product',
+  })
+  useEffect(() => {
+    sendGAEvent()
+  }, [])
+  return (
+    <Layout>
+      <ProductPage
+        product={data.shopifyProduct}
+        yotpoProductReview={data.yotpoProductReview}
+        yotpoProductQa={data.yotpoProductQa}
+        alternates={data.alternates}
+      />
+    </Layout>
+  )
+}
 
 export default ProductPageTemplate
 
@@ -32,6 +42,7 @@ export const query = graphql`
       images {
         id
         originalSrc
+        altText
       }
       variants {
         id

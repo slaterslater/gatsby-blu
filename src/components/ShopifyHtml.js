@@ -24,6 +24,14 @@ const ShopifyHtml = styled.div`
     line-height: 1.5;
     margin-bottom: 1.6em;
   }
+
+  img {
+    object-fit: contain;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+  }
 `
 
 export default ShopifyHtml

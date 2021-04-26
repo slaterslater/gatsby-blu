@@ -6,7 +6,7 @@ import ShopifyHtml from '../components/ShopifyHtml'
 
 const BlogTemplate = ({ data }) => (
   <Layout>
-    <Container as="main" pb={8}>
+    <Container as="main" pb={8} sx={{ maxWidth: 680 }}>
       <Box pt={7} pb={2}>
         <Heading>{data.shopifyPage.title}</Heading>
       </Box>

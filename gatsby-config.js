@@ -34,6 +34,18 @@ module.exports = {
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
+      resolve: `gatsby-plugin-google-gtag`,
+      options: {
+        trackingIds: [process.env.GA_TRACKING_ID, process.env.AW_CONVERSION_ID],
+      },
+    },
+    {
+      resolve: `gatsby-plugin-facebook-pixel`,
+      options: {
+        pixelId: process.env.FACEBOOK_PIXEL_ID,
+      },
+    },
+    {
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: `bluboho fine jewelry`,

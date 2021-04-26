@@ -2,6 +2,7 @@ import React, { useMemo } from 'react'
 import path from 'path-browserify'
 import PropTypes from 'prop-types'
 import { AspectImage, Image } from 'theme-ui'
+import { original } from 'immer'
 
 const defaultSizes = [400, 500, 600, 800]
 
@@ -9,6 +10,29 @@ export const getSrcWithSize = (src, size) => {
   const extName = path.extname(src)
   return src.replace(extName, `_${size}${extName}`)
 }
+
+export const useShopifyImageMeta = (image = {}) => {
+  const { originalSrc, altText } = image
+  const meta = []
+  const fbThumb = getSrcWithSize(originalSrc, '1200x630_crop_center')
+  meta.concat([
+    { property: 'og:image', content: fbThumb },
+    { property: 'og:image:height', content: 630 },
+    { property: 'og:image:width', content: 1200 },
+    { property: 'og:image:alt', content: altText },
+  ])
+  const twThumb = getSrcWithSize(originalSrc, '1200x1200_crop_center')
+  meta.concat([
+    { property: 'twitter:image', content: twThumb },
+    { property: 'twitter:image:height', content: 1200 },
+    { property: 'twitter:image:width', content: 1200 },
+    { property: 'twitter:image:alt', content: altText },
+  ])
+  return meta
+}
+
+// export const useShopifyOgImage = src =>
+//   getSrcWithSize(src,
 
 const useShopifyImageCDNSizes = (originalSrc, sizes = defaultSizes) =>
   useMemo(() => {

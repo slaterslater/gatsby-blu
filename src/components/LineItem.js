@@ -1,9 +1,7 @@
-import { Heading, Flex, IconButton, Text, Box, Grid } from 'theme-ui'
-import React, { useState } from 'react'
-import { IoIosRemove, IoIosAdd } from 'react-icons/io'
+import { Heading, IconButton, Text, Box, Grid } from 'theme-ui'
+import React from 'react'
 import RemoteShopifyImage from './RemoteShopifyImage'
 import { useProductTitle } from './ProductTitle'
-import LineItemPrice from './LineItemPrice'
 
 const LineItem = ({ item, imgSize, children }) => {
   const sizeOption = item.variant?.selectedOptions.find(
@@ -20,6 +18,7 @@ const LineItem = ({ item, imgSize, children }) => {
     <Grid sx={{ gridTemplateColumns: `${imgSize}px 1fr`, gap: 3 }}>
       {item.variant ? (
         <RemoteShopifyImage
+          sizes={[80]}
           originalSrc={
             item.variant?.image.src || item.variant?.image.originalSrc
           }

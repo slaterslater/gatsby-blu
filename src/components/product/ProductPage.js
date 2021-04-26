@@ -6,9 +6,13 @@ import { useProductTitle } from '../ProductTitle'
 import ProductDetails from './ProductDetails'
 import ProductSocial from './ProductSocial'
 import Breadcrumbs from '../Breadcrumbs'
-import RemoteShopifyImage from '../RemoteShopifyImage'
+import RemoteShopifyImage, {
+  useShopifyImageMeta,
+  useShopifyOgImage,
+} from '../RemoteShopifyImage'
 import ProductReviews from './ProductReviews'
 import ProductImageGallery from './ProductImageGallery'
+import SEO from '../seo'
 
 const ProductPage = ({
   product: {
@@ -26,8 +30,15 @@ const ProductPage = ({
   alternates,
 }) => {
   const productTitle = useProductTitle(title)
+  const imageMeta = useShopifyImageMeta(images[0])
   return (
     <Container pt={0}>
+      <SEO
+        title={productTitle}
+        description={description}
+        meta={imageMeta}
+        originalSrc={images[0]?.originalSrc}
+      />
       <Breadcrumbs
         pt={6}
         px={0}
@@ -38,7 +49,7 @@ const ProductPage = ({
             text: 'Home',
           },
           {
-            path: `/shop/${pluralize(productType.toLowerCase())}`,
+            path: `/collections/${pluralize(productType.toLowerCase())}`,
             text: pluralize(productType),
           },
         ]}
@@ -58,6 +69,7 @@ const ProductPage = ({
               vendor={vendor}
               yotpoProductBottomline={yotpoProductReview.bottomline}
               alternates={alternates}
+              productType={productType}
             />
             <ProductSocial
               title={title}
