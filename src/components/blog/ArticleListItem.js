@@ -6,7 +6,7 @@ import { truncateString } from '../../lib/truncate'
 import FluidShopifyImage from '../FluidShopifyImage'
 
 const ArticleListItem = ({ article: { handle, title, content, image } }) => {
-  const to = `/blog/news/${handle}`
+  const to = `/blog/${handle}`
   return (
     <Box as="article">
       {image && (

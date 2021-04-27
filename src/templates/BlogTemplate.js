@@ -27,8 +27,8 @@ const BlogTemplate = ({ data, pageContext }) => {
           totalPages={totalPages}
           currentPage={currentPage}
           getLinkForPage={page => {
-            if (page === 1) return `/blog/news`
-            return `/blog/news/page-${page}`
+            if (page === 1) return `/blog`
+            return `/blog/page-${page}`
           }}
           pt={7}
         />

@@ -1,8 +1,9 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import { Heading, Text, Box, Container } from 'theme-ui'
-import Layout from '../components/layout'
-import FormattedDate from '../components/FormattedDate'
+import Layout from '../../components/layout'
+import FormattedDate from '../../components/FormattedDate'
+import ShopifyHtml from '../../components/ShopifyHtml'
 
 const BlogTemplate = ({ data }) => (
   <Layout>
@@ -16,7 +17,7 @@ const BlogTemplate = ({ data }) => (
         </Text>
       </Box>
       <Heading>{data.shopifyArticle.title}</Heading>
-      <Box
+      <ShopifyHtml
         dangerouslySetInnerHTML={{
           __html: data.shopifyArticle.contentHtml,
         }}

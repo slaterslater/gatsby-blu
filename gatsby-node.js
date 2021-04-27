@@ -9,30 +9,6 @@ const decodeShopifyId = id => {
   return decodedId
 }
 
-async function createCollectionPages({ graphql, actions }) {
-  const component = path.resolve('./src/templates/CollectionPageTemplate.js')
-  // move this to sanity
-  const { data } = await graphql(`
-    query Collections {
-      allShopifyCollection {
-        nodes {
-          handle
-        }
-      }
-    }
-  `)
-
-  data.allShopifyCollection.nodes.forEach(({ handle }) => {
-    actions.createPage({
-      path: `/collections/${handle}`,
-      component,
-      context: {
-        handle,
-      },
-    })
-  })
-}
-
 async function createProductPages({ graphql, actions }) {
   // 1. Get a template for this page
   const productTemplate = path.resolve('./src/templates/ProductPageTemplate.js')
@@ -66,32 +42,6 @@ async function createProductPages({ graphql, actions }) {
   })
 }
 
-async function createBlogArticlePages({ graphql, actions }) {
-  const component = path.resolve('./src/templates/BlogArticleTemplate.js')
-  const { data } = await graphql(`
-    {
-      allShopifyArticle(
-        sort: { fields: [publishedAt], order: DESC }
-        filter: { blog: { title: { eq: "blog" } } }
-      ) {
-        nodes {
-          handle
-        }
-      }
-    }
-  `)
-
-  data.allShopifyArticle.nodes.forEach(article => {
-    actions.createPage({
-      path: `/blog/news/${article.handle}`,
-      component,
-      context: {
-        handle: article.handle,
-      },
-    })
-  })
-}
-
 async function createBlogPages({ graphql, actions }) {
   const component = path.resolve('./src/templates/BlogTemplate.js')
 
@@ -119,7 +69,7 @@ async function createBlogPages({ graphql, actions }) {
       const currentPage = i + 1
 
       actions.createPage({
-        path: `/blog/news/page-${currentPage}`,
+        path: `/blog/page-${currentPage}`,
         component,
         context: {
           skip,
@@ -131,7 +81,7 @@ async function createBlogPages({ graphql, actions }) {
 
   // non-paginated first page
   actions.createPage({
-    path: `/blog/news`,
+    path: `/blog`,
     component,
     context: {
       skip: 0,
@@ -141,37 +91,8 @@ async function createBlogPages({ graphql, actions }) {
   })
 }
 
-async function createPagePages({ graphql, actions }) {
-  const component = path.resolve('./src/templates/PageTemplate.js')
-  const { data } = await graphql(`
-    {
-      allShopifyPage {
-        nodes {
-          handle
-        }
-      }
-    }
-  `)
-
-  data.allShopifyPage.nodes.forEach(page => {
-    actions.createPage({
-      path: `/pages/${page.handle}`,
-      component,
-      context: {
-        handle: page.handle,
-      },
-    })
-  })
-}
-
 export async function createPages(params) {
   // Create pages dynamically
   // Wait for all promises to be resolved before finishing this function
-  await Promise.all([
-    createProductPages(params),
-    createCollectionPages(params),
-    createBlogPages(params),
-    createBlogArticlePages(params),
-    createPagePages(params),
-  ])
+  await Promise.all([createProductPages(params), createBlogPages(params)])
 }

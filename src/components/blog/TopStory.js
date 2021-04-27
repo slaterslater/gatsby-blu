@@ -52,7 +52,7 @@ const TopStory = ({ article, ...props }) => {
       <Heading as="h1" variant="caps" pb={4} sx={{ fontSize: [3, 4] }}>
         {title}
       </Heading>
-      <Button variant="inverted" as={GatsbyLink} to={`/news/blog/${handle}`}>
+      <Button variant="inverted" as={GatsbyLink} to={`/blog/${handle}`}>
         Read More
       </Button>
     </Box>

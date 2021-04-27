@@ -1,8 +1,8 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import { Heading, Box, Container } from 'theme-ui'
-import Layout from '../components/layout'
-import ShopifyHtml from '../components/ShopifyHtml'
+import Layout from '../../components/layout'
+import ShopifyHtml from '../../components/ShopifyHtml'
 
 const BlogTemplate = ({ data }) => (
   <Layout>

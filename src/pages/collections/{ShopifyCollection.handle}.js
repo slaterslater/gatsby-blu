@@ -1,6 +1,6 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import CollectionPage from '../components/collection/CollectionPage'
+import CollectionPage from '../../components/collection/CollectionPage'
 
 const CollectionPageTemplate = ({ data }) => {
   const { products, title, description, handle } = data.shopifyCollection
