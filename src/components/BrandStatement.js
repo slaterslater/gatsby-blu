@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { graphql, Link, useStaticQuery } from 'gatsby'
 import { Grid, Button, Text, Heading, Box, Flex } from 'theme-ui'
-import { GatsbyImage } from "gatsby-plugin-image";
+import { GatsbyImage } from 'gatsby-plugin-image'
 // import tree from '../images/brand/tree.svg'
 // import hand from '../images/brand/hand.svg'
 // import peace from '../images/brand/peace.svg'
@@ -22,29 +22,38 @@ StatementBox.propTypes = {
 }
 
 const BrandStatement = () => {
-  const data = useStaticQuery(graphql`{
-  image1: file(relativePath: {eq: "brand-statement/website-icons-FINAL-01.jpg"}) {
-    childImageSharp {
-      gatsbyImageData(width: 140, layout: FIXED)
+  const data = useStaticQuery(graphql`
+    {
+      image1: file(
+        relativePath: { eq: "brand-statement/website-icons-FINAL-01.jpg" }
+      ) {
+        childImageSharp {
+          gatsbyImageData(width: 140, layout: CONSTRAINED)
+        }
+      }
+      image2: file(
+        relativePath: { eq: "brand-statement/website-icons-FINAL-02.jpg" }
+      ) {
+        childImageSharp {
+          gatsbyImageData(width: 140, layout: CONSTRAINED)
+        }
+      }
+      image3: file(
+        relativePath: { eq: "brand-statement/website-icons-FINAL-03.jpg" }
+      ) {
+        childImageSharp {
+          gatsbyImageData(width: 140, layout: CONSTRAINED)
+        }
+      }
+      image4: file(
+        relativePath: { eq: "brand-statement/website-icons-FINAL-04.jpg" }
+      ) {
+        childImageSharp {
+          gatsbyImageData(width: 140, layout: CONSTRAINED)
+        }
+      }
     }
-  }
-  image2: file(relativePath: {eq: "brand-statement/website-icons-FINAL-02.jpg"}) {
-    childImageSharp {
-      gatsbyImageData(width: 140, layout: FIXED)
-    }
-  }
-  image3: file(relativePath: {eq: "brand-statement/website-icons-FINAL-03.jpg"}) {
-    childImageSharp {
-      gatsbyImageData(width: 140, layout: FIXED)
-    }
-  }
-  image4: file(relativePath: {eq: "brand-statement/website-icons-FINAL-04.jpg"}) {
-    childImageSharp {
-      gatsbyImageData(width: 140, layout: FIXED)
-    }
-  }
-}
-`)
+  `)
 
   return (
     <Box variant="sectionWrap">
@@ -81,22 +90,32 @@ const BrandStatement = () => {
         }}
       >
         <div>
-          <GatsbyImage image={data.image1.childImageSharp.gatsbyImageData} alt="Made in Canada" />
+          <GatsbyImage
+            image={data.image1.childImageSharp.gatsbyImageData}
+            alt="Made in Canada"
+          />
         </div>
         <div>
-          <GatsbyImage image={data.image2.childImageSharp.gatsbyImageData} alt="Hand Crafted" />
+          <GatsbyImage
+            image={data.image2.childImageSharp.gatsbyImageData}
+            alt="Hand Crafted"
+          />
         </div>
         <div>
           <GatsbyImage
             image={data.image3.childImageSharp.gatsbyImageData}
-            alt="Ethically Sourced" />
+            alt="Ethically Sourced"
+          />
         </div>
         <div>
-          <GatsbyImage image={data.image4.childImageSharp.gatsbyImageData} alt="Recycled Metals" />
+          <GatsbyImage
+            image={data.image4.childImageSharp.gatsbyImageData}
+            alt="Recycled Metals"
+          />
         </div>
       </Grid>
     </Box>
-  );
+  )
 }
 
 export default BrandStatement

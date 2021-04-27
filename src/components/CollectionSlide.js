@@ -9,7 +9,7 @@ const CollectionSlide = ({ title, to, buttonLabel, fluid }) => {
 
   return (
     <Box pr={4}>
-      <Box sx={{ pointerEvents: 'none' }}>
+      <Box as={Link} to={toPath}>
         <GatsbyImage image={fluid} />
       </Box>
       <Text
