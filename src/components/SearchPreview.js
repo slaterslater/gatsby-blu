@@ -46,7 +46,7 @@ const SearchPreview = ({ term = '' }) => {
           {availableProducts.length} results
         </Text>
         <Text variant="caps" sx={{ fontSize: 0 }}>
-          <Link to={`/shop/search?q=${term}`}>See All</Link>
+          <Link to={`/search?q=${term}`}>See All</Link>
         </Text>
       </Flex>
       {availableProducts.length ? (

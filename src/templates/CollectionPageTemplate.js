@@ -34,6 +34,10 @@ export const query = graphql`
       title
       description
       handle
+      image {
+        src
+        altText
+      }
       products {
         handle
         title

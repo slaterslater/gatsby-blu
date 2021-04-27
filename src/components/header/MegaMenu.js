@@ -146,7 +146,10 @@ const MegaMenu = props => {
           alignItems: 'stretch',
         }}
       >
-        <MegaMenuLink path="/shop/all" onSetMenu={() => setCurrentMenu('shop')}>
+        <MegaMenuLink
+          path="/collections/all"
+          onSetMenu={() => setCurrentMenu('shop')}
+        >
           Shop
         </MegaMenuLink>
         <MegaMenuLink

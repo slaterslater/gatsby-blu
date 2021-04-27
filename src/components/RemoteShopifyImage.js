@@ -2,11 +2,11 @@ import React, { useMemo } from 'react'
 import path from 'path-browserify'
 import PropTypes from 'prop-types'
 import { AspectImage, Image } from 'theme-ui'
-import { original } from 'immer'
 
 const defaultSizes = [400, 500, 600, 800]
 
-export const getSrcWithSize = (src, size) => {
+export const getSrcWithSize = (src = '', size) => {
+  if (!src) return ''
   const extName = path.extname(src)
   return src.replace(extName, `_${size}${extName}`)
 }

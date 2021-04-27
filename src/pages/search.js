@@ -2,12 +2,10 @@ import React from 'react'
 import { useQuery } from 'urql'
 import { parse } from 'qs'
 import { Grid, Box, Text, Container } from 'theme-ui'
-import Layout from '../../components/layout'
-import { PRODUCT_QUERY } from '../../queries/search'
-import ProductTitle from '../../components/ProductTitle'
-import RemoteShopifyImage from '../../components/RemoteShopifyImage'
-import ResultsHeader from '../../components/collection/ResultsHeader'
-import CollectionProduct from '../../components/CollectionProduct'
+import Layout from '../components/layout'
+import { PRODUCT_QUERY } from '../queries/search'
+import ResultsHeader from '../components/collection/ResultsHeader'
+import CollectionProduct from '../components/CollectionProduct'
 
 const SearchPage = ({ location: { search } }) => {
   const { q: term } = parse(search?.replace('?', ''))

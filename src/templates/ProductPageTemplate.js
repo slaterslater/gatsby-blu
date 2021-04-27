@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react'
 import { graphql } from 'gatsby'
+import { useLocation } from '@reach/router'
 import Layout from '../components/layout'
 import ProductPage from '../components/product/ProductPage'
 import { useGAEvent } from '../lib/useGAEvent'
+import SEO from '../components/seo'
 
 const ProductPageTemplate = ({ data }) => {
+  const location = useLocation()
   const sendGAEvent = useGAEvent({
     category: data.shopifyProduct.productType,
     action: 'Viewed Product',
@@ -12,8 +15,44 @@ const ProductPageTemplate = ({ data }) => {
   useEffect(() => {
     sendGAEvent()
   }, [])
+
+  const productLdJSON = `
+    {
+      "@type": "Product",
+      "@id": "${location.href}",
+      "brand": {
+        "name": "${data.shopifyProduct.vendor}"
+      },
+      "name": "${data.shopifyProduct.title}",
+      "description": "${data.shopifyProduct.description}",
+      "category": "${data.shopifyProduct.productType}",
+      "url": "${location.href}",
+      "sku": "${data.shopifyProduct.variants[0].sku}",
+      "offers": [${data.shopifyProduct.variants
+        .map(
+          variant => `
+          {
+          "@type": "Offer",
+          "name": "${variant.title}",
+          "availability": "https://schema.org/${
+            variant.availableForSale ? 'InStock' : 'OutOfStock'
+          }",
+          "price": "${variant.priceNumber}",
+          "priceCurrency": "CAD",
+          "url": "${location.href}?variant=${variant.sku}",
+          "sku": "${variant.sku}"
+          }
+        `
+        )
+        .toString()}]
+    }
+  `
+
   return (
     <Layout>
+      <SEO>
+        <script type="application/ld+json">{productLdJSON}</script>
+      </SEO>
       <ProductPage
         product={data.shopifyProduct}
         yotpoProductReview={data.yotpoProductReview}
@@ -45,6 +84,7 @@ export const query = graphql`
         altText
       }
       variants {
+        title
         id
         shopifyId
         priceNumber
