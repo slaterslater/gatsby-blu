@@ -12,6 +12,7 @@ const colors = {
   yellowGold: '#e9d68f',
   sterlingSilver: '#c7c7c7',
   roseGold: '#e0c5ae',
+  error: '#f8382a',
 }
 colors.text = colors.black
 colors.primary = colors.navy
@@ -160,6 +161,28 @@ export default {
         color: 'gray',
         fontSize: 0,
       },
+    },
+    label: {
+      fontSize: 1,
+      color: 'darkGray',
+    },
+    input: {
+      fontSize: 1,
+      borderRadius: 0,
+      borderColor: 'darkGray',
+      py: 3,
+    },
+    select: {
+      fontSize: 1,
+      borderRadius: 0,
+      borderColor: 'darkGray',
+      py: 3,
+    },
+    textarea: {
+      fontSize: 1,
+      borderRadius: 0,
+      borderColor: 'darkGray',
+      py: 3,
     },
   },
   variants: {

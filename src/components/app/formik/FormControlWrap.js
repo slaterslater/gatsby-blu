@@ -1,6 +1,7 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Field, ErrorMessage } from 'formik'
-import { Box, Label, Input, Text } from 'theme-ui'
+import { Box, Textarea, Label, Input, Select, Text } from 'theme-ui'
 
 const FormControlWrap = ({ label, id, name, children }) => (
   <Box pb={3}>
@@ -8,7 +9,13 @@ const FormControlWrap = ({ label, id, name, children }) => (
       {label}
     </Label>
     {children}
-    <ErrorMessage component={Text} pt={3} name={name} />
+    <ErrorMessage
+      component={Text}
+      pt={3}
+      px={1}
+      sx={{ color: 'error' }}
+      name={name}
+    />
   </Box>
 )
 
@@ -25,3 +32,48 @@ export const InputControl = ({ label, id, name, type, placeholder }) => (
     />
   </FormControlWrap>
 )
+
+export const SelectControl = ({
+  label,
+  id,
+  name,
+  type,
+  defaultValue,
+  children,
+}) => (
+  <FormControlWrap label={label} id={id} name={name}>
+    <Field
+      name={name}
+      id={id}
+      as={Select}
+      type={type}
+      defaultValue={defaultValue}
+    >
+      {children}
+    </Field>
+  </FormControlWrap>
+)
+
+export const TextareaControl = ({ label, id, name, type, placeholder }) => (
+  <FormControlWrap label={label} id={id} name={name}>
+    <Field
+      name={name}
+      id={id}
+      as={Textarea}
+      type={type}
+      placeholder={placeholder}
+    />
+  </FormControlWrap>
+)
+
+export const HoneypotControl = ({ name = 'bot-field' }) => (
+  <Box sx={{ display: 'none' }}>
+    <label htmlFor={`_${name}`}>
+      don't fill this out if you're human
+      <Field id={`_${name}`} name="name" />
+    </label>
+  </Box>
+)
+HoneypotControl.propTypes = {
+  name: PropTypes.string,
+}
