@@ -45,11 +45,21 @@ const encodeNetlifyForm = data =>
 const validationSchema = yup.object({
   name: yup.string().required(),
   email: yup.string().email().required(),
-  location: yup.string().oneOf(locationOpts).required(),
-  'what are you looking for': yup.string().oneOf(lookingForOpts).required(),
+  location: yup
+    .string()
+    .oneOf(locationOpts, 'required field')
+    .required('location is requied')
+    .nullable(),
+  'what are you looking for': yup
+    .string()
+    .oneOf(lookingForOpts, 'required field')
+    .required(),
   phone: yup.string(),
-  'preferred time': yup.string().oneOf(timeOpts).required(),
-  'how did you hear about us': yup.string().oneOf(hearAboutOpts).required(),
+  'preferred time': yup.string().oneOf(timeOpts, 'required field').required(),
+  'how did you hear about us': yup
+    .string()
+    .oneOf(hearAboutOpts, 'required field')
+    .required(),
   comments: yup.string(),
   'brot-field': yup.string(),
 })
@@ -57,10 +67,10 @@ const validationSchema = yup.object({
 const initialValues = {
   name: '',
   email: '',
-  location: '',
-  'preferred time': '',
-  'how did you hear about us': '',
-  'what are you looking for': '',
+  location: null,
+  'preferred time': null,
+  'how did you hear about us': null,
+  'what are you looking for': null,
   comments: '',
   phone: '',
   'brot-field': '',
@@ -94,7 +104,12 @@ const BookConsultationForm = ({ onSuccess, onError }) => (
         <HoneypotControl name="brot-field" />
         <InputControl label="Your name" id="name" name="name" type="input" />
         <InputControl label="Your email" id="email" name="email" type="email" />
-        <SelectControl label="Select location" id="location" name="location">
+        <SelectControl
+          label="Select location"
+          id="location"
+          name="location"
+          placeholder="make a selection"
+        >
           {locationOpts.map(opt => (
             <option key={opt} value={opt}>
               {opt}
@@ -111,6 +126,7 @@ const BookConsultationForm = ({ onSuccess, onError }) => (
           label="What are you looking for?"
           id="looking_for"
           name="what are you looking for"
+          placeholder="make a selection"
         >
           {lookingForOpts.map(opt => (
             <option key={opt} value={opt}>
@@ -122,6 +138,7 @@ const BookConsultationForm = ({ onSuccess, onError }) => (
           label="preferred time"
           id="preferred_time"
           name="preferred time"
+          placeholder="make a selection"
         >
           {timeOpts.map(opt => (
             <option key={opt} value={opt}>
@@ -133,6 +150,7 @@ const BookConsultationForm = ({ onSuccess, onError }) => (
           label="How did you hear about bluboho bridal and ring consultations?"
           id="how_did_you"
           name="how did you hear about us"
+          placeholder="make a selection"
         >
           {hearAboutOpts.map(opt => (
             <option key={opt} value={opt}>

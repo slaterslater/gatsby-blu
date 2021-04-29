@@ -40,15 +40,15 @@ export const SelectControl = ({
   type,
   defaultValue,
   children,
+  placeholder,
 }) => (
   <FormControlWrap label={label} id={id} name={name}>
-    <Field
-      name={name}
-      id={id}
-      as={Select}
-      type={type}
-      defaultValue={defaultValue}
-    >
+    <Field name={name} id={id} as={Select} type={type}>
+      {placeholder && (
+        <option value={placeholder} disabled selected>
+          {placeholder}
+        </option>
+      )}
       {children}
     </Field>
   </FormControlWrap>
