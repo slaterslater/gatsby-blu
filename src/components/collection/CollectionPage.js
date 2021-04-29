@@ -56,7 +56,7 @@ const CollectionPage = ({
               </Box>
             )}
           </Box>
-          <Box as="main" p={[3, 4]}>
+          <Box as="main">
             <ResultsHeader
               title={title}
               description={description}

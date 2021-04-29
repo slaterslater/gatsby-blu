@@ -13,6 +13,7 @@ const NavigationCollectionLink = ({ handle, children }) => (
       fontSize: [0, 1],
       flex: '0 0 auto',
       whiteSpace: 'nowrap',
+      scrollSnapAlign: 'start',
     }}
   >
     {children}
@@ -56,12 +57,17 @@ const collectionLinks = [
 
 const CollectionSidebar = () => (
   <Flex
-    mt={[0, 9]}
+    mt={[-5, 9]}
+    mr={[-5, 0]}
+    pt={[3, 0]}
+    pb={[4, 0]}
     as="nav"
     sx={{
       flexDirection: ['row', 'column'],
       overflowX: 'auto',
-      flexWrap: 'nowrap',
+      webkitOverflowScrolling: 'touch',
+      scrollSnapType: 'x mandatory',
+      scrollBehavior: 'smooth',
     }}
   >
     {collectionLinks.map(({ handle, label }) => (
