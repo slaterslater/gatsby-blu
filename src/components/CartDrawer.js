@@ -12,8 +12,6 @@ import { CHECKOUT_QUERY } from '../queries/checkout'
 const EmptyCart = () => (
   <Box py={5} px={4} sx={{ textAlign: 'center' }}>
     <Text sx={{ fontSize: 1 }}>You have no items in your cart.</Text>
-    <Divider m={5} />
-    <Text sx={{ fontSize: 1 }}>Sign Up for 10% off your first order*</Text>
   </Box>
 )
 

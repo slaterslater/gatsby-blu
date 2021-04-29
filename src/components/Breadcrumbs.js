@@ -8,7 +8,6 @@ import SEO from './seo'
 const Breadcrumbs = ({ links, currentPage, children, ...props }) => {
   const location = useLocation()
   const breadcrumbLdJSON = `
-
   {
     "@context": "http://schema.org",
     "@type": "BreadcrumbList",
@@ -38,26 +37,34 @@ const Breadcrumbs = ({ links, currentPage, children, ...props }) => {
       </SEO>
       <Flex
         py={3}
-        px={4}
+        mr={-5}
         sx={{
           alignItems: 'center',
           overflowX: 'auto',
+          webkitOverflowScrolling: 'touch',
+          scrollSnapType: 'x mandatory',
+          scrollBehavior: 'smooth',
         }}
         {...props}
       >
         {links?.map(({ path, text }) => (
           <React.Fragment key={`breadcrumb-${path}-${text}`}>
-            <Text variant="caps">
+            <Text
+              variant="caps"
+              sx={{ flexShrink: 0, scrollSnapAlign: 'start' }}
+            >
               <Link variant="nav" as={GatsbyLink} to={path}>
                 {text}
               </Link>
             </Text>
-            <Box px={2}>
+            <Box px={2} sx={{ flexShrink: 0 }}>
               <Text>&bull;</Text>
             </Box>
           </React.Fragment>
         ))}
-        <Text variant="caps">{currentPage.text}</Text>
+        <Text variant="caps" sx={{ flexShrink: 0, scrollSnapAlign: 'start' }}>
+          {currentPage.text}
+        </Text>
         {children && <Box ml="auto">{children}</Box>}
       </Flex>
     </>

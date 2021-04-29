@@ -4,6 +4,8 @@ const colors = {
   darkGray: '#7D7D7D',
   darkerGray: '#454545',
   gray: '#BDC2BF',
+  border: '#e5e5e5',
+  darkBorder: '#858585',
   lightGray: '#e4e7ea',
   lightBlueGray: '#ced6df',
   blueGray: '#7b92a3',
@@ -17,7 +19,6 @@ const colors = {
 colors.text = colors.black
 colors.primary = colors.navy
 colors.background = colors.white
-colors.border = colors.lightGray
 
 export default {
   colors,
@@ -169,20 +170,29 @@ export default {
     input: {
       fontSize: 1,
       borderRadius: 0,
-      borderColor: 'darkGray',
+      borderColor: 'border',
       py: 3,
+      '&:focus': {
+        borderColor: 'darkBorder',
+      },
     },
     select: {
       fontSize: 1,
       borderRadius: 0,
-      borderColor: 'darkGray',
+      borderColor: 'border',
       py: 3,
+      '&:focus': {
+        borderColor: 'darkBorder',
+      },
     },
     textarea: {
       fontSize: 1,
       borderRadius: 0,
-      borderColor: 'darkGray',
+      borderColor: 'border',
       py: 3,
+      '&:focus': {
+        borderColor: 'darkBorder',
+      },
     },
   },
   variants: {
