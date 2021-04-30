@@ -76,7 +76,7 @@ const ProductPage = ({
             <ProductSocial
               title={title}
               description={description}
-              image={images?.[0].originalSrc}
+              image={images?.[0]?.originalSrc}
             />
           </Box>
         </Box>

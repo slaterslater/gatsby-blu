@@ -20,9 +20,9 @@ export const onRenderBody = ({ setHeadComponents }) => {
   }
 
   if (!tidioId) {
-    console.log(
-      'No Tidio key provided! gatsby-plugin-tidio will not load. Please add tidioId to environment'
-    )
+    // console.log(
+    //   'No Tidio key provided! gatsby-plugin-tidio will not load. Please add tidioId to environment'
+    // )
     return null
   }
 
