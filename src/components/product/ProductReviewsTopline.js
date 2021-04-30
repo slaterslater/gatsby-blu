@@ -35,7 +35,17 @@ const ProductReviewsTopline = ({ score, possibleScore, totalReviews }) => {
     starPercentage * possibleScore * 0.01
   ).toPrecision(3)
 
-  if (!totalReviews) return false
+  if (!totalReviews)
+    return (
+      <Box>
+        <Text as="p">
+          be the first to{' '}
+          <Link as="a" href="#reviews">
+            write a review
+          </Link>
+        </Text>
+      </Box>
+    )
 
   return (
     <Grid
@@ -46,10 +56,12 @@ const ProductReviewsTopline = ({ score, possibleScore, totalReviews }) => {
       }}
     >
       <ReviewStars starPercentage={starPercentageRounded} />
-      <Text sx={{ fontSize: 2, fontWeight: 'medium' }}>{numericalAverage}</Text>
+      <Text as="p" sx={{ fontSize: 2, fontWeight: 'medium' }}>
+        {numericalAverage}
+      </Text>
       <Box sx={{ width: 1, height: '100%', bg: 'border' }} />
-      <Text sx={{ fontSize: 1 }}>
-        <Link variant="nav">
+      <Text as="p" sx={{ fontSize: 1 }}>
+        <Link as="a" variant="nav" href="#reviews">
           See {totalReviews} {totalReviews > 1 ? 'Reviews' : 'Review'}
         </Link>
       </Text>

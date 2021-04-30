@@ -1,20 +1,26 @@
 import React, { useContext, useState } from 'react'
 import { Divider, Link, Button, Text, Flex, Box, Grid, Heading } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
-import { useQuery, useMutation } from 'urql'
 import { useProductTitle } from '../ProductTitle'
 import { useFormattedPrice } from '../../hooks/utils'
 import ProductReviewsTopline from './ProductReviewsTopline'
 import MetalOptionSwatch from '../MetalOptionSwatch'
-import VariantOption from './VariantOption'
-import { StoreContext } from '../../contexts/StoreContext'
-import { DrawerContext } from '../drawers'
-import { AddCheckoutLineItem } from '../../mutations/cart'
+import AddToCart from './AddToCart'
 import ShopifyHtml from '../ShopifyHtml'
 import MetalOptions from './MetalOptions'
-import { useGAEvent } from '../../lib/useGAEvent'
+import ProductOptions from './ProductOptions'
+
+const getInitialSelectedOptions = options =>
+  options.reduce(
+    (acc, el) => ({
+      ...acc,
+      [el.name]: el.values.length === 1 ? el.values[0] : null,
+    }),
+    {}
+  )
 
 const ProductDetails = ({
+  options,
   title,
   descriptionHtml,
   description,
@@ -24,39 +30,30 @@ const ProductDetails = ({
   alternates,
   productType,
 }) => {
-  const sendGAEvent = useGAEvent({
-    category: productType,
-    action: 'Added Product',
-  })
+  const [selectedOptions, setSelectedOptions] = useState(
+    getInitialSelectedOptions(options)
+  )
 
-  const [, setOpenDrawer] = useContext(DrawerContext)
-  const [selectedVariant, setSelectedVariant] = useState(variants[0])
+  const selectedVariant = variants.find(variant =>
+    Object.keys(selectedOptions).reduce((acc, optionName) => {
+      if (!acc) return false
+
+      return variant.selectedOptions.find(
+        variantOption => variantOption.value === selectedOptions[optionName]
+      )
+    }, true)
+  )
+
+  // const [selectedVariant, setSelectedVariant] = useState(null)
   const productTitle = useProductTitle(title)
   const productPrice = useFormattedPrice({
-    amount: selectedVariant.priceNumber,
+    amount: (selectedVariant || variants[0]).priceNumber,
     currency: 'CAD',
   })
 
-  const { checkoutId } = useContext(StoreContext)
-  const [{ fetching }, addCheckoutLineItem] = useMutation(AddCheckoutLineItem)
-
-  const metalOption = selectedVariant.selectedOptions.find(
+  const metalOption = variants[0].selectedOptions.find(
     opt => opt.name?.toLowerCase() === 'metal'
   )
-
-  const hasSizeVariants = !!variants.find(variant =>
-    variant.selectedOptions.find(opt => opt.name === 'Size')
-  )
-
-  const addToCart = async () => {
-    sendGAEvent()
-    addCheckoutLineItem({
-      checkoutId,
-      lineItems: [{ quantity: 1, variantId: selectedVariant.shopifyId }],
-    }).then(() => {
-      setOpenDrawer('cart')
-    })
-  }
 
   // get related metal options from sanity
 
@@ -83,60 +80,15 @@ const ProductDetails = ({
         />
       </Box>
       <MetalOptions product={{ variants }} alternates={alternates} />
-      <Box py={4}>
-        {hasSizeVariants && (
-          <>
-            <Heading as="h5" sx={{ fontSize: 3 }} pb={4}>
-              select a size
-            </Heading>
-            <Grid
-              sx={{
-                gridAutoFlow: 'column',
-                gridColumn: 'max-content',
-                gap: 2,
-                pb: 3,
-              }}
-            >
-              {variants.map((variant, i) => (
-                <VariantOption
-                  key={`${variant.id}-option`}
-                  disabled={!variant.availableForSale}
-                  isSelected={variant.id === selectedVariant.id}
-                  onClick={() => setSelectedVariant(variants[i])}
-                >
-                  {
-                    variant.selectedOptions.find(opt => opt.name === 'Size')
-                      ?.value
-                  }
-                </VariantOption>
-              ))}
-            </Grid>
-          </>
-        )}
-        <Button
-          type="button"
-          onClick={() => console.log('launch size modal')}
-          sx={{
-            bg: 'transparent',
-            p: 0,
-            color: 'gray',
-            fontSize: 1,
-            textTransform: 'none',
-          }}
-        >
-          size guide
-        </Button>
-        <Flex pt={4}>
-          <Button
-            disabled={fetching}
-            type="button"
-            onClick={addToCart}
-            sx={{ flex: 1, fontSize: 1, py: 4 }}
-          >
-            Add To Cart
-          </Button>
-        </Flex>
-      </Box>
+      <ProductOptions
+        options={options}
+        onSelect={(name, value) =>
+          setSelectedOptions(prev => ({ ...prev, [name]: value }))
+        }
+        selectedOptions={selectedOptions}
+      />
+      <AddToCart variant={selectedVariant} />
+      <Box>{/* <ProductCTACallout tags={tags} /> */}</Box>
       <Box py={4}>
         <ShopifyHtml dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
         <Box>

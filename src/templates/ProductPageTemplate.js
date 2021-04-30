@@ -78,6 +78,10 @@ export const query = graphql`
       productType
       vendor
       onlineStoreUrl
+      options {
+        name
+        values
+      }
       images {
         id
         originalSrc

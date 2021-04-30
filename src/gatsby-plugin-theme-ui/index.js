@@ -95,6 +95,7 @@ export default {
       textTransform: 'uppercase',
       letterSpacing: '.1em',
       cursor: 'pointer',
+      transition: 'opacity ease-out .176s',
     },
     secondary: {
       '&:disabled': {

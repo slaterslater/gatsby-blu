@@ -59,28 +59,28 @@ const Header = () => {
             }}
             p={4}
           >
-            <Box mr={2} sx={{ display: ['none', 'block', 'block'] }}>
-              <GatsbyLink to="/account">
+            <Flex sx={{ display: ['none', 'flex', 'flex'] }}>
+              <IconButton as={GatsbyLink} to="/account" mr={2}>
                 <Text
                   as={AiOutlineUser}
                   color="white"
                   size={24}
-                  sx={{ transform: 'translateY(3px)' }}
+                  sx={{ transform: 'translateY(1px)' }}
                 />
-              </GatsbyLink>
-            </Box>
-            <IconButton
-              sx={{ cursor: 'pointer', display: ['none', 'flex'] }}
-              onClick={() => setSearchOpen(state => !state)}
-              mr={2}
-            >
-              <Text
-                as={IoIosSearch}
-                color="white"
-                size={24}
-                sx={{ transform: 'translateY(1px)' }}
-              />
-            </IconButton>
+              </IconButton>
+              <IconButton
+                sx={{ cursor: 'pointer', display: ['none', 'flex'] }}
+                onClick={() => setSearchOpen(state => !state)}
+                mr={2}
+              >
+                <Text
+                  as={IoIosSearch}
+                  color="white"
+                  size={24}
+                  sx={{ transform: 'translateY(1px)' }}
+                />
+              </IconButton>
+            </Flex>
             <Box sx={{ position: 'relative' }}>
               <CartBadge />
               <IconButton

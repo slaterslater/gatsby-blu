@@ -16,6 +16,7 @@ import SEO from '../seo'
 
 const ProductPage = ({
   product: {
+    options,
     title,
     descriptionHtml,
     description,
@@ -70,6 +71,7 @@ const ProductPage = ({
               yotpoProductBottomline={yotpoProductReview.bottomline}
               alternates={alternates}
               productType={productType}
+              options={options}
             />
             <ProductSocial
               title={title}

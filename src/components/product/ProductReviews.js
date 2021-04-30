@@ -52,7 +52,7 @@ const ProductReviews = ({
   )
 
   return (
-    <Container pt={8}>
+    <Container pt={8} id="reviews">
       <Flex sx={{ alignItems: 'baseline' }}>
         <Flex pb={6}>
           <NavLink
