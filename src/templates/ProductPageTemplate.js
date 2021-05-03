@@ -92,6 +92,16 @@ export const query = graphql`
         id
         shopifyId
         priceNumber
+        presentmentPrices {
+          edges {
+            node {
+              price {
+                amount
+                currencyCode
+              }
+            }
+          }
+        }
         availableForSale
         sku
         selectedOptions {

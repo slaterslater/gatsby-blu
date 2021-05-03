@@ -1,34 +1,33 @@
 import React, { useContext, useState } from 'react'
 import Tippy from '@tippyjs/react'
-import { Grid, Text, Box, Button } from 'theme-ui'
+import { Grid, Box, Button } from 'theme-ui'
 import { useQuery } from 'urql'
-import { BiCircle, BiCheckCircle } from 'react-icons/bi'
-import Flag from 'react-world-flags'
 import { CurrencyContext } from '../contexts/CurrencyContext'
 import { SHOP_CURRENCIES } from '../queries/shop'
 
-const CurrencyCode = React.forwardRef(({ children, ...props }, ref) => (
-  <Button
-    type="button"
-    ref={ref}
-    sx={{
-      display: 'grid',
-      gap: 2,
-      gridAutoFlow: 'column',
-      letterSpacing: 'caps',
-      bg: 'transparent',
-      fontSize: 1,
-      color: 'white',
-    }}
-    p={0}
-    {...props}
-  >
-    {children && (
-      <Flag height={12} code={children.split('').slice(0, 2).join('')} />
-    )}
-    {children}
-  </Button>
-))
+const CurrencyCode = React.forwardRef(({ children, ...props }, ref) => {
+  const moneySymbol = children === 'GBP' ? '£' : '$'
+
+  return (
+    <Button
+      type="button"
+      ref={ref}
+      sx={{
+        display: 'grid',
+        gap: 2,
+        gridAutoFlow: 'column',
+        letterSpacing: 'caps',
+        bg: 'transparent',
+        fontSize: 1,
+        color: 'white',
+      }}
+      p={0}
+      {...props}
+    >
+      {`${moneySymbol} ${children}`}
+    </Button>
+  )
+})
 
 const CurrencyPicker = props => {
   const [visible, setVisible] = useState(false)

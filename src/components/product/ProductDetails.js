@@ -1,14 +1,13 @@
-import React, { useMemo, useContext, useState } from 'react'
-import { Divider, Link, Button, Text, Flex, Box, Grid, Heading } from 'theme-ui'
+import React, { useMemo, useState } from 'react'
+import { Link, Text, Box, Grid, Heading } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
 import { useProductTitle } from '../ProductTitle'
-import { useFormattedPrice } from '../../hooks/utils'
 import ProductReviewsTopline from './ProductReviewsTopline'
-import MetalOptionSwatch from '../MetalOptionSwatch'
 import AddToCart from './AddToCart'
 import ShopifyHtml from '../ShopifyHtml'
 import MetalOptions from './MetalOptions'
 import ProductOptions from './ProductOptions'
+import VariantPrice from './VariantPrice'
 
 const getInitialSelectedOptions = options =>
   options.reduce(
@@ -23,12 +22,10 @@ const ProductDetails = ({
   options,
   title,
   descriptionHtml,
-  description,
   variants,
   vendor,
   yotpoProductBottomline,
   alternates,
-  productType,
 }) => {
   const [selectedOptions, setSelectedOptions] = useState(
     getInitialSelectedOptions(options)
@@ -48,18 +45,7 @@ const ProductDetails = ({
     [selectedOptions, variants]
   )
 
-  // const [selectedVariant, setSelectedVariant] = useState(null)
   const productTitle = useProductTitle(title)
-  const productPrice = useFormattedPrice({
-    amount: (selectedVariant || variants[0]).priceNumber,
-    currency: 'CAD',
-  })
-
-  const metalOption = variants[0].selectedOptions.find(
-    opt => opt.name?.toLowerCase() === 'metal'
-  )
-
-  // get related metal options from sanity
 
   return (
     <>
@@ -75,7 +61,9 @@ const ProductDetails = ({
           <Heading as="h1" sx={{ fontSize: 5 }}>
             {productTitle}
           </Heading>
-          <Text sx={{ whiteSpace: 'nowrap', fontSize: 3 }}>{productPrice}</Text>
+          <Text sx={{ whiteSpace: 'nowrap', fontSize: 3 }}>
+            <VariantPrice variant={selectedVariant || variants[0]} />
+          </Text>
         </Grid>
         <ProductReviewsTopline
           score={yotpoProductBottomline?.averageScore}
