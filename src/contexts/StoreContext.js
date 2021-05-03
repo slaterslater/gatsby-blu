@@ -30,7 +30,6 @@ const getNewCheckout = async () => {
 
 const StoreProvider = props => {
   const [checkoutId, setCheckoutId] = useState(initialValues.checkoutId)
-  const [checkout, setCheckout] = useState(initialValues.checkout)
 
   const initializeCheckout = async () => {
     try {
@@ -49,7 +48,6 @@ const StoreProvider = props => {
       } else {
         newCheckout = await getNewCheckout()
       }
-      setCheckout(newCheckout)
       setCheckoutId(newCheckout.id)
     } catch (e) {
       console.log('initialize checkout error')
@@ -64,7 +62,6 @@ const StoreProvider = props => {
     <StoreContext.Provider
       value={{
         ...initialValues,
-        checkout,
         checkoutId,
       }}
       {...props}

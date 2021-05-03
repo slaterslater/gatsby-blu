@@ -3,6 +3,7 @@ import { Grid, Box, Text, Link, Flex } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
 import { FaFacebookF, FaInstagram, FaPinterest } from 'react-icons/fa'
 import NewsletterForm from './NewsletterForm'
+import CurrencyPicker from './CurrencyPicker'
 
 const SectionHeading = props => (
   <Text
@@ -103,6 +104,9 @@ const Footer = props => (
           <Text as={FaPinterest} sx={{ color: 'gray' }} />
         </Link>
       </Flex>
+      <Box pt={4}>
+        <CurrencyPicker />
+      </Box>
     </Box>
   </Grid>
 )

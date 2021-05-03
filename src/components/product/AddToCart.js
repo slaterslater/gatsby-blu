@@ -17,6 +17,7 @@ const getLatestVariant = (data, id) => {
 
   return latestVariant.node
 }
+
 const AddToCart = ({ variant, productType }) => {
   const { handle } = useMatch('/products/:handle')
   const [{ data, error }] = useQuery({

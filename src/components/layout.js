@@ -8,6 +8,7 @@
 // import 'photoswipe/dist/photoswipe.css'
 // import 'photoswipe/dist/default-skin/default-skin.css'
 import '@reach/dialog/styles.css'
+import 'tippy.js/dist/tippy.css'
 
 import React from 'react'
 import PropTypes from 'prop-types'

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useMemo, useContext, useState } from 'react'
 import { Divider, Link, Button, Text, Flex, Box, Grid, Heading } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
 import { useProductTitle } from '../ProductTitle'
@@ -34,14 +34,18 @@ const ProductDetails = ({
     getInitialSelectedOptions(options)
   )
 
-  const selectedVariant = variants.find(variant =>
-    Object.keys(selectedOptions).reduce((acc, optionName) => {
-      if (!acc) return false
+  const selectedVariant = useMemo(
+    () =>
+      variants.find(variant =>
+        Object.keys(selectedOptions).reduce((acc, optionName) => {
+          if (!acc) return false
 
-      return variant.selectedOptions.find(
-        variantOption => variantOption.value === selectedOptions[optionName]
-      )
-    }, true)
+          return variant.selectedOptions.find(
+            variantOption => variantOption.value === selectedOptions[optionName]
+          )
+        }, true)
+      ),
+    [selectedOptions, variants]
   )
 
   // const [selectedVariant, setSelectedVariant] = useState(null)
