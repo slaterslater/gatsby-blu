@@ -5,9 +5,11 @@ import Layout from '../components/layout'
 import ProductPage from '../components/product/ProductPage'
 import { useGAEvent } from '../lib/useGAEvent'
 import SEO from '../components/seo'
+import { useProductTitle } from '../components/ProductTitle'
 
 const ProductPageTemplate = ({ data }) => {
   const location = useLocation()
+  const title = useProductTitle(data.shopifyProduct.title)
   const sendGAEvent = useGAEvent({
     category: data.shopifyProduct.productType,
     action: 'Viewed Product',
@@ -23,7 +25,7 @@ const ProductPageTemplate = ({ data }) => {
       "brand": {
         "name": "${data.shopifyProduct.vendor}"
       },
-      "name": "${data.shopifyProduct.title}",
+      "name": "${title}",
       "description": "${data.shopifyProduct.description}",
       "category": "${data.shopifyProduct.productType}",
       "url": "${location.href}",
@@ -50,7 +52,7 @@ const ProductPageTemplate = ({ data }) => {
 
   return (
     <Layout>
-      <SEO>
+      <SEO title={title}>
         <script type="application/ld+json">{productLdJSON}</script>
       </SEO>
       <ProductPage

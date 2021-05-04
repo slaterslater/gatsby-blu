@@ -39,18 +39,27 @@ export const query = graphql`
         altText
       }
       products {
+        id
         handle
         title
         images {
           originalSrc
           altText
         }
+        variants {
+          presentmentPrices {
+            edges {
+              node {
+                price {
+                  amount
+                  currencyCode
+                }
+              }
+            }
+          }
+        }
         priceRange {
           minVariantPrice {
-            currencyCode
-            amount
-          }
-          maxVariantPrice {
             currencyCode
             amount
           }

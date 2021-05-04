@@ -1,10 +1,11 @@
-import React, { useMemo } from 'react'
+import React, { useContext, useMemo } from 'react'
 import { Flex, Box, Text, Grid, Link, AspectRatio } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
 import { motion } from 'framer-motion'
 import { useProductTitle } from '../hooks/product'
 import { useFormattedPrice } from '../hooks/utils'
 import FluidShopifyImage from './FluidShopifyImage'
+import { CurrencyContext } from '../contexts/CurrencyContext'
 
 const MotionBox = motion(Box)
 
@@ -38,6 +39,14 @@ const CollectionThumbnail = ({ primary, alternate }) => {
     </Grid>
   )
 }
+
+// const useCollectionProductPrice = ({ variants }) => {
+//   const { currencyCode } = useContext(CurrencyContext)
+
+//   const
+
+//   // are there different prices?
+// }
 
 const CollectionProduct = ({ product, images }) => {
   const fromPrice = useFormattedPrice({

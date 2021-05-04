@@ -4,13 +4,13 @@ import { Box, Button, Text } from 'theme-ui'
 import PropTypes from 'prop-types'
 import { GatsbyImage } from 'gatsby-plugin-image'
 
-const CollectionSlide = ({ title, to, buttonLabel, fluid }) => {
-  const toPath = to || `/shop/${title?.toLowerCase()}`
+const CollectionSlide = ({ title, to, buttonLabel, image }) => {
+  const toPath = to || `/collections/${title?.toLowerCase()}`
 
   return (
     <Box pr={4}>
       <Box as={Link} to={toPath}>
-        <GatsbyImage image={fluid} />
+        <GatsbyImage image={image} />
       </Box>
       <Text
         as="h4"

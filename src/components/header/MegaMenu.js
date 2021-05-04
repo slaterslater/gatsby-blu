@@ -73,7 +73,14 @@ const giftMenus = [
   },
 ]
 
-const storiesMenu = [
+const bluMenu = [
+  {
+    title: 'Everything Blu',
+    links: [
+      { path: '/pages/about-us', text: 'Our Story' },
+      { path: '/pages/locations', text: 'Locations' },
+    ],
+  },
   {
     title: 'Stories',
     links: [
@@ -83,20 +90,9 @@ const storiesMenu = [
   },
 ]
 
-const bluMenu = [
-  {
-    title: 'Everything Blu',
-    links: [
-      { path: '/info/about-us', text: 'Our Story' },
-      { path: '/info/locations', text: 'Locations' },
-    ],
-  },
-]
-
 export const menus = {
   shop: shopMenus,
   'gift-guides': giftMenus,
-  'stories-menu': storiesMenu,
   'everything-blu-menu': bluMenu,
 }
 
@@ -157,12 +153,6 @@ const MegaMenu = props => {
           onSetMenu={() => setCurrentMenu('gift-guides')}
         >
           Gifts
-        </MegaMenuLink>
-        <MegaMenuLink
-          path="/blog"
-          onSetMenu={() => setCurrentMenu('stories-menu')}
-        >
-          Stories
         </MegaMenuLink>
         <MegaMenuLink
           path="/about-us"

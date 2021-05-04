@@ -4,6 +4,7 @@ import { Box, Flex, Text } from 'theme-ui'
 import CollectionProduct from './CollectionProduct'
 import CollectionProductGroup from './CollectionProductGroup'
 import CollectionSidebar from './CollectionSidebar'
+import SEO from './seo'
 
 const groupProducts = (products, fallback = 'Fallback Subgroup') =>
   products.reduce((acc, el) => {

@@ -14,7 +14,7 @@ const OptionRow = ({ name, values, onSelect, selectedOption }) => {
         sx={{
           gridAutoFlow: 'column',
           gridColumn: 'max-content',
-          gap: 2,
+          gap: 3,
           pb: 3,
         }}
       >

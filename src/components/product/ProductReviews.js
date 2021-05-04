@@ -115,10 +115,10 @@ const ProductReviews = ({
       {currentTab === 'reviews' && (
         <Grid sx={{ gridAutoFlow: 'row', gap: 7 }}>
           {yotpoProductReview?.reviews.map(node => (
-            <>
+            <React.Fragment key={node.id}>
               <Divider />
-              <ProductReview key={node.id} {...node} />
-            </>
+              <ProductReview {...node} />
+            </React.Fragment>
           ))}
           {!yotpoProductReview?.reviews?.length && (
             <Alert variant="empty">

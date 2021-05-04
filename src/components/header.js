@@ -41,6 +41,7 @@ const Header = () => {
             type="button"
             sx={{ display: ['block', 'block', 'none'] }}
             onClick={() => setOpenDrawer('navigation')}
+            aria-label="Menu"
           >
             <Box as={IoIosMenu} color="white" size={24} />
           </IconButton>
@@ -60,7 +61,12 @@ const Header = () => {
             p={4}
           >
             <Flex sx={{ display: ['none', 'flex', 'flex'] }}>
-              <IconButton as={GatsbyLink} to="/account" mr={2}>
+              <IconButton
+                as={GatsbyLink}
+                to="/account"
+                mr={2}
+                aria-label="Account"
+              >
                 <Text
                   as={AiOutlineUser}
                   color="white"
@@ -72,6 +78,7 @@ const Header = () => {
                 sx={{ cursor: 'pointer', display: ['none', 'flex'] }}
                 onClick={() => setSearchOpen(state => !state)}
                 mr={2}
+                aria-label="Search"
               >
                 <Text
                   as={IoIosSearch}
@@ -86,6 +93,7 @@ const Header = () => {
               <IconButton
                 sx={{ cursor: 'pointer' }}
                 onClick={() => setOpenDrawer('cart')}
+                aria-label="Cart"
               >
                 <Text as={IoBagSharp} color="white" size={24} />
               </IconButton>

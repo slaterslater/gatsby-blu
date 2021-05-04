@@ -54,31 +54,31 @@ const IndexPage = ({ data }) => {
             title: 'Necklaces',
             to: '/collections/necklaces',
             buttonLabel: 'Shop All',
-            fluid: data.necklaceFile.childImageSharp.gatsbyImageData,
+            image: data.necklaceFile.childImageSharp.gatsbyImageData,
           },
           {
             title: 'Rings',
             to: '/collections/rings',
             buttonLabel: 'Shop All',
-            fluid: data.ringFile.childImageSharp.gatsbyImageData,
+            image: data.ringFile.childImageSharp.gatsbyImageData,
           },
           {
             title: 'Earrings',
             to: '/collections/earrings',
             buttonLabel: 'Shop All',
-            fluid: data.earringFile.childImageSharp.gatsbyImageData,
+            image: data.earringFile.childImageSharp.gatsbyImageData,
           },
           {
             title: 'Engagement',
             to: '/collections/engagement',
             buttonLabel: 'Shop All',
-            fluid: data.engagementFile.childImageSharp.gatsbyImageData,
+            image: data.engagementFile.childImageSharp.gatsbyImageData,
           },
           {
             title: 'Bracelets',
             to: '/collections/bracelets',
             buttonLabel: 'Shop All',
-            fluid: data.braceletFile.childImageSharp.gatsbyImageData,
+            image: data.braceletFile.childImageSharp.gatsbyImageData,
           },
         ]}
       />
@@ -99,31 +99,31 @@ export const query = graphql`
       relativePath: { eq: "collection-slider-necklaces.jpg" }
     ) {
       childImageSharp {
-        gatsbyImageData(layout: FULL_WIDTH)
+        gatsbyImageData
       }
     }
     ringFile: file(relativePath: { eq: "collection-slider-rings.jpg" }) {
       childImageSharp {
-        gatsbyImageData(layout: FULL_WIDTH)
+        gatsbyImageData
       }
     }
     earringFile: file(relativePath: { eq: "collection-slider-earrings.jpg" }) {
       childImageSharp {
-        gatsbyImageData(layout: FULL_WIDTH)
+        gatsbyImageData
       }
     }
     engagementFile: file(
       relativePath: { eq: "collection-slider-engagement.jpg" }
     ) {
       childImageSharp {
-        gatsbyImageData(layout: FULL_WIDTH)
+        gatsbyImageData
       }
     }
     braceletFile: file(
       relativePath: { eq: "collection-slider-bracelets.jpg" }
     ) {
       childImageSharp {
-        gatsbyImageData(layout: FULL_WIDTH)
+        gatsbyImageData
       }
     }
   }

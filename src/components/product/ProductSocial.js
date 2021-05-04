@@ -22,7 +22,7 @@ const getPinterestHref = ({ url, description, media }) =>
 const ExternalLink = props => (
   <Link
     target="_blank"
-    sx={{ cursor: 'pointer', color: 'blueGray' }}
+    sx={{ cursor: 'pointer', color: 'darkGray' }}
     {...props}
   />
 )
@@ -47,7 +47,7 @@ const ProductSocial = ({ description, image, title }) => {
         alignContent: 'baseline',
       }}
     >
-      <Text variant="caps" sx={{ color: 'lightBlueGray' }}>
+      <Text variant="caps" sx={{ color: 'darkGray' }}>
         Share
       </Text>
       <ExternalLink href={facebookHref}>

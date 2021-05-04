@@ -68,6 +68,7 @@ const RemoteShopifyImage = ({
         src={src}
         srcSet={srcSet}
         alt={altText}
+        lazy
         {...props}
       />
     )

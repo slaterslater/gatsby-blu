@@ -72,7 +72,7 @@ const CollectionSlider = ({ title, subtitle, slides }) => {
               title={slide.title}
               to={slide.to}
               buttonLabel={slide.buttonLabel}
-              fluid={slide.fluid}
+              image={slide.image}
               key={`slide-${slide.title}`}
             />
           ))}
