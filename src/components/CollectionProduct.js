@@ -42,7 +42,6 @@ const CollectionThumbnail = ({ primary, alternate }) => {
 
 const useProductPrice = product => {
   const { currencyCode } = useContext(CurrencyContext)
-  console.log(product)
 
   const hasRange =
     product.priceRange.minVariantPrice.amount !==
@@ -56,16 +55,29 @@ const useProductPrice = product => {
     amount: product.priceRange.minVariantPrice.amount,
   })
 
-  return [productPrice, hasRange]
+  const minVariant = product.variants.find(
+    variant =>
+      variant.priceV2.currencyCode ===
+        product.priceRange.minVariantPrice.currencyCode &&
+      variant.priceV2.amount === product.priceRange.minVariantPrice.amount
+  )
+
+  const variantPresentmentPrice = minVariant.presentmentPrices.edges.find(
+    ({ node }) => node.price.currencyCode === currencyCode
+  )
+
+  const minVariantPrice = useFormattedPrice({
+    currency: variantPresentmentPrice?.node.price.currencyCode,
+    amount: variantPresentmentPrice?.node.price.amount,
+  })
+
+  return [minVariantPrice || productPrice, hasRange]
 }
 
 const CollectionProduct = ({ product, images }) => {
   const [price, hasRange] = useProductPrice(product)
-  // const fromPrice = useFormattedPrice({
-  //   currency: product.priceRange.minVariantPrice.currencyCode,
-  //   amount: product.priceRange.minVariantPrice.amount,
-  // })
   const title = useProductTitle(product.title)
+
   const firstImage = images[0]
   const secondImage = images[1]
 
@@ -92,9 +104,9 @@ const CollectionProduct = ({ product, images }) => {
               {title}
             </Text>
           </Box>
-          <Flex pt={1} sx={{ justifyContent: 'center' }}>
+          <Flex pt={2} sx={{ justifyContent: 'center' }}>
             {hasRange && (
-              <Text variant="caps" pr={1} sx={{ color: 'darkerGray' }}>
+              <Text variant="caps" pr={1} sx={{ color: 'darkGray' }}>
                 From
               </Text>
             )}

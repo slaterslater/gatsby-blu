@@ -47,6 +47,10 @@ export const query = graphql`
           altText
         }
         variants {
+          priceV2 {
+            amount
+            currencyCode
+          }
           presentmentPrices {
             edges {
               node {
