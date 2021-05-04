@@ -21,6 +21,16 @@ export const CHECKOUT_FRAGMENT = gql`
               amount
               currencyCode
             }
+            presentmentPrices(first: 5) {
+              edges {
+                node {
+                  price {
+                    amount
+                    currencyCode
+                  }
+                }
+              }
+            }
             availableForSale
             title
             image {

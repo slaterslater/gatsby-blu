@@ -11,6 +11,7 @@ import {
   RemoveCheckoutLineItem,
 } from '../../mutations/cart'
 import { StoreContext } from '../../contexts/StoreContext'
+import { useVariantPresentmentPrice } from '../../hooks/variant'
 
 const CartLineItem = ({ onRemoveItem, item, imgSize }) => {
   const { checkoutId } = useContext(StoreContext)
@@ -30,13 +31,15 @@ const CartLineItem = ({ onRemoveItem, item, imgSize }) => {
     }
   }
 
+  const variantPresentmentPrice = useVariantPresentmentPrice(item.variant)
+
   return (
     <LineItem item={item} imgSize={imgSize}>
       <Text>
         <LineItemPrice
           originalTotalPrice={{
-            ...item.variant.priceV2,
-            amount: Number(item.variant.priceV2.amount) * item.quantity,
+            ...variantPresentmentPrice,
+            amount: Number(variantPresentmentPrice.amount) * item.quantity,
           }}
         />
       </Text>
