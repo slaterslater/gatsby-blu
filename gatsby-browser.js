@@ -5,10 +5,10 @@ import CurrencyProvider from './src/contexts/CurrencyContext'
 
 export const wrapRootElement = ({ element }) => (
   <UrqlProvider>
-    <StoreProvider>
-      <CurrencyProvider>
+    <CurrencyProvider>
+      <StoreProvider>
         <AuthProvider>{element}</AuthProvider>
-      </CurrencyProvider>
-    </StoreProvider>
+      </StoreProvider>
+    </CurrencyProvider>
   </UrqlProvider>
 )

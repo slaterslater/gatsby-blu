@@ -9,6 +9,25 @@ const ERROR_FRAGMENT = gql`
   }
 `
 
+export const CreateCheckout = gql`
+  ${CHECKOUT_FRAGMENT}
+  mutation CreateCheckout(
+    $lineItems: [CheckoutLineItemInput!]
+    $presentmentCurrencyCode: CurrencyCode
+  ) {
+    checkoutCreate(
+      input: {
+        lineItems: $lineItems
+        presentmentCurrencyCode: $presentmentCurrencyCode
+      }
+    ) {
+      checkout {
+        ...CheckoutFields
+      }
+    }
+  }
+`
+
 export const UpdateCheckoutLineItem = gql`
   ${CHECKOUT_FRAGMENT}
   ${ERROR_FRAGMENT}
