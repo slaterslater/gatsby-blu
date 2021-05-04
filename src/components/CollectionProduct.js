@@ -40,19 +40,31 @@ const CollectionThumbnail = ({ primary, alternate }) => {
   )
 }
 
-// const useCollectionProductPrice = ({ variants }) => {
-//   const { currencyCode } = useContext(CurrencyContext)
+const useProductPrice = product => {
+  const { currencyCode } = useContext(CurrencyContext)
+  console.log(product)
 
-//   const
+  const hasRange =
+    product.priceRange.minVariantPrice.amount !==
+    product.priceRange.maxVariantPrice.amount
+  // is there more than one price?
+  //
+  //
 
-//   // are there different prices?
-// }
-
-const CollectionProduct = ({ product, images }) => {
-  const fromPrice = useFormattedPrice({
+  const productPrice = useFormattedPrice({
     currency: product.priceRange.minVariantPrice.currencyCode,
     amount: product.priceRange.minVariantPrice.amount,
   })
+
+  return [productPrice, hasRange]
+}
+
+const CollectionProduct = ({ product, images }) => {
+  const [price, hasRange] = useProductPrice(product)
+  // const fromPrice = useFormattedPrice({
+  //   currency: product.priceRange.minVariantPrice.currencyCode,
+  //   amount: product.priceRange.minVariantPrice.amount,
+  // })
   const title = useProductTitle(product.title)
   const firstImage = images[0]
   const secondImage = images[1]
@@ -74,13 +86,18 @@ const CollectionProduct = ({ product, images }) => {
               as="h6"
               variant="caps"
               sx={{
-                color: '#454545',
+                color: 'darkerGray',
               }}
             >
               {title}
             </Text>
           </Box>
-          <Box pt={1} sx={{ textAlign: 'center' }}>
+          <Flex pt={1} sx={{ justifyContent: 'center' }}>
+            {hasRange && (
+              <Text variant="caps" pr={1} sx={{ color: 'darkerGray' }}>
+                From
+              </Text>
+            )}
             <Text
               as="p"
               variant="caps"
@@ -89,9 +106,9 @@ const CollectionProduct = ({ product, images }) => {
                 color: '#454545',
               }}
             >
-              {fromPrice}
+              {price}
             </Text>
-          </Box>
+          </Flex>
         </Flex>
       </Flex>
     </Link>

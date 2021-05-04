@@ -20,7 +20,6 @@ const getLatestVariant = (data, id) => {
 }
 
 const AddToCart = ({ variant, tags, productType }) => {
-  console.log(tags)
   const { handle } = useMatch('/products/:handle')
   const [{ data, error }] = useQuery({
     query: PRODUCT_QUERY,

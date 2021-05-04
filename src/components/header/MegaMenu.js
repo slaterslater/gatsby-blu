@@ -40,7 +40,7 @@ const shopMenus = [
       { path: '/collections/earrings', text: 'Earrings' },
       { path: '/collections/necklaces', text: 'Necklaces' },
       { path: '/collections/bracelets', text: 'Bracelets' },
-      { path: '/collections/engagement', text: 'Engagement' },
+      { path: '/collections/bridal', text: 'Engagement' },
     ],
   },
   {
