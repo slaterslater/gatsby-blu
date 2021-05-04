@@ -25,6 +25,7 @@ const ProductPage = ({
     vendor,
     images,
     onlineStoreUrl,
+    tags,
   },
   yotpoProductReview,
   yotpoProductQa,
@@ -72,6 +73,7 @@ const ProductPage = ({
               alternates={alternates}
               productType={productType}
               options={options}
+              tags={tags}
             />
             <ProductSocial
               title={title}

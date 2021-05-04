@@ -7,6 +7,7 @@ import { DrawerContext } from '../drawers'
 import { AddCheckoutLineItem } from '../../mutations/cart'
 import { useGAEvent } from '../../lib/useGAEvent'
 import { PRODUCT_QUERY } from '../../queries/product'
+import ProductCTACallout from './ProductCTACallout'
 
 const getLatestVariant = (data, id) => {
   if (!id || !data?.productByHandle) return null
@@ -18,7 +19,8 @@ const getLatestVariant = (data, id) => {
   return latestVariant.node
 }
 
-const AddToCart = ({ variant, productType }) => {
+const AddToCart = ({ variant, tags, productType }) => {
+  console.log(tags)
   const { handle } = useMatch('/products/:handle')
   const [{ data, error }] = useQuery({
     query: PRODUCT_QUERY,
@@ -34,9 +36,16 @@ const AddToCart = ({ variant, productType }) => {
   const { checkoutId } = useContext(StoreContext)
   const [{ fetching }, addCheckoutLineItem] = useMutation(AddCheckoutLineItem)
 
-  const addToCart = async ({ customAttributes = [] }) => {
+  const addToCart = async () => {
     sendGAEvent()
     const lineItems = [{ quantity: 1, variantId: variant.shopifyId }]
+    const customAttributes = []
+    if (tags.includes('made-to-order')) {
+      customAttributes.push({
+        key: 'made to order',
+        value: 'allow 6-8 weeks production and delivery',
+      })
+    }
     if (customAttributes.length) {
       lineItems[0].customAttributes = customAttributes
     }
@@ -50,12 +59,18 @@ const AddToCart = ({ variant, productType }) => {
 
   const latestVariant = getLatestVariant(data, variant?.shopifyId)
   const soldOut = latestVariant && !latestVariant.availableForSale
+  const disabled = !variant || soldOut || fetching
 
   return (
     <Box py={4}>
-      <Flex pt={4}>
+      {!disabled && (
+        <Box pb={4}>
+          <ProductCTACallout tags={tags} />
+        </Box>
+      )}
+      <Flex>
         <Button
-          disabled={!variant || soldOut || fetching}
+          disabled={disabled}
           type="button"
           onClick={addToCart}
           sx={{ flex: 1, fontSize: 1, py: 4 }}

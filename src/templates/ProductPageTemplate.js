@@ -56,6 +56,7 @@ const ProductPageTemplate = ({ data }) => {
         <script type="application/ld+json">{productLdJSON}</script>
       </SEO>
       <ProductPage
+        tags={data.shopifyProduct.tags}
         product={data.shopifyProduct}
         yotpoProductReview={data.yotpoProductReview}
         yotpoProductQa={data.yotpoProductQa}
@@ -80,6 +81,7 @@ export const query = graphql`
       productType
       vendor
       onlineStoreUrl
+      tags
       options {
         name
         values

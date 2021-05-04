@@ -4,13 +4,7 @@ import RemoteShopifyImage from './RemoteShopifyImage'
 import { useProductTitle } from './ProductTitle'
 
 const LineItem = ({ item, imgSize, children }) => {
-  const sizeOption = item.variant?.selectedOptions.find(
-    option => option.name === 'Size'
-  )
-  const optionsDescription = item.variant?.selectedOptions
-    .filter(option => !['Size', 'Title'].includes(option.name))
-    .map(option => option.value)
-    .join(', ')
+  const optionsDescription = item.variant?.title.replace(' /', ',')
 
   const title = useProductTitle(item.title)
 
@@ -28,19 +22,19 @@ const LineItem = ({ item, imgSize, children }) => {
       )}
       <Box>
         <Heading sx={{ flex: 1, fontSize: 2 }}>{title}</Heading>
-        {sizeOption && (
-          <Box>
-            <Text sx={{ color: 'darkGray', fontWeight: '' }}>
-              Size: {sizeOption.value}
-            </Text>
-          </Box>
-        )}
         {optionsDescription && (
           <Box>
             <Text sx={{ color: 'darkGray' }}>{optionsDescription}</Text>
           </Box>
         )}
-        <Box>{children}</Box>
+        {item.customAttributes.map(attribute => (
+          <Box key={`${item.id}-${attribute.name}-${attribute.value}`}>
+            <Text sx={{ color: 'darkGray' }}>
+              {attribute.key}: {attribute.value}
+            </Text>
+          </Box>
+        ))}
+        <Box pt={1}>{children}</Box>
       </Box>
     </Grid>
   )

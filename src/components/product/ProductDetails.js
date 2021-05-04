@@ -26,6 +26,8 @@ const ProductDetails = ({
   vendor,
   yotpoProductBottomline,
   alternates,
+  tags,
+  productType,
 }) => {
   const [selectedOptions, setSelectedOptions] = useState(
     getInitialSelectedOptions(options)
@@ -72,14 +74,20 @@ const ProductDetails = ({
         />
       </Box>
       <MetalOptions product={{ variants }} alternates={alternates} />
-      <ProductOptions
-        options={options}
-        onSelect={(name, value) =>
-          setSelectedOptions(prev => ({ ...prev, [name]: value }))
-        }
-        selectedOptions={selectedOptions}
+      <Grid sx={{ gridAutoFlow: 'row', gap: 4 }} pt={5}>
+        <ProductOptions
+          options={options}
+          onSelect={(name, value) =>
+            setSelectedOptions(prev => ({ ...prev, [name]: value }))
+          }
+          selectedOptions={selectedOptions}
+        />
+      </Grid>
+      <AddToCart
+        productType={productType}
+        tags={tags}
+        variant={selectedVariant}
       />
-      <AddToCart variant={selectedVariant} />
       <Box>{/* <ProductCTACallout tags={tags} /> */}</Box>
       <Box py={4}>
         <ShopifyHtml dangerouslySetInnerHTML={{ __html: descriptionHtml }} />

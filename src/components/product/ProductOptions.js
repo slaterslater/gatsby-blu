@@ -6,7 +6,7 @@ const OptionRow = ({ name, values, onSelect, selectedOption }) => {
   if (values.length < 2) return false
 
   return (
-    <Box pt={4}>
+    <Box>
       <Heading as="h5" sx={{ fontSize: 3, textTransform: 'lowercase' }} pb={4}>
         select {name}
       </Heading>
@@ -15,7 +15,6 @@ const OptionRow = ({ name, values, onSelect, selectedOption }) => {
           gridAutoFlow: 'column',
           gridColumn: 'max-content',
           gap: 3,
-          pb: 3,
         }}
       >
         {values.map(value => (

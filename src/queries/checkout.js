@@ -16,10 +16,7 @@ export const CHECKOUT_FRAGMENT = gql`
             value
           }
           variant {
-            selectedOptions {
-              name
-              value
-            }
+            title
             priceV2 {
               amount
               currencyCode
