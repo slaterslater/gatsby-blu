@@ -33,37 +33,61 @@ const StoreProvider = props => {
 
   const [createResult, createCheckout] = useMutation(CreateCheckout)
 
+  const createCheckoutAndStoreId = async checkoutVariables => {
+    try {
+      const { data } = await createCheckout(checkoutVariables)
+      const { id } = data.checkoutCreate.checkout
+      setCheckoutId(id)
+      localStorage.setItem(STORAGE_CHECKOUT_ID, id)
+    } catch (e) {
+      console.error('error creating checkout')
+    }
+  }
+
   useEffect(() => {
     // when the component mounts
     const currentCheckoutId = localStorage.getItem(STORAGE_CHECKOUT_ID)
     if (!currentCheckoutId) {
-      createCheckout({ presentmentCurrencyCode: currencyCode })
+      createCheckoutAndStoreId({ presentmentCurrencyCode: currencyCode })
     } else {
       setCheckoutId(currentCheckoutId)
     }
   }, [])
 
-  useEffect(() => {
-    // if we created a new checkout, update the checkout id
-    if (createResult.data) {
-      const {
-        checkoutCreate: {
-          checkout: { id },
-        },
-      } = createResult.data
-      // set id in state
-      setCheckoutId(id)
-      // store checkout id
-      localStorage.setItem(STORAGE_CHECKOUT_ID, id)
-    }
-  }, [createResult])
+  const dataCheckoutId = data?.node.id
 
   useEffect(() => {
-    // if currency code is defined and if currency code is different than the one in the checkout
-    // copy previous line items
-    // create a new checkout with the new currency code and the previous line items
-    // store the new checkout as the checkout
-  }, [currencyCode])
+    const replaceCheckout = async () => {
+      const { lineItems } = data.node
+
+      const nextLineItems = lineItems.edges.map(({ node }) => {
+        const item = {
+          variantId: node.variant.id,
+          quantity: node.quantity,
+        }
+
+        if (node.customAttributes.length) {
+          item.customAttributes = node.customAttributes
+        }
+
+        return item
+      })
+
+      console.log('new checkout for currency switch')
+      createCheckoutAndStoreId({
+        lineItems: nextLineItems,
+        presentmentCurrencyCode: currencyCode,
+      })
+    }
+    if (
+      dataCheckoutId &&
+      data.node.totalPriceV2.currencyCode !== currencyCode
+    ) {
+      replaceCheckout()
+      // create a new checkout with the new currency code and the previous line items
+      // store the new checkout as the checkout
+    }
+  }, [dataCheckoutId, currencyCode])
 
   return (
     <StoreContext.Provider

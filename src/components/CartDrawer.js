@@ -54,6 +54,7 @@ const CartDrawer = ({ onClose }) => {
               subtotalPriceV2={data.node.subtotalPriceV2}
               totalPriceV2={data.node.totalPriceV2}
               requiresShipping={data.node.requiresShipping}
+              shippingRates={data.node.availableShippingRates}
               loading={fetching}
             />
             <CheckoutButton />

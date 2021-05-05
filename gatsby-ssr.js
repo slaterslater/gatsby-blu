@@ -26,5 +26,7 @@ export const onRenderBody = ({ setHeadComponents }) => {
     return null
   }
 
-  return setHeadComponents([<script key="gatsby-plugin-tidio" src={source} />])
+  return setHeadComponents([
+    <script defer key="gatsby-plugin-tidio" src={source} />,
+  ])
 }

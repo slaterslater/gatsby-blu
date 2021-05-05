@@ -23,7 +23,6 @@ export const OrderSummary = ({
   loading,
   subtotalPriceV2,
   requiresShipping,
-  shippingPriceV2,
   totalPriceV2,
 }) => (
   <MotionBox p={4} animate={{ opacity: loading ? 0.5 : 1 }}>
@@ -32,7 +31,7 @@ export const OrderSummary = ({
         {subtotalPriceV2 && <FormattedPrice priceV2={subtotalPriceV2} />}
       </SummaryItem>
       {requiresShipping && (
-        <SummaryItem term="estimated shipping">free</SummaryItem>
+        <SummaryItem term="estimated shipping">-</SummaryItem>
       )}
       <SummaryItem term="estimated total" bold>
         {totalPriceV2 && <FormattedPrice priceV2={totalPriceV2} />}

@@ -16,6 +16,7 @@ export const CHECKOUT_FRAGMENT = gql`
             value
           }
           variant {
+            id
             title
             priceV2 {
               amount
@@ -42,6 +43,14 @@ export const CHECKOUT_FRAGMENT = gql`
       }
     }
     requiresShipping
+    availableShippingRates {
+      shippingRates {
+        priceV2 {
+          amount
+          currencyCode
+        }
+      }
+    }
     subtotalPriceV2 {
       amount
       currencyCode
