@@ -62,11 +62,7 @@ const AddToCart = ({ variant, tags, productType }) => {
 
   return (
     <Box py={4}>
-      {!disabled && (
-        <Box pb={4}>
-          <ProductCTACallout tags={tags} />
-        </Box>
-      )}
+      {!disabled && <ProductCTACallout pb={4} tags={tags} />}
       <Flex>
         <Button
           disabled={disabled}
