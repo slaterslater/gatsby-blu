@@ -8,6 +8,7 @@ import ShopifyHtml from '../ShopifyHtml'
 import MetalOptions from './MetalOptions'
 import ProductOptions from './ProductOptions'
 import VariantPrice from './VariantPrice'
+import Engraving from './Engraving'
 
 const getInitialSelectedOptions = options =>
   options.reduce(
@@ -49,6 +50,8 @@ const ProductDetails = ({
 
   const productTitle = useProductTitle(title)
 
+  const [customAttributes, setCustomAttributes] = useState(null)
+
   return (
     <>
       <Box>
@@ -82,11 +85,16 @@ const ProductDetails = ({
           }
           selectedOptions={selectedOptions}
         />
+        <Engraving
+          onChange={attribute => setCustomAttributes([attribute])}
+          tags={tags}
+        />
       </Grid>
       <AddToCart
         productType={productType}
         tags={tags}
         variant={selectedVariant}
+        customAttributes={customAttributes}
       />
       <Box>{/* <ProductCTACallout tags={tags} /> */}</Box>
       <Box py={4}>

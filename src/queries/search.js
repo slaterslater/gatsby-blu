@@ -14,6 +14,31 @@ export const PRODUCT_QUERY = gql`
               amount
               currencyCode
             }
+            maxVariantPrice {
+              amount
+              currencyCode
+            }
+          }
+          variants {
+            id
+            shopifyId
+            priceNumber
+            presentmentPrices {
+              edges {
+                node {
+                  price {
+                    amount
+                    currencyCode
+                  }
+                }
+              }
+            }
+            availableForSale
+            sku
+            selectedOptions {
+              name
+              value
+            }
           }
           images(first: 2) {
             edges {

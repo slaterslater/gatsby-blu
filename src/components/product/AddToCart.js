@@ -19,7 +19,7 @@ const getLatestVariant = (data, id) => {
   return latestVariant.node
 }
 
-const AddToCart = ({ variant, tags, productType }) => {
+const AddToCart = ({ variant, tags, productType, customAttributes }) => {
   const { handle } = useMatch('/products/:handle')
   const [{ data, error }] = useQuery({
     query: PRODUCT_QUERY,
@@ -38,15 +38,15 @@ const AddToCart = ({ variant, tags, productType }) => {
   const addToCart = async () => {
     sendGAEvent()
     const lineItems = [{ quantity: 1, variantId: variant.shopifyId }]
-    const customAttributes = []
+    const nextAttributes = customAttributes || []
     if (tags.includes('made-to-order')) {
-      customAttributes.push({
+      nextAttributes.push({
         key: 'made to order',
         value: 'allow 6-8 weeks production and delivery',
       })
     }
-    if (customAttributes.length) {
-      lineItems[0].customAttributes = customAttributes
+    if (nextAttributes.length) {
+      lineItems[0].customAttributes = nextAttributes
     }
     addCheckoutLineItem({
       checkoutId,
