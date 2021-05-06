@@ -5,7 +5,7 @@ import { SHOP_CURRENCIES } from '../queries/shop'
 const STORAGE_CURRENCY_ID = 'currencyCode'
 
 const initialValues = {
-  currencyCode: undefined,
+  currencyCode: 'CAD',
   setCurrencyCode: () => {},
 }
 
@@ -17,6 +17,10 @@ const CurrencyProvider = props => {
 
   useEffect(() => {
     const storageCurrency = localStorage.getItem(STORAGE_CURRENCY_ID)
+
+    if (!storageCurrency) {
+      localStorage.setItem(STORAGE_CURRENCY_ID, initialValues.currencyCode)
+    }
 
     if (storageCurrency) {
       setCurrencyCode(storageCurrency)
