@@ -9,7 +9,7 @@ export const useEngraveableChars = (tags = []) => {
     return 5
   }
   if (tags.includes('legacy ring Engravable')) return 12
-  if (tags.includes('engraveable')) return 5
+  if (tags.includes('engraveable')) return 1
   return 0
 }
 

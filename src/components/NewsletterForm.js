@@ -1,47 +1,53 @@
+import axios from 'axios'
 import { Field, Form, Formik } from 'formik'
 import React from 'react'
-import { Box, Button, Input, Text } from 'theme-ui'
+import { Box, Button, Flex, Input, Text } from 'theme-ui'
 import { useMutation } from 'urql'
 import * as yup from 'yup'
 import { CustomerCreate } from '../mutations/user'
+import { InputControl } from './app/formik/FormControlWrap'
+import SubmitButton from './app/formik/SubmitButton'
 
-const NewsletterForm = ({ variant = 'inverted' }) => {
-  const [{ fetching, error, data }, mutate] = useMutation(CustomerCreate)
+const NewsletterForm = ({ variant = 'inverted', isSubscribed }) => {
+  if (isSubscribed) return false
 
   return (
     <Formik
       initialValues={{ email: '' }}
       validationSchema={yup.object({ email: yup.string().email().required() })}
-      onSubmit={async ({ email }) => {
+      onSubmit={async (values, { setSubmitting }) => {
+        console.log('submitting')
         try {
-          const res = await mutate({
-            input: { email, password: '', acceptsMarketing: true },
-          })
-          console.log(res)
+          const res = await axios.post(
+            `${process.env.GATSBY_SERVERLESS_BASE}/newsletter`,
+            values,
+            { headers: { 'Content-Type': 'application/json' } }
+          )
+
+          if (res.status >= 400 && res.status < 600) {
+            console.log('server error')
+          } else {
+            console.log('success')
+          }
+
+          setSubmitting(false)
         } catch (e) {
-          console.log(e)
+          console.log('function error')
         }
       }}
     >
       <Form>
-        <Box pb={4}>
-          <Field
-            as={Input}
+        <Box pt={4}>
+          <InputControl
+            label="Email Address"
             name="email"
             type="email"
-            variant={variant}
-            sx={{ fontSize: 1 }}
-            placeholder="Enter your email address"
+            id="newsletter_page_email"
           />
         </Box>
-        <Button
-          type="submit"
-          disabled={fetching}
-          variant={variant}
-          sx={{ fontSize: 0 }}
-        >
-          Subscribe
-        </Button>
+        <Flex sx={{ justifyContent: 'flex-end' }}>
+          <SubmitButton>Subscribe</SubmitButton>
+        </Flex>
       </Form>
     </Formik>
   )
