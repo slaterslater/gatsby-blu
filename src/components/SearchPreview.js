@@ -3,7 +3,7 @@ import path from 'path-browserify'
 import { Image, Grid, Box, Flex, Text } from 'theme-ui'
 import { Link } from 'gatsby'
 import { useQuery } from 'urql'
-import { PRODUCT_QUERY } from '../queries/search'
+import { SEARCH_QUERY } from '../queries/search'
 import ProductTitle from './ProductTitle'
 
 const getSrcWithSize = (src, size) => {
@@ -21,7 +21,7 @@ const ProductThumbnail = ({ originalSrc, alt }) => {
 
 const SearchPreview = ({ term = '' }) => {
   const [query] = useQuery({
-    query: PRODUCT_QUERY,
+    query: SEARCH_QUERY,
     variables: { query: term, first: 250 },
     pause: term.length < 3,
   })
@@ -52,11 +52,23 @@ const SearchPreview = ({ term = '' }) => {
       {availableProducts.length ? (
         <Grid py={5} sx={{ gridTemplateColumns: 'repeat(4, 1fr)', gap: 5 }}>
           {availableProducts.slice(0, 4).map(product => (
-            <Box key={`${product.id}-search-preview`}>
+            <Box
+              as={Link}
+              to={`/products/${product.handle}`}
+              key={`${product.id}-search-preview`}
+              sx={{ textDecoration: 'none' }}
+            >
               <ProductThumbnail
                 originalSrc={product.images.edges[0].node.originalSrc}
               />
-              <Text variant="caps" sx={{ fontSize: 0, textAlign: 'center' }}>
+              <Text
+                variant="caps"
+                sx={{
+                  color: 'darkerGray',
+                  textAlign: 'center',
+                  fontSize: 0,
+                }}
+              >
                 <ProductTitle title={product.title} />
               </Text>
             </Box>

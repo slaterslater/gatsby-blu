@@ -9,7 +9,7 @@ import { CurrencyContext } from '../contexts/CurrencyContext'
 
 const MotionBox = motion(Box)
 
-const CollectionThumbnail = ({ primary, alternate }) => {
+export const CollectionThumbnail = ({ primary, alternate }) => {
   if (!primary && !alternate)
     return <AspectRatio sx={{ bg: 'cream' }} ratio={1 / 1} />
 

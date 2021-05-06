@@ -14,7 +14,13 @@ const HeaderSearch = ({ isOpen, onClose }) => {
       {isOpen && (
         <MotionBox
           p={5}
-          sx={{ bg: 'white', width: '100vw', position: 'absolute' }}
+          sx={{
+            bg: 'white',
+            width: '100vw',
+            position: 'absolute',
+            borderBottom: '1px solid',
+            borderColor: 'border',
+          }}
           initial={{ opacity: 0, y: -5 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -5 }}

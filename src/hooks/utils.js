@@ -1,16 +1,20 @@
 import { useMemo } from 'react'
 
-export const useFormattedPrice = ({ amount, currency = 'CAD' }) => {
+export const useFormattedPrice = ({
+  amount,
+  currency = 'CAD',
+  currencyCode = 'CAD',
+}) => {
   const formatter = Intl.NumberFormat('en-US', {
     maximumFractionDigits: 0,
     minimumFractionDigits: 0,
     style: 'currency',
-    currency,
+    currency: currencyCode || currency,
   })
 
   return useMemo(() => {
-    if (!amount || !currency) return undefined
+    if (!amount || !(currency || currencyCode)) return undefined
 
     return formatter.format(amount)
-  }, [amount, currency, formatter])
+  }, [amount, currency, currencyCode, formatter])
 }

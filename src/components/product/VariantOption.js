@@ -9,6 +9,7 @@ const VariantOption = ({ isSelected, ...props }) => (
     type="button"
     variant="secondary"
     whileHover={{ scale: 1.05 }}
+    px={0}
     sx={{
       bg: isSelected ? 'lightBlueGray' : 'lightGray',
       border: '1px solid',

@@ -3,15 +3,15 @@ import { useQuery } from 'urql'
 import { parse } from 'qs'
 import { Grid, Box, Text, Container } from 'theme-ui'
 import Layout from '../components/layout'
-import { PRODUCT_QUERY } from '../queries/search'
+import { SEARCH_QUERY } from '../queries/search'
 import ResultsHeader from '../components/collection/ResultsHeader'
-import CollectionProduct from '../components/CollectionProduct'
+import SearchProduct from '../components/SearchProduct'
 
 const SearchPage = ({ location: { search } }) => {
   const { q: term } = parse(search?.replace('?', ''))
 
   const [query] = useQuery({
-    query: PRODUCT_QUERY,
+    query: SEARCH_QUERY,
     variables: { query: term, first: 250 },
     pause: !term || term.length < 3,
   })
@@ -38,7 +38,7 @@ const SearchPage = ({ location: { search } }) => {
           {query.data?.products.edges.slice(0, 30).map(({ node }) => {
             const images = node.images.edges.map(({ node }) => node)
             return (
-              <CollectionProduct
+              <SearchProduct
                 key={`search-result-${node.id}`}
                 product={node}
                 images={images}
