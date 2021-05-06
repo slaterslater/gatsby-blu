@@ -58,6 +58,8 @@ const StoreProvider = props => {
 
   useEffect(() => {
     const replaceCheckout = async () => {
+      console.log('replacing checkout')
+
       const { lineItems } = data.node
 
       const nextLineItems = lineItems.edges.map(({ node }) => {
@@ -73,13 +75,13 @@ const StoreProvider = props => {
         return item
       })
 
-      console.log('new checkout for currency switch')
       createCheckoutAndStoreId({
         lineItems: nextLineItems,
         presentmentCurrencyCode: currencyCode,
       })
     }
     if (
+      localStorage.getItem(STORAGE_CHECKOUT_ID) &&
       dataCheckoutId &&
       data.node.totalPriceV2.currencyCode !== currencyCode
     ) {
