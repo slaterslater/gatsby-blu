@@ -81,7 +81,7 @@ const StoreProvider = props => {
       })
     }
     if (
-      localStorage.getItem(STORAGE_CHECKOUT_ID) &&
+      currencyCode !== undefined &&
       dataCheckoutId &&
       data.node.totalPriceV2.currencyCode !== currencyCode
     ) {
