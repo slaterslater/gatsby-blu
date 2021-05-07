@@ -75,7 +75,7 @@ const ProductListItem = ({
   <Link
     as={GatsbyLink}
     to={to}
-    sx={{ textDecoration: 'none', position: 'relative' }}
+    sx={{ textDecoration: 'none', position: 'relative', zIndex: 1 }}
   >
     <ProductItemLabel tags={tags} soldOut={!availableForSale} />
     <Flex sx={{ flexDirection: 'column', position: 'relative' }} as="article">
