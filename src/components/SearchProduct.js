@@ -27,6 +27,8 @@ const SearchProduct = ({ product, images }) => {
       secondImage={secondImage}
       price={formattedPrice}
       hasRange={hasRange}
+      tags={product.tags}
+      availabeForSale={product.availableForSale}
     />
   )
 }

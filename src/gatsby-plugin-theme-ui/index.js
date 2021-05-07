@@ -209,6 +209,19 @@ export default {
       px: [5, 6, 6, 7],
     },
   },
+  badges: {
+    primary: {
+      bg: 'cream',
+      color: 'primary',
+      borderRadius: 0,
+      textTransform: 'uppercase',
+      letterSpacing: 'caps',
+      fontWeight: 'body',
+      fontSize: 10,
+      py: 1,
+      px: 2,
+    },
+  },
   styles: {
     root: {
       fontFamily: 'body',

@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { useProductTitle } from './ProductTitle'
 import { useFormattedPrice } from '../hooks/utils'
 import { CurrencyContext } from '../contexts/CurrencyContext'
+import ProductListItem from './product/ListItem'
 
 const useProductPrice = product => {
   const { currencyCode } = useContext(CurrencyContext)
@@ -52,6 +53,8 @@ const CollectionProduct = ({ product, images }) => {
       title={title}
       firstImage={firstImage}
       secondImage={secondImage}
+      tags={product.tags}
+      availableForSale={product.availableForSale}
     />
   )
 }

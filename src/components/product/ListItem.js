@@ -1,5 +1,5 @@
 import React from 'react'
-import { Flex, Box, Text, Link } from 'theme-ui'
+import { AspectRatio, Grid, Flex, Box, Text, Link, Badge } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
 // import { CollectionThumbnail } from '../CollectionProduct'
 import { motion } from 'framer-motion'
@@ -38,6 +38,30 @@ export const CollectionThumbnail = ({ primary, alternate }) => {
   )
 }
 
+const ProductItemLabel = ({ tags, soldOut }) => {
+  if (soldOut)
+    return (
+      <Badge
+        sx={{ bg: 'cream', position: 'absolute', top: 1, left: 1, zIndex: 10 }}
+      >
+        Sold Out
+      </Badge>
+    )
+
+  const label = tags.find(el => el.includes('__label'))
+  const labelText = label ? label.replace('__label:', '') : null
+  if (label)
+    return (
+      <Badge
+        sx={{ bg: 'cream', position: 'absolute', top: 1, left: 1, zIndex: 10 }}
+      >
+        {labelText}
+      </Badge>
+    )
+
+  return null
+}
+
 const ProductListItem = ({
   to,
   firstImage,
@@ -45,9 +69,16 @@ const ProductListItem = ({
   title,
   hasRange,
   price,
+  tags,
+  availableForSale,
 }) => (
-  <Link as={GatsbyLink} to={to} sx={{ textDecoration: 'none' }}>
-    <Flex sx={{ flexDirection: 'column' }} as="article">
+  <Link
+    as={GatsbyLink}
+    to={to}
+    sx={{ textDecoration: 'none', position: 'relative' }}
+  >
+    <ProductItemLabel tags={tags} soldOut={!availableForSale} />
+    <Flex sx={{ flexDirection: 'column', position: 'relative' }} as="article">
       <CollectionThumbnail primary={firstImage} alternate={secondImage} />
       <Flex
         pt={2}

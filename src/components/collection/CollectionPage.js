@@ -35,51 +35,28 @@ const CollectionPage = ({
       <SEO title={title} description={description}>
         <script type="application/ld+json">{collectionLdJSON}</script>
       </SEO>
-      <Container>
-        <Box
-          sx={{
-            display: ['block', 'grid'],
-            gridTemplateColumns: ['1fr', 'max-content 1fr'],
-            position: 'relative',
-            gap: [0, 6],
-          }}
+      <Container as="main">
+        <ResultsHeader
+          title={title}
+          description={description}
+          resultType="products"
+          count={products?.length || 0}
         >
-          <Box as="aside">
-            {hasSidebar && (
-              <Box
-                sx={{
-                  position: 'sticky',
-                  top: [0, 80],
-                }}
+          {hasFilters && (
+            <Box sx={{ textAlign: 'right' }} pt={3}>
+              <Link
+                sx={{ fontSize: 1 }}
+                variant="unset"
+                onClick={() => setOpen(prev => !prev)}
               >
-                <CollectionSidebar />
-              </Box>
-            )}
-          </Box>
-          <Box as="main">
-            <ResultsHeader
-              title={title}
-              description={description}
-              resultType="products"
-              count={products?.length || 0}
-            >
-              {hasFilters && (
-                <Box sx={{ textAlign: 'right' }} pt={3}>
-                  <Link
-                    sx={{ fontSize: 1 }}
-                    variant="unset"
-                    onClick={() => setOpen(prev => !prev)}
-                  >
-                    Filter &amp; Sort
-                  </Link>
-                </Box>
-              )}
-            </ResultsHeader>
-            {hasFilters && <CollectionFilterAndSort isOpen={isOpen} />}
-            <Divider />
-            <ProductGrid products={products} />
-          </Box>
-        </Box>
+                Filter &amp; Sort
+              </Link>
+            </Box>
+          )}
+        </ResultsHeader>
+        {hasFilters && <CollectionFilterAndSort isOpen={isOpen} />}
+        <Divider />
+        <ProductGrid products={products} />
       </Container>
     </Layout>
   )
@@ -90,7 +67,6 @@ CollectionPage.propTypes = {
   description: PropTypes.string,
   products: PropTypes.arrayOf(PropTypes.shape({})),
   hasFilters: PropTypes.bool.isRequired,
-  hasSidebar: PropTypes.bool.isRequired,
   image: PropTypes.shape({
     src: PropTypes.string,
     altText: PropTypes.string,

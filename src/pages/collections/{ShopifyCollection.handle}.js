@@ -4,24 +4,13 @@ import CollectionPage from '../../components/collection/CollectionPage'
 
 const CollectionPageTemplate = ({ data }) => {
   const { products, title, description, handle } = data.shopifyCollection
-  const topLevelCollections = [
-    'rings',
-    'necklaces',
-    'bracelets',
-    'bridal',
-    'newarrivals',
-    'best-sellers',
-    'earrings',
-    'all',
-  ]
 
   return (
     <CollectionPage
       title={title}
       description={description}
       products={products}
-      hasSidebar={topLevelCollections.includes(handle)}
-      hasFilters={topLevelCollections.includes(handle)}
+      hasFilters
     />
   )
 }
@@ -39,6 +28,7 @@ export const query = graphql`
         altText
       }
       products {
+        availableForSale
         id
         handle
         title
@@ -46,6 +36,7 @@ export const query = graphql`
           originalSrc
           altText
         }
+        tags
         variants {
           priceV2 {
             amount

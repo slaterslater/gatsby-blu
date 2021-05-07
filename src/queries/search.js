@@ -9,6 +9,7 @@ export const SEARCH_QUERY = gql`
           handle
           title
           availableForSale
+          tags
           presentmentPriceRanges(first: 5) {
             edges {
               node {
