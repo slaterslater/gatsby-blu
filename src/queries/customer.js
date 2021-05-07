@@ -3,6 +3,7 @@ import gql from 'graphql-tag'
 export const CUSTOMER_QUERY = gql`
   query CustomerQuery($customerAccessToken: String!) {
     customer(customerAccessToken: $customerAccessToken) {
+      acceptsMarketing
       displayName
       firstName
       lastName

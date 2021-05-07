@@ -6,7 +6,12 @@ import Layout from '../components/layout'
 
 const NewsletterPage = props => (
   <Layout>
-    <Box as="main" sx={{ maxWidth: 600 }} variant="sectionWrap" mx="auto">
+    <Box
+      as="main"
+      sx={{ width: '100%', maxWidth: 480 }}
+      variant="sectionWrap"
+      mx="auto"
+    >
       <Heading>Sign up for the newsletter</Heading>
       <NewsletterForm variant={null} />
     </Box>

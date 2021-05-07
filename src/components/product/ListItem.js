@@ -1,7 +1,42 @@
 import React from 'react'
 import { Flex, Box, Text, Link } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
-import { CollectionThumbnail } from '../CollectionProduct'
+// import { CollectionThumbnail } from '../CollectionProduct'
+import { motion } from 'framer-motion'
+import FluidShopifyImage from '../FluidShopifyImage'
+
+const MotionBox = motion(Box)
+
+export const CollectionThumbnail = ({ primary, alternate }) => {
+  if (!primary && !alternate)
+    return <AspectRatio sx={{ bg: 'cream' }} ratio={1 / 1} />
+
+  return (
+    <Grid>
+      {primary && (
+        <MotionBox
+          sx={{ gridArea: '1 / 1 / -1 / -1', zIndex: 1 }}
+          whileHover={{ opacity: alternate ? 0 : 1 }}
+        >
+          <FluidShopifyImage
+            ratio={1 / 1}
+            originalSrc={primary.originalSrc}
+            altText={primary.altText}
+          />
+        </MotionBox>
+      )}
+      {alternate && (
+        <Box sx={{ gridArea: '1 / 1 / -1 / -1' }}>
+          <FluidShopifyImage
+            ratio={1 / 1}
+            originalSrc={alternate.originalSrc}
+            altText={alternate.altText}
+          />
+        </Box>
+      )}
+    </Grid>
+  )
+}
 
 const ProductListItem = ({
   to,

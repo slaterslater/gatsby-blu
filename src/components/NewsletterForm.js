@@ -1,21 +1,32 @@
 import axios from 'axios'
-import { Field, Form, Formik } from 'formik'
-import React from 'react'
-import { Box, Button, Flex, Input, Text } from 'theme-ui'
-import { useMutation } from 'urql'
+import { Form, Formik } from 'formik'
+import React, { useState } from 'react'
+import { Box, Flex, Text } from 'theme-ui'
 import * as yup from 'yup'
-import { CustomerCreate } from '../mutations/user'
+import { FiCheckSquare, FiAlertCircle } from 'react-icons/fi'
 import { InputControl } from './app/formik/FormControlWrap'
 import SubmitButton from './app/formik/SubmitButton'
+import { CalloutBox } from './product/ProductCTACallout'
 
-const NewsletterForm = ({ variant = 'inverted', isSubscribed }) => {
+const NewsletterForm = ({
+  variant = 'inverted',
+  isSubscribed,
+  onSuccess = () => {},
+}) => {
+  const [alert, setAlert] = useState({
+    icon: null,
+    type: '',
+    title: '',
+    description: '',
+  })
+
   if (isSubscribed) return false
 
   return (
     <Formik
       initialValues={{ email: '' }}
       validationSchema={yup.object({ email: yup.string().email().required() })}
-      onSubmit={async (values, { setSubmitting }) => {
+      onSubmit={async (values, { setSubmitting, reset }) => {
         console.log('submitting')
         try {
           const res = await axios.post(
@@ -25,9 +36,21 @@ const NewsletterForm = ({ variant = 'inverted', isSubscribed }) => {
           )
 
           if (res.status >= 400 && res.status < 600) {
-            console.log('server error')
+            setAlert({
+              icon: FiAlertCircle,
+              type: 'error',
+              title: 'Oops!',
+              description: 'something went wrong',
+            })
           } else {
-            console.log('success')
+            setAlert({
+              icon: FiCheckSquare,
+              type: 'success',
+              title: 'success!',
+              description: `${values.email} is subscribed to the newsletter`,
+            })
+            reset()
+            onSuccess()
           }
 
           setSubmitting(false)
@@ -37,6 +60,14 @@ const NewsletterForm = ({ variant = 'inverted', isSubscribed }) => {
       }}
     >
       <Form>
+        {alert.type && (
+          <CalloutBox
+            bg="cream"
+            icon={alert.icon}
+            title={alert.title}
+            description={alert.description}
+          />
+        )}
         <Box pt={4}>
           <InputControl
             label="Email Address"

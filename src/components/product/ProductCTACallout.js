@@ -2,7 +2,7 @@ import React from 'react'
 import { Flex, Box, Text } from 'theme-ui'
 import { AiFillInfoCircle } from 'react-icons/ai'
 
-const CalloutBox = ({
+export const CalloutBox = ({
   icon: Icon,
   title,
   description,
