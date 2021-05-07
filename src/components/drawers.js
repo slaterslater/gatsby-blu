@@ -1,10 +1,11 @@
 import { Box } from 'theme-ui'
 import React, { createContext, useEffect, useState } from 'react'
-import { AnimatePresence } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import useKeyPress from 'react-use-keypress'
-import MotionBox from './util/MotionBox'
 import CartDrawer from './CartDrawer'
 import NavigationDrawer from './NavigationDrawer'
+
+const MotionBox = motion(Box)
 
 export const DrawerContext = createContext()
 

@@ -1,6 +1,6 @@
 import { Grid, Text } from 'theme-ui'
 import React from 'react'
-import FormattedPrice from './util/FormattedPrice'
+import FormattedPrice from './FormattedPrice'
 
 const getDiscountedPrice = ({
   originalTotalPrice,

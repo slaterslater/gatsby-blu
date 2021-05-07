@@ -1,9 +1,9 @@
-import React, { useState, useRef } from 'react'
-import { Flex, Button, Text, Box, Image, Link, Grid, Heading } from 'theme-ui'
+import React, { useState } from 'react'
+import { Flex, Text, Box, Link, Grid, Heading } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
-import { AnimatePresence } from 'framer-motion'
-import { useRect } from '@reach/rect'
-import MotionBox from '../util/MotionBox'
+import { AnimatePresence, motion } from 'framer-motion'
+
+const MotionBox = motion(Box)
 
 const HeaderLink = props => (
   <Link

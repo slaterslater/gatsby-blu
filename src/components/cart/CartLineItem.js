@@ -3,7 +3,6 @@ import React, { useContext } from 'react'
 import { IoIosRemove, IoIosAdd } from 'react-icons/io'
 import { FiTrash } from 'react-icons/fi'
 import { useMutation } from 'urql'
-import FormattedPrice from '../util/FormattedPrice'
 import LineItem from '../LineItem'
 import LineItemPrice from '../LineItemPrice'
 import {

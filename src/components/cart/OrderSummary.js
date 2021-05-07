@@ -1,10 +1,10 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import { Box, Flex, Text, Divider, Grid } from 'theme-ui'
-import { StoreContext } from '../../contexts/StoreContext'
-import FormattedPrice from '../util/FormattedPrice'
-import MotionBox from '../util/MotionBox'
-import { CHECKOUT_QUERY } from '../../queries/checkout'
+import { Box, Flex, Text, Grid } from 'theme-ui'
+import { motion } from 'framer-motion'
+import FormattedPrice from '../FormattedPrice'
+
+const MotionBox = motion(Box)
 
 const SummaryItem = ({ bold, term, children }) => (
   <Flex>

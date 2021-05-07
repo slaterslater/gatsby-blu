@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import { useProductTitle } from './ProductTitle'
-import { useFormattedPrice } from '../hooks/utils'
 import { CurrencyContext } from '../contexts/CurrencyContext'
 import ProductListItem from './product/ListItem'
 
@@ -14,10 +13,10 @@ const useProductPrice = product => {
   //
   //
 
-  const productPrice = useFormattedPrice({
-    currency: product.priceRange.minVariantPrice.currencyCode,
-    amount: product.priceRange.minVariantPrice.amount,
-  })
+  // const productPrice = useFormattedPrice({
+  //   currency: product.priceRange.minVariantPrice.currencyCode,
+  //   amount: product.priceRange.minVariantPrice.amount,
+  // })
 
   const minVariant = product.variants.find(
     variant =>
@@ -30,12 +29,7 @@ const useProductPrice = product => {
     ({ node }) => node.price.currencyCode === currencyCode
   )
 
-  const minVariantPrice = useFormattedPrice({
-    currency: variantPresentmentPrice?.node.price.currencyCode,
-    amount: variantPresentmentPrice?.node.price.amount,
-  })
-
-  return [minVariantPrice || productPrice, hasRange]
+  return [variantPresentmentPrice.node.price, hasRange]
 }
 
 const CollectionProduct = ({ product, images }) => {

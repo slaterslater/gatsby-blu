@@ -1,21 +1,16 @@
 import React, { useContext } from 'react'
 import { CurrencyContext } from '../../contexts/CurrencyContext'
-import { useFormattedPrice } from '../../hooks/utils'
+import FormattedPrice from '../FormattedPrice'
 
 const VariantPrice = ({ variant }) => {
   const { currencyCode } = useContext(CurrencyContext)
 
-  const { node } =
+  const presentmentPrice =
     variant.presentmentPrices.edges.find(
       ({ node }) => node.price.currencyCode === currencyCode
     ) || {}
 
-  const productPrice = useFormattedPrice({
-    amount: node?.price.amount || variant.priceNumber,
-    currency: currencyCode || 'CAD',
-  })
-
-  return productPrice
+  return <FormattedPrice priceV2={presentmentPrice.node.price} />
 }
 
 export default VariantPrice

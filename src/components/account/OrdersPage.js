@@ -5,7 +5,7 @@ import { useQuery } from 'urql'
 import { titleize } from 'inflected'
 import { AuthContext } from '../../contexts/AuthContext'
 import { CUSTOMER_QUERY } from '../../queries/customer'
-import FormattedPrice from '../util/FormattedPrice'
+import FormattedPrice from '../FormattedPrice'
 import AccountPage from './AccountPage'
 
 const OrdersPage = props => {

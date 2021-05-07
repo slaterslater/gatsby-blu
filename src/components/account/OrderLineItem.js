@@ -1,8 +1,7 @@
 import React from 'react'
-import { Grid, Box, Text } from 'theme-ui'
+import { Grid, Text } from 'theme-ui'
 import LineItem from '../LineItem'
 import LineItemPrice from '../LineItemPrice'
-import FormattedPrice from '../util/FormattedPrice'
 
 const OrderLineItem = ({ item }) => (
   <Grid sx={{ gridTemplateColumns: '4fr 1fr 1fr', gap: 4 }} py={4}>

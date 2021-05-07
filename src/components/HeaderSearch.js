@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { AnimatePresence } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { Box, Grid, Button, Input, Text } from 'theme-ui'
 import PropTypes from 'prop-types'
 import { IoIosClose, IoIosSearch } from 'react-icons/io'
 import SearchPreview from './SearchPreview'
-import MotionBox from './util/MotionBox'
+
+const MotionBox = motion(Box)
 
 const HeaderSearch = ({ isOpen, onClose }) => {
   const [value, setValue] = useState('')

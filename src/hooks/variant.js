@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { CurrencyContext } from '../contexts/CurrencyContext'
 
 export const useVariantPresentmentPrice = variant => {

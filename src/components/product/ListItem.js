@@ -4,6 +4,7 @@ import { Link as GatsbyLink } from 'gatsby'
 // import { CollectionThumbnail } from '../CollectionProduct'
 import { motion } from 'framer-motion'
 import FluidShopifyImage from '../FluidShopifyImage'
+import FormattedPrice from '../FormattedPrice'
 
 const MotionBox = motion(Box)
 
@@ -109,7 +110,7 @@ const ProductListItem = ({
               color: '#454545',
             }}
           >
-            {price}
+            <FormattedPrice priceV2={price} />
           </Text>
         </Flex>
       </Flex>
