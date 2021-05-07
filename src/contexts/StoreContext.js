@@ -35,7 +35,8 @@ const StoreProvider = props => {
 
   const createCheckoutAndStoreId = async checkoutVariables => {
     try {
-      const { data } = await createCheckout(checkoutVariables)
+      const { data, error } = await createCheckout(checkoutVariables)
+
       const { id } = data.checkoutCreate.checkout
       setCheckoutId(id)
       localStorage.setItem(STORAGE_CHECKOUT_ID, id)
@@ -69,7 +70,9 @@ const StoreProvider = props => {
         }
 
         if (node.customAttributes.length) {
-          item.customAttributes = node.customAttributes
+          item.customAttributes = node.customAttributes.map(
+            ({ key, value }) => ({ key, value })
+          )
         }
 
         return item
