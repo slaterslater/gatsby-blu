@@ -31,7 +31,7 @@ export const megaMenu = {
           text: "Maggie's Picks",
         },
         { path: '/collections/engraveables', text: 'Engraveables' },
-        { path: '/collections/last-chance', text: 'Last Chance' },
+        { path: '/collections/last-call', text: 'Last Chance' },
       ],
     },
     {
@@ -55,7 +55,7 @@ export const megaMenu = {
         { path: '/collections/tie-dye-collection-2', text: 'Tie Dye' },
         { path: '/collections/sweetness-collection', text: 'Sweetness' },
         { path: '/collections/the-revival-collection', text: 'Revival' },
-        { path: '/collections/littles', text: 'Littles' },
+        { path: '/collections/littles-collection', text: 'Littles' },
         { path: '/collections/inseparable-collection', text: 'Inseparable' },
       ],
     },

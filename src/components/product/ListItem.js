@@ -10,7 +10,7 @@ import { getShopifyImage } from '../../lib/get-shopify-image'
 const MotionBox = motion(Box)
 
 const ThumbnailImage = ({ image }) => {
-  const imageData = getShopifyImage({ image })
+  const imageData = getShopifyImage({ image, width: 360 })
 
   return <GatsbyImage image={imageData} alt={image.altText} />
 }
