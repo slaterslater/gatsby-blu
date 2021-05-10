@@ -83,13 +83,10 @@ const BookConsultationForm = ({ onSuccess, onError }) => (
     onSubmit={async (values, actions) => {
       // console.log(values)
       try {
-        await fetch('/', {
+        await fetch(`${process.env.NETLIFY_SERVERLESS_BASE}`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: encodeNetlifyForm({
-            'form-name': 'book-a-consultation',
-            ...pickBy(values, val => !!val),
-          }),
+          headers: { 'Content-Type': 'application/json' },
+          body: pickBy(values, val => !!val),
         })
         actions.resetForm()
         onSuccess()
@@ -99,7 +96,7 @@ const BookConsultationForm = ({ onSuccess, onError }) => (
       actions.setSubmitting(false)
     }}
   >
-    <Form name="book-a-consultation" data-netlify netlify-honeypot="brot-field">
+    <Form name="book-a-consultation">
       <Grid sx={{ gridTemplateColumns: ['1fr', '1fr 1fr'] }}>
         <HoneypotControl name="brot-field" />
         <InputControl label="Your name" id="name" name="name" type="input" />

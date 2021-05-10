@@ -8,7 +8,6 @@ const MotionBox = motion(Box)
 const HeaderLink = props => (
   <Link
     variant="nav"
-    as={GatsbyLink}
     sx={{
       color: 'gray',
       textTransform: 'uppercase',
@@ -20,89 +19,98 @@ const HeaderLink = props => (
   />
 )
 
-const shopMenus = [
-  {
-    title: 'Latest',
-    links: [
-      { path: '/collections/newarrivals', text: 'New Arrivals' },
-      { path: '/collections/best-sellers', text: 'Best Sellers' },
-      { path: '/collections/last-chance', text: 'Last Chance' },
-      { path: '/collections/the-revival-collection', text: 'Revival' },
-      { path: '/collections/imprint-collection', text: 'Imprint' },
-      { path: '/collections/tashi', text: 'Tashi Silver Jewelry' },
-    ],
-  },
-  {
-    title: 'Categories',
-    links: [
-      { path: '/collections/all', text: 'Shop All' },
-      { path: '/collections/rings', text: 'Rings' },
-      { path: '/collections/earrings', text: 'Earrings' },
-      { path: '/collections/necklaces', text: 'Necklaces' },
-      { path: '/collections/bracelets', text: 'Bracelets' },
-      { path: '/collections/bridal', text: 'Engagement' },
-    ],
-  },
-  {
-    title: 'Collections',
-    links: [
-      { path: '/collections/wanderess', text: 'Wandress' },
-      { path: '/collections/tie-dye', text: 'Tie Dye' },
-      { path: '/collections/littles', text: 'Littles' },
-      { path: '/collections/inseparable', text: 'Inseparable' },
-      { path: '/collections/seedling', text: 'Seedling' },
-      { path: '/collections/dhalia', text: 'Dhalia' },
-    ],
-  },
-]
-
-const giftMenus = [
-  {
-    title: 'Gift Guides',
-    links: [
-      { path: '/collections/pisces-gift-guide', text: 'Pisces Gift Guide' },
-      { path: '/collections/gifts-under-1000', text: 'Gifts Under 1000$' },
-      { path: '/collections/gifts-under-500', text: 'Gifts Under 500$' },
-      { path: '/collections/gifts-under-300', text: 'Gifts Under 300$' },
-      {
-        path: '/collections/gifts-to-personalize',
-        text: 'Gifts To Personalize',
-      },
-      { path: '/products/gift-card', text: 'Gift Cards' },
-    ],
-  },
-]
-
-const bluMenu = [
-  {
-    title: 'Everything Blu',
-    links: [
-      { path: '/pages/about-us', text: 'Our Story' },
-      { path: '/pages/locations', text: 'Locations' },
-    ],
-  },
-  {
-    title: 'Stories',
-    links: [
-      { path: '/bride-stories', text: 'Bride Stories' },
-      { path: '/blog', text: 'Style Blog' },
-    ],
-  },
-]
-
-export const menus = {
-  shop: shopMenus,
-  'gift-guides': giftMenus,
-  'everything-blu-menu': bluMenu,
+const megaMenu = {
+  Shop: [
+    {
+      title: 'Latest',
+      links: [
+        { path: '/collections/newarrivals', text: 'New Arrivals' },
+        { path: '/collections/best-sellers', text: 'Best Sellers' },
+        {
+          path: '/collections/maggies-favourite-pieces',
+          text: "Maggie's Picks",
+        },
+        { path: '/collections/engraveables', text: 'Engraveables' },
+        { path: '/collections/last-chance', text: 'Last Chance' },
+      ],
+    },
+    {
+      title: 'Categories',
+      links: [
+        { path: '/collections/rings', text: 'Rings' },
+        { path: '/collections/necklaces', text: 'Necklaces' },
+        { path: '/collections/earrings', text: 'Earrings' },
+        { path: '/collections/bracelets', text: 'Bracelets' },
+        { path: '/collections/all', text: 'Shop All' },
+      ],
+    },
+    {
+      title: 'Collections',
+      links: [
+        {
+          path: '/collections/tree-of-life-collection-1',
+          text: 'Tree of Life',
+        },
+        { path: '/collections/wanderess', text: 'Wanderess' },
+        { path: '/collections/tie-dye-collection-2', text: 'Tie Dye' },
+        { path: '/collections/sweetness-collection', text: 'Sweetness' },
+        { path: '/collections/the-revival-collection', text: 'Revival' },
+        { path: '/collections/littles', text: 'Littles' },
+        { path: '/collections/inseparable-collection', text: 'Inseparable' },
+      ],
+    },
+  ],
+  Gifts: [
+    {
+      title: 'Gift Guides',
+      links: [
+        {
+          path: '/collections/gifts-to-personalize',
+          text: 'Gifts To Personalize',
+        },
+        { path: '/collections/pisces-gift-guide', text: 'Pisces Gift Guide' },
+        { path: '/collections/gifts-under-1000', text: 'Gifts Under 1000$' },
+        { path: '/collections/gifts-under-500', text: 'Gifts Under 500$' },
+        { path: '/collections/gifts-under-300', text: 'Gifts Under 300$' },
+        { path: '/products/gift-card', text: 'Gift Cards' },
+      ],
+    },
+  ],
+  Engagement: [
+    {
+      title: 'Engagement',
+      links: [
+        {
+          path: '/collections/one-of-a-kind-engagement-rings',
+          text: 'One of a Kind Engagement Rings',
+        },
+        {
+          path: '/collections/endless-beloved-engagement-rings',
+          text: 'Special Occasion - Endless Beloved Rings',
+        },
+        {
+          path: '/collections/wedding-bands',
+          text: 'Wedding & Celebrations Bands',
+        },
+        { path: '/collections/bride-testimonials', text: 'Testimonials' },
+        { path: '/collections/bridal', text: 'View All' },
+        { path: '/pages/book-a-consultation', text: 'Book a Virtual Visit' },
+      ],
+    },
+  ],
+  About: [
+    {
+      title: 'Everything Blu',
+      links: [
+        { path: '/pages/the-bluboho-origin-story', text: 'Origin Story' },
+        { path: '/blog', text: 'Blog' },
+      ],
+    },
+  ],
 }
 
-const MegaMenuLink = ({ children, path, onSetMenu }) => (
-  <HeaderLink
-    to={path}
-    sx={{ position: 'relative' }}
-    onMouseEnter={onSetMenu}
-    onMouseLeave={onSetMenu}
-  >
+const MegaMenuLink = ({ children, path, ...props }) => (
+  <HeaderLink to={path} sx={{ position: 'relative' }} {...props}>
     <Text
       as="span"
       variant="caps"
@@ -131,7 +139,10 @@ const MegaMenu = props => {
         alignSelf: 'stretch',
       }}
       onMouseOver={() => setMenuOpen(true)}
-      onMouseLeave={() => setMenuOpen(false)}
+      onMouseLeave={() => {
+        setCurrentMenu(null)
+        setMenuOpen(false)
+      }}
     >
       <Grid
         pl={4}
@@ -142,24 +153,15 @@ const MegaMenu = props => {
           alignItems: 'stretch',
         }}
       >
-        <MegaMenuLink
-          path="/collections/all"
-          onSetMenu={() => setCurrentMenu('shop')}
-        >
-          Shop
-        </MegaMenuLink>
-        <MegaMenuLink
-          path="/gift-guides"
-          onSetMenu={() => setCurrentMenu('gift-guides')}
-        >
-          Gifts
-        </MegaMenuLink>
-        <MegaMenuLink
-          path="/about-us"
-          onSetMenu={() => setCurrentMenu('everything-blu-menu')}
-        >
-          Everything Blu
-        </MegaMenuLink>
+        {Object.keys(megaMenu).map(name => (
+          <MegaMenuLink
+            aria-haspopup
+            key={`${name}-top-link`}
+            onMouseOver={() => setCurrentMenu(name)}
+          >
+            {name}
+          </MegaMenuLink>
+        ))}
       </Grid>
       <AnimatePresence>
         {menuOpen && (
@@ -180,8 +182,8 @@ const MegaMenu = props => {
           >
             <Flex>
               {currentMenu &&
-                menus[currentMenu].map(list => (
-                  <Box mr={7}>
+                megaMenu[currentMenu].map(list => (
+                  <Box mr={7} aria-expanded>
                     <Heading as="h4" pb={1}>
                       {list.title}
                     </Heading>
