@@ -5,7 +5,10 @@ import React, { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { wrap } from '@popmotion/popcorn'
 import { HiChevronLeft, HiChevronRight } from 'react-icons/hi'
+import { GatsbyImage } from 'gatsby-plugin-image'
+
 import RemoteShopifyImage from '../RemoteShopifyImage'
+import { getShopifyImage } from '../../lib/get-shopify-image'
 
 const MotionBox = motion(Box)
 const Dot = ({ full, ...props }) => (
@@ -38,6 +41,10 @@ const MobileGallery = ({ images, onImageClick }) => {
     setCurrentPage([index, index > currentPage ? 1 : -1])
   }
 
+  const imageData = getShopifyImage({
+    image: images[imageIndex],
+  })
+
   return (
     <Box>
       <AspectRatio ratio={1}>
@@ -64,11 +71,7 @@ const MobileGallery = ({ images, onImageClick }) => {
             }}
             onClick={() => onImageClick(imageIndex)}
           >
-            <RemoteShopifyImage
-              originalSrc={images[imageIndex].originalSrc}
-              altText={images[imageIndex].altText}
-              sx={{ flex: 1, objectFit: 'contain' }}
-            />
+            <GatsbyImage image={imageData} alt={images[imageIndex].altText} />
           </MotionBox>
         </AnimatePresence>
       </AspectRatio>
