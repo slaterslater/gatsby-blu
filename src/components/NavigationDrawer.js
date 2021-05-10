@@ -1,8 +1,7 @@
-import { Button, Divider, Link, Box, Text, IconButton, Flex } from 'theme-ui'
+import { Divider, Link, Box, Text, IconButton, Flex } from 'theme-ui'
 import { IoIosClose, IoIosAdd } from 'react-icons/io'
 import { Link as GatsbyLink } from 'gatsby'
 import React, { useContext, useState } from 'react'
-import { AnimatePresence } from 'framer-motion'
 import { megaMenu } from './header/MegaMenu'
 import { AuthContext } from '../contexts/AuthContext'
 

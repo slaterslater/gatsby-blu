@@ -1,13 +1,15 @@
-import { Container, Box, Heading, Alert } from 'theme-ui'
+import { Container, Box, Heading } from 'theme-ui'
 import { graphql } from 'gatsby'
 import React, { useState } from 'react'
+import { BiHeart } from 'react-icons/bi'
 import Layout from '../components/layout'
 import ShopifyHtml from '../components/ShopifyHtml'
 import BookConsultationForm from '../components/BookConsultationForm'
 import SEO from '../components/seo'
+import { CalloutBox } from '../components/product/ProductCTACallout'
 
 const BookAConsultation = ({ data }) => {
-  const [alert, setAlert] = useState({ type: null, message: null })
+  const [alert, setAlert] = useState({ type: null })
   return (
     <Layout>
       <SEO title="Book a Consultation Appointment" />
@@ -15,13 +17,19 @@ const BookAConsultation = ({ data }) => {
         <Box pt={7} pb={5}>
           <Heading>{data.shopifyPage.title}</Heading>
         </Box>
-        {alert.message && <Alert variant={alert.type}>{alert.message}</Alert>}
+        {alert.type === 'success' && (
+          <Box pb={6}>
+            <CalloutBox
+              icon={BiHeart}
+              title="Your request was received!"
+              description="We will reach out shortly to confirm a time"
+              bg="cream"
+            />
+          </Box>
+        )}
         <BookConsultationForm
           onSuccess={() => {
-            setAlert({ type: 'success', message: 'success!' })
-          }}
-          onError={() => {
-            setAlert({ type: 'error', message: 'error!' })
+            setAlert({ type: 'success' })
           }}
         />
         <ShopifyHtml

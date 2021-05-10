@@ -10,17 +10,42 @@ const transporter = nodemailer.createTransport({
 })
 
 exports.handler = async (event, context) => {
-  const info = await transporter.sendMail({
-    from: 'bluboho contact form <bluboho@example.com>',
-    to: 'guestexperience@example.com',
-    subject: 'New Contact',
-    html: `<p>this is a consultation request</p>`,
-  })
+  const body = JSON.parse(event.body)
 
-  console.log(info)
+  if (body.decepticon)
+    return {
+      statusCode: 400,
+      body: JSON.stringify({
+        message: 'oops! something went wrong',
+      }),
+    }
+
+  const html = `
+    <div>
+      <dl>
+        ${Object.keys(body)
+          .map(
+            key => `
+            <div>
+              <dt>${key}</dt>
+              <dd>${body[key]}</dd>
+            </div>
+            `
+          )
+          .join('')}
+      </dl>
+    </div>
+  `
+
+  const info = await transporter.sendMail({
+    from: 'bluboho contact form <website@bluboho.com>',
+    to: process.env.INBOUND_EMAIL_ADDRESS,
+    subject: 'New Contact',
+    html,
+  })
 
   return {
     statusCode: 200,
-    body: info,
+    body: JSON.stringify(info),
   }
 }

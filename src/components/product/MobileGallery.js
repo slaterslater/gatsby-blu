@@ -1,13 +1,12 @@
 // adapted from https://codesandbox.io/s/pqvx3?file=/src/Example.tsx:838-977
 
-import { Flex, AspectRatio, Box, Button, IconButton } from 'theme-ui'
+import { Flex, AspectRatio, Box, IconButton } from 'theme-ui'
 import React, { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { wrap } from '@popmotion/popcorn'
 import { HiChevronLeft, HiChevronRight } from 'react-icons/hi'
 import { GatsbyImage } from 'gatsby-plugin-image'
 
-import RemoteShopifyImage from '../RemoteShopifyImage'
 import { getShopifyImage } from '../../lib/get-shopify-image'
 
 const MotionBox = motion(Box)

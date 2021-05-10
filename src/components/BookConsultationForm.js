@@ -37,11 +37,6 @@ const hearAboutOpts = [
   'other',
 ]
 
-const encodeNetlifyForm = data =>
-  Object.keys(data)
-    .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
-    .join('&')
-
 const validationSchema = yup.object({
   name: yup.string().required(),
   email: yup.string().email().required(),
@@ -59,9 +54,10 @@ const validationSchema = yup.object({
   'how did you hear about us': yup
     .string()
     .oneOf(hearAboutOpts, 'required field')
-    .required(),
+    .nullable(),
+
   comments: yup.string(),
-  'brot-field': yup.string(),
+  decepticons: yup.string(),
 })
 
 const initialValues = {
@@ -81,12 +77,13 @@ const BookConsultationForm = ({ onSuccess, onError }) => (
     initialValues={initialValues}
     validationSchema={validationSchema}
     onSubmit={async (values, actions) => {
-      // console.log(values)
+      const body = pickBy(values, val => !!val)
+      body['webstore bridal consultaiton request'] = true
       try {
-        await fetch(`${process.env.NETLIFY_SERVERLESS_BASE}`, {
+        await fetch(`${process.env.GATSBY_SERVERLESS_BASE}/contact`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: pickBy(values, val => !!val),
+          body: JSON.stringify(body),
         })
         actions.resetForm()
         onSuccess()
@@ -98,7 +95,7 @@ const BookConsultationForm = ({ onSuccess, onError }) => (
   >
     <Form name="book-a-consultation">
       <Grid sx={{ gridTemplateColumns: ['1fr', '1fr 1fr'] }}>
-        <HoneypotControl name="brot-field" />
+        <HoneypotControl name="decepticons" />
         <InputControl label="Your name" id="name" name="name" type="input" />
         <InputControl label="Your email" id="email" name="email" type="email" />
         <SelectControl
