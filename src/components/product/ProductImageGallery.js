@@ -1,9 +1,17 @@
 import React, { useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import { Flex, Box, Button } from 'theme-ui'
+import { GatsbyImage } from 'gatsby-plugin-image'
 import FullscreenGallery from '../FullscreenGallery'
 import RemoteShopifyImage from '../RemoteShopifyImage'
 import MobileGallery from './MobileGallery'
+import { getShopifyImage } from '../../lib/get-shopify-image'
+
+const GalleryImage = ({ image }) => {
+  const imageData = getShopifyImage({ image })
+
+  return <GatsbyImage image={imageData} alt={image.altText} />
+}
 
 const ProductImageGallery = ({ images }) => {
   const [{ isOpen, initialPage }, setGalleryState] = useState({
@@ -37,11 +45,7 @@ const ProductImageGallery = ({ images }) => {
               variant="unset"
               onClick={() => setGalleryState({ isOpen: true, initialPage: i })}
             >
-              <RemoteShopifyImage
-                originalSrc={image.originalSrc}
-                altText={image.altText}
-                key={image.id}
-              />
+              <GalleryImage image={image} key={image.id} />
             </Button>
           ))}
         </Box>

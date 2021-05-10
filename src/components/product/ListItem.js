@@ -3,10 +3,17 @@ import { AspectRatio, Grid, Flex, Box, Text, Link, Badge } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
 // import { CollectionThumbnail } from '../CollectionProduct'
 import { motion } from 'framer-motion'
-import FluidShopifyImage from '../FluidShopifyImage'
+import { GatsbyImage } from 'gatsby-plugin-image'
 import FormattedPrice from '../FormattedPrice'
+import { getShopifyImage } from '../../lib/get-shopify-image'
 
 const MotionBox = motion(Box)
+
+const ThumbnailImage = ({ image }) => {
+  const imageData = getShopifyImage({ image })
+
+  return <GatsbyImage image={imageData} alt={image.altText} />
+}
 
 export const CollectionThumbnail = ({ primary, alternate }) => {
   if (!primary && !alternate)
@@ -16,23 +23,15 @@ export const CollectionThumbnail = ({ primary, alternate }) => {
     <Grid>
       {primary && (
         <MotionBox
-          sx={{ gridArea: '1 / 1 / -1 / -1', zIndex: 1 }}
+          sx={{ gridArea: '1 / 1 / -1 / -1', zIndex: 1, bg: 'white' }}
           whileHover={{ opacity: alternate ? 0 : 1 }}
         >
-          <FluidShopifyImage
-            ratio={1 / 1}
-            originalSrc={primary.originalSrc}
-            altText={primary.altText}
-          />
+          <ThumbnailImage image={primary} />
         </MotionBox>
       )}
       {alternate && (
         <Box sx={{ gridArea: '1 / 1 / -1 / -1' }}>
-          <FluidShopifyImage
-            ratio={1 / 1}
-            originalSrc={alternate.originalSrc}
-            altText={alternate.altText}
-          />
+          <ThumbnailImage image={alternate} />
         </Box>
       )}
     </Grid>

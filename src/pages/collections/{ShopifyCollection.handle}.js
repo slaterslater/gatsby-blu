@@ -26,6 +26,8 @@ export const query = graphql`
       image {
         src
         altText
+        height
+        width
       }
       products {
         availableForSale
@@ -35,6 +37,8 @@ export const query = graphql`
         images {
           originalSrc
           altText
+          height
+          width
         }
         tags
         variants {

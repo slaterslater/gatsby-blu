@@ -3,7 +3,7 @@ import { IoIosClose, IoIosAdd } from 'react-icons/io'
 import { Link as GatsbyLink } from 'gatsby'
 import React, { useContext, useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
-import { menus } from './header/MegaMenu'
+import { megaMenu } from './header/MegaMenu'
 import { AuthContext } from '../contexts/AuthContext'
 
 const NavGroup = ({ menu, children }) => {
@@ -60,10 +60,11 @@ const NavigationDrawer = ({ onClose }) => {
       </Flex>
       <Divider mt={0} />
       <Box px={5} py={2}>
-        <NavGroup menu={menus.shop}>Shop</NavGroup>
-        <NavGroup menu={menus['gift-guides']}>Gifts</NavGroup>
-        <NavGroup menu={menus['stories-menu']}>Stories</NavGroup>
-        <NavGroup menu={menus['everything-blu-menu']}>Everything Blu</NavGroup>
+        {Object.keys(megaMenu).map(menu => (
+          <NavGroup key={`drawer-title-${menu}`} menu={megaMenu[menu]}>
+            {menu}
+          </NavGroup>
+        ))}
       </Box>
       <Box>
         <GatsbyLink to="/account/login">Login</GatsbyLink>

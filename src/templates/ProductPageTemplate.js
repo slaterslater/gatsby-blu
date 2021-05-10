@@ -90,6 +90,8 @@ export const query = graphql`
         id
         originalSrc
         altText
+        height
+        width
       }
       variants {
         title

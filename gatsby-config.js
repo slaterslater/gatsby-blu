@@ -1,4 +1,5 @@
 import dotenv from 'dotenv'
+import shopifySourceQueries from './src/lib/shopifySourceQueries'
 
 dotenv.config({
   path: `.env`,
@@ -71,18 +72,6 @@ module.exports = {
         yotpoAppKey: process.env.YOTPO_APP_KEY,
       },
     },
-    {
-      resolve: `gatsby-source-shopify`,
-      options: {
-        // The domain name of your Shopify shop.
-        shopName: process.env.SHOPIFY_SHOP_NAME,
-        // The storefront access token
-        accessToken: process.env.SHOPIFY_STOREFRONT_KEY,
-        paginationSize: 80,
-        collections: ['shop'],
-        downloadImages: false,
-      },
-    },
     `gatsby-plugin-emotion`,
     {
       resolve: `gatsby-plugin-google-fonts`,
@@ -97,6 +86,20 @@ module.exports = {
     {
       resolve: `gatsby-plugin-create-client-paths`,
       options: { prefixes: [`/account/*`] },
+    },
+    {
+      resolve: `gatsby-source-shopify`,
+      options: {
+        // The domain name of your Shopify shop.
+        shopName: process.env.SHOPIFY_SHOP_NAME,
+        // The storefront access token
+        accessToken: process.env.SHOPIFY_STOREFRONT_KEY,
+        apiVersion: '2021-04',
+        paginationSize: 80,
+        collections: ['shop'],
+        downloadImages: false,
+        shopifyQueries: shopifySourceQueries,
+      },
     },
     // {
     //   // resolve: `gatsby-source-instagram`,

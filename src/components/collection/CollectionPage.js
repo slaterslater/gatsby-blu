@@ -7,7 +7,6 @@ import ProductGrid from './CollectionProductGrid'
 import ResultsHeader from './ResultsHeader'
 import SEO from '../seo'
 import CollectionFilterAndSort from './CollectionFilterAndSort'
-import CollectionSidebar from '../CollectionSidebar'
 import { getSrcWithSize } from '../RemoteShopifyImage'
 
 const CollectionPage = ({

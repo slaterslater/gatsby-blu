@@ -19,7 +19,7 @@ const HeaderLink = props => (
   />
 )
 
-const megaMenu = {
+export const megaMenu = {
   Shop: [
     {
       title: 'Latest',
