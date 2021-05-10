@@ -12,7 +12,10 @@ const NavGroup = ({ menu, children }) => {
   return (
     <Box sx={{ position: 'relative' }}>
       <Box py={4}>
-        <Link sx={{ display: 'flex' }} onClick={() => set(prev => !prev)}>
+        <Link
+          sx={{ display: 'flex', textDecoration: 'none' }}
+          onClick={() => set(prev => !prev)}
+        >
           <Text sx={{ flex: 1 }} variant="caps">
             {children}
           </Text>
@@ -52,27 +55,42 @@ const NavigationDrawer = ({ onClose }) => {
   const { logout } = useContext(AuthContext)
 
   return (
-    <Box sx={{ position: 'relative' }}>
+    <Flex
+      sx={{
+        flexDirection: 'column',
+        alignItems: 'stretch',
+        position: 'relative',
+        minHeight: '100vh',
+      }}
+    >
       <Flex p={4} sx={{ position: 'sticky' }}>
         <IconButton p={0} onClick={onClose}>
           <Text as={IoIosClose} size={36} />
         </IconButton>
       </Flex>
       <Divider mt={0} />
-      <Box px={5} py={2}>
+      <Box px={5} py={2} sx={{ flex: 1 }}>
         {Object.keys(megaMenu).map(menu => (
           <NavGroup key={`drawer-title-${menu}`} menu={megaMenu[menu]}>
             {menu}
           </NavGroup>
         ))}
       </Box>
-      <Box>
-        <GatsbyLink to="/account/login">Login</GatsbyLink>
-        <Button onClick={logout} type="button" variant="unset">
-          Logout
-        </Button>
+      <Box p={5}>
+        <Link
+          as={GatsbyLink}
+          to="/account"
+          sx={{
+            letterSpacing: 'caps',
+            textTransform: 'uppercase',
+            textDecoration: 'none',
+            fontSize: 1,
+          }}
+        >
+          Account
+        </Link>
       </Box>
-    </Box>
+    </Flex>
   )
 }
 
