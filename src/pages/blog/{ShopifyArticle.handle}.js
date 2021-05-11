@@ -4,9 +4,11 @@ import { Heading, Text, Box, Container } from 'theme-ui'
 import Layout from '../../components/layout'
 import FormattedDate from '../../components/FormattedDate'
 import ShopifyHtml from '../../components/ShopifyHtml'
+import SEO from '../../components/seo'
 
 const BlogTemplate = ({ data }) => (
   <Layout>
+    <SEO title={data.shopifyArticle.title} />
     <Container sx={{ maxWidth: 800 }}>
       <Box pb={4}>
         <Text variant="caps">

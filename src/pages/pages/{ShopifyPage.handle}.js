@@ -3,9 +3,11 @@ import { graphql } from 'gatsby'
 import { Heading, Box, Container } from 'theme-ui'
 import Layout from '../../components/layout'
 import ShopifyHtml from '../../components/ShopifyHtml'
+import SEO from '../../components/seo'
 
 const BlogTemplate = ({ data }) => (
   <Layout>
+    <SEO title={data.shopifyPage.title} />
     <Container as="main" pb={8} sx={{ maxWidth: 680 }}>
       <Box pt={7} pb={2}>
         <Heading>{data.shopifyPage.title}</Heading>
