@@ -9,13 +9,13 @@ import { getShopifyImage } from '../../lib/get-shopify-image'
 
 const MotionBox = motion(Box)
 
-const ThumbnailImage = ({ image }) => {
+const ThumbnailImage = ({ image, fallbackAlt }) => {
   const imageData = getShopifyImage({ image, width: 360 })
 
-  return <GatsbyImage image={imageData} alt={image.altText} />
+  return <GatsbyImage image={imageData} alt={image.altText || fallbackAlt} />
 }
 
-export const CollectionThumbnail = ({ primary, alternate }) => {
+export const CollectionThumbnail = ({ title, primary, alternate }) => {
   if (!primary && !alternate)
     return <AspectRatio sx={{ bg: 'cream' }} ratio={1 / 1} />
 
@@ -26,12 +26,15 @@ export const CollectionThumbnail = ({ primary, alternate }) => {
           sx={{ gridArea: '1 / 1 / -1 / -1', zIndex: 1, bg: 'white' }}
           whileHover={{ opacity: alternate ? 0 : 1 }}
         >
-          <ThumbnailImage image={primary} />
+          <ThumbnailImage
+            fallbackAlt={`${title} lightbox photo`}
+            image={primary}
+          />
         </MotionBox>
       )}
       {alternate && (
         <Box sx={{ gridArea: '1 / 1 / -1 / -1' }}>
-          <ThumbnailImage image={alternate} />
+          <ThumbnailImage fallbackAlt={`${title} on body}`} image={alternate} />
         </Box>
       )}
     </Grid>
@@ -79,7 +82,11 @@ const ProductListItem = ({
   >
     <ProductItemLabel tags={tags} soldOut={!availableForSale} />
     <Flex sx={{ flexDirection: 'column', position: 'relative' }} as="article">
-      <CollectionThumbnail primary={firstImage} alternate={secondImage} />
+      <CollectionThumbnail
+        title={title}
+        primary={firstImage}
+        alternate={secondImage}
+      />
       <Flex
         pt={2}
         sx={{ flex: 1, flexDirection: 'column', alignItems: 'space-between' }}

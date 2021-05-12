@@ -9,6 +9,7 @@ const instagramURL =
 
 const InstagramFeed = () => {
   const { data, error } = useSWR(instagramURL, fetcher)
+  console.log(data)
 
   if (error) return null
 
@@ -40,6 +41,7 @@ const InstagramFeed = () => {
                     key={post.media_url}
                     ratio={1}
                     src={post.media_url}
+                    alt={post.caption}
                   />
                 </Link>
               )
@@ -51,6 +53,7 @@ const InstagramFeed = () => {
                     as="video"
                     ratio={1}
                     src={post.media_url}
+                    alt={post.caption}
                   />
                 </Link>
               )
