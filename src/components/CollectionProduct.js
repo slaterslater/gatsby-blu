@@ -3,7 +3,7 @@ import { useProductTitle } from './ProductTitle'
 import { CurrencyContext } from '../contexts/CurrencyContext'
 import ProductListItem from './product/ListItem'
 
-const useProductPrice = product => {
+export const useProductPrice = product => {
   const { currencyCode } = useContext(CurrencyContext)
 
   const hasRange =

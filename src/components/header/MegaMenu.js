@@ -59,7 +59,7 @@ export const megaMenu = {
       ],
     },
     {
-      title: 'Theme',
+      title: 'Meaning',
       links: [
         { path: '/collections/strength', text: 'Strength' },
         { path: '/collections/love', text: 'Love' },

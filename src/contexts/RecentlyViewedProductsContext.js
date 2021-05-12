@@ -1,7 +1,7 @@
-import React, { createContext, useState, useEffect } from 'react'
+import React, { useMemo, createContext, useState, useEffect } from 'react'
 import { useMatch } from '@reach/router'
 
-const RecentlyViewedProductsContext = createContext()
+export const RecentlyViewedProductsContext = createContext([])
 
 const RecentlyViewedProductsProvider = props => {
   const [recentlyViewed, setRecentlyViewed] = useState('')
@@ -17,23 +17,22 @@ const RecentlyViewedProductsProvider = props => {
 
   useEffect(() => {
     if (handle) {
-      console.log(recentlyViewed)
-      const prev = recentlyViewed.split(',').filter(item => !!item)
-      console.log(prev)
-      const nextRecents = Array.from(new Set([handle, ...prev]))
-        .slice(0, 3)
-        .join(',')
-      setRecentlyViewed(nextRecents)
-      localStorage.setItem('recentlyViewed', nextRecents)
-    }
-  }, [handle, recentlyViewed])
+      setRecentlyViewed(prev => {
+        const handles = prev.split(',')
+        const nextHandles = [handle, ...handles]
+        const nextRecents = Array.from(new Set(nextHandles))
+          .slice(0, 4)
+          .join(',')
 
-  return (
-    <RecentlyViewedProductsContext.Provider
-      value={recentlyViewed.split(',')}
-      {...props}
-    />
-  )
+        localStorage.setItem('recentlyViewed', nextRecents)
+        return nextRecents
+      })
+    }
+  }, [handle])
+
+  const value = useMemo(() => recentlyViewed.split(','), [recentlyViewed])
+
+  return <RecentlyViewedProductsContext.Provider value={value} {...props} />
 }
 
 export default RecentlyViewedProductsProvider

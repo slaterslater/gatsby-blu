@@ -12,6 +12,7 @@ import RemoteShopifyImage, {
 } from '../RemoteShopifyImage'
 import ProductReviews from './ProductReviews'
 import ProductImageGallery from './ProductImageGallery'
+import ProductRecentRecommendations from './ProductRecentRecommendations'
 import SEO from '../seo'
 
 const ProductPage = ({
@@ -83,6 +84,7 @@ const ProductPage = ({
           </Box>
         </Box>
       </Grid>
+      <ProductRecentRecommendations />
       <ProductReviews
         yotpoProductReview={yotpoProductReview}
         yotpoProductQa={yotpoProductQa}
