@@ -58,6 +58,16 @@ export const megaMenu = {
         { path: '/collections/inseparable-collection', text: 'Inseparable' },
       ],
     },
+    {
+      title: 'Theme',
+      links: [
+        { path: '/collections/strength', text: 'Strength' },
+        { path: '/collections/love', text: 'Love' },
+        { path: '/collections/achievement', text: 'Achievement' },
+        { path: '/collections/growth', text: 'Growth' },
+        { path: '/collections/wisdom', text: 'Wisdom' },
+      ],
+    },
   ],
   Gifts: [
     {
