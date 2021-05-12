@@ -66,6 +66,8 @@ export const CUSTOMER_QUERY = gql`
                       originalSrc
                       altText
                       id
+                      height
+                      width
                     }
                   }
                 }

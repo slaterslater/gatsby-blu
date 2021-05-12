@@ -1,25 +1,32 @@
 import { Heading, IconButton, Text, Box, Grid } from 'theme-ui'
 import React from 'react'
+import { GatsbyImage } from 'gatsby-plugin-image'
 import RemoteShopifyImage from './RemoteShopifyImage'
 import { useProductTitle } from './ProductTitle'
+import { getShopifyImage } from '../lib/get-shopify-image'
 
 const LineItem = ({ item, imgSize, children }) => {
-  const optionsDescription = item.variant?.title.replace(' /', ',')
+  const optionsDescription = item.variant?.title?.replace(' /', ',')
 
   const title = useProductTitle(item.title)
 
+  const imageData = item.variant?.image
+    ? getShopifyImage({ image: item.variant.image, width: 80 })
+    : null
+
   return (
     <Grid sx={{ gridTemplateColumns: `${imgSize}px 1fr`, gap: 3 }}>
-      {item.variant ? (
-        <RemoteShopifyImage
-          sizes={[80]}
-          originalSrc={
-            item.variant?.image.src || item.variant?.image.originalSrc
-          }
-        />
-      ) : (
-        <Box height={80} width={80} sx={{ bg: 'border' }} />
-      )}
+      <Box>
+        {item.variant?.image ? (
+          <GatsbyImage
+            image={imageData}
+            style={{ objectFit: 'contain' }}
+            alt={item.variant.image.altText}
+          />
+        ) : (
+          <Box height={80} width={80} sx={{ bg: 'border' }} />
+        )}
+      </Box>
       <Box>
         <Heading sx={{ flex: 1, fontSize: 2 }}>{title}</Heading>
         {optionsDescription && (

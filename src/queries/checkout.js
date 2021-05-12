@@ -37,6 +37,9 @@ export const CHECKOUT_FRAGMENT = gql`
             image {
               altText
               originalSrc
+              height
+              width
+              id
             }
           }
         }
