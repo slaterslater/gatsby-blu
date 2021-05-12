@@ -1,7 +1,6 @@
 import { Heading, IconButton, Text, Box, Grid } from 'theme-ui'
 import React from 'react'
 import { GatsbyImage } from 'gatsby-plugin-image'
-import RemoteShopifyImage from './RemoteShopifyImage'
 import { useProductTitle } from './ProductTitle'
 import { getShopifyImage } from '../lib/get-shopify-image'
 

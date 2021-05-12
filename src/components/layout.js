@@ -20,6 +20,7 @@ import Header from './header'
 import Footer from './footer'
 import Drawers from './drawers'
 import SEO from './seo'
+import RecentlyViewedProductsProvider from '../contexts/RecentlyViewedProductsContext'
 
 const orgLdJSON = `
     {
@@ -67,23 +68,25 @@ const Layout = ({ children }) => {
   `)
 
   return (
-    <Drawers>
-      <SEO>
-        <script type="application/ld+json">{orgLdJSON}</script>
-      </SEO>
-      <Flex
-        sx={{
-          minHeight: '100vh',
-          flexDirection: 'column',
-          alignItems: 'stretch',
-        }}
-      >
-        <Announcements />
-        <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
-        {children}
-        <Footer />
-      </Flex>
-    </Drawers>
+    <RecentlyViewedProductsProvider>
+      <Drawers>
+        <SEO>
+          <script type="application/ld+json">{orgLdJSON}</script>
+        </SEO>
+        <Flex
+          sx={{
+            minHeight: '100vh',
+            flexDirection: 'column',
+            alignItems: 'stretch',
+          }}
+        >
+          <Announcements />
+          <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
+          {children}
+          <Footer />
+        </Flex>
+      </Drawers>
+    </RecentlyViewedProductsProvider>
   )
 }
 

@@ -1,19 +1,28 @@
 const nodemailer = require('nodemailer')
+const googleapis = require('googleapis')
 
-// const transporter = nodemailer.createTransport({
-//   service: 'gmail',
-//   auth: {
-//     user: 'ian@bluboho.com',
-//     pass: 'Thisismyblubohopassword1!1!',
-//   },
-// })
+const { OAuth2 } = googleapis.google.auth
+
+const oauth2Client = new OAuth2(
+  process.env.CONTACT_FORM_OAUTH_CLIENT_ID,
+  process.env.CONTACT_FORM_OAUTH_CLIENT_SECRET,
+  'https://developers.google.com/oauthplayground'
+)
+
+oauth2Client.setCredentials({
+  refresh_token: process.env.CONTACT_FORM_REFRESH_TOKEN,
+})
+const accessToken = oauth2Client.getAccessToken()
 
 const transporter = nodemailer.createTransport({
-  host: process.env.MAIL_HOST,
-  port: 587,
+  service: 'gmail',
   auth: {
-    user: process.env.MAIL_USER,
-    pass: process.env.MAIL_PASS,
+    type: 'OAuth2',
+    user: 'ian@bluboho.com',
+    clientId: process.env.CONTACT_FORM_OAUTH_CLIENT_ID,
+    clientSecret: process.env.CONTACT_FORM_OAUTH_CLIENT_SECRET,
+    refreshToken: process.env.CONTACT_FORM_REFRESH_TOKEN,
+    accessToken,
   },
 })
 
@@ -46,8 +55,8 @@ exports.handler = async (event, context) => {
   `
 
   const info = await transporter.sendMail({
-    from: 'bluboho contact form <website@bluboho.com>',
-    to: process.env.INBOUND_EMAIL_ADDRESS,
+    from: 'bluboho contact form <ian@bluboho.com>',
+    to: 'ian@graydiant.com',
     subject: 'New Contact',
     html,
   })

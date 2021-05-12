@@ -37,11 +37,11 @@ const SectionLink = props => (
 )
 
 const exploreLinks = [
-  { to: '/faq', label: 'faq & help' },
-  { to: '/necklace-sizing-chart', label: 'necklace sizing chart' },
+  { to: '/pages/faq', label: 'faq & help' },
+  { to: '/pages/necklace-sizing-chart', label: 'necklace sizing chart' },
   { to: '/products/bluboho-ring-sizer', label: 'ring sizer' },
-  { to: '/exchange-policy', label: 'exchanges' },
-  { to: '/shipping', label: 'shipping & special info' },
+  { to: '/pages/exchange-policy', label: 'exchanges' },
+  { to: '/pages/shipping', label: 'shipping & special info' },
   { to: '/privacy-policy', label: 'privacy policy' },
   { to: '/terms-of-service', label: 'terms of service' },
 ]
