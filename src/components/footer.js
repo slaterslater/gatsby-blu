@@ -38,19 +38,19 @@ const SectionLink = props => (
 
 const exploreLinks = [
   { to: '/pages/faq', label: 'faq & help' },
-  { to: '/pages/necklace-sizing-chart', label: 'necklace sizing chart' },
+  { to: '/pages/sizing-chart', label: 'necklace sizing chart' },
   { to: '/products/bluboho-ring-sizer', label: 'ring sizer' },
   { to: '/pages/exchange-policy', label: 'exchanges' },
   { to: '/pages/shipping', label: 'shipping & special info' },
-  { to: '/privacy-policy', label: 'privacy policy' },
-  { to: '/terms-of-service', label: 'terms of service' },
+  { to: '/pages/privacy-policy', label: 'privacy policy' },
+  { to: '/pages/terms-of-service', label: 'terms of service' },
 ]
 
 const bluFamLinks = [
-  { to: '/locations-and-hours', label: 'contact & locations' },
+  { to: '/pages/locations-and-hours', label: 'contact & locations' },
   { to: '/products/gift-card', label: 'gift cards' },
   { to: '/newsletter', label: 'subscribe to keep in touch' },
-  { to: '/care-and-wear-disclaimer', label: 'jewelry care & wear' },
+  { to: '/pages/care-and-wear-disclaimer', label: 'jewelry care & wear' },
 ]
 
 const Footer = props => (
