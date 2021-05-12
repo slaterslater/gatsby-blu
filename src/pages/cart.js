@@ -62,7 +62,6 @@ const ShoppingCartPage = props => {
             </Box>
           </Grid>
         )}
-        <Box>recommendations</Box>
       </Container>
     </Layout>
   )

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Grid, Heading } from 'theme-ui'
+import { Box, Flex, Heading } from 'theme-ui'
 import VariantOption from './VariantOption'
 
 const OptionRow = ({ name, values, onSelect, selectedOption }) => {
@@ -10,10 +10,9 @@ const OptionRow = ({ name, values, onSelect, selectedOption }) => {
       <Heading as="h5" sx={{ fontSize: 3, textTransform: 'lowercase' }} pb={4}>
         select {name}
       </Heading>
-      <Grid
+      <Flex
         sx={{
-          gridAutoFlow: 'column',
-          gridColumn: 'max-content',
+          flexWrap: 'wrap',
           gap: 3,
         }}
       >
@@ -26,7 +25,7 @@ const OptionRow = ({ name, values, onSelect, selectedOption }) => {
             {value}
           </VariantOption>
         ))}
-      </Grid>
+      </Flex>
     </Box>
   )
 }

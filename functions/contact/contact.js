@@ -1,5 +1,13 @@
 const nodemailer = require('nodemailer')
 
+// const transporter = nodemailer.createTransport({
+//   service: 'gmail',
+//   auth: {
+//     user: 'ian@bluboho.com',
+//     pass: 'Thisismyblubohopassword1!1!',
+//   },
+// })
+
 const transporter = nodemailer.createTransport({
   host: process.env.MAIL_HOST,
   port: 587,
@@ -43,6 +51,8 @@ exports.handler = async (event, context) => {
     subject: 'New Contact',
     html,
   })
+
+  // console.log(info)
 
   return {
     statusCode: 200,

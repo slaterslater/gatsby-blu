@@ -15,6 +15,7 @@ const VariantOption = ({ isSelected, ...props }) => (
       border: '1px solid',
       borderColor: isSelected ? 'darkerGray' : 'lightGray',
       outline: 'none',
+      flex: '1 1 auto',
     }}
     {...props}
   />

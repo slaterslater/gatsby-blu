@@ -66,6 +66,7 @@
     "slick-carousel": "^1.8.1",
     "store": "^2.0.12",
     "styled-system": "^5.1.5",
+    "swr": "^0.5.6",
     "theme-ui": "^0.6.2",
     "tippy.js": "^6.3.1",
     "urql": "^2.0.1",

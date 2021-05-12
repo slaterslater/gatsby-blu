@@ -31,7 +31,6 @@ export const megaMenu = {
           text: "Maggie's Picks",
         },
         { path: '/collections/engraveables', text: 'Engraveables' },
-        { path: '/collections/last-call', text: 'Last Chance' },
       ],
     },
     {
