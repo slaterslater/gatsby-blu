@@ -1,3 +1,5 @@
+// google oauth follows: https://medium.com/@nickroach_50526/sending-emails-with-node-js-using-smtp-gmail-and-oauth2-316fe9c790a1
+
 const nodemailer = require('nodemailer')
 const googleapis = require('googleapis')
 
@@ -56,8 +58,8 @@ exports.handler = async (event, context) => {
 
   const info = await transporter.sendMail({
     from: 'bluboho contact form <ian@bluboho.com>',
-    to: 'ian@graydiant.com',
-    subject: 'New Contact',
+    to: process.env.INBOUND_EMAIL_ADDRESS,
+    subject: 'New Website Contact',
     html,
   })
 
