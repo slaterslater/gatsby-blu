@@ -52,14 +52,14 @@ const Hero = ({ title, subtitle, button }) => {
           justifyContent: 'center',
         }}
       >
-        <Box p={5} sx={{ textAlign: 'center' }}>
+        <Box p={6} sx={{ textAlign: 'center' }}>
           <Heading
             as="h1"
             sx={{
               color: 'white',
               fontSize: 6,
               letterSpacing: 'caps',
-              pb: 2,
+              pb: 3,
               lineHeight: 1,
             }}
           >
@@ -68,11 +68,15 @@ const Hero = ({ title, subtitle, button }) => {
           <Text
             as="h2"
             variant="lightCaps"
-            sx={{ color: 'white', fontSize: 1, pb: 5, lineHeight: 1 }}
+            sx={{ color: 'white', fontSize: 1, pb: 6, lineHeight: 1 }}
           >
             {subtitle}
           </Text>
-          <Button variant="secondary" as={GatsbyLink} to="/">
+          <Button
+            variant="secondary"
+            as={GatsbyLink}
+            to="/collections/wanderess"
+          >
             Shop New Beginnings
           </Button>
         </Box>
