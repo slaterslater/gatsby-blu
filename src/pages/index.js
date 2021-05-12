@@ -38,12 +38,11 @@ const IndexPage = ({ data }) => {
         <script type="application/ld+json">{websiteLdJSON}</script>
       </SEO>
       <Hero
-        images={[]}
-        title="shed your skin"
-        subtitle="Poignant &bull; Beautiful &bull; Enduring"
+        title="wisdom from within"
+        subtitle="A JOURNEY OF DISCOVERY"
         button={{
-          label: 'Shop New Beginnings',
-          path: '/shop/collections/new-beginnings',
+          label: 'Shop Wanderess',
+          path: '/collections/wanderess',
         }}
       />
       <CollectionSlider

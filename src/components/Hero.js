@@ -1,17 +1,21 @@
 import React from 'react'
 import { Box, Text, Heading, Button, Grid, Flex } from 'theme-ui'
 import { graphql, Link as GatsbyLink, useStaticQuery } from 'gatsby'
-import { GatsbyImage } from 'gatsby-plugin-image'
+import { GatsbyImage, getImage, withArtDirection } from 'gatsby-plugin-image'
 
 const Hero = ({ title, subtitle, button }) => {
   const data = useStaticQuery(graphql`
     {
-      leftImage: file(relativePath: { eq: "hero/on-body.jpg" }) {
+      desktopImage: file(
+        relativePath: { eq: "hero/wanderess-charms-desktop.jpg" }
+      ) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
-      rightImage: file(relativePath: { eq: "hero/ring.jpg" }) {
+      mobileImage: file(
+        relativePath: { eq: "hero/wanderess-charms-mobile.jpg" }
+      ) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }
@@ -19,8 +23,15 @@ const Hero = ({ title, subtitle, button }) => {
     }
   `)
 
+  const images = withArtDirection(getImage(data.desktopImage), [
+    {
+      media: '(max-width: 40em)',
+      image: getImage(data.mobileImage),
+    },
+  ])
+
   return (
-    <Grid sx={{ height: '70vh', bg: 'cream', position: 'relative', zIndex: 1 }}>
+    <Grid sx={{ height: '75vh', bg: 'cream', position: 'relative', zIndex: 1 }}>
       <Grid
         sx={{
           gridAutoFlow: 'column',
@@ -30,23 +41,7 @@ const Hero = ({ title, subtitle, button }) => {
           overflow: 'hidden',
         }}
       >
-        <Flex sx={{ height: '70vh' }}>
-          <GatsbyImage
-            image={data.leftImage.childImageSharp.gatsbyImageData}
-            style={{ flex: 1 }}
-          />
-        </Flex>
-        <Flex
-          sx={{
-            display: ['none', 'flex'],
-            height: '70vh',
-          }}
-        >
-          <GatsbyImage
-            image={data.rightImage.childImageSharp.gatsbyImageData}
-            style={{ flex: 1 }}
-          />
-        </Flex>
+        <GatsbyImage image={images} alt="wanderess necklace" />
       </Grid>
       <Flex
         sx={{
