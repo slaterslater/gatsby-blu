@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { useQuery, gql } from 'urql'
-import { Box, Grid, Container, Text } from 'theme-ui'
+import { NavLink, Flex, Grid, Container, Text } from 'theme-ui'
 import { useMatch } from '@reach/router'
 import { RecentlyViewedProductsContext } from '../../contexts/RecentlyViewedProductsContext'
 import SearchProduct from '../SearchProduct'
@@ -31,27 +31,64 @@ const Recent = ({ handle }) => {
   )
 }
 
-const ProductRecentRecommendations = ({ tags }) => {
-  const [tab, setTab] = useState('recent')
+const useProductHandles = ({ currentTab, tags }) => {
   const recentlyViewed = useContext(RecentlyViewedProductsContext)
   const { handle } = useMatch('/products/:handle')
 
-  if (!recentlyViewed?.length) return false
+  if (currentTab === 'recent') {
+    return recentlyViewed.filter(recent => recent !== handle).slice(0, 3)
+  }
 
-  const recents = recentlyViewed.filter(recent => recent !== handle).slice(0, 3)
+  if (currentTab === 'stack') {
+    const stackHandles = tags
+      .filter(tag => tag.includes('__with'))
+      .map(tag => {
+        const [, stackHandle] = tag.split(':')
+        return stackHandle
+      })
+    return stackHandles
+  }
 
-  if (!recents.length) return false
+  return []
+}
+
+const NavTab = ({ current, ...props }) => (
+  <NavLink
+    sx={{
+      textTransform: 'uppercase',
+      letterSpacing: 'caps',
+      fontWeight: current ? 'bold' : 'normal',
+      fontSize: 1,
+      textAlign: 'center',
+    }}
+    {...props}
+  />
+)
+
+const ProductRecentRecommendations = ({ tags }) => {
+  const [tab, setTab] = useState('stack')
+
+  const handles = useProductHandles({ currentTab: tab, tags })
 
   return (
     <Container>
-      <Box py={6}>
-        <Text as="h3" variant="caps" sx={{ fontSize: 2, textAlign: 'center' }}>
-          recently viewed
-        </Text>
-      </Box>
-      <Grid sx={{ gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
-        {recents.map(recent => (
-          <Recent handle={recent} key={`recent-${recent}`} />
+      <Flex py={6} sx={{ gap: 6, justifyContent: 'center' }}>
+        <NavTab current={tab === 'stack'} onClick={() => setTab('stack')}>
+          Stack It With
+        </NavTab>
+        <NavTab current={tab === 'recent'} onClick={() => setTab('recent')}>
+          Recently Viewed
+        </NavTab>
+      </Flex>
+      <Grid
+        sx={{
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          justifyItems: 'center',
+          gap: 8,
+        }}
+      >
+        {handles.map(handle => (
+          <Recent handle={handle} key={`recent-${handle}`} />
         ))}
       </Grid>
     </Container>

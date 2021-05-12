@@ -84,7 +84,7 @@ const ProductPage = ({
           </Box>
         </Box>
       </Grid>
-      <ProductRecentRecommendations />
+      <ProductRecentRecommendations tags={tags} />
       <ProductReviews
         yotpoProductReview={yotpoProductReview}
         yotpoProductQa={yotpoProductQa}
