@@ -6,7 +6,7 @@ import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import CollectionSlide from './CollectionSlide'
 import { useSlider } from '../lib/useSliderConstraint'
 
-const AnimatedGrid = motion.custom(Grid)
+const AnimatedGrid = motion(Grid)
 
 const CollectionSlider = ({ title, subtitle, slides }) => {
   const ref = useRef(null)

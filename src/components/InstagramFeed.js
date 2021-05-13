@@ -9,8 +9,6 @@ const instagramURL =
 
 const InstagramFeed = () => {
   const { data, error } = useSWR(instagramURL, fetcher)
-  console.log(data)
-
   if (error) return null
 
   if (data) {
@@ -36,7 +34,11 @@ const InstagramFeed = () => {
           {data.slice(0, 12).map(post => {
             if (['CAROUSEL_ALBUM', 'IMAGE'].includes(post.media_type))
               return (
-                <Link href={post.permalink} target="_blank">
+                <Link
+                  href={post.permalink}
+                  target="_blank"
+                  key={`post-${post.permalink}-image`}
+                >
                   <AspectImage
                     key={post.media_url}
                     ratio={1}
@@ -47,7 +49,11 @@ const InstagramFeed = () => {
               )
             if (post.media_type === 'VIDEO')
               return (
-                <Link href={post.permalink} target="_blank">
+                <Link
+                  href={post.permalink}
+                  target="_blank"
+                  key={`post-${post.permalink}-image`}
+                >
                   <AspectImage
                     key={post.media_url}
                     as="video"

@@ -1,5 +1,5 @@
 [
-  { "text": "Book a Virtual Appointment", "to": "/pages/book-an-appointment" },
-  { "text": "Limited Time Free Shipping in Canada", "to": "/shipping" }
+  { "text": "Book a Virtual Appointment", "to": "/book-a-consultation" },
+  { "text": "Free Expedited Shipping within Canada for a limited time" }
 ]
 

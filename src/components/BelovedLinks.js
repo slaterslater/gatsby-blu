@@ -1,5 +1,5 @@
 import { graphql, Link, useStaticQuery } from 'gatsby'
-import { GatsbyImage } from "gatsby-plugin-image";
+import { GatsbyImage } from 'gatsby-plugin-image'
 import React from 'react'
 import { Box, Button, Flex, Grid, Heading } from 'theme-ui'
 
@@ -15,7 +15,7 @@ const BigLink = ({ fluid, title, buttonLabel, to, alt }) => (
     </Heading>
     <Grid>
       <Box sx={{ gridRow: '1 / -1', gridColumn: '1 / -1' }}>
-        <GatsbyImage image={fluid} alt="" />
+        <GatsbyImage image={fluid} alt={alt} />
       </Box>
       <Flex
         p={3}
@@ -36,19 +36,22 @@ const BigLink = ({ fluid, title, buttonLabel, to, alt }) => (
 )
 
 const BelovedLinks = () => {
-  const data = useStaticQuery(graphql`{
-  engagementImage: file(relativePath: {eq: "beloved/engagement-rings.jpg"}) {
-    childImageSharp {
-      gatsbyImageData(width: 800, layout: CONSTRAINED)
+  const data = useStaticQuery(graphql`
+    {
+      engagementImage: file(
+        relativePath: { eq: "beloved/engagement-rings.jpg" }
+      ) {
+        childImageSharp {
+          gatsbyImageData(width: 800, layout: CONSTRAINED)
+        }
+      }
+      weddingImage: file(relativePath: { eq: "beloved/wedding-bands.jpg" }) {
+        childImageSharp {
+          gatsbyImageData(width: 800, layout: CONSTRAINED)
+        }
+      }
     }
-  }
-  weddingImage: file(relativePath: {eq: "beloved/wedding-bands.jpg"}) {
-    childImageSharp {
-      gatsbyImageData(width: 800, layout: CONSTRAINED)
-    }
-  }
-}
-`)
+  `)
 
   return (
     <Box variant="sectionWrap">
@@ -63,21 +66,21 @@ const BelovedLinks = () => {
       >
         <BigLink
           title="ONE OF A KIND ENGAGEMENT RINGS"
-          to="/shop/wedding/engagement"
+          to="/collections/one-of-a-kind-engagement-rings"
           buttonLabel="Shop one of a king rings"
-          alt="embracing couple"
+          alt="couple and rings"
           fluid={data.engagementImage.childImageSharp.gatsbyImageData}
         />
         <BigLink
           title="Wedding Bands"
-          to="/shop/wedding/engagement"
+          to="/collections/wedding-bands"
           buttonLabel="Shop All Wedding Bands"
-          alt="embracing couple"
+          alt="woman smiling with rings"
           fluid={data.weddingImage.childImageSharp.gatsbyImageData}
         />
       </Grid>
     </Box>
-  );
+  )
 }
 
 export default BelovedLinks

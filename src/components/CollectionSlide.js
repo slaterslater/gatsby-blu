@@ -10,7 +10,7 @@ const CollectionSlide = ({ title, to, buttonLabel, image }) => {
   return (
     <Box pr={4}>
       <Box as={Link} to={toPath}>
-        <GatsbyImage image={image} />
+        <GatsbyImage image={image} alt="" />
       </Box>
       <Text
         as="h4"

@@ -18,7 +18,7 @@ const Announcement = ({ text, to, isVisible }) =>
         variant="caps"
       >
         <Link
-          as={GatsbyLink}
+          as={to ? GatsbyLink : 'span'}
           color="inherit"
           to={to}
           sx={{ textDecoration: 'none' }}
@@ -31,8 +31,11 @@ const Announcement = ({ text, to, isVisible }) =>
 
 Announcement.propTypes = {
   text: PropTypes.string.isRequired,
-  to: PropTypes.string.isRequired,
+  to: PropTypes.string,
   isVisible: PropTypes.bool.isRequired,
+}
+Announcement.defaultProps = {
+  to: '',
 }
 
 const Announcements = () => {
