@@ -1,13 +1,24 @@
-import React from "react"
+import React from 'react'
 
-import Layout from "../components/layout"
-import SEO from "../components/seo"
+import { Container, Text, Heading, Button } from 'theme-ui'
+import { Link as GatsbyLink } from 'gatsby'
+import Layout from '../components/layout'
+import SEO from '../components/seo'
 
 const NotFoundPage = () => (
   <Layout>
     <SEO title="404: Not found" />
-    <h1>404: Not Found</h1>
-    <p>You just hit a route that doesn&#39;t exist... the sadness.</p>
+    <Container sx={{ textAlign: 'center' }}>
+      <Heading as="h1" pb={4} pt={8}>
+        404
+      </Heading>
+      <Text as="p" pb={6}>
+        The page you are looking for cannot be found
+      </Text>
+      <Button as={GatsbyLink} to="/">
+        Back to Homepage
+      </Button>
+    </Container>
   </Layout>
 )
 

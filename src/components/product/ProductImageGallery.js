@@ -3,12 +3,11 @@ import { AnimatePresence } from 'framer-motion'
 import { Flex, Box, Button } from 'theme-ui'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import FullscreenGallery from '../FullscreenGallery'
-import RemoteShopifyImage from '../RemoteShopifyImage'
 import MobileGallery from './MobileGallery'
 import { getShopifyImage } from '../../lib/get-shopify-image'
 
 const GalleryImage = ({ image }) => {
-  const imageData = getShopifyImage({ image })
+  const imageData = getShopifyImage({ image, width: 900 })
 
   return <GatsbyImage image={imageData} alt={image.altText} />
 }
