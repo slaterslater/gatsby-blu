@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Box, Text, Link, Flex } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
 import { useLocation } from '@reach/router'
-import SEO from './seo'
+import { Helmet } from 'react-helmet'
 
 const Breadcrumbs = ({ links, currentPage, children, ...props }) => {
   const location = useLocation()
@@ -32,9 +32,9 @@ const Breadcrumbs = ({ links, currentPage, children, ...props }) => {
 `
   return (
     <>
-      <SEO>
+      <Helmet>
         <script type="application/ld+json">{breadcrumbLdJSON}</script>
-      </SEO>
+      </Helmet>
       <Flex
         py={3}
         mr={-5}

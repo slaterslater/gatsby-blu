@@ -9,7 +9,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Helmet } from 'react-helmet'
 import { useStaticQuery, graphql } from 'gatsby'
-import { getSrcWithSize } from './RemoteShopifyImage'
 
 function SEO({ description, lang, meta, title, children }) {
   // add blu logo for default image meta

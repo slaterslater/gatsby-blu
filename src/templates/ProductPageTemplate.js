@@ -6,6 +6,7 @@ import ProductPage from '../components/product/ProductPage'
 import { useGAEvent } from '../lib/useGAEvent'
 import SEO from '../components/seo'
 import { useProductTitle } from '../components/ProductTitle'
+import { useShopifyImageMeta } from '../components/RemoteShopifyImage'
 
 const ProductPageTemplate = ({ data }) => {
   const location = useLocation()
@@ -14,6 +15,7 @@ const ProductPageTemplate = ({ data }) => {
     category: data.shopifyProduct.productType,
     action: 'Viewed Product',
   })
+
   useEffect(() => {
     sendGAEvent()
   }, [])
@@ -49,10 +51,16 @@ const ProductPageTemplate = ({ data }) => {
         .toString()}]
     }
   `
+  const imageMeta = useShopifyImageMeta(data.shopifyProduct.images[0])
 
   return (
     <Layout>
-      <SEO title={title}>
+      <SEO
+        title={title}
+        description={data.shopifyProduct.description}
+        meta={imageMeta}
+        originalSrc={data.shopifyProduct.images[0]?.originalSrc}
+      >
         <script type="application/ld+json">{productLdJSON}</script>
       </SEO>
       <ProductPage

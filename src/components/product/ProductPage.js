@@ -6,14 +6,10 @@ import { useProductTitle } from '../ProductTitle'
 import ProductDetails from './ProductDetails'
 import ProductSocial from './ProductSocial'
 import Breadcrumbs from '../Breadcrumbs'
-import RemoteShopifyImage, {
-  useShopifyImageMeta,
-  useShopifyOgImage,
-} from '../RemoteShopifyImage'
+import { useShopifyImageMeta, useShopifyOgImage } from '../RemoteShopifyImage'
 import ProductReviews from './ProductReviews'
 import ProductImageGallery from './ProductImageGallery'
 import ProductRecentRecommendations from './ProductRecentRecommendations'
-import SEO from '../seo'
 
 const ProductPage = ({
   product: {
@@ -33,15 +29,8 @@ const ProductPage = ({
   alternates,
 }) => {
   const productTitle = useProductTitle(title)
-  const imageMeta = useShopifyImageMeta(images[0])
   return (
     <Container pt={0}>
-      <SEO
-        title={productTitle}
-        description={description}
-        meta={imageMeta}
-        originalSrc={images[0]?.originalSrc}
-      />
       <Breadcrumbs
         pt={6}
         px={0}
