@@ -1,21 +1,23 @@
 import React, { useState } from 'react'
-import { Flex, Text, Box, Link, Grid, Heading } from 'theme-ui'
+import { Flex, Button, Text, Box, Link, Grid, Heading } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
 import { AnimatePresence, motion } from 'framer-motion'
 
 const MotionBox = motion(Box)
 
 const HeaderLink = props => (
-  <Link
-    variant="nav"
+  <Button
+    type="button"
+    p={0}
+    {...props}
     sx={{
+      bg: 'transparent',
       color: 'gray',
       textTransform: 'uppercase',
       letterSpacing: 'caps',
       fontSize: 1,
       ...(props.sx || {}),
     }}
-    {...props}
   />
 )
 
