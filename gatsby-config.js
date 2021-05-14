@@ -17,11 +17,18 @@ module.exports = {
     `gatsby-plugin-react-helmet`,
     `gatsby-transformer-json`,
     {
-      resolve: `gatsby-plugin-canonical-urls`,
+      resolve: 'gatsby-plugin-sitemap',
       options: {
-        siteUrl: `https://bluboho.com`,
+        excludes: ['/account'],
       },
     },
+    {
+      resolve: `gatsby-plugin-canonical-urls`,
+      options: {
+        siteUrl: `https://www.bluboho.com`,
+      },
+    },
+
     {
       resolve: `gatsby-source-filesystem`,
       options: {
