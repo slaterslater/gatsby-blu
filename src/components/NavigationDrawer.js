@@ -59,7 +59,7 @@ const NavigationDrawer = ({ onClose }) => {
         flexDirection: 'column',
         alignItems: 'stretch',
         position: 'relative',
-        minHeight: '100vh',
+        height: '100vh',
       }}
     >
       <Flex p={4} sx={{ position: 'sticky' }}>
@@ -68,7 +68,7 @@ const NavigationDrawer = ({ onClose }) => {
         </IconButton>
       </Flex>
       <Divider mt={0} />
-      <Box px={5} py={2} sx={{ flex: 1 }}>
+      <Box px={5} py={2} sx={{ flex: 1, overflowY: 'auto' }}>
         {Object.keys(megaMenu).map(menu => (
           <NavGroup key={`drawer-title-${menu}`} menu={megaMenu[menu]}>
             {menu}

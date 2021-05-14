@@ -70,12 +70,8 @@ const Hero = ({ title, subtitle, button }) => {
           >
             {subtitle}
           </Text>
-          <Button
-            variant="secondary"
-            as={GatsbyLink}
-            to="/collections/wanderess"
-          >
-            Shop New Beginnings
+          <Button variant="secondary" as={GatsbyLink} to="/collections/wisdom">
+            Shop Wisdom
           </Button>
         </Box>
       </Flex>
