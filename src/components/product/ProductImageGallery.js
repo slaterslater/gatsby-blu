@@ -19,32 +19,32 @@ const ProductImageGallery = ({ images }) => {
   })
 
   // add packaging images to all image galleries
-  const imagesWithPackaging = [
-    ...images,
-    {
-      originalSrc:
-        'https://cdn.shopify.com/s/files/1/0685/0359/files/packaging-4.jpg?v=1620925677',
-      height: 3000,
-      width: 3000,
-      altText: 'packaging',
-      id: 'packaging-id-17757575234566',
-    },
-    {
-      originalSrc:
-        'https://cdn.shopify.com/s/files/1/0685/0359/files/packaging-9.jpg?v=1620925676',
-      height: 3000,
-      width: 3000,
-      altText: 'packaging alternate',
-      id: 'packaging-alt-id-1234566',
-    },
-  ]
+  // const imagesWithPackaging = [
+  //   ...images,
+  //   {
+  //     originalSrc:
+  //       'https://cdn.shopify.com/s/files/1/0685/0359/files/packaging-4.jpg?v=1620925677',
+  //     height: 3000,
+  //     width: 3000,
+  //     altText: 'packaging',
+  //     id: 'packaging-id-17757575234566',
+  //   },
+  //   {
+  //     originalSrc:
+  //       'https://cdn.shopify.com/s/files/1/0685/0359/files/packaging-9.jpg?v=1620925676',
+  //     height: 3000,
+  //     width: 3000,
+  //     altText: 'packaging alternate',
+  //     id: 'packaging-alt-id-1234566',
+  //   },
+  // ]
 
   return (
     <>
       <AnimatePresence>
         {isOpen && (
           <FullscreenGallery
-            images={imagesWithPackaging}
+            images={images}
             isOpen={isOpen}
             initialPage={initialPage}
             onClose={() => setGalleryState({ isOpen: false, initialPage: 0 })}
@@ -53,13 +53,13 @@ const ProductImageGallery = ({ images }) => {
       </AnimatePresence>
       <Box sx={{ display: ['block', 'none', 'none'], width: '100vw' }} mx={-5}>
         <MobileGallery
-          images={imagesWithPackaging}
+          images={images}
           onImageClick={i => setGalleryState({ isOpen: true, initialPage: i })}
         />
       </Box>
       <Flex>
         <Box sx={{ display: ['none', 'block', 'block'] }}>
-          {imagesWithPackaging.map((image, i) => (
+          {images.map((image, i) => (
             <Button
               type="button"
               variant="unset"
