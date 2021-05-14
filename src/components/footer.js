@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid, Box, Text, Link, Flex } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
-import { FaFacebookF, FaInstagram, FaPinterest } from 'react-icons/fa'
+import FooterSocials from './FooterSocials'
 import NewsletterForm from './NewsletterForm'
 import CurrencyPicker from './CurrencyPicker'
 
@@ -93,17 +93,7 @@ const Footer = props => (
     </Box>
     <Box>
       <SectionHeading>Socials</SectionHeading>
-      <Flex>
-        <Link mr={3}>
-          <Text as={FaFacebookF} sx={{ color: 'gray' }} />
-        </Link>
-        <Link mr={3}>
-          <Text as={FaInstagram} sx={{ color: 'gray' }} />
-        </Link>
-        <Link>
-          <Text as={FaPinterest} sx={{ color: 'gray' }} />
-        </Link>
-      </Flex>
+      <FooterSocials />
       <Box pt={4}>
         <CurrencyPicker />
       </Box>

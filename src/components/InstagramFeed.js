@@ -37,6 +37,7 @@ const InstagramFeed = () => {
                 <Link
                   href={post.permalink}
                   target="_blank"
+                  rel="noreferrer"
                   key={`post-${post.permalink}-image`}
                 >
                   <AspectImage
@@ -52,6 +53,7 @@ const InstagramFeed = () => {
                 <Link
                   href={post.permalink}
                   target="_blank"
+                  rel="noreferrer"
                   key={`post-${post.permalink}-image`}
                 >
                   <AspectImage

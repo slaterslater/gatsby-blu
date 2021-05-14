@@ -6,13 +6,13 @@ import { stringify } from 'qs'
 import { truncateString } from '../../lib/truncate'
 import { getSrcWithSize } from '../RemoteShopifyImage'
 
-const getFacebookShareUrl = url =>
-  `https://www.facebook.com/sharer.php?u=${url}`
+export const getFacebookShareUrl = url =>
+  `https://www.facebook.com/sharer.php?${stringify({ u: url })}`
 
-const getTwitterHref = ({ url, text }) =>
+export const getTwitterHref = ({ url, text }) =>
   `https://twitter.com/share?${stringify({ text, url })}`
 
-const getPinterestHref = ({ url, description, media }) =>
+export const getPinterestHref = ({ url, description, media }) =>
   `https://pinterest.com/pin/create/button/?${stringify({
     url,
     description: truncateString(description),
@@ -22,12 +22,13 @@ const getPinterestHref = ({ url, description, media }) =>
 const ExternalLink = props => (
   <Link
     target="_blank"
+    rel="noreferrer"
     sx={{ cursor: 'pointer', color: 'darkGray' }}
     {...props}
   />
 )
 
-const ProductSocial = ({ description, image, title }) => {
+const ProductSocial = ({ description, image, title, showLabel = true }) => {
   const location = useLocation()
 
   if (!location) return false
@@ -47,9 +48,11 @@ const ProductSocial = ({ description, image, title }) => {
         alignContent: 'baseline',
       }}
     >
-      <Text variant="caps" sx={{ color: 'darkGray' }}>
-        Share
-      </Text>
+      {showLabel && (
+        <Text variant="caps" sx={{ color: 'darkGray' }}>
+          Share
+        </Text>
+      )}
       <ExternalLink href={facebookHref}>
         <FaFacebookF />
       </ExternalLink>
