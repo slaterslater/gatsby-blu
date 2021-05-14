@@ -7,15 +7,13 @@ const Hero = ({ title, subtitle, button }) => {
   const data = useStaticQuery(graphql`
     {
       desktopImage: file(
-        relativePath: { eq: "hero/wanderess-charms-desktop.jpg" }
+        relativePath: { eq: "hero/new-homepage-desktop.jpg" }
       ) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
-      mobileImage: file(
-        relativePath: { eq: "hero/wanderess-charms-mobile.jpg" }
-      ) {
+      mobileImage: file(relativePath: { eq: "hero/new-homepage-mobile.jpg" }) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }

@@ -5,11 +5,14 @@ dotenv.config({
   path: `.env`,
 })
 
+const siteUrl = process.env.SITE_URL || 'https://www.bluboho.com'
+
 module.exports = {
   siteMetadata: {
     title: `bluboho fine jewelry`,
     description: `tell your story with our handcrafted jewelry. raw and refined pieces to mark every moment. international shipping. free shipping within Canada and the US. gift cards available.`,
     author: `@bluboho`,
+    siteUrl,
   },
   plugins: [
     `gatsby-plugin-netlify`,
@@ -17,15 +20,9 @@ module.exports = {
     `gatsby-plugin-react-helmet`,
     `gatsby-transformer-json`,
     {
-      resolve: 'gatsby-plugin-sitemap',
-      options: {
-        excludes: ['/account'],
-      },
-    },
-    {
       resolve: `gatsby-plugin-canonical-urls`,
       options: {
-        siteUrl: `https://www.bluboho.com`,
+        siteUrl,
       },
     },
 
@@ -113,6 +110,12 @@ module.exports = {
       options: {
         dsn: process.env.SENTRY_DSN,
         sampleRate: 0.7,
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-sitemap',
+      options: {
+        excludes: ['/account'],
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
