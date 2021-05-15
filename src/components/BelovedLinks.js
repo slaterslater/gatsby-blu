@@ -67,7 +67,7 @@ const BelovedLinks = () => {
         <BigLink
           title="ONE OF A KIND ENGAGEMENT RINGS"
           to="/collections/one-of-a-kind-engagement-rings"
-          buttonLabel="Shop one of a king rings"
+          buttonLabel="Shop one of a kind rings"
           alt="couple and rings"
           fluid={data.engagementImage.childImageSharp.gatsbyImageData}
         />
