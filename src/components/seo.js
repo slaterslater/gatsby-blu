@@ -9,6 +9,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Helmet } from 'react-helmet'
 import { useStaticQuery, graphql } from 'gatsby'
+import { escapeDoubleQuoteString } from '../lib/escapeDoubleQuoteStrings'
 
 function SEO({ description, lang, meta, title, children }) {
   // add blu logo for default image meta
@@ -26,7 +27,9 @@ function SEO({ description, lang, meta, title, children }) {
     `
   )
 
-  const metaDescription = description || site.siteMetadata.description
+  const metaDescription = escapeDoubleQuoteString(
+    description || site.siteMetadata.description
+  )
   const defaultTitle = site.siteMetadata?.title
 
   return (

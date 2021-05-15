@@ -7,6 +7,7 @@ import { useGAEvent } from '../lib/useGAEvent'
 import SEO from '../components/seo'
 import { useProductTitle } from '../components/ProductTitle'
 import { useShopifyImageMeta } from '../components/RemoteShopifyImage'
+import { escapeDoubleQuoteString } from '../lib/escapeDoubleQuoteStrings'
 
 const ProductPageTemplate = ({ data }) => {
   const location = useLocation()
@@ -20,17 +21,21 @@ const ProductPageTemplate = ({ data }) => {
     sendGAEvent()
   }, [])
 
+  const productUrl = `${data.site.siteMetadata.siteUrl}/products/${data.shopifyProduct.handle}`
+
   const productLdJSON = `
     {
       "@type": "Product",
-      "@id": "${location.href}",
+      "@id": "${productUrl}",
       "brand": {
         "name": "${data.shopifyProduct.vendor}"
       },
       "name": "${title}",
-      "description": "${data.shopifyProduct.description}",
+      "description": "${escapeDoubleQuoteString(
+        data.shopifyProduct.description
+      )}",
       "category": "${data.shopifyProduct.productType}",
-      "url": "${location.href}",
+      "url": "${productUrl}",
       "sku": "${data.shopifyProduct.variants[0].sku}",
       "offers": [${data.shopifyProduct.variants
         .map(
@@ -43,7 +48,7 @@ const ProductPageTemplate = ({ data }) => {
           }",
           "price": "${variant.priceNumber}",
           "priceCurrency": "CAD",
-          "url": "${location.href}?variant=${variant.sku}",
+          "url": "${productUrl}?variant=${variant.sku}",
           "sku": "${variant.sku}"
           }
         `
@@ -82,6 +87,11 @@ export const query = graphql`
     $productId: String!
     $alternates: [String]!
   ) {
+    site {
+      siteMetadata {
+        siteUrl
+      }
+    }
     shopifyProduct(handle: { eq: $handle }) {
       title
       descriptionHtml
@@ -90,6 +100,7 @@ export const query = graphql`
       vendor
       onlineStoreUrl
       tags
+      handle
       options {
         name
         values
