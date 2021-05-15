@@ -1,6 +1,5 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import { useLocation } from '@reach/router'
 import Layout from '../components/layout'
 import Hero from '../components/Hero'
 import BelovedLinks from '../components/BelovedLinks'
@@ -13,20 +12,24 @@ import BookConsultation from '../components/BookConsultation'
 import ReviewsSlider from '../components/ReviewsSlider'
 
 const IndexPage = ({ data }) => {
-  const location = useLocation()
+  const {
+    site: {
+      siteMetadata: { siteUrl },
+    },
+  } = data
 
   const websiteLdJSON = `
   {
       "@context": "https://schema.org",
-      "@type": "Website",
-      "url": "${location.href}",
+      "@type": "WebSite",
+      "url": "${siteUrl}",
       "about" : {
         "@type":"Thing",
         "name":"Jewelry Store"
       },
       "potentialAction": {
           "@type": "SearchAction",
-          "target": "${location.origin}/search?q={query}&type=product",
+          "target": "${siteUrl}/search?q={query}&type=product",
           "query-input": "required name=query"
       }
   }
@@ -41,8 +44,8 @@ const IndexPage = ({ data }) => {
         title="wisdom from within"
         subtitle="A JOURNEY OF DISCOVERY"
         button={{
-          label: 'Shop Wanderess',
-          path: '/collections/wanderess',
+          label: 'Shop Wisdom',
+          path: '/collections/wisdom',
         }}
       />
       <CollectionSlider
@@ -94,6 +97,11 @@ export default IndexPage
 
 export const query = graphql`
   {
+    site {
+      siteMetadata {
+        siteUrl
+      }
+    }
     necklaceFile: file(
       relativePath: { eq: "collection-slider-necklaces.jpg" }
     ) {
