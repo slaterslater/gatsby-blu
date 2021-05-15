@@ -27,12 +27,12 @@ export const megaMenu = {
       title: 'Latest',
       links: [
         { path: '/collections/newarrivals', text: 'New Arrivals' },
-        { path: '/collections/best-sellers', text: 'Best Sellers' },
+        { path: '/collections/best-sellers-1', text: 'Best Sellers' },
         {
           path: '/collections/maggies-favourite-pieces',
           text: "Maggie's Picks",
         },
-        { path: '/collections/engraveables', text: 'Engraveables' },
+        { path: '/collections/engraveables', text: 'Engravables' },
       ],
     },
     {
