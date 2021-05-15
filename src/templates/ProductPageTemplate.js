@@ -95,6 +95,7 @@ export const query = graphql`
     }
     shopifyProduct(handle: { eq: $handle }) {
       title
+      handle
       descriptionHtml
       description
       productType

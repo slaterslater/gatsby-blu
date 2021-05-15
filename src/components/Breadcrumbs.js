@@ -2,14 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Box, Text, Link, Flex } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
-import { useLocation } from '@reach/router'
 import { Helmet } from 'react-helmet'
 
 const Breadcrumbs = ({ links, currentPage, children, ...props }) => {
-  const location = useLocation()
+  const siteUrl = `https://www.bluboho.com`
   const breadcrumbLdJSON = `
   {
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [${links
       .map(
@@ -18,7 +17,7 @@ const Breadcrumbs = ({ links, currentPage, children, ...props }) => {
         "@type": "ListItem",
         "position": "${i + 1}",
         "name": "${link.text}",
-        "item": "${location.origin}${link.path}"
+        "item": "${siteUrl}${link.path}"
     }
     `
       )
@@ -26,7 +25,7 @@ const Breadcrumbs = ({ links, currentPage, children, ...props }) => {
             "@type": "ListItem",
             "position": "${links.length + 1}",
             "name": "Necklaces",
-            "item": "${location.href}"
+            "item": "${siteUrl}${currentPage.path}"
           }]
     }
 `

@@ -13,6 +13,7 @@ import ProductRecentRecommendations from './ProductRecentRecommendations'
 
 const ProductPage = ({
   product: {
+    handle,
     options,
     title,
     descriptionHtml,
@@ -34,7 +35,7 @@ const ProductPage = ({
       <Breadcrumbs
         pt={6}
         px={0}
-        currentPage={{ path: '', text: productTitle }}
+        currentPage={{ path: `/products/${handle}`, text: productTitle }}
         links={[
           {
             path: '/',
