@@ -8,6 +8,7 @@ const CollectionPageTemplate = ({ data }) => {
   return (
     <CollectionPage
       title={title}
+      handle={handle}
       description={description}
       products={products}
       hasFilters

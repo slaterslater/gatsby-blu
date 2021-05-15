@@ -25,6 +25,7 @@ const ProductPageTemplate = ({ data }) => {
 
   const productLdJSON = `
     {
+      "@context": "https://schema.org",
       "@type": "Product",
       "@id": "${productUrl}",
       "brand": {

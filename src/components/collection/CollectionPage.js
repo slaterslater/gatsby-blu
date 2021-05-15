@@ -2,31 +2,52 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Box, Link, Container, Divider } from 'theme-ui'
 import { useLocation } from '@reach/router'
+import { graphql, useStaticQuery } from 'gatsby'
 import Layout from '../layout'
 import ProductGrid from './CollectionProductGrid'
 import ResultsHeader from './ResultsHeader'
 import SEO from '../seo'
 import CollectionFilterAndSort from './CollectionFilterAndSort'
 import { getSrcWithSize } from '../RemoteShopifyImage'
+import { escapeDoubleQuoteString } from '../../lib/escapeDoubleQuoteStrings'
 
 const CollectionPage = ({
   title,
   description,
   products,
+  handle,
   hasFilters,
   hasSidebar,
   image,
 }) => {
-  const location = useLocation()
+  const {
+    site: {
+      siteMetadata: { siteUrl },
+    },
+  } = useStaticQuery(graphql`
+    {
+      site {
+        siteMetadata {
+          siteUrl
+        }
+      }
+    }
+  `)
+
   const [isOpen, setOpen] = useState(false)
   const ldJSONSrc = getSrcWithSize(image?.src, '1024x_crop_center')
 
+  const collectionUrl = `${siteUrl}/collections/${handle}`
+
   const collectionLdJSON = `
-    "@type": "CollectionPage",
-    "name": "${title}",
-    "url": "${location.handle}",
-    "description": "${description}", 
-    "image": "${ldJSONSrc}"
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "${title}",
+      "description": "${escapeDoubleQuoteString(description)}", 
+      "image": "${ldJSONSrc}",
+      "@id": "${collectionUrl}"
+    }
   `
 
   return (
