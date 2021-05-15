@@ -36,7 +36,7 @@ const ShoppingCartPage = props => {
     <Layout>
       <Container>
         {data && (
-          <Grid sx={{ gridTemplateColumns: '2fr 1fr', gap: 7 }}>
+          <Grid sx={{ gridTemplateColumns: ['1fr', '2fr 1fr'], gap: 7 }}>
             <Grid sx={{ gridAutoFlow: 'row', gap: 4 }}>
               {data?.node.lineItems?.edges.map(({ node }) => (
                 <CartLineItem item={node} key={node.id} imgSize={150} />

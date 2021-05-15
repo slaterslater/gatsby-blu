@@ -49,7 +49,7 @@ const CartDrawer = ({ onClose }) => {
               </Box>
             ))}
           </Box>
-          <Box>
+          <Box pb={[9, 0, 0]}>
             <OrderSummary
               subtotalPriceV2={data.node.subtotalPriceV2}
               totalPriceV2={data.node.totalPriceV2}

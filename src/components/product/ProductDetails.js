@@ -102,7 +102,7 @@ const ProductDetails = ({
         <Box>
           <Text>
             by{' '}
-            <Link as={GatsbyLink} to={`/shop/vendor/${vendor}`}>
+            <Link as={GatsbyLink} to={`/collections/${vendor}`}>
               {vendor}
             </Link>
           </Text>
