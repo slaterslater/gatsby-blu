@@ -1,4 +1,4 @@
-import { Box } from 'theme-ui'
+import { Box, Flex } from 'theme-ui'
 import React, { createContext, useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import useKeyPress from 'react-use-keypress'
@@ -6,11 +6,12 @@ import CartDrawer from './CartDrawer'
 import NavigationDrawer from './NavigationDrawer'
 
 const MotionBox = motion(Box)
+const MotionFlex = motion(Flex)
 
 export const DrawerContext = createContext()
 
 const DrawerOuter = ({ origin, ...props }) => (
-  <MotionBox
+  <MotionFlex
     initial={{ [origin]: '-100%', boxShadow: 'none' }}
     animate={{ [origin]: 0, boxShadow: '0 0 45px rgba(0,0,0,.2)' }}
     exit={{ [origin]: '-100%', boxShadow: 'none' }}
@@ -18,11 +19,13 @@ const DrawerOuter = ({ origin, ...props }) => (
     sx={{
       bg: 'white',
       top: 0,
-      bottom: 0,
       width: 360,
+      height: '100vh',
+      height: 'fill-available',
       maxWidth: '90vw',
       position: 'fixed',
       zIndex: 101,
+      alignItems: 'stretch',
     }}
     {...props}
   />
@@ -33,6 +36,20 @@ const Drawers = ({ children }) => {
 
   const closeDrawer = () => !!openDrawer && setOpenDrawer('')
   useKeyPress('Escape', closeDrawer)
+
+  useEffect(() => {
+    if (openDrawer) {
+      document.querySelector('body').style.overflow = 'hidden'
+    }
+
+    if (!openDrawer) {
+      document.querySelector('body').style.removeProperty('overflow')
+    }
+
+    return () => {
+      document.querySelector('body').style.removeProperty('overflow')
+    }
+  }, [openDrawer])
 
   return (
     <DrawerContext.Provider value={[openDrawer, setOpenDrawer]}>
@@ -48,6 +65,7 @@ const Drawers = ({ children }) => {
                 boxShadow: 'inset 0 0 70px rgba(0,0,0,.7)',
                 bg: 'rgba(0,0,0,.5)',
                 height: '100vh',
+                height: 'fill-available',
                 width: '100vw',
                 position: 'fixed',
                 zIndex: 100,

@@ -52,9 +52,12 @@ const ProductReviews = ({
   )
 
   return (
-    <Container pt={8} id="reviews">
-      <Flex sx={{ alignItems: 'baseline' }}>
-        <Flex pb={6}>
+    <Box py={8} id="reviews">
+      <Flex
+        pb={6}
+        sx={{ alignItems: 'baseline', flexWrap: 'wrap', gap: [6, 0] }}
+      >
+        <Flex>
           <NavLink
             onClick={() =>
               dispatch({ type: 'SET_CURRENT_TAB', currentTab: 'reviews' })
@@ -71,26 +74,27 @@ const ProductReviews = ({
             Questions
           </NavLink>
         </Flex>
-        <Button
-          type="button"
-          variant="inverted"
-          ml="auto"
-          mr={2}
-          onClick={() =>
-            dispatch({ type: 'SET_CURRENT_MODAL', currentModal: 'question' })
-          }
-        >
-          Ask a Question
-        </Button>
-        <Button
-          type="button"
-          variant="inverted"
-          onClick={() =>
-            dispatch({ type: 'SET_CURRENT_MODAL', currentModal: 'review' })
-          }
-        >
-          Write a Review
-        </Button>
+        <Flex ml="auto">
+          <Button
+            type="button"
+            variant="inverted"
+            mr={2}
+            onClick={() =>
+              dispatch({ type: 'SET_CURRENT_MODAL', currentModal: 'question' })
+            }
+          >
+            Ask a Question
+          </Button>
+          <Button
+            type="button"
+            variant="inverted"
+            onClick={() =>
+              dispatch({ type: 'SET_CURRENT_MODAL', currentModal: 'review' })
+            }
+          >
+            Write a Review
+          </Button>
+        </Flex>
       </Flex>
       <Modal
         isOpen={modalOpen}
@@ -142,7 +146,7 @@ const ProductReviews = ({
           )}
         </Grid>
       )}
-    </Container>
+    </Box>
   )
 }
 

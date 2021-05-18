@@ -56,10 +56,10 @@ const NavigationDrawer = ({ onClose }) => {
   return (
     <Flex
       sx={{
+        flex: 1,
         flexDirection: 'column',
         alignItems: 'stretch',
         position: 'relative',
-        height: '100vh',
       }}
     >
       <Flex p={4} sx={{ position: 'sticky' }}>

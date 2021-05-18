@@ -1,5 +1,4 @@
 import React, { useContext, createContext, useEffect, useState } from 'react'
-import Client from 'shopify-buy'
 import { useQuery, useMutation } from 'urql'
 import { CreateCheckout } from '../mutations/cart'
 import { CHECKOUT_QUERY } from '../queries/checkout'
@@ -7,15 +6,9 @@ import { CurrencyContext } from './CurrencyContext'
 
 const STORAGE_CHECKOUT_ID = 'checkoutId'
 
-const client = Client.buildClient({
-  domain: process.env.GATSBY_SHOPIFY_SHOP_NAME,
-  storefrontAccessToken: process.env.GATSBY_SHOPIFY_STOREFRONT_KEY,
-})
-
 const initialValues = {
   cart: [],
   addProductToCart: () => {},
-  client,
   checkoutId: undefined,
 }
 

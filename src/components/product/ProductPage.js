@@ -33,8 +33,9 @@ const ProductPage = ({
   return (
     <Container pt={0}>
       <Breadcrumbs
-        pt={6}
+        pt={[3, 6]}
         px={0}
+        ml={[-2, 0]}
         currentPage={{ path: `/products/${handle}`, text: productTitle }}
         links={[
           {
@@ -49,7 +50,7 @@ const ProductPage = ({
       />
       <Grid
         sx={{ gridTemplateColumns: ['1fr', '2fr 1fr'], columnGap: 6 }}
-        pt={6}
+        pt={[1, 6]}
       >
         <ProductImageGallery images={images} />
 

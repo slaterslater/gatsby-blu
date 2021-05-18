@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Grid, Box, Flex, Text, Divider, IconButton, Button } from 'theme-ui'
+import { Box, Flex, Text, Divider, IconButton, Button } from 'theme-ui'
 import { IoIosClose } from 'react-icons/io'
 import store from 'store'
 import { useQuery } from 'urql'
@@ -23,11 +23,12 @@ const CartDrawer = ({ onClose }) => {
   })
 
   return (
-    <Grid
+    <Flex
       sx={{
-        gridTemplateRows: 'max-content 1fr max-content',
-        height: '100vh',
-        gap: 0,
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'stretch',
+        position: 'relative',
       }}
     >
       <Box>
@@ -40,7 +41,7 @@ const CartDrawer = ({ onClose }) => {
       </Box>
       {data && (
         <>
-          <Box>
+          <Box sx={{ flex: 1, overflowY: 'auto' }}>
             <Divider mb={4} mt={0} />
             {!data.node.lineItems?.edges.length && <EmptyCart />}
             {data.node.lineItems.edges.map(({ node }) => (
@@ -49,7 +50,7 @@ const CartDrawer = ({ onClose }) => {
               </Box>
             ))}
           </Box>
-          <Box pb={[9, 0, 0]}>
+          <Box>
             <OrderSummary
               subtotalPriceV2={data.node.subtotalPriceV2}
               totalPriceV2={data.node.totalPriceV2}
@@ -61,7 +62,7 @@ const CartDrawer = ({ onClose }) => {
           </Box>
         </>
       )}
-    </Grid>
+    </Flex>
   )
 }
 
