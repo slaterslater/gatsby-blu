@@ -49,11 +49,13 @@ const ProductPage = ({
         ]}
       />
       <Grid
-        sx={{ gridTemplateColumns: ['1fr', '2fr 1fr'], columnGap: 6 }}
+        sx={{
+          gridTemplateColumns: ['1fr', '2fr minmax(280px, 1fr)'],
+          columnGap: 6,
+        }}
         pt={[1, 6]}
       >
         <ProductImageGallery images={images} />
-
         <Box sx={{ position: 'relative' }}>
           <Box sx={{ position: 'sticky', top: 80 }}>
             <ProductDetails

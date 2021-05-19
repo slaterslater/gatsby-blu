@@ -60,8 +60,11 @@ const Footer = props => (
     p={6}
     gap={6}
     sx={{
-      gridAutoFlow: ['row', 'column'],
-      gridTemplateColumns: ['1fr', 'repeat(2, 1fr)', '2fr 2fr 3fr 1fr'],
+      gridTemplateColumns: [
+        '1fr',
+        '1fr 1fr',
+        '2fr 2fr minmax(200px, 300px) 1fr',
+      ],
     }}
   >
     <Box>
