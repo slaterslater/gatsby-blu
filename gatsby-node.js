@@ -49,7 +49,7 @@ async function createBlogPages({ graphql, actions }) {
     {
       allShopifyArticle(
         sort: { fields: [publishedAt], order: DESC }
-        filter: { blog: { title: { eq: "blog" } } }
+        filter: { blog: { title: { eq: "News" } } }
       ) {
         totalCount
       }
@@ -69,7 +69,7 @@ async function createBlogPages({ graphql, actions }) {
       const currentPage = i + 1
 
       actions.createPage({
-        path: `/blog/page-${currentPage}`,
+        path: `/blogs/news/page-${currentPage}`,
         component,
         context: {
           skip,
@@ -81,7 +81,7 @@ async function createBlogPages({ graphql, actions }) {
 
   // non-paginated first page
   actions.createPage({
-    path: `/blog`,
+    path: `/blogs/news`,
     component,
     context: {
       skip: 0,

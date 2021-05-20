@@ -113,7 +113,7 @@ export const megaMenu = {
       title: 'Everything Blu',
       links: [
         { path: '/pages/the-bluboho-origin-story', text: 'Origin Story' },
-        { path: '/blog', text: 'Blog' },
+        { path: '/blogs/news', text: 'Blog' },
       ],
     },
   ],
