@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { graphql } from 'gatsby'
-import { useLocation } from '@reach/router'
 import Layout from '../components/layout'
 import ProductPage from '../components/product/ProductPage'
 import { useGAEvent } from '../lib/useGAEvent'
@@ -10,7 +9,6 @@ import { useShopifyImageMeta } from '../components/RemoteShopifyImage'
 import { escapeDoubleQuoteString } from '../lib/escapeDoubleQuoteStrings'
 
 const ProductPageTemplate = ({ data }) => {
-  const location = useLocation()
   const title = useProductTitle(data.shopifyProduct.title)
   const sendGAEvent = useGAEvent({
     category: data.shopifyProduct.productType,
@@ -75,6 +73,7 @@ const ProductPageTemplate = ({ data }) => {
         yotpoProductReview={data.yotpoProductReview}
         yotpoProductQa={data.yotpoProductQa}
         alternates={data.alternates}
+        productUrl={productUrl}
       />
     </Layout>
   )
@@ -100,7 +99,6 @@ export const query = graphql`
       description
       productType
       vendor
-      onlineStoreUrl
       tags
       handle
       options {

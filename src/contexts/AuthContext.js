@@ -46,7 +46,7 @@ const AuthProvider = props => {
   }, [shouldRenew, accessToken, renewAuthToken])
 
   useEffect(() => {
-    if (renewData) {
+    if (renewData?.customerAccessTokenRenew.customerAccessToken) {
       setAuthState(prev => ({
         ...prev,
         accessToken:

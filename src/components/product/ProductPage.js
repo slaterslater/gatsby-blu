@@ -22,12 +22,12 @@ const ProductPage = ({
     variants,
     vendor,
     images,
-    onlineStoreUrl,
     tags,
   },
   yotpoProductReview,
   yotpoProductQa,
   alternates,
+  productUrl,
 }) => {
   const productTitle = useProductTitle(title)
   return (
@@ -63,7 +63,7 @@ const ProductPage = ({
               descriptionHtml={descriptionHtml}
               variants={variants}
               vendor={vendor}
-              yotpoProductBottomline={yotpoProductReview.bottomline}
+              yotpoProductBottomline={yotpoProductReview?.bottomline}
               alternates={alternates}
               productType={productType}
               options={options}
@@ -86,7 +86,7 @@ const ProductPage = ({
           product_title: title,
           sku: variants[0]?.sku,
           product_description: description,
-          product_url: onlineStoreUrl,
+          product_url: productUrl,
           product_image_url: images[0]?.originalSrc,
         }}
       />

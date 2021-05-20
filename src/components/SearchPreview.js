@@ -22,7 +22,7 @@ const ProductThumbnail = ({ originalSrc, alt }) => {
 const SearchPreview = ({ term = '' }) => {
   const [query] = useQuery({
     query: SEARCH_QUERY,
-    variables: { query: term, first: 250 },
+    variables: { query: term, first: 4 },
     pause: term.length < 3,
   })
 

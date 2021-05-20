@@ -1,10 +1,10 @@
 import React from 'react'
-import { Link } from 'gatsby'
-import { Button, Flex } from 'theme-ui'
+// import { Link } from 'gatsby'
+import { Button, Flex, Link } from 'theme-ui'
 
-const CheckoutButton = props => (
+const CheckoutButton = ({ href }) => (
   <Flex p={4}>
-    <Button as={Link} to="/cart" type="button" sx={{ flex: 1 }}>
+    <Button as={Link} href={href} type="button" sx={{ flex: 1 }}>
       Checkout
     </Button>
   </Flex>

@@ -19,7 +19,7 @@ const Page = ({ cursor, isLastPage, onLoadMore }) => {
 
   return (
     <>
-      {data.collectionByHandle.products.edges.slice(0, 30).map(({ node }) => {
+      {data.collectionByHandle.products.edges.map(({ node }) => {
         const images = node.images.edges.map(({ node }) => node)
         return (
           <SearchProduct

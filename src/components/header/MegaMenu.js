@@ -42,7 +42,7 @@ export const megaMenu = {
         { path: '/collections/necklaces', text: 'Necklaces' },
         { path: '/collections/earrings', text: 'Earrings' },
         { path: '/collections/bracelets', text: 'Bracelets' },
-        { path: '/collections/all', text: 'Shop All' },
+        { path: '/all', text: 'Shop All' },
       ],
     },
     {

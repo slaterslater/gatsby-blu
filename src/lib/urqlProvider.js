@@ -1,7 +1,9 @@
 import React from 'react'
 import { createClient, Provider } from 'urql'
 
-const SHOPIFY_GRAPHQL_URL = `https://${process.env.GATSBY_SHOPIFY_SHOP_NAME}/api/2021-04/graphql.json`
+// const SHOPIFY_GRAPHQL_URL = `https://${process.env.GATSBY_SHOPIFY_SHOP_NAME}/api/2021-04/graphql.json`
+
+const SHOPIFY_GRAPHQL_URL = `${process.env.GATSBY_SHOPIFY_CHECKOUT_BASE}/api/2021-04/graphql.json`
 const SHOPIFY_STOREFRONT_ACCESS_TOKEN =
   process.env.GATSBY_SHOPIFY_STOREFRONT_KEY
 
