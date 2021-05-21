@@ -177,6 +177,16 @@ export default {
         borderColor: 'darkBorder',
       },
     },
+    bigSearch: {
+      fontSize: 3,
+      textTransform: 'uppercase',
+      fontFamily: 'body',
+      border: 'none',
+      letterSpacing: 'caps',
+      '&::placeholder': {
+        color: 'darkGray',
+      },
+    },
     select: {
       fontSize: 1,
       borderRadius: 0,

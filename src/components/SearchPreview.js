@@ -19,7 +19,7 @@ const ProductThumbnail = ({ originalSrc, alt }) => {
   return <Image src={srcs[0]} srcSet={srcs.join(', ')} alt={alt} />
 }
 
-const SearchPreview = ({ term = '' }) => {
+const SearchPreview = ({ term = '', onClose }) => {
   const [query] = useQuery({
     query: SEARCH_QUERY,
     variables: { query: term, first: 4 },
@@ -46,7 +46,9 @@ const SearchPreview = ({ term = '' }) => {
           {availableProducts.length} results
         </Text>
         <Text variant="caps" sx={{ fontSize: 0 }}>
-          <Link to={`/search?q=${term}`}>See All</Link>
+          <Link onClick={onClose} to={`/search?q=${term}`}>
+            See All
+          </Link>
         </Text>
       </Flex>
       {availableProducts.length ? (

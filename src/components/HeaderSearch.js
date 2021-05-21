@@ -3,12 +3,14 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Box, Grid, Button, Input, Text } from 'theme-ui'
 import PropTypes from 'prop-types'
 import { IoIosClose, IoIosSearch } from 'react-icons/io'
+import { useDebounce } from 'use-debounce'
 import SearchPreview from './SearchPreview'
 
 const MotionBox = motion(Box)
 
 const HeaderSearch = ({ isOpen, onClose }) => {
   const [value, setValue] = useState('')
+  const [term] = useDebounce(value, 1000)
 
   return (
     <AnimatePresence>
@@ -38,20 +40,15 @@ const HeaderSearch = ({ isOpen, onClose }) => {
                 type="input"
                 onChange={e => setValue(e.target.value)}
                 value={value}
-                sx={{
-                  letterSpacing: 'caps',
-                  border: 'none',
-                  fontFamily: 'body',
-                  textTransform: 'uppercase',
-                  fontSize: 3,
-                }}
+                variant="bigSearch"
+                placeholder="Search ..."
               />
             </Box>
             <Button type="button" variant="unset" onClick={onClose}>
               <Box as={IoIosClose} size={24} color="primary" />
             </Button>
           </Grid>
-          <SearchPreview term={value} />
+          <SearchPreview term={value} onClose={onClose} />
         </MotionBox>
       )}
     </AnimatePresence>
