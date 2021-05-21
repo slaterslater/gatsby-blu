@@ -53,13 +53,13 @@ const ProductSocial = ({ description, image, title, showLabel = true }) => {
           Share
         </Text>
       )}
-      <ExternalLink href={facebookHref}>
+      <ExternalLink aria-label="facebook" href={facebookHref}>
         <FaFacebookF aria-hidden />
       </ExternalLink>
-      <ExternalLink href={twitterHref}>
+      <ExternalLink aria-label="twitter" href={twitterHref}>
         <FaTwitter aria-hidden />
       </ExternalLink>
-      <ExternalLink href={pinterestHref}>
+      <ExternalLink aria-label="pinterest" href={pinterestHref}>
         <FaPinterest aria-hidden />
       </ExternalLink>
     </Grid>

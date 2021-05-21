@@ -7,14 +7,14 @@ const getVariantMetalColor = (variant = {}) =>
   variant.selectedOptions?.find(opt => opt.name?.toLowerCase() === 'metal')
     ?.value
 
-const MetalOption = ({ handle, metal, isCurrent, ...props }) => {
+const MetalOption = ({ title, handle, metal, isCurrent, ...props }) => {
   if (!metal) return false
 
   if (isCurrent)
     return <MetalOptionSwatch isCurrent={isCurrent} metal={metal} {...props} />
 
   return (
-    <ThemeLink to={`/products/${handle}`} {...props}>
+    <ThemeLink aria-label={title} to={`/products/${handle}`} {...props}>
       <MetalOptionSwatch metal={metal} />
     </ThemeLink>
   )
@@ -46,6 +46,7 @@ const MetalOptions = ({ product, alternates }) => {
         <Flex pt={2}>
           {colors.map(({ isCurrent, metal, handle }) => (
             <MetalOption
+              title={title}
               key={`metal-option-${metal}`}
               {...{ isCurrent, metal, handle }}
               onMouseOver={() => setTitle(metal)}
