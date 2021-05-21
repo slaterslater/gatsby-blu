@@ -45,6 +45,8 @@ const InstagramFeed = () => {
                     ratio={1}
                     src={post.media_url}
                     alt={post.caption}
+                    height={300}
+                    width={300}
                   />
                 </Link>
               )

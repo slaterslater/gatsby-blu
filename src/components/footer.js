@@ -7,7 +7,7 @@ import CurrencyPicker from './CurrencyPicker'
 
 const SectionHeading = props => (
   <Text
-    as="h5"
+    as="h1"
     variant="caps"
     pb={4}
     sx={{ color: 'cream', fontSize: 0, fontWeight: 'heading' }}
@@ -67,7 +67,7 @@ const Footer = props => (
       ],
     }}
   >
-    <Box>
+    <Box as="section">
       <SectionHeading>Explore</SectionHeading>
       <Box as="nav">
         {exploreLinks.map(({ label, to }) => (
@@ -77,7 +77,7 @@ const Footer = props => (
         ))}
       </Box>
     </Box>
-    <Box>
+    <Box as="section">
       <SectionHeading>Blu Fam</SectionHeading>
       <Box as="nav">
         {bluFamLinks.map(({ label, to }) => (
@@ -87,14 +87,14 @@ const Footer = props => (
         ))}
       </Box>
     </Box>
-    <Box>
+    <Box as="section">
       <SectionHeading>Become a Pen Pal</SectionHeading>
       <Text as="p" sx={{ fontSize: 0, color: 'gray', pb: 4 }}>
         Subscribe to receive updates, access to exclusive deals, and more.
       </Text>
       <NewsletterForm />
     </Box>
-    <Box>
+    <Box as="section">
       <SectionHeading>Socials</SectionHeading>
       <FooterSocials />
       <Box pt={4}>

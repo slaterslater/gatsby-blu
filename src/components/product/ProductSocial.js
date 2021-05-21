@@ -54,13 +54,13 @@ const ProductSocial = ({ description, image, title, showLabel = true }) => {
         </Text>
       )}
       <ExternalLink href={facebookHref}>
-        <FaFacebookF />
+        <FaFacebookF aria-hidden />
       </ExternalLink>
       <ExternalLink href={twitterHref}>
-        <FaTwitter />
+        <FaTwitter aria-hidden />
       </ExternalLink>
       <ExternalLink href={pinterestHref}>
-        <FaPinterest />
+        <FaPinterest aria-hidden />
       </ExternalLink>
     </Grid>
   )

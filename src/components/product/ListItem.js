@@ -75,53 +75,55 @@ const ProductListItem = ({
   tags,
   availableForSale,
 }) => (
-  <Link
-    as={GatsbyLink}
-    to={to}
-    sx={{ textDecoration: 'none', position: 'relative', zIndex: 1 }}
-  >
-    <ProductItemLabel tags={tags} soldOut={!availableForSale} />
-    <Flex sx={{ flexDirection: 'column', position: 'relative' }} as="article">
-      <CollectionThumbnail
-        title={title}
-        primary={firstImage}
-        alternate={secondImage}
-      />
-      <Flex
-        pt={2}
-        sx={{ flex: 1, flexDirection: 'column', alignItems: 'space-between' }}
-      >
-        <Box mb="auto" sx={{ alignSelf: 'top', textAlign: 'center' }}>
-          <Text
-            as="h6"
-            variant="caps"
-            sx={{
-              color: 'darkerGray',
-            }}
-          >
-            {title}
-          </Text>
-        </Box>
-        <Flex pt={2} sx={{ justifyContent: 'center' }}>
-          {hasRange && (
-            <Text variant="caps" pr={1} sx={{ color: 'darkGray' }}>
-              From
+  <Box as="article">
+    <Link
+      as={GatsbyLink}
+      to={to}
+      sx={{ textDecoration: 'none', position: 'relative', zIndex: 1 }}
+    >
+      <ProductItemLabel tags={tags} soldOut={!availableForSale} />
+      <Flex sx={{ flexDirection: 'column', position: 'relative' }} as="article">
+        <CollectionThumbnail
+          title={title}
+          primary={firstImage}
+          alternate={secondImage}
+        />
+        <Flex
+          pt={2}
+          sx={{ flex: 1, flexDirection: 'column', alignItems: 'space-between' }}
+        >
+          <Box mb="auto" sx={{ alignSelf: 'top', textAlign: 'center' }}>
+            <Text
+              as="h1"
+              variant="caps"
+              sx={{
+                color: 'darkerGray',
+              }}
+            >
+              {title}
             </Text>
-          )}
-          <Text
-            as="p"
-            variant="caps"
-            sx={{
-              fontWeight: 500,
-              color: '#454545',
-            }}
-          >
-            <FormattedPrice priceV2={price} />
-          </Text>
+          </Box>
+          <Flex pt={2} sx={{ justifyContent: 'center' }}>
+            {hasRange && (
+              <Text variant="caps" pr={1} sx={{ color: 'darkGray' }}>
+                From
+              </Text>
+            )}
+            <Text
+              as="p"
+              variant="caps"
+              sx={{
+                fontWeight: 500,
+                color: '#454545',
+              }}
+            >
+              <FormattedPrice priceV2={price} />
+            </Text>
+          </Flex>
         </Flex>
       </Flex>
-    </Flex>
-  </Link>
+    </Link>
+  </Box>
 )
 
 export default ProductListItem
