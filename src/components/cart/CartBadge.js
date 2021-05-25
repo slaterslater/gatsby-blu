@@ -13,7 +13,7 @@ const CartBadge = props => {
 
   if (!data && fetching) return false
 
-  const itemCount = data?.node.lineItems?.edges?.reduce(
+  const itemCount = data?.node?.lineItems?.edges?.reduce(
     (acc, { node }) => acc + node.quantity,
     0
   )

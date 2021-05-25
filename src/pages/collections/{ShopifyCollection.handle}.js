@@ -35,6 +35,7 @@ export const query = graphql`
         id
         handle
         title
+        vendor
         images {
           originalSrc
           altText

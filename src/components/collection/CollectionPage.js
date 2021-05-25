@@ -10,6 +10,7 @@ import SEO from '../seo'
 import CollectionFilterAndSort from './CollectionFilterAndSort'
 import { getSrcWithSize } from '../RemoteShopifyImage'
 import { escapeDoubleQuoteString } from '../../lib/escapeDoubleQuoteStrings'
+import { useGtagViewItemList } from '../../hooks/gtag'
 
 const CollectionPage = ({
   title,
@@ -20,6 +21,7 @@ const CollectionPage = ({
   hasSidebar,
   image,
 }) => {
+  useGtagViewItemList(products, title, handle)
   const {
     site: {
       siteMetadata: { siteUrl },

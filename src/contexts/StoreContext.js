@@ -30,9 +30,11 @@ const StoreProvider = props => {
     try {
       const { data, error } = await createCheckout(checkoutVariables)
 
-      const { id } = data.checkoutCreate.checkout
-      setCheckoutId(id)
-      localStorage.setItem(STORAGE_CHECKOUT_ID, id)
+      if (data) {
+        const { id } = data.checkoutCreate.checkout
+        setCheckoutId(id)
+        localStorage.setItem(STORAGE_CHECKOUT_ID, id)
+      }
     } catch (e) {
       console.error('error creating checkout')
     }
@@ -48,7 +50,7 @@ const StoreProvider = props => {
     }
   }, [])
 
-  const dataCheckoutId = data?.node.id
+  const dataCheckoutId = data?.node?.id
 
   useEffect(() => {
     const replaceCheckout = async () => {
