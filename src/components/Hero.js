@@ -15,7 +15,7 @@ const Hero = ({ title, subtitle, button }) => {
       }
       mobileImage: file(relativePath: { eq: "hero/new-homepage-mobile.jpg" }) {
         childImageSharp {
-          gatsbyImageData(layout: FULL_WIDTH)
+          gatsbyImageData(layout: CONSTRAINED, width: 640)
         }
       }
     }
