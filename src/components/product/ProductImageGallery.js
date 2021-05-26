@@ -63,9 +63,10 @@ const ProductImageGallery = ({ images }) => {
             <Button
               type="button"
               variant="unset"
+              key={image.id}
               onClick={() => setGalleryState({ isOpen: true, initialPage: i })}
             >
-              <GalleryImage image={image} key={image.id} />
+              <GalleryImage image={image} />
             </Button>
           ))}
         </Box>

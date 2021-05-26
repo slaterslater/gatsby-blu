@@ -70,7 +70,10 @@ const MobileGallery = ({ images, onImageClick }) => {
             }}
             onClick={() => onImageClick(imageIndex)}
           >
-            <GatsbyImage image={imageData} alt={images[imageIndex].altText} />
+            <GatsbyImage
+              image={imageData}
+              alt={images[imageIndex].altText || ''}
+            />
           </MotionBox>
         </AnimatePresence>
       </AspectRatio>

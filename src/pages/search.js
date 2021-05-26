@@ -6,7 +6,6 @@ import { useDebounce } from 'use-debounce'
 import { IoIosSearch } from 'react-icons/io'
 import Layout from '../components/layout'
 import { SEARCH_QUERY } from '../queries/search'
-import ResultsHeader from '../components/collection/ResultsHeader'
 import SearchProduct from '../components/SearchProduct'
 
 const SearchPage = ({ location: { search } }) => {

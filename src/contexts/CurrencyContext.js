@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState, createContext } from 'react'
 import { useQuery } from 'urql'
+import store from 'store'
 import { SHOP_CURRENCIES } from '../queries/shop'
 
 const STORAGE_CURRENCY_ID = 'currencyCode'
@@ -16,7 +17,7 @@ const CurrencyProvider = props => {
   const [{ data }] = useQuery({ query: SHOP_CURRENCIES })
 
   useEffect(() => {
-    const storageCurrency = localStorage.getItem(STORAGE_CURRENCY_ID)
+    const storageCurrency = store.get(STORAGE_CURRENCY_ID)
 
     if (storageCurrency) {
       setCurrencyCode(storageCurrency)
@@ -24,20 +25,17 @@ const CurrencyProvider = props => {
   }, [])
 
   useEffect(() => {
-    const storageCurrency = localStorage.getItem(STORAGE_CURRENCY_ID)
+    const storageCurrency = store.get(STORAGE_CURRENCY_ID)
 
     if (data && !storageCurrency) {
-      localStorage.setItem(
-        STORAGE_CURRENCY_ID,
-        data.shop.paymentSettings.currencyCode
-      )
+      store.set(STORAGE_CURRENCY_ID, data.shop.paymentSettings.currencyCode)
     }
   }, [data])
 
   const setCurrency = useCallback(
     code => {
       setCurrencyCode(code)
-      localStorage.setItem(STORAGE_CURRENCY_ID, code)
+      store.set(STORAGE_CURRENCY_ID, code)
     },
     [setCurrencyCode]
   )

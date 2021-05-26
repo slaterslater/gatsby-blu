@@ -15,14 +15,6 @@ const EmptyCart = () => (
   </Box>
 )
 
-const useCheckoutUrl = webUrl => {
-  if (!webUrl) return ''
-  const url = new URL(webUrl)
-  console.log(url.pathname)
-  // return `${process.env.GATSBY_SHOPIFY_CHECKOUT_BASE}${url.pathname}`
-  return webUrl
-}
-
 const CartDrawer = ({ onClose }) => {
   const { checkoutId } = useContext(StoreContext)
   const [{ data, fetching }] = useQuery({
@@ -30,7 +22,7 @@ const CartDrawer = ({ onClose }) => {
     variables: { checkoutId },
   })
 
-  const checkoutUrl = useCheckoutUrl(data?.node.webUrl)
+  const { webUrl: checkoutUrl } = data?.node || {}
 
   return (
     <Flex

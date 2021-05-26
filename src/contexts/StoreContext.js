@@ -1,5 +1,6 @@
 import React, { useContext, createContext, useEffect, useState } from 'react'
 import { useQuery, useMutation } from 'urql'
+import store from 'store'
 import { CreateCheckout } from '../mutations/cart'
 import { CHECKOUT_QUERY } from '../queries/checkout'
 import { CurrencyContext } from './CurrencyContext'
@@ -33,7 +34,7 @@ const StoreProvider = props => {
       if (data) {
         const { id } = data.checkoutCreate.checkout
         setCheckoutId(id)
-        localStorage.setItem(STORAGE_CHECKOUT_ID, id)
+        store.set(STORAGE_CHECKOUT_ID, id)
       }
     } catch (e) {
       console.error('error creating checkout')
@@ -41,8 +42,21 @@ const StoreProvider = props => {
   }
 
   useEffect(() => {
+    if (!fetching && !data && error) {
+      // if we couldn't fetch the checkout id remove it and create another one
+      store.remove('checkoutId')
+      createCheckoutAndStoreId()
+    }
+
+    if (!fetching && data?.node.completedAt) {
+      store.remove('checkoutId')
+      createCheckoutAndStoreId()
+    }
+  }, [data, error, fetching])
+
+  useEffect(() => {
     // when the component mounts
-    const currentCheckoutId = localStorage.getItem(STORAGE_CHECKOUT_ID)
+    const currentCheckoutId = store.get(STORAGE_CHECKOUT_ID)
     if (!currentCheckoutId) {
       createCheckoutAndStoreId({ presentmentCurrencyCode: currencyCode })
     } else {

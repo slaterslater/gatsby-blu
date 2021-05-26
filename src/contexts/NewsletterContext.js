@@ -6,6 +6,7 @@ import React, {
   createContext,
 } from 'react'
 import { useQuery } from 'urql'
+import store from 'store'
 import { CUSTOMER_QUERY } from '../queries/customer'
 import { AuthContext } from './AuthContext'
 
@@ -32,7 +33,7 @@ const NewsletterProvider = props => {
     pause: !!customerAccessToken,
   })
 
-  const subscribed = localStorage.getItem(STORAGE_IS_SUBSCRIBED)
+  const subscribed = store.get(STORAGE_IS_SUBSCRIBED)
   const { acceptsMarketing } = data?.customer || {}
 
   useEffect(() => {
@@ -43,16 +44,16 @@ const NewsletterProvider = props => {
 
   const subscribe = useCallback(() => {
     setIsSubscribed(true)
-    localStorage.setItem(STORAGE_IS_SUBSCRIBED, true)
+    store.set(STORAGE_IS_SUBSCRIBED, true)
   }, [setIsSubscribed])
 
   const dismissPrompt = useCallback(() => {
-    localStorage.setItem(STORAGE_DISMISSED_NEWSLETTER_PROMPT, true)
+    store.set(STORAGE_DISMISSED_NEWSLETTER_PROMPT, true)
     setHasDismissed(true)
   }, [setHasDismissed])
 
   useEffect(() => {
-    setHasDismissed(!!localStorage.getItem(STORAGE_DISMISSED_NEWSLETTER_PROMPT))
+    setHasDismissed(!!store.get(STORAGE_DISMISSED_NEWSLETTER_PROMPT))
   }, [])
 
   return (

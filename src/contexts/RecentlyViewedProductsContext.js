@@ -1,5 +1,6 @@
 import React, { useMemo, createContext, useState, useEffect } from 'react'
 import { useMatch } from '@reach/router'
+import store from 'store'
 
 export const RecentlyViewedProductsContext = createContext([])
 
@@ -9,7 +10,7 @@ const RecentlyViewedProductsProvider = props => {
   const { handle } = match || {}
 
   useEffect(() => {
-    const recents = localStorage.getItem('recentlyViewed')
+    const recents = store.get('recentlyViewed')
     if (recents) {
       setRecentlyViewed(recents)
     }
@@ -24,7 +25,7 @@ const RecentlyViewedProductsProvider = props => {
           .slice(0, 4)
           .join(',')
 
-        localStorage.setItem('recentlyViewed', nextRecents)
+        store.set('recentlyViewed', nextRecents)
         return nextRecents
       })
     }
