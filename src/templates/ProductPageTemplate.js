@@ -7,6 +7,7 @@ import SEO from '../components/seo'
 import { useProductTitle } from '../components/ProductTitle'
 import { useShopifyImageMeta } from '../components/RemoteShopifyImage'
 import { escapeDoubleQuoteString } from '../lib/escapeDoubleQuoteStrings'
+import { useGtagViewItem } from '../hooks/gtag'
 
 const ProductPageTemplate = ({ data }) => {
   const title = useProductTitle(data.shopifyProduct.title)
@@ -14,6 +15,8 @@ const ProductPageTemplate = ({ data }) => {
     category: data.shopifyProduct.productType,
     action: 'Viewed Product',
   })
+
+  useGtagViewItem(data.shopifyProduct)
 
   useEffect(() => {
     sendGAEvent()
@@ -93,6 +96,7 @@ export const query = graphql`
       }
     }
     shopifyProduct(handle: { eq: $handle }) {
+      id
       title
       handle
       descriptionHtml
@@ -111,6 +115,16 @@ export const query = graphql`
         altText
         height
         width
+      }
+      priceRange {
+        minVariantPrice {
+          currencyCode
+          amount
+        }
+        maxVariantPrice {
+          currencyCode
+          amount
+        }
       }
       variants {
         title

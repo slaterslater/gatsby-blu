@@ -8,12 +8,18 @@ import CartLineItem from './cart/CartLineItem'
 import { OrderSummary } from './cart/OrderSummary'
 import CheckoutButton from './cart/CheckoutButton'
 import { CHECKOUT_QUERY } from '../queries/checkout'
+import { useGtagViewCart } from '../hooks/gtag'
 
 const EmptyCart = () => (
   <Box py={5} px={4} sx={{ textAlign: 'center' }}>
     <Text sx={{ fontSize: 1 }}>You have no items in your cart.</Text>
   </Box>
 )
+
+const CartTag = ({ checkout }) => {
+  useGtagViewCart(checkout)
+  return false
+}
 
 const CartDrawer = ({ onClose }) => {
   const { checkoutId } = useContext(StoreContext)
@@ -33,6 +39,7 @@ const CartDrawer = ({ onClose }) => {
         position: 'relative',
       }}
     >
+      {data && <CartTag checkout={data.node} />}
       <Box>
         <Flex p={4} sx={{ alignItems: 'center' }}>
           <Text sx={{ fontSize: 3, flex: 1 }}>Your Cart</Text>
