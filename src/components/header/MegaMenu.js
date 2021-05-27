@@ -102,7 +102,7 @@ export const megaMenu = {
           path: '/collections/wedding-bands',
           text: 'Wedding & Celebrations Bands',
         },
-        { path: '/collections/bride-testimonials', text: 'Testimonials' },
+        { path: '/pages/bluboho-brides', text: 'Testimonials' },
         { path: '/collections/bridal', text: 'View All' },
         { path: '/book-a-consultation', text: 'Book a Virtual Visit' },
       ],

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Box, Link, Container, Divider } from 'theme-ui'
+import { Box, Text, Link, Container, Divider } from 'theme-ui'
 import { useLocation } from '@reach/router'
 import { graphql, useStaticQuery } from 'gatsby'
 import Layout from '../layout'
@@ -66,13 +66,15 @@ const CollectionPage = ({
         >
           {hasFilters && (
             <Box sx={{ textAlign: 'right' }} pt={3}>
-              <Link
-                sx={{ fontSize: 1 }}
-                variant="unset"
-                onClick={() => setOpen(prev => !prev)}
-              >
-                Filter &amp; Sort
-              </Link>
+              <Text variant="caps" sx={{ fontSize: 0 }}>
+                <Link
+                  role="button"
+                  sx={{ textDecoration: 'none', cursor: 'pointer' }}
+                  onClick={() => setOpen(prev => !prev)}
+                >
+                  Filter &amp; Sort
+                </Link>
+              </Text>
             </Box>
           )}
         </ResultsHeader>

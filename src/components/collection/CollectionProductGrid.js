@@ -58,11 +58,11 @@ const useSortedProductGroups = productGroups => {
 
 const ProductGrid = ({ products, collectionTitle, collectionPath }) => {
   const productGroups = groupProducts(products)
-  // const sortedProductGroups = useSortedProductGroups(productGroups)
+  const sortedProductGroups = useSortedProductGroups(productGroups)
 
   return (
     <Box>
-      {Object.keys(productGroups).map(key => (
+      {Object.keys(sortedProductGroups).map(key => (
         <CollectionProductGroup groupType={key} key={key}>
           {productGroups[key].map(product => (
             <CollectionProduct

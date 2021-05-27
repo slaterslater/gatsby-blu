@@ -3,7 +3,10 @@ import { graphql } from 'gatsby'
 import CollectionPage from '../../components/collection/CollectionPage'
 
 const CollectionPageTemplate = ({ data }) => {
-  const { products, title, description, handle } = data.shopifyCollection
+  const { products, handle } = data.shopifyCollection
+
+  const title = data.shopifyCollection.title.toLowerCase()
+  const description = data.shopifyCollection.description?.toLowerCase()
 
   return (
     <CollectionPage
