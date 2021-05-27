@@ -11,6 +11,7 @@ import {
 } from '../../mutations/cart'
 import { StoreContext } from '../../contexts/StoreContext'
 import { useVariantPresentmentPrice } from '../../hooks/variant'
+import { useGtagRemoveFromCart } from '../../hooks/gtag'
 
 const CartLineItem = ({ onRemoveItem, item, imgSize }) => {
   const { checkoutId } = useContext(StoreContext)
@@ -18,6 +19,8 @@ const CartLineItem = ({ onRemoveItem, item, imgSize }) => {
     UpdateCheckoutLineItem
   )
   const [removeResult, removeLineItem] = useMutation(RemoveCheckoutLineItem)
+
+  const gtagRemoveFromCart = useGtagRemoveFromCart(item)
 
   const updateQuantity = async delta => {
     try {
@@ -81,7 +84,10 @@ const CartLineItem = ({ onRemoveItem, item, imgSize }) => {
         </Flex>
         <IconButton
           type="button"
-          onClick={() => removeLineItem({ checkoutId, lineItemIds: [item.id] })}
+          onClick={() => {
+            gtagRemoveFromCart(item)
+            removeLineItem({ checkoutId, lineItemIds: [item.id] })
+          }}
         >
           <FiTrash />
         </IconButton>

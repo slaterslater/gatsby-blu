@@ -8,6 +8,7 @@ import { AddCheckoutLineItem } from '../../mutations/cart'
 import { useGAEvent } from '../../lib/useGAEvent'
 import { PRODUCT_QUERY } from '../../queries/product'
 import ProductCTACallout from './ProductCTACallout'
+import { useGtagAddToCart } from '../../hooks/gtag'
 
 const getLatestVariant = (data, id) => {
   if (!id || !data?.productByHandle) return null
@@ -34,6 +35,7 @@ const AddToCart = ({ variant, tags, productType, customAttributes }) => {
   const [, setOpenDrawer] = useContext(DrawerContext)
   const { checkoutId } = useContext(StoreContext)
   const [{ fetching }, addCheckoutLineItem] = useMutation(AddCheckoutLineItem)
+  const gtagAddToCart = useGtagAddToCart()
 
   const addToCart = async () => {
     sendGAEvent()
@@ -51,8 +53,13 @@ const AddToCart = ({ variant, tags, productType, customAttributes }) => {
     addCheckoutLineItem({
       checkoutId,
       lineItems,
-    }).then(() => {
+    }).then(({ data }) => {
+      const [
+        newEdge,
+      ] = data.checkoutLineItemsAdd.checkout.lineItems.edges.slice(-1)
+
       setOpenDrawer('cart')
+      gtagAddToCart(newEdge.node)
     })
   }
 

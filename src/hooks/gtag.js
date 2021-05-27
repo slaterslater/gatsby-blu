@@ -1,8 +1,8 @@
-import { useContext, useEffect } from 'react'
+import { useCallback, useContext, useEffect } from 'react'
 import { useProductPrice } from '../components/CollectionProduct'
 import { CurrencyContext } from '../contexts/CurrencyContext'
 
-const useGtagEvent = (eventName, payload) => {
+const useGtagEffect = (eventName, payload) => {
   useEffect(() => {
     if (window.gtag) {
       window.gtag('event', eventName, payload)
@@ -28,14 +28,14 @@ export function useGtagViewItemList(products, itemListName, itemListId) {
     item_list_id: itemListId,
   }
 
-  useGtagEvent('view_item_list', payload)
+  useGtagEffect('view_item_list', payload)
 }
 
 export function useGtagViewItem(product) {
   const { currencyCode } = useContext(CurrencyContext)
   // const [price] = useProductPrice(product)
   //
-  useGtagEvent('view_item', {
+  useGtagEffect('view_item', {
     currency: currencyCode,
     items: [
       {
@@ -55,6 +55,7 @@ export function useGtagViewCart(checkout) {
     items: checkout?.lineItems.edges.map(({ node }) => ({
       item_id: node.id,
       item_name: node.title,
+      item_variant: node.variant.title,
       quantity: node.quantity,
       price: node.variant.priceV2.amount * node.quantity,
       currency: node.variant.priceV2.currencyCode,
@@ -62,5 +63,49 @@ export function useGtagViewCart(checkout) {
     value: checkout?.totalPriceV2.amount,
   }
 
-  useGtagEvent('view_cart', payload)
+  useGtagEffect('view_cart', payload)
+}
+
+export function useGtagRemoveFromCart(item) {
+  return useCallback(() => {
+    const payload = {
+      currency: item.variant.priceV2.currencyCode,
+      items: [
+        {
+          item_id: item.id,
+          item_name: item.title,
+          price: item.variant.priceV2.amount * item.quantity,
+          quantity: item.quantity,
+          currency: item.variant.priceV2.currencyCode,
+        },
+      ],
+      value: item.variant.priceV2.amount,
+    }
+    if (window.gtag) {
+      window.gtag('event', 'remove_from_cart', payload)
+    }
+  }, [item])
+}
+
+export function useGtagAddToCart() {
+  return item => {
+    const payload = {
+      currency: item.variant.priceV2.currencyCode,
+      value: item.variant.priceV2.amount,
+      items: [
+        {
+          item_name: item.title,
+          item_id: item.id,
+          currency: item.variant.priceV2.currencyCode,
+          price: item.variant.priceV2.amount,
+          quantity: 1,
+          item_variant: item.variant.title,
+        },
+      ],
+    }
+
+    if (window.gtag) {
+      window.gtag('event', 'add_to_cart', payload)
+    }
+  }
 }
