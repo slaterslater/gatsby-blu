@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { Flex, Button, Text, Box, Link, Grid, Heading } from 'theme-ui'
-import { Link as GatsbyLink } from 'gatsby'
+import { Flex, Button, Text, Box, Grid, Heading } from 'theme-ui'
 import { AnimatePresence, motion } from 'framer-motion'
+import ThemeLink from '../app/ThemeLink'
 
 const MotionBox = motion(Box)
 
@@ -194,7 +194,7 @@ const MegaMenu = props => {
               {currentMenu &&
                 megaMenu[currentMenu].map(list => (
                   <Box mr={7} aria-expanded>
-                    <Heading as="h4" pb={1}>
+                    <Heading as="h4" pb={1} sx={{ textTransform: 'lowercase' }}>
                       {list.title}
                     </Heading>
                     {list.links.map(link => (
@@ -202,14 +202,13 @@ const MegaMenu = props => {
                         key={`dropdown-link-${link.path}-${link.text}`}
                         py={1}
                       >
-                        <Link
-                          as={GatsbyLink}
+                        <ThemeLink
                           to={link.path}
                           variant="nav"
-                          sx={{ fontSize: 1 }}
+                          sx={{ fontSize: 1, textTransform: 'lowercase' }}
                         >
                           {link.text}
-                        </Link>
+                        </ThemeLink>
                       </Box>
                     ))}
                   </Box>

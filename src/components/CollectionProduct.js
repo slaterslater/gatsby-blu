@@ -32,7 +32,12 @@ export const useProductPrice = product => {
   return [variantPresentmentPrice.node.price, hasRange]
 }
 
-const CollectionProduct = ({ product, images }) => {
+const CollectionProduct = ({
+  product,
+  collectionTitle,
+  collectionPath,
+  images,
+}) => {
   const [price, hasRange] = useProductPrice(product)
   const title = useProductTitle(product.title)
 
@@ -42,6 +47,7 @@ const CollectionProduct = ({ product, images }) => {
   return (
     <ProductListItem
       to={`/products/${product.handle}`}
+      linkState={{ collectionTitle, collectionPath }}
       hasRange={hasRange}
       price={price}
       title={title}

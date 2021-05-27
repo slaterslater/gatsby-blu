@@ -67,6 +67,7 @@ const ProductItemLabel = ({ tags, soldOut }) => {
 
 const ProductListItem = ({
   to,
+  linkState,
   firstImage,
   secondImage,
   title,
@@ -76,10 +77,10 @@ const ProductListItem = ({
   availableForSale,
 }) => (
   <Box as="article">
-    <Link
-      as={GatsbyLink}
+    <GatsbyLink
       to={to}
-      sx={{ textDecoration: 'none', position: 'relative', zIndex: 1 }}
+      state={linkState}
+      style={{ textDecoration: 'none', position: 'relative', zIndex: 1 }}
     >
       <ProductItemLabel tags={tags} soldOut={!availableForSale} />
       <Flex sx={{ flexDirection: 'column', position: 'relative' }} as="article">
@@ -90,7 +91,11 @@ const ProductListItem = ({
         />
         <Flex
           pt={2}
-          sx={{ flex: 1, flexDirection: 'column', alignItems: 'space-between' }}
+          sx={{
+            flex: 1,
+            flexDirection: 'column',
+            alignItems: 'space-between',
+          }}
         >
           <Box mb="auto" sx={{ alignSelf: 'top', textAlign: 'center' }}>
             <Text
@@ -122,7 +127,7 @@ const ProductListItem = ({
           </Flex>
         </Flex>
       </Flex>
-    </Link>
+    </GatsbyLink>
   </Box>
 )
 

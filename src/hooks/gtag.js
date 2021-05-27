@@ -109,3 +109,32 @@ export function useGtagAddToCart() {
     }
   }
 }
+
+// export function useGtagSelectItem() {
+//   return (item, index, listName, listId) => {
+//     const payload = {
+//       item_list_name: listName,
+//       item_list_id: listId,
+//       items: [
+//         {
+//           ...item,
+//           item_name: item.title,
+//           item_id: item.handle,
+//           index,
+//       price: product.priceRange?.minVariantPrice.amount,
+//           currency: item.variant.priceV2.currencyCode,
+//           price: item.variant.priceV2.amount,
+//           quantity: 1,
+//           item_variant: item.variant.title,
+//       item_list_name: listName,
+//       item_list_id: listId,
+//         },
+//       ],
+//     }
+
+//     if (window.gtag) {
+//       window.gtag('event', 'add_to_cart', payload)
+//     }
+//   }
+
+// }

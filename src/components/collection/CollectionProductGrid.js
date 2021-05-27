@@ -56,9 +56,9 @@ const useSortedProductGroups = productGroups => {
   }, [sort, productGroups])
 }
 
-const ProductGrid = ({ products }) => {
+const ProductGrid = ({ products, collectionTitle, collectionPath }) => {
   const productGroups = groupProducts(products)
-  const sortedProductGroups = useSortedProductGroups(productGroups)
+  // const sortedProductGroups = useSortedProductGroups(productGroups)
 
   return (
     <Box>
@@ -69,6 +69,8 @@ const ProductGrid = ({ products }) => {
               key={product.id}
               product={product}
               images={product.images}
+              collectionTitle={collectionTitle}
+              collectionPath={collectionPath}
             />
           ))}
         </CollectionProductGroup>

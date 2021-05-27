@@ -78,7 +78,11 @@ const CollectionPage = ({
         </ResultsHeader>
         {hasFilters && <CollectionFilterAndSort isOpen={isOpen} />}
         <Divider />
-        <ProductGrid products={products} />
+        <ProductGrid
+          products={products}
+          collectionTitle={title}
+          collectionPath={`/collections/${handle}`}
+        />
       </Container>
     </Layout>
   )

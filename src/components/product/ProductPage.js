@@ -2,6 +2,7 @@ import { Box, Container, Grid } from 'theme-ui'
 import React from 'react'
 import { pluralize } from 'inflected'
 // import { GatsbyImage } from 'gatsby-plugin-image'
+import { useLocation } from '@reach/router'
 import { useProductTitle } from '../ProductTitle'
 import ProductDetails from './ProductDetails'
 import ProductSocial from './ProductSocial'
@@ -10,6 +11,8 @@ import { useShopifyImageMeta, useShopifyOgImage } from '../RemoteShopifyImage'
 import ProductReviews from './ProductReviews'
 import ProductImageGallery from './ProductImageGallery'
 import ProductRecentRecommendations from './ProductRecentRecommendations'
+
+// const getCollectionTypePath =
 
 const ProductPage = ({
   product: {
@@ -29,7 +32,9 @@ const ProductPage = ({
   alternates,
   productUrl,
 }) => {
+  const location = useLocation()
   const productTitle = useProductTitle(title)
+
   return (
     <Container pt={0}>
       <Breadcrumbs
@@ -43,8 +48,10 @@ const ProductPage = ({
             text: 'Home',
           },
           {
-            path: `/collections/${pluralize(productType.toLowerCase())}`,
-            text: pluralize(productType),
+            path:
+              location?.state?.collectionPath ||
+              `/collections/${pluralize(productType.toLowerCase())}`,
+            text: location?.state?.collectionTitle || pluralize(productType),
           },
         ]}
       />
