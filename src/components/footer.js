@@ -58,6 +58,7 @@ const Footer = props => (
     bg="primary"
     mt="auto"
     p={6}
+    pb={9}
     gap={6}
     sx={{
       gridTemplateColumns: [
@@ -90,7 +91,7 @@ const Footer = props => (
     <Box as="section">
       <SectionHeading>Become a Pen Pal</SectionHeading>
       <Text as="p" sx={{ fontSize: 0, color: 'gray', pb: 4 }}>
-        Subscribe to receive updates, access to exclusive deals, and more.
+        subscribe to receive updates, access to exclusive deals, and more.
       </Text>
       <NewsletterForm />
     </Box>

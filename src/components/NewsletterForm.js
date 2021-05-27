@@ -71,14 +71,14 @@ const NewsletterForm = ({ variant = 'inverted' }) => {
           <Form>
             <Box pt={4}>
               <InputControl
-                label="Email Address"
+                label="email address"
                 name="email"
                 type="email"
                 id="newsletter_page_email"
               />
             </Box>
             <Flex sx={{ justifyContent: 'flex-end' }}>
-              <SubmitButton>Subscribe</SubmitButton>
+              <SubmitButton>subscribe</SubmitButton>
             </Flex>
           </Form>
         </Formik>
