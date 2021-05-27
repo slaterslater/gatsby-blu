@@ -2,16 +2,22 @@ import { Heading, IconButton, Text, Box, Grid } from 'theme-ui'
 import React from 'react'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import { useProductTitle } from './ProductTitle'
-import { getShopifyImage } from '../lib/get-shopify-image'
+import { useShopifyImage } from '../hooks/shopifyImage'
+
+const getItemOptionDescription = item => {
+  if (item.variant?.title) {
+    if (item.variant.title.toLowerCase() === 'default title') return ''
+    return item.variant?.title?.replace(' /', ',')
+  }
+  return ''
+}
 
 const LineItem = ({ item, imgSize, children }) => {
-  const optionsDescription = item.variant?.title?.replace(' /', ',')
+  const optionsDescription = getItemOptionDescription(item)
 
   const title = useProductTitle(item.title)
 
-  const imageData = item.variant?.image
-    ? getShopifyImage({ image: item.variant.image, width: 80 })
-    : null
+  const imageData = useShopifyImage({ image: item.variant?.image, width: 80 })
 
   return (
     <Grid sx={{ gridTemplateColumns: `${imgSize}px 1fr`, gap: 3 }}>

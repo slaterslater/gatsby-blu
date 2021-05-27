@@ -5,12 +5,13 @@ import { Link as GatsbyLink } from 'gatsby'
 import { motion } from 'framer-motion'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import FormattedPrice from '../FormattedPrice'
-import { getShopifyImage } from '../../lib/get-shopify-image'
+// import { getShopifyImage } from '../../lib/get-shopify-image'
+import { useShopifyImage } from '../../hooks/shopifyImage'
 
 const MotionBox = motion(Box)
 
 const ThumbnailImage = ({ image, fallbackAlt }) => {
-  const imageData = getShopifyImage({ image, width: 360 })
+  const imageData = useShopifyImage({ image, width: 360 })
 
   return <GatsbyImage image={imageData} alt={image.altText || fallbackAlt} />
 }
