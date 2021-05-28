@@ -21,11 +21,8 @@ const RevealBox = ({ title, children }) => {
           {title}
         </Text>
       </Flex>
-      {open && typeof children === 'function' ? (
-        children({ toggle })
-      ) : (
-        <Box pt={2}>{children}</Box>
-      )}
+      {open && typeof children === 'function' && children({ toggle })}
+      {open && typeof children !== 'function' && <Box pt={2}>{children}</Box>}
     </Box>
   )
 }
