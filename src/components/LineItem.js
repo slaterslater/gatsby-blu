@@ -39,13 +39,15 @@ const LineItem = ({ item, imgSize, children }) => {
             <Text sx={{ color: 'darkGray' }}>{optionsDescription}</Text>
           </Box>
         )}
-        {item.customAttributes.map(attribute => (
-          <Box key={`${item.id}-${attribute.name}-${attribute.value}`}>
-            <Text sx={{ color: 'darkGray' }}>
-              {attribute.key}: {attribute.value}
-            </Text>
-          </Box>
-        ))}
+        {item.customAttributes
+          .filter(attribute => attribute.key !== 'wrapping')
+          .map(attribute => (
+            <Box key={`${item.id}-${attribute.name}-${attribute.value}`}>
+              <Text sx={{ color: 'darkGray' }}>
+                {attribute.key}: {attribute.value}
+              </Text>
+            </Box>
+          ))}
         <Box pt={1}>{children}</Box>
       </Box>
     </Grid>

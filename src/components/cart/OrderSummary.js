@@ -8,11 +8,14 @@ const MotionBox = motion(Box)
 
 const SummaryItem = ({ bold, term, children }) => (
   <Flex>
-    <Box sx={{ flex: 1 }}>
+    <Box sx={{ flex: '1 1' }}>
       <Text sx={{ fontSize: 1, fontWeight: bold && 'heading' }}>{term}</Text>
     </Box>
-    <Box>
-      <Text sx={{ fontSize: 1, fontWeight: bold && 'heading' }}>
+    <Box sx={{ flex: 1 }}>
+      <Text
+        as="p"
+        sx={{ fontSize: 1, fontWeight: bold && 'heading', textAlign: 'right' }}
+      >
         {children}
       </Text>
     </Box>

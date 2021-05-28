@@ -1,4 +1,4 @@
-import { Flex, IconButton, Text, Box } from 'theme-ui'
+import { Flex, IconButton, Text, Box, Label } from 'theme-ui'
 import React, { useContext } from 'react'
 import { IoIosRemove, IoIosAdd } from 'react-icons/io'
 import { FiTrash } from 'react-icons/fi'
@@ -12,6 +12,7 @@ import {
 import { StoreContext } from '../../contexts/StoreContext'
 import { useVariantPresentmentPrice } from '../../hooks/variant'
 import { useGtagRemoveFromCart } from '../../hooks/gtag'
+import WrapSeparatelyOption from '../WrapSeparatelyOption'
 
 const CartLineItem = ({ onRemoveItem, item, imgSize }) => {
   const { checkoutId } = useContext(StoreContext)
@@ -37,14 +38,16 @@ const CartLineItem = ({ onRemoveItem, item, imgSize }) => {
 
   return (
     <LineItem item={item} imgSize={imgSize}>
-      <Text>
-        <LineItemPrice
-          originalTotalPrice={{
-            ...variantPresentmentPrice,
-            amount: Number(variantPresentmentPrice.amount) * item.quantity,
-          }}
-        />
-      </Text>
+      <Box sx={{ order: 1 }}>
+        <Text as="p">
+          <LineItemPrice
+            originalTotalPrice={{
+              ...variantPresentmentPrice,
+              amount: Number(variantPresentmentPrice.amount) * item.quantity,
+            }}
+          />
+        </Text>
+      </Box>
       <Flex
         py={2}
         sx={{ justifyContent: 'space-between', alignItems: 'baseline' }}
@@ -92,6 +95,9 @@ const CartLineItem = ({ onRemoveItem, item, imgSize }) => {
           <FiTrash />
         </IconButton>
       </Flex>
+      <Box pb={5}>
+        <WrapSeparatelyOption item={item} />
+      </Box>
     </LineItem>
   )
 }
