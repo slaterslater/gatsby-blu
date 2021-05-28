@@ -24,9 +24,11 @@ export const OrderSummary = ({
   subtotalPriceV2,
   requiresShipping,
   totalPriceV2,
+  note,
 }) => (
   <MotionBox p={4} animate={{ opacity: loading ? 0.5 : 1 }}>
     <Grid sx={{ gridAutoFlow: 'row', gap: 2 }}>
+      {note && <SummaryItem term="order note">{note}</SummaryItem>}
       <SummaryItem term="subtotal">
         {subtotalPriceV2 && <FormattedPrice priceV2={subtotalPriceV2} />}
       </SummaryItem>

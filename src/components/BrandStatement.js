@@ -77,7 +77,12 @@ const BrandStatement = () => {
         />
       </Grid>
       <Flex sx={{ justifyContent: 'center' }} py={7}>
-        <Button variant="primary" sx={{ px: 5 }} as={Link} to="/about">
+        <Button
+          variant="primary"
+          sx={{ px: 5 }}
+          as={Link}
+          to="/pages/the-bluboho-origin-story"
+        >
           Learn More About Us
         </Button>
       </Flex>

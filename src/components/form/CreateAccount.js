@@ -48,44 +48,42 @@ const CreateAccountForm = props => {
         }
       }}
     >
-      {({ submitting }) => (
-        <Box as={Form} pt={5}>
-          <InputControl
-            label="first name"
-            id="account_first_name"
-            name="firstName"
-            type="input"
-            placeholder="your first name"
-          />
-          <InputControl
-            label="last name"
-            id="account_last_name"
-            name="lastName"
-            type="input"
-            placeholder="your last name"
-          />
-          <InputControl
-            label="email"
-            id="account_email"
-            name="email"
-            type="email"
-            placeholder="your email"
-          />
-          <InputControl
-            label="password"
-            id="account_password"
-            name="password"
-            type="password"
-            placeholder="choose a password"
-          />
-          <CheckboxControl
-            label="Keep me up to date on news and exclusive offers"
-            name="acceptsMarketing"
-            id="account_marketing"
-          />
-          <SubmitButton>Create Account</SubmitButton>
-        </Box>
-      )}
+      <Box as={Form} pt={5}>
+        <InputControl
+          label="first name"
+          id="account_first_name"
+          name="firstName"
+          type="input"
+          placeholder="your first name"
+        />
+        <InputControl
+          label="last name"
+          id="account_last_name"
+          name="lastName"
+          type="input"
+          placeholder="your last name"
+        />
+        <InputControl
+          label="email"
+          id="account_email"
+          name="email"
+          type="email"
+          placeholder="your email"
+        />
+        <InputControl
+          label="password"
+          id="account_password"
+          name="password"
+          type="password"
+          placeholder="choose a password"
+        />
+        <CheckboxControl
+          label="Keep me up to date on news and exclusive offers"
+          name="acceptsMarketing"
+          id="account_marketing"
+        />
+        <SubmitButton>Create Account</SubmitButton>
+      </Box>
     </Formik>
   )
 }

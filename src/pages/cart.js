@@ -32,6 +32,7 @@ const ShoppingCartPage = props => {
     }
   }, [accessToken, checkoutId, associateCustomerWithCheckout])
 
+  console.log(data)
   return (
     <Layout>
       <Container>
@@ -49,6 +50,7 @@ const ShoppingCartPage = props => {
                 totalPriceV2={data.node.totalPriceV2}
                 shippingPriceV2={data.node.shippingPriceV2}
                 requiresShipping={data.node.requiresShipping}
+                note={data.node.note}
               />
               <Flex p={4}>
                 <Button

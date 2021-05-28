@@ -9,6 +9,7 @@ import { OrderSummary } from './cart/OrderSummary'
 import CheckoutButton from './cart/CheckoutButton'
 import { CHECKOUT_QUERY } from '../queries/checkout'
 import { useGtagViewCart } from '../hooks/gtag'
+import OrderNote from './OrderNote'
 
 const EmptyCart = () => (
   <Box py={5} px={4} sx={{ textAlign: 'center' }}>
@@ -60,12 +61,14 @@ const CartDrawer = ({ onClose }) => {
             ))}
           </Box>
           <Box>
+            <OrderNote initialNote={data.node.note} />
             <OrderSummary
               subtotalPriceV2={data.node.subtotalPriceV2}
               totalPriceV2={data.node.totalPriceV2}
               requiresShipping={data.node.requiresShipping}
               shippingRates={data.node.availableShippingRates}
               loading={fetching}
+              note={data.node.note}
             />
             <CheckoutButton href={checkoutUrl} />
           </Box>

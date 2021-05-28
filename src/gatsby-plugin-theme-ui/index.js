@@ -198,6 +198,7 @@ export default {
     },
     textarea: {
       fontSize: 1,
+      fontFamily: 'body',
       borderRadius: 0,
       borderColor: 'border',
       py: 3,

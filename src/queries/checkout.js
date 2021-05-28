@@ -45,6 +45,7 @@ export const CHECKOUT_FRAGMENT = gql`
         }
       }
     }
+    note
     requiresShipping
     availableShippingRates {
       shippingRates {

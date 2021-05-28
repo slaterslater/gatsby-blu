@@ -42,7 +42,7 @@ const Engraving = ({ tags, onChange }) => {
           onChange={updateValue}
           maxLength={chars}
         />
-        <Text sx={{ fontSize: 0, color: 'gray' }}>
+        <Text sx={{ fontSize: 0, color: 'darkGray' }}>
           characters are engraved exactly as shown
         </Text>
       </FormControlWrap>
