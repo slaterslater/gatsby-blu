@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Field, ErrorMessage } from 'formik'
-import { Box, Textarea, Label, Input, Select, Text } from 'theme-ui'
+import { Box, Textarea, Label, Input, Select, Text, Checkbox } from 'theme-ui'
 
 const FormControlWrap = ({ label, id, name, children }) => (
   <Box pb={3}>
@@ -22,6 +22,22 @@ const FormControlWrap = ({ label, id, name, children }) => (
 )
 
 export default FormControlWrap
+
+export const CheckboxControl = ({ label, id, name }) => (
+  <Box pb={3}>
+    <Label sx={{ display: 'flex', alignItems: 'center' }}>
+      <Field as={Checkbox} id={id} name={name} />
+      <Text>{label}</Text>
+    </Label>
+    <ErrorMessage
+      component={Text}
+      pt={3}
+      px={1}
+      sx={{ color: 'error' }}
+      name={name}
+    />
+  </Box>
+)
 
 export const InputControl = ({ label, id, name, type, placeholder }) => (
   <FormControlWrap label={label} id={id} name={name}>
