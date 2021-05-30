@@ -1,9 +1,11 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik'
+import { useMutation } from 'urql'
 import { navigate } from 'gatsby'
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Text, Box, Button, Label, Input } from 'theme-ui'
 import * as yup from 'yup'
 import { AuthContext } from '../../contexts/AuthContext'
+import { CustomerAccessTokenCreate } from '../../mutations/auth'
 
 const initialValues = { email: '', password: '' }
 const validationSchema = yup.object({
@@ -11,50 +13,61 @@ const validationSchema = yup.object({
   password: yup.string().required(),
 })
 
-const LoginForm = props => {
-  const { accessToken, login } = useContext(AuthContext)
+const LoginForm = () => {
+  const [showError, setShowError] = useState(false)
+  const { login } = useContext(AuthContext)
 
   return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={async ({ email, password }) => {
-        await login({ email, password })
-        navigate('/account')
-      }}
-    >
-      {({ submitting }) => (
-        <Form>
-          <Box pb={3}>
-            <Label htmlFor="login_email" pb={2}>
-              Email
-            </Label>
-            <Field
-              name="email"
-              id="login_email"
-              as={Input}
-              type="email"
-              placeholder="enter your email address"
-            />
-            <ErrorMessage component={Text} pt={3} name="email" />
-          </Box>
-          <Box pb={3}>
-            <Label htmlFor="login_password">Password</Label>
-            <Field
-              name="password"
-              id="login_password"
-              as={Input}
-              type="password"
-              placeholder="enter your password"
-            />
-            <ErrorMessage component={Text} name="password" />
-          </Box>
-          <Button type="submit" disabled={submitting}>
-            Submit
-          </Button>
-        </Form>
-      )}
-    </Formik>
+    <>
+      {showError && <p>there was a problem loggin in :(</p>}
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={async ({ email, password }, { setSubmitting }) => {
+          setShowError(false)
+          try {
+            await login({ email, password })
+            return navigate('/account')
+          } catch (e) {
+            console.log(e)
+            setShowError(true)
+            setSubmitting(false)
+          }
+        }}
+      >
+        {({ submitting }) => (
+          <Form>
+            <Box pb={3}>
+              <Label htmlFor="login_email" pb={2}>
+                Email
+              </Label>
+              <Field
+                name="email"
+                id="login_email"
+                as={Input}
+                type="email"
+                placeholder="enter your email address"
+              />
+              <ErrorMessage component={Text} pt={3} name="email" />
+            </Box>
+            <Box pb={3}>
+              <Label htmlFor="login_password">Password</Label>
+              <Field
+                name="password"
+                id="login_password"
+                as={Input}
+                type="password"
+                placeholder="enter your password"
+              />
+              <ErrorMessage component={Text} name="password" />
+            </Box>
+            <Button type="submit" disabled={submitting}>
+              Submit
+            </Button>
+          </Form>
+        )}
+      </Formik>
+    </>
   )
 }
 

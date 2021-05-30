@@ -30,3 +30,49 @@ export const CustomerAccessTokenRenew = gql`
     }
   }
 `
+
+export const CustomerPasswordRecover = gql`
+  mutation customerRecover($email: String!) {
+    customerRecover(email: $email) {
+      customerUserErrors {
+        code
+        field
+        message
+      }
+    }
+  }
+`
+
+export const CustomerPasswordReset = gql`
+  mutation customerReset($id: ID!, $input: CustomerResetInput!) {
+    customerReset(id: $id, input: $input) {
+      customer {
+        id
+      }
+      customerAccessToken {
+        accessToken
+        expiresAt
+      }
+      customerUserErrors {
+        code
+        field
+        message
+      }
+    }
+  }
+`
+
+export const CustomerActivate = gql`
+  mutation customerActivate($id: ID!, $input: CustomerActivateInput!) {
+    customerActivate(id: $id, input: $input) {
+      customerUserErrors {
+        code
+        field
+        message
+      }
+      customer {
+        id
+      }
+    }
+  }
+`

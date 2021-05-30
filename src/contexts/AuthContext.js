@@ -72,6 +72,16 @@ const AuthProvider = props => {
     return { data, ...rest }
   }
 
+  const storeAccessToken = customerAccessToken => {
+    store.set('accessToken', customerAccessToken.accessToken)
+    store.set('expiresAt', customerAccessToken.expiresAt)
+    setAuthState(prev => ({
+      ...prev,
+      accessToken: customerAccessToken.accessToken,
+      isLoggedIn: true,
+    }))
+  }
+
   const logout = () => {
     store.remove('accessToken')
     store.remove('expiresAt')
@@ -81,6 +91,7 @@ const AuthProvider = props => {
   return (
     <AuthContext.Provider
       value={{
+        storeAccessToken,
         accessToken,
         isLoggedIn,
         shouldRenew,
