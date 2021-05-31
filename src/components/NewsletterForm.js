@@ -75,10 +75,11 @@ const NewsletterForm = ({ variant = 'inverted' }) => {
                 name="email"
                 type="email"
                 id="newsletter_page_email"
+                variant="inverted"
               />
             </Box>
             <Flex sx={{ justifyContent: 'flex-end' }}>
-              <SubmitButton>subscribe</SubmitButton>
+              <SubmitButton variant="outline">subscribe</SubmitButton>
             </Flex>
           </Form>
         </Formik>

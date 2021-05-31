@@ -39,7 +39,14 @@ export const CheckboxControl = ({ label, id, name }) => (
   </Box>
 )
 
-export const InputControl = ({ label, id, name, type, placeholder }) => (
+export const InputControl = ({
+  label,
+  id,
+  name,
+  type,
+  placeholder,
+  variant,
+}) => (
   <FormControlWrap label={label} id={id} name={name}>
     <Field
       name={name}
@@ -47,6 +54,7 @@ export const InputControl = ({ label, id, name, type, placeholder }) => (
       as={Input}
       type={type}
       placeholder={placeholder}
+      variant={variant}
     />
   </FormControlWrap>
 )
