@@ -70,6 +70,10 @@ export const CustomerActivate = gql`
         field
         message
       }
+      customerAccessToken {
+        accessToken
+        expiresAt
+      }
       customer {
         id
       }

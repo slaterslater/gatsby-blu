@@ -18,13 +18,15 @@ const ActivateAccountPage = props => {
   const [showError, setShowError] = useState(false)
   const { storeAccessToken } = useContext(AuthContext)
 
-  const { customerId, resetToken } = useMatch(
-    '/account/activate/:customerId/:resetToken'
+  const { customerId, activationToken } = useMatch(
+    '/account/activate/:customerId/:activationToken'
   )
 
   const id = btoa(`gid://shopify/Customer/${customerId}`)
 
-  const [, resetPassword] = useMutation(CustomerActivate)
+  const [, activateCustomer] = useMutation(CustomerActivate)
+
+  // console.log(customerId, id)
 
   return (
     <Container as="main" sx={{ maxWidth: 480 }}>
@@ -35,15 +37,19 @@ const ActivateAccountPage = props => {
         validationSchema={validationSchema}
         onSubmit={async ({ password }, { setSubmitting }) => {
           setShowError(false)
-          const {
-            data: {
-              customerActivate: { customerAccessToken, customerUserErrors },
-            },
-          } = await resetPassword({ id, input: { resetToken, password } })
+          const res = await activateCustomer({
+            id,
+            input: { activationToken, password },
+          })
+          const { customerAccessToken, customerUserErrors } =
+            res.data.customerActivate || {}
+          console.log(res)
           if (customerAccessToken) {
             storeAccessToken(customerAccessToken)
             navigate('/account')
-          } else if (customerUserErrors) {
+          } else if (customerUserErrors?.length) {
+            setShowError(true)
+          } else {
             setShowError(true)
           }
           setSubmitting(false)
@@ -56,7 +62,7 @@ const ActivateAccountPage = props => {
             label="enter a new password"
             id="reset_password"
           />
-          <SubmitButton>Reset Password</SubmitButton>
+          <SubmitButton>Save Password</SubmitButton>
         </Form>
       </Formik>
     </Container>

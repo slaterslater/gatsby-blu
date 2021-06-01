@@ -114,7 +114,7 @@ export const megaMenu = {
       links: [
         { path: '/pages/the-bluboho-origin-story', text: 'Origin Story' },
         { path: '/blogs/news', text: 'Blog' },
-        { to: '/pages/locations-and-hours', label: 'contact & locations' },
+        { path: '/pages/locations-and-hours', label: 'contact & locations' },
       ],
     },
   ],
