@@ -18,7 +18,7 @@ const initialValues = {
 }
 const validationSchema = yup.object({
   email: yup.string().email().required(),
-  password: yup.string().required(),
+  password: yup.string().min(6).required(),
   firstName: yup.string().required(),
   lastName: yup.string().required(),
   acceptsMarketing: yup.bool().required(),

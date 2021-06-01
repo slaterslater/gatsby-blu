@@ -11,7 +11,7 @@ import { AuthContext } from '../../contexts/AuthContext'
 
 const initialValues = { password: '' }
 const validationSchema = yup.object({
-  password: yup.string().required(),
+  password: yup.string().min(6).required(),
 })
 
 const ActivateAccountPage = props => {
