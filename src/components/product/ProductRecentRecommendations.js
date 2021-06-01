@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { useQuery, gql } from 'urql'
-import { NavLink, Flex, Grid, Container, Text } from 'theme-ui'
+import { Box, NavLink, Flex, Grid, Container, Text } from 'theme-ui'
 import { useMatch } from '@reach/router'
 import { RecentlyViewedProductsContext } from '../../contexts/RecentlyViewedProductsContext'
 import SearchProduct from '../SearchProduct'
@@ -24,10 +24,12 @@ const Recent = ({ handle }) => {
   if (!data?.productByHandle) return false
 
   return (
-    <SearchProduct
-      product={data.productByHandle}
-      images={data.productByHandle.images.edges.map(({ node }) => node)}
-    />
+    <Box sx={{ scrollSnapAlign: 'start' }}>
+      <SearchProduct
+        product={data.productByHandle}
+        images={data.productByHandle.images.edges.map(({ node }) => node)}
+      />
+    </Box>
   )
 }
 
@@ -71,7 +73,7 @@ const ProductRecentRecommendations = ({ tags }) => {
   const handles = useProductHandles({ currentTab: tab, tags })
 
   return (
-    <Container>
+    <Container px={[0, 6, 7]} ml={[0, 'auto']} mr={[-5, 'auto']}>
       <Flex py={6} sx={{ gap: 6, justifyContent: 'center' }}>
         <NavTab current={tab === 'stack'} onClick={() => setTab('stack')}>
           Stack It With
@@ -82,9 +84,16 @@ const ProductRecentRecommendations = ({ tags }) => {
       </Flex>
       <Grid
         sx={{
-          gridTemplateColumns: 'repeat(3, 1fr)',
+          gridTemplateColumns: [
+            'repeat(3, minmax(280px, 1fr))',
+            'repeat(3, 1fr)',
+          ],
           justifyItems: 'center',
-          gap: 8,
+          gap: [4, 6, 8],
+          overflowX: 'auto',
+          WebkitOverflowScrolling: 'touch',
+          scrollSnapType: 'x mandatory',
+          scrollBehavior: 'smooth',
         }}
       >
         {handles.map(handle => (
