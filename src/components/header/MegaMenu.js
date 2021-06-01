@@ -194,7 +194,7 @@ const MegaMenu = props => {
             <Flex>
               {currentMenu &&
                 megaMenu[currentMenu].map(list => (
-                  <Box mr={7} aria-expanded>
+                  <Box mr={7} aria-expanded key={`${list.title}-box`}>
                     <Heading as="h4" pb={1} sx={{ textTransform: 'lowercase' }}>
                       {list.title}
                     </Heading>
