@@ -4,8 +4,9 @@ import { Heading, Box, Container } from 'theme-ui'
 import Layout from '../../components/layout'
 import ShopifyHtml from '../../components/ShopifyHtml'
 import SEO from '../../components/seo'
+import NewsletterForm from '../../components/NewsletterForm'
 
-const BlogTemplate = ({ data }) => (
+const BlogTemplate = ({ data, path }) => (
   <Layout>
     <SEO title={data.shopifyPage.title} />
     <Container as="main" pb={8} sx={{ maxWidth: 680 }}>
@@ -17,6 +18,7 @@ const BlogTemplate = ({ data }) => (
           __html: data.shopifyPage.body,
         }}
       />
+      {path?.includes('/pages/sign-up') && <NewsletterForm variant="primary" />}
     </Container>
   </Layout>
 )
