@@ -45,7 +45,7 @@ export const InputControl = ({
   name,
   type,
   placeholder,
-  variant,
+  variant = 'input',
 }) => (
   <FormControlWrap label={label} id={id} name={name}>
     <Field

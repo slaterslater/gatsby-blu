@@ -6,14 +6,12 @@ import { GatsbyImage, getImage, withArtDirection } from 'gatsby-plugin-image'
 const Hero = ({ title, subtitle, button }) => {
   const data = useStaticQuery(graphql`
     {
-      desktopImage: file(
-        relativePath: { eq: "hero/new-homepage-desktop.jpg" }
-      ) {
+      desktopImage: file(relativePath: { eq: "hero/triumphant-desktop.jpg" }) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
-      mobileImage: file(relativePath: { eq: "hero/new-homepage-mobile.jpg" }) {
+      mobileImage: file(relativePath: { eq: "hero/triumphant-mobile.jpg" }) {
         childImageSharp {
           gatsbyImageData(layout: CONSTRAINED, width: 640)
         }
@@ -59,6 +57,7 @@ const Hero = ({ title, subtitle, button }) => {
               letterSpacing: 'caps',
               pb: 3,
               lineHeight: 1,
+              textTransform: 'lowercase',
             }}
           >
             {title}
@@ -66,7 +65,7 @@ const Hero = ({ title, subtitle, button }) => {
           <Text
             as="h2"
             variant="lightCaps"
-            sx={{ color: 'white', fontSize: 1, pb: 6, lineHeight: 1 }}
+            sx={{ color: 'white', fontSize: 1, pb: 6, lineHeight: 1.2 }}
           >
             {subtitle}
           </Text>

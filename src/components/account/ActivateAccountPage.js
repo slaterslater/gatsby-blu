@@ -43,7 +43,6 @@ const ActivateAccountPage = props => {
           })
           const { customerAccessToken, customerUserErrors } =
             res.data.customerActivate || {}
-          console.log(res)
           if (customerAccessToken) {
             storeAccessToken(customerAccessToken)
             navigate('/account')

@@ -22,11 +22,8 @@ const RecoverPassword = ({ onSuccess }) => {
       onSubmit={async ({ email }, { setSubmitting }) => {
         try {
           const res = await recoverPassword({ email })
-          console.log(res)
           onSuccess()
-        } catch (e) {
-          console.log(e)
-        }
+        } catch (e) {}
       }}
     >
       <Form>

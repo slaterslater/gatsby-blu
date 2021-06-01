@@ -41,11 +41,11 @@ const IndexPage = ({ data }) => {
         <script type="application/ld+json">{websiteLdJSON}</script>
       </SEO>
       <Hero
-        title="wisdom from within"
-        subtitle="A JOURNEY OF DISCOVERY"
+        title="Tap into your strengths"
+        subtitle="celebrate your inner warrior and victories remembered"
         button={{
-          label: 'Shop Wisdom',
-          path: '/collections/wisdom',
+          label: 'Shop Strength',
+          path: '/collections/strength',
         }}
       />
       <CollectionSlider
