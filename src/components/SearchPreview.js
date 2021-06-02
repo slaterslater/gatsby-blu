@@ -37,7 +37,6 @@ const SearchPreviewItem = ({ product }) => {
 
 const SearchPreview = ({ term = '', onClose }) => {
   const shopifyProductQuery = useShopifyProductQuery(term)
-  console.log(shopifyProductQuery)
 
   const [query] = useQuery({
     query: SEARCH_QUERY,
