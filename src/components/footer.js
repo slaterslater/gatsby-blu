@@ -89,7 +89,7 @@ const Footer = props => (
       </Box>
     </Box>
     <Box as="section">
-      <NewsletterForm>
+      <NewsletterForm inputVariant="inverted">
         <SectionHeading>Become a Pen Pal</SectionHeading>
         <Text as="p" sx={{ fontSize: 0, color: 'gray', pb: 4 }}>
           subscribe to receive updates, access to exclusive deals, and more.

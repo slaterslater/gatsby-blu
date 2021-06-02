@@ -9,7 +9,11 @@ import SubmitButton from './app/formik/SubmitButton'
 import { CalloutBox } from './product/ProductCTACallout'
 import { NewsletterContext } from '../contexts/NewsletterContext'
 
-const NewsletterForm = ({ variant = 'outline', children }) => {
+const NewsletterForm = ({
+  inputVariant = 'input',
+  variant = 'outline',
+  children,
+}) => {
   const [alert, setAlert] = useState({
     icon: null,
     type: '',
@@ -77,7 +81,7 @@ const NewsletterForm = ({ variant = 'outline', children }) => {
                   name="email"
                   type="email"
                   id="newsletter_page_email"
-                  variant="inverted"
+                  variant={inputVariant}
                 />
               </Box>
               <Flex sx={{ justifyContent: 'flex-end' }}>

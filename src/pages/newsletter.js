@@ -13,7 +13,7 @@ const NewsletterPage = props => (
       mx="auto"
     >
       <Heading>Sign up for the newsletter</Heading>
-      <NewsletterForm variant={null} />
+      <NewsletterForm variant="primary" />
     </Box>
   </Layout>
 )
