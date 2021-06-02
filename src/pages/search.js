@@ -7,6 +7,7 @@ import { IoIosSearch } from 'react-icons/io'
 import Layout from '../components/layout'
 import { SEARCH_QUERY } from '../queries/search'
 import SearchProduct from '../components/SearchProduct'
+import { useShopifyProductQuery } from '../hooks/shopifyProductQuery'
 
 const SearchPage = ({ location: { search } }) => {
   const [value, setValue] = useState(parse(search?.replace('?', '')).q)
@@ -16,9 +17,11 @@ const SearchPage = ({ location: { search } }) => {
     setValue(parse(search?.replace('?', '')).q)
   }, [search])
 
+  const shopifyProductQuery = useShopifyProductQuery(term)
+
   const [query] = useQuery({
     query: SEARCH_QUERY,
-    variables: { query: term, first: 20 },
+    variables: { query: shopifyProductQuery, first: 36 },
     pause: !term || term.length < 3,
   })
 
