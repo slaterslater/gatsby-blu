@@ -89,11 +89,12 @@ const Footer = props => (
       </Box>
     </Box>
     <Box as="section">
-      <SectionHeading>Become a Pen Pal</SectionHeading>
-      <Text as="p" sx={{ fontSize: 0, color: 'gray', pb: 4 }}>
-        subscribe to receive updates, access to exclusive deals, and more.
-      </Text>
-      <NewsletterForm />
+      <NewsletterForm>
+        <SectionHeading>Become a Pen Pal</SectionHeading>
+        <Text as="p" sx={{ fontSize: 0, color: 'gray', pb: 4 }}>
+          subscribe to receive updates, access to exclusive deals, and more.
+        </Text>
+      </NewsletterForm>
     </Box>
     <Box as="section">
       <SectionHeading>Socials</SectionHeading>

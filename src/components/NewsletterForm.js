@@ -9,7 +9,7 @@ import SubmitButton from './app/formik/SubmitButton'
 import { CalloutBox } from './product/ProductCTACallout'
 import { NewsletterContext } from '../contexts/NewsletterContext'
 
-const NewsletterForm = ({ variant = 'outline' }) => {
+const NewsletterForm = ({ variant = 'outline', children }) => {
   const [alert, setAlert] = useState({
     icon: null,
     type: '',
@@ -30,59 +30,62 @@ const NewsletterForm = ({ variant = 'outline' }) => {
         />
       )}
       {!isSubscribed && (
-        <Formik
-          initialValues={{ email: '' }}
-          validationSchema={yup.object({
-            email: yup.string().email().required(),
-          })}
-          onSubmit={async (values, { setSubmitting, reset }) => {
-            console.log('submitting')
-            try {
-              const res = await axios.post(
-                `${process.env.GATSBY_SERVERLESS_BASE}/newsletter`,
-                values,
-                { headers: { 'Content-Type': 'application/json' } }
-              )
+        <>
+          {children}
+          <Formik
+            initialValues={{ email: '' }}
+            validationSchema={yup.object({
+              email: yup.string().email().required(),
+            })}
+            onSubmit={async (values, { setSubmitting, reset }) => {
+              console.log('submitting')
+              try {
+                const res = await axios.post(
+                  `${process.env.GATSBY_SERVERLESS_BASE}/newsletter`,
+                  values,
+                  { headers: { 'Content-Type': 'application/json' } }
+                )
 
-              if (res.status >= 400 && res.status < 600) {
-                setAlert({
-                  icon: FiAlertCircle,
-                  type: 'error',
-                  title: 'Oops!',
-                  description: 'something went wrong',
-                })
-              } else {
-                setAlert({
-                  icon: FiCheckSquare,
-                  type: 'success',
-                  title: 'success!',
-                  description: `${values.email} is subscribed to the newsletter`,
-                })
-                subscribe()
-                reset()
+                if (res.status >= 400 && res.status < 600) {
+                  setAlert({
+                    icon: FiAlertCircle,
+                    type: 'error',
+                    title: 'Oops!',
+                    description: 'something went wrong',
+                  })
+                } else {
+                  setAlert({
+                    icon: FiCheckSquare,
+                    type: 'success',
+                    title: 'success!',
+                    description: `${values.email} is subscribed to the newsletter`,
+                  })
+                  subscribe()
+                  reset()
+                }
+
+                setSubmitting(false)
+              } catch (e) {
+                console.log('function error')
               }
-
-              setSubmitting(false)
-            } catch (e) {
-              console.log('function error')
-            }
-          }}
-        >
-          <Form>
-            <Box pt={4}>
-              <InputControl
-                label="email address"
-                name="email"
-                type="email"
-                id="newsletter_page_email"
-                variant="inverted"
-              />
-            </Box>
-            <Flex sx={{ justifyContent: 'flex-end' }}>
-              <SubmitButton variant={variant}>subscribe</SubmitButton>
-            </Flex>
-          </Form>
-        </Formik>
+            }}
+          >
+            <Form>
+              <Box pt={4}>
+                <InputControl
+                  label="email address"
+                  name="email"
+                  type="email"
+                  id="newsletter_page_email"
+                  variant="inverted"
+                />
+              </Box>
+              <Flex sx={{ justifyContent: 'flex-end' }}>
+                <SubmitButton variant={variant}>subscribe</SubmitButton>
+              </Flex>
+            </Form>
+          </Formik>
+        </>
       )}
     </>
   )
