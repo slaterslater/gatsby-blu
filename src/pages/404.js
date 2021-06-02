@@ -4,6 +4,7 @@ import { Container, Text, Heading, Button } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
+import OrderPageRedirect from '../components/OrderPageRedirect'
 
 const NotFoundPage = () => (
   <Layout>
@@ -18,6 +19,7 @@ const NotFoundPage = () => (
       <Button as={GatsbyLink} to="/">
         Back to Homepage
       </Button>
+      <OrderPageRedirect />
     </Container>
   </Layout>
 )

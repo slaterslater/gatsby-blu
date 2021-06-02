@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Image, Grid, Box, Flex, Text } from 'theme-ui'
 import { Link } from 'gatsby'
 import { useQuery } from 'urql'
@@ -7,6 +7,7 @@ import { SEARCH_QUERY } from '../queries/search'
 import ProductTitle from './ProductTitle'
 import ThemeLink from './app/ThemeLink'
 import { useShopifyImage } from '../hooks/shopifyImage'
+import { useShopifyProductQuery } from '../hooks/shopifyProductQuery'
 
 const SearchPreviewItem = ({ product }) => {
   const image = useShopifyImage({ image: product.images.edges[0]?.node })
@@ -35,9 +36,14 @@ const SearchPreviewItem = ({ product }) => {
 }
 
 const SearchPreview = ({ term = '', onClose }) => {
+  const shopifyProductQuery = useShopifyProductQuery(term)
+
   const [query] = useQuery({
     query: SEARCH_QUERY,
-    variables: { query: term, first: 4 },
+    variables: {
+      query: shopifyProductQuery,
+      first: 4,
+    },
     pause: term.length < 3,
   })
 
