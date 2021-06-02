@@ -10,7 +10,7 @@ const MotionBox = motion(Box)
 
 const HeaderSearch = ({ isOpen, onClose }) => {
   const [value, setValue] = useState('')
-  const [term] = useDebounce(value, 1000)
+  const [term] = useDebounce(value, 700)
 
   return (
     <AnimatePresence>
@@ -48,7 +48,7 @@ const HeaderSearch = ({ isOpen, onClose }) => {
               <Box as={IoIosClose} size={24} color="primary" />
             </Button>
           </Grid>
-          <SearchPreview term={value} onClose={onClose} />
+          <SearchPreview term={term} onClose={onClose} />
         </MotionBox>
       )}
     </AnimatePresence>

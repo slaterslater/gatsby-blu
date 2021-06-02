@@ -1,22 +1,37 @@
 import React from 'react'
-import path from 'path-browserify'
 import { Image, Grid, Box, Flex, Text } from 'theme-ui'
 import { Link } from 'gatsby'
 import { useQuery } from 'urql'
+import { GatsbyImage } from 'gatsby-plugin-image'
 import { SEARCH_QUERY } from '../queries/search'
 import ProductTitle from './ProductTitle'
+import ThemeLink from './app/ThemeLink'
+import { useShopifyImage } from '../hooks/shopifyImage'
 
-const getSrcWithSize = (src, size) => {
-  const extName = path.extname(src)
-  return src.replace(extName, `_${size}${extName}`)
-}
+const SearchPreviewItem = ({ product }) => {
+  const image = useShopifyImage({ image: product.images.edges[0]?.node })
 
-const ProductThumbnail = ({ originalSrc, alt }) => {
-  const srcs = [200, 400, 600].map(
-    width => `${getSrcWithSize(originalSrc, `${width}x`)} ${width}w`
+  return (
+    <Box
+      as={Link}
+      to={`/products/${product.handle}`}
+      key={`${product.id}-search-preview`}
+      sx={{ textDecoration: 'none' }}
+    >
+      <GatsbyImage image={image} altText="" />
+      <Text
+        as="p"
+        variant="caps"
+        sx={{
+          color: 'darkerGray',
+          textAlign: 'center',
+          fontSize: 0,
+        }}
+      >
+        <ProductTitle title={product.title} />
+      </Text>
+    </Box>
   )
-
-  return <Image src={srcs[0]} srcSet={srcs.join(', ')} alt={alt} />
 }
 
 const SearchPreview = ({ term = '', onClose }) => {
@@ -46,34 +61,15 @@ const SearchPreview = ({ term = '', onClose }) => {
           {availableProducts.length} results
         </Text>
         <Text variant="caps" sx={{ fontSize: 0 }}>
-          <Link onClick={onClose} to={`/search?q=${term}`}>
+          <ThemeLink onClick={onClose} to={`/search?q=${term}`}>
             See All
-          </Link>
+          </ThemeLink>
         </Text>
       </Flex>
       {availableProducts.length ? (
         <Grid py={5} sx={{ gridTemplateColumns: 'repeat(4, 1fr)', gap: 5 }}>
           {availableProducts.slice(0, 4).map(product => (
-            <Box
-              as={Link}
-              to={`/products/${product.handle}`}
-              key={`${product.id}-search-preview`}
-              sx={{ textDecoration: 'none' }}
-            >
-              <ProductThumbnail
-                originalSrc={product.images.edges[0].node.originalSrc}
-              />
-              <Text
-                variant="caps"
-                sx={{
-                  color: 'darkerGray',
-                  textAlign: 'center',
-                  fontSize: 0,
-                }}
-              >
-                <ProductTitle title={product.title} />
-              </Text>
-            </Box>
+            <SearchPreviewItem product={product} />
           ))}
         </Grid>
       ) : (
