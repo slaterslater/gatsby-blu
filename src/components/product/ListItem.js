@@ -77,13 +77,13 @@ const ProductListItem = ({
   tags,
   availableForSale,
 }) => (
-  <Box as="article">
+  <Box as="article" sx={{ position: 'relative' }}>
+    <ProductItemLabel tags={tags} soldOut={!availableForSale} />
     <GatsbyLink
       to={to}
       state={linkState}
       style={{ textDecoration: 'none', position: 'relative', zIndex: 1 }}
     >
-      <ProductItemLabel tags={tags} soldOut={!availableForSale} />
       <Flex sx={{ flexDirection: 'column', position: 'relative' }} as="article">
         <CollectionThumbnail
           title={title}

@@ -1,4 +1,4 @@
-import { Flex, Box, Button } from 'theme-ui'
+import { Flex, Box, Button, Checkbox, Label } from 'theme-ui'
 import React, { useContext } from 'react'
 import { useMutation } from 'urql'
 import { IoIosCheckmark } from 'react-icons/io'
@@ -7,9 +7,11 @@ import { StoreContext } from '../contexts/StoreContext'
 
 const WrapSeparatelyOption = ({ item }) => {
   const { checkoutId } = useContext(StoreContext)
-  const isSeparate = item.customAttributes.find(attr => attr.key === 'wrapping')
+  const isSeparate = !!item.customAttributes.find(
+    attr => attr.key === 'wrapping'
+  )
+
   const [{ fetching }, updateLineItem] = useMutation(UpdateCheckoutLineItem)
-  // console.log(item)
 
   const toggleWrapping = () => {
     if (isSeparate) {
@@ -44,28 +46,19 @@ const WrapSeparatelyOption = ({ item }) => {
 
   return (
     <Flex>
-      <Button
-        type="button"
-        p={0}
-        sx={{
-          fontSize: 0,
-          bg: 'transparent',
-          textTransform: 'lowercase',
-          letterSpacing: 'normal',
-          color: 'darkGray',
-          cursor: 'pointer',
-          transition: 'opacity .3s',
-          fontFamily: 'body',
-          '&:disabled': { opacity: 0.7 },
-        }}
-        onClick={toggleWrapping}
-        disabled={fetching}
+      <Label
+        htmlFor={`${item.id}-wrapping`}
+        sx={{ display: 'flex', alignItems: 'center' }}
       >
+        <Checkbox
+          id={`${item.id}-wrapping`}
+          checked={isSeparate}
+          onChange={toggleWrapping}
+          disabled={fetching}
+          sx={{ height: 20, width: 20 }}
+        />
         wrap separately
-      </Button>
-      <Box ml={1} sx={{ width: 18, height: 18 }}>
-        {isSeparate && <IoIosCheckmark size={18} />}
-      </Box>
+      </Label>
     </Flex>
   )
 }

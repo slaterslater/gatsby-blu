@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import { Box, Flex, Text, Divider, IconButton, Button } from 'theme-ui'
 import { IoIosClose } from 'react-icons/io'
-import store from 'store'
 import { useQuery } from 'urql'
 import { StoreContext } from '../contexts/StoreContext'
 import CartLineItem from './cart/CartLineItem'
