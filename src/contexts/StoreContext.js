@@ -48,7 +48,7 @@ const StoreProvider = props => {
       createCheckoutAndStoreId()
     }
 
-    if (!fetching && data?.node.completedAt) {
+    if (!fetching && data?.node?.completedAt) {
       store.remove('checkoutId')
       createCheckoutAndStoreId()
     }

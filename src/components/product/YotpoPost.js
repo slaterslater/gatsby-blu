@@ -18,10 +18,10 @@ const YotpoPost = ({
       <Avatar src={avatar} sx={{ height: 42, width: 42 }} />
     </Box>
     <Box sx={{ flex: 1 }}>
-      <Flex pb={2}>
-        <Text mr={4}>{displayName}</Text>
-        {badge && <Badge>{badge}</Badge>}
-        <Text ml="auto">
+      <Flex pb={2} sx={{ flexWrap: 'wrap', alignItems: 'center' }}>
+        <Text mr={[2, 4]}>{displayName}</Text>
+        <Box mr="auto">{badge && <Badge>{badge}</Badge>}</Box>
+        <Text>
           <FormattedDate iso={date} />
         </Text>
       </Flex>
