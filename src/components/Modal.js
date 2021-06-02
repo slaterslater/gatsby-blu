@@ -30,6 +30,7 @@ const Modal = ({ isOpen, setOpen, children }) => {
             style={{
               boxShadow: '0 0 48px rgba(0,0,0,.3)',
               borderRadius: '3px',
+              minWidth: 340,
             }}
           >
             {children}

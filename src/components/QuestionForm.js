@@ -50,7 +50,6 @@ const QuestionForm = ({ yotpoProductDetails, onClose }) => {
             }
           }}
         >
-          {}
           <Form>
             <ControlWrap
               name="content"
@@ -80,7 +79,7 @@ const QuestionForm = ({ yotpoProductDetails, onClose }) => {
             />
             <Divider mt={4} mb={5} />
             <Flex sx={{ justifyContent: 'flex-end' }}>
-              <SubmitButton>Submit Review</SubmitButton>
+              <SubmitButton>Submit Question</SubmitButton>
             </Flex>
           </Form>
         </Formik>

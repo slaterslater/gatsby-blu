@@ -77,7 +77,7 @@ const ProductListItem = ({
   tags,
   availableForSale,
 }) => (
-  <Box as="article" sx={{ position: 'relative' }}>
+  <Box as="article" sx={{ position: 'relative', zIndex: 1 }}>
     <ProductItemLabel tags={tags} soldOut={!availableForSale} />
     <GatsbyLink
       to={to}

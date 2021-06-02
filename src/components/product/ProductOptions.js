@@ -13,14 +13,15 @@ const OptionRow = ({ name, values, onSelect, selectedOption }) => {
       <Flex
         sx={{
           flexWrap: 'wrap',
-          gap: 3,
         }}
+        m={-1}
       >
         {values.map(value => (
           <VariantOption
             key={`variant-option-${name}-${value}`}
             isSelected={selectedOption === value}
             onClick={() => onSelect(name, value)}
+            m={1}
           >
             {value}
           </VariantOption>
