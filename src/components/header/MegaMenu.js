@@ -82,6 +82,8 @@ export const megaMenu = {
         { path: '/collections/gifts-under-1000', text: 'Gifts Under 1000$' },
         { path: '/collections/gifts-under-500', text: 'Gifts Under 500$' },
         { path: '/collections/gifts-under-300', text: 'Gifts Under 300$' },
+        { path: '/collections/graduation-gift-guide', text: 'Graduation' },
+        { path: '/collections/gemini-gift-guide-1', text: 'Gemini' },
         { path: '/products/gift-card', text: 'Gift Cards' },
       ],
     },
