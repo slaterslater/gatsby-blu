@@ -72,7 +72,7 @@ const IndexPage = ({ data }) => {
           },
           {
             title: 'Engagement',
-            to: '/collections/engagement',
+            to: '/collections/bridal',
             buttonLabel: 'Shop All',
             image: data.engagementFile.childImageSharp.gatsbyImageData,
           },
