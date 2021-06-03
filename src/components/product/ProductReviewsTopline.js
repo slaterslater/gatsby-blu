@@ -3,7 +3,7 @@ import React from 'react'
 import { IoIosStarOutline, IoIosStar } from 'react-icons/io'
 
 export const ReviewStars = ({ starPercentage }) => (
-  <Grid>
+  <Grid sx={{ display: 'inline-grid' }}>
     <Box sx={{ display: 'inline-block', gridArea: '1 / -1 / 1 / -1' }}>
       {Array(5)
         .fill()
@@ -12,11 +12,18 @@ export const ReviewStars = ({ starPercentage }) => (
         ))}
     </Box>
     <Box
-      sx={{ display: 'inline-block', gridArea: '1 / -1 / 1 / -1', zIndex: 1 }}
+      sx={{
+        display: 'inline-block',
+        gridArea: '1 / -1 / 1 / -1',
+        zIndex: 1,
+      }}
     >
       <Box
-        sx={{ whiteSpace: 'nowrap', overflow: 'hidden' }}
-        style={{ width: `${starPercentage}%` }}
+        style={{
+          width: `${starPercentage}%`,
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+        }}
       >
         {Array(5)
           .fill()
