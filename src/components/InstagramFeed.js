@@ -47,6 +47,7 @@ const InstagramFeed = () => {
                     alt={post.caption}
                     height={300}
                     width={300}
+                    loading="lazy"
                   />
                 </Link>
               )
@@ -64,6 +65,9 @@ const InstagramFeed = () => {
                     ratio={1}
                     src={post.media_url}
                     alt={post.caption}
+                    height={300}
+                    width={300}
+                    loading="lazy"
                   />
                 </Link>
               )

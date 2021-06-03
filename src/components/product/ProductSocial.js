@@ -46,6 +46,7 @@ const ProductSocial = ({ description, image, title, showLabel = true }) => {
         display: 'inline-grid',
         gridAutoFlow: 'column',
         alignContent: 'baseline',
+        gap: 5,
       }}
     >
       {showLabel && (

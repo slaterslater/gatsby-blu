@@ -38,20 +38,16 @@ const SearchPreviewItem = ({ product }) => {
 const SearchPreview = ({ term = '', onClose }) => {
   const shopifyProductQuery = useShopifyProductQuery(term)
 
-  const [query] = useQuery({
+  const [{ data, fetching }] = useQuery({
     query: SEARCH_QUERY,
     variables: {
       query: shopifyProductQuery,
-      first: 4,
+      first: 50,
     },
     pause: term.length < 3,
   })
 
-  if (term.length < 3 || !query.data) return false
-
-  const availableProducts = query.data.products.edges
-    .filter(({ node }) => node.availableForSale)
-    .map(({ node }) => node)
+  if (term.length < 3 || !data) return false
 
   return (
     <Box pt={6}>
@@ -64,7 +60,8 @@ const SearchPreview = ({ term = '', onClose }) => {
         }}
       >
         <Text variant="caps" sx={{ fontSize: 0 }}>
-          {availableProducts.length} results
+          {data.products.edges.length}
+          {data.products.pageInfo.hasNextPage ? '+' : ''} results
         </Text>
         <Text variant="caps" sx={{ fontSize: 0 }}>
           <ThemeLink onClick={onClose} to={`/search?q=${term}`}>
@@ -72,9 +69,17 @@ const SearchPreview = ({ term = '', onClose }) => {
           </ThemeLink>
         </Text>
       </Flex>
-      {availableProducts.length ? (
-        <Grid py={5} sx={{ gridTemplateColumns: 'repeat(4, 1fr)', gap: 5 }}>
-          {availableProducts.slice(0, 4).map(product => (
+      {data.products.edges.length ? (
+        <Grid
+          py={5}
+          sx={{
+            gridTemplateColumns: 'repeat(4, 1fr)',
+            gap: 5,
+            opacity: fetching ? '.7' : 1,
+            transition: 'opacity ease-out .3s',
+          }}
+        >
+          {data.products.edges.slice(0, 4).map(({ node: product }) => (
             <SearchPreviewItem product={product} />
           ))}
         </Grid>

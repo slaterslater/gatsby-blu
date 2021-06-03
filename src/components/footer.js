@@ -18,9 +18,10 @@ const SectionLink = props => (
   <Text
     as="p"
     sx={{
-      fontSize: 0,
+      fontSize: 1,
     }}
-    py={1}
+    pt={1}
+    pb={2}
   >
     <Link
       as={GatsbyLink}
@@ -91,7 +92,7 @@ const Footer = props => (
     <Box as="section">
       <NewsletterForm inputVariant="inverted">
         <SectionHeading>Become a Pen Pal</SectionHeading>
-        <Text as="p" sx={{ fontSize: 0, color: 'gray', pb: 4 }}>
+        <Text as="p" sx={{ fontSize: 1, color: 'gray', pb: 4 }}>
           subscribe to receive updates, access to exclusive deals, and more.
         </Text>
       </NewsletterForm>

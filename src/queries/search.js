@@ -39,7 +39,11 @@ export const SEARCH_QUERY = gql`
   ${SEARCH_PRODUCT_FRAGMENT}
   query($query: String!, $first: Int!) {
     products(first: $first, query: $query, sortKey: RELEVANCE) {
+      pageInfo {
+        hasNextPage
+      }
       edges {
+        cursor
         node {
           ... on Product {
             ...ProductSearchFields

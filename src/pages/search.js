@@ -21,7 +21,7 @@ const SearchPage = ({ location: { search } }) => {
 
   const [query] = useQuery({
     query: SEARCH_QUERY,
-    variables: { query: shopifyProductQuery, first: 36 },
+    variables: { query: shopifyProductQuery, first: 50 },
     pause: !term || term.length < 3,
   })
 
@@ -61,7 +61,8 @@ const SearchPage = ({ location: { search } }) => {
             }}
           />
           <Text variant="caps">
-            {query.data?.products.edges.length || 0} results
+            {query.data?.products.edges.length || 0}
+            {query.data?.products.pageInfo.hasNextPage ? '+' : ''} results
           </Text>
         </Grid>
         <Grid
