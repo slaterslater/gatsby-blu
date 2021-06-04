@@ -83,7 +83,7 @@ const SearchPage = ({ location: { search } }) => {
       query: shopifyProductQuery,
       first: 50,
     },
-    pause: term.length < 3,
+    pause: !!term && term.length < 3,
   })
 
   return (
