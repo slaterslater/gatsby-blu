@@ -16,8 +16,7 @@ const useConfirmationCopy = type => {
     case 'review':
       return {
         title: 'Thank you for posting your review',
-        instruction:
-          'Please click on the link in the confirmation email we just sent you to submit your review.',
+        instruction: '',
         info: 'Your review will appear on the site once it is approved.',
         icon: GiGlassCelebration,
       }
