@@ -37,8 +37,8 @@ export const SEARCH_PRODUCT_FRAGMENT = gql`
 
 export const SEARCH_QUERY = gql`
   ${SEARCH_PRODUCT_FRAGMENT}
-  query($query: String!, $first: Int!) {
-    products(first: $first, query: $query, sortKey: RELEVANCE) {
+  query($query: String!, $first: Int!, $after: String) {
+    products(first: $first, query: $query, after: $after, sortKey: RELEVANCE) {
       pageInfo {
         hasNextPage
       }

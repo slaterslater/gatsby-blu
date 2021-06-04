@@ -70,17 +70,14 @@ const ReviewForm = ({ yotpoProductDetails, onClose }) => {
         validationSchema={validationSchema}
         onSubmit={async values => {
           try {
-            await axios.post(
-              `https://api.yotpo.com/questions/send_confirmation_mail`,
-              {
-                ...yotpoProductDetails,
-                review_content: values.content,
-                display_name: values.name,
-                email: values.email,
-                review_score: values.score,
-                review_title: values.title,
-              }
-            )
+            await axios.post(`https://api.yotpo.com/v1/widget/reviews`, {
+              ...yotpoProductDetails,
+              review_content: values.content,
+              display_name: values.name,
+              email: values.email,
+              review_score: values.score,
+              review_title: values.title,
+            })
             setSuccess(true)
           } catch (error) {
             console.log({ error })

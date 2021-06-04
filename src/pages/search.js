@@ -1,13 +1,70 @@
 import React, { useState, useEffect } from 'react'
 import { useQuery } from 'urql'
 import { parse } from 'qs'
-import { Input, Grid, Box, Text, Container } from 'theme-ui'
+import { Flex, Button, Input, Grid, Box, Text, Container } from 'theme-ui'
 import { useDebounce } from 'use-debounce'
 import { IoIosSearch } from 'react-icons/io'
 import Layout from '../components/layout'
 import { SEARCH_QUERY } from '../queries/search'
 import SearchProduct from '../components/SearchProduct'
 import { useShopifyProductQuery } from '../hooks/shopifyProductQuery'
+
+const Page = ({ cursor, isLastPage, onLoadMore, query }) => {
+  const [{ data, fetching }] = useQuery({
+    query: SEARCH_QUERY,
+    variables: { query, first: 50, after: cursor },
+  })
+
+  if (fetching) return false
+
+  return (
+    <>
+      {data?.products.edges.map(({ node }) => {
+        const images = node.images.edges.map(({ node }) => node)
+        return (
+          <SearchProduct
+            key={`search-result-${node.id}`}
+            product={node}
+            images={images}
+          />
+        )
+      })}
+      {data?.products.pageInfo.hasNextPage && isLastPage && (
+        <Flex sx={{ alignItems: 'flex-end' }}>
+          <Button
+            onClick={() => {
+              onLoadMore(
+                data.products.edges[data.products.edges.length - 1].cursor
+              )
+            }}
+            type="button"
+          >
+            Get More Products
+          </Button>
+        </Flex>
+      )}
+    </>
+  )
+}
+
+const PaginatedSearch = ({ term }) => {
+  const [pageParams, setPageParams] = useState([{ cursor: null }])
+  const shopifyProductQuery = useShopifyProductQuery(term)
+
+  useEffect(() => {
+    setPageParams([{ cursor: null }])
+  }, [term])
+
+  return pageParams.map((params, i) => (
+    <Page
+      query={shopifyProductQuery}
+      cursor={params.cursor}
+      key={`${i}-${params.cursor}`}
+      isLastPage={i === pageParams.length - 1}
+      onLoadMore={cursor => setPageParams(prev => [...prev, { cursor }])}
+    />
+  ))
+}
 
 const SearchPage = ({ location: { search } }) => {
   const [value, setValue] = useState(parse(search?.replace('?', '')).q)
@@ -19,10 +76,14 @@ const SearchPage = ({ location: { search } }) => {
 
   const shopifyProductQuery = useShopifyProductQuery(term)
 
-  const [query] = useQuery({
+  // query is for the initial results count.. queries are de-duped
+  const [{ data }] = useQuery({
     query: SEARCH_QUERY,
-    variables: { query: shopifyProductQuery, first: 50 },
-    pause: !term || term.length < 3,
+    variables: {
+      query: shopifyProductQuery,
+      first: 50,
+    },
+    pause: term.length < 3,
   })
 
   return (
@@ -61,8 +122,8 @@ const SearchPage = ({ location: { search } }) => {
             }}
           />
           <Text variant="caps">
-            {query.data?.products.edges.length || 0}
-            {query.data?.products.pageInfo.hasNextPage ? '+' : ''} results
+            {data?.products.edges.length || 0}
+            {data?.products.pageInfo.hasNextPage ? '+' : ''} results
           </Text>
         </Grid>
         <Grid
@@ -76,16 +137,7 @@ const SearchPage = ({ location: { search } }) => {
             gap: [3, 4, 5],
           }}
         >
-          {query.data?.products.edges.slice(0, 30).map(({ node }) => {
-            const images = node.images.edges.map(({ node }) => node)
-            return (
-              <SearchProduct
-                key={`search-result-${node.id}`}
-                product={node}
-                images={images}
-              />
-            )
-          })}
+          <PaginatedSearch term={term} />
         </Grid>
       </Container>
     </Layout>

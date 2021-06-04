@@ -40,7 +40,7 @@ const Page = ({ cursor, isLastPage, onLoadMore }) => {
           }}
           type="button"
         >
-          Get More PRoducts
+          Get More Products
         </Button>
       )}
     </>
