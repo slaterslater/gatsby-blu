@@ -7,7 +7,12 @@ dotenv.config({
 
 const productQuery = `
   {
-    products: allShopifyProduct {
+    products: allShopifyProduct(
+      filter: {
+        availableForSale: { eq: true }
+        productType: { nin: ["Insurance", "fee"] }
+      }
+    ) {
       nodes {
         id
         title

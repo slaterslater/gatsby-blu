@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import algoliasearch from 'algoliasearch/lite'
 import { connectStats, connectSearchBox } from 'react-instantsearch-dom'
 import { Text, Input } from 'theme-ui'
@@ -12,26 +12,40 @@ export const searchClient = algoliasearch(
 )
 
 export const InstantSearchInput = connectSearchBox(
-  ({ refine, currentRefinement, onFocus, onChange = () => {} }) => (
-    <Input
-      variant="bigSearch"
-      type="text"
-      value={currentRefinement}
-      onChange={e => {
-        refine(e.target.value)
-        onChange()
-      }}
-      placeholder="search ..."
-      sx={{
-        borderBottom: '1px solid',
-        borderColor: 'border',
-        '&:focus': {
+  ({
+    refine,
+    currentRefinement,
+    onFocus,
+    onChange = () => {},
+    initialValue,
+  }) => {
+    useEffect(() => {
+      if (initialValue) {
+        refine(initialValue)
+      }
+    }, [])
+
+    return (
+      <Input
+        variant="bigSearch"
+        type="text"
+        value={currentRefinement}
+        onChange={e => {
+          refine(e.target.value)
+          onChange()
+        }}
+        placeholder="search ..."
+        sx={{
+          borderBottom: '1px solid',
           borderColor: 'border',
-          outline: 'none',
-        },
-      }}
-    />
-  )
+          '&:focus': {
+            borderColor: 'border',
+            outline: 'none',
+          },
+        }}
+      />
+    )
+  }
 )
 
 export const InstantSearchProduct = ({ hit }) => {

@@ -41,21 +41,13 @@ const SearchHits = connectInfiniteHits(
 )
 
 const SearchPage = ({ location: { search } }) => {
-  const [query, setQuery] = useState(parse(search?.replace('?', '')).q)
-
-  useEffect(() => {
-    setQuery(parse(search?.replace('?', '')).q)
-  }, [search])
+  const [query] = useState(parse(search?.replace('?', '')).q)
 
   return (
     <Layout>
       <Container>
         <InstantSearch
           searchClient={searchClient}
-          onSearchStateChange={({ query }) => setQuery(query)}
-          searchState={{
-            query,
-          }}
           indexName={process.env.GATSBY_ALGOLIA_INDEX_NAME}
         >
           {/* <ResultsHeader */}
@@ -76,7 +68,7 @@ const SearchPage = ({ location: { search } }) => {
               color="primary"
               sx={{ transform: 'translateY(-1px)' }}
             />
-            <InstantSearchInput />
+            <InstantSearchInput initialValue={query} />
             <HitsCount />
           </Grid>
           <SearchHits />

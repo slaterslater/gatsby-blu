@@ -5,6 +5,7 @@ import { Box, Grid, Flex, Button, Input, Text } from 'theme-ui'
 import PropTypes from 'prop-types'
 import { IoIosClose, IoIosSearch } from 'react-icons/io'
 import { Configure, InstantSearch, connectHits } from 'react-instantsearch-core'
+import ThemeLink from './app/ThemeLink'
 import {
   InstantSearchProduct,
   InstantSearchInput,
@@ -26,12 +27,14 @@ const HeaderSearch = ({ isOpen, onClose }) => {
     }
   })
   const [usedInput, setUsedInput] = useState(false)
+  const [term, setTerm] = useState('')
 
   return (
     <AnimatePresence>
       {isOpen && (
         <InstantSearch
           searchClient={searchClient}
+          onSearchStateChange={({ query }) => setTerm(query)}
           indexName={process.env.GATSBY_ALGOLIA_INDEX_NAME}
         >
           <MotionBox
@@ -79,12 +82,13 @@ const HeaderSearch = ({ isOpen, onClose }) => {
             <Configure hitsPerPage={4} />
             {usedInput && (
               <Box>
-                <Flex sx={{ justifyContent: 'right' }}>
-                  <HitsCount />
+                <Flex pt={2} sx={{ justifyContent: 'flex-end' }}>
+                  <ThemeLink to={`/search?q=${term}`}>
+                    <HitsCount />
+                  </ThemeLink>
                 </Flex>
                 <Grid
-                  py={5}
-                  pt={6}
+                  py={4}
                   sx={{
                     gridTemplateColumns: 'repeat(4, 1fr)',
                     gap: 5,
