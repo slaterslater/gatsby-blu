@@ -1,5 +1,6 @@
 import dotenv from 'dotenv'
-import shopifySourceQueries from './src/lib/shopifySourceQueries'
+import shopifySourceQueries from './src/utils/shopifySourceQueries'
+import algoliaQueries from './src/utils/algolia-queries'
 
 dotenv.config({
   path: `.env`,
@@ -20,6 +21,14 @@ module.exports = {
       options: {
         mergeLinkHeaders: false,
         mergeCachingHeaders: false,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-algolia`,
+      options: {
+        appId: process.env.GATSBY_ALGOLIA_APP_ID,
+        apiKey: process.env.ALGOLIA_ADMIN_KEY,
+        queries: algoliaQueries,
       },
     },
     `gatsby-plugin-theme-ui`,
