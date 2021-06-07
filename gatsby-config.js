@@ -1,6 +1,6 @@
 import dotenv from 'dotenv'
 import shopifySourceQueries from './src/utils/shopifySourceQueries'
-import algoliaQueries from './src/utils/algolia-queries'
+import { algoliaQueries } from './src/utils/algolia-queries'
 
 dotenv.config({
   path: `.env`,

@@ -1,40 +1,67 @@
-const escapeStringRegexp = require('escape-string-regexp')
+// const escapeStringRegexp ('escape-string-regexp')
+import dotenv from 'dotenv'
 
-const pagePath = `content`
-const indexName = `Pages`
-const pageQuery = `{
-  pages: allMarkdownRemark(
-    filter: {
-      fileAbsolutePath: { regex: "/${escapeStringRegexp(pagePath)}/" },
-    }
-  ) {
-    edges {
-      node {
+dotenv.config({
+  path: `.env`,
+})
+
+const productQuery = `
+  {
+    products: allShopifyProduct {
+      nodes {
         id
-        frontmatter {
-          title
+        title
+        productType
+        handle
+        availableForSale
+        images {
+          originalSrc
+          altText
+          height
+          width
         }
-        fields {
-          slug
+        tags
+        priceRange {
+          minVariantPrice {
+            currencyCode
+            amount
+          }
+          maxVariantPrice {
+            currencyCode
+            amount
+          }
         }
-        excerpt(pruneLength: 5000)
+        variants {
+          priceV2 {
+            amount
+            currencyCode
+          }
+          presentmentPrices {
+            edges {
+              node {
+                price {
+                  amount
+                  currencyCode
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
-}`
-function pageToAlgoliaRecord({ node: { id, frontmatter, fields, ...rest } }) {
+`
+
+function pageToAlgoliaRecord(node) {
   return {
-    objectID: id,
-    ...frontmatter,
-    ...fields,
-    ...rest,
+    objectID: node.id,
+    ...node,
   }
 }
-const queries = [
+export const algoliaQueries = [
   {
-    query: pageQuery,
-    transformer: ({ data }) => data.pages.edges.map(pageToAlgoliaRecord),
-    indexName,
-    settings: { attributesToSnippet: [`excerpt:20`] },
+    query: productQuery,
+    transformer: ({ data }) => data.products.nodes.map(pageToAlgoliaRecord),
+    indexName: process.env.GATSBY_ALGOLIA_INDEX_NAME,
   },
 ]
