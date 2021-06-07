@@ -9,6 +9,7 @@ const BookConsultation = () => (
       src="../images/book-background.jpg"
       layout="fullWidth"
       style={{ gridArea: '1 / 1 / -1/ -1' }}
+      alt=""
     />
     <Flex
       p={5}

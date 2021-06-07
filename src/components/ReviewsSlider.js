@@ -30,7 +30,10 @@ const ReviewsSlider = () => {
         }}
       >
         {data.allHomepageReviewsJson.nodes.map(node => (
-          <Box sx={{ textAlign: 'center' }}>
+          <Box
+            sx={{ textAlign: 'center' }}
+            key={`${node.product.handle}-collection-slider`}
+          >
             <Link
               as={GatsbyLink}
               to={`/products/${node.product.handle}`}

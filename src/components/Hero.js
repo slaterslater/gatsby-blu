@@ -6,14 +6,18 @@ import { GatsbyImage, getImage, withArtDirection } from 'gatsby-plugin-image'
 const Hero = ({ title, subtitle, button }) => {
   const data = useStaticQuery(graphql`
     {
-      desktopImage: file(relativePath: { eq: "hero/triumphant-desktop.jpg" }) {
+      desktopImage: file(
+        relativePath: { eq: "hero/written-in-the-stars-desktop.jpg" }
+      ) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
-      mobileImage: file(relativePath: { eq: "hero/triumphant-mobile.jpg" }) {
+      mobileImage: file(
+        relativePath: { eq: "hero/written-in-the-stars-mobile.jpg" }
+      ) {
         childImageSharp {
-          gatsbyImageData(layout: CONSTRAINED, width: 640)
+          gatsbyImageData(layout: FULL_WIDTH)
         }
       }
     }
@@ -37,7 +41,7 @@ const Hero = ({ title, subtitle, button }) => {
           overflow: 'hidden',
         }}
       >
-        <GatsbyImage image={images} alt="wanderess necklace" />
+        <GatsbyImage image={images} alt="" />
       </Grid>
       <Flex
         sx={{
