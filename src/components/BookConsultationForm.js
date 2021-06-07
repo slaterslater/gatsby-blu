@@ -78,7 +78,7 @@ const BookConsultationForm = ({ onSuccess, onError }) => (
     validationSchema={validationSchema}
     onSubmit={async (values, actions) => {
       const body = pickBy(values, val => !!val)
-      body['webstore bridal consultaiton request'] = true
+      body['webstore bridal consultation request'] = true
       try {
         await fetch(`${process.env.GATSBY_SERVERLESS_BASE}/contact`, {
           method: 'POST',
