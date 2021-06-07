@@ -52,6 +52,7 @@ const bluFamLinks = [
   { to: '/products/gift-card', label: 'gift cards' },
   { to: '/newsletter', label: 'subscribe to keep in touch' },
   { to: '/pages/care-and-wear-disclaimer', label: 'jewelry care & wear' },
+  { to: '/pages/careers', label: 'careers' },
 ]
 
 const Footer = props => (
