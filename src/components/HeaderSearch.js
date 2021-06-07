@@ -1,55 +1,102 @@
 import React, { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Box, Grid, Button, Input, Text } from 'theme-ui'
+import useKeyPress from 'react-use-keypress'
+import { Box, Grid, Flex, Button, Input, Text } from 'theme-ui'
 import PropTypes from 'prop-types'
 import { IoIosClose, IoIosSearch } from 'react-icons/io'
-import { useDebounce } from 'use-debounce'
-import SearchPreview from './SearchPreview'
+import { Configure, InstantSearch, connectHits } from 'react-instantsearch-core'
+import {
+  InstantSearchProduct,
+  InstantSearchInput,
+  HitsCount,
+  searchClient,
+} from './search/shared'
+import SuggestedSearches from './search/SuggestedSearches'
+
+const SearchHits = connectHits(({ hits }) =>
+  hits.map(hit => <InstantSearchProduct key={`hit-${hit.id}`} hit={hit} />)
+)
 
 const MotionBox = motion(Box)
 
 const HeaderSearch = ({ isOpen, onClose }) => {
-  const [value, setValue] = useState('')
-  const [term] = useDebounce(value, 700)
+  useKeyPress('Escape', () => {
+    if (isOpen) {
+      onClose()
+    }
+  })
+  const [usedInput, setUsedInput] = useState(false)
 
   return (
     <AnimatePresence>
       {isOpen && (
-        <MotionBox
-          p={5}
-          sx={{
-            bg: 'white',
-            width: '100vw',
-            position: 'absolute',
-            borderBottom: '1px solid',
-            borderColor: 'border',
-          }}
-          initial={{ opacity: 0, y: -5 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -5 }}
+        <InstantSearch
+          searchClient={searchClient}
+          indexName={process.env.GATSBY_ALGOLIA_INDEX_NAME}
         >
-          <Grid
+          <MotionBox
+            p={5}
             sx={{
-              gridTemplateColumns: 'max-content 1fr max-content',
-              alignItems: 'center',
+              bg: 'white',
+              width: '100vw',
+              position: 'absolute',
+              borderBottom: '1px solid',
+              borderColor: 'border',
             }}
+            initial={{ opacity: 0, y: -5 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -5 }}
           >
-            <Box as={IoIosSearch} size={24} color="primary" />
-            <Box>
-              <Input
-                type="input"
-                onChange={e => setValue(e.target.value)}
-                value={value}
-                variant="bigSearch"
-                placeholder="Search ..."
-              />
-            </Box>
-            <Button type="button" variant="unset" onClick={onClose}>
-              <Box as={IoIosClose} size={24} color="primary" />
-            </Button>
-          </Grid>
-          <SearchPreview term={term} onClose={onClose} />
-        </MotionBox>
+            <Grid
+              sx={{
+                gridTemplateColumns: 'max-content 1fr max-content',
+                alignItems: 'start',
+              }}
+            >
+              <Box as={IoIosSearch} size={24} color="primary" mt={1} />
+              <Box>
+                <InstantSearchInput
+                  onChange={() => {
+                    if (!usedInput) {
+                      setUsedInput(true)
+                    }
+                  }}
+                />
+                {!usedInput && <SuggestedSearches />}
+              </Box>
+              <Button
+                type="button"
+                variant="unset"
+                mt={1}
+                onClick={() => {
+                  onClose()
+                  setUsedInput(false)
+                }}
+              >
+                <Box as={IoIosClose} size={24} color="primary" />
+              </Button>
+            </Grid>
+            <Configure hitsPerPage={4} />
+            {usedInput && (
+              <Box>
+                <Flex sx={{ justifyContent: 'right' }}>
+                  <HitsCount />
+                </Flex>
+                <Grid
+                  py={5}
+                  pt={6}
+                  sx={{
+                    gridTemplateColumns: 'repeat(4, 1fr)',
+                    gap: 5,
+                    transition: 'opacity ease-out .3s',
+                  }}
+                >
+                  {usedInput && <SearchHits />}
+                </Grid>
+              </Box>
+            )}
+          </MotionBox>
+        </InstantSearch>
       )}
     </AnimatePresence>
   )

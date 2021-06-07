@@ -1,144 +1,86 @@
 import React, { useState, useEffect } from 'react'
-import { useQuery } from 'urql'
 import { parse } from 'qs'
 import { Flex, Button, Input, Grid, Box, Text, Container } from 'theme-ui'
-import { useDebounce } from 'use-debounce'
 import { IoIosSearch } from 'react-icons/io'
+import { InstantSearch, connectInfiniteHits } from 'react-instantsearch-dom'
 import Layout from '../components/layout'
-import { SEARCH_QUERY } from '../queries/search'
-import SearchProduct from '../components/SearchProduct'
-import { useShopifyProductQuery } from '../hooks/shopifyProductQuery'
+import {
+  InstantSearchProduct,
+  InstantSearchInput,
+  HitsCount,
+  searchClient,
+} from '../components/search/shared'
 
-const Page = ({ cursor, isLastPage, onLoadMore, query }) => {
-  const [{ data, fetching }] = useQuery({
-    query: SEARCH_QUERY,
-    variables: { query, first: 50, after: cursor },
-  })
-
-  if (fetching) return false
-
-  return (
+const SearchHits = connectInfiniteHits(
+  ({ hits, hasMore, refineNext, ...rest }) => (
     <>
-      {data?.products.edges.map(({ node }) => {
-        const images = node.images.edges.map(({ node }) => node)
-        return (
-          <SearchProduct
-            key={`search-result-${node.id}`}
-            product={node}
-            images={images}
-          />
-        )
-      })}
-      {data?.products.pageInfo.hasNextPage && isLastPage && (
-        <Flex sx={{ alignItems: 'flex-end' }}>
-          <Button
-            onClick={() => {
-              onLoadMore(
-                data.products.edges[data.products.edges.length - 1].cursor
-              )
-            }}
-            type="button"
-          >
-            Get More Products
+      <Grid
+        py={[3, 4, 5]}
+        sx={{
+          gridTemplateColumns: [
+            'repeat(2, 1fr)',
+            'repeat(auto-fill, minmax(190px, 1fr))',
+            'repeat(auto-fill, minmax(240px, 1fr))',
+          ],
+          gap: [3, 4, 5],
+        }}
+      >
+        {hits.map(hit => (
+          <InstantSearchProduct key={`hit-${hit.id}`} hit={hit} />
+        ))}
+      </Grid>
+      {hasMore && (
+        <Box sx={{ textAlign: 'center' }}>
+          <Button type="button" onClick={refineNext}>
+            Load More
           </Button>
-        </Flex>
+        </Box>
       )}
     </>
   )
-}
-
-const PaginatedSearch = ({ term }) => {
-  const [pageParams, setPageParams] = useState([{ cursor: null }])
-  const shopifyProductQuery = useShopifyProductQuery(term)
-
-  useEffect(() => {
-    setPageParams([{ cursor: null }])
-  }, [term])
-
-  return pageParams.map((params, i) => (
-    <Page
-      query={shopifyProductQuery}
-      cursor={params.cursor}
-      key={`${i}-${params.cursor}`}
-      isLastPage={i === pageParams.length - 1}
-      onLoadMore={cursor => setPageParams(prev => [...prev, { cursor }])}
-    />
-  ))
-}
+)
 
 const SearchPage = ({ location: { search } }) => {
-  const [value, setValue] = useState(parse(search?.replace('?', '')).q)
-  const [term] = useDebounce(value, 1000)
+  const [query, setQuery] = useState(parse(search?.replace('?', '')).q)
 
   useEffect(() => {
-    setValue(parse(search?.replace('?', '')).q)
+    setQuery(parse(search?.replace('?', '')).q)
   }, [search])
-
-  const shopifyProductQuery = useShopifyProductQuery(term)
-
-  // query is for the initial results count.. queries are de-duped
-  const [{ data }] = useQuery({
-    query: SEARCH_QUERY,
-    variables: {
-      query: shopifyProductQuery,
-      first: 50,
-    },
-    pause: !!term && term.length < 3,
-  })
 
   return (
     <Layout>
       <Container>
-        {/* <ResultsHeader */}
-        {/*   title={`Search: ${term}`} */}
-        {/*   count={query.data?.products.edges.length || 0} */}
-        {/*   resultType="results" */}
-        {/* /> */}
-        <Grid
-          pb={4}
-          sx={{
-            gridTemplateColumns: 'max-content 1fr max-content',
-            alignItems: 'center',
+        <InstantSearch
+          searchClient={searchClient}
+          onSearchStateChange={({ query }) => setQuery(query)}
+          searchState={{
+            query,
           }}
+          indexName={process.env.GATSBY_ALGOLIA_INDEX_NAME}
         >
-          <Box
-            as={IoIosSearch}
-            size={20}
-            color="primary"
-            sx={{ transform: 'translateY(-1px)' }}
-          />
-          <Input
-            variant="bigSearch"
-            type="text"
-            value={value}
-            onChange={e => setValue(e.target.value)}
-            placeholder="search ..."
+          {/* <ResultsHeader */}
+          {/*   title={`Search: ${term}`} */}
+          {/*   count={query.data?.products.edges.length || 0} */}
+          {/*   resultType="results" */}
+          {/* /> */}
+          <Grid
+            pb={4}
             sx={{
-              borderBottom: '1px solid',
-              borderColor: 'border',
-              '&:focus': {
-                borderColor: 'border',
-              },
+              gridTemplateColumns: 'max-content 1fr max-content',
+              alignItems: 'center',
             }}
-          />
-          <Text variant="caps">
-            {data?.products.edges.length || 0}
-            {data?.products.pageInfo.hasNextPage ? '+' : ''} results
-          </Text>
-        </Grid>
-        <Grid
-          py={[3, 4, 5]}
-          sx={{
-            gridTemplateColumns: [
-              'repeat(2, 1fr)',
-              'repeat(auto-fill, minmax(190px, 1fr))',
-              'repeat(auto-fill, minmax(240px, 1fr))',
-            ],
-            gap: [3, 4, 5],
-          }}
-        >
-          <PaginatedSearch term={term} />
-        </Grid>
+          >
+            <Box
+              as={IoIosSearch}
+              size={20}
+              color="primary"
+              sx={{ transform: 'translateY(-1px)' }}
+            />
+            <InstantSearchInput />
+            <HitsCount />
+          </Grid>
+          <SearchHits />
+        </InstantSearch>
       </Container>
     </Layout>
   )
