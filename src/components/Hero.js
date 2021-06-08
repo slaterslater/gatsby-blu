@@ -1,32 +1,20 @@
 import React from 'react'
 import { Box, Text, Heading, Button, Grid, Flex } from 'theme-ui'
-import { graphql, Link as GatsbyLink, useStaticQuery } from 'gatsby'
+import { Link as GatsbyLink } from 'gatsby'
 import { GatsbyImage, getImage, withArtDirection } from 'gatsby-plugin-image'
 
-const Hero = ({ title, subtitle, button }) => {
-  const data = useStaticQuery(graphql`
-    {
-      desktopImage: file(
-        relativePath: { eq: "hero/written-in-the-stars-desktop.jpg" }
-      ) {
-        childImageSharp {
-          gatsbyImageData(layout: FULL_WIDTH)
-        }
-      }
-      mobileImage: file(
-        relativePath: { eq: "hero/written-in-the-stars-mobile.jpg" }
-      ) {
-        childImageSharp {
-          gatsbyImageData(layout: FULL_WIDTH)
-        }
-      }
-    }
-  `)
-
-  const images = withArtDirection(getImage(data.desktopImage), [
+const Hero = ({
+  desktopImage1,
+  desktopImage2,
+  mobileImage,
+  title,
+  subtitle,
+  button,
+}) => {
+  const images = withArtDirection(getImage(desktopImage1), [
     {
       media: '(max-width: 40em)',
-      image: getImage(data.mobileImage),
+      image: getImage(mobileImage),
     },
   ])
 
@@ -34,7 +22,7 @@ const Hero = ({ title, subtitle, button }) => {
     <Grid sx={{ height: '75vh', bg: 'cream', position: 'relative', zIndex: 1 }}>
       <Grid
         sx={{
-          gridAutoFlow: 'column',
+          gridTemplateColumns: ['1fr', '1fr 1fr'],
           gap: 0,
           gridColumn: '1 / -1',
           gridRow: '1 / -1',
@@ -42,6 +30,11 @@ const Hero = ({ title, subtitle, button }) => {
         }}
       >
         <GatsbyImage image={images} alt="" />
+        {desktopImage2 && (
+          <Box sx={{ display: ['none', 'flex'], alignItems: 'stretch' }}>
+            <GatsbyImage image={getImage(desktopImage2)} />
+          </Box>
+        )}
       </Grid>
       <Flex
         sx={{
@@ -68,7 +61,7 @@ const Hero = ({ title, subtitle, button }) => {
           </Heading>
           <Text
             as="h2"
-            variant="lightCaps"
+            variant="caps"
             sx={{ color: 'white', fontSize: 1, pb: 6, lineHeight: 1.2 }}
           >
             {subtitle}

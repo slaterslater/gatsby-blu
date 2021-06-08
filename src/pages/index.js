@@ -1,7 +1,6 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import Layout from '../components/layout'
-import Hero from '../components/Hero'
 import BelovedLinks from '../components/BelovedLinks'
 import CollectionSlider from '../components/CollectionSlider'
 
@@ -10,6 +9,7 @@ import BrandStatement from '../components/BrandStatement'
 import InstagramFeed from '../components/InstagramFeed'
 import BookConsultation from '../components/BookConsultation'
 import ReviewsSlider from '../components/ReviewsSlider'
+import HomepageHero from '../components/HomepageHero'
 
 const IndexPage = ({ data }) => {
   const {
@@ -40,14 +40,7 @@ const IndexPage = ({ data }) => {
       <SEO title="Home">
         <script type="application/ld+json">{websiteLdJSON}</script>
       </SEO>
-      <Hero
-        title="Honour deep love"
-        subtitle="our fate is forever written in the stars"
-        button={{
-          label: 'Shop Love',
-          path: '/collections/love',
-        }}
-      />
+      <HomepageHero />
       <CollectionSlider
         title="Modern Fine Jewelry"
         subtitle="handcrafted + ethically sourced"
