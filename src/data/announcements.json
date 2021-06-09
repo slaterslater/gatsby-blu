@@ -1,5 +1,6 @@
 [
-  { "text": "Book a Virtual Appointment", "to": "/book-a-consultation" },
-  { "text": "Limited Time Free Shipping within Canada" }
+  { "text": "Get on the waitlist for engagement rings", "to": "/book-a-consultation" },
+  { "text": "Stores are open for curbside", "to": "/pages/locations-and-hours" },
+  { "text": "Limited Time Free Shipping within Canada" , "to": "/pages/shipping" }
 ]
 
