@@ -46,6 +46,7 @@ export const InputControl = ({
   type,
   placeholder,
   variant = 'input',
+  ...props
 }) => (
   <FormControlWrap label={label} id={id} name={name}>
     <Field
@@ -55,6 +56,7 @@ export const InputControl = ({
       type={type}
       placeholder={placeholder}
       variant={variant}
+      {...props}
     />
   </FormControlWrap>
 )
@@ -69,7 +71,13 @@ export const SelectControl = ({
   placeholder,
 }) => (
   <FormControlWrap label={label} id={id} name={name}>
-    <Field name={name} id={id} as={Select} type={type}>
+    <Field
+      name={name}
+      id={id}
+      as={Select}
+      type={type}
+      defaultValue={placeholder}
+    >
       {placeholder && (
         <option value={placeholder} disabled selected>
           {placeholder}
