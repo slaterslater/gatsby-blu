@@ -40,19 +40,17 @@ exports.handler = async (event, context) => {
     }
 
   const html = `
-    <div>
-      <dl>
-        ${Object.keys(body)
-          .map(
-            key => `
-            <div>
-              <dt>${key}</dt>
-              <dd>${body[key]}</dd>
-            </div>
-            `
-          )
-          .join('')}
-      </dl>
+    <div style="padding: 24px; border: 1px solid #e7e7e7; border-radius: 4px;max-width: 480px;">
+      ${Object.keys(body)
+        .map(
+          key => `
+          <div style="padding-bottom: 16px;">
+            <p style="padding-bottom: 4px;margin: 0;"><b>${key}</b></p>
+            <p style="margin: 0;padding:0;">${body[key]}</p>
+          </div>
+          `
+        )
+        .join('')}
     </div>
   `
 

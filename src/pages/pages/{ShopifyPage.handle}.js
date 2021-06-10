@@ -5,6 +5,7 @@ import Layout from '../../components/layout'
 import ShopifyHtml from '../../components/ShopifyHtml'
 import SEO from '../../components/seo'
 import NewsletterForm from '../../components/NewsletterForm'
+import Exchange from '../../components/Exchange'
 
 const BlogTemplate = ({ data, path }) => (
   <Layout>
@@ -13,6 +14,7 @@ const BlogTemplate = ({ data, path }) => (
       <Box pt={7} pb={2}>
         <Heading>{data.shopifyPage.title}</Heading>
       </Box>
+      {path?.includes('/pages/exchange-form') && <Exchange variant="primary" />}
       <ShopifyHtml
         dangerouslySetInnerHTML={{
           __html: data.shopifyPage.body,
