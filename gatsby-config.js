@@ -65,7 +65,14 @@ module.exports = {
     },
     `gatsby-plugin-image`,
     `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
+    {
+      resolve: `gatsby-plugin-sharp`,
+      options: {
+        defaults: {
+          quality: 85,
+        },
+      },
+    },
     {
       resolve: `gatsby-plugin-google-gtag`,
       options: {
