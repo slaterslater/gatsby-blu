@@ -71,15 +71,9 @@ export const SelectControl = ({
   placeholder,
 }) => (
   <FormControlWrap label={label} id={id} name={name}>
-    <Field
-      name={name}
-      id={id}
-      as={Select}
-      type={type}
-      defaultValue={placeholder}
-    >
+    <Field name={name} id={id} as={Select} type={type}>
       {placeholder && (
-        <option value={placeholder} disabled selected>
+        <option value={placeholder} defaultValue>
           {placeholder}
         </option>
       )}
@@ -104,7 +98,7 @@ export const HoneypotControl = ({ name = 'bot-field' }) => (
   <Box sx={{ display: 'none' }}>
     <label htmlFor={`_${name}`}>
       don't fill this out if you're human
-      <Field id={`_${name}`} name="name" />
+      <Field id={`_${name}`} name={name} />
     </label>
   </Box>
 )
