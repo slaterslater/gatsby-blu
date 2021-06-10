@@ -2,9 +2,10 @@
 #
 on:
   schedule:
-    # https://crontab.guru/#*_*/6_*_*_*
-    # “At every minute past every 6th hour.”
-    - cron: '* */12 * * *'
+    # https://crontab.guru/#0_4_*_*_*
+    # "at 04:00."
+    #
+    - cron: '0 4 * * *'
 jobs:
   build:
     name: Request Netlify Webhook
