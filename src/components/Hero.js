@@ -22,7 +22,7 @@ const Hero = ({
     <Grid sx={{ height: '75vh', bg: 'cream', position: 'relative', zIndex: 1 }}>
       <Grid
         sx={{
-          gridTemplateColumns: ['1fr', '1fr 1fr'],
+          gridTemplateColumns: ['1fr', desktopImage2 ? '1fr 1fr' : '1fr'],
           gap: 0,
           gridColumn: '1 / -1',
           gridRow: '1 / -1',
