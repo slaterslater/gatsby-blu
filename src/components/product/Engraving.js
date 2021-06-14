@@ -34,6 +34,7 @@ export const useEngraveableChars = (tags = []) => {
 
 const Engraving = ({ tags, onChange }) => {
   const chars = useEngraveableChars(tags)
+  if (!chars) return false
 
   return (
     <EngravingForm
