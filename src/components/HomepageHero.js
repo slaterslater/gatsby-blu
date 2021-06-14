@@ -22,7 +22,7 @@ const HomepageHero = props => {
     <Hero
       desktopImage1={data.desktopImage1}
       mobileImage={data.mobileImage}
-      title="untameable courage"
+      title="untamable courage"
       subtitle="wildflowers bloom where we least expect it"
       button={{
         label: 'shop wanderess ',
