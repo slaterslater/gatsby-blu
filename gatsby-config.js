@@ -24,6 +24,15 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-source-sanity`,
+      options: {
+        projectId: process.env.SANITY_PROJECT_ID,
+        dataset: process.env.SANITY_DATASET,
+        token: process.env.SANITY_TOKEN,
+        watchMode: true,
+      },
+    },
+    {
       resolve: `gatsby-plugin-algolia`,
       options: {
         appId: process.env.GATSBY_ALGOLIA_APP_ID,

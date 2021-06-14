@@ -40,16 +40,16 @@ Announcement.defaultProps = {
 
 const Announcements = () => {
   const data = useStaticQuery(graphql`
-    query {
-      allAnnouncementsJson {
-        nodes {
+    {
+      sanitySiteAnnouncements(title: { eq: "siteAnnouncements" }) {
+        announcements {
           text
-          to
+          path
         }
       }
     }
   `)
-  const { nodes: announcements } = data.allAnnouncementsJson
+  const { announcements } = data.sanityLayouts
   const [delay] = useState(5000)
   const [isPaused, setIsPaused] = useState(false)
   const [current, setCurrent] = useState(0)
@@ -75,11 +75,12 @@ const Announcements = () => {
       onMouseLeave={() => setIsPaused(false)}
     >
       <AnimatePresence>
-        {announcements.map(({ text, to }, i) => (
+        {announcements.map(({ text, path }, i) => (
           <Announcement
             key={`${text}-${to}`}
             isVisible={current === i}
-            {...{ text, to }}
+            text={text}
+            to={path}
           />
         ))}
       </AnimatePresence>
