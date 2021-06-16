@@ -2,7 +2,6 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import Layout from '../components/layout'
 import BelovedLinks from '../components/BelovedLinks'
-import CollectionSlider from '../components/CollectionSlider'
 
 import SEO from '../components/seo'
 import BrandStatement from '../components/BrandStatement'
@@ -10,6 +9,7 @@ import InstagramFeed from '../components/InstagramFeed'
 import BookConsultation from '../components/BookConsultation'
 import ReviewsSlider from '../components/ReviewsSlider'
 import HomepageHero from '../components/HomepageHero'
+import SanityContent from '../components/SanityContent'
 
 const IndexPage = ({ data }) => {
   const {
@@ -40,43 +40,7 @@ const IndexPage = ({ data }) => {
       <SEO title="Home">
         <script type="application/ld+json">{websiteLdJSON}</script>
       </SEO>
-      <HomepageHero />
-      <CollectionSlider
-        title="Modern Fine Jewelry"
-        subtitle="handcrafted + ethically sourced"
-        slides={[
-          {
-            title: 'Necklaces',
-            to: '/collections/necklaces',
-            buttonLabel: 'Shop All',
-            image: data.necklaceFile.childImageSharp.gatsbyImageData,
-          },
-          {
-            title: 'Rings',
-            to: '/collections/rings',
-            buttonLabel: 'Shop All',
-            image: data.ringFile.childImageSharp.gatsbyImageData,
-          },
-          {
-            title: 'Earrings',
-            to: '/collections/earrings',
-            buttonLabel: 'Shop All',
-            image: data.earringFile.childImageSharp.gatsbyImageData,
-          },
-          {
-            title: 'Engagement',
-            to: '/collections/bridal',
-            buttonLabel: 'Shop All',
-            image: data.engagementFile.childImageSharp.gatsbyImageData,
-          },
-          {
-            title: 'Bracelets',
-            to: '/collections/bracelets',
-            buttonLabel: 'Shop All',
-            image: data.braceletFile.childImageSharp.gatsbyImageData,
-          },
-        ]}
-      />
+      <SanityContent rawContent={data.sanityPage._rawContent} />
       <BelovedLinks />
       <BrandStatement />
       <BookConsultation />
@@ -90,40 +54,13 @@ export default IndexPage
 
 export const query = graphql`
   {
+    sanityPage(title: { eq: "Home" }) {
+      title
+      _rawContent
+    }
     site {
       siteMetadata {
         siteUrl
-      }
-    }
-    necklaceFile: file(
-      relativePath: { eq: "collection-slider-necklaces.jpg" }
-    ) {
-      childImageSharp {
-        gatsbyImageData
-      }
-    }
-    ringFile: file(relativePath: { eq: "collection-slider-rings.jpg" }) {
-      childImageSharp {
-        gatsbyImageData
-      }
-    }
-    earringFile: file(relativePath: { eq: "collection-slider-earrings.jpg" }) {
-      childImageSharp {
-        gatsbyImageData
-      }
-    }
-    engagementFile: file(
-      relativePath: { eq: "collection-slider-engagement.jpg" }
-    ) {
-      childImageSharp {
-        gatsbyImageData
-      }
-    }
-    braceletFile: file(
-      relativePath: { eq: "collection-slider-bracelets.jpg" }
-    ) {
-      childImageSharp {
-        gatsbyImageData
       }
     }
   }

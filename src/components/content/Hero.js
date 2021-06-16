@@ -3,13 +3,11 @@ import { Box, Text, Heading, Button, Grid, Flex } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
 import { GatsbyImage, getImage, withArtDirection } from 'gatsby-plugin-image'
 import { getGatsbyImageData } from 'gatsby-source-sanity'
-import sanityConfig from '../lib/sanityConfig'
+import sanityConfig from '../../lib/sanityConfig'
 
 const Hero = ({ node }) => {
-  const {
-    hero: { image1, image2, mobileImage, title, subtitle, button },
-  } = node
-  console.log(node)
+  const { image1, image2, mobileImage, title, subtitle, button } = node
+
   const maybeImages = {}
   maybeImages.image1 = getGatsbyImageData(image1, {}, sanityConfig)
   maybeImages.image2 = image2
@@ -18,14 +16,14 @@ const Hero = ({ node }) => {
   maybeImages.mobileImage = mobileImage
     ? getGatsbyImageData(mobileImage, {}, sanityConfig)
     : null
-  // maybeImages.images = mobileImage
-  //   ? withArtDirection(maybeImages.image1, [
-  //       {
-  //         media: '(max-width: 40em)',
-  //         image: maybeImages.mobileImage,
-  //       },
-  //     ])
-  //   : null
+  maybeImages.images = mobileImage
+    ? withArtDirection(maybeImages.image1, [
+        {
+          media: '(max-width: 40em)',
+          image: maybeImages.mobileImage,
+        },
+      ])
+    : null
 
   return (
     <Grid sx={{ height: '75vh', bg: 'cream', position: 'relative', zIndex: 1 }}>
@@ -55,30 +53,26 @@ const Hero = ({ node }) => {
         }}
       >
         <Box p={6} sx={{ textAlign: 'center' }}>
-          {title && (
-            <Heading
-              as="h1"
-              sx={{
-                color: 'white',
-                fontSize: 6,
-                letterSpacing: 'caps',
-                pb: 3,
-                lineHeight: 1,
-                textTransform: 'lowercase',
-              }}
-            >
-              {title}
-            </Heading>
-          )}
-          {subtitle && (
-            <Text
-              as="h2"
-              variant="caps"
-              sx={{ color: 'white', fontSize: 1, pb: 6, lineHeight: 1.2 }}
-            >
-              {subtitle}
-            </Text>
-          )}
+          <Heading
+            as="h1"
+            sx={{
+              color: 'white',
+              fontSize: 6,
+              letterSpacing: 'caps',
+              pb: 3,
+              lineHeight: 1,
+              textTransform: 'lowercase',
+            }}
+          >
+            {title}
+          </Heading>
+          <Text
+            as="h2"
+            variant="caps"
+            sx={{ color: 'white', fontSize: 1, pb: 6, lineHeight: 1.2 }}
+          >
+            {subtitle}
+          </Text>
           <Button variant="secondary" as={GatsbyLink} to={button.path}>
             {button.label}
           </Button>

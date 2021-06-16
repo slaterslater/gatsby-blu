@@ -1,14 +1,14 @@
 import React from 'react'
 import { Router } from '@reach/router'
-import LoginPage from '../components/account/LoginPage'
-import CreateAccountPage from '../components/account/CreateAccountPage'
-import ForgotPasswordPage from '../components/account/ForgotPasswordPage'
-import OrdersPage from '../components/account/OrdersPage'
-import OrderDetailPage from '../components/account/OrderDetailPage'
-import Layout from '../components/layout'
-import AuthenticatedRoute from '../components/AuthenticatedRoute'
-import ResetPasswordPage from '../components/account/ResetPasswordPage'
-import ActivateAccountPage from '../components/account/ActivateAccountPage'
+import LoginPage from '../../components/account/LoginPage'
+import CreateAccountPage from '../../components/account/CreateAccountPage'
+import ForgotPasswordPage from '../../components/account/ForgotPasswordPage'
+import OrdersPage from '../../components/account/OrdersPage'
+import OrderDetailPage from '../../components/account/OrderDetailPage'
+import Layout from '../../components/layout'
+import AuthenticatedRoute from '../../components/AuthenticatedRoute'
+import ResetPasswordPage from '../../components/account/ResetPasswordPage'
+import ActivateAccountPage from '../../components/account/ActivateAccountPage'
 
 const Account = props => (
   <Layout>

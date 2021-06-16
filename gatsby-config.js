@@ -15,6 +15,7 @@ module.exports = {
     author: `@bluboho`,
     siteUrl,
   },
+  flags: { PRESERVE_WEBPACK_CACHE: true },
   plugins: [
     {
       resolve: `gatsby-plugin-netlify`,
@@ -26,8 +27,8 @@ module.exports = {
     {
       resolve: `gatsby-source-sanity`,
       options: {
-        projectId: process.env.SANITY_PROJECT_ID,
-        dataset: process.env.SANITY_DATASET,
+        projectId: process.env.GATSBY_SANITY_PROJECT_ID,
+        dataset: process.env.GATSBY_SANITY_DATASET,
         token: process.env.SANITY_TOKEN,
         watchMode: true,
       },
@@ -128,10 +129,6 @@ module.exports = {
         ],
         display: 'swap',
       },
-    },
-    {
-      resolve: `gatsby-plugin-create-client-paths`,
-      options: { prefixes: [`/account/*`] },
     },
     {
       resolve: `gatsby-source-shopify`,
