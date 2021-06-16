@@ -6,7 +6,7 @@ import { getGatsbyImageData } from 'gatsby-source-sanity'
 import sanityConfig from '../../lib/sanityConfig'
 
 const Hero = ({ node }) => {
-  const { image1, image2, mobileImage, title, subtitle, button } = node
+  const { image1, image2, mobileImage, heading, subheading, button } = node
 
   const maybeImages = {}
   maybeImages.image1 = getGatsbyImageData(image1, {}, sanityConfig)
@@ -64,17 +64,17 @@ const Hero = ({ node }) => {
               textTransform: 'lowercase',
             }}
           >
-            {title}
+            {heading}
           </Heading>
           <Text
             as="h2"
             variant="caps"
             sx={{ color: 'white', fontSize: 1, pb: 6, lineHeight: 1.2 }}
           >
-            {subtitle}
+            {subheading}
           </Text>
-          <Button variant="secondary" as={GatsbyLink} to={button.path}>
-            {button.label}
+          <Button variant="secondary" as={GatsbyLink} to={button.buttonPath}>
+            {button.buttonText}
           </Button>
         </Box>
       </Flex>
