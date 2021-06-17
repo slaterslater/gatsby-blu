@@ -46,26 +46,30 @@ const Hero = ({
         }}
       >
         <Box p={6} sx={{ textAlign: 'center' }}>
-          <Heading
-            as="h1"
-            sx={{
-              color: 'white',
-              fontSize: 6,
-              letterSpacing: 'caps',
-              pb: 3,
-              lineHeight: 1,
-              textTransform: 'lowercase',
-            }}
-          >
-            {title}
-          </Heading>
-          <Text
-            as="h2"
-            variant="caps"
-            sx={{ color: 'white', fontSize: 1, pb: 6, lineHeight: 1.2 }}
-          >
-            {subtitle}
-          </Text>
+          {title && (
+            <Heading
+              as="h1"
+              sx={{
+                color: 'white',
+                fontSize: 6,
+                letterSpacing: 'caps',
+                pb: 3,
+                lineHeight: 1,
+                textTransform: 'lowercase',
+              }}
+            >
+              {title}
+            </Heading>
+          )}
+          {subtitle && (
+            <Text
+              as="h2"
+              variant="caps"
+              sx={{ color: 'white', fontSize: 1, pb: 6, lineHeight: 1.2 }}
+            >
+              {subtitle}
+            </Text>
+          )}
           <Button variant="secondary" as={GatsbyLink} to={button.path}>
             {button.label}
           </Button>
