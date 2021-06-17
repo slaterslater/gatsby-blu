@@ -23,8 +23,8 @@ const HomepageHero = props => {
       desktopImage1={data.desktopImage1}
       mobileImage={data.mobileImage}
       button={{
-        label: 'shop wanderess ',
-        path: '/collections/wanderess',
+        label: 'shop wildflower ',
+        path: '/collections/wildflower',
       }}
     />
   )
