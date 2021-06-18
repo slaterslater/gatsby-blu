@@ -24,20 +24,20 @@ module.exports = {
         mergeCachingHeaders: false,
       },
     },
-    {
-      resolve: 'gatsby-plugin-robots-txt',
-      options: {
-        resolveEnv: () => process.env.ROBOTS_ENV || 'development',
-        env: {
-          development: {
-            policy: [{ userAgent: '*', disallow: ['/'] }],
-          },
-          production: {
-            policy: [{ userAgent: '*', allow: '/' }],
-          },
-        },
-      },
-    },
+    // {
+    //   resolve: 'gatsby-plugin-robots-txt',
+    //   options: {
+    //     resolveEnv: () => process.env.ROBOTS_ENV || 'development',
+    //     env: {
+    //       development: {
+    //         policy: [{ userAgent: '*', disallow: ['/'] }],
+    //       },
+    //       production: {
+    //         policy: [{ userAgent: '*', allow: '/' }],
+    //       },
+    //     },
+    //   },
+    // },
     {
       resolve: `gatsby-source-sanity`,
       options: {
