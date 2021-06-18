@@ -25,6 +25,8 @@ const Hero = ({ node }) => {
       ])
     : null
 
+  console.log(node)
+
   return (
     <Grid sx={{ height: '75vh', bg: 'cream', position: 'relative', zIndex: 1 }}>
       <Grid
@@ -53,28 +55,32 @@ const Hero = ({ node }) => {
         }}
       >
         <Box p={6} sx={{ textAlign: 'center' }}>
-          <Heading
-            as="h1"
-            sx={{
-              color: 'white',
-              fontSize: 6,
-              letterSpacing: 'caps',
-              pb: 3,
-              lineHeight: 1,
-              textTransform: 'lowercase',
-            }}
-          >
-            {heading}
-          </Heading>
-          <Text
-            as="h2"
-            variant="caps"
-            sx={{ color: 'white', fontSize: 1, pb: 6, lineHeight: 1.2 }}
-          >
-            {subheading}
-          </Text>
-          <Button variant="secondary" as={GatsbyLink} to={button.buttonPath}>
-            {button.buttonText}
+          {heading && (
+            <Heading
+              as="h1"
+              sx={{
+                color: 'white',
+                fontSize: 6,
+                letterSpacing: 'caps',
+                pb: 3,
+                lineHeight: 1,
+                textTransform: 'lowercase',
+              }}
+            >
+              {heading}
+            </Heading>
+          )}
+          {subheading && (
+            <Text
+              as="h2"
+              variant="caps"
+              sx={{ color: 'white', fontSize: 1, pb: 6, lineHeight: 1.2 }}
+            >
+              {subheading}
+            </Text>
+          )}
+          <Button variant="secondary" as={GatsbyLink} to={button.path}>
+            {button.text}
           </Button>
         </Box>
       </Flex>

@@ -12,14 +12,20 @@ export const CalloutBox = ({
 }) => (
   <Box {...props}>
     <Flex p={4} sx={{ bg, color, alignItems: 'flex-start' }}>
-      <Box as={Icon} size={28} color={color} mr={2} sx={{ flexShrink: 0 }} />
+      {Icon && (
+        <Box as={Icon} size={28} color={color} mr={2} sx={{ flexShrink: 0 }} />
+      )}
       <Box ml={2}>
-        <Text as="h4" pb={1} variant="caps">
-          {title}
-        </Text>
-        <Text as="p" pr={4} sx={{ color: 'darkerGray', fontSize: 0 }}>
-          {description}
-        </Text>
+        {title && (
+          <Text as="h4" pb={1} variant="caps">
+            {title}
+          </Text>
+        )}
+        {description && (
+          <Text as="p" pr={4} sx={{ color: 'darkerGray', fontSize: 0 }}>
+            {description}
+          </Text>
+        )}
       </Box>
     </Flex>
   </Box>

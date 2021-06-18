@@ -1,7 +1,8 @@
-import React, { useContext } from 'react'
-import { Button, Flex, Box } from 'theme-ui'
+import React, { useContext, useMemo } from 'react'
+import { Text, Button, Flex, Box } from 'theme-ui'
 import { useQuery, useMutation } from 'urql'
 import { useMatch } from '@reach/router'
+import { DateTime } from 'luxon'
 import { StoreContext } from '../../contexts/StoreContext'
 import { DrawerContext } from '../drawers'
 import { AddCheckoutLineItem } from '../../mutations/cart'
@@ -20,12 +21,65 @@ const getLatestVariant = (data, id) => {
   return latestVariant.node
 }
 
+const getPreorderMessage = tag => {
+  if (tag.includes('pre-order')) {
+    const [, isoDate] = tag.split(':')
+    const preorderDate = DateTime.fromISO(isoDate)
+    const now = DateTime.now()
+
+    if (preorderDate < now) return null
+    const format = 'MMM d'
+    return `expected to ship week of ${preorderDate.toFormat(format)}`
+  }
+  return null
+}
+
+const getTagAttributes = tags =>
+  tags.reduce((acc, tag) => {
+    if (tag.includes('made-to-order')) {
+      return [
+        ...acc,
+        {
+          key: 'made to order',
+          value: 'allow 6-8 weeks production and delivery',
+        },
+      ]
+    }
+
+    if (tag.includes('pre-order')) {
+      const message = getPreorderMessage(tag)
+      if (!message) return acc
+
+      return [
+        ...acc,
+        {
+          key: 'pre-order',
+          value: message,
+        },
+      ]
+    }
+    return acc
+  }, [])
+
+const useProductPreorderMessage = tags =>
+  useMemo(
+    () =>
+      tags.reduce((acc, tag) => {
+        const message = getPreorderMessage(tag)
+        return message || acc
+      }),
+    ''
+  )
+
 const AddToCart = ({ variant, tags, productType, customAttributes }) => {
   const { handle } = useMatch('/products/:handle')
   const [{ data, error }] = useQuery({
     query: PRODUCT_QUERY,
     variables: { handle },
   })
+
+  const preorderMessage = useProductPreorderMessage(tags)
+  // check tags for pre-order
 
   const sendGAEvent = useGAEvent({
     category: productType,
@@ -40,13 +94,12 @@ const AddToCart = ({ variant, tags, productType, customAttributes }) => {
   const addToCart = async () => {
     sendGAEvent()
     const lineItems = [{ quantity: 1, variantId: variant.shopifyId }]
-    const nextAttributes = customAttributes || []
-    if (tags.includes('made-to-order')) {
-      nextAttributes.push({
-        key: 'made to order',
-        value: 'allow 6-8 weeks production and delivery',
-      })
-    }
+
+    const nextAttributes = [
+      ...(customAttributes || []),
+      ...getTagAttributes(tags),
+    ]
+
     if (nextAttributes.length) {
       lineItems[0].customAttributes = nextAttributes
     }
@@ -77,9 +130,16 @@ const AddToCart = ({ variant, tags, productType, customAttributes }) => {
           onClick={addToCart}
           sx={{ flex: 1, fontSize: 1, py: 4 }}
         >
-          {soldOut ? 'Sold Out' : 'Add To Cart'}
+          {soldOut ? 'Sold Out' : preorderMessage ? 'Preorder' : 'Add To Cart'}
         </Button>
       </Flex>
+      {preorderMessage && (
+        <Box sx={{ textAlign: 'center' }} pt={2}>
+          <Text sx={{ fontSize: 0, fontStyle: 'italic' }}>
+            {preorderMessage}
+          </Text>
+        </Box>
+      )}
     </Box>
   )
 }

@@ -29,6 +29,9 @@ const transporter = nodemailer.createTransport({
 })
 
 exports.handler = async (event, context) => {
+  // if form name is bridal consultation, send a bridal consultation title
+  // if form name is exchange request, send exchange request title
+
   const body = JSON.parse(event.body)
 
   if (body.decepticon)
@@ -54,10 +57,16 @@ exports.handler = async (event, context) => {
     </div>
   `
 
+  // maddie gets all
+  // GX gets all
+  // check location for if includes queen send to queen also
+  // check location for if includes lakeshore send to lakeshore also
+  // check location for if includes yonge send to yonge also
+
   const info = await transporter.sendMail({
     from: 'bluboho contact form <ian@bluboho.com>',
     to: process.env.INBOUND_EMAIL_ADDRESS,
-    subject: 'New Website Contact',
+    subject: body.formName || 'New Website Contact',
     html,
   })
 
