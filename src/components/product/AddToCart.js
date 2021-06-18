@@ -67,8 +67,8 @@ const useProductPreorderMessage = tags =>
       tags.reduce((acc, tag) => {
         const message = getPreorderMessage(tag)
         return message || acc
-      }),
-    ''
+      }, ''),
+    tags
   )
 
 const AddToCart = ({ variant, tags, productType, customAttributes }) => {
@@ -79,6 +79,7 @@ const AddToCart = ({ variant, tags, productType, customAttributes }) => {
   })
 
   const preorderMessage = useProductPreorderMessage(tags)
+  // console.log(preorderMessage)
   // check tags for pre-order
 
   const sendGAEvent = useGAEvent({
