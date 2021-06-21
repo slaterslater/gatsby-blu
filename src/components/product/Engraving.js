@@ -15,7 +15,6 @@ const AutoSave = () => {
   useEffect(() => {
     if (ctx.isValid && ctx.dirty && !ctx.isSubmitting) {
       console.log({ isValid: ctx.isValid, ctx })
-      console.log('submit form')
       ctx.submitForm()
     }
   }, [ctx])

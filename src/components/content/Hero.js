@@ -25,8 +25,6 @@ const Hero = ({ node }) => {
       ])
     : null
 
-  console.log(node)
-
   return (
     <Grid sx={{ height: '75vh', bg: 'cream', position: 'relative', zIndex: 1 }}>
       <Grid
