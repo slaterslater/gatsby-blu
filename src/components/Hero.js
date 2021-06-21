@@ -2,45 +2,37 @@ import React from 'react'
 import { Box, Text, Heading, Button, Grid, Flex } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
 import { GatsbyImage, getImage, withArtDirection } from 'gatsby-plugin-image'
-import { getGatsbyImageData } from 'gatsby-source-sanity'
-import sanityConfig from '../lib/sanityConfig'
 
-const Hero = ({ node }) => {
-  const {
-    hero: { image1, image2, mobileImage, title, subtitle, button },
-  } = node
-  const maybeImages = {}
-  maybeImages.image1 = getGatsbyImageData(image1, {}, sanityConfig)
-  maybeImages.image2 = image2
-    ? getGatsbyImageData(image2, {}, sanityConfig)
-    : null
-  maybeImages.mobileImage = mobileImage
-    ? getGatsbyImageData(mobileImage, {}, sanityConfig)
-    : null
-  // maybeImages.images = mobileImage
-  //   ? withArtDirection(maybeImages.image1, [
-  //       {
-  //         media: '(max-width: 40em)',
-  //         image: maybeImages.mobileImage,
-  //       },
-  //     ])
-  //   : null
+const Hero = ({
+  desktopImage1,
+  desktopImage2,
+  mobileImage,
+  title,
+  subtitle,
+  button,
+}) => {
+  const images = withArtDirection(getImage(desktopImage1), [
+    {
+      media: '(max-width: 40em)',
+      image: getImage(mobileImage),
+    },
+  ])
 
   return (
     <Grid sx={{ height: '75vh', bg: 'cream', position: 'relative', zIndex: 1 }}>
       <Grid
         sx={{
-          gridTemplateColumns: ['1fr', maybeImages.image2 ? '1fr 1fr' : '1fr'],
+          gridTemplateColumns: ['1fr', desktopImage2 ? '1fr 1fr' : '1fr'],
           gap: 0,
           gridColumn: '1 / -1',
           gridRow: '1 / -1',
           overflow: 'hidden',
         }}
       >
-        <GatsbyImage image={maybeImages.images || maybeImages.image1} alt="" />
-        {maybeImages.image2 && (
+        <GatsbyImage image={images} alt="" />
+        {desktopImage2 && (
           <Box sx={{ display: ['none', 'flex'], alignItems: 'stretch' }}>
-            <GatsbyImage image={maybeImages.image2} />
+            <GatsbyImage image={getImage(desktopImage2)} />
           </Box>
         )}
       </Grid>
