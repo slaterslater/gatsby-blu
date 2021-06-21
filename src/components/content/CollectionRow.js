@@ -9,9 +9,6 @@ const CollectionRow = ({ node: { collections } }) => (
     title="Modern Fine Jewelry"
     subtitle="handcrafted + ethically sourced"
     slides={collections.map(collection => {
-      // const image = getGatsbyImageData(collection.image.asset._ref)
-      // debugger
-      // const imageData =
       const image = getGatsbyImageData(collection.image, {}, sanityConfig)
 
       return {

@@ -1,6 +1,6 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import CollectionPage from '../../components/collection/CollectionPage'
+import CollectionView from '../../views/CollectionView'
 
 const CollectionPageTemplate = ({ data }) => {
   const { products, handle } = data.shopifyCollection
@@ -9,7 +9,7 @@ const CollectionPageTemplate = ({ data }) => {
   const description = data.shopifyCollection.description?.toLowerCase()
 
   return (
-    <CollectionPage
+    <CollectionView
       title={title}
       handle={handle}
       description={description}
