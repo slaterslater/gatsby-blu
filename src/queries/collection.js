@@ -1,6 +1,7 @@
 import gql from 'graphql-tag'
 
 import { SEARCH_PRODUCT_FRAGMENT } from './search'
+import { PRODUCT_PRICE_RANGE_FRAGMENT } from './product'
 
 export const PAGINATED_COLLECTION_PRODUCTS_QUERY = gql`
   ${SEARCH_PRODUCT_FRAGMENT}
@@ -15,6 +16,48 @@ export const PAGINATED_COLLECTION_PRODUCTS_QUERY = gql`
           node {
             ... on Product {
               ...ProductSearchFields
+            }
+          }
+        }
+      }
+    }
+  }
+`
+
+export const COLLECTION_PAGE_QUERY = gql`
+  ${SEARCH_PRODUCT_FRAGMENT}
+  ${PRODUCT_PRICE_RANGE_FRAGMENT}
+  query CollectionPageQuery($handle: String!) {
+    collectionByHandle(handle: $handle) {
+      title
+      description
+      products(first: 250) {
+        edges {
+          cursor
+          node {
+            variants(first: 50) {
+              edges {
+                node {
+                  priceV2 {
+                    currencyCode
+                    amount
+                  }
+                  presentmentPrices(first: 100) {
+                    edges {
+                      node {
+                        price {
+                          amount
+                          currencyCode
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            ... on Product {
+              ...ProductSearchFields
+              ...ProductPriceRangeFields
             }
           }
         }

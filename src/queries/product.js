@@ -1,5 +1,20 @@
 import gql from 'graphql-tag'
 
+export const PRODUCT_PRICE_RANGE_FRAGMENT = gql`
+  fragment ProductPriceRangeFields on Product {
+    priceRange {
+      minVariantPrice {
+        amount
+        currencyCode
+      }
+      maxVariantPrice {
+        amount
+        currencyCode
+      }
+    }
+  }
+`
+
 export const PRODUCT_QUERY = gql`
   query ProductQuery($handle: String!) {
     productByHandle(handle: $handle) {

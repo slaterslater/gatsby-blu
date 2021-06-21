@@ -2,12 +2,6 @@
   functions = "functions/"
 
 [[redirects]]
-from = "/collections/*"
-to = "/collections/all"
-status = 302
-force = false
-
-[[redirects]]
 from = "/products/*"
 to = "/"
 status = 302

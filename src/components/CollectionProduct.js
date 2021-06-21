@@ -38,6 +38,7 @@ const CollectionProduct = ({
   collectionPath,
   images,
 }) => {
+  console.log(images)
   const [price, hasRange] = useProductPrice(product)
   const title = useProductTitle(product.title)
 

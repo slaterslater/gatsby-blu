@@ -15,7 +15,7 @@ module.exports = {
     author: `@bluboho`,
     siteUrl,
   },
-  flags: { PRESERVE_WEBPACK_CACHE: true },
+  flags: { PRESERVE_WEBPACK_CACHE: true, PARALLEL_SOURCING: true },
   plugins: [
     {
       resolve: `gatsby-plugin-netlify`,

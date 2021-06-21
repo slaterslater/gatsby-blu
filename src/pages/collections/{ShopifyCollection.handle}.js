@@ -44,6 +44,7 @@ export const query = graphql`
           altText
           height
           width
+          id
         }
         tags
         variants {
