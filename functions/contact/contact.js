@@ -2,6 +2,8 @@
 
 const nodemailer = require('nodemailer')
 const googleapis = require('googleapis')
+const { nanoid } = require('nanoid')
+const createRecipientList = require('./createRecipientList')
 
 const { OAuth2 } = googleapis.google.auth
 
@@ -29,9 +31,6 @@ const transporter = nodemailer.createTransport({
 })
 
 exports.handler = async (event, context) => {
-  // if form name is bridal consultation, send a bridal consultation title
-  // if form name is exchange request, send exchange request title
-
   const body = JSON.parse(event.body)
 
   if (body.decepticon)
@@ -45,6 +44,7 @@ exports.handler = async (event, context) => {
   const html = `
     <div style="padding: 24px; border: 1px solid #e7e7e7; border-radius: 4px;max-width: 480px;">
       ${Object.keys(body)
+        .filter(key => key === 'subject')
         .map(
           key => `
           <div style="padding-bottom: 16px;">
@@ -57,20 +57,20 @@ exports.handler = async (event, context) => {
     </div>
   `
 
-  // maddie gets all
-  // GX gets all
-  // check location for if includes queen send to queen also
-  // check location for if includes lakeshore send to lakeshore also
-  // check location for if includes yonge send to yonge also
+  const to = createRecipientList(body)
+
+  // include a nanoid in the subject to avoid threading
+  const nanoId = nanoid(6)
+  const subject = `${body.subject} - ${nanoId}`
 
   const info = await transporter.sendMail({
     from: 'bluboho contact form <ian@bluboho.com>',
-    to: process.env.INBOUND_EMAIL_ADDRESS,
-    subject: body.formName || 'New Website Contact',
+    subject,
+    to,
     html,
   })
 
-  // console.log(info)
+  console.log(to, info)
 
   return {
     statusCode: 200,

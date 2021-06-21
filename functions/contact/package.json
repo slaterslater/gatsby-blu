@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "googleapis": "^73.0.0",
+    "nanoid": "^3.1.23",
     "nodemailer": "^6.6.0",
     "nodemailer-postmark-transport": "^4.0.0",
     "postmark": "^2.7.4"

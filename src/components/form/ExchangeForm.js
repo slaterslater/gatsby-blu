@@ -47,7 +47,8 @@ const ExchangeForm = ({ onSuccess }) => (
     validationSchema={validationSchema}
     onSubmit={async (values, actions) => {
       const body = pickBy(values, val => !!val)
-      body['webstore exchange request'] = true
+      const { firstName, lastName, email } = values
+      body.subject = `webstore exchange request from ${firstName} ${lastName} (${email})`
       try {
         await fetch(`${process.env.GATSBY_SERVERLESS_BASE}/contact`, {
           method: 'POST',
