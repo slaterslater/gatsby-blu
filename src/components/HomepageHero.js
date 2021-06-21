@@ -24,8 +24,8 @@ const HomepageHero = props => {
     <Hero
       desktopImage1={data.image1}
       mobileImage={data.imageMobile}
-      title="endless ocean"
-      subtitle="conjuring treasures from the deep"
+      title="oceana"
+      subtitle="let the waves carry you where the light cannot"
       button={{
         label: 'shop ocean inspired',
         path: '/collections/ocean-inspired',

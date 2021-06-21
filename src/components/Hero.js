@@ -65,7 +65,7 @@ const Hero = ({
             <Text
               as="h2"
               variant="caps"
-              sx={{ color: 'white', fontSize: 1, pb: 6, lineHeight: 1.2 }}
+              sx={{ color: 'white', fontSize: 1, pb: 6, lineHeight: 1.5 }}
             >
               {subtitle}
             </Text>
