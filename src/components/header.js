@@ -60,8 +60,9 @@ const Header = () => {
             }}
             p={4}
           >
-            <Flex sx={{ display: ['none', 'flex', 'flex'] }}>
+            <Flex>
               <IconButton
+                sx={{ cursor: 'pointer', display: ['none', 'flex'] }}
                 as={GatsbyLink}
                 to="/account"
                 mr={2}
@@ -77,6 +78,20 @@ const Header = () => {
               <IconButton
                 sx={{ cursor: 'pointer', display: ['none', 'flex'] }}
                 onClick={() => setSearchOpen(state => !state)}
+                mr={2}
+                aria-label="Search"
+              >
+                <Text
+                  as={IoIosSearch}
+                  color="white"
+                  size={24}
+                  sx={{ transform: 'translateY(1px)' }}
+                />
+              </IconButton>
+              <IconButton
+                as={GatsbyLink}
+                sx={{ cursor: 'pointer', display: ['flex', 'none'] }}
+                to="/search"
                 mr={2}
                 aria-label="Search"
               >

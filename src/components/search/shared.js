@@ -32,7 +32,7 @@ export const InstantSearchInput = connectSearchBox(
         value={currentRefinement}
         onChange={e => {
           refine(e.target.value)
-          onChange()
+          onChange(e.target.value)
         }}
         placeholder="search ..."
         sx={{
