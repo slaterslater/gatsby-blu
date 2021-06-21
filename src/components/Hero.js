@@ -9,7 +9,6 @@ const Hero = ({ node }) => {
   const {
     hero: { image1, image2, mobileImage, title, subtitle, button },
   } = node
-  console.log(node)
   const maybeImages = {}
   maybeImages.image1 = getGatsbyImageData(image1, {}, sanityConfig)
   maybeImages.image2 = image2
