@@ -48,6 +48,7 @@ export const megaMenu = {
     {
       title: 'collections',
       links: [
+        { path: '/collections/oceana-collection', text: 'oceana' },
         {
           path: '/collections/tree-of-life-collection-1',
           text: 'tree of life',
@@ -83,7 +84,7 @@ export const megaMenu = {
         { path: '/collections/gifts-under-500', text: 'gifts under 500$' },
         { path: '/collections/gifts-under-300', text: 'gifts under 300$' },
         { path: '/collections/graduation-gift-guide', text: 'graduation' },
-        { path: '/collections/gemini-gift-guide-1', text: 'gemini' },
+        { path: '/collections/cancer-gift-guide', text: 'cancer' },
         { path: '/products/gift-card', text: 'gift cards' },
       ],
     },

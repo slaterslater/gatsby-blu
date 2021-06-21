@@ -8,7 +8,23 @@ const HomepageHero = props => {
       sanityPage(title: { eq: "Home" }) {
         content {
           ... on SanityHero {
+            heading
+            subheading
+            button {
+              path
+              text
+            }
             image1 {
+              asset {
+                gatsbyImageData
+              }
+            }
+            image2 {
+              asset {
+                gatsbyImageData
+              }
+            }
+            imageMobile {
               asset {
                 gatsbyImageData
               }
@@ -19,17 +35,16 @@ const HomepageHero = props => {
     }
   `)
 
-  console.log(data.sanityPage)
-
   return (
     <Hero
       desktopImage1={data.sanityPage.content.image1.asset.gatsbyImageData}
-      mobileImage={data.mobileImage}
-      title="begin to bloom"
-      subtitle="bring wild beauty to our lives"
+      desktopImage2={data.sanityPage.content.image2.asset.gatsbyImageData}
+      mobileImage={data.sanityPage.content.imageMobile.asset.gatsbyImageData}
+      title={data.sanityPage.content.heading}
+      subtitle={data.sanityPage.content.subheading}
       button={{
-        label: 'shop best sellers',
-        path: '/collections/best-sellers-1',
+        label: data.sanityPage.content.button.text,
+        path: data.sanityPage.content.button.path,
       }}
     />
   )
