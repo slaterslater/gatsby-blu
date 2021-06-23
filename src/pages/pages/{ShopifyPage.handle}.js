@@ -6,8 +6,9 @@ import ShopifyHtml from '../../components/ShopifyHtml'
 import SEO from '../../components/seo'
 import NewsletterForm from '../../components/NewsletterForm'
 import Exchange from '../../components/Exchange'
+import ConsultationForm from '../../components/BookConsultationForm'
 
-const BlogTemplate = ({ data, path }) => (
+const PageTemplate = ({ data, path }) => (
   <Layout>
     <SEO title={data.shopifyPage.title} />
     <Container as="main" pb={8} sx={{ maxWidth: 680 }}>
@@ -15,6 +16,9 @@ const BlogTemplate = ({ data, path }) => (
         <Heading>{data.shopifyPage.title}</Heading>
       </Box>
       {path?.includes('/pages/exchange-form') && <Exchange variant="primary" />}
+      {path?.includes('/pages/book-a-consultation') && (
+        <ConsultationForm variant="primary" />
+      )}
       <ShopifyHtml
         dangerouslySetInnerHTML={{
           __html: data.shopifyPage.body,
@@ -25,7 +29,7 @@ const BlogTemplate = ({ data, path }) => (
   </Layout>
 )
 
-export default BlogTemplate
+export default PageTemplate
 
 export const query = graphql`
   query Page($handle: String!) {

@@ -1,8 +1,9 @@
 import { Formik, Form } from 'formik'
 import { pickBy } from 'lodash'
-import React from 'react'
+import React, { useState } from 'react'
 import * as yup from 'yup'
 import { Box, Button, Grid } from 'theme-ui'
+import { BiHeart } from 'react-icons/bi'
 import {
   HoneypotControl,
   InputControl,
@@ -10,6 +11,7 @@ import {
   TextareaControl,
 } from './app/formik/FormControlWrap'
 import SubmitButton from './app/formik/SubmitButton'
+import { CalloutBox } from './product/ProductCTACallout'
 
 const locationOpts = [
   'in-person: 350 queen st w. (toronto)',
@@ -167,4 +169,28 @@ const BookConsultationForm = ({ onSuccess, onError }) => (
   </Formik>
 )
 
-export default BookConsultationForm
+const ConsultationFormWithSuccess = () => {
+  const [alert, setAlert] = useState({ type: null })
+
+  return (
+    <>
+      {alert.type === 'success' && (
+        <Box pb={6}>
+          <CalloutBox
+            icon={BiHeart}
+            title="Your request was received!"
+            description="We will reach out shortly to confirm a time"
+            bg="cream"
+          />
+        </Box>
+      )}
+      <BookConsultationForm
+        onSuccess={() => {
+          setAlert({ type: 'success' })
+        }}
+      />
+    </>
+  )
+}
+
+export default ConsultationFormWithSuccess
