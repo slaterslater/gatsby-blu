@@ -44,7 +44,6 @@ exports.handler = async (event, context) => {
   const html = `
     <div style="padding: 24px; border: 1px solid #e7e7e7; border-radius: 4px;max-width: 480px;">
       ${Object.keys(body)
-        .filter(key => key === 'subject')
         .map(
           key => `
           <div style="padding-bottom: 16px;">

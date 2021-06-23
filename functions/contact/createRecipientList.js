@@ -1,3 +1,9 @@
+const storeEmails = {
+  queen: 'queenstreet@bluboho.com',
+  yonge: 'yongest@bluboho.com',
+  oakville: 'oakville@bluboho.com',
+}
+
 function createRecipientList(body) {
   const mailList = ['guestexperience@bluboho.com']
 
@@ -6,10 +12,9 @@ function createRecipientList(body) {
     mailList.push('maddie@bluboho.com')
 
     // if the consultation is local, send it to the store too
-    const locations = ['queen', 'yonge', 'oakville']
-    locations.forEach(location => {
+    Object.keys(storeEmails).forEach(location => {
       if (body.location.toLowerCase().includes(location)) {
-        mailList.push(`${location}@bluboho.com`)
+        mailList.push(storeEmails[location])
       }
     })
   }
