@@ -5,13 +5,13 @@ import Hero from './Hero'
 const HomepageHero = props => {
   const data = useStaticQuery(graphql`
     {
-      image1: file(relativePath: { eq: "hero/jun-21/monday_oceana.jpg" }) {
+      image1: file(relativePath: { eq: "hero/jun-24/thursday_oceana.jpg" }) {
         childImageSharp {
-          gatsbyImageData
+          gatsbyImageData(quality: 90)
         }
       }
       imageMobile: file(
-        relativePath: { eq: "hero/jun-21/monday_oceana_MOBILE.jpg" }
+        relativePath: { eq: "hero/jun-24/thursday_oceana_MOBILE.jpg" }
       ) {
         childImageSharp {
           gatsbyImageData
