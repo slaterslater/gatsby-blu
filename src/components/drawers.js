@@ -21,7 +21,7 @@ const DrawerOuter = ({ origin, ...props }) => (
       top: 0,
       width: 360,
       height: '100vh',
-      height: 'fill-available',
+      height: 'calc(var(--vh, 1vh) * 100)',
       maxWidth: '90vw',
       position: 'fixed',
       zIndex: 101,
@@ -40,6 +40,11 @@ const Drawers = ({ children }) => {
   useEffect(() => {
     if (openDrawer) {
       document.querySelector('body').style.overflow = 'hidden'
+
+      // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
+      const vh = window.innerHeight * 0.01
+      // Then we set the value in the --vh custom property to the root of the document
+      document.documentElement.style.setProperty('--vh', `${vh}px`)
     }
 
     if (!openDrawer) {
@@ -65,7 +70,7 @@ const Drawers = ({ children }) => {
                 boxShadow: 'inset 0 0 70px rgba(0,0,0,.7)',
                 bg: 'rgba(0,0,0,.5)',
                 height: '100vh',
-                height: 'fill-available',
+                height: 'calc(var(--vh, 1vh) * 100)',
                 width: '100vw',
                 position: 'fixed',
                 zIndex: 100,
