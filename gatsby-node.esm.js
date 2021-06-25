@@ -49,7 +49,7 @@ async function createBlogPages({ graphql, actions }) {
     {
       allShopifyArticle(
         sort: { fields: [publishedAt], order: DESC }
-        filter: { blog: { title: { eq: "News" } } }
+        filter: { blog: { title: { eq: "blog" } } }
       ) {
         totalCount
       }

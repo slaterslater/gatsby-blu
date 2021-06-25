@@ -17,8 +17,13 @@ const BlogTemplate = ({ data, pageContext }) => {
     <Layout>
       <Container>
         <Heading pb={4}>Blog</Heading>
-        {topStory && <TopStory article={topStory} mb={[6, 6, 7]} />}
-        <Grid sx={{ gridTemplateColumns: 'repeat(3, 1fr)', gap: [6, 6, 7] }}>
+        {topStory && <TopStory article={topStory} mb={[4, 5, 6]} />}
+        <Grid
+          sx={{
+            gridTemplateColumns: ['1fr 1fr', 'repeat(3, 1fr)'],
+            gap: [4, 5, 6],
+          }}
+        >
           {data.allShopifyArticle.nodes.slice(1).map(article => (
             <ArticleListItem article={article} key={article.id} />
           ))}
@@ -27,8 +32,8 @@ const BlogTemplate = ({ data, pageContext }) => {
           totalPages={totalPages}
           currentPage={currentPage}
           getLinkForPage={page => {
-            if (page === 1) return `/blog`
-            return `/blog/page-${page}`
+            if (page === 1) return `/blogs/news`
+            return `/blogs/news/page-${page}`
           }}
           pt={7}
         />
@@ -53,8 +58,11 @@ export const query = graphql`
         handle
         content
         image {
-          src
+          originalSrc: src
           altText
+          height
+          width
+          id
         }
         blog {
           title

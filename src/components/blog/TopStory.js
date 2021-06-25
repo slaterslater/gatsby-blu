@@ -1,51 +1,77 @@
 import { Box, Grid, Button, Heading, Flex } from 'theme-ui'
 import React from 'react'
 import { Link as GatsbyLink } from 'gatsby'
+import { GatsbyImage } from 'gatsby-plugin-image'
 import FluidShopifyImage from '../FluidShopifyImage'
 import RemoteShopifyImage from '../RemoteShopifyImage'
+import { getShopifyImage } from '../../lib/get-shopify-image'
 
-const TopStoryWithImage = ({ article: { title, image, handle }, ...props }) => (
-  <Grid sx={{ minHeight: [240, 360], maxHeight: [330, 450] }} {...props}>
-    <RemoteShopifyImage
-      originalSrc={image.src}
-      sizes={[400, 600, 800, 1000, 1200, 1600]}
+const TopStoryWithImage = ({ article: { title, image, handle }, ...props }) => {
+  const imageData = getShopifyImage({ image })
+
+  return (
+    <Grid
       sx={{
-        height: '100%',
-        objectFit: 'cover',
-        maxHeight: [330, 350],
         minHeight: [240, 360],
-        width: '100%',
-        gridArea: '1 / 1 / -1 / -1',
+        maxHeight: [330, 450],
+        overflow: 'hidden',
+        position: 'relative',
       }}
-    />
-    <Flex
-      sx={{
-        gridArea: '1 / 1 / -1 / -1',
-        justifyContent: 'flex-end',
-        flexDirection: 'column',
-        alignItems: 'flex-start',
-      }}
-      p={[4, 6]}
+      {...props}
     >
-      <Heading
-        as="h1"
-        variant="caps"
-        pb={4}
-        sx={{ color: 'white', fontSize: [3, 4] }}
+      <Flex
+        sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0,
+          '&::before': {
+            content: `''`,
+            display: 'block',
+            position: 'absolute',
+            top: 0,
+            bottom: 0,
+            width: '100%',
+            backgroundImage:
+              'linear-gradient(to top, rgba(0,0,0,.4) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,0) 100%)',
+            zIndex: 1,
+          },
+        }}
       >
-        {title}
-      </Heading>
-      <Button variant="inverted" as={GatsbyLink}>
-        Read More
-      </Button>
-    </Flex>
-  </Grid>
-)
+        <GatsbyImage image={imageData} alt={image.altText} />
+      </Flex>
+      <Flex
+        sx={{
+          gridArea: '1 / 1 / -1 / -1',
+          justifyContent: 'flex-end',
+          flexDirection: 'column',
+          alignItems: 'flex-start',
+          zIndex: 1,
+        }}
+        p={[4, 6]}
+      >
+        <Heading
+          as="h1"
+          variant="caps"
+          pb={4}
+          sx={{ color: 'white', fontSize: [3, 4], fontWeight: 'normal' }}
+        >
+          {title}
+        </Heading>
+        <Button variant="inverted" as={GatsbyLink}>
+          Read More
+        </Button>
+      </Flex>
+    </Grid>
+  )
+}
 
 const TopStory = ({ article, ...props }) => {
   const { image, title, handle } = article
 
-  if (image?.src) return <TopStoryWithImage article={article} {...props} />
+  if (image?.originalSrc)
+    return <TopStoryWithImage article={article} {...props} />
 
   return (
     <Box pt={6} {...props}>
