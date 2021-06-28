@@ -5,16 +5,21 @@ import Hero from './Hero'
 const HomepageHero = props => {
   const data = useStaticQuery(graphql`
     {
-      image1: file(relativePath: { eq: "hero/jun-24/thursday_oceana.jpg" }) {
+      image1: file(relativePath: { eq: "hero/jun-28/homepage_split.jpg" }) {
         childImageSharp {
-          gatsbyImageData(quality: 90)
+          gatsbyImageData(quality: 82)
+        }
+      }
+      image2: file(relativePath: { eq: "hero/jun-28/homepage_split2.jpg" }) {
+        childImageSharp {
+          gatsbyImageData(quality: 82)
         }
       }
       imageMobile: file(
-        relativePath: { eq: "hero/jun-24/thursday_oceana_MOBILE.jpg" }
+        relativePath: { eq: "hero/jun-28/homepage_mobile.jpg" }
       ) {
         childImageSharp {
-          gatsbyImageData
+          gatsbyImageData(quality: 82)
         }
       }
     }
@@ -23,6 +28,7 @@ const HomepageHero = props => {
   return (
     <Hero
       desktopImage1={data.image1}
+      desktopImage2={data.image2}
       mobileImage={data.imageMobile}
       title="oceana"
       subtitle="let the waves carry you where the light cannot"
