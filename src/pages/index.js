@@ -42,9 +42,9 @@ const IndexPage = ({ data }) => {
       <SEO title="Home">
         <script type="application/ld+json">{websiteLdJSON}</script>
       </SEO>
-      {/* <SanityContent rawContent={data.sanityPage._rawContent} /> */}
-      <HomepageHero />
-      <HomepageCollectionSlider />
+      <SanityContent rawContent={data.sanityPage._rawContent} />
+      {/* <HomepageHero /> */}
+      {/* <HomepageCollectionSlider /> */}
       <BelovedLinks />
       <BrandStatement />
       <BookConsultation />
