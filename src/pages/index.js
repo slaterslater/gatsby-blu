@@ -8,9 +8,6 @@ import BrandStatement from '../components/BrandStatement'
 import InstagramFeed from '../components/InstagramFeed'
 import BookConsultation from '../components/BookConsultation'
 import ReviewsSlider from '../components/ReviewsSlider'
-import HomepageHero from '../components/HomepageHero'
-import HomepageCollectionSlider from '../components/HomepageCollectionSlider'
-// import CollectionSlider from '../components/CollectionSlider'
 import SanityContent from '../components/SanityContent'
 
 const IndexPage = ({ data }) => {
@@ -43,8 +40,6 @@ const IndexPage = ({ data }) => {
         <script type="application/ld+json">{websiteLdJSON}</script>
       </SEO>
       <SanityContent rawContent={data.sanityPage._rawContent} />
-      {/* <HomepageHero /> */}
-      {/* <HomepageCollectionSlider /> */}
       <BelovedLinks />
       <BrandStatement />
       <BookConsultation />
