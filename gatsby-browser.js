@@ -15,3 +15,18 @@ export const wrapRootElement = ({ element }) => (
     </CurrencyProvider>
   </UrqlProvider>
 )
+
+// adapted from https://github.com/gatsbyjs/gatsby/issues/18866
+let nextRoute = ``
+
+export const onPreRouteUpdate = ({ location }) => {
+  nextRoute = location.pathname
+}
+
+window.addEventListener('unhandledrejection', event => {
+  if (/loading chunk \d* failed./i.test(event.reason)) {
+    if (nextRoute) {
+      window.location.pathname = nextRoute
+    }
+  }
+})

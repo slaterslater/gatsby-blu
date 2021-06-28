@@ -20,21 +20,21 @@ const HomepageCollectionSlider = props => {
         }
       }
       earringFile: file(
-        relativePath: { eq: "collection-slider/jun-21/earrings.jpg" }
+        relativePath: { eq: "collection-slider/jun-28/earrings.jpg" }
       ) {
         childImageSharp {
           gatsbyImageData
         }
       }
       engagementFile: file(
-        relativePath: { eq: "collection-slider/jun-21/engagement.jpg" }
+        relativePath: { eq: "collection-slider/jun-28/engagement.jpg" }
       ) {
         childImageSharp {
           gatsbyImageData
         }
       }
       braceletFile: file(
-        relativePath: { eq: "collection-slider/jun-21/bracelets.jpg" }
+        relativePath: { eq: "collection-slider/jun-28/bracelets.jpg" }
       ) {
         childImageSharp {
           gatsbyImageData
