@@ -104,7 +104,7 @@
     "develop": "gatsby develop",
     "serve": "gatsby serve",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
-    "start": "npm run develop",
+    "start": "npm run develop -H 0.0.0.0",
     "netlify": "netlify dev",
     "prebuild": "netlify-lambda install",
     "clean": "gatsby clean",

@@ -41,17 +41,17 @@ Announcement.defaultProps = {
 const Announcements = () => {
   const data = useStaticQuery(graphql`
     {
-      siteAnnouncements: sanitySiteAnnouncements(
-        _id: { eq: "siteAnnouncements" }
-      ) {
-        announcements {
-          text
-          path
+      allSanitySiteAnnouncements {
+        nodes {
+          announcements {
+            text
+            path
+          }
         }
       }
     }
   `)
-  const { announcements } = data.siteAnnouncements
+  const { announcements } = data.allSanitySiteAnnouncements.nodes[0]
   const [delay] = useState(5000)
   const [isPaused, setIsPaused] = useState(false)
   const [current, setCurrent] = useState(0)
