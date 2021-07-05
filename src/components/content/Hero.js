@@ -5,11 +5,11 @@ import { GatsbyImage, getImage, withArtDirection } from 'gatsby-plugin-image'
 import useGatsbySanityImageData from '../../lib/useGatsbySanityImageData'
 
 const Hero = ({ node }) => {
-  const { image1, image2, mobileImage, heading, subheading, button } = node
+  const { image1, image2, imageMobile, heading, subheading, button } = node
 
   const image1Data = useGatsbySanityImageData(image1, { q: 82 })
   const image2Data = useGatsbySanityImageData(image2, { q: 82 })
-  const mobileImageData = useGatsbySanityImageData(mobileImage, { q: 82 })
+  const mobileImageData = useGatsbySanityImageData(imageMobile, { q: 82 })
 
   const artDirectedImages = mobileImageData
     ? withArtDirection(image1Data, [
