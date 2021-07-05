@@ -1,19 +1,34 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import CollectionView from '../../views/CollectionView'
+import { useQuery } from 'urql'
+import CollectionView, {
+  getCollectionProducts,
+} from '../../views/CollectionView'
+import { COLLECTION_PAGE_QUERY } from '../../queries/collection'
 
-const CollectionPageTemplate = ({ data }) => {
+const CollectionPageTemplate = ({ data, params }) => {
+  const [{ data: clientData }] = useQuery({
+    query: COLLECTION_PAGE_QUERY,
+    variables: { handle: params.handle },
+  })
+
+  const clientProducts = getCollectionProducts(
+    clientData?.collectionByHandle.products
+  )
+
   const { products, handle } = data.shopifyCollection
 
   const title = data.shopifyCollection.title.toLowerCase()
   const description = data.shopifyCollection.description?.toLowerCase()
+
+  const viewProducts = clientProducts || products
 
   return (
     <CollectionView
       title={title}
       handle={handle}
       description={description}
-      products={products}
+      products={viewProducts}
       hasFilters
     />
   )

@@ -12,6 +12,18 @@ import { getSrcWithSize } from '../components/RemoteShopifyImage'
 import { escapeDoubleQuoteString } from '../lib/escapeDoubleQuoteStrings'
 import { useGtagViewItemList } from '../hooks/gtag'
 
+export const getCollectionProducts = products => {
+  if (products)
+    return products.edges.map(({ node }) => ({
+      ...node,
+      id: `Shopify__Product__${node.id}`,
+      variants: node.variants.edges.map(({ node: n }) => n),
+      images: node.images.edges.map(({ node: n }) => n),
+    }))
+
+  return undefined
+}
+
 const CollectionPage = ({
   title,
   description,
