@@ -32,7 +32,6 @@ const ShoppingCartPage = props => {
     }
   }, [accessToken, checkoutId, associateCustomerWithCheckout])
 
-  console.log(data)
   return (
     <Layout>
       <Container>
