@@ -1,10 +1,9 @@
 import { useEffect } from 'react'
 
-export const usePinEvent = (name, payload) => {
+export const usePinEvent = (name, payload) => () => {
   if (window.pintrk) {
-    return () => window.pintrk(name, payload)
+    window.pintrk(name, payload)
   }
-  return false
 }
 
 export const usePinEffect = (eventName, payload) => {
