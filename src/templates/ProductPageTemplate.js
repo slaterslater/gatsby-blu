@@ -8,6 +8,7 @@ import { useProductTitle } from '../components/ProductTitle'
 import { useShopifyImageMeta } from '../components/RemoteShopifyImage'
 import { escapeDoubleQuoteString } from '../lib/escapeDoubleQuoteStrings'
 import { useGtagViewItem } from '../hooks/gtag'
+import { usePinEffect, usePinEvent } from '../hooks/pintrk'
 
 const ProductPageTemplate = ({ data }) => {
   const title = useProductTitle(data.shopifyProduct.title)
@@ -15,6 +16,8 @@ const ProductPageTemplate = ({ data }) => {
     category: data.shopifyProduct.productType,
     action: 'Viewed Product',
   })
+
+  usePinEffect('pageview', data.shopifyProduct.handle)
 
   useGtagViewItem(data.shopifyProduct)
 

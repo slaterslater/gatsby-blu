@@ -10,6 +10,7 @@ import { useGAEvent } from '../../lib/useGAEvent'
 import { PRODUCT_QUERY } from '../../queries/product'
 import ProductCTACallout from './ProductCTACallout'
 import { useGtagAddToCart } from '../../hooks/gtag'
+import { usePinEvent } from '../../hooks/pintrk'
 
 const getLatestVariant = (data, id) => {
   if (!id || !data?.productByHandle) return null
@@ -87,6 +88,8 @@ const AddToCart = ({ variant, tags, productType, customAttributes }) => {
     action: 'Added Product',
   })
 
+  const sendPinEvent = usePinEvent('AddToCart', { product_id: handle })
+
   const [, setOpenDrawer] = useContext(DrawerContext)
   const { checkoutId } = useContext(StoreContext)
   const [{ fetching }, addCheckoutLineItem] = useMutation(AddCheckoutLineItem)
@@ -94,6 +97,8 @@ const AddToCart = ({ variant, tags, productType, customAttributes }) => {
 
   const addToCart = async () => {
     sendGAEvent()
+    sendPinEvent()
+
     const lineItems = [{ quantity: 1, variantId: variant.shopifyId }]
 
     const nextAttributes = [
