@@ -8,7 +8,7 @@ import { useProductTitle } from '../components/ProductTitle'
 import { useShopifyImageMeta } from '../components/RemoteShopifyImage'
 import { escapeDoubleQuoteString } from '../lib/escapeDoubleQuoteStrings'
 import { useGtagViewItem } from '../hooks/gtag'
-import { usePinEffect, usePinEvent } from '../hooks/pintrk'
+import { usePinEffect } from '../hooks/pintrk'
 
 const ProductPageTemplate = ({ data }) => {
   const title = useProductTitle(data.shopifyProduct.title)
