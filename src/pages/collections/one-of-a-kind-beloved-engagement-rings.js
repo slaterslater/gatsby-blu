@@ -23,26 +23,37 @@ const CollectionGroup = ({
   description,
   products,
   ...props
-}) => (
-  <CollectionProductGroup
-    title={title}
-    description={description}
-    products={products}
-    pt={6}
-    pb={6}
-    {...props}
-  >
-    {products.map(product => (
-      <CollectionProduct
-        key={product.id}
-        product={product}
-        images={product.images}
-        collectionTitle={pageTitle}
-        collectionPath={pagePath}
-      />
-    ))}
-  </CollectionProductGroup>
-)
+}) => {
+  const [{ data }] = useQuery({
+    query: COLLECTION_PAGE_QUERY,
+    variables: { handle },
+  })
+
+  const latestProducts = getCollectionProducts(
+    data?.collectionByHandle.products
+  )
+
+  return (
+    <CollectionProductGroup
+      title={title}
+      description={description}
+      products={products}
+      pt={6}
+      pb={6}
+      {...props}
+    >
+      {(latestProducts || products).map(product => (
+        <CollectionProduct
+          key={product.id}
+          product={product}
+          images={product.images}
+          collectionTitle={pageTitle}
+          collectionPath={pagePath}
+        />
+      ))}
+    </CollectionProductGroup>
+  )
+}
 
 const sortCollections = (nodes, arr) =>
   nodes.sort((a, b) => arr.indexOf(a.handle) - arr.indexOf(b.handle))
