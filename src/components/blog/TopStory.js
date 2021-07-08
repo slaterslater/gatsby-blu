@@ -59,7 +59,7 @@ const TopStoryWithImage = ({ article: { title, image, handle }, ...props }) => {
         >
           {title}
         </Heading>
-        <Button variant="inverted" as={GatsbyLink}>
+        <Button variant="inverted" as={GatsbyLink} to={`/blog/${handle}`}>
           Read More
         </Button>
       </Flex>

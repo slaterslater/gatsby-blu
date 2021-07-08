@@ -38,7 +38,7 @@ const ResultsHeader = ({ title, description, count, resultType, children }) => (
     <Flex sx={{ justifyContent: 'space-between', alignItems: 'baseline' }}>
       <Box sx={{ flex: 1 }} pr={4}>
         <Heading as="h1">{title}</Heading>
-        {description && <RevealText chars={120}>{description}</RevealText>}
+        {description && <RevealText chars={200}>{description}</RevealText>}
       </Box>
       <Box>{children}</Box>
     </Flex>
