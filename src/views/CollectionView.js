@@ -19,6 +19,7 @@ export const getCollectionProducts = products => {
       id: `Shopify__Product__${node.id}`,
       variants: node.variants.edges.map(({ node: n }) => n),
       images: node.images.edges.map(({ node: n }) => n),
+      metafields: node.metafields.edges.map(({ node: n }) => n),
     }))
 
   return undefined

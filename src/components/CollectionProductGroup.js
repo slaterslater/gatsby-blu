@@ -1,20 +1,21 @@
 import React from 'react'
-import { Box, Text, Grid } from 'theme-ui'
+import { Flex, Divider, Box, Heading, Grid } from 'theme-ui'
 
-const CollectionProductGroup = ({ groupType, children }) => (
-  <Box id={groupType} py={2}>
-    {groupType && (
-      <Box pb={2} sx={{ borderBottom: '1px solid', borderColor: '#e5e5e5' }}>
-        <Text
+const CollectionProductGroup = ({ title, children, ...props }) => (
+  <Box id={title} py={3} {...props}>
+    {title && (
+      <Flex py={2} sx={{ alignItems: 'center' }}>
+        <Heading
           as="h3"
-          variant="caps"
+          mr={4}
           sx={{
             fontSize: 3,
           }}
         >
-          {title}
-        </Text>
-      </Box>
+          {title.toLowerCase()}
+        </Heading>
+        <Divider sx={{ flex: 1 }} />
+      </Flex>
     )}
     <Grid
       as="section"

@@ -6,20 +6,7 @@ import { useLocation } from '@reach/router'
 import CollectionProduct from '../CollectionProduct'
 import CollectionProductGroup from '../CollectionProductGroup'
 
-const groupProducts = (products, fallback = '') =>
-  products.reduce((acc, el) => {
-    const { subgroup } = el
-    if (subgroup) {
-      return {
-        ...acc,
-        [subgroup]: (acc[subgroup] || []).concat(el),
-      }
-    }
-    acc[fallback] = (acc[fallback] || []).concat(el)
-    return acc
-  }, {})
-
-const sortProducts = ({ products, sort }) =>
+export const sortProducts = ({ products, sort }) =>
   products.sort((a, b) => {
     switch (sort) {
       case 'latest':
@@ -39,43 +26,38 @@ const sortProducts = ({ products, sort }) =>
     }
   })
 
-const useSortedProductGroups = productGroups => {
+const useSortedProducts = products => {
   const { search } = useLocation()
   const { sort } = parse(search.replace('?', ''))
 
   return useMemo(() => {
-    if (!sort) return productGroups
+    if (!sort) return products
 
-    return Object.keys(productGroups).reduce(
-      (acc, el) => ({
-        ...acc,
-        [el]: sortProducts({ products: productGroups[el], sort }),
-      }),
-      {}
-    )
-  }, [sort, productGroups])
+    return sortProducts({ products, sort })
+  }, [sort, products])
 }
 
-const ProductGrid = ({ products, collectionTitle, collectionPath }) => {
-  const productGroups = groupProducts(products)
-  const sortedProductGroups = useSortedProductGroups(productGroups)
+const ProductGrid = ({
+  products,
+  collectionTitle,
+  collectionPath,
+  title,
+  description,
+}) => {
+  const sortedProducts = useSortedProducts(products)
 
   return (
-    <Box>
-      {Object.keys(sortedProductGroups).map(key => (
-        <CollectionProductGroup groupType={key} key={key}>
-          {productGroups[key].map(product => (
-            <CollectionProduct
-              key={product.id}
-              product={product}
-              images={product.images}
-              collectionTitle={collectionTitle}
-              collectionPath={collectionPath}
-            />
-          ))}
-        </CollectionProductGroup>
+    <CollectionProductGroup title={title} key={collectionTitle}>
+      {sortedProducts.map(product => (
+        <CollectionProduct
+          key={product.id}
+          product={product}
+          images={product.images}
+          collectionTitle={collectionTitle}
+          collectionPath={collectionPath}
+        />
       ))}
-    </Box>
+    </CollectionProductGroup>
   )
 }
 

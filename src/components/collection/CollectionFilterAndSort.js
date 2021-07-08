@@ -54,11 +54,13 @@ const CollectionFilterAndSort = ({ isOpen }) => {
 
           const pathWithSortParam = `${location.pathname}?${searchString}`
 
+          const isSelected = currentParams.sort === option.param
+
           return (
             <SortOption
               key={`sort-option-${i}`}
-              isSelected={currentParams.sort === option.param}
-              to={pathWithSortParam}
+              isSelected={isSelected}
+              to={isSelected ? location.pathname : pathWithSortParam}
             >
               {option.label}
             </SortOption>

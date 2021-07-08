@@ -16,6 +16,7 @@ const ClientCollectionPage = ({ params: { handle } }) => {
     const products = getCollectionProducts(data.collectionByHandle.products)
     return (
       <CollectionView
+        handle={handle}
         title={data.collectionByHandle.title}
         description={data.collectionByHandle.description}
         products={products}

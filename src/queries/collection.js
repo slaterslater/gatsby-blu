@@ -56,12 +56,13 @@ export const COLLECTION_PAGE_QUERY = gql`
               }
             }
             ... on Product {
-              bluCollection: metafield(
-                namespace: "bluboho"
-                key: "product-collection"
-              ) {
-                value
-                type
+              metafields(first: 250) {
+                edges {
+                  node {
+                    key
+                    value
+                  }
+                }
               }
               ...ProductSearchFields
               ...ProductPriceRangeFields
