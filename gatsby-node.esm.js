@@ -15,7 +15,7 @@ async function createProductPages({ graphql, actions }) {
   // 2. Query all pizzas
   const { data } = await graphql(`
     {
-      allShopifyProduct(filter: { availableForSale: { eq: true } }) {
+      allShopifyProduct {
         nodes {
           handle
           shopifyId

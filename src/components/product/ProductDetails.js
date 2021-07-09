@@ -29,6 +29,7 @@ const ProductDetails = ({
   alternates,
   tags,
   productType,
+  availableForSale,
 }) => {
   const [selectedOptions, setSelectedOptions] = useState(
     getInitialSelectedOptions(options)
@@ -39,6 +40,7 @@ const ProductDetails = ({
       variants.find(variant =>
         Object.keys(selectedOptions).reduce((acc, optionName) => {
           if (!acc) return false
+          if (!variant.availableForSale) return false
 
           return variant.selectedOptions.find(
             variantOption => variantOption.value === selectedOptions[optionName]
@@ -95,6 +97,7 @@ const ProductDetails = ({
         tags={tags}
         variant={selectedVariant}
         customAttributes={customAttributes}
+        disabled={!availableForSale}
       />
       <Box>{/* <ProductCTACallout tags={tags} /> */}</Box>
       <Box py={4}>
