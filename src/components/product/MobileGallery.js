@@ -30,6 +30,7 @@ const swipePower = (offset, velocity) => Math.abs(offset) * velocity
 const MobileGallery = ({ images, onImageClick }) => {
   const [[currentPage, direction], setCurrentPage] = useState([0, 0])
 
+  if (!images[0]) return false
   const imageIndex = wrap(0, images.length, currentPage)
 
   const paginate = newDirection => {
