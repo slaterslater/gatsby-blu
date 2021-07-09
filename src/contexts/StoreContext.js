@@ -42,7 +42,7 @@ const StoreProvider = props => {
   }
 
   useEffect(() => {
-    if (!fetching && !data && error) {
+    if ((!fetching && !data && error) || (data && !data.node)) {
       // if we couldn't fetch the checkout id remove it and create another one
       store.remove('checkoutId')
       createCheckoutAndStoreId()

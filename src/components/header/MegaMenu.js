@@ -94,7 +94,7 @@ export const megaMenu = {
       title: 'engagement',
       links: [
         {
-          path: '/collections/one-of-a-kind-engagement-rings',
+          path: '/collections/one-of-a-kind-beloved-engagement-rings',
           text: 'one of a kind engagement rings',
         },
         {

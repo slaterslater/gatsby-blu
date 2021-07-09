@@ -106,7 +106,7 @@ const OneOfAKindBelovedPage = ({ params: { handle }, path, data }) => {
           {!sortedProducts &&
             sortedCollections.map(collection => (
               <CollectionGroup
-                pageTitle="one of a kind ebloved engagement rings"
+                pageTitle="one of a kind beloved engagement rings"
                 pagePath={path}
                 {...collection}
               />
