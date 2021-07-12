@@ -107,7 +107,7 @@ export const megaMenu = {
         },
         { path: '/pages/bluboho-brides', text: 'testimonials' },
         { path: '/collections/bridal', text: 'view all' },
-        { path: '/book-a-consultation', text: 'book a virtual visit' },
+        { path: '/book-a-consultation', text: 'book a consultation' },
       ],
     },
   ],
