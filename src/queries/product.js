@@ -18,7 +18,29 @@ export const PRODUCT_PRICE_RANGE_FRAGMENT = gql`
 export const PRODUCT_QUERY = gql`
   query ProductQuery($handle: String!) {
     productByHandle(handle: $handle) {
+      handle
+      title
+      description
+      descriptionHtml
+      productType
+      vendor
+      tags
       availableForSale
+      options {
+        name
+        values
+      }
+      images(first: 25) {
+        edges {
+          node {
+            altText
+            originalSrc
+            height
+            width
+            id
+          }
+        }
+      }
       variants(first: 100) {
         edges {
           node {
