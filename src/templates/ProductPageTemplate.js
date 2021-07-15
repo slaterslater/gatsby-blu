@@ -189,7 +189,6 @@ export const query = graphql`
         user {
           userType
           displayName
-          socialImage
         }
       }
     }
