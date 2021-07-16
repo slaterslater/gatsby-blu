@@ -42,6 +42,35 @@ async function createProductPages({ graphql, actions }) {
   })
 }
 
+async function createCollectionPages({ graphql, actions }) {
+  const collectionTemplate = path.resolve(
+    './src/templates/CollectionPageTemplate.js'
+  )
+
+  const { data } = await graphql(`
+    {
+      allShopifyCollection {
+        nodes {
+          handle
+        }
+      }
+    }
+  `)
+
+  data.allShopifyCollection.nodes
+    .filter(collection => collection.handle !== 'wanderess')
+    .forEach(collection => {
+      actions.createPage({
+        // What is the URL for this new page??
+        path: `/collections/${collection.handle}`,
+        component: collectionTemplate,
+        context: {
+          handle: collection.handle,
+        },
+      })
+    })
+}
+
 async function createBlogPages({ graphql, actions }) {
   const component = path.resolve('./src/templates/BlogTemplate.js')
 
@@ -94,5 +123,9 @@ async function createBlogPages({ graphql, actions }) {
 export async function createPages(params) {
   // Create pages dynamically
   // Wait for all promises to be resolved before finishing this function
-  await Promise.all([createProductPages(params), createBlogPages(params)])
+  await Promise.all([
+    createProductPages(params),
+    createCollectionPages(params),
+    createBlogPages(params),
+  ])
 }

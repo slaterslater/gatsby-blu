@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react'
 import { Button, Link, Box, Flex, Heading, Text } from 'theme-ui'
 import pluralize from 'pluralize'
 
-const RevealText = ({ children, chars }) => {
+const RevealText = ({ children, chars, ...props }) => {
   const [expanded, setExpanded] = useState(false)
 
   const truncatedText = useMemo(() => {
@@ -15,7 +15,7 @@ const RevealText = ({ children, chars }) => {
   if (expanded) return <Text>{children}</Text>
 
   return (
-    <Text>
+    <Text {...props}>
       {truncatedText}
       <Link
         pl={1}

@@ -1,10 +1,8 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import { useQuery } from 'urql'
-import CollectionView, {
-  getCollectionProducts,
-} from '../../views/CollectionView'
-import { COLLECTION_PAGE_QUERY } from '../../queries/collection'
+import CollectionView, { getCollectionProducts } from '../views/CollectionView'
+import { COLLECTION_PAGE_QUERY } from '../queries/collection'
 
 const CollectionPageTemplate = ({ data, params }) => {
   const [{ data: clientData }] = useQuery({
