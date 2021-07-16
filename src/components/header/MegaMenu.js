@@ -118,6 +118,10 @@ export const megaMenu = {
         { path: '/pages/the-bluboho-origin-story', text: 'origin story' },
         { path: '/blogs/news', text: 'blog' },
         { path: '/pages/locations-and-hours', text: 'contact & locations' },
+        {
+          path: '/one-percent-for-the-planet',
+          text: '1% for the planet',
+        },
       ],
     },
   ],

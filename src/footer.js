@@ -38,6 +38,10 @@ const SectionLink = props => (
 )
 
 const exploreLinks = [
+  {
+    label: '1% for the planet',
+    to: '/one-percent-for-the-planet',
+  },
   { to: '/pages/faq', label: 'faq & help' },
   { to: '/pages/sizing-chart', label: 'necklace sizing chart' },
   { to: '/products/bluboho-ring-sizer', label: 'ring sizer' },
