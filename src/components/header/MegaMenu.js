@@ -120,7 +120,7 @@ export const megaMenu = {
         { path: '/pages/locations-and-hours', text: 'contact & locations' },
         {
           path: '/one-percent-for-the-planet',
-          text: '1% for the planet',
+          text: '1% for the Planet',
         },
       ],
     },
@@ -213,7 +213,7 @@ const MegaMenu = props => {
                         <ThemeLink
                           to={link.path}
                           variant="nav"
-                          sx={{ fontSize: 1, textTransform: 'lowercase' }}
+                          sx={{ fontSize: 1 }}
                         >
                           {link.text}
                         </ThemeLink>
