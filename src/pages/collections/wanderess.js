@@ -7,7 +7,7 @@ const WanderessGroupsPage = ({ path, data }) => {
     if (node.handle === 'wanderess-duo') {
       return {
         ...node,
-        title: 'most popular sets',
+        title: 'most popular pairings',
       }
     }
     return node
