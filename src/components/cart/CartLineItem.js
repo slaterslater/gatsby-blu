@@ -10,7 +10,6 @@ import {
   RemoveCheckoutLineItem,
 } from '../../mutations/cart'
 import { StoreContext } from '../../contexts/StoreContext'
-import { useVariantPresentmentPrice } from '../../hooks/variant'
 import { useGtagRemoveFromCart } from '../../hooks/gtag'
 import WrapSeparatelyOption from '../WrapSeparatelyOption'
 
@@ -34,18 +33,11 @@ const CartLineItem = ({ onRemoveItem, item, imgSize }) => {
     }
   }
 
-  const variantPresentmentPrice = useVariantPresentmentPrice(item.variant)
-
   return (
     <LineItem item={item} imgSize={imgSize}>
       <Box sx={{ order: 1 }}>
         <Text as="p">
-          <LineItemPrice
-            originalTotalPrice={{
-              ...variantPresentmentPrice,
-              amount: Number(variantPresentmentPrice.amount) * item.quantity,
-            }}
-          />
+          <LineItemPrice item={item} />
         </Text>
       </Box>
       <Flex
@@ -76,7 +68,9 @@ const CartLineItem = ({ onRemoveItem, item, imgSize }) => {
           </Box>
           <IconButton
             disabled={
-              updateLineItemResult.fetching || !item.variant.availableForSale
+              !item.variant ||
+              updateLineItemResult.fetching ||
+              !item.variant.availableForSale
             }
             type="button"
             onClick={() => updateQuantity(1)}

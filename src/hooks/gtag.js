@@ -55,10 +55,10 @@ export function useGtagViewCart(checkout) {
     items: checkout?.lineItems.edges.map(({ node }) => ({
       item_id: node.id,
       item_name: node.title,
-      item_variant: node.variant.title,
+      item_variant: node.variant?.title,
       quantity: node.quantity,
-      price: node.variant.priceV2.amount * node.quantity,
-      currency: node.variant.priceV2.currencyCode,
+      price: node.variant?.priceV2.amount * node.quantity,
+      currency: node.variant?.priceV2.currencyCode,
     })),
     value: checkout?.totalPriceV2.amount,
   }
@@ -68,6 +68,7 @@ export function useGtagViewCart(checkout) {
 
 export function useGtagRemoveFromCart(item) {
   return useCallback(() => {
+    if (!item.variant) return false
     const payload = {
       currency: item.variant.priceV2.currencyCode,
       items: [

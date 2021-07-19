@@ -1,8 +1,10 @@
 import { Grid, Text } from 'theme-ui'
 import React from 'react'
 import FormattedPrice from './FormattedPrice'
+import { useVariantPresentmentPrice } from '../hooks/variant'
 
-const getDiscountedPrice = ({
+// handle discount allocations
+export const getDiscountedPrice = ({
   originalTotalPrice,
   discountAllocations = [],
 }) => {
@@ -19,31 +21,31 @@ const getDiscountedPrice = ({
   }
 }
 
-const LineItemPrice = ({
-  originalTotalPrice,
-  discountAllocations,
-  ...props
-}) => {
-  const discountedPrice = getDiscountedPrice({
-    originalTotalPrice,
-    discountAllocations,
-  })
+const VariantPrice = ({ item }) => {
+  const presentmentPrice = useVariantPresentmentPrice(item.variant)
+
+  return <FormattedPrice priceV2={presentmentPrice || {}} />
+}
+
+const LineItemPrice = ({ item, ...props }) => {
+  // handle discount allocations
+  const discountedPrice = false
 
   return (
     <Grid
       sx={{ display: 'inline-grid', gridAutoFlow: 'column', gap: 2 }}
       {...props}
     >
-      {!!discountedPrice && (
-        <Text>
-          <FormattedPrice priceV2={discountedPrice} />
-        </Text>
-      )}
+      {/* {!!discountedPrice && ( */}
+      {/*   <Text> */}
+      {/*     <FormattedPrice priceV2={discountedPrice} /> */}
+      {/*   </Text> */}
+      {/* )} */}
       <Text
         variant={discountedPrice ? 'strike' : ''}
         sx={{ color: discountedPrice ? 'darkGray' : 'body' }}
       >
-        <FormattedPrice priceV2={originalTotalPrice} />
+        {!!item.variant && <VariantPrice item={item} />}
       </Text>
     </Grid>
   )
