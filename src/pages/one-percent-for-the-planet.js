@@ -3,6 +3,18 @@ import React from 'react'
 import { StaticImage } from 'gatsby-plugin-image'
 import Layout from '../components/layout'
 
+const SliderInner = props => (
+  <Box
+    sx={{
+      flexShrink: 0,
+      scrollSnapAlign: 'start',
+      height: '100%',
+      width: [270, 360, 470],
+    }}
+    {...props}
+  />
+)
+
 const BeliefBox = ({ title, body, src, children, ...props }) => (
   <Box sx={{ flex: 1, textAlign: 'center' }} mb={8} {...props}>
     {children}
@@ -98,27 +110,34 @@ const OnePercentForThePlanet = props => (
           crisis.
         </Body>
       </Container>
+      <Flex
+        sx={{
+          maxHeight: [270, 360, 470],
+          alignItems: 'stretch',
+          overflowX: 'auto',
+          overflowY: 'none',
+          webkitOverflowScrolling: 'touch',
+          scrollSnapType: 'x mandatory',
+          scrollBehavior: 'smooth',
+          msOverflowStyle: 'none',
+          scrollbarWidth: 'none',
+          '&::webkit-scrollbar': {
+            display: 'none',
+          },
+        }}
+      >
+        <SliderInner mr={2}>
+          <StaticImage src="../images/one-percent-for-the-planet/4x/3.jpg" />
+        </SliderInner>
+        <SliderInner mr={2}>
+          <StaticImage src="../images/one-percent-for-the-planet/4x/4.jpg" />
+        </SliderInner>
+        <SliderInner>
+          <StaticImage src="../images/one-percent-for-the-planet/4x/5.jpg" />
+        </SliderInner>
+      </Flex>
       <Container px={[0, 0, 0, 0]} sx={{ maxWidth: 'none', width: '100%' }}>
-        <Flex
-          sx={{
-            maxHeight: [270, 360, 470],
-            minWidth: 680,
-            alignItems: 'stretch',
-            overflow: 'hidden',
-          }}
-        >
-          <Box sx={{ flex: '1', height: '100%' }} mr={2}>
-            <StaticImage src="../images/one-percent-for-the-planet/4x/3.jpg" />
-          </Box>
-
-          <Box sx={{ flex: '1' }} mr={2}>
-            <StaticImage src="../images/one-percent-for-the-planet/4x/4.jpg" />
-          </Box>
-          <Box sx={{ flex: '1' }}>
-            <StaticImage src="../images/one-percent-for-the-planet/4x/5.jpg" />
-          </Box>
-        </Flex>
-        <Body>
+        <Body px={[4, 0]} sx={{ lineHeight: 'body' }}>
           our packaging is designed from recycled, reusable and compostable
           materials.
         </Body>
