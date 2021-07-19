@@ -40,7 +40,6 @@ const ProductDetails = ({
       variants.find(variant =>
         Object.keys(selectedOptions).reduce((acc, optionName) => {
           if (!acc) return false
-          if (!variant.availableForSale) return false
 
           return variant.selectedOptions.find(
             variantOption => variantOption.value === selectedOptions[optionName]
