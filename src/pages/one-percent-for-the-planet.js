@@ -7,7 +7,7 @@ const BeliefBox = ({ title, body, src, children, ...props }) => (
   <Box sx={{ flex: 1, textAlign: 'center' }} mb={8} {...props}>
     {children}
     <Heading
-      py={6}
+      py={4}
       as="h3"
       sx={{
         letterSpacing: '.2em',
@@ -46,196 +46,215 @@ const CapsHeading = props => (
 
 const OnePercentForThePlanet = props => (
   <Layout>
-    <Container as="main" pt={9} sx={{ textAlign: 'center', maxWidth: 680 }}>
-      <Heading
-        as="h1"
-        sx={{ lineHeight: 1.5, letterSpacing: '.2em', fontSize: 4 }}
-        pb={5}
-      >
-        ENVIRONMENTAL COMMITMENTS
-      </Heading>
-      <Body>
-        we believe that businesses must play a role in protecting the
-        environment for future generations. we strive to be stewards of the
-        planet, making every decisions with our impact in mind. sustainability
-        begins with all of us realizing that our buying decisions impacts the
-        earth. collectively, we can work towards minimizing our impact, and work
-        towards a more sustainable future.
-      </Body>
-    </Container>
-    <Container>
-      <Flex sx={{ flexWrap: 'wrap', justifyContent: 'center' }}>
-        <Box m={4}>
-          <StaticImage
-            src="../images/one-percent-for-the-planet/1.jpg"
-            height={400}
-            width={270}
-            layout="fixed"
-            quality={100}
-          />
-        </Box>
-        <Box m={4}>
-          <StaticImage
-            src="../images/one-percent-for-the-planet/2.jpg"
-            height={400}
-            width={270}
-            layout="fixed"
-            quality={100}
-          />
-        </Box>
-      </Flex>
-    </Container>
-    <Container as="main" sx={{ textAlign: 'center', maxWidth: 680 }}>
-      <CapsHeading as="h2" pb={5}>
-        ALL THE WAYS WE ARE WORKING TO BE BETTER:
-      </CapsHeading>
-      <Body>
-        we are members of 1% for the Planet, a global network of 4000 businesses
-        in 90 countries who are committed to leveraging our resources to create
-        a healthier planet, by pledging a minimum of 1% of sales to
-        organizations working to find solutions to the environment crisis.
-      </Body>
-    </Container>
-    <Flex
-      sx={{
-        maxHeight: [270, 360, 470],
-        minWidth: 680,
-        alignItems: 'stretch',
-        overflow: 'hidden',
-      }}
-    >
-      <Box sx={{ flex: '1', height: '100%' }} mr={2}>
-        <StaticImage src="../images/one-percent-for-the-planet/3.jpg" />
-      </Box>
-
-      <Box sx={{ flex: '1' }} mr={2}>
-        <StaticImage src="../images/one-percent-for-the-planet/4.jpg" />
-      </Box>
-      <Box sx={{ flex: '1' }}>
-        <StaticImage src="../images/one-percent-for-the-planet/5.jpg" />
-      </Box>
-    </Flex>
-    <Container sx={{ maxWidth: 990 }} sx={{ textAlign: 'center' }}>
-      <Body pb={7}>
-        our packaging is designed from recycled, reusable and compostable
-        materials.
-      </Body>
-      <Flex sx={{ justifyContent: 'center' }} pb={8}>
-        <CapsHeading as="h2" sx={{ maxWidth: 360 }}>
-          CREATING PRODUCTS THAT ARE BUILT TO LAST OUR GOAL IS THAT YOU BUY
-          LESS, BUY BETTER
-        </CapsHeading>
-      </Flex>
-      <Flex sx={{ flexDirection: ['column', 'row'] }}>
-        <BeliefBox
-          title="recycled"
-          body="we use recycled metals as much as possible in the creation of our pieces."
-          mr={6}
+    <Box as="main">
+      <Container pt={9} sx={{ textAlign: 'center', maxWidth: 680 }}>
+        <Heading
+          as="h1"
+          sx={{ lineHeight: 1.5, letterSpacing: '.2em', fontSize: 4 }}
+          pb={5}
         >
-          <StaticImage
-            height={130}
-            width={180}
-            src="../images/one-percent-for-the-planet/recycle.png"
-          />
-        </BeliefBox>
-        <BeliefBox
-          title="local"
-          body="local production allows us to cut down our footprint in shipping from afar as well as cutting production time so we are able to produce more efficiently."
-          mr={6}
-        >
-          <StaticImage
-            height={130}
-            width={180}
-            src="../images/one-percent-for-the-planet/local.png"
-          />
-        </BeliefBox>
-        <BeliefBox
-          title="low impact"
-          body="we work to use as many environmentally friendly products in our workplace as possible."
-        >
-          <StaticImage
-            height={130}
-            width={180}
-            src="../images/one-percent-for-the-planet/handcrafted.png"
-          />
-        </BeliefBox>
-      </Flex>
-      <Flex
-        sx={{
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexWrap: 'wrap',
-        }}
-      >
-        <Box mr={[0, 6]}>
-          <StaticImage
-            height={400}
-            width={270}
-            src="../images/one-percent-for-the-planet/6.jpg"
-          />
-        </Box>
-        <Box mr={[0, 6]}>
-          <StaticImage
-            height={400}
-            width={270}
-            src="../images/one-percent-for-the-planet/7.jpg"
-          />
-        </Box>
-        <Box py={8} sx={{ maxWidth: 380 }}>
-          <CapsHeading pb={6}>OFFERING REPAIR & RESIZING SERVICES</CapsHeading>
-          <Body>
-            we work to resize pieces that don’t fit, and mend any of the damage
-            that can come from a lifetime of wear.
-          </Body>
-        </Box>
-      </Flex>
-      <Flex sx={{ justifyContent: 'center', flexWrap: 'wrap' }}>
-        <Box sx={{ maxWidth: 380 }} mx={6} pb={8}>
-          <CapsHeading py={6}>MINIMIZING OUR STORE FOOT PRINT</CapsHeading>
-          <Body>working with tiny stores.</Body>
-        </Box>
-        <StaticImage
-          src="../images/one-percent-for-the-planet/8.jpg"
-          height={582}
-          width={480}
-        />
-      </Flex>
-      <Box sx={{ maxWidth: 680 }} mx="auto" py={8}>
+          ENVIRONMENTAL COMMITMENTS
+        </Heading>
+        <Body>
+          we believe that businesses must play a role in protecting the
+          environment for future generations. we strive to be stewards of the
+          planet, making every decision with our impact in mind. sustainability
+          begins with all of us realizing that our buying decisions impact the
+          earth. collectively, we can work towards minimizing our impact, and a
+          more sustainable future.
+        </Body>
+      </Container>
+      <Container>
+        <Flex sx={{ flexWrap: 'wrap', justifyContent: 'center' }}>
+          <Box m={4}>
+            <StaticImage
+              src="../images/one-percent-for-the-planet/4x/1.jpg"
+              height={400}
+              width={270}
+              layout="fixed"
+              quality={100}
+            />
+          </Box>
+          <Box m={4}>
+            <StaticImage
+              src="../images/one-percent-for-the-planet/4x/2.jpg"
+              height={400}
+              width={270}
+              layout="fixed"
+              quality={100}
+            />
+          </Box>
+        </Flex>
+      </Container>
+      <Container sx={{ textAlign: 'center', maxWidth: 680 }}>
         <CapsHeading as="h2" pb={5}>
-          USING AS MANY ENVIRONMENTALLY FRIENDLY PRODUCTS AS POSSIBLE
+          ALL THE WAYS WE ARE WORKING TO BE BETTER:
         </CapsHeading>
         <Body>
-          using products and materials that are of the earth and friendlier to
-          the environment. we use antique, vintage and thrifted pieces as well
-          as pieces that are built to last in our stores where possible.
+          we are members of 1% for the Planet, a global network of 4000
+          businesses in 90 countries who are committed to leveraging our
+          resources to create a healthier planet, by pledging a minimum of 1% of
+          sales to organizations working to find solutions to the environment
+          crisis.
         </Body>
-      </Box>
-    </Container>
-    <Grid sx={{ height: 360 }}>
-      <Flex sx={{ gridArea: '1 / 1 / -1 / -1 ' }}>
-        <StaticImage
-          src="../images/one-percent-for-the-planet/9.jpg"
-          objectFit="cover"
-          alt=""
-        />
-      </Flex>
-      <Flex
-        p={8}
-        sx={{
-          alignItems: 'center',
-          justifyContent: 'center',
-          gridArea: '1 / 1 / -1 / -1 ',
-          zIndex: '1',
-        }}
-      >
-        <Body sx={{ color: 'white', maxWidth: 680 }}>
-          we have many things in the works that will continue to help us create
-          a company and collective whose practices are beyond industry
-          standards. we aim to set the bar for how we interact with mother
-          earth.
+      </Container>
+      <Container px={[0, 0, 0, 0]} sx={{ maxWidth: 'none', width: '100%' }}>
+        <Flex
+          sx={{
+            maxHeight: [270, 360, 470],
+            minWidth: 680,
+            alignItems: 'stretch',
+            overflow: 'hidden',
+          }}
+        >
+          <Box sx={{ flex: '1', height: '100%' }} mr={2}>
+            <StaticImage src="../images/one-percent-for-the-planet/4x/3.jpg" />
+          </Box>
+
+          <Box sx={{ flex: '1' }} mr={2}>
+            <StaticImage src="../images/one-percent-for-the-planet/4x/4.jpg" />
+          </Box>
+          <Box sx={{ flex: '1' }}>
+            <StaticImage src="../images/one-percent-for-the-planet/4x/5.jpg" />
+          </Box>
+        </Flex>
+        <Body>
+          our packaging is designed from recycled, reusable and compostable
+          materials.
         </Body>
-      </Flex>
-    </Grid>
+      </Container>
+      <Container sx={{ maxWidth: 990 }} sx={{ textAlign: 'center' }}>
+        <Flex sx={{ justifyContent: 'center' }} pb={8}>
+          <CapsHeading as="h2" sx={{ maxWidth: 360 }}>
+            CREATING PRODUCTS THAT ARE BUILT TO LAST OUR GOAL IS THAT YOU BUY
+            LESS, BUY BETTER
+          </CapsHeading>
+        </Flex>
+        <Flex sx={{ flexDirection: ['column', 'row'] }}>
+          <BeliefBox
+            title="recycled"
+            body="we use recycled metals as much as possible in the creation of our pieces."
+            mr={6}
+          >
+            <StaticImage
+              height={130}
+              width={180}
+              src="../images/one-percent-for-the-planet/recycle.png"
+            />
+          </BeliefBox>
+          <BeliefBox
+            title="local"
+            body="local production allows us to cut down our footprint in shipping from afar as well as cutting production time so we are able to produce more efficiently."
+            mr={6}
+          >
+            <StaticImage
+              height={130}
+              width={180}
+              src="../images/one-percent-for-the-planet/local.png"
+            />
+          </BeliefBox>
+          <BeliefBox
+            title="low impact"
+            body="we work to use as many environmentally friendly products in our workplace as possible."
+          >
+            <StaticImage
+              height={130}
+              width={180}
+              src="../images/one-percent-for-the-planet/handcrafted.png"
+            />
+          </BeliefBox>
+        </Flex>
+      </Container>
+      <Container>
+        <Flex
+          sx={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+          }}
+        >
+          <Grid mr={[0, 6]} sx={{ gridAutoFlow: 'column', gap: 6 }}>
+            <StaticImage
+              height={400}
+              width={270}
+              src="../images/one-percent-for-the-planet/4x/6.jpg"
+            />
+            <StaticImage
+              height={400}
+              width={270}
+              src="../images/one-percent-for-the-planet/4x/7.jpg"
+            />
+          </Grid>
+          <Box
+            py={8}
+            sx={{ textAlign: 'center', maxWidth: 380, alignSelf: 'center' }}
+          >
+            <CapsHeading pb={6}>
+              OFFERING REPAIR & RESIZING SERVICES
+            </CapsHeading>
+            <Body>
+              we work to resize pieces that don’t fit, and mend any of the
+              damage that can come from a lifetime of wear.
+            </Body>
+          </Box>
+        </Flex>
+      </Container>
+      <Container>
+        <Flex
+          sx={{
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+            alignItems: 'center',
+          }}
+        >
+          <Box sx={{ maxWidth: 380 }} mx={6} pb={8}>
+            <CapsHeading py={6}>MINIMIZING OUR STORE FOOT PRINT</CapsHeading>
+            <Body>working with tiny stores.</Body>
+          </Box>
+          <StaticImage
+            src="../images/one-percent-for-the-planet/4x/8.jpg"
+            height={582}
+            width={480}
+            mx={6}
+          />
+        </Flex>
+        <Box sx={{ textAlign: 'center', maxWidth: 680 }} mx="auto" py={8}>
+          <CapsHeading as="h2" pb={5}>
+            USING AS MANY ENVIRONMENTALLY FRIENDLY PRODUCTS AS POSSIBLE
+          </CapsHeading>
+          <Body>
+            using products and materials that are of the earth and friendlier to
+            the environment. we use antique, vintage and thrifted pieces as well
+            as pieces that are built to last in our stores where possible.
+          </Body>
+        </Box>
+      </Container>
+      <Grid sx={{ height: 360 }}>
+        <Flex sx={{ gridArea: '1 / 1 / -1 / -1 ', overflow: 'hidden' }}>
+          <StaticImage
+            src="../images/one-percent-for-the-planet/4x/9.jpg"
+            objectFit="cover"
+            alt=""
+          />
+        </Flex>
+        <Flex
+          p={8}
+          sx={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            gridArea: '1 / 1 / -1 / -1 ',
+            zIndex: '1',
+          }}
+        >
+          <Body sx={{ color: 'white', maxWidth: 680 }}>
+            we have many things in the works that will continue to help us
+            create a company and collective whose practices are beyond industry
+            standards. we aim to set the bar for how we interact with mother
+            earth.
+          </Body>
+        </Flex>
+      </Grid>
+    </Box>
   </Layout>
 )
 
