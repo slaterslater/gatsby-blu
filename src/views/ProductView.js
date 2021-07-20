@@ -14,7 +14,10 @@ import ProductRecentRecommendations from '../components/product/ProductRecentRec
 export const getProduct = product => ({
   ...product,
   images: product.images.edges.map(({ node }) => node),
-  variants: product.variants.edges.map(({ node }) => node),
+  variants: product.variants.edges.map(({ node }) => ({
+    ...node,
+    shopifyId: node.id,
+  })),
 })
 
 // const getCollectionTypePath =
