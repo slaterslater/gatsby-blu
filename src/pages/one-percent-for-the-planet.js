@@ -118,6 +118,8 @@ const OnePercentForThePlanet = props => (
           scrollSnapType: 'x mandatory',
           scrollBehavior: 'smooth',
           msOverflowStyle: 'none',
+          width: '100%',
+          justifyContent: 'center',
           scrollbarWidth: 'none',
           '&::webkit-scrollbar': {
             display: 'none',
@@ -134,7 +136,7 @@ const OnePercentForThePlanet = props => (
           <StaticImage src="../images/one-percent-for-the-planet/4x/5.jpg" />
         </SliderInner>
       </Flex>
-      <Container px={[0, 0, 0, 0]} sx={{ maxWidth: 'none', width: '100%' }}>
+      <Container px={[0, 0, 0, 0]} sx={{ maxWidth: '680px', width: '100%' }}>
         <Body px={[4, 0]} sx={{ lineHeight: 'body' }}>
           our packaging is designed from recycled, reusable and compostable
           materials. in store only: to minimize package consumption, we offer $5
@@ -229,7 +231,7 @@ const OnePercentForThePlanet = props => (
             alignItems: 'center',
           }}
         >
-          <Box sx={{ maxWidth: 380 }} mx={6} pb={8}>
+          <Box sx={{ maxWidth: 380, textAlign: 'center' }} mx={6} pb={8}>
             <CapsHeading py={6}>MINIMIZING OUR STORE FOOT PRINT</CapsHeading>
             <Body>
               working with tiny stores to cut down on energy consumption
@@ -242,16 +244,6 @@ const OnePercentForThePlanet = props => (
             mx={6}
           />
         </Flex>
-        <Box sx={{ textAlign: 'center', maxWidth: 680 }} mx="auto" py={8}>
-          <CapsHeading as="h2" pb={5}>
-            USING AS MANY ENVIRONMENTALLY FRIENDLY PRODUCTS AS POSSIBLE
-          </CapsHeading>
-          <Body>
-            using products and materials that are of the earth and friendlier to
-            the environment. we use antique, vintage and thrifted pieces as well
-            as pieces that are built to last in our stores where possible.
-          </Body>
-        </Box>
       </Container>
       <Grid sx={{ height: 360 }}>
         <Flex sx={{ gridArea: '1 / 1 / -1 / -1 ', overflow: 'hidden' }}>
