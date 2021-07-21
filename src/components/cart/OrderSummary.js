@@ -47,7 +47,7 @@ export const OrderSummary = ({
 OrderSummary.propTypes = {
   loading: PropTypes.bool.isRequired,
   subtotalPriceV2: PropTypes.shape({
-    amount: PropTypes.number.isRequired,
+    amount: PropTypes.string.isRequired,
     currency: PropTypes.string.isRequired,
   }).isRequired,
   totalPriceV2: PropTypes.shape({
