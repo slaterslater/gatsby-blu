@@ -71,9 +71,9 @@ const OnePercentForThePlanet = props => (
           we believe that businesses must play a role in protecting the
           environment for future generations. we strive to be stewards of the
           planet, making every decision with our impact in mind. sustainability
-          begins with all of us realizing that our buying decisions impact the
-          earth. collectively, we can work towards minimizing our impact, and a
-          more sustainable future.
+          begins with all of us realizing thatour actions have an impact on the
+          earth. together we can work toward minimizing our impact and building
+          a more sustainable future.
         </Body>
       </Container>
       <Container>
@@ -104,10 +104,8 @@ const OnePercentForThePlanet = props => (
         </CapsHeading>
         <Body>
           we are members of 1% for the Planet, a global network of 4000
-          businesses in 90 countries who are committed to leveraging our
-          resources to create a healthier planet, by pledging a minimum of 1% of
-          sales to organizations working to find solutions to the environment
-          crisis.
+          businesses in 90 countries that pledge a minimum of 1% of sales to
+          organizations working to find solutions to the environmental crisis.
         </Body>
       </Container>
       <Flex
@@ -139,7 +137,9 @@ const OnePercentForThePlanet = props => (
       <Container px={[0, 0, 0, 0]} sx={{ maxWidth: 'none', width: '100%' }}>
         <Body px={[4, 0]} sx={{ lineHeight: 'body' }}>
           our packaging is designed from recycled, reusable and compostable
-          materials.
+          materials. in store only: to minimize package consumption, we offer $5
+          off your purchase if you bring your packaging back to be reused or if
+          you wear your piece out, and opt out of packaging.
         </Body>
       </Container>
       <Container sx={{ maxWidth: 990 }} sx={{ textAlign: 'center' }}>
@@ -163,7 +163,7 @@ const OnePercentForThePlanet = props => (
           </BeliefBox>
           <BeliefBox
             title="local"
-            body="local production allows us to cut down our footprint in shipping from afar as well as cutting production time so we are able to produce more efficiently."
+            body="local production allows us to cut down on our shipping footprint. it also allows for more control, producing limited quantities to avoid left over inventory and waste."
             mr={6}
           >
             <StaticImage
@@ -174,7 +174,7 @@ const OnePercentForThePlanet = props => (
           </BeliefBox>
           <BeliefBox
             title="low impact"
-            body="we work to use as many environmentally friendly products in our workplace as possible."
+            body="we use environmentally friendly products to maintain our workplace. this also includes using antique and thrifted as well as built furniture and display cases that are made to last."
           >
             <StaticImage
               height={130}
@@ -212,8 +212,11 @@ const OnePercentForThePlanet = props => (
               OFFERING REPAIR & RESIZING SERVICES
             </CapsHeading>
             <Body>
-              we work to resize pieces that don’t fit, and mend any of the
-              damage that can come from a lifetime of wear.
+              we work to resize pieces that don’t fit and mend any of the damage
+              that can come from long-term wear. we are here to disrupt the fast
+              fashion trend and encourage a buy less, buy better mentality. this
+              means we are producing less waste and your pieces become heirloom
+              jewelry for the next generation.
             </Body>
           </Box>
         </Flex>
@@ -228,7 +231,9 @@ const OnePercentForThePlanet = props => (
         >
           <Box sx={{ maxWidth: 380 }} mx={6} pb={8}>
             <CapsHeading py={6}>MINIMIZING OUR STORE FOOT PRINT</CapsHeading>
-            <Body>working with tiny stores.</Body>
+            <Body>
+              working with tiny stores to cut down on energy consumption
+            </Body>
           </Box>
           <StaticImage
             src="../images/one-percent-for-the-planet/4x/8.jpg"
@@ -266,10 +271,10 @@ const OnePercentForThePlanet = props => (
           }}
         >
           <Body sx={{ color: 'white', maxWidth: 680 }}>
-            we have many things in the works that will continue to help us
-            create a company and collective whose practices are beyond industry
-            standards. we aim to set the bar for how we interact with mother
-            earth.
+            we will continue to grow as a company and collective, with practices
+            that go beyond industry standards. we aim to setthe bar for how we
+            interact with mother earth and hope to inspire others to do the
+            same.
           </Body>
         </Flex>
       </Grid>
