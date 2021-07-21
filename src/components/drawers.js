@@ -8,7 +8,7 @@ import NavigationDrawer from './NavigationDrawer'
 const MotionBox = motion(Box)
 const MotionFlex = motion(Flex)
 
-export const DrawerContext = createContext()
+export const DrawerContext = createContext([])
 
 const DrawerOuter = ({ origin, ...props }) => (
   <MotionFlex

@@ -3,18 +3,26 @@ import React from 'react'
 import { pluralize } from 'inflected'
 // import { GatsbyImage } from 'gatsby-plugin-image'
 import { useLocation } from '@reach/router'
-import { useProductTitle } from '../ProductTitle'
-import ProductDetails from './ProductDetails'
-import ProductSocial from './ProductSocial'
-import Breadcrumbs from '../Breadcrumbs'
-import { useShopifyImageMeta, useShopifyOgImage } from '../RemoteShopifyImage'
-import ProductReviews from './ProductReviews'
-import ProductImageGallery from './ProductImageGallery'
-import ProductRecentRecommendations from './ProductRecentRecommendations'
+import { useProductTitle } from '../components/ProductTitle'
+import ProductDetails from '../components/product/ProductDetails'
+import ProductSocial from '../components/product/ProductSocial'
+import Breadcrumbs from '../components/Breadcrumbs'
+import ProductReviews from '../components/product/ProductReviews'
+import ProductImageGallery from '../components/product/ProductImageGallery'
+import ProductRecentRecommendations from '../components/product/ProductRecentRecommendations'
+
+export const getProduct = product => ({
+  ...product,
+  images: product.images.edges.map(({ node }) => node),
+  variants: product.variants.edges.map(({ node }) => ({
+    ...node,
+    shopifyId: node.id,
+  })),
+})
 
 // const getCollectionTypePath =
 
-const ProductPage = ({
+const ProductView = ({
   product: {
     handle,
     options,
@@ -26,11 +34,11 @@ const ProductPage = ({
     vendor,
     images,
     tags,
+    availableForSale,
   },
   yotpoProductReview,
   yotpoProductQa,
   alternates,
-  productUrl,
 }) => {
   const location = useLocation()
   const productTitle = useProductTitle(title)
@@ -75,6 +83,7 @@ const ProductPage = ({
               productType={productType}
               options={options}
               tags={tags}
+              availableForSale={availableForSale}
             />
             <ProductSocial
               title={title}
@@ -93,7 +102,7 @@ const ProductPage = ({
           product_title: title,
           sku: variants[0]?.sku,
           product_description: description,
-          product_url: productUrl,
+          product_url: location?.href,
           product_image_url: images[0]?.originalSrc,
         }}
       />
@@ -101,4 +110,4 @@ const ProductPage = ({
   )
 }
 
-export default ProductPage
+export default ProductView

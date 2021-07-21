@@ -1,17 +1,24 @@
 import React, { useEffect } from 'react'
+import { useQuery } from 'urql'
 import { graphql } from 'gatsby'
+import { PRODUCT_QUERY } from '../queries/product'
 import Layout from '../components/layout'
-import ProductPage from '../components/product/ProductPage'
+import ProductSEO from '../components/product/ProductSEO'
+import ProductPage, { getProduct } from '../views/ProductView'
 import { useGAEvent } from '../lib/useGAEvent'
-import SEO from '../components/seo'
-import { useProductTitle } from '../components/ProductTitle'
-import { useShopifyImageMeta } from '../components/RemoteShopifyImage'
-import { escapeDoubleQuoteString } from '../lib/escapeDoubleQuoteStrings'
 import { useGtagViewItem } from '../hooks/gtag'
 import { usePinEffect } from '../hooks/pintrk'
 
 const ProductPageTemplate = ({ data }) => {
-  const title = useProductTitle(data.shopifyProduct.title)
+  const [{ data: latestData }] = useQuery({
+    query: PRODUCT_QUERY,
+    variables: { handle: data.shopifyProduct.handle },
+  })
+
+  const latestProduct = latestData
+    ? getProduct(latestData.productByHandle)
+    : null
+
   const sendGAEvent = useGAEvent({
     category: data.shopifyProduct.productType,
     action: 'Viewed Product',
@@ -25,61 +32,14 @@ const ProductPageTemplate = ({ data }) => {
     sendGAEvent()
   }, [])
 
-  const productUrl = `${data.site.siteMetadata.siteUrl}/products/${data.shopifyProduct.handle}`
-
-  const productLdJSON = `
-    {
-      "@context": "https://schema.org",
-      "@type": "Product",
-      "@id": "${productUrl}",
-      "brand": {
-        "name": "${data.shopifyProduct.vendor}"
-      },
-      "name": "${title}",
-      "description": "${escapeDoubleQuoteString(
-        data.shopifyProduct.description
-      )}",
-      "category": "${data.shopifyProduct.productType}",
-      "url": "${productUrl}",
-      "sku": "${data.shopifyProduct.variants[0].sku}",
-      "offers": [${data.shopifyProduct.variants
-        .map(
-          variant => `
-          {
-          "@type": "Offer",
-          "name": "${variant.title}",
-          "availability": "https://schema.org/${
-            variant.availableForSale ? 'InStock' : 'OutOfStock'
-          }",
-          "price": "${variant.priceNumber}",
-          "priceCurrency": "CAD",
-          "url": "${productUrl}?variant=${variant.sku}",
-          "sku": "${variant.sku}"
-          }
-        `
-        )
-        .toString()}]
-    }
-  `
-  const imageMeta = useShopifyImageMeta(data.shopifyProduct.images[0])
-
   return (
     <Layout>
-      <SEO
-        title={title}
-        description={data.shopifyProduct.description}
-        meta={imageMeta}
-        originalSrc={data.shopifyProduct.images[0]?.originalSrc}
-      >
-        <script type="application/ld+json">{productLdJSON}</script>
-      </SEO>
+      <ProductSEO product={data.shopifyProduct} />
       <ProductPage
-        tags={data.shopifyProduct.tags}
-        product={data.shopifyProduct}
+        product={latestProduct || data.shopifyProduct}
         yotpoProductReview={data.yotpoProductReview}
         yotpoProductQa={data.yotpoProductQa}
         alternates={data.alternates}
-        productUrl={productUrl}
       />
     </Layout>
   )

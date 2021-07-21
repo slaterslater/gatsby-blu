@@ -1,0 +1,29 @@
+import React from 'react'
+import { useQuery } from 'urql'
+import ProductView, { getProduct } from '../../views/ProductView'
+import NotFoundView from '../../views/404'
+import { PRODUCT_QUERY } from '../../queries/product'
+import Layout from '../../components/layout'
+import ProductSEO from '../../components/product/ProductSEO'
+
+const ClientProductPage = ({ params: { handle } }) => {
+  const [{ data }] = useQuery({
+    query: PRODUCT_QUERY,
+    variables: { handle },
+  })
+
+  if (data?.productByHandle) {
+    const product = getProduct(data.productByHandle)
+    return (
+      <Layout>
+        <ProductSEO product={product} />
+        <ProductView product={product} />
+      </Layout>
+    )
+  }
+
+  if (data && !data.collectionByHandle) return <NotFoundView />
+  return false
+}
+
+export default ClientProductPage

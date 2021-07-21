@@ -26,7 +26,7 @@ const LineItem = ({ item, imgSize, children }) => {
           <GatsbyImage
             image={imageData}
             style={{ objectFit: 'contain' }}
-            alt={item.variant.image.altText}
+            alt={item.variant.image.altText || ''}
           />
         ) : (
           <Box height={80} width={80} sx={{ bg: 'border' }} />
