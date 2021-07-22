@@ -16,7 +16,7 @@ const SliderInner = props => (
 )
 
 const BeliefBox = ({ title, body, src, children, ...props }) => (
-  <Box sx={{ flex: 1, textAlign: 'center' }} mb={8} {...props}>
+  <Box sx={{ flex: 1, textAlign: 'center' }} mx={4} mb={8} {...props}>
     {children}
     <Heading
       py={4}
@@ -155,7 +155,6 @@ const OnePercentForThePlanet = props => (
           <BeliefBox
             title="recycled"
             body="we use recycled metals as much as possible in the creation of our pieces."
-            mr={6}
           >
             <StaticImage
               height={130}
@@ -166,7 +165,6 @@ const OnePercentForThePlanet = props => (
           <BeliefBox
             title="local"
             body="local production allows us to cut down on our shipping footprint. it also allows for more control, producing limited quantities to avoid left over inventory and waste."
-            mr={6}
           >
             <StaticImage
               height={130}
