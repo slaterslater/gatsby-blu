@@ -4,9 +4,7 @@ import { Link as GatsbyLink } from 'gatsby'
 import { GatsbyImage, getImage, withArtDirection } from 'gatsby-plugin-image'
 import useGatsbySanityImageData from '../../lib/useGatsbySanityImageData'
 
-const Hero = ({ node }) => {
-  const { image1, image2, imageMobile, heading, subheading, button } = node
-
+const HeroBackground = ({ image1, image2, imageMobile }) => {
   const image1Data = useGatsbySanityImageData(image1, { q: 82 })
   const image2Data = useGatsbySanityImageData(image2, { q: 82 })
   const mobileImageData = useGatsbySanityImageData(imageMobile, { q: 82 })
@@ -19,65 +17,104 @@ const Hero = ({ node }) => {
         },
       ])
     : image1Data
+  return (
+    <Grid
+      sx={{
+        gridTemplateColumns: ['1fr', image2Data ? '1fr 1fr' : '1fr'],
+        gap: 0,
+        overflow: 'hidden',
+      }}
+    >
+      <GatsbyImage image={artDirectedImages} alt="" />
+      {image2Data && (
+        <Box sx={{ display: ['none', 'flex'], alignItems: 'stretch' }}>
+          <GatsbyImage image={image2Data} alt="" />
+        </Box>
+      )}
+    </Grid>
+  )
+}
+
+const Hero = ({ node }) => {
+  const {
+    image1,
+    image2,
+    imageMobile,
+    icon,
+    heading,
+    subheading,
+    button,
+  } = node
+
+  const iconImageData = useGatsbySanityImageData(icon, { q: 100 })
 
   return (
-    <Grid sx={{ height: '75vh', bg: 'cream', position: 'relative', zIndex: 1 }}>
+    <Box sx={{ position: 'relative' }}>
       <Grid
         sx={{
-          gridTemplateColumns: ['1fr', image2Data ? '1fr 1fr' : '1fr'],
-          gap: 0,
-          gridColumn: '1 / -1',
-          gridRow: '1 / -1',
-          overflow: 'hidden',
-        }}
-      >
-        <GatsbyImage image={artDirectedImages} alt="" />
-        {image2Data && (
-          <Box sx={{ display: ['none', 'flex'], alignItems: 'stretch' }}>
-            <GatsbyImage image={image2Data} alt="" />
-          </Box>
-        )}
-      </Grid>
-      <Flex
-        sx={{
-          gridColumn: '1 / -1',
-          gridRow: '1 / -1',
+          height: [450, 600],
+          bg: 'cream',
+          position: 'relative',
           zIndex: 1,
-          alignItems: 'flex-end',
-          justifyContent: 'center',
         }}
       >
-        <Box p={6} sx={{ textAlign: 'center' }}>
+        <HeroBackground {...{ image1, image2, imageMobile }} />
+      </Grid>
+      <Box
+        px={[8, 6, 7, 10]}
+        py={[8, 6, 6, 7]}
+        sx={{
+          bg: ['primary', 'transparent'],
+          textAlign: ['center', 'right'],
+          position: ['relative', 'absolute'],
+          bottom: 0,
+          right: 0,
+          zIndex: 1,
+        }}
+      >
+        <Flex
+          mt={[-9, 0]}
+          sx={{
+            flexDirection: ['column', 'row'],
+            justifyContent: 'flex-end',
+            alignItems: 'middle',
+          }}
+        >
+          {iconImageData && (
+            <Box mr={2}>
+              <GatsbyImage image={iconImageData} alt="" />
+            </Box>
+          )}
+
           {heading && (
             <Heading
+              variant="h1"
               as="h1"
+              mt={[6, 0]}
               sx={{
                 color: 'white',
-                fontSize: 6,
-                letterSpacing: 'caps',
-                pb: 3,
-                lineHeight: 1,
-                textTransform: 'lowercase',
+                fontSize: [6, 7],
               }}
             >
               {heading}
             </Heading>
           )}
-          {subheading && (
-            <Text
-              as="h2"
-              variant="caps"
-              sx={{ color: 'white', fontSize: 1, pb: 6, lineHeight: 1.2 }}
-            >
-              {subheading}
-            </Text>
-          )}
-          <Button variant="secondary" as={GatsbyLink} to={button.path}>
-            {button.text}
-          </Button>
-        </Box>
-      </Flex>
-    </Grid>
+        </Flex>
+        {subheading && (
+          <Text
+            as="h2"
+            variant="looseSans"
+            pb={5}
+            sx={{ color: 'white', fontSize: 1 }}
+          >
+            {subheading}
+          </Text>
+        )}
+        <Button variant="sketchWhite" as={GatsbyLink} to={button.path}>
+          {button.text}
+        </Button>
+      </Box>
+    </Box>
   )
 }
 

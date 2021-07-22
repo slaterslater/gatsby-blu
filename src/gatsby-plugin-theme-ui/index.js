@@ -1,3 +1,39 @@
+const sketchButton = {
+  '&:disabled': {
+    opacity: 0.5,
+  },
+  '&:hover': {
+    '&::before': {
+      transform: 'rotate(1deg)',
+      transition: 'transform 200ms ease',
+    },
+  },
+  backgroundColor: 'transparent',
+  color: 'white',
+  textTransform: 'uppercase',
+  height: 66,
+  width: 221,
+  textAlign: 'center',
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  fontSize: 0,
+  fontWeight: 'heading',
+  letterSpacing: 'widest',
+  position: 'relative',
+  '&::before': {
+    content: '""',
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    left: 0,
+    bottom: 0,
+    zIndex: -1,
+    backgroundColor: 'transparent',
+    backgroundSize: '100%',
+  },
+}
+
 const colors = {
   black: '#040404',
   navy: '#040404',
@@ -28,7 +64,7 @@ export default {
     heading: '"Sorts Mill Goudy", Georgia, serif',
     monospace: 'Menlo, monospace',
   },
-  fontSizes: [11, 12, 14, 16, 20, 24, 32, 48, 64],
+  fontSizes: [10, 12, 14, 16, 20, 24, 32, 48, 64],
   fontWeights: {
     light: 300,
     body: 400,
@@ -41,7 +77,8 @@ export default {
   },
   letterSpacings: {
     body: 'normal',
-    wider: '.1em',
+    wider: '0.1em',
+    widest: '0.2em',
     caps: '0.2em',
   },
   space: [0, 4, 8, 12, 16, 24, 32, 48, 64, 96, 128, 256, 512],
@@ -66,10 +103,15 @@ export default {
     },
     caps: {
       textTransform: 'uppercase',
-      letterSpacing: '0.2em',
+      letterSpacing: 'widest',
       fontFamily: 'body',
       fontWeight: 'body',
       fontSize: 0,
+    },
+    looseSans: {
+      fontFamily: 'body',
+      fontWeight: 'heading',
+      letterSpacing: 'widest',
     },
     lightCaps: {
       textTransform: 'uppercase',
@@ -80,8 +122,21 @@ export default {
     strike: {
       textDecoration: 'line-through',
     },
+    h1: {
+      textTransform: 'uppercase',
+      letterSpacing: 'widest',
+      fontWeight: 'body',
+      fontFamily: 'heading',
+    },
   },
   buttons: {
+    sketchWhite: {
+      ...sketchButton,
+      '&::before': {
+        ...sketchButton['&::before'],
+        backgroundImage: 'url("/button_white.png")',
+      },
+    },
     primary: {
       '&:disabled': {
         opacity: 0.5,
