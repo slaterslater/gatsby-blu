@@ -83,6 +83,13 @@ export default {
   },
   space: [0, 4, 8, 12, 16, 24, 32, 48, 64, 96, 128, 256, 512],
   links: {
+    caps: {
+      textDecoration: 'none',
+      fontFamily: 'body',
+      textTransform: 'uppercase',
+      letterSpacing: 'widest',
+      color: 'inherit',
+    },
     nav: {
       textDecoration: 'none',
       color: 'inherit',
