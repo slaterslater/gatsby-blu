@@ -81,6 +81,7 @@ const Hero = ({
           </Button>
         </Box>
       </Flex>
+      <p>one percento</p>
     </Grid>
   )
 }
