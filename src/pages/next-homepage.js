@@ -4,6 +4,8 @@ import Layout from '../components/layout'
 
 import SEO from '../components/seo'
 import SanityContent from '../components/SanityContent'
+import BrandStatement from '../components/BrandStatement'
+import CollectionSpotlight from '../components/CollectionSpotlight'
 
 const IndexPage = ({ data }) => {
   const {
@@ -35,6 +37,8 @@ const IndexPage = ({ data }) => {
         <script type="application/ld+json">{websiteLdJSON}</script>
       </SEO>
       <SanityContent rawContent={data.sanityPage._rawContent} />
+      <BrandStatement />
+      <CollectionSpotlight />
     </Layout>
   )
 }

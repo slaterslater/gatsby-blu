@@ -9,8 +9,9 @@ import {
 } from 'gatsby-plugin-image'
 import useGatsbySanityImageData from '../../lib/useGatsbySanityImageData'
 import ContentOuter from './ContentOuter'
+import OnePercentCallout from './OnePercentCallout'
 
-const HeroBackground = ({ image1, image2, imageMobile }) => {
+const SanityHeroBackground = ({ image1, image2, imageMobile }) => {
   const image1Data = useGatsbySanityImageData(image1, { q: 82 })
   const image2Data = useGatsbySanityImageData(image2, { q: 82 })
   const mobileImageData = useGatsbySanityImageData(imageMobile, { q: 82 })
@@ -53,9 +54,10 @@ const Hero = ({ node }) => {
   } = node
 
   const iconImageData = useGatsbySanityImageData(icon, { q: 100, height: 60 })
+  // const iconImageData = null
 
   return (
-    <>
+    <Box pb={[7, 8]}>
       <Box sx={{ position: 'relative' }}>
         <Grid
           sx={{
@@ -65,7 +67,7 @@ const Hero = ({ node }) => {
             zIndex: 1,
           }}
         >
-          <HeroBackground {...{ image1, image2, imageMobile }} />
+          <SanityHeroBackground {...{ image1, image2, imageMobile }} />
         </Grid>
         <Box
           px={[8, 6, 7, 10]}
@@ -80,24 +82,28 @@ const Hero = ({ node }) => {
           }}
         >
           <Flex
-            mt={[-9, 0]}
             sx={{
+              position: 'relative',
               flexDirection: ['column', 'row'],
               justifyContent: 'flex-end',
               alignItems: 'middle',
             }}
           >
             {iconImageData && (
-              <Box mr={2}>
+              <Box
+                mr={2}
+                sx={{
+                  transform: ['translateY(-92px)', 'none'],
+                  height: [0, 'auto'],
+                }}
+              >
                 <GatsbyImage image={iconImageData} alt="" />
               </Box>
             )}
-
             {heading && (
               <Heading
                 variant="h1"
                 as="h1"
-                mt={[6, 0]}
                 sx={{
                   color: 'white',
                   fontSize: [6, 7],
@@ -112,7 +118,7 @@ const Hero = ({ node }) => {
               as="h2"
               variant="looseSans"
               pb={5}
-              sx={{ color: 'white', fontSize: 1 }}
+              sx={{ color: 'white', fontSize: 1, lineHeight: '1.5em' }}
             >
               {subheading}
             </Text>
@@ -122,21 +128,8 @@ const Hero = ({ node }) => {
           </Button>
         </Box>
       </Box>
-      <Box sx={{ bg: 'cream' }} py={7} mb={8}>
-        <Flex sx={{ width: '100%', maxWidth: 680, gap: 6 }} px={4} mx="auto">
-          <StaticImage
-            src="../../images/one-percent-logo.png"
-            alt="one percent logo"
-            width={156}
-          />
-          <Text variant="long">
-            we are members of 1% for the Planet, a global network of 4000
-            businesses in 90 countries that pledge a minimum of 1% of sales to
-            organizations working to find solutions to the environmental crisis.
-          </Text>
-        </Flex>
-      </Box>
-    </>
+      <OnePercentCallout />
+    </Box>
   )
 }
 

@@ -19,70 +19,74 @@ const Hero = ({
   ])
 
   return (
-    <Grid sx={{ height: '75vh', bg: 'cream', position: 'relative', zIndex: 1 }}>
+    <Box pb={8}>
       <Grid
-        sx={{
-          gridTemplateColumns: ['1fr', desktopImage2 ? '1fr 1fr' : '1fr'],
-          gap: 0,
-          gridColumn: '1 / -1',
-          gridRow: '1 / -1',
-          overflow: 'hidden',
-        }}
+        sx={{ height: '75vh', bg: 'cream', position: 'relative', zIndex: 1 }}
       >
-        <GatsbyImage image={images} alt="" />
-        {desktopImage2 && (
-          <Box sx={{ display: ['none', 'flex'], alignItems: 'stretch' }}>
-            <GatsbyImage image={getImage(desktopImage2)} />
+        <Grid
+          sx={{
+            gridTemplateColumns: ['1fr', desktopImage2 ? '1fr 1fr' : '1fr'],
+            gap: 0,
+            gridColumn: '1 / -1',
+            gridRow: '1 / -1',
+            overflow: 'hidden',
+          }}
+        >
+          <GatsbyImage image={images} alt="" />
+          {desktopImage2 && (
+            <Box sx={{ display: ['none', 'flex'], alignItems: 'stretch' }}>
+              <GatsbyImage image={getImage(desktopImage2)} />
+            </Box>
+          )}
+        </Grid>
+        <Flex
+          sx={{
+            gridColumn: '1 / -1',
+            gridRow: '1 / -1',
+            zIndex: 1,
+            alignItems: 'flex-end',
+            justifyContent: 'center',
+          }}
+        >
+          <Box p={6} sx={{ textAlign: 'center' }}>
+            {title && (
+              <Heading
+                as="h1"
+                sx={{
+                  color: 'white',
+                  fontSize: 6,
+                  letterSpacing: 'caps',
+                  pb: 3,
+                  lineHeight: 1,
+                  textTransform: 'lowercase',
+                }}
+              >
+                {title}
+              </Heading>
+            )}
+            {subtitle && (
+              <Text
+                as="h2"
+                variant="caps"
+                sx={{
+                  color: 'white',
+                  fontSize: 1,
+                  pb: 6,
+                  lineHeight: 1.5,
+                  fontWeight: 500,
+                }}
+              >
+                {subtitle}
+              </Text>
+            )}
+            <Button variant="secondary" as={GatsbyLink} to={button.path}>
+              {button.label}
+            </Button>
           </Box>
-        )}
+        </Flex>
       </Grid>
-      <Flex
-        sx={{
-          gridColumn: '1 / -1',
-          gridRow: '1 / -1',
-          zIndex: 1,
-          alignItems: 'flex-end',
-          justifyContent: 'center',
-        }}
-      >
-        <Box p={6} sx={{ textAlign: 'center' }}>
-          {title && (
-            <Heading
-              as="h1"
-              sx={{
-                color: 'white',
-                fontSize: 6,
-                letterSpacing: 'caps',
-                pb: 3,
-                lineHeight: 1,
-                textTransform: 'lowercase',
-              }}
-            >
-              {title}
-            </Heading>
-          )}
-          {subtitle && (
-            <Text
-              as="h2"
-              variant="caps"
-              sx={{
-                color: 'white',
-                fontSize: 1,
-                pb: 6,
-                lineHeight: 1.5,
-                fontWeight: 500,
-              }}
-            >
-              {subtitle}
-            </Text>
-          )}
-          <Button variant="secondary" as={GatsbyLink} to={button.path}>
-            {button.label}
-          </Button>
-        </Box>
-      </Flex>
-      <p>one percento</p>
-    </Grid>
+      <OnePercentCallout />
+    </Box>
   )
 }
 
