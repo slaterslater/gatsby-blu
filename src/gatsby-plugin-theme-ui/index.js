@@ -120,6 +120,11 @@ export default {
       fontWeight: 'heading',
       letterSpacing: 'widest',
     },
+    copy: {
+      fontFamily: 'body',
+      letterSpacing: 'wider',
+      lineHeight: '2.5em',
+    },
     lightCaps: {
       textTransform: 'uppercase',
       letterSpacing: '0.2em',

@@ -3,11 +3,11 @@ import { Flex, Box, AspectRatio } from 'theme-ui'
 import ContentOuter from './ContentOuter'
 import ImageLinkCard from './ImageLinkCard'
 
-const CardRowToSlider = ({ cards, minCardWidth }) => (
+const CardRowToSlider = ({ cards, minCardWidth, ...props }) => (
   <Box
-    pl={4}
-    pr={[0, 4]}
+    px={[0, 4]}
     mx="auto"
+    {...props}
     sx={{
       width: '100%',
       overflowX: 'auto',
@@ -20,6 +20,7 @@ const CardRowToSlider = ({ cards, minCardWidth }) => (
       '&::webkit-scrollbar': {
         display: 'none',
       },
+      ...(props.sx || {}),
     }}
   >
     <Flex mx={-2}>
@@ -30,7 +31,7 @@ const CardRowToSlider = ({ cards, minCardWidth }) => (
           text={card.button.text}
           ratio={3 / 4}
           key={card.id}
-          mx={2}
+          px={2}
           sx={{
             scrollSnapAlign: 'start',
             minWidth: [minCardWidth, 0],
@@ -43,9 +44,7 @@ const CardRowToSlider = ({ cards, minCardWidth }) => (
 )
 
 const CollectionRow = ({ node: { collections } }) => (
-  <ContentOuter innerWidth={1326}>
-    <CardRowToSlider cards={collections} minCardWidth={230} />
-  </ContentOuter>
+  <CardRowToSlider cards={collections} minCardWidth={230} pb={[7, 8]} />
 )
 
 export default CollectionRow
