@@ -11,7 +11,7 @@ const InstagramFeed = () => {
   const { data, error } = useSWR(instagramURL, fetcher)
   if (error) return null
 
-  if (data) {
+  if (Array.isArray(data)) {
     return (
       <Container>
         <Text
@@ -31,7 +31,7 @@ const InstagramFeed = () => {
             ],
           }}
         >
-          {data.slice(0, 12).map(post => {
+          {(data || []).slice(0, 12).map(post => {
             if (['CAROUSEL_ALBUM', 'IMAGE'].includes(post.media_type))
               return (
                 <Link
