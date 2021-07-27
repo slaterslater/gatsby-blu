@@ -54,6 +54,7 @@ const bluFamLinks = [
   { to: '/newsletter', label: 'subscribe to keep in touch' },
   { to: '/pages/care-and-wear-disclaimer', label: 'jewelry care & wear' },
   { to: '/pages/careers', label: 'careers' },
+  { to: '/pages/wholesale-application', label: 'wholesale application' },
 ]
 
 const Footer = props => (
@@ -92,12 +93,8 @@ const Footer = props => (
       </Box>
     </Box>
     <Box as="section">
-      <NewsletterForm inputVariant="inverted">
-        <SectionHeading>Become a Pen Pal</SectionHeading>
-        <Text as="p" sx={{ fontSize: 1, color: 'gray', pb: 4 }}>
-          subscribe to receive updates, access to exclusive deals, and more.
-        </Text>
-      </NewsletterForm>
+      <SectionHeading>Subscribe</SectionHeading>
+      <NewsletterForm />
     </Box>
     <Box as="section">
       <SectionHeading>Socials</SectionHeading>

@@ -21,6 +21,7 @@ import Footer from './footer'
 import Drawers from './drawers'
 import SEO from './seo'
 import RecentlyViewedProductsProvider from '../contexts/RecentlyViewedProductsContext'
+import NewsletterSignUpPrompt from './NewsletterSignUpPrompt'
 
 const orgLdJSON = `
     {
@@ -108,6 +109,7 @@ const Layout = ({ children }) => {
           {children}
           <Footer />
         </Flex>
+        <NewsletterSignUpPrompt />
       </Drawers>
     </RecentlyViewedProductsProvider>
   )

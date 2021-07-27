@@ -139,6 +139,7 @@ export default {
       letterSpacing: 'widest',
     },
     copy: {
+      fontSize: 1,
       fontFamily: 'body',
       letterSpacing: 'wider',
       lineHeight: '2.5em',
