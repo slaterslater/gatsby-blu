@@ -7,7 +7,7 @@ import SEO from '../components/seo'
 import BrandStatement from '../components/BrandStatement'
 import InstagramFeed from '../components/InstagramFeed'
 import BookConsultation from '../components/BookConsultation'
-import ReviewsSlider from '../components/ReviewsSlider'
+// import ReviewsSlider from '../components/ReviewsSlider'
 import SanityContent from '../components/SanityContent'
 
 const IndexPage = ({ data }) => {
@@ -43,7 +43,7 @@ const IndexPage = ({ data }) => {
       <BelovedLinks />
       <BrandStatement />
       <BookConsultation />
-      <ReviewsSlider />
+      {/* <ReviewsSlider /> */}
       <InstagramFeed />
     </Layout>
   )

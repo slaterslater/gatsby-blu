@@ -1,9 +1,9 @@
 import React from 'react'
-import { Grid, Flex, Heading, Text, Box } from 'theme-ui'
+import { Container, Grid, Flex, Heading, Text, Box } from 'theme-ui'
 import { StaticImage } from 'gatsby-plugin-image'
 import ThemeLink from './app/ThemeLink'
 
-const CollectionSpotlightCard = ({ title, path, children }) => (
+export const CollectionSpotlightCard = ({ title, path, children }) => (
   <Flex
     p={6}
     sx={{ textAlign: 'center', bg: 'cream', flexDirection: 'column' }}
@@ -23,14 +23,13 @@ const CollectionSpotlightCard = ({ title, path, children }) => (
 )
 
 const CollectionSpotlight = props => (
-  <Flex sx={{ justifyContent: 'center ', width: '100%' }} pb={[7, 8]}>
+  <Container variant="wide">
     <Grid
       sx={{
         gap: 6,
         gridAutoFlow: ['row', 'column'],
         justifyContent: 'center',
       }}
-      mx={4}
     >
       <CollectionSpotlightCard
         title="ONE OF A KIND SAPPHIRE RINGS"
@@ -53,7 +52,7 @@ const CollectionSpotlight = props => (
         />
       </CollectionSpotlightCard>
     </Grid>
-  </Flex>
+  </Container>
 )
 
 export default CollectionSpotlight

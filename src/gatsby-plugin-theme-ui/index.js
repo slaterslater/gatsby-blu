@@ -8,6 +8,7 @@ const sketchButton = {
       transition: 'transform 200ms ease',
     },
   },
+  lineHeight: '1.5em',
   backgroundColor: 'transparent',
   color: 'white',
   textTransform: 'uppercase',
@@ -83,6 +84,23 @@ export default {
   },
   space: [0, 4, 8, 12, 16, 24, 32, 48, 64, 96, 128, 256, 512],
   links: {
+    sketcButtonhWhite: {
+      ...sketchButton,
+      textDecoration: 'none',
+      '&::before': {
+        ...sketchButton['&::before'],
+        backgroundImage: 'url("/button_white.png")',
+      },
+    },
+    sketchButtonBlack: {
+      ...sketchButton,
+      textDecoration: 'none',
+      color: 'black',
+      '&::before': {
+        ...sketchButton['&::before'],
+        backgroundImage: 'url("/button_black.png")',
+      },
+    },
     caps: {
       textDecoration: 'none',
       fontFamily: 'body',
@@ -112,7 +130,7 @@ export default {
       textTransform: 'uppercase',
       letterSpacing: 'widest',
       fontFamily: 'body',
-      fontWeight: 'body',
+      fontWeight: 500,
       fontSize: 0,
     },
     looseSans: {
@@ -147,6 +165,13 @@ export default {
       '&::before': {
         ...sketchButton['&::before'],
         backgroundImage: 'url("/button_white.png")',
+      },
+    },
+    sketchBlack: {
+      ...sketchButton,
+      '&::before': {
+        ...sketchButton['&::before'],
+        backgroundImage: 'url("/button_black.png")',
       },
     },
     primary: {
@@ -285,6 +310,26 @@ export default {
       maxWidth: 1444,
       py: 6,
       px: [5, 6, 6, 7],
+    },
+    full: {
+      maxWidth: '100%',
+      px: 0,
+      pb: [5, 6, 7, 8],
+    },
+    wide: {
+      maxWidth: 1444,
+      px: [5, 6, 7, 8],
+      pb: [5, 6, 7, 8],
+    },
+    medium: {
+      maxWidth: 840,
+      px: [5, 6, 7, 8],
+      pb: [5, 6, 7, 8],
+    },
+    narrow: {
+      maxWidth: 635,
+      px: [5, 6, 7, 8],
+      pb: [5, 6, 7, 8],
     },
   },
   badges: {

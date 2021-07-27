@@ -1,11 +1,14 @@
 import React from 'react'
 import { graphql } from 'gatsby'
+import { StaticImage } from 'gatsby-plugin-image'
 import Layout from '../components/layout'
 
 import SEO from '../components/seo'
+import HomepageReviews from '../components/HomepageReviews'
 import SanityContent from '../components/SanityContent'
 import BrandStatement from '../components/BrandStatement'
 import CollectionSpotlight from '../components/CollectionSpotlight'
+import { HeroOuter } from '../components/content/Hero'
 
 const IndexPage = ({ data }) => {
   const {
@@ -39,6 +42,15 @@ const IndexPage = ({ data }) => {
       <SanityContent rawContent={data.sanityPage._rawContent} />
       <BrandStatement />
       <CollectionSpotlight />
+      <HomepageReviews />
+      <HeroOuter
+        heading="most gifted"
+        subheading="discover the pieces you love to gift"
+        button={{ text: 'shop gifts', path: '/collections/top-gifts' }}
+        align="left"
+      >
+        <StaticImage src="../images/homepage-jul-22/most-gifted.jpg" alt="" />
+      </HeroOuter>
     </Layout>
   )
 }

@@ -1,12 +1,10 @@
 import React from 'react'
-import { Flex, Box, AspectRatio } from 'theme-ui'
+import { Container, Flex, Box, AspectRatio } from 'theme-ui'
 import ContentOuter from './ContentOuter'
 import ImageLinkCard from './ImageLinkCard'
 
 const CardRowToSlider = ({ cards, minCardWidth, ...props }) => (
   <Box
-    px={[0, 4]}
-    mx="auto"
     {...props}
     sx={{
       width: '100%',
@@ -31,7 +29,7 @@ const CardRowToSlider = ({ cards, minCardWidth, ...props }) => (
           text={card.button.text}
           ratio={3 / 4}
           key={card.id}
-          px={2}
+          mx={2}
           sx={{
             scrollSnapAlign: 'start',
             minWidth: [minCardWidth, 0],
@@ -44,7 +42,9 @@ const CardRowToSlider = ({ cards, minCardWidth, ...props }) => (
 )
 
 const CollectionRow = ({ node: { collections } }) => (
-  <CardRowToSlider cards={collections} minCardWidth={230} pb={[7, 8]} />
+  <Container variant="wide">
+    <CardRowToSlider cards={collections} minCardWidth={230} />
+  </Container>
 )
 
 export default CollectionRow
