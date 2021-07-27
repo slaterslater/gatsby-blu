@@ -1,11 +1,15 @@
 import React from 'react'
-import { Grid, Flex, Heading, Text, Box } from 'theme-ui'
+import { Container, Grid, Heading, Text, Box } from 'theme-ui'
 import { StaticImage } from 'gatsby-plugin-image'
 
 const BrandStatement = props => (
-  <Flex sx={{ justifyContent: 'center ', width: '100%' }} pb={[7, 8]}>
-    <Grid sx={{ width: 680, maxWidth: '100%' }} mx={4}>
+  <Container variant="narrow">
+    <Grid>
       <Box sx={{ textAlign: 'center', gridArea: '1 / 1 / -1 / -1' }}>
+        {/* <video */}
+        {/*   src="/twinkling_stars.mp4" */}
+        {/*   autoplay */}
+        {/* /> */}
         <StaticImage
           src="../images/homepage-jul-22/brand_background.png"
           height={160}
@@ -29,7 +33,7 @@ const BrandStatement = props => (
         </Text>
       </Box>
     </Grid>
-  </Flex>
+  </Container>
 )
 
 export default BrandStatement

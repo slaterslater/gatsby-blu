@@ -1,14 +1,8 @@
 import React from 'react'
-import { Box, Text, Heading, Button, Grid, Flex } from 'theme-ui'
+import { Container, Box, Text, Heading, Button, Grid, Flex } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
-import {
-  GatsbyImage,
-  getImage,
-  StaticImage,
-  withArtDirection,
-} from 'gatsby-plugin-image'
+import { GatsbyImage, withArtDirection } from 'gatsby-plugin-image'
 import useGatsbySanityImageData from '../../lib/useGatsbySanityImageData'
-import ContentOuter from './ContentOuter'
 import OnePercentCallout from './OnePercentCallout'
 
 const SanityHeroBackground = ({ image1, image2, imageMobile }) => {
@@ -42,7 +36,91 @@ const SanityHeroBackground = ({ image1, image2, imageMobile }) => {
   )
 }
 
-const Hero = ({ node }) => {
+export const HeroOuter = ({
+  children,
+  iconImage,
+  heading,
+  subheading,
+  align = 'right',
+  button,
+}) => (
+  // const iconImageData = null
+
+  <Box sx={{ position: 'relative' }}>
+    <Grid
+      sx={{
+        height: [450, 600],
+        bg: 'cream',
+        position: 'relative',
+        zIndex: 1,
+      }}
+    >
+      {children}
+    </Grid>
+    <Container
+      variant="wide"
+      py={6}
+      sx={{
+        bg: ['primary', 'transparent'],
+        textAlign: ['center', align || 'right'],
+        position: ['relative', 'absolute'],
+        bottom: 0,
+        right: 0,
+        zIndex: 1,
+      }}
+    >
+      <Box
+        sx={{
+          display: 'inline-flex',
+          position: 'relative',
+          flexDirection: ['column', 'row'],
+          alignItems: 'middle',
+        }}
+      >
+        {iconImage && (
+          <Box
+            mr={2}
+            sx={{
+              transform: ['translateY(-92px)', 'none'],
+              height: [0, 'auto'],
+            }}
+          >
+            <GatsbyImage image={iconImage} alt="" />
+          </Box>
+        )}
+        {heading && (
+          <Heading
+            variant="h1"
+            as="h1"
+            sx={{
+              color: 'white',
+              fontSize: [6, 7],
+            }}
+          >
+            {heading}
+          </Heading>
+        )}
+      </Box>
+      {subheading && (
+        <Text
+          as="h2"
+          variant="looseSans"
+          pb={5}
+          sx={{ color: 'white', fontSize: 1, lineHeight: '1.5em' }}
+        >
+          {subheading}
+        </Text>
+      )}
+      <Button variant="sketchWhite" as={GatsbyLink} to={button.path}>
+        {button.text}
+      </Button>
+    </Container>
+  </Box>
+)
+
+const SanityHero = ({ node }) => {
+  const iconImageData = useGatsbySanityImageData(icon, { q: 100, height: 60 })
+
   const {
     image1,
     image2,
@@ -53,84 +131,14 @@ const Hero = ({ node }) => {
     button,
   } = node
 
-  const iconImageData = useGatsbySanityImageData(icon, { q: 100, height: 60 })
-  // const iconImageData = null
-
   return (
-    <Box pb={[7, 8]}>
-      <Box sx={{ position: 'relative' }}>
-        <Grid
-          sx={{
-            height: [450, 600],
-            bg: 'cream',
-            position: 'relative',
-            zIndex: 1,
-          }}
-        >
-          <SanityHeroBackground {...{ image1, image2, imageMobile }} />
-        </Grid>
-        <Box
-          px={[8, 6, 7, 10]}
-          py={[8, 6, 6, 7]}
-          sx={{
-            bg: ['primary', 'transparent'],
-            textAlign: ['center', 'right'],
-            position: ['relative', 'absolute'],
-            bottom: 0,
-            right: 0,
-            zIndex: 1,
-          }}
-        >
-          <Flex
-            sx={{
-              position: 'relative',
-              flexDirection: ['column', 'row'],
-              justifyContent: 'flex-end',
-              alignItems: 'middle',
-            }}
-          >
-            {iconImageData && (
-              <Box
-                mr={2}
-                sx={{
-                  transform: ['translateY(-92px)', 'none'],
-                  height: [0, 'auto'],
-                }}
-              >
-                <GatsbyImage image={iconImageData} alt="" />
-              </Box>
-            )}
-            {heading && (
-              <Heading
-                variant="h1"
-                as="h1"
-                sx={{
-                  color: 'white',
-                  fontSize: [6, 7],
-                }}
-              >
-                {heading}
-              </Heading>
-            )}
-          </Flex>
-          {subheading && (
-            <Text
-              as="h2"
-              variant="looseSans"
-              pb={5}
-              sx={{ color: 'white', fontSize: 1, lineHeight: '1.5em' }}
-            >
-              {subheading}
-            </Text>
-          )}
-          <Button variant="sketchWhite" as={GatsbyLink} to={button.path}>
-            {button.text}
-          </Button>
-        </Box>
-      </Box>
+    <Container variant="full">
+      <HeroOuter iconImage={iconImageData} {...{ heading, subheading, button }}>
+        <SanityHeroBackground {...{ image1, image2, imageMobile }} />
+      </HeroOuter>
       <OnePercentCallout />
-    </Box>
+    </Container>
   )
 }
 
-export default Hero
+export default SanityHero
