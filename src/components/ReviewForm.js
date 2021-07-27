@@ -18,7 +18,6 @@ import { IoIosStarOutline, IoIosStar } from 'react-icons/io'
 import ControlWrap, { InputControl } from './app/formik/FormControlWrap'
 import YotpoFormConfirmation from './yotpo/YotpoFormConfirmation'
 import SubmitButton from './app/formik/SubmitButton'
-import { delay } from '../lib/delay'
 
 const StarsControl = ({ label, id, name, count = 5 }) => {
   const [, { value }, { setValue }] = useField(name)

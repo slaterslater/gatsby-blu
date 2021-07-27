@@ -1,97 +1,104 @@
 import axios from 'axios'
-import { Form, Formik } from 'formik'
+import { useField, ErrorMessage, Field, Form, Formik } from 'formik'
 import React, { useState, useContext } from 'react'
-import { Box, Flex, Text } from 'theme-ui'
+import { Input, IconButton, Box, Flex, Text } from 'theme-ui'
 import * as yup from 'yup'
 import { FiCheckSquare, FiAlertCircle } from 'react-icons/fi'
+import { CgArrowLongRight } from 'react-icons/cg'
 import { InputControl } from './app/formik/FormControlWrap'
 import SubmitButton from './app/formik/SubmitButton'
 import { CalloutBox } from './product/ProductCTACallout'
 import { NewsletterContext } from '../contexts/NewsletterContext'
 
-const NewsletterForm = ({
-  inputVariant = 'input',
-  variant = 'outline',
-  children,
-}) => {
-  const [alert, setAlert] = useState({
-    icon: null,
-    type: '',
-    title: '',
-    description: '',
-  })
+export const NewsletterForm = ({ onSuccess, onError, children }) => (
+  <Formik
+    initialValues={{ email: '' }}
+    validationSchema={yup.object({
+      email: yup.string().email().required(),
+    })}
+    onSubmit={async (values, { setSubmitting, reset }) => {
+      try {
+        const res = await axios.post(
+          `${process.env.GATSBY_SERVERLESS_BASE}/newsletter`,
+          values,
+          { headers: { 'Content-Type': 'application/json' } }
+        )
 
-  const { isSubscribed, subscribe } = useContext(NewsletterContext)
+        if (res.status >= 400 && res.status < 600) {
+          onError(res, values)
+        } else {
+          onSuccess(res, values)
+        }
 
+        setSubmitting(false)
+      } catch (e) {
+        onError(e)
+      }
+    }}
+  >
+    {children}
+  </Formik>
+)
+
+const EmailField = ({ color }) => {
+  const [field, meta, helpers] = useField({ name: 'email' })
   return (
-    <>
-      {alert.type && (
-        <CalloutBox
-          bg="cream"
-          icon={alert.icon}
-          title={alert.title}
-          description={alert.description}
-        />
-      )}
-      {!isSubscribed && (
-        <>
-          {children}
-          <Formik
-            initialValues={{ email: '' }}
-            validationSchema={yup.object({
-              email: yup.string().email().required(),
-            })}
-            onSubmit={async (values, { setSubmitting, reset }) => {
-              console.log('submitting')
-              try {
-                const res = await axios.post(
-                  `${process.env.GATSBY_SERVERLESS_BASE}/newsletter`,
-                  values,
-                  { headers: { 'Content-Type': 'application/json' } }
-                )
-
-                if (res.status >= 400 && res.status < 600) {
-                  setAlert({
-                    icon: FiAlertCircle,
-                    type: 'error',
-                    title: 'Oops!',
-                    description: 'something went wrong',
-                  })
-                } else {
-                  setAlert({
-                    icon: FiCheckSquare,
-                    type: 'success',
-                    title: 'success!',
-                    description: `${values.email} is subscribed to the newsletter`,
-                  })
-                  subscribe()
-                  reset()
-                }
-
-                setSubmitting(false)
-              } catch (e) {
-                console.log('function error')
-              }
-            }}
-          >
-            <Form>
-              <Box pt={4}>
-                <InputControl
-                  label="email address"
-                  name="email"
-                  type="email"
-                  id="newsletter_page_email"
-                  variant={inputVariant}
-                />
-              </Box>
-              <Flex sx={{ justifyContent: 'flex-end' }}>
-                <SubmitButton variant={variant}>subscribe</SubmitButton>
-              </Flex>
-            </Form>
-          </Formik>
-        </>
-      )}
-    </>
+    <Input
+      placeholder="enter your email address"
+      px={1}
+      sx={{
+        minWidth: 220,
+        maxWidth: 320,
+        color,
+        border: 'none',
+        outline: 'none',
+        fontFamily: 'body',
+        letterSpacing: '.1em',
+        '&::placeholder': { color },
+      }}
+      {...field}
+    />
   )
 }
-export default NewsletterForm
+
+export const NewsletterSignUp = ({
+  color = 'gray',
+  onSubscribed = () => {},
+}) => {
+  const [error, setError] = useState(null)
+
+  return (
+    <NewsletterForm
+      onSuccess={() => {
+        onSubscribed()
+      }}
+      onError={() => {
+        console.log('error')
+      }}
+    >
+      <Form>
+        <Flex
+          sx={{
+            borderBottom: '1px solid',
+            alignItems: 'center',
+            borderColor: color,
+          }}
+        >
+          <EmailField color={color} />
+          <IconButton type="submit" sx={{ cursor: 'pointer' }}>
+            <Text as={CgArrowLongRight} size={24} sx={{ color }} />
+          </IconButton>
+        </Flex>
+        <ErrorMessage
+          component={Text}
+          pt={3}
+          px={1}
+          sx={{ color: 'error' }}
+          name="email"
+        />
+      </Form>
+    </NewsletterForm>
+  )
+}
+
+export default NewsletterSignUp
