@@ -37,10 +37,14 @@ const Review = ({
         <Text as="p" variant="copy" pb={4} sx={{ fontSize: 1 }}>
           {excerpt}
         </Text>
-        <Text as="p" sx={{ letterSpacing: 'wider', pb: 4 }}>
+        <Text as="p" sx={{ letterSpacing: 'wider', pb: 6 }}>
           {author}
         </Text>
-        <ThemeLink variant="sketchButtonBlack" to={`/products/${handle}`}>
+        <ThemeLink
+          variant="caps"
+          sx={{ fontSize: 0, textDecoration: 'underline' }}
+          to={`/products/${handle}`}
+        >
           shop {title}
         </ThemeLink>
       </Box>
