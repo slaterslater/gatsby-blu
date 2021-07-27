@@ -54,6 +54,7 @@ const bluFamLinks = [
   { to: '/newsletter', label: 'subscribe to keep in touch' },
   { to: '/pages/care-and-wear-disclaimer', label: 'jewelry care & wear' },
   { to: '/pages/careers', label: 'careers' },
+  { to: '/pages/wholesale-application', label: 'wholesale application' },
 ]
 
 const Footer = props => (
