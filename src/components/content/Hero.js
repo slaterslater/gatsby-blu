@@ -60,6 +60,7 @@ export const HeroOuter = ({
     <Container
       variant="wide"
       py={6}
+      pt={7}
       sx={{
         bg: ['primary', 'transparent'],
         textAlign: ['center', align || 'right'],
@@ -81,7 +82,7 @@ export const HeroOuter = ({
           <Box
             mr={2}
             sx={{
-              transform: ['translateY(-92px)', 'none'],
+              transform: ['translateY(-78px)', 'none'],
               height: [0, 'auto'],
             }}
           >
@@ -119,8 +120,6 @@ export const HeroOuter = ({
 )
 
 const SanityHero = ({ node }) => {
-  const iconImageData = useGatsbySanityImageData(icon, { q: 100, height: 60 })
-
   const {
     image1,
     image2,
@@ -130,6 +129,7 @@ const SanityHero = ({ node }) => {
     subheading,
     button,
   } = node
+  const iconImageData = useGatsbySanityImageData(icon, { q: 100, height: 60 })
 
   return (
     <Container variant="full">
