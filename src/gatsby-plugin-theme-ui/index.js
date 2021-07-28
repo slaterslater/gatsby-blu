@@ -46,7 +46,7 @@ const colors = {
   lightGray: '#e4e7ea',
   lightBlueGray: '#ced6df',
   blueGray: '#7b92a3',
-  cream: '#EEE9E3',
+  cream: '#ECE7E1',
   white: '#FFFFFF',
   yellowGold: '#e9d68f',
   sterlingSilver: '#c7c7c7',
@@ -73,8 +73,8 @@ export default {
     bold: 700,
   },
   lineHeights: {
-    body: 1.5,
-    eading: 1.125,
+    body: 2.5,
+    heading: 1.125,
   },
   letterSpacings: {
     body: 'normal',
@@ -107,6 +107,7 @@ export default {
       textTransform: 'uppercase',
       letterSpacing: 'widest',
       color: 'inherit',
+      fontSize: 0,
     },
     nav: {
       textDecoration: 'none',
@@ -125,6 +126,8 @@ export default {
   text: {
     default: {
       fontSize: 1,
+      letterSpacing: 'wider',
+      lineHeight: 'body',
     },
     caps: {
       textTransform: 'uppercase',

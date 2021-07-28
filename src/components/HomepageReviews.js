@@ -34,10 +34,10 @@ const Review = ({
         <Box pb={4}>
           <ReviewStars starPercentage={starPercentage} />
         </Box>
-        <Text as="p" variant="copy" pb={4} sx={{ fontSize: 1 }}>
+        <Text as="p" pb={4}>
           {excerpt}
         </Text>
-        <Text as="p" sx={{ letterSpacing: 'wider', pb: 6 }}>
+        <Text as="p" pb={6}>
           {author}
         </Text>
         <ThemeLink

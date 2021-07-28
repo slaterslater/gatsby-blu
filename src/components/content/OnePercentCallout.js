@@ -1,16 +1,16 @@
 import { StaticImage } from 'gatsby-plugin-image'
 import React from 'react'
-import { Box, Flex, Text } from 'theme-ui'
+import { Grid, Box, Flex, Text } from 'theme-ui'
 import ThemeLink from '../app/ThemeLink'
 
 const OnePercentCallout = props => (
   <Flex py={7} sx={{ bg: 'cream', justifyContent: 'center' }}>
-    <Flex
+    <Grid
       sx={{
-        gap: [5, 7],
+        gridTemplateColumns: ['1fr', 'max-content 1fr'],
+        gap: [5, 6],
         maxWidth: 680,
         alignItems: 'center',
-        flexDirection: ['column', 'row'],
       }}
       mx={4}
     >
@@ -25,7 +25,7 @@ const OnePercentCallout = props => (
         <Text
           as="p"
           variant="copy"
-          sx={{ display: ['none', 'block'], flex: 1, fontSize: 0, pb: 2 }}
+          sx={{ display: ['none', 'block'], flex: 1, pb: 2 }}
         >
           we are members of 1% for the Planet, a global network of 4000
           businesses in 90 countries that pledge a minimum of 1% of sales to
@@ -39,7 +39,7 @@ const OnePercentCallout = props => (
           Learn More
         </ThemeLink>
       </Box>
-    </Flex>
+    </Grid>
   </Flex>
 )
 

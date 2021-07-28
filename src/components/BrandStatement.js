@@ -1,20 +1,31 @@
 import React from 'react'
-import { Container, Grid, Heading, Text, Box } from 'theme-ui'
-import { StaticImage } from 'gatsby-plugin-image'
+import { Image, Container, Grid, Heading, Text, Box } from 'theme-ui'
+import ThemeLink from './app/ThemeLink'
 
 const BrandStatement = props => (
   <Container variant="narrow">
     <Grid>
       <Box sx={{ textAlign: 'center', gridArea: '1 / 1 / -1 / -1' }}>
-        {/* <video */}
-        {/*   src="/twinkling_stars.mp4" */}
-        {/*   autoplay */}
-        {/* /> */}
-        <StaticImage
-          src="../images/homepage-jul-22/brand_background.png"
-          height={160}
-          alt=""
-        />
+        <Image
+          as="video"
+          autoPlay
+          muted
+          loop
+          mx="auto"
+          sx={{ display: ['none', 'block'] }}
+        >
+          <source src="/twinkling_stars.mp4" type="video/mp4" />
+        </Image>
+        <Image
+          as="video"
+          autoPlay
+          muted
+          loop
+          mx="auto"
+          sx={{ display: ['block', 'none'] }}
+        >
+          <source src="/twinkling_stars_mobile.mp4" type="video/mp4" />
+        </Image>
       </Box>
       <Box
         sx={{
@@ -23,14 +34,22 @@ const BrandStatement = props => (
           gridArea: '1 / 1 / -1 / -1',
           zIndex: 1,
         }}
+        py={6}
       >
-        <Heading as="h3" variant="h1">
+        <Heading as="h3" variant="h1" pb={2}>
           Conviction &amp; Purpose
         </Heading>
-        <Text sx={{ fontSize: 1, letterSpacing: 'wider' }}>
+        <Text as="p" sx={{ maxWidth: 360 }} pb={4} mx="auto">
           we believe life's moments are a legacy &amp; we exist to ensure they
           live on
         </Text>
+        <ThemeLink
+          to="/pages/the-bluboho-origin-story"
+          variant="caps"
+          sx={{ textDecoration: 'underline' }}
+        >
+          Read More
+        </ThemeLink>
       </Box>
     </Grid>
   </Container>

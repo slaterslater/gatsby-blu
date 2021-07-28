@@ -18,7 +18,7 @@ const SectionLink = props => (
   <Text
     as="p"
     sx={{
-      fontSize: 1,
+      lineHeight: 'heading',
     }}
     pt={1}
     pb={2}

@@ -36,7 +36,7 @@ const CollectionSpotlight = props => (
         path="/collections/one-of-a-kind-beloved-engagement-rings"
       >
         <StaticImage
-          src="../images/homepage-jul-22/collection-spotlight-1.jpg"
+          src="../images/homepage-jul-22/ONE-OF-A-KIND-SAPPHIRE-RING.jpg"
           ratio={1}
           alt=""
         />
@@ -46,7 +46,7 @@ const CollectionSpotlight = props => (
         path="/collections/best-sellers-1"
       >
         <StaticImage
-          src="../images/homepage-jul-22/collection-spotlight-2.jpg"
+          src="../images/homepage-jul-22/MOST-LOVED.jpg"
           ratio={1}
           alt=""
         />
