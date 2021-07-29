@@ -10,6 +10,7 @@ import { ReviewStars } from './product/ProductReviewsTopline'
 import ThemeLink from './app/ThemeLink'
 import { HOMEPAGE_REVIEW_PRODUCT } from '../queries/homepage'
 import { useShopifyImage } from '../hooks/shopifyImage'
+import { MobileSlider } from './content/CollectionRow'
 
 const Review = ({
   starPercentage,
@@ -49,7 +50,7 @@ const Review = ({
         </ThemeLink>
       </Box>
       <Flex sx={{ flex: '1 260px', justifyContent: 'center' }}>
-        <Box sx={{ maxWidth: ['50%', '100%'] }}>
+        <Box sx={{ maxWidth: ['75%', '100%'] }}>
           <GatsbyImage image={imageData} alt={image?.altText} />
         </Box>
       </Flex>
@@ -57,23 +58,7 @@ const Review = ({
   )
 }
 
-const ReviewsSlider = () => {
-  const data = useStaticQuery(graphql`
-    query {
-      allHomepageReviewsJson {
-        nodes {
-          author
-          content
-          score
-          product {
-            handle
-            title
-          }
-        }
-      }
-    }
-  `)
-
+const DesktopReviews = ({ data }) => {
   const [currentReview, setReview] = useState(0)
   const setCurrentReview = index => {
     setReview(
@@ -82,7 +67,7 @@ const ReviewsSlider = () => {
   }
 
   return (
-    <Container variant="medium">
+    <>
       <AnimatePresence>
         {data.allHomepageReviewsJson.nodes.map((node, i) =>
           currentReview === i ? (
@@ -112,6 +97,45 @@ const ReviewsSlider = () => {
           <FiChevronRight />
         </IconButton>
       </Flex>
+    </>
+  )
+}
+
+const ReviewsSlider = () => {
+  const data = useStaticQuery(graphql`
+    query {
+      allHomepageReviewsJson {
+        nodes {
+          author
+          content
+          score
+          product {
+            handle
+            title
+          }
+        }
+      }
+    }
+  `)
+
+  return (
+    <Container variant="medium">
+      <Box sx={{ display: ['none', 'block'] }}>
+        <DesktopReviews data={data} />
+      </Box>
+      <MobileSlider
+        sx={{ display: ['block', 'none'] }}
+        nodes={data.allHomepageReviewsJson.nodes.map(node => (
+          <Review
+            key={node.id}
+            starPercentage={(node.score / 5) * 100}
+            author={node.author}
+            excerpt={node.content}
+            product={node.product}
+          />
+        ))}
+        minCardWidth={280}
+      />
     </Container>
   )
 }

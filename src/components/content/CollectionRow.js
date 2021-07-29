@@ -3,7 +3,43 @@ import { Container, Flex, Box, AspectRatio } from 'theme-ui'
 import ContentOuter from './ContentOuter'
 import ImageLinkCard from './ImageLinkCard'
 
-const CardRowToSlider = ({ cards, minCardWidth, ...props }) => (
+export const MobileSlider = ({ nodes, minCardWidth, ...props }) => (
+  <Box
+    {...props}
+    sx={{
+      width: '100%',
+      overflowX: 'auto',
+      webkitOverflowScrolling: 'touch',
+      scrollSnapType: 'x mandatory',
+      scrollBehavior: 'smooth',
+      msOverflowStyle: 'none',
+      justifyContent: 'center',
+      scrollbarWidth: 'none',
+      '&::webkit-scrollbar': {
+        display: 'none',
+      },
+      ...(props.sx || {}),
+    }}
+  >
+    <Flex mx={-2}>
+      {nodes.map(node => (
+        <Box
+          key={node.id}
+          mx={2}
+          sx={{
+            scrollSnapAlign: 'start',
+            minWidth: [minCardWidth, 0],
+            flex: 1,
+          }}
+        >
+          {node}
+        </Box>
+      ))}
+    </Flex>
+  </Box>
+)
+
+export const CardRowToSlider = ({ cards, minCardWidth, ...props }) => (
   <Box
     {...props}
     sx={{
