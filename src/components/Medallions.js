@@ -21,7 +21,7 @@ const Mediallions = props => (
     sx={{
       flexWrap: ['wrap', 'nowrap'],
       justifyContent: 'center',
-      gap: 6,
+      gap: 7,
     }}
   >
     <Medallion title="Hand Crafted">
