@@ -56,7 +56,7 @@ const IndexPage = ({ data }) => {
       >
         <StaticImage src="../images/homepage-jul-22/most-gifted.jpg" alt="" />
       </HeroOuter>
-      <Container variant="full">
+      <Container variant="full" sx={{ bg: 'cream' }}>
         <Zodiac />
       </Container>
       <Container variant="full">
