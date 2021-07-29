@@ -1,32 +1,10 @@
 import React from 'react'
-import { Image, Container, Grid, Heading, Text, Box } from 'theme-ui'
+import { Container, Grid, Heading, Text, Box } from 'theme-ui'
 import ThemeLink from './app/ThemeLink'
 
 const BrandStatement = props => (
   <Container variant="narrow">
     <Grid>
-      <Box sx={{ textAlign: 'center', gridArea: '1 / 1 / -1 / -1' }}>
-        <Image
-          as="video"
-          autoPlay
-          muted
-          loop
-          mx="auto"
-          sx={{ display: ['none', 'block'] }}
-        >
-          <source src="/twinkling_stars.mp4" type="video/mp4" />
-        </Image>
-        <Image
-          as="video"
-          autoPlay
-          muted
-          loop
-          mx="auto"
-          sx={{ display: ['block', 'none'] }}
-        >
-          <source src="/twinkling_stars_mobile.mp4" type="video/mp4" />
-        </Image>
-      </Box>
       <Box
         sx={{
           textAlign: 'center',

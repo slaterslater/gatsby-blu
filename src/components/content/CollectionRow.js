@@ -7,7 +7,7 @@ export const MobileSlider = ({ nodes, minCardWidth, ...props }) => (
   <Box
     {...props}
     sx={{
-      width: '100%',
+      width: 'calc(100% + 24px)',
       overflowX: 'auto',
       webkitOverflowScrolling: 'touch',
       scrollSnapType: 'x mandatory',
@@ -15,13 +15,13 @@ export const MobileSlider = ({ nodes, minCardWidth, ...props }) => (
       msOverflowStyle: 'none',
       justifyContent: 'center',
       scrollbarWidth: 'none',
-      '&::webkit-scrollbar': {
+      '&::-webkit-scrollbar': {
         display: 'none',
       },
       ...(props.sx || {}),
     }}
   >
-    <Flex mx={-2}>
+    <Flex mx={-2} px={5}>
       {nodes.map(node => (
         <Box
           key={node.id}
@@ -40,41 +40,19 @@ export const MobileSlider = ({ nodes, minCardWidth, ...props }) => (
 )
 
 export const CardRowToSlider = ({ cards, minCardWidth, ...props }) => (
-  <Box
-    {...props}
-    sx={{
-      width: '100%',
-      overflowX: 'auto',
-      webkitOverflowScrolling: 'touch',
-      scrollSnapType: 'x mandatory',
-      scrollBehavior: 'smooth',
-      msOverflowStyle: 'none',
-      justifyContent: 'center',
-      scrollbarWidth: 'none',
-      '&::webkit-scrollbar': {
-        display: 'none',
-      },
-      ...(props.sx || {}),
-    }}
-  >
-    <Flex mx={-2}>
-      {cards.map(card => (
-        <ImageLinkCard
-          image={card.image}
-          path={card.button.path}
-          text={card.button.text}
-          ratio={3 / 4}
-          key={card.id}
-          mx={2}
-          sx={{
-            scrollSnapAlign: 'start',
-            minWidth: [minCardWidth, 0],
-            flex: 1,
-          }}
-        />
-      ))}
-    </Flex>
-  </Box>
+  <MobileSlider
+    minCardWidth={minCardWidth}
+    nodes={cards.map(card => (
+      <ImageLinkCard
+        image={card.image}
+        path={card.button.path}
+        text={card.button.text}
+        ratio={3 / 4}
+        key={card.id}
+        minCardWidth={minCardWidth}
+      />
+    ))}
+  />
 )
 
 const CollectionRow = ({ node: { collections } }) => (

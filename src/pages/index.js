@@ -3,6 +3,7 @@ import { graphql } from 'gatsby'
 import { StaticImage } from 'gatsby-plugin-image'
 import { Container, Text, Box } from 'theme-ui'
 import Layout from '../components/layout'
+import OnePercentCallout from '../components/content/OnePercentCallout'
 
 import SEO from '../components/seo'
 import HomepageReviews from '../components/HomepageReviews'
@@ -48,6 +49,7 @@ const IndexPage = ({ data }) => {
       <BrandStatement />
       <CollectionSpotlight />
       <HomepageReviews />
+      <OnePercentCallout />
       <HeroOuter
         heading="most gifted"
         subheading="discover the pieces you love to gift"

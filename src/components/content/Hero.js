@@ -129,14 +129,17 @@ const SanityHero = ({ node }) => {
     subheading,
     button,
   } = node
-  const iconImageData = useGatsbySanityImageData(icon, { q: 100, height: 60 })
+  const iconImageData = useGatsbySanityImageData(icon, {
+    height: 60,
+    width: 59,
+    q: 100,
+  })
 
   return (
     <Container variant="full">
       <HeroOuter iconImage={iconImageData} {...{ heading, subheading, button }}>
         <SanityHeroBackground {...{ image1, image2, imageMobile }} />
       </HeroOuter>
-      <OnePercentCallout />
     </Container>
   )
 }

@@ -6,12 +6,14 @@ const Medallion = ({ src, title, children }) => (
   <Box
     sx={{
       width: '100%',
-      maxWidth: ['130px', '200px'],
+      maxWidth: 130,
       textAlign: 'center',
     }}
   >
     <Box>{children}</Box>
-    <Text variant="caps">{title}</Text>
+    <Text variant="caps" sx={{ whiteSpace: 'nowrap' }}>
+      {title}
+    </Text>
   </Box>
 )
 

@@ -35,7 +35,7 @@ const Review = ({
         <Box pb={4}>
           <ReviewStars starPercentage={starPercentage} />
         </Box>
-        <Text as="p" pb={4}>
+        <Text as="p" pb={4} sx={{ textTransform: 'lowercase' }}>
           {excerpt}
         </Text>
         <Text as="p" pb={6}>

@@ -43,6 +43,11 @@ const Breadcrumbs = ({ links, currentPage, children, ...props }) => {
           webkitOverflowScrolling: 'touch',
           scrollSnapType: 'x mandatory',
           scrollBehavior: 'smooth',
+          msOverflowStyle: 'none',
+          scrollbarWidth: 'none',
+          '&::-webkit-scrollbar': {
+            display: 'none',
+          },
         }}
         {...props}
       >
