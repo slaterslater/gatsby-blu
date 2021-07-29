@@ -75,7 +75,7 @@ export const HeroOuter = ({
           display: 'inline-flex',
           position: 'relative',
           flexDirection: ['column', 'row'],
-          alignItems: 'middle',
+          alignItems: ['middle', 'flex-end'],
         }}
       >
         {iconImage && (
