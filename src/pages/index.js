@@ -72,7 +72,7 @@ export default IndexPage
 
 export const query = graphql`
   {
-    sanityPage(title: { eq: "Next Home" }) {
+    sanityPage(title: { eq: "Home" }) {
       title
       _rawContent
     }
