@@ -53,7 +53,7 @@ const IndexPage = ({ data }) => {
       <HeroOuter
         heading="most gifted"
         subheading="discover the pieces you love to gift"
-        button={{ text: 'shop gifts', path: '/collections/top-gifts' }}
+        button={{ text: 'shop gifts', path: '/collections/best-sellers-1' }}
         align="left"
       >
         <StaticImage src="../images/homepage-jul-22/most-gifted.jpg" alt="" />
