@@ -73,7 +73,7 @@ const NewsletterSignUpPrompt = props => {
             }}
             sx={{
               position: 'absolute',
-              right: '12px',
+              left: '12px',
               bottom: '50%',
               transform: 'translateY(50%)',
             }}
