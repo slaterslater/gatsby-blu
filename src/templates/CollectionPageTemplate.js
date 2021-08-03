@@ -4,10 +4,10 @@ import { useQuery } from 'urql'
 import CollectionView, { getCollectionProducts } from '../views/CollectionView'
 import { COLLECTION_PAGE_QUERY } from '../queries/collection'
 
-const CollectionPageTemplate = ({ data, params }) => {
+const CollectionPageTemplate = ({ data, pageContext, ...props }) => {
   const [{ data: clientData }] = useQuery({
     query: COLLECTION_PAGE_QUERY,
-    variables: { handle: params.handle },
+    variables: { handle: pageContext.handle },
   })
 
   const clientProducts = getCollectionProducts(
