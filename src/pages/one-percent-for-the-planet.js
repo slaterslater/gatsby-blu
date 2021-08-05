@@ -71,7 +71,7 @@ const OnePercentForThePlanet = props => (
           we believe that businesses must play a role in protecting the
           environment for future generations. we strive to be stewards of the
           planet, making every decision with our impact in mind. sustainability
-          begins with all of us realizing thatour actions have an impact on the
+          begins with all of us realizing that our actions have an impact on the
           earth. together we can work toward minimizing our impact and building
           a more sustainable future.
         </Body>
