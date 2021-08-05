@@ -83,7 +83,6 @@ export const megaMenu = {
         { path: '/collections/gifts-under-1000', text: 'gifts under 1000$' },
         { path: '/collections/gifts-under-500', text: 'gifts under 500$' },
         { path: '/collections/gifts-under-300', text: 'gifts under 300$' },
-        { path: '/collections/graduation-gift-guide', text: 'graduation' },
         { path: '/collections/leo-gift-guide-1', text: 'leo' },
         { path: '/products/gift-card', text: 'gift cards' },
       ],
