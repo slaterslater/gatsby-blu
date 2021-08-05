@@ -133,11 +133,11 @@ const MegaMenuLink = ({ children, path, ...props }) => (
       as="span"
       variant="caps"
       sx={{
+        color: 'black',
         display: 'inline-flex',
         alignItems: 'center',
         height: '100%',
-        color: 'gray',
-        fontSize: 1,
+        fontSize: 0,
       }}
     >
       {children}
@@ -163,7 +163,7 @@ const MegaMenu = props => {
       }}
     >
       <Grid
-        pl={4}
+        pl={6}
         sx={{
           alignSelf: 'stretch',
           gap: 5,
@@ -202,7 +202,7 @@ const MegaMenu = props => {
               {currentMenu &&
                 megaMenu[currentMenu].map(list => (
                   <Box mr={7} aria-expanded key={`${list.title}-box`}>
-                    <Heading as="h4" pb={1} sx={{ textTransform: 'lowercase' }}>
+                    <Heading variant="h1" as="h4" pb={2} sx={{ fontSize: 1 }}>
                       {list.title}
                     </Heading>
                     {list.links.map(link => (
@@ -213,7 +213,7 @@ const MegaMenu = props => {
                         <ThemeLink
                           to={link.path}
                           variant="nav"
-                          sx={{ fontSize: 1 }}
+                          sx={{ fontSize: 0, letterSpacing: 'wider' }}
                         >
                           {link.text}
                         </ThemeLink>

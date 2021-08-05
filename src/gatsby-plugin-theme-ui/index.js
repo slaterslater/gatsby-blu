@@ -36,8 +36,8 @@ const sketchButton = {
 }
 
 const colors = {
-  black: '#040404',
-  navy: '#040404',
+  black: '#14191F',
+  navy: '#14191F',
   darkGray: '#7D7D7D',
   darkerGray: '#454545',
   gray: '#BDC2BF',
@@ -101,6 +101,14 @@ export default {
         backgroundImage: 'url("/button_black.png")',
       },
     },
+    small: {
+      fontSize: 0,
+      textDecoration: 'none',
+      color: 'inherit',
+      letterSpacing: 'wider',
+      textTransform: 'lowercase',
+      '&:hover': { textDecoration: 'underline' },
+    },
     caps: {
       textDecoration: 'none',
       fontFamily: 'body',
@@ -110,6 +118,8 @@ export default {
       fontSize: 0,
     },
     nav: {
+      fontFamily: 'body',
+      letterSpacing: 'wide',
       textDecoration: 'none',
       color: 'inherit',
       cursor: 'pointer',

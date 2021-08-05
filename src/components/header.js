@@ -2,9 +2,10 @@ import { Flex, Text, Box, Image, Link, Grid, IconButton } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
 import { IoIosMenu, IoIosSearch } from 'react-icons/io'
 import { AiOutlineUser } from 'react-icons/ai'
-import { IoBagSharp } from 'react-icons/io5'
+import { RiShoppingBagLine } from 'react-icons/ri'
+import { BiSearchAlt2 } from 'react-icons/bi'
 import React, { useContext, useState } from 'react'
-import logo from '../images/bluboho-logo-vector-white.svg'
+import logo from '../images/bluboho-logo-vector-black.svg'
 import HeaderSearch from './HeaderSearch'
 import MegaMenu from './header/MegaMenu'
 import { DrawerContext } from './drawers'
@@ -19,7 +20,7 @@ const Header = () => {
     <Box sx={{ position: 'sticky', top: 0, zIndex: 10, boxShadow: 'small' }}>
       <Box
         as="header"
-        bg="#14191f"
+        bg="white"
         sx={{
           position: 'relative',
           zIndex: 2,
@@ -27,6 +28,7 @@ const Header = () => {
       >
         <Grid
           sx={{
+            height: [64, 96],
             gridTemplateColumns: 'repeat(3, 1fr)',
             alignItems: 'center',
             gap: 4,
@@ -43,14 +45,14 @@ const Header = () => {
             onClick={() => setOpenDrawer('navigation')}
             aria-label="Menu"
           >
-            <Box as={IoIosMenu} color="white" size={24} />
+            <Box as={IoIosMenu} color="black" size={24} />
           </IconButton>
           <Link as={GatsbyLink} to="/" sx={{ justifySelf: 'center' }}>
             <Image
               src={logo}
               alt="bluboho"
               title="bluboho"
-              sx={{ height: 28, display: 'block' }}
+              sx={{ height: 26, display: 'block' }}
             />
           </Link>
           <Flex
@@ -70,7 +72,7 @@ const Header = () => {
               >
                 <Text
                   as={AiOutlineUser}
-                  color="white"
+                  color="black"
                   size={24}
                   sx={{ transform: 'translateY(1px)' }}
                 />
@@ -82,8 +84,8 @@ const Header = () => {
                 aria-label="Search"
               >
                 <Text
-                  as={IoIosSearch}
-                  color="white"
+                  as={BiSearchAlt2}
+                  color="black"
                   size={24}
                   sx={{ transform: 'translateY(1px)' }}
                 />
@@ -96,8 +98,8 @@ const Header = () => {
                 aria-label="Search"
               >
                 <Text
-                  as={IoIosSearch}
-                  color="white"
+                  as={BiSearchAlt2}
+                  color="black"
                   size={24}
                   sx={{ transform: 'translateY(1px)' }}
                 />
@@ -110,7 +112,7 @@ const Header = () => {
                 onClick={() => setOpenDrawer('cart')}
                 aria-label="Cart"
               >
-                <Text as={IoBagSharp} color="white" size={24} />
+                <Text as={RiShoppingBagLine} color="black" size={24} />
               </IconButton>
             </Box>
           </Flex>

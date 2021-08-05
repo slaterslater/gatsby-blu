@@ -47,8 +47,9 @@ const EmailField = ({ color }) => {
       placeholder="enter your email address"
       px={1}
       sx={{
+        width: '100%',
         minWidth: 220,
-        maxWidth: 320,
+        maxWidth: 360,
         color,
         border: 'none',
         outline: 'none',
@@ -79,13 +80,21 @@ export const NewsletterSignUp = ({
       <Form>
         <Flex
           sx={{
+            flex: '1 0 max-content',
             borderBottom: '1px solid',
             alignItems: 'center',
             borderColor: color,
           }}
         >
           <EmailField color={color} />
-          <IconButton type="submit" sx={{ cursor: 'pointer' }}>
+          <IconButton
+            type="submit"
+            ml="auto"
+            sx={{
+              cursor: 'pointer',
+              flex: '0 1 max-content',
+            }}
+          >
             <Text as={CgArrowLongRight} size={24} sx={{ color }} />
           </IconButton>
         </Flex>

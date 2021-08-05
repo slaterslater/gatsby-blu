@@ -12,12 +12,12 @@ export const onRenderBody = ({ setHeadComponents }) => {
   const tidioId = process.env.GATSBY_TIDIO_KEY
   const source = `//code.tidio.co/${tidioId}.js`
 
-  if (process.env.NODE_ENV === 'development') {
-    console.log(
-      '"development" is set to false - gatsby-tidio-chat will not load in development mode'
-    )
-    return null
-  }
+  //   if (process.env.NODE_ENV === 'development') {
+  //     console.log(
+  //       '"development" is set to false - gatsby-tidio-chat will not load in development mode'
+  //     )
+  //     return null
+  //   }
 
   if (!tidioId) {
     console.log(

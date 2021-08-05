@@ -5,29 +5,31 @@ import { useQuery } from 'urql'
 import { CurrencyContext } from '../contexts/CurrencyContext'
 import { SHOP_CURRENCIES } from '../queries/shop'
 
-const CurrencyCode = React.forwardRef(({ children, ...props }, ref) => {
-  const moneySymbol = children === 'GBP' ? '£' : '$'
+const CurrencyCode = React.forwardRef(
+  ({ color = 'white', children, ...props }, ref) => {
+    const moneySymbol = children === 'GBP' ? '£' : '$'
 
-  return (
-    <Button
-      type="button"
-      ref={ref}
-      sx={{
-        display: 'grid',
-        gap: 2,
-        gridAutoFlow: 'column',
-        letterSpacing: 'caps',
-        bg: 'transparent',
-        fontSize: 1,
-        color: 'white',
-      }}
-      p={0}
-      {...props}
-    >
-      {`${moneySymbol} ${children}`}
-    </Button>
-  )
-})
+    return (
+      <Button
+        type="button"
+        ref={ref}
+        sx={{
+          display: 'grid',
+          gap: 2,
+          gridAutoFlow: 'column',
+          letterSpacing: 'caps',
+          bg: 'transparent',
+          fontSize: 0,
+          color,
+        }}
+        p={0}
+        {...props}
+      >
+        {`${moneySymbol} ${children}`}
+      </Button>
+    )
+  }
+)
 
 const CurrencyPicker = props => {
   const [visible, setVisible] = useState(false)
@@ -60,7 +62,7 @@ const CurrencyPicker = props => {
           </Grid>
         }
       >
-        <CurrencyCode onClick={() => setVisible(prev => !prev)}>
+        <CurrencyCode color="black" onClick={() => setVisible(prev => !prev)}>
           {currencyCode}
         </CurrencyCode>
       </Tippy>
