@@ -75,6 +75,7 @@ export default {
   lineHeights: {
     body: 2.5,
     heading: 1.125,
+    small: 1.2,
   },
   letterSpacings: {
     body: 'normal',
@@ -102,7 +103,7 @@ export default {
       },
     },
     small: {
-      fontSize: 0,
+      fontSize: 1,
       textDecoration: 'none',
       color: 'inherit',
       letterSpacing: 'wider',
@@ -171,6 +172,11 @@ export default {
       letterSpacing: 'widest',
       fontWeight: 'body',
       fontFamily: 'heading',
+    },
+    small: {
+      fontSize: 0,
+      letterSpacing: 'normal',
+      lineHeight: '1.2em',
     },
   },
   buttons: {

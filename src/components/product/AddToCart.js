@@ -6,11 +6,9 @@ import { DateTime } from 'luxon'
 import { StoreContext } from '../../contexts/StoreContext'
 import { DrawerContext } from '../drawers'
 import { AddCheckoutLineItem } from '../../mutations/cart'
-import { useGAEvent } from '../../lib/useGAEvent'
 import { PRODUCT_QUERY } from '../../queries/product'
 import ProductCTACallout from './ProductCTACallout'
-import { useGtagAddToCart } from '../../hooks/gtag'
-import { usePinEvent } from '../../hooks/pintrk'
+import { useSendAnalytics } from '../../lib/useAnalytics'
 
 const getLatestVariant = (data, id) => {
   if (!id || !data?.productByHandle) return null
@@ -83,22 +81,12 @@ const AddToCart = ({ variant, tags, productType, customAttributes }) => {
   // console.log(preorderMessage)
   // check tags for pre-order
 
-  const sendGAEvent = useGAEvent({
-    category: productType,
-    action: 'Added Product',
-  })
-
-  const sendPinEvent = usePinEvent('AddToCart', { product_id: handle })
+  const sendAnalytics = useSendAnalytics('addToCart')
 
   const [, setOpenDrawer] = useContext(DrawerContext)
   const { checkoutId } = useContext(StoreContext)
   const [{ fetching }, addCheckoutLineItem] = useMutation(AddCheckoutLineItem)
-  const gtagAddToCart = useGtagAddToCart()
-
   const addToCart = async () => {
-    sendGAEvent()
-    sendPinEvent()
-
     const lineItems = [{ quantity: 1, variantId: variant.shopifyId }]
 
     const nextAttributes = [
@@ -118,7 +106,7 @@ const AddToCart = ({ variant, tags, productType, customAttributes }) => {
       ] = data.checkoutLineItemsAdd.checkout.lineItems.edges.slice(-1)
 
       setOpenDrawer('cart')
-      gtagAddToCart(newEdge.node)
+      sendAnalytics(newEdge.node)
     })
   }
 

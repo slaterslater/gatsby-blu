@@ -7,8 +7,8 @@ import CartLineItem from './cart/CartLineItem'
 import { OrderSummary } from './cart/OrderSummary'
 import CheckoutButton from './cart/CheckoutButton'
 import { CHECKOUT_QUERY } from '../queries/checkout'
-import { useGtagViewCart } from '../hooks/gtag'
 import OrderNote from './OrderNote'
+import { useAnalytics } from '../lib/useAnalytics'
 
 const EmptyCart = () => (
   <Box py={5} px={4} sx={{ textAlign: 'center' }}>
@@ -17,7 +17,7 @@ const EmptyCart = () => (
 )
 
 const CartTag = ({ checkout }) => {
-  useGtagViewCart(checkout)
+  useAnalytics('viewCart', checkout)
   return false
 }
 

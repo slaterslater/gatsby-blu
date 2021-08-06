@@ -10,7 +10,6 @@ import SEO from '../components/seo'
 import CollectionFilterAndSort from '../components/collection/CollectionFilterAndSort'
 import { getSrcWithSize } from '../components/RemoteShopifyImage'
 import { escapeDoubleQuoteString } from '../lib/escapeDoubleQuoteStrings'
-import { useGtagViewItemList } from '../hooks/gtag'
 
 export const getCollectionProducts = products => {
   if (products)
@@ -34,7 +33,8 @@ const CollectionPage = ({
   hasSidebar,
   image,
 }) => {
-  useGtagViewItemList(products, title, handle)
+  useAnalytics('viewItemList', products, title, handle)
+  // useGtagViewItemList(products, title, handle)
   const {
     site: {
       siteMetadata: { siteUrl },

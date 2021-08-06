@@ -10,17 +10,17 @@ import {
   RemoveCheckoutLineItem,
 } from '../../mutations/cart'
 import { StoreContext } from '../../contexts/StoreContext'
-import { useGtagRemoveFromCart } from '../../hooks/gtag'
 import WrapSeparatelyOption from '../WrapSeparatelyOption'
+import { useSendAnalytics } from '../../lib/useAnalytics'
 
 const CartLineItem = ({ onRemoveItem, item, imgSize }) => {
   const { checkoutId } = useContext(StoreContext)
   const [updateLineItemResult, updateLineItem] = useMutation(
     UpdateCheckoutLineItem
   )
-  const [removeResult, removeLineItem] = useMutation(RemoveCheckoutLineItem)
+  const [, removeLineItem] = useMutation(RemoveCheckoutLineItem)
 
-  const gtagRemoveFromCart = useGtagRemoveFromCart(item)
+  const sendAnalytics = useSendAnalytics('removeFromCart')
 
   const updateQuantity = async delta => {
     try {
@@ -82,7 +82,7 @@ const CartLineItem = ({ onRemoveItem, item, imgSize }) => {
         <IconButton
           type="button"
           onClick={() => {
-            gtagRemoveFromCart(item)
+            sendAnalytics(item)
             removeLineItem({ checkoutId, lineItemIds: [item.id] })
           }}
         >

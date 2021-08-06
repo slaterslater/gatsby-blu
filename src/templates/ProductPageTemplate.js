@@ -5,9 +5,7 @@ import { PRODUCT_QUERY } from '../queries/product'
 import Layout from '../components/layout'
 import ProductSEO from '../components/product/ProductSEO'
 import ProductPage, { getProduct } from '../views/ProductView'
-import { useGAEvent } from '../lib/useGAEvent'
-import { useGtagViewItem } from '../hooks/gtag'
-import { usePinEffect } from '../hooks/pintrk'
+import {useAnalytics} from '../lib/useAnalytics'
 
 const ProductPageTemplate = ({ data }) => {
   const [{ data: latestData }] = useQuery({
@@ -19,18 +17,7 @@ const ProductPageTemplate = ({ data }) => {
     ? getProduct(latestData.productByHandle)
     : null
 
-  const sendGAEvent = useGAEvent({
-    category: data.shopifyProduct.productType,
-    action: 'Viewed Product',
-  })
-
-  usePinEffect('pageview', data.shopifyProduct.handle)
-
-  useGtagViewItem(data.shopifyProduct)
-
-  useEffect(() => {
-    sendGAEvent()
-  }, [])
+  useAnalytics('viewProduct', { product: data.shopifyProduct })
 
   return (
     <Layout>

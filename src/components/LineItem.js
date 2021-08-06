@@ -33,22 +33,26 @@ const LineItem = ({ item, imgSize, children }) => {
         )}
       </Box>
       <Box>
-        <Heading sx={{ flex: 1, fontSize: 2 }}>{title}</Heading>
+        <Heading variant="h1" pb={2} sx={{ flex: 1, fontSize: 1 }}>
+          {title}
+        </Heading>
         {optionsDescription && (
           <Box>
-            <Text sx={{ color: 'darkGray' }}>{optionsDescription}</Text>
+            <Text variant="small" sx={{ color: 'darkGray', fontSize: 1 }}>
+              {optionsDescription}
+            </Text>
           </Box>
         )}
         {item.customAttributes
           .filter(attribute => attribute.key !== 'wrapping')
           .map(attribute => (
             <Box key={`${item.id}-${attribute.name}-${attribute.value}`}>
-              <Text sx={{ color: 'darkGray' }}>
+              <Text variant="small" sx={{ color: 'darkGray', fontSize: 1 }}>
                 {attribute.key}: {attribute.value}
               </Text>
             </Box>
           ))}
-        <Box pt={1}>{children}</Box>
+        <Box pt={2}>{children}</Box>
       </Box>
     </Grid>
   )
