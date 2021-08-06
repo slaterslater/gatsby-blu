@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Box, Text, Link, Container, Divider } from 'theme-ui'
-import { useLocation } from '@reach/router'
 import { graphql, useStaticQuery } from 'gatsby'
 import Layout from '../components/layout'
 import ProductGrid from '../components/collection/CollectionProductGrid'
@@ -10,6 +9,7 @@ import SEO from '../components/seo'
 import CollectionFilterAndSort from '../components/collection/CollectionFilterAndSort'
 import { getSrcWithSize } from '../components/RemoteShopifyImage'
 import { escapeDoubleQuoteString } from '../lib/escapeDoubleQuoteStrings'
+import { useAnalytics } from '../lib/useAnalytics'
 
 export const getCollectionProducts = products => {
   if (products)
@@ -34,7 +34,6 @@ const CollectionPage = ({
   image,
 }) => {
   useAnalytics('viewItemList', products, title, handle)
-  // useGtagViewItemList(products, title, handle)
   const {
     site: {
       siteMetadata: { siteUrl },
