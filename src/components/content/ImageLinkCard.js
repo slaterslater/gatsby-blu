@@ -8,11 +8,11 @@ const ImageLinkCard = ({ image, q = 85, path, text, ratio, ...props }) => {
 
   return (
     <Box {...props} sx={{ textAlign: 'center', ...(props.sx || {}) }}>
-      <AspectRatio ratio={ratio} sx={{ overflow: 'hidden', display: 'flex' }}>
-        <GatsbyImage image={imageData} alt="" objectFit="cover" />
-      </AspectRatio>
-      <Box py={1} />
       <ThemeLink variant="caps" sx={{ fontSize: 0 }} to={path}>
+        <AspectRatio ratio={ratio} sx={{ overflow: 'hidden', display: 'flex' }}>
+          <GatsbyImage image={imageData} alt="" objectFit="cover" />
+        </AspectRatio>
+        <Box py={1} />
         {text}
       </ThemeLink>
     </Box>

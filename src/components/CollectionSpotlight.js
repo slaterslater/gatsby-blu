@@ -37,7 +37,10 @@ const CollectionSpotlight = props => (
       >
         <StaticImage
           src="../images/homepage-jul-22/ONE-OF-A-KIND-SAPPHIRE-RING.jpg"
-          ratio={1}
+          aspectRatio={1}
+          width={700}
+          layout="constrained"
+          quality={82}
           alt=""
         />
       </CollectionSpotlightCard>
@@ -47,7 +50,10 @@ const CollectionSpotlight = props => (
       >
         <StaticImage
           src="../images/homepage-jul-22/MOST-LOVED.jpg"
-          ratio={1}
+          aspectRatio={1}
+          width={700}
+          layout="constrained"
+          quality={82}
           alt=""
         />
       </CollectionSpotlightCard>
