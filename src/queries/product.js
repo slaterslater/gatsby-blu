@@ -48,6 +48,7 @@ export const PRODUCT_QUERY = gql`
             availableForSale
             currentlyNotInStock
             title
+            sku
             selectedOptions {
               name
               value
