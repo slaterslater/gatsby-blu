@@ -82,10 +82,10 @@ const OneOfAKindBelovedPage = ({ params: { handle }, path, data }) => {
   const [open, setOpen] = useState(false)
 
   return (
-    <Layout>
+    <Layout title="one of a kind beloved engagement rings">
       <Container as="main">
         <ResultsHeader
-          title="one of a kind beloved engagement rings"
+          title=""
           description="our one of a kind engagement rings are designed and created around each stone that we source. we start with a story to build a theme, as we hand-select each stones for the rings in each collection."
           resultType="products"
           count={allProducts?.length || 0}

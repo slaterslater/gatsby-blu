@@ -5,7 +5,7 @@ import NewsletterForm from '../components/NewsletterForm'
 import Layout from '../components/layout'
 
 const NewsletterPage = props => (
-  <Layout>
+  <Layout title="newsletter sign up">
     <Box
       as="main"
       sx={{ width: '100%', maxWidth: 480 }}

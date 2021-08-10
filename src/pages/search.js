@@ -46,7 +46,7 @@ const SearchPage = ({ location: { search } }) => {
   const [usedInput, setUsedInput] = useState(!!query)
 
   return (
-    <Layout>
+    <Layout title="product search">
       <Container>
         <InstantSearch
           searchClient={searchClient}

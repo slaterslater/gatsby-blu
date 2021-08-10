@@ -11,7 +11,7 @@ import ResetPasswordPage from '../../components/account/ResetPasswordPage'
 import ActivateAccountPage from '../../components/account/ActivateAccountPage'
 
 const Account = props => (
-  <Layout>
+  <Layout title="account">
     <Router basepath="/account">
       <LoginPage path="/login" />
       <CreateAccountPage path="/create" />

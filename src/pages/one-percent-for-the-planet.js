@@ -57,7 +57,7 @@ const CapsHeading = props => (
 )
 
 const OnePercentForThePlanet = props => (
-  <Layout>
+  <Layout title="1% for the Planet">
     <Box as="main">
       <Container pt={9} sx={{ textAlign: 'center', maxWidth: 680 }}>
         <Heading

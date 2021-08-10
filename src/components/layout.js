@@ -57,24 +57,13 @@ const orgLdJSON = `
     }
 `
 
-const Layout = ({ children }) => {
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `)
-
-  return (
-    <RecentlyViewedProductsProvider>
-      <Drawers>
-        <SEO>
-          <script type="application/ld+json">{orgLdJSON}</script>
-          <script type="text/javascript">
-            {`
+const Layout = ({ title, children }) => (
+  <RecentlyViewedProductsProvider>
+    <Drawers>
+      <SEO title={title}>
+        <script type="application/ld+json">{orgLdJSON}</script>
+        <script type="text/javascript">
+          {`
                !function(e){if(!window.pintrk){window.pintrk=function(){window.pintrk.queue.push(
                  Array.prototype.slice.call(arguments))};var
                  n=window.pintrk;n.queue=[],n.version="3.0";var
@@ -83,9 +72,9 @@ const Layout = ({ children }) => {
                pintrk('load', ${process.env.GATSBY_PINTEREST_BASE_CODE});
                pintrk('page');
             `}
-          </script>
-          <noscript>
-            {`
+        </script>
+        <noscript>
+          {`
             <img
               height="1"
               width="1"
@@ -95,25 +84,24 @@ const Layout = ({ children }) => {
             />
 
             `}
-          </noscript>
-        </SEO>
-        <Flex
-          sx={{
-            minHeight: '100vh',
-            flexDirection: 'column',
-            alignItems: 'stretch',
-          }}
-        >
-          <Announcements />
-          <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
-          {children}
-          <Footer />
-        </Flex>
-        <NewsletterSignUpPrompt />
-      </Drawers>
-    </RecentlyViewedProductsProvider>
-  )
-}
+        </noscript>
+      </SEO>
+      <Flex
+        sx={{
+          minHeight: '100vh',
+          flexDirection: 'column',
+          alignItems: 'stretch',
+        }}
+      >
+        <Announcements />
+        <Header />
+        {children}
+        <Footer />
+      </Flex>
+      <NewsletterSignUpPrompt />
+    </Drawers>
+  </RecentlyViewedProductsProvider>
+)
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
