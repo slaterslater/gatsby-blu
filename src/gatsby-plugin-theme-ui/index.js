@@ -103,7 +103,7 @@ export default {
       },
     },
     small: {
-      fontSize: 1,
+      fontSize: 0,
       textDecoration: 'none',
       color: 'inherit',
       letterSpacing: 'wider',
