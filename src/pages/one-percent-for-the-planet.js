@@ -262,7 +262,7 @@ const OnePercentForThePlanet = props => (
         >
           <Body sx={{ color: 'white', maxWidth: 680 }}>
             we will continue to grow as a company and collective, with practices
-            that go beyond industry standards. we aim to setthe bar for how we
+            that go beyond industry standards. we aim to set the bar for how we
             interact with mother earth and hope to inspire others to do the
             same.
           </Body>
