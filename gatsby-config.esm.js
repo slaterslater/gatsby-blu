@@ -26,20 +26,23 @@ module.exports = {
         mergeCachingHeaders: false,
       },
     },
-    // {
-    //   resolve: 'gatsby-plugin-robots-txt',
-    //   options: {
-    //     resolveEnv: () => process.env.ROBOTS_ENV || 'development',
-    //     env: {
-    //       development: {
-    //         policy: [{ userAgent: '*', disallow: ['/'] }],
-    //       },
-    //       production: {
-    //         policy: [{ userAgent: '*', allow: '/' }],
-    //       },
-    //     },
-    //   },
-    // },
+    {
+      resolve: 'gatsby-plugin-robots-txt',
+      options: {
+        resolveEnv: () =>
+          process.env.ROBOTS_ENV === 'production'
+            ? 'production'
+            : 'development',
+        env: {
+          development: {
+            policy: [{ userAgent: '*', disallow: ['/'] }],
+          },
+          production: {
+            policy: [{ userAgent: '*', allow: '/' }],
+          },
+        },
+      },
+    },
     {
       resolve: `gatsby-source-sanity`,
       options: {
@@ -50,14 +53,14 @@ module.exports = {
         watchMode,
       },
     },
-    {
-      resolve: `gatsby-plugin-algolia`,
-      options: {
-        appId: process.env.GATSBY_ALGOLIA_APP_ID,
-        apiKey: process.env.ALGOLIA_ADMIN_KEY,
-        queries: algoliaQueries,
-      },
-    },
+    // {
+    //   resolve: `gatsby-plugin-algolia`,
+    //   options: {
+    //     appId: process.env.GATSBY_ALGOLIA_APP_ID,
+    //     apiKey: process.env.ALGOLIA_ADMIN_KEY,
+    //     queries: algoliaQueries,
+    //   },
+    // },
     `gatsby-plugin-theme-ui`,
     {
       resolve: 'gatsby-theme-style-guide',
