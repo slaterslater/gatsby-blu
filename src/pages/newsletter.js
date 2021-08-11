@@ -5,7 +5,10 @@ import NewsletterForm from '../components/NewsletterForm'
 import Layout from '../components/layout'
 
 const NewsletterPage = props => (
-  <Layout title="newsletter sign up">
+  <Layout
+    title="newsletter sign up"
+    description="be the first to know when we launch new collections, new products, events, what we’re musing over, and all the other magic we have planned! We love..."
+  >
     <Box
       as="main"
       sx={{ width: '100%', maxWidth: 480 }}

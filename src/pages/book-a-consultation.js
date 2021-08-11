@@ -4,11 +4,12 @@ import React from 'react'
 import Layout from '../components/layout'
 import ShopifyHtml from '../components/ShopifyHtml'
 import BookConsultationForm from '../components/BookConsultationForm'
-import SEO from '../components/seo'
 
 const BookAConsultation = ({ data }) => (
-  <Layout>
-    <SEO title="Book a Consultation Appointment" />
+  <Layout
+    title="Book a Consultation Appointment"
+    description="Let us work with you throughout your engagement ring consultation on finding your beloved by bluboho engagement ring or wedding band"
+  >
     <Container as="main" sx={{ maxWidth: 680 }}>
       <Box pt={7} pb={5}>
         <Heading>{data.shopifyPage.title}</Heading>

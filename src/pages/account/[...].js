@@ -11,7 +11,7 @@ import ResetPasswordPage from '../../components/account/ResetPasswordPage'
 import ActivateAccountPage from '../../components/account/ActivateAccountPage'
 
 const Account = props => (
-  <Layout title="account">
+  <Layout title="account" description="your bluboho account">
     <Router basepath="/account">
       <LoginPage path="/login" />
       <CreateAccountPage path="/create" />
