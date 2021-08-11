@@ -3,14 +3,15 @@ import { graphql } from 'gatsby'
 import { Heading, Box, Container } from 'theme-ui'
 import Layout from '../../components/layout'
 import ShopifyHtml from '../../components/ShopifyHtml'
-import SEO from '../../components/seo'
 import NewsletterForm from '../../components/NewsletterForm'
 import Exchange from '../../components/Exchange'
 import ConsultationForm from '../../components/BookConsultationForm'
 
 const PageTemplate = ({ data, path }) => (
-  <Layout>
-    <SEO title={data.shopifyPage.title} />
+  <Layout
+    title={data.shopifyPage.title}
+    description={data.shopifyPage.bodySummary}
+  >
     <Container as="main" pb={8} sx={{ maxWidth: 680 }}>
       <Box pt={7} pb={2}>
         <Heading>{data.shopifyPage.title}</Heading>
@@ -37,6 +38,7 @@ export const query = graphql`
       title
       body
       handle
+      bodySummary
     }
   }
 `

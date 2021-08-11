@@ -57,10 +57,10 @@ const orgLdJSON = `
     }
 `
 
-const Layout = ({ title, children }) => (
+const Layout = ({ title, description, children }) => (
   <RecentlyViewedProductsProvider>
     <Drawers>
-      <SEO title={title}>
+      <SEO title={title} description={description}>
         <script type="application/ld+json">{orgLdJSON}</script>
         <script type="text/javascript">
           {`
