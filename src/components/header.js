@@ -17,7 +17,16 @@ const Header = () => {
   const [, setOpenDrawer] = useContext(DrawerContext)
 
   return (
-    <Box sx={{ position: 'sticky', top: 0, zIndex: 10, boxShadow: 'small' }}>
+    <Box
+      sx={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 10,
+        boxShadow: 'small',
+        borderBottom: '1px solid',
+        borderColor: 'border',
+      }}
+    >
       <Box
         as="header"
         bg="white"
