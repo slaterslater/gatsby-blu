@@ -48,6 +48,7 @@ export const megaMenu = {
     {
       title: 'collections',
       links: [
+        { path: '/collections/stacking-rings', text: 'stacking rings' },
         { path: '/collections/oceana-collection', text: 'oceana' },
         {
           path: '/collections/tree-of-life-collection-1',
@@ -58,7 +59,10 @@ export const megaMenu = {
         { path: '/collections/sweetness-collection', text: 'sweetness' },
         { path: '/collections/the-revival-collection', text: 'revival' },
         { path: '/collections/littles-collection', text: 'littles' },
-        { path: '/collections/inseparable-collection', text: 'inseparable' },
+        {
+          path: '/collections/one-of-a-kind-beloved-engagement-rings',
+          text: 'one of a kind',
+        },
       ],
     },
     {
