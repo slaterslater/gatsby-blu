@@ -22,6 +22,9 @@ export const CHECKOUT_FRAGMENT = gql`
               amount
               currencyCode
             }
+            product {
+              id
+            }
             presentmentPrices(first: 5) {
               edges {
                 node {

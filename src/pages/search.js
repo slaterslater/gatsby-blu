@@ -11,6 +11,7 @@ import {
   searchClient,
 } from '../components/search/shared'
 import SuggestedSearches from '../components/search/SuggestedSearches'
+import { useAnalytics } from '../lib/useAnalytics'
 
 const SearchHits = connectInfiniteHits(
   ({ hits, hasMore, refineNext, ...rest }) => (
@@ -44,6 +45,8 @@ const SearchHits = connectInfiniteHits(
 const SearchPage = ({ location: { search } }) => {
   const [query] = useState(parse(search?.replace('?', '')).q)
   const [usedInput, setUsedInput] = useState(!!query)
+
+  useAnalytics('viewSearch')
 
   return (
     <Layout title="product search">

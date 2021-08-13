@@ -6,29 +6,37 @@ import ShopifyHtml from '../../components/ShopifyHtml'
 import NewsletterForm from '../../components/NewsletterForm'
 import Exchange from '../../components/Exchange'
 import ConsultationForm from '../../components/BookConsultationForm'
+import { useAnalytics } from '../../lib/useAnalytics'
 
-const PageTemplate = ({ data, path }) => (
-  <Layout
-    title={data.shopifyPage.title}
-    description={data.shopifyPage.bodySummary}
-  >
-    <Container as="main" pb={8} sx={{ maxWidth: 680 }}>
-      <Box pt={7} pb={2}>
-        <Heading>{data.shopifyPage.title}</Heading>
-      </Box>
-      {path?.includes('/pages/exchange-form') && <Exchange variant="primary" />}
-      {path?.includes('/pages/book-a-consultation') && (
-        <ConsultationForm variant="primary" />
-      )}
-      <ShopifyHtml
-        dangerouslySetInnerHTML={{
-          __html: data.shopifyPage.body,
-        }}
-      />
-      {path?.includes('/pages/sign-up') && <NewsletterForm variant="primary" />}
-    </Container>
-  </Layout>
-)
+const PageTemplate = ({ data, path }) => {
+  useAnalytics('viewPage')
+  return (
+    <Layout
+      title={data.shopifyPage.title}
+      description={data.shopifyPage.bodySummary}
+    >
+      <Container as="main" pb={8} sx={{ maxWidth: 680 }}>
+        <Box pt={7} pb={2}>
+          <Heading>{data.shopifyPage.title}</Heading>
+        </Box>
+        {path?.includes('/pages/exchange-form') && (
+          <Exchange variant="primary" />
+        )}
+        {path?.includes('/pages/book-a-consultation') && (
+          <ConsultationForm variant="primary" />
+        )}
+        <ShopifyHtml
+          dangerouslySetInnerHTML={{
+            __html: data.shopifyPage.body,
+          }}
+        />
+        {path?.includes('/pages/sign-up') && (
+          <NewsletterForm variant="primary" />
+        )}
+      </Container>
+    </Layout>
+  )
+}
 
 export default PageTemplate
 

@@ -15,6 +15,7 @@ import CollectionSpotlight, {
 } from '../components/CollectionSpotlight'
 import { HeroOuter } from '../components/content/Hero'
 import Zodiac from '../components/Zodiac'
+import { useAnalytics } from '../lib/useAnalytics'
 
 const IndexPage = ({ data }) => {
   const {
@@ -39,6 +40,8 @@ const IndexPage = ({ data }) => {
       }
   }
 `
+
+  useAnalytics('viewHome')
 
   return (
     <Layout>

@@ -2,11 +2,19 @@ import { noop } from 'lodash'
 import { useEffect, useCallback, useContext } from 'react'
 import { CurrencyContext } from '../contexts/CurrencyContext'
 
+const getShopifyProductId = (id = '') => id.replace('Shopify__Product__', '')
+
 const sendGtagEvent = (name, payload) => {
   if (window.gtag) {
     window.gtag('event', name, payload)
   }
 }
+
+const sendAWEvent = (name, payload) =>
+  sendGtagEvent(name, {
+    send_to: process.env.GATSBY_AW_CONVERSION_ID,
+    ...payload,
+  })
 
 const sendPinEvent = (name, payload = {}) => {
   if (window.pintrk) {
@@ -15,19 +23,26 @@ const sendPinEvent = (name, payload = {}) => {
 }
 
 const events = {
+  viewHome: () => {
+    sendAWEvent('page_view', { ecomm_pagetype: 'home' })
+  },
   viewProduct: (payload, currency) => {
-    const product = payload
+    const { product } = payload
+
     sendGtagEvent('view_item', {
       currency,
       items: [
         {
-          item_id: product.id,
+          item_id: getShopifyProductId(product.id),
           item_name: product.title,
           item_brand: product.vendor,
           item_category: product.productType,
           currency,
         },
       ],
+    })
+    sendAWEvent('page_view', {
+      ecomm_prodid: getShopifyProductId(product.id),
     })
     sendPinEvent('pagevisit')
   },
@@ -66,6 +81,12 @@ const events = {
       })),
       value: checkout?.totalPriceV2.amount,
     })
+    sendAWEvent('page_view', {
+      ecomm_pagetype: 'cart',
+      ecomm_prodid: checkout?.lineItems.edges.map(
+        ({ node }) => node.variant.product.id
+      ),
+    })
   },
   removeFromCart: payload => {
     const lineItem = payload
@@ -102,6 +123,13 @@ const events = {
     }
 
     sendGtagEvent('view_item_list', payload)
+    sendAWEvent('page_view', { ecomm_pagetype: 'category' })
+  },
+  viewSearch: () => {
+    sendAWEvent('page_view', { ecomm_pagetype: 'searchresults' })
+  },
+  viewPage: () => {
+    sendAWEvent('page_view', { ecomm_pagetype: 'other' })
   },
 }
 
