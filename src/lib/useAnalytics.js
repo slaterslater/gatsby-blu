@@ -2,7 +2,32 @@ import { noop } from 'lodash'
 import { useEffect, useCallback, useContext } from 'react'
 import { CurrencyContext } from '../contexts/CurrencyContext'
 
-const getShopifyProductId = (id = '') => id.replace('Shopify__Product__', '')
+const getAdminId = (id = '') => {
+  const [storefrontId] = id.split('__').slice(-1)
+  const gid = atob(storefrontId)
+  const [adminId] = gid.split('/').slice(-1)
+  return adminId
+}
+
+const getShopifyProductId = (product, variant) => {
+  const productId = getAdminId(product?.id)
+
+  switch (true) {
+    case variant:
+      return `shopify_CA_${productId}_${variant}`
+    case !!product.variants.find(v => v.availableForSale): {
+      const availableVariant = product.variants.find(v => v.availableForSale)
+      const variantId = getAdminId(availableVariant.id)
+      return `shopify_CA_${productId}_${variantId}`
+    }
+    default: {
+      const [firstVariant] = product.variants
+      const variantId = getAdminId(firstVariant.id)
+
+      return `shopify_CA_${productId}_${variantId}`
+    }
+  }
+}
 
 const sendGtagEvent = (name, payload) => {
   if (window.gtag) {
@@ -27,13 +52,14 @@ const events = {
     sendAWEvent('page_view', { ecomm_pagetype: 'home' })
   },
   viewProduct: (payload, currency) => {
-    const { product } = payload
-
+    const { product, variant } = payload
+    const itemId = getShopifyProductId(product, variant)
+    console.log(itemId)
     sendGtagEvent('view_item', {
       currency,
       items: [
         {
-          item_id: getShopifyProductId(product.id),
+          item_id: itemId,
           item_name: product.title,
           item_brand: product.vendor,
           item_category: product.productType,
@@ -42,7 +68,7 @@ const events = {
       ],
     })
     sendAWEvent('page_view', {
-      ecomm_prodid: getShopifyProductId(product.id),
+      ecomm_prodid: itemId,
     })
     sendPinEvent('pagevisit')
   },

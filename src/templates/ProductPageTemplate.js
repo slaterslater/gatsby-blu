@@ -1,13 +1,26 @@
 import React, { useEffect } from 'react'
 import { useQuery } from 'urql'
 import { graphql } from 'gatsby'
+import { parse } from 'qs'
+import { useLocation } from '@reach/router'
 import { PRODUCT_QUERY } from '../queries/product'
 import Layout from '../components/layout'
 import ProductSEO from '../components/product/ProductSEO'
-import ProductPage, { getProduct } from '../views/ProductView'
-import {useAnalytics} from '../lib/useAnalytics'
+import ProductView, { getProduct } from '../views/ProductView'
+import { useAnalytics } from '../lib/useAnalytics'
 
-const ProductPageTemplate = ({ data }) => {
+const useViewProductAnalytics = data => {
+  const { search } = useLocation()
+
+  const { variant, currency } = parse(search?.replace('?', ''))
+  useAnalytics('viewProduct', {
+    product: data.shopifyProduct,
+    variant,
+    currency,
+  })
+}
+
+const ProductPageTemplate = ({ data, ...props }) => {
   const [{ data: latestData }] = useQuery({
     query: PRODUCT_QUERY,
     variables: { handle: data.shopifyProduct.handle },
@@ -17,12 +30,12 @@ const ProductPageTemplate = ({ data }) => {
     ? getProduct(latestData.productByHandle)
     : null
 
-  useAnalytics('viewProduct', { product: data.shopifyProduct })
+  useViewProductAnalytics(data)
 
   return (
     <Layout>
       <ProductSEO product={data.shopifyProduct} />
-      <ProductPage
+      <ProductView
         product={latestProduct || data.shopifyProduct}
         yotpoProductReview={data.yotpoProductReview}
         yotpoProductQa={data.yotpoProductQa}

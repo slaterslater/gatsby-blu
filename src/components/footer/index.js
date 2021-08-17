@@ -3,7 +3,7 @@ import React from 'react'
 import ThemeLink from '../app/ThemeLink'
 import NewsletterSignUp from '../NewsletterForm'
 import { CollapsibleFooterSection, FooterSection } from './sections'
-import { FooterLink, FooterText, FooterTidioLink } from './links'
+import { FooterA, FooterLink, FooterText, FooterTidioLink } from './links'
 import CurrencyPicker from '../CurrencyPicker'
 
 const Footer = props => (
@@ -87,15 +87,15 @@ const Footer = props => (
             </FooterLink>
           </CollapsibleFooterSection>
           <CollapsibleFooterSection title="Social">
-            <FooterLink href="https://www.instagram.com/bluboho">
+            <FooterA href="https://www.instagram.com/bluboho">
               instagram
-            </FooterLink>
-            <FooterLink href="https://www.facebook.com/blubohojewelry">
+            </FooterA>
+            <FooterA href="https://www.facebook.com/blubohojewelry">
               facebook
-            </FooterLink>
-            <FooterLink href="https://www.pinterest.ca/bluboho" pb={0}>
+            </FooterA>
+            <FooterA href="https://www.pinterest.ca/bluboho" pb={0}>
               pinterest
-            </FooterLink>
+            </FooterA>
           </CollapsibleFooterSection>
         </Grid>
 

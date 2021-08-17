@@ -1,17 +1,24 @@
 import React, { useEffect, useState } from 'react'
-import { Text } from 'theme-ui'
+import { Link, Text } from 'theme-ui'
 import { motion } from 'framer-motion'
 import ThemeLink from '../app/ThemeLink'
 
-export const FooterLink = ({ children, ...props }) => (
+export const FooterA = ({ children, ...props }) => (
+  <Link
+    variant="small"
+    sx={{ display: 'block', color: 'white' }}
+    pb={4}
+    {...props}
+  />
+)
+
+export const FooterLink = props => (
   <ThemeLink
     variant="small"
     sx={{ display: 'block', color: 'white' }}
     pb={4}
     {...props}
-  >
-    {children}
-  </ThemeLink>
+  />
 )
 
 export const FooterText = ({ children, sx, ...props }) => (
