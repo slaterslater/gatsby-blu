@@ -50,16 +50,16 @@ const events = {
     const lineItem = payload
     // GA4
     sendGtagEvent('add_to_cart', {
-      currency: lineItem.variant.priceV2.currencyCode,
-      value: lineItem.variant.priceV2.amount,
+      currency: lineItem.variant?.priceV2.currencyCode,
+      value: lineItem.variant?.priceV2.amount,
       items: [
         {
           item_name: lineItem.title,
           item_id: lineItem.id,
-          currency: lineItem.variant.priceV2.currencyCode,
-          price: lineItem.variant.priceV2.amount,
+          currency: lineItem.variant?.priceV2.currencyCode,
+          price: lineItem.variant?.priceV2.amount,
           quantity: 1,
-          item_variant: lineItem.variant.title,
+          item_variant: lineItem.variant?.title,
         },
       ],
     })
