@@ -63,6 +63,7 @@ const OneOfAKindBelovedPage = ({ params: { handle }, path, data }) => {
   const currentParams = parse(location.search.replace('?', ''))
 
   const sortedCollections = sortCollections(data.allShopifyCollection.nodes, [
+    'im-yours',
     'lakeside',
     'summer-light-collection',
     'new-horizon',
@@ -138,6 +139,7 @@ export const query = graphql`
       filter: {
         handle: {
           in: [
+            "im-yours"
             "lakeside"
             "shades-of-blu"
             "flower-moon-collection"
