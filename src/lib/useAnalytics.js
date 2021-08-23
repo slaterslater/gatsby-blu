@@ -54,7 +54,6 @@ const events = {
   viewProduct: (payload, currency) => {
     const { product, variant } = payload
     const itemId = getShopifyProductId(product, variant)
-    console.log(itemId)
     sendGtagEvent('view_item', {
       currency,
       items: [
