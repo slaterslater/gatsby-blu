@@ -33,12 +33,12 @@ const LineItem = ({ item, imgSize, children }) => {
         )}
       </Box>
       <Box>
-        <Heading variant="h1" pb={2} sx={{ flex: 1, fontSize: 1 }}>
+        <Heading variant="h1" pb={1} sx={{ flex: 1, fontSize: 1 }}>
           {title}
         </Heading>
         {optionsDescription && (
           <Box>
-            <Text variant="small" sx={{ color: 'darkGray', fontSize: 1 }}>
+            <Text variant="small" sx={{ color: 'darkGray' }}>
               {optionsDescription}
             </Text>
           </Box>
