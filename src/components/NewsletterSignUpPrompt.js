@@ -43,6 +43,7 @@ const NewsletterSignUpPrompt = props => {
             right: 0,
             bottom: 0,
             gap: [2, 2, 6],
+            pb: [6, 0],
           }}
         >
           <Text

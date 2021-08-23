@@ -27,6 +27,7 @@ const DrawerOuter = ({ origin, ...props }) => (
       zIndex: 101,
       alignItems: 'stretch',
     }}
+    pb={[7, 0]}
     {...props}
   />
 )

@@ -52,6 +52,7 @@ const FullscreenGallery = ({ isOpen, initialPage, onClose, images }) => {
       sx={{
         bg: 'white',
         height: '100vh',
+        height: 'calc(var(--vh, 1vh) * 100)',
         width: '100vw',
         position: 'fixed',
         top: 0,
@@ -96,6 +97,7 @@ const FullscreenGallery = ({ isOpen, initialPage, onClose, images }) => {
           right: 0,
         }}
         p={6}
+        pb={8}
       >
         <Box sx={{ width: 80, textAlign: 'center' }}>
           {!!currentPage && (

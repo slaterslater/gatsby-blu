@@ -47,7 +47,7 @@ const LineItem = ({ item, imgSize, children }) => {
           .filter(attribute => attribute.key !== 'wrapping')
           .map(attribute => (
             <Box key={`${item.id}-${attribute.name}-${attribute.value}`}>
-              <Text variant="small" sx={{ color: 'darkGray', fontSize: 1 }}>
+              <Text variant="small" sx={{ color: 'darkGray' }}>
                 {attribute.key}: {attribute.value}
               </Text>
             </Box>
