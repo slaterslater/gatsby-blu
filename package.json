@@ -102,10 +102,10 @@
   "license": "0BSD",
   "scripts": {
     "build": "GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES=true gatsby build",
-    "develop": "gatsby develop",
+    "develop": "gatsby develop -H 0.0.0.0",
     "serve": "gatsby serve",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
-    "start": "npm run develop -H 0.0.0.0",
+    "start": "npm run develop",
     "netlify": "netlify dev",
     "prebuild": "netlify-lambda install",
     "clean": "gatsby clean",

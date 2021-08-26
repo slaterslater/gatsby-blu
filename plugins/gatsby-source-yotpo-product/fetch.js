@@ -37,7 +37,7 @@ export const getProductQA = async ({ productIds, yotpoAppKey }) => {
         `https://api.yotpo.com/products/${yotpoAppKey}/${id}/questions`
       )
     } catch (e) {
-      console.log('error getting productQA', e)
+      console.log('error getting productQA')
     }
     if (res && res.data) {
       return { ...res.data.response, productId: id }
@@ -54,7 +54,7 @@ export const getReviews = async ({ productIds, yotpoAppKey, yotpoPerPage }) => {
     try {
       res = await makeYotpoRequest(yotpoAppKey, yotpoPerPage, id)
     } catch (e) {
-      console.log('error getting review', e)
+      console.log('error getting review')
     }
     if (res && res.data) {
       return { ...res.data.response, productId: id }

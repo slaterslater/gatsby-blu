@@ -160,7 +160,6 @@ export const query = graphql`
         userType
         asker {
           displayName
-          socialImage
         }
         sortedPublicAnswers {
           votesUp
