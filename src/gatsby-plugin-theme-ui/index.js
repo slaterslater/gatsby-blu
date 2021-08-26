@@ -22,6 +22,7 @@ const sketchButton = {
   fontWeight: 'heading',
   letterSpacing: 'widest',
   position: 'relative',
+  zIndex: 1,
   '&::before': {
     content: '""',
     position: 'absolute',

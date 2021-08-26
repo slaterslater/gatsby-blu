@@ -5,6 +5,7 @@ import { DateTime } from 'luxon'
 import { useLocation } from '@reach/router'
 import CollectionProduct from '../CollectionProduct'
 import CollectionProductGroup from '../CollectionProductGroup'
+import BookAConsultationCallout from '../content/BookAConsultationCallout'
 
 export const sortProducts = ({ products, sort }) =>
   products.sort((a, b) => {
@@ -48,14 +49,21 @@ const ProductGrid = ({
 
   return (
     <CollectionProductGroup title={title} key={collectionTitle}>
-      {sortedProducts.map(product => (
-        <CollectionProduct
-          key={product.id}
-          product={product}
-          images={product.images}
-          collectionTitle={collectionTitle}
-          collectionPath={collectionPath}
-        />
+      {sortedProducts.map((product, i) => (
+        <>
+          {collectionPath?.includes('bridal') && i === 6 && (
+            <BookAConsultationCallout
+              sx={{ gridColumn: 'span 2', m: [0, 0, 4] }}
+            />
+          )}
+          <CollectionProduct
+            key={product.id}
+            product={product}
+            images={product.images}
+            collectionTitle={collectionTitle}
+            collectionPath={collectionPath}
+          />
+        </>
       ))}
     </CollectionProductGroup>
   )
