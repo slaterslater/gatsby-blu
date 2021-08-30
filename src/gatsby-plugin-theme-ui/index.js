@@ -48,6 +48,7 @@ const colors = {
   lightBlueGray: '#ced6df',
   blueGray: '#7b92a3',
   cream: '#ECE7E1',
+  bbBeige: '#F7F4EF',
   white: '#FFFFFF',
   yellowGold: '#e9d68f',
   sterlingSilver: '#c7c7c7',
