@@ -3,7 +3,7 @@ import { Link, Text } from 'theme-ui'
 import { motion } from 'framer-motion'
 import ThemeLink from '../app/ThemeLink'
 
-export const FooterA = ({ children, ...props }) => (
+export const FooterA = props => (
   <Link
     variant="small"
     sx={{ display: 'block', color: 'white' }}
