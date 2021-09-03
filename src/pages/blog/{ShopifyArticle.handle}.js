@@ -8,7 +8,10 @@ import SEO from '../../components/seo'
 
 const BlogTemplate = ({ data }) => (
   <Layout>
-    <SEO title={data.shopifyArticle.title} />
+    <SEO
+      title={data.shopifyArticle.title}
+      description={data.shopifyArticle.excerpt}
+    />
     <Container sx={{ maxWidth: 800 }}>
       <Box pb={4}>
         <Text variant="caps">
@@ -37,6 +40,7 @@ export const query = graphql`
   query BlogArticlePage($handle: String!) {
     shopifyArticle(handle: { eq: $handle }) {
       title
+      excerpt
       contentHtml
       publishedAt
       author {
