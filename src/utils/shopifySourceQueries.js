@@ -194,7 +194,6 @@ export default {
                         key
                         namespace
                         value
-                        valueType
                       }
                     }
                   }
