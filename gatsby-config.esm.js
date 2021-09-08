@@ -156,7 +156,7 @@ module.exports = {
         shopName: process.env.SHOPIFY_SHOP_NAME,
         // The storefront access token
         accessToken: process.env.SHOPIFY_STOREFRONT_KEY,
-        apiVersion: '2021-04',
+        apiVersion: '2021-07',
         paginationSize: 80,
         collections: ['shop'],
         downloadImages: false,

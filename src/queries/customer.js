@@ -7,6 +7,7 @@ export const CUSTOMER_QUERY = gql`
       displayName
       firstName
       lastName
+      email
       orders(first: 250) {
         edges {
           node {

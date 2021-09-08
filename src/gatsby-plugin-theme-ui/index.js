@@ -140,7 +140,7 @@ export default {
     default: {
       fontSize: 1,
       letterSpacing: 'wider',
-      lineHeight: 'body',
+      lineHeight: '1.6em',
     },
     caps: {
       textTransform: 'uppercase',

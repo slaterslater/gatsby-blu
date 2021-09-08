@@ -12,9 +12,10 @@ const FormControlWrap = ({ label, id, name, children }) => (
     {!!name && (
       <ErrorMessage
         component={Text}
-        pt={3}
+        as="p"
+        pt={2}
         px={1}
-        sx={{ color: 'error' }}
+        sx={{ color: 'error', fontSize: 0 }}
         name={name}
       />
     )}

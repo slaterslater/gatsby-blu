@@ -18,6 +18,7 @@ export const PRODUCT_PRICE_RANGE_FRAGMENT = gql`
 export const PRODUCT_QUERY = gql`
   query ProductQuery($handle: String!) {
     productByHandle(handle: $handle) {
+      id
       handle
       title
       description
@@ -40,6 +41,9 @@ export const PRODUCT_QUERY = gql`
             id
           }
         }
+      }
+      willRestock: metafield(namespace: "my_fields", key: "will_restock") {
+        value
       }
       variants(first: 100) {
         edges {
