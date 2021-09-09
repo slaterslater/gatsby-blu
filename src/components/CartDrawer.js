@@ -47,14 +47,14 @@ const CartDrawer = ({ onClose }) => {
             <Text as={IoIosClose} size={24} />
           </IconButton>
         </Flex>
+        <Divider m={0} />
       </Box>
       {data && (
         <>
           <Box sx={{ flex: 1, overflowY: 'auto' }}>
-            <Divider mb={4} mt={0} />
             {!data.node.lineItems?.edges.length && <EmptyCart />}
             {data.node.lineItems.edges.map(({ node }) => (
-              <Box key={node.id} px={3} py={2}>
+              <Box key={node.id} py={4} px={3}>
                 <CartLineItem item={node} />
               </Box>
             ))}

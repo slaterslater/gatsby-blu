@@ -27,10 +27,19 @@ const DrawerOuter = ({ origin, ...props }) => (
       zIndex: 101,
       alignItems: 'stretch',
     }}
-    pb={[7, 0]}
     {...props}
   />
 )
+
+// update vh unit to account for mobile browser chrome
+// mostly the safari footer
+function setHeight() {
+  console.log('set drawer height')
+  // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
+  const vh = window.innerHeight * 0.01
+  // Then we set the value in the --vh custom property to the root of the document
+  document.documentElement.style.setProperty('--vh', `${vh}px`)
+}
 
 const Drawers = ({ children }) => {
   const [openDrawer, setOpenDrawer] = useState('')
@@ -41,11 +50,8 @@ const Drawers = ({ children }) => {
   useEffect(() => {
     if (openDrawer) {
       document.querySelector('body').style.overflow = 'hidden'
-
-      // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
-      const vh = window.innerHeight * 0.01
-      // Then we set the value in the --vh custom property to the root of the document
-      document.documentElement.style.setProperty('--vh', `${vh}px`)
+      setHeight()
+      window.addEventListener('resize', setHeight)
     }
 
     if (!openDrawer) {
@@ -54,6 +60,7 @@ const Drawers = ({ children }) => {
 
     return () => {
       document.querySelector('body').style.removeProperty('overflow')
+      window.removeEventListener('resize', setHeight)
     }
   }, [openDrawer])
 
@@ -71,7 +78,7 @@ const Drawers = ({ children }) => {
                 boxShadow: 'inset 0 0 70px rgba(0,0,0,.7)',
                 bg: 'rgba(0,0,0,.5)',
                 height: '100vh',
-                height: 'calc(var(--vh, 1vh) * 100)',
+                // height: 'calc(var(--vh, 1vh) * 100)',
                 width: '100vw',
                 position: 'fixed',
                 zIndex: 100,

@@ -89,9 +89,7 @@ const CartLineItem = ({ onRemoveItem, item, imgSize }) => {
           <FiTrash />
         </IconButton>
       </Flex>
-      <Box pb={5}>
-        <WrapSeparatelyOption item={item} />
-      </Box>
+      <WrapSeparatelyOption item={item} />
     </LineItem>
   )
 }
