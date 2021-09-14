@@ -12,7 +12,7 @@ import { getTagAttributes, useProductPreorderMessage } from './util'
 import NotifyModal from './NotifyModal'
 
 const AddToCart = ({ customAttributes }) => {
-  const { selectedVariant, product } = useContext(ProductContext)
+  const { selectedVariant, product, quantity } = useContext(ProductContext)
 
   const preorderMessage = useProductPreorderMessage(product.tags)
 
@@ -30,7 +30,7 @@ const AddToCart = ({ customAttributes }) => {
   const [isOn, toggleOn] = useToggle()
 
   const addToCart = async () => {
-    const lineItems = [{ quantity: 1, variantId: selectedVariant.shopifyId }]
+    const lineItems = [{ quantity, variantId: selectedVariant.shopifyId }]
 
     const nextAttributes = [
       ...(customAttributes || []),
@@ -78,6 +78,8 @@ const AddToCart = ({ customAttributes }) => {
         return defaults
     }
   }
+
+  // console.log(selectedVariant)
   const { handleClick, disabled, buttonText } = getButtonState()
 
   return (

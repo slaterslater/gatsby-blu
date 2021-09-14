@@ -58,9 +58,10 @@ const productQuery = `
 `
 
 function pageToAlgoliaRecord(node) {
+  const { id: objectID, ...nodeRest } = node
   return {
-    objectID: node.id,
-    ...node,
+    objectID,
+    ...nodeRest,
   }
 }
 export const algoliaQueries = [

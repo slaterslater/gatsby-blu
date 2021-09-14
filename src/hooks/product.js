@@ -5,7 +5,7 @@ import { useQuery } from 'urql'
 import { PRODUCT_QUERY } from '../queries/product'
 import { useAnalytics } from '../lib/useAnalytics'
 
-const getProduct = product => ({
+export const getProduct = product => ({
   ...product,
   shopifyId: product.id,
   images: product.images.edges.map(({ node }) => node),

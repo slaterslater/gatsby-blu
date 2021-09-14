@@ -1,10 +1,11 @@
 import React from 'react'
 import { useQuery } from 'urql'
-import ProductView, { getProduct } from '../../views/ProductView'
+import ProductView from '../../views/ProductView'
 import NotFoundView from '../../views/404'
 import { PRODUCT_QUERY } from '../../queries/product'
 import Layout from '../../components/layout'
 import ProductSEO from '../../components/product/ProductSEO'
+import { getProduct } from '../../hooks/product'
 
 const ClientProductPage = ({ params: { handle } }) => {
   const [{ data }] = useQuery({

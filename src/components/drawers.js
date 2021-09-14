@@ -34,7 +34,6 @@ const DrawerOuter = ({ origin, ...props }) => (
 // update vh unit to account for mobile browser chrome
 // mostly the safari footer
 function setHeight() {
-  console.log('set drawer height')
   // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
   const vh = window.innerHeight * 0.01
   // Then we set the value in the --vh custom property to the root of the document

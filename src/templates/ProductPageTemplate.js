@@ -7,18 +7,13 @@ import ProductView from '../views/ProductView'
 import { useViewProductAnalytics, useLatestProduct } from '../hooks/product'
 
 const ProductPageTemplate = ({ data, ...props }) => {
-  const product = useLatestProduct({
-    handle: data.shopifyProduct.handle,
-    initial: data.shopifyProduct,
-  })
-
   useViewProductAnalytics(data)
 
   return (
     <Layout>
       <ProductSEO product={data.shopifyProduct} />
       <ProductView
-        product={product}
+        product={data.shopifyProduct}
         yotpoProductReview={data.yotpoProductReview}
         yotpoProductQa={data.yotpoProductQa}
         alternates={data.alternates}
@@ -86,7 +81,6 @@ export const query = graphql`
             }
           }
         }
-        availableForSale
         sku
         selectedOptions {
           name

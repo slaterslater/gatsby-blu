@@ -33,13 +33,12 @@ const ProductView = ({
     vendor,
     images,
     tags,
-    availableForSale,
   } = product
 
   const productTitle = useProductTitle(title)
 
   return (
-    <ProductProvider product={product}>
+    <ProductProvider initial={product} handle={product.handle}>
       <Container pt={0}>
         <Breadcrumbs
           pt={[3, 6]}
@@ -70,15 +69,8 @@ const ProductView = ({
           <Box sx={{ position: 'relative' }}>
             <Box sx={{ position: 'sticky', top: 80 }}>
               <ProductDetails
-                title={title}
-                descriptionHtml={descriptionHtml}
-                variants={variants}
-                vendor={vendor}
                 yotpoProductBottomline={yotpoProductReview?.bottomline}
                 alternates={alternates}
-                productType={productType}
-                options={options}
-                tags={tags}
               />
               <ProductSocial
                 title={title}

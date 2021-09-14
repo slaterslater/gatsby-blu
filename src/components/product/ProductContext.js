@@ -1,5 +1,8 @@
 import React, { useEffect, createContext } from 'react'
+import { useQuery } from 'urql'
 import { useImmer } from 'use-immer'
+import { getProduct } from '../../hooks/product'
+import { PRODUCT_QUERY } from '../../queries/product'
 
 export const ProductContext = createContext({})
 
@@ -23,34 +26,55 @@ const getSelectedVariant = (selectedOptions = {}, variants = []) =>
     }, true)
   )
 
-const getInitialOptionValues = (options = [], variants = []) => {
-  const selectedOptions = getInitialSelectedOptions(options)
-  const selectedVariant = getSelectedVariant(selectedOptions, variants)
+const getInitialOptionValues = product => {
+  const selectedOptions = getInitialSelectedOptions(product.options)
 
-  return { selectedOptions, selectedVariant }
+  return { selectedOptions }
 }
 
-const ProductProvider = ({ product, ...props }) => {
+const ProductProvider = ({ initial, handle, ...props }) => {
+  const [{ data }] = useQuery({
+    query: PRODUCT_QUERY,
+    variables: { handle },
+  })
+  // const product = useLatestProduct({
+  //   handle: data.shopifyProduct.handle,
+  //   initial: data.shopifyProduct,
+  // })
+
   const [value, updateValue] = useImmer({
-    product,
+    product: initial,
     selectOption: () => {},
-    ...getInitialOptionValues(product.options, product.variants),
+    quantity: 1,
+    selectedVariant: undefined,
+    ...getInitialOptionValues(initial),
   })
 
+  // update product from async request
+  // get
   useEffect(() => {
-    updateValue(draft => {
-      draft.product = product
-    })
-  }, [product, updateValue])
+    if (data) {
+      const latestProduct = getProduct(data.productByHandle)
+      console.log(latestProduct)
+      updateValue(draft => {
+        draft.product = latestProduct
+        draft.selectedVariant = getSelectedVariant(
+          draft.selectedOptions,
+          latestProduct.variants
+        )
+      })
+    }
+  }, [data, updateValue])
 
-  const selectOption = (name, value) => {
+  const selectOption = (name, value, quantity = 1) => {
     // update selected options
     updateValue(draft => {
       draft.selectedOptions[name] = value
+      draft.quantity = quantity
       // set variant if the options
       draft.selectedVariant = getSelectedVariant(
         draft.selectedOptions,
-        product.variants
+        draft.product.variants
       )
     })
   }

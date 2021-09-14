@@ -1,8 +1,10 @@
 import React, { useContext } from 'react'
 import { CurrencyContext } from '../../contexts/CurrencyContext'
-import FormattedPrice from '../FormattedPrice'
+import FormattedPrice, { useFormattedPrice } from '../FormattedPrice'
+import { ProductContext } from './ProductContext'
 
 const VariantPrice = ({ variant }) => {
+  const { quantity } = useContext(ProductContext)
   const { currencyCode } = useContext(CurrencyContext)
 
   const presentmentPrice =
@@ -10,7 +12,10 @@ const VariantPrice = ({ variant }) => {
       ({ node }) => node.price.currencyCode === currencyCode
     ) || {}
 
-  return <FormattedPrice priceV2={presentmentPrice.node.price} />
+  return useFormattedPrice({
+    ...presentmentPrice.node.price,
+    amount: presentmentPrice.node.price.amount * quantity,
+  })
 }
 
 export default VariantPrice

@@ -6,17 +6,15 @@ import ProductReviewsTopline from './ProductReviewsTopline'
 import AddToCart from './AddToCart'
 import ShopifyHtml from '../ShopifyHtml'
 import MetalOptions from './MetalOptions'
-import ProductOptions from './ProductOptions'
+import ProductOptions from './options'
 import VariantPrice from './VariantPrice'
 import Engraving from './Engraving'
 import { ProductContext } from './ProductContext'
 
 const ProductDetails = ({ yotpoProductBottomline, alternates }) => {
   const {
-    product: { options, title, descriptionHtml, variants, vendor, tags },
+    product: { title, descriptionHtml, variants, vendor, tags },
     selectedVariant,
-    selectedOptions,
-    selectOption,
   } = useContext(ProductContext)
 
   const [customAttributes, setCustomAttributes] = useState(null)
@@ -47,11 +45,7 @@ const ProductDetails = ({ yotpoProductBottomline, alternates }) => {
       </Box>
       <MetalOptions product={{ variants }} alternates={alternates} />
       <Grid sx={{ gridAutoFlow: 'row', gap: 4 }} pt={5}>
-        <ProductOptions
-          options={options}
-          onSelect={selectOption}
-          selectedOptions={selectedOptions}
-        />
+        <ProductOptions />
         <Engraving
           onChange={attribute => setCustomAttributes([attribute])}
           tags={tags}

@@ -45,6 +45,9 @@ export const PRODUCT_QUERY = gql`
       willRestock: metafield(namespace: "my_fields", key: "will_restock") {
         value
       }
+      offersPairs: metafield(namespace: "my_fields", key: "offers_pairs") {
+        value
+      }
       variants(first: 100) {
         edges {
           node {
