@@ -82,8 +82,11 @@ const Footer = props => (
               the origin story
             </FooterLink>
             <FooterLink to="/pages/careers">careers</FooterLink>
-            <FooterLink pb={0} to="/pages/care-and-wear-disclaimer">
+            <FooterLink to="/pages/care-and-wear-disclaimer">
               jewelry care &amp; wear
+            </FooterLink>
+            <FooterLink pb={0} to="/pages/wholesale-application">
+              Wholesale
             </FooterLink>
           </CollapsibleFooterSection>
           <CollapsibleFooterSection title="Social">
