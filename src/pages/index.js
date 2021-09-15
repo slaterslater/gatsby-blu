@@ -66,7 +66,7 @@ const IndexPage = ({ data }) => {
         <Zodiac />
       </Container>
       <HomeLocations />
-      <Container variant="full" pt={8} sx={{ bg: 'bbBeige' }}>
+      <Container variant="full" pt={[5, 6, 7, 8]} sx={{ bg: 'bbBeige' }}>
         <Medallions />
       </Container>
     </Layout>
