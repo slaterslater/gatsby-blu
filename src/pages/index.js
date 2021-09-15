@@ -16,6 +16,7 @@ import CollectionSpotlight, {
 import { HeroOuter } from '../components/content/Hero'
 import Zodiac from '../components/Zodiac'
 import { useAnalytics } from '../lib/useAnalytics'
+import HomeLocations from '../components/home/locations'
 
 const IndexPage = ({ data }) => {
   const {
@@ -64,7 +65,8 @@ const IndexPage = ({ data }) => {
       <Container variant="full">
         <Zodiac />
       </Container>
-      <Container variant="full">
+      <HomeLocations />
+      <Container variant="full" pt={8} sx={{ bg: 'bbBeige' }}>
         <Medallions />
       </Container>
     </Layout>
