@@ -22,6 +22,7 @@ import Drawers from './drawers'
 import SEO from './seo'
 import RecentlyViewedProductsProvider from '../contexts/RecentlyViewedProductsContext'
 import NewsletterSignUpPrompt from './NewsletterSignUpPrompt'
+import TidioLink from './TidioLink'
 
 const orgLdJSON = `
     {
@@ -98,6 +99,7 @@ const Layout = ({ title, description, children }) => (
         {children}
         <Footer />
       </Flex>
+      <TidioLink />
       <NewsletterSignUpPrompt />
     </Drawers>
   </RecentlyViewedProductsProvider>

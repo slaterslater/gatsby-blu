@@ -55,7 +55,6 @@ const ProductProvider = ({ initial, handle, ...props }) => {
   useEffect(() => {
     if (data) {
       const latestProduct = getProduct(data.productByHandle)
-      console.log(latestProduct)
       updateValue(draft => {
         draft.product = latestProduct
         draft.selectedVariant = getSelectedVariant(

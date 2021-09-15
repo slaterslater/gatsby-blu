@@ -3,7 +3,7 @@ import React from 'react'
 import ThemeLink from '../app/ThemeLink'
 import NewsletterSignUp from '../NewsletterForm'
 import { CollapsibleFooterSection, FooterSection } from './sections'
-import { FooterA, FooterLink, FooterText, FooterTidioLink } from './links'
+import { FooterA, FooterLink, FooterText } from './links'
 import CurrencyPicker from '../CurrencyPicker'
 
 const Footer = props => (
@@ -42,7 +42,6 @@ const Footer = props => (
           >
             <FooterLink to="/pages/locations-and-hours">email us</FooterLink>
             <FooterLink to="/pages/locations-and-hours">call us</FooterLink>
-            <FooterTidioLink />
             <FooterText>m - f 9am - 5pm EST</FooterText>
             <FooterLink to="/pages/locations-and-hours">visit us</FooterLink>
             <FooterLink pb={0} to="/book-a-consultation">
