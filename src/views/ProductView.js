@@ -24,7 +24,6 @@ const ProductView = ({
 
   const {
     handle,
-    options,
     title,
     descriptionHtml,
     description,

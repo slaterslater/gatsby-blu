@@ -4,12 +4,13 @@ import { Link as GatsbyLink } from 'gatsby'
 import ProductTitle from '../ProductTitle'
 import ProductReviewsTopline from './ProductReviewsTopline'
 import AddToCart from './AddToCart'
-import ShopifyHtml from '../ShopifyHtml'
+import { ShopifyHtml } from '../ShopifyHtml'
 import MetalOptions from './MetalOptions'
 import ProductOptions from './options'
 import VariantPrice from './VariantPrice'
 import Engraving from './Engraving'
 import { ProductContext } from './ProductContext'
+import { ProductSpecifications } from './ProductSpecifications'
 
 const ProductDetails = ({ yotpoProductBottomline, alternates }) => {
   const {
@@ -54,6 +55,7 @@ const ProductDetails = ({ yotpoProductBottomline, alternates }) => {
       <AddToCart customAttributes={customAttributes} />
       <Box py={4}>
         <ShopifyHtml dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
+        <ProductSpecifications />
         <Box>
           <Text>
             by{' '}

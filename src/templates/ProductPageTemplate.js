@@ -56,6 +56,10 @@ export const query = graphql`
         height
         width
       }
+      metafields {
+        key
+        value
+      }
       priceRange {
         minVariantPrice {
           currencyCode

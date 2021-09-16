@@ -13,6 +13,7 @@ export const getProduct = product => ({
     ...node,
     shopifyId: node.id,
   })),
+  metafields: product.metafields.edges.map(({ node }) => node),
 })
 
 export const useLatestProduct = ({ handle, initial }) => {

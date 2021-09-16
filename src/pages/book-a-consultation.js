@@ -2,7 +2,7 @@ import { Container, Box, Heading } from 'theme-ui'
 import { graphql } from 'gatsby'
 import React from 'react'
 import Layout from '../components/layout'
-import ShopifyHtml from '../components/ShopifyHtml'
+import { ShopifyHtml } from '../components/ShopifyHtml'
 import BookConsultationForm from '../components/BookConsultationForm'
 
 const BookAConsultation = ({ data }) => (

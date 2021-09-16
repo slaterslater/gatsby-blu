@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from '@emotion/styled'
 
-const ShopifyHtml = styled.div`
+export const ShopifyHtml = styled.div`
   font-size: 12px;
   line-height: 1.5;
 
@@ -33,5 +33,3 @@ const ShopifyHtml = styled.div`
     height: auto;
   }
 `
-
-export default ShopifyHtml

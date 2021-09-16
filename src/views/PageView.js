@@ -1,7 +1,7 @@
 import React from 'react'
 import { Heading, Box, Container } from 'theme-ui'
 import Layout from '../components/layout'
-import ShopifyHtml from '../components/ShopifyHtml'
+import { ShopifyHtml } from '../components/ShopifyHtml'
 import NewsletterForm from '../components/NewsletterForm'
 import Exchange from '../components/Exchange'
 import ConsultationForm from '../components/BookConsultationForm'

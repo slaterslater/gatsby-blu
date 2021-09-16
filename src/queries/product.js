@@ -42,6 +42,14 @@ export const PRODUCT_QUERY = gql`
           }
         }
       }
+      metafields(namespace: "my_fields", first: 250) {
+        edges {
+          node {
+            value
+            key
+          }
+        }
+      }
       willRestock: metafield(namespace: "my_fields", key: "will_restock") {
         value
       }
