@@ -6,17 +6,17 @@ import ThemeLink from './app/ThemeLink'
 const Zodiac = props => (
   <Container variant="full" sx={{ bg: 'bbBeige' }}>
     <Flex px={[4, 0]} py={[5, 6, 7, 8]} sx={{ height: [450, 600] }}>
-      <StaticImage src="../images/zodiac/virgo.jpg" objectFit="contain" />
+      <StaticImage src="../images/zodiac/libra.jpg" objectFit="contain" />
     </Flex>
     <Box sx={{ textAlign: 'center' }}>
       <Heading variant="h1" pb={5}>
-        Zodiac: Virgo
+        Zodiac: Libra
       </Heading>
       <Text as="p">
         <ThemeLink
           variant="caps"
           sx={{ fontSize: 1, textDecoration: 'underline' }}
-          to="/collections/virgo-gift-guide"
+          to="/collections/libra"
         >
           Shop Now
         </ThemeLink>
