@@ -63,12 +63,12 @@ const OneOfAKindBelovedPage = ({ params: { handle }, path, data }) => {
   const currentParams = parse(location.search.replace('?', ''))
 
   const sortedCollections = sortCollections(data.allShopifyCollection.nodes, [
+    'love-struck',
     'im-yours',
     'lakeside',
     'summer-light-collection',
     'new-horizon',
     'flower-moon-collection',
-    'cosmic-love-one-of-a-kind-engagement-ring-collection',
     'love-letters-artist-cut-sapphire-one-of-a-kind-engagement-rings',
     'shades-of-blu',
   ])
@@ -139,6 +139,7 @@ export const query = graphql`
       filter: {
         handle: {
           in: [
+            "love-struck"
             "im-yours"
             "lakeside"
             "shades-of-blu"
@@ -146,7 +147,6 @@ export const query = graphql`
             "summer-light-collection"
             "new-horizon"
             "love-letters-artist-cut-sapphire-one-of-a-kind-engagement-rings"
-            "cosmic-love-one-of-a-kind-engagement-ring-collection"
           ]
         }
       }
