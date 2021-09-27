@@ -1,5 +1,6 @@
 import { Text, Container, Flex, Box, Grid } from 'theme-ui'
 import React from 'react'
+import { StaticImage } from 'gatsby-plugin-image'
 import ThemeLink from '../app/ThemeLink'
 import NewsletterSignUp from '../NewsletterForm'
 import { CollapsibleFooterSection, FooterSection } from './sections'
@@ -128,24 +129,57 @@ const Footer = props => (
     <Box sx={{ bg: 'white' }} px={[5, 5, 6, 7]}>
       <Flex
         sx={{
-          height: 70,
+          height: [170, 90],
           alignItems: 'center',
         }}
       >
-        <Flex sx={{ flex: 1, rowGap: 3, columnGap: 6, flexWrap: 'wrap' }}>
-          <Text variant="caps">Bluboho &copy; {new Date().getFullYear()}</Text>
-          <Flex sx={{ columnGap: 6 }}>
+        <Flex
+          sx={{
+            flex: 1,
+            rowGap: 5,
+            columnGap: 6,
+            flexWrap: 'wrap',
+            flexDirection: ['column', 'row'],
+          }}
+        >
+          <Flex
+            mx={['auto', 0]}
+            sx={{ height: [60, 45], width: [179, 124], order: [2, 0] }}
+          >
+            <StaticImage
+              objectFit="contain"
+              src="../../images/globe-logo.png"
+              height={65}
+              width={179}
+            />
+          </Flex>
+          <Grid
+            sx={{
+              gridTemplateColumns: ['repeat(2, 1fr)', 'repeat(4, max-content)'],
+              alignItems: 'center',
+              rowGap: 3,
+              columnGap: 6,
+              justifyContent: 'center',
+            }}
+          >
+            <Text variant="caps" sx={{ justifySelf: 'right' }}>
+              Bluboho &copy; {new Date().getFullYear()}
+            </Text>
             <ThemeLink to="/pages/terms-of-service" variant="small">
               Terms of Service
             </ThemeLink>
-            <ThemeLink to="/pages/privacy-policy" variant="small">
+            <ThemeLink
+              to="/pages/privacy-policy"
+              variant="small"
+              sx={{ justifySelf: 'right' }}
+            >
               Privacy Policy
             </ThemeLink>
-          </Flex>
+            <Box>
+              <CurrencyPicker />
+            </Box>
+          </Grid>
         </Flex>
-        <Box ml="auto">
-          <CurrencyPicker />
-        </Box>
       </Flex>
     </Box>
   </>
