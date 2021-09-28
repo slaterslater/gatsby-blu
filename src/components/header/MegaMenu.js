@@ -57,6 +57,7 @@ export const megaMenu = {
         { path: '/collections/wanderess', text: 'wanderess' },
         { path: '/collections/tie-dye-collection-2', text: 'tie dye' },
         { path: '/collections/sweetness-collection', text: 'sweetness' },
+        { path: '/collections/flower', text: 'flower' },
         { path: '/collections/the-revival-collection', text: 'revival' },
         { path: '/collections/littles-collection', text: 'littles' },
         {
@@ -107,6 +108,14 @@ export const megaMenu = {
         {
           path: '/collections/wedding-bands',
           text: 'wedding & celebrations bands',
+        },
+        {
+          path: '/collections/bridal-jewelry',
+          text: 'bridal jewelry',
+        },
+        {
+          path: '/collections/bridesmaids-gifts',
+          text: 'bridesmaid gifts',
         },
         { path: '/pages/bluboho-brides', text: 'testimonials' },
         { path: '/collections/bridal', text: 'view all' },
