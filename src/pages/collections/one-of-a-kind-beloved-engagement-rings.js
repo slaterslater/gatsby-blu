@@ -63,6 +63,7 @@ const OneOfAKindBelovedPage = ({ params: { handle }, path, data }) => {
   const currentParams = parse(location.search.replace('?', ''))
 
   const sortedCollections = sortCollections(data.allShopifyCollection.nodes, [
+    'fall-with-me',
     'love-struck',
     'im-yours',
     'lakeside',
@@ -118,7 +119,7 @@ const OneOfAKindBelovedPage = ({ params: { handle }, path, data }) => {
             ))}
           {sortedProducts && (
             <CollectionGroup
-              pageTitle="one of a kind ebloved engagement rings"
+              pageTitle="one of a kind beloved engagement rings"
               pagePath={path}
               title=""
               description=""
@@ -139,6 +140,7 @@ export const query = graphql`
       filter: {
         handle: {
           in: [
+            "fall-with-me"
             "love-struck"
             "im-yours"
             "lakeside"
