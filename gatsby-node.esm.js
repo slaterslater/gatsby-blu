@@ -104,12 +104,8 @@ async function createCollectionPages({ graphql, actions }) {
   const collectionHandles = data.allShopifyCollection.nodes.map(
     node => node.handle
   )
-  console.log('handles', collectionHandles)
 
   data.allShopifyCollection.nodes.forEach(collection => {
-    if (collectionGroupSlugs.includes(collection.handle)) {
-      console.log(collectionGroupSlugs, collection.handle)
-    }
     if (!collectionGroupSlugs.includes(collection.handle)) {
       actions.createPage({
         // What is the URL for this new page??
