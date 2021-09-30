@@ -9,6 +9,39 @@ const decodeShopifyId = id => {
   return decodedId
 }
 
+async function createCollectionGroupPages({ graphql, actions }) {
+  const collectionGroupTemplate = path.resolve(
+    './src/templates/CollectionGroupPageTemplate.js'
+  )
+
+  const { data } = await graphql(`
+    {
+      allSanityCollectionGroupPage {
+        nodes {
+          id
+          slug {
+            current
+          }
+          collections {
+            handle
+          }
+        }
+      }
+    }
+  `)
+
+  data.allSanityCollectionGroupPage.nodes.forEach(node => {
+    actions.createPage({
+      path: `/collections/${node.slug.current}`,
+      component: collectionGroupTemplate,
+      context: {
+        collections: node.collections.map(col => col.handle),
+        id: node.id,
+      },
+    })
+  })
+}
+
 async function createProductPages({ graphql, actions }) {
   // 1. Get a template for this page
   const productTemplate = path.resolve('./src/templates/ProductPageTemplate.js')
@@ -54,12 +87,30 @@ async function createCollectionPages({ graphql, actions }) {
           handle
         }
       }
+      allSanityCollectionGroupPage {
+        nodes {
+          slug {
+            current
+          }
+        }
+      }
     }
   `)
 
-  data.allShopifyCollection.nodes
-    .filter(collection => collection.handle !== 'wanderess')
-    .forEach(collection => {
+  const collectionGroupSlugs = data.allSanityCollectionGroupPage.nodes.map(
+    node => node.slug.current
+  )
+
+  const collectionHandles = data.allShopifyCollection.nodes.map(
+    node => node.handle
+  )
+  console.log('handles', collectionHandles)
+
+  data.allShopifyCollection.nodes.forEach(collection => {
+    if (collectionGroupSlugs.includes(collection.handle)) {
+      console.log(collectionGroupSlugs, collection.handle)
+    }
+    if (!collectionGroupSlugs.includes(collection.handle)) {
       actions.createPage({
         // What is the URL for this new page??
         path: `/collections/${collection.handle}`,
@@ -68,7 +119,8 @@ async function createCollectionPages({ graphql, actions }) {
           handle: collection.handle,
         },
       })
-    })
+    }
+  })
 }
 
 async function createBlogPages({ graphql, actions }) {
@@ -127,5 +179,6 @@ export async function createPages(params) {
     createProductPages(params),
     createCollectionPages(params),
     createBlogPages(params),
+    createCollectionGroupPages(params),
   ])
 }

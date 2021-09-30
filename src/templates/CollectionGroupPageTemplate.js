@@ -1,52 +1,45 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import CollectionGroupsView from '../../views/CollectionGroupsView'
+import CollectionGroupsView from '../views/CollectionGroupsView'
 
-const WanderessGroupsPage = ({ path, data }) => {
+const CollectionPageTemplate = ({ pageContext, path, data }) => {
   const collections = data.allShopifyCollection.nodes.map(node => {
-    if (node.handle === 'wanderess-duo') {
-      return {
-        ...node,
-        title: 'most popular pairings',
-      }
+    const group = data.sanityCollectionGroupPage.collections.find(
+      groupNode => groupNode.handle === node.handle
+    )
+
+    return {
+      ...node,
+      title: group?.title || node.title,
     }
-    return node
   })
 
   return (
     <CollectionGroupsView
-      pageTitle="wanderess collection"
-      pageDescription="
-gather charms recounting your journey of love, growth, achievement, strength, and wisdom; each unique emblem adorns your soul's truths. pick your chain, pick your charms, tell your story
-    "
-      collectionOrder={[
-        'wanderess-chains',
-        'wanderess-charms',
-        'wanderess-birthstone',
-        'wanderess-duo',
-      ]}
+      pageTitle={data.sanityCollectionGroupPage.title}
+      pageDescription={data.sanityCollectionGroupPage.description}
+      collectionOrder={data.sanityCollectionGroupPage.collections.map(
+        item => item.handle
+      )}
       collections={collections}
       pagePath={path}
     />
   )
 }
 
-export default WanderessGroupsPage
+export default CollectionPageTemplate
 
 export const query = graphql`
-  {
-    allShopifyCollection(
-      filter: {
-        handle: {
-          in: [
-            "wanderess-chains"
-            "wanderess-charms"
-            "wanderess-birthstone"
-            "wanderess-duo"
-          ]
-        }
+  query CollectionGroupPageQuery($id: String!, $collections: [String]!) {
+    sanityCollectionGroupPage(id: { eq: $id }) {
+      collections {
+        handle
+        title
       }
-    ) {
+      title
+      description
+    }
+    allShopifyCollection(filter: { handle: { in: $collections } }) {
       nodes {
         title
         description

@@ -1,33 +1,28 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import { useQuery } from 'urql'
-import CollectionView, { getCollectionProducts } from '../views/CollectionView'
-import { COLLECTION_PAGE_QUERY } from '../queries/collection'
+import CollectionGroupsView from '../views/CollectionGroupsView'
 
-const CollectionPageTemplate = ({ data, pageContext, ...props }) => {
-  const [{ data: clientData }] = useQuery({
-    query: COLLECTION_PAGE_QUERY,
-    variables: { handle: pageContext.handle },
+const CollectionPageTemplate = ({ path, data }) => {
+  const collections = data.allShopifyCollection.nodes.map(node => {
+    const group = data.sanityCollectionGroupPage.collections.items.find(
+      groupNode => groupNode.slug.current === node.handle
+    )
+
+    return {
+      ...node,
+      title: group?.title || node.title,
+    }
   })
 
-  const clientProducts = getCollectionProducts(
-    clientData?.collectionByHandle.products
-  )
-
-  const { products, handle } = data.shopifyCollection
-
-  const title = data.shopifyCollection.title.toLowerCase()
-  const description = data.shopifyCollection.description?.toLowerCase()
-
-  const viewProducts = clientProducts || products
-
   return (
-    <CollectionView
-      title={title}
-      handle={handle}
-      description={description}
-      products={viewProducts}
-      hasFilters
+    <CollectionGroupsView
+      pageTitle={data.sanityCollectionGroupPage.title}
+      pageDescription={data.sanityCollectionGroupPage.description}
+      collectionOrder={data.sanityCollectionGroupPage.collections.items.map(
+        item => item.handle
+      )}
+      collections={collections}
+      pagePath={path}
     />
   )
 }
