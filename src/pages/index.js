@@ -60,7 +60,11 @@ const IndexPage = ({ data }) => {
         button={{ text: 'shop gifts', path: '/collections/most-gifted' }}
         align="left"
       >
-        <StaticImage src="../images/homepage-jul-22/most-gifted.jpg" alt="" />
+        <StaticImage
+          src="../images/home/most-gifted-desktop.jpg"
+          quality={82}
+          alt=""
+        />
       </HeroOuter>
       <Container variant="full">
         <Zodiac />
