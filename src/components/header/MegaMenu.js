@@ -49,6 +49,7 @@ export const megaMenu = {
       title: 'collections',
       links: [
         { path: '/collections/stacking-rings', text: 'stacking rings' },
+        { path: '/collections/amulets', text: 'amulets' },
         { path: '/collections/oceana-collection', text: 'oceana' },
         {
           path: '/collections/tree-of-life-collection-1',
