@@ -21,6 +21,7 @@ const productQuery = `
         availableForSale
         vendor
         images {
+        id
           originalSrc
           altText
           height
@@ -59,12 +60,19 @@ const productQuery = `
 `
 
 function pageToAlgoliaRecord(node) {
-  const { id: objectID, ...nodeRest } = node
+  const tags = (node.tags || []).filter(tag => !tag.includes('__'))
+  const images = (node.images || []).map(img => ({
+    originalSrc: img.originalSrc,
+    altText: img.altText,
+  }))
   return {
-    objectID,
-    ...nodeRest,
+    objectID: node.id,
+    ...node,
+    tags,
+    images,
   }
 }
+
 export const algoliaQueries = [
   {
     query: productQuery,
