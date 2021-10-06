@@ -19,6 +19,7 @@ const productQuery = `
         productType
         handle
         availableForSale
+        vendor
         images {
           originalSrc
           altText

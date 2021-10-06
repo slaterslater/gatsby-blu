@@ -63,8 +63,9 @@ const Layout = ({ title, description, children }) => (
     <Drawers>
       <SEO title={title} description={description}>
         <script type="application/ld+json">{orgLdJSON}</script>
-        <script type="text/javascript">
-          {`
+        {process.env.GATSBY_PINTEREST_BASE_CODE && (
+          <script type="text/javascript">
+            {`
                !function(e){if(!window.pintrk){window.pintrk=function(){window.pintrk.queue.push(
                  Array.prototype.slice.call(arguments))};var
                  n=window.pintrk;n.queue=[],n.version="3.0";var
@@ -73,7 +74,37 @@ const Layout = ({ title, description, children }) => (
                pintrk('load', ${process.env.GATSBY_PINTEREST_BASE_CODE});
                pintrk('page');
             `}
-        </script>
+          </script>
+        )}
+        {process.env.GATSBY_ADROLL_ADV_ID && process.env.GATSBY_ADROLL_PIX_ID && (
+          <script type="text/javascript">
+            {`
+              adroll_adv_id = "${process.env.GATSBY_ADROLL_ADV_ID}";
+              adroll_pix_id = "${process.env.GATSBY_ADROLL_PIX_ID}";
+              adroll_version = "2.0";
+              (function(w, d, e, o, a) {
+                w.__adroll_loaded = true;
+                w.adroll = w.adroll || [];
+                w.adroll.f = [ 'setProperties', 'identify', 'track' ];
+                var roundtripUrl = "https://s.adroll.com/j/" + adroll_adv_id
+                    + "/roundtrip.js";
+                for (a = 0; a < w.adroll.f.length; a++) {
+                  w.adroll[w.adroll.f[a]] = w.adroll[w.adroll.f[a]] || (function(n) {
+                    return function() {
+                      w.adroll.push([ n, arguments ])
+                    }
+                  })(w.adroll.f[a])
+                }
+                e = d.createElement('script');
+                o = d.getElementsByTagName('script')[0];
+                e.async = 1;
+                e.src = roundtripUrl;
+                o.parentNode.insertBefore(e, o);
+              })(window, document);
+              adroll.track("pageView");
+              `}
+          </script>
+        )}
         <noscript>
           {`
             <img
