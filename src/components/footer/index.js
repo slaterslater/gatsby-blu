@@ -151,6 +151,7 @@ const Footer = props => (
               src="../../images/globe-logo.png"
               height={65}
               width={179}
+              alt="2021 report on business canada's top growing companies"
             />
           </Flex>
           <Grid

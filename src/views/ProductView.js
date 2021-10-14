@@ -59,7 +59,7 @@ const ProductView = ({ product, alternates }) => {
           }}
           pt={[1, 6]}
         >
-          <ProductImageGallery images={images} />
+          <ProductImageGallery />
           <Box sx={{ position: 'relative' }}>
             <Box sx={{ position: 'sticky', top: 120 }}>
               <ProductDetails alternates={alternates} />

@@ -5,6 +5,8 @@ import { useQuery } from 'urql'
 import { PRODUCT_QUERY } from '../queries/product'
 import { useAnalytics } from '../lib/useAnalytics'
 import { CurrencyContext } from '../contexts/CurrencyContext'
+import { ProductContext } from '../components/product/ProductContext'
+import { useMetafieldValue } from './useMetafield'
 
 export const getProduct = product => ({
   ...product,
@@ -56,4 +58,37 @@ export const useInitialProduct = ({ handle }) => {
     }
     return undefined
   }, [data])
+}
+
+export const useProductGalleryImages = () => {
+  const {
+    product: { images, metafields },
+  } = useContext(ProductContext)
+  const giftPackagingImageStyle = useMetafieldValue(
+    'gift_wrapping_style',
+    metafields
+  )
+
+  if (giftPackagingImageStyle === 'paper') {
+    return [
+      ...images,
+      {
+        originalSrc:
+          'https://cdn.shopify.com/s/files/1/0685/0359/files/packaging-4.jpg?v=1620925677',
+        height: 3000,
+        width: 3000,
+        altText: 'packaging',
+        id: 'packaging-id-17757575234566',
+      },
+      {
+        originalSrc:
+          'https://cdn.shopify.com/s/files/1/0685/0359/files/packaging-9.jpg?v=1620925676',
+        height: 3000,
+        width: 3000,
+        altText: 'packaging alternate',
+        id: 'packaging-alt-id-1234566',
+      },
+    ]
+  }
+  return images || []
 }
