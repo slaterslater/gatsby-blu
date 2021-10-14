@@ -10,15 +10,15 @@ const MetalOptionSwatch = ({ metal, isCurrent }) => {
       sx={{
         borderRadius: '50%',
         border: '1px solid',
-        borderColor: isCurrent ? colour : 'transparent',
+        borderColor: isCurrent ? '#c4c4c4' : 'transparent',
       }}
     >
       <Box
         sx={{
           bg: colour,
-          height: 26,
-          width: 26,
-          border: '4px solid',
+          height: 20,
+          width: 20,
+          border: '2px solid',
           borderColor: 'white',
           borderRadius: '50%',
         }}

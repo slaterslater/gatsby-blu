@@ -1,6 +1,6 @@
 import { Box, Container, Text, Heading, Link } from 'theme-ui'
 import React, { useContext } from 'react'
-import Breadcrumbs from '../Breadcrumbs'
+import { Breadcrumbs } from '../Breadcrumbs'
 import { AuthContext } from '../../contexts/AuthContext'
 
 const AccountPage = ({ title, subtitle, links, currentPage, children }) => {

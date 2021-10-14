@@ -10,9 +10,11 @@ import useToggle from '../../../lib/useToggle'
 import { ProductContext } from '../ProductContext'
 import { getTagAttributes, useProductPreorderMessage } from './util'
 import NotifyModal from './NotifyModal'
+import { useVariantPrice } from '../VariantPrice'
 
-const AddToCart = ({ customAttributes }) => {
+const AddToCart = ({ customAttributes, onAdded = () => {} }) => {
   const { selectedVariant, product, quantity } = useContext(ProductContext)
+  const price = useVariantPrice(selectedVariant || product.variants[0])
 
   const preorderMessage = useProductPreorderMessage(product.tags)
 
@@ -49,6 +51,7 @@ const AddToCart = ({ customAttributes }) => {
       ] = data.checkoutLineItemsAdd.checkout.lineItems.edges.slice(-1)
 
       setOpenDrawer('cart')
+      onAdded()
       sendAnalytics(newEdge.node)
     })
   }
@@ -56,7 +59,7 @@ const AddToCart = ({ customAttributes }) => {
   const getButtonState = () => {
     const defaults = {
       handleClick: addToCart,
-      buttonText: 'Add To Cart',
+      buttonText: `Add To Cart - ${price}`,
       disabled: false,
     }
 
@@ -84,14 +87,14 @@ const AddToCart = ({ customAttributes }) => {
 
   return (
     <>
-      <Box py={4}>
+      <Box>
         {!disabled && <ProductCTACallout pb={4} tags={product.tags} />}
         <Flex>
           <Button
             disabled={disabled}
             type="button"
             onClick={handleClick}
-            sx={{ flex: 1, fontSize: 1, py: 4 }}
+            sx={{ flex: 1, fontSize: 1, py: 4, letterSpacing: 'widest' }}
           >
             {buttonText}
           </Button>

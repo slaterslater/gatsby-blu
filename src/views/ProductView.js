@@ -6,7 +6,7 @@ import { useLocation } from '@reach/router'
 import { useProductTitle } from '../components/ProductTitle'
 import ProductDetails from '../components/product/ProductDetails'
 import ProductSocial from '../components/product/ProductSocial'
-import Breadcrumbs from '../components/Breadcrumbs'
+import { Breadcrumbs } from '../components/Breadcrumbs'
 import ProductReviews from '../components/product/ProductReviews'
 import ProductImageGallery from '../components/product/ProductImageGallery'
 import ProductRecentRecommendations from '../components/product/ProductRecentRecommendations'
@@ -14,12 +14,7 @@ import ProductProvider from '../components/product/ProductContext'
 
 // const getCollectionTypePath =
 
-const ProductView = ({
-  product,
-  yotpoProductReview,
-  yotpoProductQa,
-  alternates,
-}) => {
+const ProductView = ({ product, alternates }) => {
   const location = useLocation()
 
   const {
@@ -40,7 +35,7 @@ const ProductView = ({
     <ProductProvider initial={product} handle={product.handle}>
       <Container pt={0}>
         <Breadcrumbs
-          pt={[3, 6]}
+          pt={[3, 5]}
           px={0}
           ml={[-2, 0]}
           currentPage={{ path: `/products/${handle}`, text: productTitle }}
@@ -66,23 +61,13 @@ const ProductView = ({
         >
           <ProductImageGallery images={images} />
           <Box sx={{ position: 'relative' }}>
-            <Box sx={{ position: 'sticky', top: 80 }}>
-              <ProductDetails
-                yotpoProductBottomline={yotpoProductReview?.bottomline}
-                alternates={alternates}
-              />
-              <ProductSocial
-                title={title}
-                description={description}
-                image={images?.[0]?.originalSrc}
-              />
+            <Box sx={{ position: 'sticky', top: 120 }}>
+              <ProductDetails alternates={alternates} />
             </Box>
           </Box>
         </Grid>
         <ProductRecentRecommendations tags={tags} />
         <ProductReviews
-          yotpoProductReview={yotpoProductReview}
-          yotpoProductQa={yotpoProductQa}
           yotpoProductDetails={{
             appkey: process.env.GATSBY_YOTPO_APP_KEY,
             product_title: title,

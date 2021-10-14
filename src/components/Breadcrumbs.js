@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Box, Text, Link, Flex } from 'theme-ui'
-import { Link as GatsbyLink } from 'gatsby'
+import { Box, Text, Flex } from 'theme-ui'
 import { Helmet } from 'react-helmet'
+import { VscTriangleRight } from 'react-icons/vsc'
+import ThemeLink from './app/ThemeLink'
 
-const Breadcrumbs = ({ links, currentPage, children, ...props }) => {
+export const Breadcrumbs = ({ links, currentPage, children, ...props }) => {
   const siteUrl = `https://www.bluboho.com`
   const breadcrumbLdJSON = `
   {
@@ -35,7 +36,7 @@ const Breadcrumbs = ({ links, currentPage, children, ...props }) => {
         <script type="application/ld+json">{breadcrumbLdJSON}</script>
       </Helmet>
       <Flex
-        py={3}
+        py={[4, 5]}
         mr={-5}
         sx={{
           alignItems: 'center',
@@ -55,18 +56,21 @@ const Breadcrumbs = ({ links, currentPage, children, ...props }) => {
           <React.Fragment key={`breadcrumb-${path}-${text}`}>
             <Text
               variant="caps"
-              sx={{ flexShrink: 0, scrollSnapAlign: 'start' }}
+              sx={{ flexShrink: 0, scrollSnapAlign: 'start', fontSize: 9 }}
             >
-              <Link variant="nav" as={GatsbyLink} to={path}>
+              <ThemeLink variant="nav" to={path}>
                 {text}
-              </Link>
+              </ThemeLink>
             </Text>
             <Box px={2} sx={{ flexShrink: 0 }}>
-              <Text>&bull;</Text>
+              <Text as={VscTriangleRight} size={10} sx={{ color: '#C4C4C4' }} />
             </Box>
           </React.Fragment>
         ))}
-        <Text variant="caps" sx={{ flexShrink: 0, scrollSnapAlign: 'start' }}>
+        <Text
+          variant="caps"
+          sx={{ fontSize: 9, flexShrink: 0, scrollSnapAlign: 'start' }}
+        >
           {currentPage.text}
         </Text>
         {children && <Box ml="auto">{children}</Box>}
@@ -84,5 +88,3 @@ Breadcrumbs.propTypes = {
   links: PropTypes.arrayOf(linkShape).isRequired,
   currentPage: linkShape,
 }
-
-export default Breadcrumbs

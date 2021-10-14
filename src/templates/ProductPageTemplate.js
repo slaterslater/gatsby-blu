@@ -4,6 +4,10 @@ import Layout from '../components/layout'
 import ProductSEO from '../components/product/ProductSEO'
 import ProductView from '../views/ProductView'
 
+// yotpo_reviews has first page of reviews
+// yotpo review_count
+// yotpo reviews_average
+
 import { useViewProductAnalytics, useLatestProduct } from '../hooks/product'
 
 const ProductPageTemplate = ({ data, ...props }) => {
@@ -12,12 +16,7 @@ const ProductPageTemplate = ({ data, ...props }) => {
   return (
     <Layout>
       <ProductSEO product={data.shopifyProduct} />
-      <ProductView
-        product={data.shopifyProduct}
-        yotpoProductReview={data.yotpoProductReview}
-        yotpoProductQa={data.yotpoProductQa}
-        alternates={data.alternates}
-      />
+      <ProductView product={data.shopifyProduct} alternates={data.alternates} />
     </Layout>
   )
 }
@@ -25,11 +24,7 @@ const ProductPageTemplate = ({ data, ...props }) => {
 export default ProductPageTemplate
 
 export const query = graphql`
-  query ProductPage(
-    $handle: String!
-    $productId: String!
-    $alternates: [String]!
-  ) {
+  query ProductPage($handle: String!, $alternates: [String]!) {
     site {
       siteMetadata {
         siteUrl
@@ -75,15 +70,9 @@ export const query = graphql`
         id
         shopifyId
         priceNumber
-        presentmentPrices {
-          edges {
-            node {
-              price {
-                amount
-                currencyCode
-              }
-            }
-          }
+        priceV2 {
+          amount
+          currencyCode
         }
         sku
         selectedOptions {
@@ -103,52 +92,6 @@ export const query = graphql`
             value
           }
           availableForSale
-        }
-      }
-    }
-    yotpoProductReview(productId: { eq: $productId }) {
-      bottomline {
-        totalReview
-        averageScore
-      }
-      id
-      reviews {
-        id
-        createdAt
-        content
-        score
-        votesUp
-        votesDown
-        imagesData {
-          thumbUrl
-        }
-        comment {
-          createdAt
-          content
-        }
-        user {
-          userType
-          displayName
-        }
-      }
-    }
-    yotpoProductQa(productId: { eq: $productId }) {
-      questions {
-        id
-        createdAt
-        content
-        userType
-        asker {
-          displayName
-        }
-        sortedPublicAnswers {
-          votesUp
-          votesDown
-          createdAt
-          content
-          answerer {
-            slug
-          }
         }
       }
     }

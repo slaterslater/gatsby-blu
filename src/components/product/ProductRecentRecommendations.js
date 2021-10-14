@@ -3,55 +3,62 @@ import { useQuery, gql } from 'urql'
 import { Box, NavLink, Flex, Grid, Container, Text } from 'theme-ui'
 import { useMatch } from '@reach/router'
 import { RecentlyViewedProductsContext } from '../../contexts/RecentlyViewedProductsContext'
+import { CurrencyContext } from '../../contexts/CurrencyContext'
 import SearchProduct from '../SearchProduct'
 import { SEARCH_PRODUCT_FRAGMENT } from '../../queries/search'
-
-const RECENT_PRODUCT_QUERY = gql`
-  ${SEARCH_PRODUCT_FRAGMENT}
-  query RecentProductQuery($handle: String!) {
-    productByHandle(handle: $handle) {
-      ...ProductSearchFields
-    }
-  }
-`
+import { ProductContext } from './ProductContext'
+import { PRODUCT_ITEM_QUERY } from '../../queries/product'
+import ProductListItem from './ListItem'
+import ProductModal from './ProductModal'
 
 const Recent = ({ handle }) => {
+  const { countryCode } = useContext(CurrencyContext)
   const [{ data }] = useQuery({
-    query: RECENT_PRODUCT_QUERY,
-    variables: { handle },
+    query: PRODUCT_ITEM_QUERY,
+    variables: { handle, countryCode },
   })
 
-  if (!data?.productByHandle) return false
+  if (!data?.product) return false
+
+  const [title] = data.product.title.split(' - ')
+  const hasRange =
+    data.product.priceRange.maxVariantPrice.amount !==
+    data.product.priceRange.minVariantPrice.amount
 
   return (
     <Box sx={{ scrollSnapAlign: 'start' }}>
-      <SearchProduct
-        product={data.productByHandle}
-        images={data.productByHandle.images.edges.map(({ node }) => node)}
-      />
+      <ProductModal handle={handle}>
+        <ProductListItem
+          firstImage={data.product.images.edges[0].node}
+          secondImage={data.product.images.edges[1].node}
+          title={title}
+          price={data.product.priceRange.minVariantPrice}
+          hasRange={hasRange}
+          availableForSale={data.product.availableForSale}
+          tags={data.product.tags}
+        />
+      </ProductModal>
     </Box>
   )
 }
 
-const useProductHandles = ({ currentTab, tags }) => {
+const useRecentlyViewedHandles = () => {
   const recentlyViewed = useContext(RecentlyViewedProductsContext)
   const { handle } = useMatch('/products/:handle')
 
-  if (currentTab === 'recent') {
-    return recentlyViewed.filter(recent => recent !== handle).slice(0, 3)
-  }
+  return recentlyViewed?.filter(recent => recent !== handle).slice(0, 3) || []
+}
 
-  if (currentTab === 'stack') {
-    const stackHandles = tags
-      .filter(tag => tag.includes('__with'))
-      .map(tag => {
-        const [, stackHandle] = tag.split(':')
-        return stackHandle
-      })
-    return stackHandles
-  }
-
-  return []
+const useStackHandles = () => {
+  const {
+    product: { tags },
+  } = useContext(ProductContext)
+  return tags
+    ?.filter(tag => tag.includes('__with'))
+    .map(tag => {
+      const [, stackHandle] = tag.split(':')
+      return stackHandle
+    })
 }
 
 const NavTab = ({ current, ...props }) => (
@@ -67,10 +74,14 @@ const NavTab = ({ current, ...props }) => (
   />
 )
 
-const ProductRecentRecommendations = ({ tags }) => {
-  const [tab, setTab] = useState('stack')
+const ProductsList = ({ handles }) =>
+  handles.map(handle => <Recent handle={handle} key={`recent-${handle}`} />)
 
-  const handles = useProductHandles({ currentTab: tab, tags })
+const ProductRecentRecommendations = () => {
+  const stackHandles = useStackHandles()
+  const recentHanldes = useRecentlyViewedHandles()
+
+  const [tab, setTab] = useState('stack')
 
   return (
     <Container px={[0, 6, 7]} ml={[0, 'auto']} mr={[-5, 'auto']}>
@@ -96,9 +107,8 @@ const ProductRecentRecommendations = ({ tags }) => {
           scrollBehavior: 'smooth',
         }}
       >
-        {handles.map(handle => (
-          <Recent handle={handle} key={`recent-${handle}`} />
-        ))}
+        {tab === 'recent' && <ProductsList handles={recentHanldes} />}
+        {tab === 'stack' && <ProductsList handles={stackHandles} />}
       </Grid>
     </Container>
   )

@@ -74,8 +74,8 @@ const Drawers = ({ children }) => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               sx={{
-                boxShadow: 'inset 0 0 70px rgba(0,0,0,.7)',
-                bg: 'rgba(0,0,0,.5)',
+                boxShadow: 'inset 0 0 70px rgba(0,0,0,.2)',
+                bg: 'backgroundShade',
                 height: '100vh',
                 // height: 'calc(var(--vh, 1vh) * 100)',
                 width: '100vw',

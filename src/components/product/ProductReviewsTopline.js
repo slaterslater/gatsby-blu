@@ -45,7 +45,7 @@ const ProductReviewsTopline = ({ score, possibleScore, totalReviews }) => {
   if (!totalReviews)
     return (
       <Box>
-        <Text as="p">
+        <Text as="p" sx={{ fontSize: 0 }}>
           be the first to{' '}
           <Link as="a" href="#reviews">
             write a review

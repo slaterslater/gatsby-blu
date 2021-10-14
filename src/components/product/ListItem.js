@@ -66,9 +66,7 @@ const ProductItemLabel = ({ tags, soldOut }) => {
   return null
 }
 
-const ProductListItem = ({
-  to,
-  linkState,
+const ProductListItemInner = ({
   firstImage,
   secondImage,
   title,
@@ -79,57 +77,66 @@ const ProductListItem = ({
 }) => (
   <Box as="article" sx={{ position: 'relative', zIndex: 1 }}>
     <ProductItemLabel tags={tags} soldOut={!availableForSale} />
-    <GatsbyLink
-      to={to}
-      state={linkState}
-      style={{ textDecoration: 'none', position: 'relative', zIndex: 1 }}
-    >
-      <Flex sx={{ flexDirection: 'column', position: 'relative' }} as="article">
-        <CollectionThumbnail
-          title={title}
-          primary={firstImage}
-          alternate={secondImage}
-        />
-        <Flex
-          pt={2}
-          sx={{
-            flex: 1,
-            flexDirection: 'column',
-            alignItems: 'space-between',
-          }}
-        >
-          <Box mb="auto" sx={{ alignSelf: 'top', textAlign: 'center' }}>
-            <Text
-              as="h1"
-              variant="caps"
-              sx={{
-                color: 'darkerGray',
-              }}
-            >
-              {title}
+    <Flex sx={{ flexDirection: 'column', position: 'relative' }} as="article">
+      <CollectionThumbnail
+        title={title}
+        primary={firstImage}
+        alternate={secondImage}
+      />
+      <Flex
+        pt={2}
+        sx={{
+          flex: 1,
+          flexDirection: 'column',
+          alignItems: 'space-between',
+        }}
+      >
+        <Box mb="auto" sx={{ alignSelf: 'top', textAlign: 'center' }}>
+          <Text
+            as="h1"
+            variant="caps"
+            sx={{
+              color: 'darkerGray',
+            }}
+          >
+            {title}
+          </Text>
+        </Box>
+        <Flex pt={2} sx={{ justifyContent: 'center' }}>
+          {hasRange && (
+            <Text variant="caps" pr={1} sx={{ color: 'darkGray' }}>
+              From
             </Text>
-          </Box>
-          <Flex pt={2} sx={{ justifyContent: 'center' }}>
-            {hasRange && (
-              <Text variant="caps" pr={1} sx={{ color: 'darkGray' }}>
-                From
-              </Text>
-            )}
-            <Text
-              as="p"
-              variant="caps"
-              sx={{
-                fontWeight: 500,
-                color: '#454545',
-              }}
-            >
-              <FormattedPrice priceV2={price} />
-            </Text>
-          </Flex>
+          )}
+          <Text
+            as="p"
+            variant="caps"
+            sx={{
+              fontWeight: 500,
+              color: '#454545',
+            }}
+          >
+            <FormattedPrice priceV2={price} />
+          </Text>
         </Flex>
       </Flex>
-    </GatsbyLink>
+    </Flex>
   </Box>
 )
+
+const ProductListItem = ({ to, linkState, ...props }) => {
+  if (to)
+    return (
+      <GatsbyLink
+        to={to}
+        state={linkState}
+        style={{ textDecoration: 'none', position: 'relative', zIndex: 1 }}
+      >
+        <ProductListItemInner {...props} />
+      </GatsbyLink>
+    )
+
+  return <ProductListItemInner {...props} />
+}
 
 export default ProductListItem

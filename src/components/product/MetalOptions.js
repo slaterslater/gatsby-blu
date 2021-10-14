@@ -36,27 +36,20 @@ const MetalOptions = ({ product, alternates }) => {
     ...alternateMetalColors,
   ].sort((a, b) => (a.metal?.toLowerCase() < b.metal?.toLowerCase() ? 1 : -1))
 
+  if (!colors?.length) return false
+
   return (
-    <Box pt={3}>
-      <Divider />
-      <Box py={2}>
-        <Heading as="h5" sx={{ fontSize: 3 }}>
-          {title}
-        </Heading>
-        <Flex pt={2}>
-          {colors.map(({ isCurrent, metal, handle }) => (
-            <MetalOption
-              title={title}
-              key={`metal-option-${metal}`}
-              {...{ isCurrent, metal, handle }}
-              onMouseOver={() => setTitle(metal)}
-              onMouseLeave={() => setTitle(productMetalColor)}
-            />
-          ))}
-        </Flex>
-      </Box>
-      <Divider />
-    </Box>
+    <Flex>
+      {colors.map(({ isCurrent, metal, handle }) => (
+        <MetalOption
+          title={title}
+          key={`metal-option-${metal}`}
+          {...{ isCurrent, metal, handle }}
+          onMouseOver={() => setTitle(metal)}
+          onMouseLeave={() => setTitle(productMetalColor)}
+        />
+      ))}
+    </Flex>
   )
 }
 

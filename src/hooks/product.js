@@ -1,9 +1,10 @@
-import { useMemo } from 'react'
+import { useMemo, useContext } from 'react'
 import { parse } from 'qs'
 import { useLocation } from '@reach/router'
 import { useQuery } from 'urql'
 import { PRODUCT_QUERY } from '../queries/product'
 import { useAnalytics } from '../lib/useAnalytics'
+import { CurrencyContext } from '../contexts/CurrencyContext'
 
 export const getProduct = product => ({
   ...product,
@@ -17,14 +18,15 @@ export const getProduct = product => ({
 })
 
 export const useLatestProduct = ({ handle, initial }) => {
+  const { countryCode } = useContext(CurrencyContext)
   const [{ data }] = useQuery({
     query: PRODUCT_QUERY,
-    variables: { handle },
+    variables: { countryCode, handle },
   })
 
   return useMemo(() => {
     if (data) {
-      return getProduct(data.productByHandle)
+      return getProduct(data.product)
     }
     return initial
   }, [data, initial])
@@ -39,4 +41,19 @@ export const useViewProductAnalytics = data => {
     variant,
     currency,
   })
+}
+
+export const useInitialProduct = ({ handle }) => {
+  const { countryCode } = useContext(CurrencyContext)
+  const [{ data }] = useQuery({
+    query: PRODUCT_QUERY,
+    variables: { countryCode, handle },
+  })
+
+  return useMemo(() => {
+    if (data) {
+      return getProduct(data.product)
+    }
+    return undefined
+  }, [data])
 }

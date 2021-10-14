@@ -1,8 +1,9 @@
-import React, { useEffect, createContext } from 'react'
+import React, { useContext, useEffect, createContext } from 'react'
 import { useQuery } from 'urql'
 import { useImmer } from 'use-immer'
 import { getProduct } from '../../hooks/product'
 import { PRODUCT_QUERY } from '../../queries/product'
+import { CurrencyContext } from '../../contexts/CurrencyContext'
 
 export const ProductContext = createContext({})
 
@@ -26,16 +27,17 @@ const getSelectedVariant = (selectedOptions = {}, variants = []) =>
     }, true)
   )
 
-const getInitialOptionValues = product => {
+const getInitialOptionValues = (product = { options: [] }) => {
   const selectedOptions = getInitialSelectedOptions(product.options)
 
   return { selectedOptions }
 }
 
 const ProductProvider = ({ initial, handle, ...props }) => {
+  const { countryCode } = useContext(CurrencyContext)
   const [{ data }] = useQuery({
     query: PRODUCT_QUERY,
-    variables: { handle },
+    variables: { handle, countryCode },
   })
   // const product = useLatestProduct({
   //   handle: data.shopifyProduct.handle,
@@ -54,7 +56,7 @@ const ProductProvider = ({ initial, handle, ...props }) => {
   // get
   useEffect(() => {
     if (data) {
-      const latestProduct = getProduct(data.productByHandle)
+      const latestProduct = getProduct(data.product)
       updateValue(draft => {
         draft.product = latestProduct
         draft.selectedVariant = getSelectedVariant(

@@ -11,60 +11,46 @@ import VariantPrice from './VariantPrice'
 import Engraving from './Engraving'
 import { ProductContext } from './ProductContext'
 import { ProductSpecifications } from './ProductSpecifications'
+import { EngagementConsultationButton } from './EngagementConsultationButton'
+import { ProductDescription } from './ProductDescription'
+import { ProductShipping } from './ProductShipping'
+import { ProductTitleAndPrice } from './ProductTitleAndPrice'
 
-const ProductDetails = ({ yotpoProductBottomline, alternates }) => {
+const useYotpoTopline = (metafields = []) => {
+  const { value: average } =
+    metafields.find(field => field.key === 'reviews_average') || {}
+  const { value: total } =
+    metafields.find(field => field.key === 'reviews_count') || {}
+  return { total, average }
+}
+
+const ProductDetails = ({ alternates }) => {
   const {
-    product: { title, descriptionHtml, variants, vendor, tags },
-    selectedVariant,
+    product: { variants, metafields },
   } = useContext(ProductContext)
+
+  const { total, average } = useYotpoTopline(metafields)
 
   const [customAttributes, setCustomAttributes] = useState(null)
 
   return (
     <>
-      <Box>
-        <Grid
-          sx={{
-            gridTemplateColumns: '1fr max-content',
-            alignItems: 'baseline',
-            gap: 4,
-          }}
-          pb={3}
-        >
-          <Heading as="h1" sx={{ fontSize: 5 }}>
-            <ProductTitle title={title} />
-          </Heading>
-          <Text sx={{ whiteSpace: 'nowrap', fontSize: 3 }}>
-            <VariantPrice variant={selectedVariant || variants[0]} />
-          </Text>
-        </Grid>
-        <ProductReviewsTopline
-          score={yotpoProductBottomline?.averageScore}
-          possibleScore={5}
-          totalReviews={yotpoProductBottomline?.totalReview}
-        />
-      </Box>
-      <MetalOptions product={{ variants }} alternates={alternates} />
-      <Grid sx={{ gridAutoFlow: 'row', gap: 4 }} pt={5}>
+      <Grid sx={{ gridAutoFlow: 'row', gap: 5 }}>
+        <ProductTitleAndPrice />
+        <MetalOptions product={{ variants }} alternates={alternates} />
         <ProductOptions />
-        <Engraving
-          onChange={attribute => setCustomAttributes([attribute])}
-          tags={tags}
+        <Engraving onChange={attribute => setCustomAttributes([attribute])} />
+        <AddToCart customAttributes={customAttributes} />
+        <ProductShipping />
+        <ProductDescription />
+        <EngagementConsultationButton />
+        <ProductSpecifications />
+        <ProductReviewsTopline
+          score={average}
+          possibleScore={5}
+          totalReviews={total}
         />
       </Grid>
-      <AddToCart customAttributes={customAttributes} />
-      <Box py={4}>
-        <ShopifyHtml dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
-        <ProductSpecifications />
-        <Box>
-          <Text>
-            by{' '}
-            <Link as={GatsbyLink} to={`/collections/${vendor}`}>
-              {vendor}
-            </Link>
-          </Text>
-        </Box>
-      </Box>
     </>
   )
 }

@@ -1,4 +1,4 @@
-import { Heading, Box, Flex, Text, Badge, Avatar } from 'theme-ui'
+import { Heading, Box, Flex, Text, Badge, Image } from 'theme-ui'
 import React from 'react'
 import FormattedDate from '../FormattedDate'
 import { ReviewStars } from './ProductReviewsTopline'
@@ -6,32 +6,29 @@ import { ReviewStars } from './ProductReviewsTopline'
 const YotpoPost = ({
   avatar,
   displayName,
-  badge,
-  date,
   children,
   starPercentage,
   content,
-  title,
 }) => (
-  <Flex>
-    <Box mr={5}>
-      <Avatar src={avatar} sx={{ height: 42, width: 42 }} />
-    </Box>
+  <Flex px={[0, 6, 9]}>
+    {avatar && (
+      <Box sx={{ width: 130, height: 130 }} mr={5}>
+        <Image src={avatar} />
+      </Box>
+    )}
     <Box sx={{ flex: 1 }}>
       <Flex pb={2} sx={{ flexWrap: 'wrap', alignItems: 'center' }}>
-        <Text mr={[2, 4]}>{displayName}</Text>
-        <Box mr="auto">{badge && <Badge>{badge}</Badge>}</Box>
-        <Text>
-          <FormattedDate iso={date} />
-        </Text>
+        <Text mr={[2]}>{displayName}</Text>
+        {starPercentage && (
+          <Box>
+            <ReviewStars starPercentage={starPercentage} />
+          </Box>
+        )}
       </Flex>
-      {starPercentage && (
-        <Box pb={2}>
-          <ReviewStars starPercentage={starPercentage} />
-        </Box>
-      )}
-      {title && <Heading>{title}</Heading>}
-      <Text dangerouslySetInnerHTML={{ __html: content }} />
+      <Text
+        sx={{ maxWidth: '70ch', lineHeight: 2.5 }}
+        dangerouslySetInnerHTML={{ __html: content }}
+      />
       {children}
     </Box>
   </Flex>

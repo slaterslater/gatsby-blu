@@ -1,12 +1,11 @@
-import { Box, Text } from 'theme-ui'
+import { Text } from 'theme-ui'
 import { Formik, Form, useFormikContext } from 'formik'
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import * as Yup from 'yup'
-import FormControlWrap, {
-  InputControl,
-  SelectControl,
-} from '../app/formik/FormControlWrap'
+import { StaticImage } from 'gatsby-plugin-image'
+import { InputControl, SegmentedControl } from '../app/formik/FormControlWrap'
 import RevealBox from '../RevealBox'
+import { ProductContext } from './ProductContext'
 // import { AutoSave } from '../app/formik/AutoSave'
 //
 const AutoSave = () => {
@@ -31,8 +30,11 @@ export const useEngraveableChars = (tags = []) => {
   return 0
 }
 
-const Engraving = ({ tags, onChange }) => {
-  const chars = useEngraveableChars(tags)
+const Engraving = ({ onChange }) => {
+  const {
+    product: { tags, metafields },
+  } = useContext(ProductContext)
+  const chars = useEngraveableChars(tags, metafields)
   if (!chars) return false
 
   return (
@@ -50,8 +52,7 @@ const Engraving = ({ tags, onChange }) => {
   )
 }
 
-const fontOptions = ['trajan pro', 'petite formal script']
-const locationOptions = ['inside', 'outside']
+const locationOptions = [{ value: 'inside' }, { value: 'outside' }]
 
 const EngravingForm = ({ chars, hasLocation, onSubmit }) => {
   const initialValues = {
@@ -84,48 +85,56 @@ const EngravingForm = ({ chars, hasLocation, onSubmit }) => {
     >
       <Form>
         <RevealBox title="add engraving">
-          <Box py={2} px={3} mb={4} sx={{ bg: 'lightGray', borderRadius: 3 }}>
-            <Text sx={{ fontSize: 0, color: 'darkerGray' }}>
-              Up to {chars} characters
-            </Text>
-          </Box>
           <InputControl
             label="text"
             id="engraving_text"
             name="text"
             maxLength={chars}
           />
-          <Text as="p" sx={{ fontSize: 0, color: 'darkGray' }} pb={4}>
-            characters are engraved exactly as shown
-          </Text>
-          <SelectControl
+          <SegmentedControl
             label="font"
             id="font"
             name="font"
             placeholder="choose a font style"
             showErrors={false}
-          >
-            {fontOptions.map(opt => (
-              <option key={opt} value={opt}>
-                {opt}
-              </option>
-            ))}
-          </SelectControl>
+            options={[
+              {
+                value: 'trajan pro',
+                component: (
+                  <StaticImage
+                    src="../../images/trajan-pro.png"
+                    alt="trajan pro"
+                    quality={100}
+                    height={14}
+                  />
+                ),
+              },
+              {
+                value: 'petit formal script',
+                component: (
+                  <StaticImage
+                    src="../../images/petit-formal-script-preview.png"
+                    alt="petit formal script"
+                    quality={100}
+                    height={14}
+                  />
+                ),
+              },
+            ]}
+          />
           {hasLocation && (
-            <SelectControl
+            <SegmentedControl
               label="engraving location"
               id="location"
               name="location"
               placeholder="choose a location"
               showErrors={false}
-            >
-              {locationOptions.map(opt => (
-                <option key={opt} value={opt}>
-                  {opt}
-                </option>
-              ))}
-            </SelectControl>
+              options={locationOptions}
+            />
           )}
+          <Text sx={{ fontSize: 0, color: 'darkerGray' }}>
+            up to {chars} characters - characters are engraved exactly as shown
+          </Text>
           <AutoSave />
         </RevealBox>
       </Form>

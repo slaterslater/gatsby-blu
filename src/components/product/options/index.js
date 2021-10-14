@@ -22,11 +22,7 @@ const ProductOptions = () => {
 
     return (
       <Box key={`option-row-${name}`}>
-        <Heading
-          as="h5"
-          sx={{ fontSize: 3, textTransform: 'lowercase' }}
-          pb={4}
-        >
+        <Heading as="h5" variant="caps" sx={{ fontSize: 9 }} pb={4}>
           select {name}
         </Heading>
         <Flex

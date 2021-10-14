@@ -15,9 +15,43 @@ export const PRODUCT_PRICE_RANGE_FRAGMENT = gql`
   }
 `
 
+export const PRODUCT_ITEM_QUERY = gql`
+  query ProductItemQuery($handle: String, $countryCode: CountryCode)
+  @inContext(country: $countryCode) {
+    product(handle: $handle) {
+      handle
+      title
+      priceRange {
+        minVariantPrice {
+          amount
+          currencyCode
+        }
+        maxVariantPrice {
+          amount
+          currencyCode
+        }
+      }
+      tags
+      availableForSale
+      images(first: 2) {
+        edges {
+          node {
+            altText
+            originalSrc
+            height
+            width
+            id
+          }
+        }
+      }
+    }
+  }
+`
+
 export const PRODUCT_QUERY = gql`
-  query ProductQuery($handle: String!) {
-    productByHandle(handle: $handle) {
+  query ProductQuery($handle: String!, $countryCode: CountryCode)
+  @inContext(country: $countryCode) {
+    product(handle: $handle) {
       id
       handle
       title
@@ -42,7 +76,7 @@ export const PRODUCT_QUERY = gql`
           }
         }
       }
-      metafields(namespace: "my_fields", first: 250) {
+      metafields(first: 250) {
         edges {
           node {
             value
@@ -51,6 +85,12 @@ export const PRODUCT_QUERY = gql`
         }
       }
       willRestock: metafield(namespace: "my_fields", key: "will_restock") {
+        value
+      }
+      engagementConsultationButton: metafield(
+        namespace: "my_fields"
+        key: "engagement_consultation_button"
+      ) {
         value
       }
       offersPairs: metafield(namespace: "my_fields", key: "offers_pairs") {
@@ -69,15 +109,9 @@ export const PRODUCT_QUERY = gql`
               value
             }
             quantityAvailable
-            presentmentPrices(first: 100) {
-              edges {
-                node {
-                  price {
-                    amount
-                    currencyCode
-                  }
-                }
-              }
+            priceV2 {
+              amount
+              currencyCode
             }
           }
         }

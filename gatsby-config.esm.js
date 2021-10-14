@@ -130,21 +130,13 @@ module.exports = {
         icon: `src/images/favicon.png`, // This path is relative to the root of the site.
       },
     },
-    {
-      resolve: `gatsby-source-yotpo-product`,
-      options: {
-        shopName: process.env.YOTPO_SHOPIFY_SHOP_NAME,
-        shopifyAccessToken: process.env.YOTPO_SHOPIFY_STOREFRONT_KEY,
-        yotpoAppKey: process.env.YOTPO_APP_KEY,
-      },
-    },
     `gatsby-plugin-emotion`,
     {
       resolve: `gatsby-plugin-google-fonts`,
       options: {
         fonts: [
           `Sorts Mill Goudy`,
-          `Montserrat\:300,400,500,700`, // you can also specify font weights and styles
+          `Montserrat\:300,400,500,600`, // you can also specify font weights and styles
         ],
         display: 'swap',
       },

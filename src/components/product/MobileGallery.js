@@ -1,7 +1,7 @@
 // adapted from https://codesandbox.io/s/pqvx3?file=/src/Example.tsx:838-977
 
 import { Flex, AspectRatio, Box, IconButton } from 'theme-ui'
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { wrap } from '@popmotion/popcorn'
 import { HiChevronLeft, HiChevronRight } from 'react-icons/hi'
@@ -27,7 +27,7 @@ const Dot = ({ full, ...props }) => (
 const swipeConfidenceThreshold = 10000
 const swipePower = (offset, velocity) => Math.abs(offset) * velocity
 
-const MobileGallery = ({ images, onImageClick }) => {
+const MobileGallery = ({ images, hasDots = true, onImageClic }) => {
   const [[currentPage, direction], setCurrentPage] = useState([0, 0])
 
   if (!images[0]) return false
@@ -41,9 +41,13 @@ const MobileGallery = ({ images, onImageClick }) => {
     setCurrentPage([index, index > currentPage ? 1 : -1])
   }
 
-  const imageData = getShopifyImage({
-    image: images[imageIndex],
-  })
+  const imageData = useMemo(
+    () =>
+      getShopifyImage({
+        image: images[imageIndex],
+      }),
+    [imageIndex, JSON.stringify(images[imageIndex])]
+  )
 
   return (
     <Box>
@@ -87,20 +91,22 @@ const MobileGallery = ({ images, onImageClick }) => {
         >
           <HiChevronLeft size={16} />
         </IconButton>
-        <Box mx={2}>
-          <Flex>
-            {Array(images.length)
-              .fill()
-              .map((_, i) => (
-                <Dot
-                  key={`dot-${i}`}
-                  full={i === imageIndex}
-                  onClick={() => paginateTo(i)}
-                  m={1}
-                />
-              ))}
-          </Flex>
-        </Box>
+        {hasDots && (
+          <Box mx={2}>
+            <Flex>
+              {Array(images.length)
+                .fill()
+                .map((_, i) => (
+                  <Dot
+                    key={`dot-${i}`}
+                    full={i === imageIndex}
+                    onClick={() => paginateTo(i)}
+                    m={1}
+                  />
+                ))}
+            </Flex>
+          </Box>
+        )}
         <IconButton
           type="button"
           onClick={() => paginate(1)}
@@ -112,6 +118,11 @@ const MobileGallery = ({ images, onImageClick }) => {
       </Flex>
     </Box>
   )
+}
+
+MobileGallery.defaultProps = {
+  hasDots: false,
+  onImageClick: () => {},
 }
 
 export default MobileGallery

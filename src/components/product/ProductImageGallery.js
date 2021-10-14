@@ -58,12 +58,19 @@ const ProductImageGallery = ({ images }) => {
         />
       </Box>
       <Flex>
-        <Box sx={{ display: ['none', 'block', 'block'] }}>
+        <Box
+          sx={{
+            display: ['none', 'grid', 'grid'],
+            gridTemplateColumns: ['1fr', '1fr 1fr'],
+            gridGap: 4,
+          }}
+        >
           {images.map((image, i) => (
             <Button
               type="button"
               variant="unset"
               key={image.id}
+              sx={{ cursor: 'pointer' }}
               onClick={() => setGalleryState({ isOpen: true, initialPage: i })}
             >
               <GalleryImage image={image} />

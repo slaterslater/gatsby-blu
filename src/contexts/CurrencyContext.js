@@ -6,6 +6,7 @@ import { SHOP_CURRENCIES } from '../queries/shop'
 const STORAGE_CURRENCY_ID = 'currencyCode'
 
 const initialValues = {
+  countryCode: 'CA',
   currencyCode: 'CAD',
   setCurrencyCode: () => {},
 }
@@ -13,6 +14,7 @@ const initialValues = {
 export const CurrencyContext = createContext(initialValues)
 
 const CurrencyProvider = props => {
+  const [countryCode, setCountryCode] = useState(initialValues.countryCode)
   const [currencyCode, setCurrencyCode] = useState(initialValues.currencyCode)
   const [{ data }] = useQuery({ query: SHOP_CURRENCIES })
 
@@ -21,6 +23,7 @@ const CurrencyProvider = props => {
 
     if (storageCurrency) {
       setCurrencyCode(storageCurrency)
+      setCountryCode(storageCurrency.slice(0, 2))
     }
   }, [])
 
@@ -35,6 +38,7 @@ const CurrencyProvider = props => {
   const setCurrency = useCallback(
     code => {
       setCurrencyCode(code)
+      setCountryCode(code.slice(0, 2))
       store.set(STORAGE_CURRENCY_ID, code)
     },
     [setCurrencyCode]
@@ -42,7 +46,7 @@ const CurrencyProvider = props => {
 
   return (
     <CurrencyContext.Provider
-      value={{ currencyCode, setCurrency }}
+      value={{ countryCode, currencyCode, setCurrency }}
       {...props}
     />
   )

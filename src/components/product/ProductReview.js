@@ -1,16 +1,5 @@
 import React from 'react'
-import {
-  Badge,
-  Avatar,
-  Box,
-  Heading,
-  Flex,
-  Text,
-  Image,
-  Divider,
-} from 'theme-ui'
-import { ReviewStars } from './ProductReviewsTopline'
-import FormattedDate from '../FormattedDate'
+import { Box, Flex, Image } from 'theme-ui'
 import YotpoPost from './YotpoPost'
 
 const ProductReview = ({
@@ -36,7 +25,7 @@ const ProductReview = ({
         content={content}
       >
         {imagesData?.length && (
-          <Flex pt={4}>
+          <Flex pt={4} sx={{ flexWrap: 'wrap' }}>
             {imagesData.map(image => (
               <Image
                 mr={3}
@@ -54,7 +43,7 @@ const ProductReview = ({
             <YotpoPost
               displayName="Store Owner"
               date={comment.createdAt}
-              content={comment.content}
+              content={comment.createdAt}
             />
           </Box>
         </Box>

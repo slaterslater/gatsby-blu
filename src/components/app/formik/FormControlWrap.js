@@ -1,7 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Field, ErrorMessage } from 'formik'
-import { Box, Textarea, Label, Input, Select, Text, Checkbox } from 'theme-ui'
+import { useField, Field, ErrorMessage } from 'formik'
+import {
+  Flex,
+  Button,
+  Box,
+  Textarea,
+  Label,
+  Input,
+  Select,
+  Text,
+  Checkbox,
+} from 'theme-ui'
 
 const FormControlWrap = ({ label, id, name, children }) => (
   <Box pb={3}>
@@ -80,6 +90,37 @@ export const SelectControl = ({
       )}
       {children}
     </Field>
+  </FormControlWrap>
+)
+
+const SegmentedField = ({ label, id, name, options }) => {
+  const [field, _, helpers] = useField({ name })
+
+  return (
+    <Flex sx={{ gap: 2 }}>
+      {options.map(({ value, component }) => (
+        <Button
+          type="button"
+          variant="outline"
+          sx={{
+            borderColor: value === field.value ? 'black' : 'border',
+            display: 'inline-flex',
+            alignItems: 'center',
+          }}
+          onClick={() => {
+            helpers.setValue(value)
+          }}
+        >
+          {component || value}
+        </Button>
+      ))}
+    </Flex>
+  )
+}
+
+export const SegmentedControl = ({ label, id, name, options }) => (
+  <FormControlWrap label={label} id={id} name={name}>
+    <SegmentedField {...{ label, id, name, options }} />
   </FormControlWrap>
 )
 

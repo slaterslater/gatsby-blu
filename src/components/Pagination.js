@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'gatsby'
 import { Flex, Button } from 'theme-ui'
 
@@ -14,10 +15,9 @@ const PaginationButton = ({ disabled, ...props }) => (
 )
 
 const Pagination = ({
-  currentPage,
-  totalPages,
-  boundaryLinks,
-  getLinkForPage,
+  currentPage = 1,
+  totalPages = 1,
+  getLinkForPage = () => {},
   ...props
 }) => {
   const prevLink = currentPage > 1 ? getLinkForPage(currentPage - 1) : null
@@ -55,6 +55,12 @@ const Pagination = ({
       </PaginationButton>
     </Flex>
   )
+}
+
+Pagination.propTypes = {
+  currentPage: PropTypes.number,
+  totalPages: PropTypes.number,
+  getLinkForPage: PropTypes.func,
 }
 
 export default Pagination
