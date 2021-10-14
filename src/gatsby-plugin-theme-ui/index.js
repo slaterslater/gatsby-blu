@@ -54,6 +54,8 @@ const colors = {
   sterlingSilver: '#c7c7c7',
   roseGold: '#e0c5ae',
   error: '#f8382a',
+  backgroundShade: 'rgba(249, 248, 246, .9)',
+  bbBackground: '#F9F8F6',
 }
 colors.text = colors.black
 colors.primary = colors.navy
@@ -71,8 +73,9 @@ export default {
   fontWeights: {
     light: 300,
     body: 400,
+    medium: 500,
     heading: 500,
-    bold: 700,
+    bold: 600,
   },
   lineHeights: {
     body: 2.5,
@@ -87,7 +90,7 @@ export default {
   },
   space: [0, 4, 8, 12, 16, 24, 32, 48, 64, 96, 128, 256, 512],
   links: {
-    sketcButtonhWhite: {
+    sketcButtonWhite: {
       ...sketchButton,
       textDecoration: 'none',
       '&::before': {
@@ -103,6 +106,25 @@ export default {
         ...sketchButton['&::before'],
         backgroundImage: 'url("/button_black.png")',
       },
+    },
+    outlineButton: {
+      '&:disabled': {
+        opacity: 0.5,
+      },
+      border: '1px solid',
+      borderColor: 'black',
+      borderRadius: 0,
+      py: 3,
+      px: 4,
+      fontSize: 0,
+      fontFamily: 'body',
+      fontWeight: 'heading',
+      textTransform: 'uppercase',
+      letterSpacing: '.1em',
+      cursor: 'pointer',
+      bg: 'white',
+      color: 'primary',
+      textDecoration: 'none',
     },
     small: {
       fontSize: 0,
@@ -205,7 +227,7 @@ export default {
       px: 4,
       fontSize: 0,
       fontFamily: 'body',
-      fontWeight: 'heading',
+      fontWeight: 'body',
       textTransform: 'uppercase',
       letterSpacing: '.1em',
       cursor: 'pointer',
@@ -262,6 +284,17 @@ export default {
     },
     unset: {
       all: 'unset',
+    },
+    link: {
+      bg: 'transparent',
+      p: 0,
+      textDecoration: 'underline',
+      color: 'black',
+      display: 'inline',
+      fontFamily: 'body',
+      letterSpacing: 'inherit',
+      fontSize: 'inherit',
+      cursor: 'pointer',
     },
   },
   forms: {

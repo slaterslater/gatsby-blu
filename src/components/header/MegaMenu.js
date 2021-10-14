@@ -89,7 +89,7 @@ export const megaMenu = {
         { path: '/collections/gifts-under-1000', text: 'gifts under 1000$' },
         { path: '/collections/gifts-under-500', text: 'gifts under 500$' },
         { path: '/collections/gifts-under-300', text: 'gifts under 300$' },
-        { path: '/collections/libra', text: 'libra' },
+        { path: '/collections/scorpio-gift-guide-1', text: 'scorpio' },
         { path: '/products/gift-card', text: 'gift cards' },
       ],
     },
@@ -169,7 +169,6 @@ const MegaMenu = props => {
         display: ['none', 'none', 'flex'],
         alignSelf: 'stretch',
       }}
-      onMouseOver={() => setMenuOpen(true)}
       onMouseLeave={() => {
         setCurrentMenu(null)
         setMenuOpen(false)
@@ -188,7 +187,10 @@ const MegaMenu = props => {
           <MegaMenuLink
             aria-haspopup
             key={`${name}-top-link`}
-            onMouseOver={() => setCurrentMenu(name)}
+            onMouseOver={() => {
+              setMenuOpen(true)
+              setCurrentMenu(name)
+            }}
           >
             {name}
           </MegaMenuLink>
