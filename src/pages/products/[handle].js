@@ -13,8 +13,8 @@ const ClientProductPage = ({ params: { handle } }) => {
     variables: { handle },
   })
 
-  if (data?.productByHandle) {
-    const product = getProduct(data.productByHandle)
+  if (data?.product) {
+    const product = getProduct(data.product)
     return (
       <Layout>
         <ProductSEO product={product} />
@@ -23,7 +23,8 @@ const ClientProductPage = ({ params: { handle } }) => {
     )
   }
 
-  if (data && !data.collectionByHandle) return <NotFoundView />
+  if (data && !data.product) return <NotFoundView />
+
   return false
 }
 

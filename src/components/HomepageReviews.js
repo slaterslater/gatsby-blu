@@ -4,13 +4,12 @@ import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useStaticQuery, graphql } from 'gatsby'
 import { useQuery } from 'urql'
-import { GatsbyImage } from 'gatsby-plugin-image'
 import { wrap } from '@popmotion/popcorn'
 import { ReviewStars } from './product/ProductReviewsTopline'
 import ThemeLink from './app/ThemeLink'
 import { HOMEPAGE_REVIEW_PRODUCT } from '../queries/homepage'
-import { useShopifyImage } from '../hooks/shopifyImage'
 import { MobileSlider } from './content/CollectionRow'
+import ShopifyGatsbyImage from './ShopifyGatsbyImage'
 
 const Review = ({
   starPercentage,
@@ -23,8 +22,7 @@ const Review = ({
     variables: { handle },
   })
 
-  const image = data?.productByHandle?.images.edges[0].node
-  const imageData = useShopifyImage({ image })
+  const image = data?.productByHandle?.images.edges[0].node || {}
 
   return (
     <Flex sx={{ flexWrap: 'wrap-reverse' }}>
@@ -51,7 +49,7 @@ const Review = ({
       </Box>
       <Flex sx={{ flex: '1 260px', justifyContent: 'center' }}>
         <Box sx={{ maxWidth: ['75%', '100%'] }}>
-          <GatsbyImage image={imageData} alt={image?.altText} />
+          <ShopifyGatsbyImage image={image} />
         </Box>
       </Flex>
     </Flex>

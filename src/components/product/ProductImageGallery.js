@@ -4,14 +4,12 @@ import { Flex, Box, Button } from 'theme-ui'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import FullscreenGallery from '../FullscreenGallery'
 import MobileGallery from './MobileGallery'
-import { getShopifyImage } from '../../lib/get-shopify-image'
 import { useProductGalleryImages } from '../../hooks/product'
+import ShopifyGatsbyImage from '../ShopifyGatsbyImage'
 
-const GalleryImage = ({ image }) => {
-  const imageData = getShopifyImage({ image, width: 900 })
-
-  return <GatsbyImage image={imageData} alt={image.altText || ''} />
-}
+const GalleryImage = ({ image }) => (
+  <ShopifyGatsbyImage image={image} getImageProps={{ width: 900 }} />
+)
 
 const ProductImageGallery = () => {
   const images = useProductGalleryImages()

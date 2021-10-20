@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { Box, Flex, Heading } from 'theme-ui'
 import { ProductContext } from '../ProductContext'
+import SizingHelp from '../SizingHelp'
 import VariantOption from './option'
 import PairsOptions from './pairs'
 
@@ -22,9 +23,12 @@ const ProductOptions = () => {
 
     return (
       <Box key={`option-row-${name}`}>
-        <Heading as="h5" variant="caps" sx={{ fontSize: 9 }} pb={4}>
-          select {name}
-        </Heading>
+        <Flex sx={{ gap: 3, alignItems: 'baseline' }} pb={4}>
+          <Heading as="h5" variant="caps" sx={{ fontSize: 9 }}>
+            select {name}
+          </Heading>
+          {name?.toLowerCase() === 'size' && <SizingHelp />}
+        </Flex>
         <Flex
           sx={{
             flexWrap: 'wrap',

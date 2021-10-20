@@ -1,3 +1,4 @@
+import { Box, Text } from 'theme-ui'
 import React, { useContext, useMemo } from 'react'
 import { ShopifyHtml } from '../ShopifyHtml'
 
@@ -16,15 +17,26 @@ export const ProductSpecifications = props => {
     return undefined
   }, [JSON.stringify(metafields)])
 
-  if (!specifications) return false
-
   return (
-    <ShopifyHtml>
-      <ul>
-        {specifications.map(s => (
-          <li dangerouslySetInnerHTML={{ __html: s }} />
-        ))}
-      </ul>
-    </ShopifyHtml>
+    <>
+      {!!specifications && (
+        <Box as="ul" px={2} py={0}>
+          {specifications.map(s => (
+            <Text
+              as="li"
+              dangerouslySetInnerHTML={{ __html: s }}
+              key={s}
+              pb={2}
+              sx={{
+                fontSize: 0,
+                letterSpacing: 'wider',
+                lineHeight: 1.5,
+                listStyleType: 'none',
+              }}
+            />
+          ))}
+        </Box>
+      )}
+    </>
   )
 }

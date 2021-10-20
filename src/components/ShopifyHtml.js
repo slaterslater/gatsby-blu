@@ -19,6 +19,7 @@ export const ShopifyHtml = styled.div`
   }
   li {
     padding-bottom: 5px;
+    letter-spacing: 0.1em;
   }
   p {
     line-height: 1.5;

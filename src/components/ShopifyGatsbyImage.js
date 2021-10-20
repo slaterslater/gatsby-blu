@@ -1,0 +1,36 @@
+import { GatsbyImage } from 'gatsby-plugin-image'
+import React from 'react'
+import PropTypes from 'prop-types'
+import { useShopifyImage } from '../hooks/shopifyImage'
+
+const ShopifyGatsbyImage = ({
+  image,
+  getImageProps = { width: null },
+  gatsbyImageProps = {},
+}) => {
+  const imageData = useShopifyImage({ image, width: getImageProps.width })
+
+  return (
+    <GatsbyImage
+      image={imageData}
+      alt={image.altText || ''}
+      {...gatsbyImageProps}
+    />
+  )
+}
+
+ShopifyGatsbyImage.propTypes = {
+  image: PropTypes.shape({
+    originalSrc: PropTypes.string.isRequired,
+    height: PropTypes.number.isRequired,
+    width: PropTypes.number.isRequired,
+    altText: PropTypes.string,
+    id: PropTypes.string.isRequired,
+  }),
+  getImageProps: PropTypes.shape({
+    width: PropTypes.number,
+  }),
+  gatsbyImageProps: PropTypes.shape({}),
+}
+
+export default ShopifyGatsbyImage

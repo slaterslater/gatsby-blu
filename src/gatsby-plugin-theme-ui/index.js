@@ -107,6 +107,22 @@ export default {
         backgroundImage: 'url("/button_black.png")',
       },
     },
+    button: {
+      '&:disabled': {
+        opacity: 0.5,
+      },
+      py: 3,
+      px: 4,
+      fontSize: 0,
+      fontFamily: 'body',
+      fontWeight: 'heading',
+      textTransform: 'uppercase',
+      letterSpacing: '.1em',
+      cursor: 'pointer',
+      bg: 'primary',
+      color: 'white',
+      textDecoration: 'none',
+    },
     outlineButton: {
       '&:disabled': {
         opacity: 0.5,
