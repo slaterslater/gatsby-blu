@@ -1,6 +1,7 @@
 import dotenv from 'dotenv'
 import shopifySourceQueries from './src/utils/shopifySourceQueries'
 import { algoliaQueries } from './src/utils/algolia-queries'
+import { urlBuilder, getIdFromHash } from './src/lib/productFeed'
 
 dotenv.config({
   path: `.env`,
@@ -62,13 +63,13 @@ module.exports = {
       },
     },
     `gatsby-plugin-theme-ui`,
-    {
-      resolve: 'gatsby-theme-style-guide',
-      options: {
-        // sets path for generated page
-        basePath: '/design-system',
-      },
-    },
+    // {
+    //   resolve: 'gatsby-theme-style-guide',
+    //   options: {
+    //     // sets path for generated page
+    //     basePath: '/design-system',
+    //   },
+    // },
     `gatsby-plugin-react-helmet`,
     `gatsby-transformer-json`,
     {
@@ -166,6 +167,64 @@ module.exports = {
       resolve: 'gatsby-plugin-sitemap',
       options: {
         excludes: ['/account'],
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-csv-feed',
+      options: {
+        feeds: [
+          {
+            query: `
+            {
+              allShopifyProduct {
+                nodes {
+                  shopifyId
+                  handle
+                  title
+                  description
+                  variants {
+                    shopifyId
+                    priceV2 {
+                    currencyCode
+                      amount
+                    }
+                  }
+                  images {
+                    originalSrc
+                  }
+                }
+              }
+            }
+          `,
+            serialize: ({ query: { allShopifyProduct } }) =>
+              allShopifyProduct.nodes.flatMap(product =>
+                product.variants.map(variant => {
+                  const productId = getIdFromHash(product.shopifyId)
+                  const variantId = getIdFromHash(variant.shopifyId)
+
+                  return {
+                    ProductId: `shopify_CA_${productId}_${variantId}`,
+                    Price: new Intl.NumberFormat('en-CA', {
+                      style: 'currency',
+                      currency: variant.priceV2.currencyCode,
+                    }).format(variant.priceV2.amount),
+                    Title: product.title,
+                    URL: `${siteUrl}/products/${product.handle}`,
+                    Description: product.description,
+                    ImageURL: product.images[0]
+                      ? urlBuilder({
+                          baseUrl: product.images[0].originalSrc,
+                          height: 500,
+                          width: 500,
+                          format: 'auto',
+                        })
+                      : null,
+                  }
+                })
+              ),
+            output: '/product-feed.csv',
+          },
+        ],
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality

@@ -33,6 +33,7 @@
     "gatsby-plugin-algolia": "^0.20.1",
     "gatsby-plugin-canonical-urls": "^3.4.0",
     "gatsby-plugin-create-client-paths": "^3.1.0",
+    "gatsby-plugin-csv-feed": "^2.0.0",
     "gatsby-plugin-emotion": "^6.0.0",
     "gatsby-plugin-facebook-pixel": "^1.0.5",
     "gatsby-plugin-google-fonts": "^1.0.1",

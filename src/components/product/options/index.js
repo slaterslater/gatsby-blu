@@ -27,7 +27,7 @@ const ProductOptions = () => {
           <Heading as="h5" variant="caps" sx={{ fontSize: 9 }}>
             select {name}
           </Heading>
-          {name?.toLowerCase() === 'size' && <SizingHelp />}
+          <SizingHelp />
         </Flex>
         <Flex
           sx={{
