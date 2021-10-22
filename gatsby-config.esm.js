@@ -175,52 +175,61 @@ module.exports = {
         feeds: [
           {
             query: `
-            {
-              allShopifyProduct {
-                nodes {
-                  shopifyId
-                  handle
-                  title
-                  description
-                  variants {
-                    shopifyId
-                    priceV2 {
-                    currencyCode
-                      amount
-                    }
+              {
+                allShopifyProduct(
+                  filter: {
+                    availableForSale: { eq: true }
+                    productType: { nin: ["Insurance", "fee", "Gift Card"] }
                   }
-                  images {
-                    originalSrc
+                ) {
+                  nodes {
+                    shopifyId
+                    handle
+                    title
+                    description
+                    variants {
+                      shopifyId
+                      priceV2 {
+                        currencyCode
+                        amount
+                      }
+                    }
+                    images {
+                      originalSrc
+                    }
                   }
                 }
               }
-            }
-          `,
+            `,
             serialize: ({ query: { allShopifyProduct } }) =>
-              allShopifyProduct.nodes.flatMap(product =>
-                product.variants.map(variant => {
-                  const productId = getIdFromHash(product.shopifyId)
-                  const variantId = getIdFromHash(variant.shopifyId)
+              allShopifyProduct.nodes.flatMap(
+                product =>
+                  product.variants
+                    .map(variant => {
+                      const productId = getIdFromHash(product.shopifyId)
+                      const variantId = getIdFromHash(variant.shopifyId)
 
-                  return {
-                    ProductId: `shopify_CA_${productId}_${variantId}`,
-                    Price: new Intl.NumberFormat('en-CA', {
-                      style: 'currency',
-                      currency: variant.priceV2.currencyCode,
-                    }).format(variant.priceV2.amount),
-                    Title: product.title,
-                    URL: `${siteUrl}/products/${product.handle}`,
-                    Description: product.description,
-                    ImageURL: product.images[0]
-                      ? urlBuilder({
-                          baseUrl: product.images[0].originalSrc,
-                          height: 500,
-                          width: 500,
-                          format: 'auto',
-                        })
-                      : null,
-                  }
-                })
+                      return {
+                        ProductId: `shopify_CA_${productId}_${variantId}`,
+                        Price: new Intl.NumberFormat('en-CA', {
+                          style: 'currency',
+                          currency: variant.priceV2.currencyCode,
+                        }).format(variant.priceV2.amount),
+                        Title: product.title,
+                        URL: `${siteUrl}/products/${product.handle}`,
+                        Description: product.description,
+                        ImageURL: product.images[0]
+                          ? urlBuilder({
+                              baseUrl: product.images[0].originalSrc,
+                              height: 500,
+                              width: 500,
+                              format: 'auto',
+                            })
+                          : null,
+                      }
+                    })
+                    .filter(node => !!node.ImageURL)
+                // route, gift cards
               ),
             output: '/product-feed.csv',
           },
