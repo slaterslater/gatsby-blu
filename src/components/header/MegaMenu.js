@@ -93,6 +93,15 @@ export const megaMenu = {
         { path: '/products/gift-card', text: 'gift cards' },
       ],
     },
+    {
+      title: 'holiday gift guide',
+      links: [
+        { path: '/collections/star-gazer', text: 'star gazer' },
+        { path: '/collections/dreamer', text: 'dreamer' },
+        { path: '/collections/bright-star', text: 'brightest star' },
+        { path: '/collections/cosmic-love', text: 'cosmic love' },
+      ],
+    },
   ],
   Engagement: [
     {
