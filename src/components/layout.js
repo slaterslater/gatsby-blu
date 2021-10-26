@@ -76,6 +76,13 @@ const Layout = ({ title, description, children }) => (
             `}
           </script>
         )}
+        {process.env.GATSBY_KLAVIYO_PUBLIC_KEY && (
+          <script
+            type="application/javascript"
+            async
+            src={`https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=${process.env.GATSBY_KLAVIYO_PUBLIC_KEY}`}
+          />
+        )}
         {process.env.GATSBY_ADROLL_ADV_ID && process.env.GATSBY_ADROLL_PIX_ID && (
           <script type="text/javascript">
             {`
