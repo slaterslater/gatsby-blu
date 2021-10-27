@@ -29,6 +29,13 @@ const getShopifyProductId = (product, variant) => {
   }
 }
 
+const sendKlaviyoEvent = (name, payload) => {
+  if (!window._learnq) {
+    window._learnq = []
+  }
+  window._learnq.push(['track', name, payload])
+}
+
 const sendGtagEvent = (name, payload) => {
   if (window.gtag) {
     window.gtag('event', name, payload)
@@ -70,6 +77,16 @@ const events = {
       ecomm_prodid: itemId,
     })
     sendPinEvent('pagevisit')
+    sendKlaviyoEvent('Viewed Product', {
+      ProductName: product.title,
+      ProductID: itemId,
+      Categories: [product.productType],
+    })
+    sendKlaviyoEvent('trackViewedItem', {
+      Title: product.title,
+      ItemId: itemId,
+      Categories: [product.productType],
+    })
   },
   addToCart: payload => {
     const lineItem = payload
@@ -90,6 +107,13 @@ const events = {
     })
     // pinterest.. apparently doesn't want a payload with this
     sendPinEvent('AddToCart')
+    sendKlaviyoEvent('Added to Cart', {
+      AddedItemProductName: lineItem.title,
+      AddedItemProductID: lineItem.id,
+      AddedItemCategories: [lineItem.productType],
+      AddedItemPrice: lineItem.variant?.priceV2.amount,
+      AddedItemQuantity: 1,
+    })
   },
   viewCart: payload => {
     const checkout = payload
