@@ -100,6 +100,7 @@ export const megaMenu = {
         { path: '/collections/dreamer', text: 'dreamer' },
         { path: '/collections/bright-star', text: 'brightest star' },
         { path: '/collections/cosmic-love', text: 'cosmic love' },
+        { path: '/collections/top-holiday-gifts', text: 'top holiday gifts' },
       ],
     },
   ],
