@@ -27,7 +27,7 @@ const Dot = ({ full, ...props }) => (
 const swipeConfidenceThreshold = 10000
 const swipePower = (offset, velocity) => Math.abs(offset) * velocity
 
-const MobileGallery = ({ images, hasDots = true, onImageClic }) => {
+const MobileGallery = ({ images, hasDots = true, onImageClick }) => {
   const [[currentPage, direction], setCurrentPage] = useState([0, 0])
 
   if (!images[0]) return false
