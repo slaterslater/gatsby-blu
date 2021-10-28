@@ -29,8 +29,8 @@ const Recent = ({ handle }) => {
     <Box sx={{ scrollSnapAlign: 'start' }}>
       <ProductModal handle={handle}>
         <ProductListItem
-          firstImage={data.product.images.edges[0].node}
-          secondImage={data.product.images.edges[1].node}
+          firstImage={data.product.images.edges[0]?.node}
+          secondImage={data.product.images.edges[1]?.node}
           title={title}
           price={data.product.priceRange.minVariantPrice}
           hasRange={hasRange}
