@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { graphql, Link as GatsbyLink } from 'gatsby'
 import { Heading, Grid, Box, Container, Link } from 'theme-ui'
 
@@ -6,9 +7,10 @@ import Layout from '../components/layout'
 import Pagination from '../components/Pagination'
 import TopStory from '../components/blog/TopStory'
 import ArticleListItem from '../components/blog/ArticleListItem'
+import ReviewPagination from '../components/reviews/ReviewPagination'
 
 const BlogTemplate = ({ data, pageContext }) => {
-  const { limit, skip, currentPage } = pageContext
+  const { limit, currentPage } = pageContext
   const topStory = data.allShopifyArticle.nodes[0]
 
   const totalPages = Math.ceil(data.allShopifyArticle.totalCount / limit)
@@ -16,7 +18,9 @@ const BlogTemplate = ({ data, pageContext }) => {
   return (
     <Layout>
       <Container>
-        <Heading pb={4}>Blog</Heading>
+        <Heading as="h1" variant="h2" sx={{ textAlign: 'center' }} pb={4}>
+          Blog
+        </Heading>
         {topStory && <TopStory article={topStory} mb={[4, 5, 6]} />}
         <Grid
           sx={{
@@ -28,9 +32,10 @@ const BlogTemplate = ({ data, pageContext }) => {
             <ArticleListItem article={article} key={article.id} />
           ))}
         </Grid>
-        <Pagination
+        <ReviewPagination
           totalPages={totalPages}
           currentPage={currentPage}
+          boundaryPages={2}
           getLinkForPage={page => {
             if (page === 1) return `/blogs/news`
             return `/blogs/news/page-${page}`
@@ -40,6 +45,22 @@ const BlogTemplate = ({ data, pageContext }) => {
       </Container>
     </Layout>
   )
+}
+
+BlogTemplate.propTypes = {
+  pageContext: PropTypes.shape({
+    limit: PropTypes.number,
+    currentPage: PropTypes.number,
+  }).isRequired,
+  data: PropTypes.shape({
+    allShopifyArticle: PropTypes.shape({
+      nodes: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.string,
+        })
+      ),
+    }),
+  }).isRequired,
 }
 
 export default BlogTemplate

@@ -1,4 +1,6 @@
+import axios from 'axios'
 import path from 'path'
+import slugify from 'slugify'
 import { formatMetalAlternates } from './src/lib/formatMetalAlternates'
 
 const decodeShopifyId = id => {
@@ -101,9 +103,9 @@ async function createCollectionPages({ graphql, actions }) {
     node => node.slug.current
   )
 
-  const collectionHandles = data.allShopifyCollection.nodes.map(
-    node => node.handle
-  )
+  // const collectionHandles = data.allShopifyCollection.nodes.map(
+  //   node => node.handle
+  // )
 
   data.allShopifyCollection.nodes.forEach(collection => {
     if (!collectionGroupSlugs.includes(collection.handle)) {
@@ -168,6 +170,119 @@ async function createBlogPages({ graphql, actions }) {
   })
 }
 
+async function createPodcastIndexPages({ graphql, actions }) {
+  const { data } = await graphql(`
+    {
+      allPodcast(filter: { episode_number: { gt: 0 } }) {
+        totalCount
+      }
+    }
+  `)
+  if (!data) return
+  const { totalCount } = data.allPodcast
+  const limit = 6
+  const totalPages = Math.ceil(totalCount / limit)
+  //  paginated podcast index pages
+  for (let i = 0; i < totalPages; i += 1) {
+    actions.createPage({
+      path: `/podcasts/${i + 1}`,
+      component: path.resolve('./src/pages/podcasts.js'),
+      context: {
+        skip: i * limit,
+        limit,
+        currentPage: i + 1,
+        totalPages,
+      },
+    })
+  }
+}
+
+async function createPodcastEpisodePages({ graphql, actions }) {
+  const { data } = await graphql(`
+    {
+      allPodcast(
+        sort: { fields: published_at, order: ASC }
+        filter: { episode_number: { gt: 0 } }
+      ) {
+        edges {
+          node {
+            slug
+            id
+          }
+        }
+        totalCount
+      }
+    }
+  `)
+  if (!data) return
+  const { totalCount, edges: podcasts } = data.allPodcast
+  // individual podcast pages
+  for (let i = 0; i < totalCount; i += 1) {
+    const slug = n => podcasts[n].node.slug
+    actions.createPage({
+      path: `/podcasts/${slug(i)}`,
+      component: path.resolve('./src/templates/PodcastTemplate.js'),
+      context: {
+        id: podcasts[i].node.id,
+        slug: slug(i),
+        prev: i !== 0 ? slug(i - 1) : null,
+        next: i !== totalCount - 1 ? slug(i + 1) : null,
+      },
+    })
+  }
+}
+
+// fetch data from podcast api and create nodes from returned array
+async function createPodcastNodes({ actions, createContentDigest }) {
+  const url = `https://www.buzzsprout.com/api/${process.env.BUZZSPROUT_PODCAST_ID}/episodes.json`
+  const res = await axios.get(url, {
+    headers: {
+      Authorization: `Bearer ${process.env.BUZZSPROUT_API_TOKEN}`,
+    },
+  })
+  if (res.data.length === 0) {
+    const defaultValues = {
+      id: 'PODCAST-DEFAULT',
+      title: '',
+      slug: '',
+      audio_url: '',
+      artwork_url: '',
+      description: '',
+      episode_number: 0,
+      published_at: new Date().toISOString(),
+    }
+    actions.createNode({
+      ...defaultValues,
+      internal: {
+        type: 'Podcast',
+        contentDigest: createContentDigest(defaultValues),
+      },
+    })
+    return
+  }
+  res.data.forEach(podcast => {
+    // eslint-disable-next-line camelcase
+    const { id, title, published_at } = podcast
+    const slug = `${published_at.split('T')[0]}-${slugify(title)}` // ie 2021-10-04-shantel-clarke
+    const nodeMeta = {
+      id: String(id),
+      slug,
+      internal: {
+        type: 'Podcast',
+        contentDigest: createContentDigest(podcast),
+      },
+    }
+    actions.createNode({
+      ...podcast,
+      ...nodeMeta,
+    })
+  })
+}
+
+export async function sourceNodes(params) {
+  await Promise.all([createPodcastNodes(params)])
+}
+
 export async function createPages(params) {
   // Create pages dynamically
   // Wait for all promises to be resolved before finishing this function
@@ -176,5 +291,7 @@ export async function createPages(params) {
     createCollectionPages(params),
     createBlogPages(params),
     createCollectionGroupPages(params),
+    createPodcastIndexPages(params),
+    createPodcastEpisodePages(params),
   ])
 }

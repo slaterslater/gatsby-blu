@@ -213,6 +213,13 @@ export default {
       fontWeight: 'body',
       fontFamily: 'heading',
     },
+    h2: {
+      textTransform: 'uppercase',
+      letterSpacing: 'widest',
+      fontWeight: 'body',
+      fontSize: 4,
+      fontFamily: 'heading',
+    },
     small: {
       fontSize: 0,
       letterSpacing: 'normal',

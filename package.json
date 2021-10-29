@@ -76,6 +76,7 @@
     "react-select": "^4.3.0",
     "react-use-keypress": "^1.2.0",
     "react-visibility-sensor": "^5.1.1",
+    "slugify": "^1.6.1",
     "store": "^2.0.12",
     "styled-system": "^5.1.5",
     "swr": "^1.0.1",
