@@ -1,8 +1,7 @@
 import { Divider, Link, Box, Text, IconButton, Flex } from 'theme-ui'
 import { IoIosClose, IoIosAdd } from 'react-icons/io'
-import { Link as GatsbyLink } from 'gatsby'
+import { graphql, Link as GatsbyLink, useStaticQuery } from 'gatsby'
 import React, { useContext, useState } from 'react'
-import { megaMenu } from './header/MegaMenu'
 import { AuthContext } from '../contexts/AuthContext'
 import ThemeLink from './app/ThemeLink'
 
@@ -25,7 +24,7 @@ const NavGroup = ({ menu, children }) => {
       <Divider />
       {open && (
         <Box pb={5}>
-          {menu.map(item => (
+          {menu.subGroup.map(item => (
             <Box key={`drawer-box-${item.title}`} pt={4}>
               <Box pb={1}>
                 <Text sx={{ fontWeight: 'heading', fontSize: 1 }}>
@@ -53,6 +52,27 @@ const NavGroup = ({ menu, children }) => {
 
 const NavigationDrawer = ({ onClose }) => {
   const { logout } = useContext(AuthContext)
+
+  const data = useStaticQuery(graphql`
+    {
+      allSanityMegaMenu {
+        nodes {
+          groups {
+            title
+            subGroup {
+              title
+              links {
+                text
+                path
+              }
+            }
+          }
+        }
+      }
+    }
+  `)
+
+  const megaMenu = data.allSanityMegaMenu.nodes[0].groups
 
   return (
     <Flex
@@ -82,9 +102,9 @@ const NavigationDrawer = ({ onClose }) => {
           </ThemeLink>
         </Box>
         <Divider />
-        {Object.keys(megaMenu).map(menu => (
-          <NavGroup key={`drawer-title-${menu}`} menu={megaMenu[menu]}>
-            {menu}
+        {megaMenu.map(menu => (
+          <NavGroup key={`drawer-title-${menu.title}`} menu={menu}>
+            {menu.title}
           </NavGroup>
         ))}
       </Box>

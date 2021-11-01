@@ -23,8 +23,6 @@ const Header = () => {
         top: 0,
         zIndex: 10,
         boxShadow: 'small',
-        borderBottom: '1px solid',
-        borderColor: 'border',
       }}
     >
       <Box
@@ -33,6 +31,8 @@ const Header = () => {
         sx={{
           position: 'relative',
           zIndex: 2,
+          borderBottom: '1px solid',
+          borderColor: 'border',
         }}
       >
         <Grid
