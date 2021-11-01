@@ -10,7 +10,6 @@ import { GatsbyImage } from 'gatsby-plugin-image'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
 import ThemeLink from '../components/app/ThemeLink'
-import { ShopifyHtml } from '../components/ShopifyHtml'
 
 const PodcastDescription = styled.div`
   p {
@@ -28,12 +27,11 @@ const PodcastNav = ({ url, text }) => (
 )
 
 const SinglePodcastPage = ({ data: { podcast, ...data }, pageContext }) => {
-  const { slug, prev, next } = pageContext
-  console.log({ slug, prev, next, sanitypod: data.sanityPodcast })
+  const { prev, next } = pageContext
 
   return (
     <Layout>
-      <SEO title="" description="" />
+      <SEO title={`episode ${podcast.episode_number} | ${podcast.title}`} description={`tru blu podcast - episode ${podcast.episode_number} - ${podcast.title}`} />
       <Helmet>
         <script
           src={`${podcast.audio_url.replace(

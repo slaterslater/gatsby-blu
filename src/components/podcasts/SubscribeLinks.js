@@ -1,35 +1,43 @@
 import React from 'react'
-import { Heading, Grid, Box, Text, Container, Icon, Link, Flex } from 'theme-ui'
+import { Heading, Box, Text, Icon, Link, Flex } from 'theme-ui'
 import { RiSpotifyLine, RiMicLine } from 'react-icons/ri'
 import { CgArrowLongRight } from 'react-icons/cg'
 
-const ListItem = ({ icon: Icon, text, link }) => (
-  <Flex
+const ListItem = ({ icon: Icon, text, href }) => (
+  <Box
     as="li"
     sx={{
       borderBottom: '1px solid',
       borderColor: 'border',
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 3,
     }}
     px={3}
     py={4}
   >
-    <Icon />
-    <Text
+    <Link
+      href={href}
       sx={{
-        fontSize: 0,
-        fontWeight: 'bold',
-        letterSpacing: 'widest',
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 3,
+        textDecoration: 'none',
       }}
     >
-      {text}
-    </Text>
-    <Box ml="auto">
-      <CgArrowLongRight />
-    </Box>
-  </Flex>
+      <Icon />
+      <Text
+        sx={{
+          fontSize: 0,
+          fontWeight: 'bold',
+          letterSpacing: 'widest',
+        }}
+      >
+        {text}
+      </Text>
+      <Box ml="auto">
+        <CgArrowLongRight />
+      </Box>
+    </Link>
+  </Box>
 )
 
 const SubscribeLinks = () => (
@@ -47,7 +55,6 @@ const SubscribeLinks = () => (
       >
         <Text
           as="p"
-          // px={6}
           my={6}
           sx={{
             fontSize: 1,
@@ -68,17 +75,17 @@ const SubscribeLinks = () => (
             borderColor: 'border',
             padding: 0,
           }}
-          mx={[0, 5, 5]}
+          mx={[0, 5]}
         >
           <ListItem
             icon={RiMicLine}
             text="subscribe on apple podcasts"
-            link="#somethign"
+            href="https://podcasts.apple.com/us/podcast/tru-blu-podcast/id1592103827"
           />
           <ListItem
             icon={RiSpotifyLine}
             text="subscribe on spotify"
-            link="#somethign"
+            href="https://open.spotify.com/show/5hhcQ1mxlGuU2AUdGqxgXI"
           />
         </Box>
       </Box>
