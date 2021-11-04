@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useContext, useMemo, useState } from 'react'
 import { Grid } from 'theme-ui'
 import { wrap } from '@popmotion/popcorn'
@@ -15,7 +16,7 @@ import { ProductShipping } from './ProductShipping'
 import { ProductTitleAndPrice } from './ProductTitleAndPrice'
 import RelatedProducts from './RelatedProducts'
 
-const useYotpoTopline = (metafields = []) => {
+const getMetafieldValues = (metafields = []) => {
   const fields = {
     average: 'reviews_average',
     total: 'reviews_count',
@@ -34,7 +35,7 @@ const ProductDetails = ({ alternates }) => {
     product: { handle, variants, metafields },
   } = useContext(ProductContext)
 
-  const { total, average, collectionHandle } = useYotpoTopline(metafields)
+  const { total, average, collectionHandle } = getMetafieldValues(metafields)
 
   const [customAttributes, setCustomAttributes] = useState(null)
 
