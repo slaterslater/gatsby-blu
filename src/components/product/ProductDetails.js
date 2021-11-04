@@ -1,5 +1,7 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useMemo, useState } from 'react'
 import { Grid } from 'theme-ui'
+import { wrap } from '@popmotion/popcorn'
+import { useQuery, gql } from 'urql'
 import ProductReviewsTopline from './ProductReviewsTopline'
 import AddToCart from './AddToCart'
 import MetalOptions from './MetalOptions'
@@ -11,23 +13,65 @@ import { EngagementConsultationButton } from './EngagementConsultationButton'
 import { ProductDescription } from './ProductDescription'
 import { ProductShipping } from './ProductShipping'
 import { ProductTitleAndPrice } from './ProductTitleAndPrice'
+import RelatedProducts from './RelatedProducts'
 
 const useYotpoTopline = (metafields = []) => {
-  const { value: average } =
-    metafields.find(field => field.key === 'reviews_average') || {}
-  const { value: total } =
-    metafields.find(field => field.key === 'reviews_count') || {}
-  return { total, average }
+  const fields = {
+    average: 'reviews_average',
+    total: 'reviews_count',
+    collectionHandle: 'related_product_collection',
+  }
+
+  Object.entries(fields).forEach(([key, value]) => {
+    fields[key] = metafields.find(field => field.key === value)?.value
+  })
+
+  return fields
 }
 
 const ProductDetails = ({ alternates }) => {
   const {
-    product: { variants, metafields },
+    product: { handle, variants, metafields },
   } = useContext(ProductContext)
 
-  const { total, average } = useYotpoTopline(metafields)
+  const { total, average, collectionHandle } = useYotpoTopline(metafields)
 
   const [customAttributes, setCustomAttributes] = useState(null)
+
+  const [{ data }] = useQuery({
+    query: gql`
+      query($collectionHandle: String!) {
+        collectionByHandle(handle: $collectionHandle) {
+          products(first: 250) {
+            edges {
+              node {
+                handle
+              }
+            }
+          }
+        }
+      }
+    `,
+    variables: { collectionHandle },
+  })
+
+  const related = useMemo(() => {
+    // make an array of product handles
+    const productHandles = data?.collectionByHandle?.products?.edges
+    if (!productHandles) return null
+    // get index of handle
+    const currentIndex = productHandles.findIndex(
+      ({ node }) => node.handle === handle
+    )
+    // takes int n and returns n adjacent product handles
+    const relatedHandles = n =>
+      Array.from({ length: n }).map((_, i) => {
+        // ensure related are in bounds
+        const index = wrap(0, productHandles.length, currentIndex + i + 1)
+        return productHandles[index]?.node?.handle
+      })
+    return relatedHandles(2)
+  }, [handle, data])
 
   return (
     <>
@@ -46,6 +90,7 @@ const ProductDetails = ({ alternates }) => {
           possibleScore={5}
           totalReviews={total}
         />
+        <RelatedProducts related={related} />
       </Grid>
     </>
   )
