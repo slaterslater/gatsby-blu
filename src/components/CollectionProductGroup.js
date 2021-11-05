@@ -8,8 +8,9 @@ const CollectionProductGroup = ({ title, children, ...props }) => (
         <Heading
           as="h3"
           mr={4}
+          variant="caps"
           sx={{
-            fontSize: 3,
+            fontSize: 0,
           }}
         >
           {title.toLowerCase()}

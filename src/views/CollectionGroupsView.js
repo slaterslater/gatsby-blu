@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { useLocation } from '@reach/router'
 import { useQuery } from 'urql'
-import { Container, Grid, Link, Box, Text } from 'theme-ui'
+import { Container, Grid, Link, Box, Text, Flex } from 'theme-ui'
+import { GatsbyImage } from 'gatsby-plugin-image'
 import { parse } from 'qs'
 import Layout from '../components/layout'
 import CollectionProductGroup from '../components/CollectionProductGroup'
@@ -11,9 +12,58 @@ import { COLLECTION_PAGE_QUERY } from '../queries/collection'
 import { sortProducts } from '../components/collection/CollectionProductGrid'
 import CollectionProduct from '../components/CollectionProduct'
 import CollectionFilterAndSort from '../components/collection/CollectionFilterAndSort'
+import ThemeLink from '../components/app/ThemeLink'
+import { useShopifyImage } from '../hooks/shopifyImage'
+import LongArrowRight from '../components/icon/long-arrow-right'
 
 const sortCollections = (nodes, arr) =>
   nodes.sort((a, b) => arr.indexOf(a.handle) - arr.indexOf(b.handle))
+
+const AllCollectionThumbnailLink = ({ to, image, moreProductCount }) => {
+  const imageData = useShopifyImage({ image, width: 360 })
+
+  return (
+    <Flex sx={{ flexDirection: 'column' }}>
+      <Grid>
+        <ThemeLink
+          to={to}
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'column',
+            bg: 'rgba(249, 248, 246, .2)',
+            gridArea: '1 / 1 / -1 / -1',
+            zIndex: 10,
+            color: 'white',
+            textDecoration: 'none',
+            textTransform: 'uppercase',
+            fontSize: 0,
+            letterSpacing: 'widest',
+            fontWeight: '500',
+          }}
+        >
+          <Box my={3} px={3} py={2} sx={{ bg: 'white', color: 'white' }}>
+            <Text variant="caps" sx={{ color: 'primary', fontSize: 9 }}>
+              view {moreProductCount} more
+            </Text>
+          </Box>
+          <Box sx={{ height: 0 }}>
+            <LongArrowRight />
+          </Box>
+        </ThemeLink>
+        <Box
+          sx={{
+            gridArea: '1 / 1 / -1 / -1',
+          }}
+        >
+          <GatsbyImage image={imageData} alt={image.altText || ''} />
+        </Box>
+      </Grid>
+      <Box sx={{ flex: 1 }} />
+    </Flex>
+  )
+}
 
 const CollectionGroup = ({
   pagePath,
@@ -22,6 +72,7 @@ const CollectionGroup = ({
   title,
   description,
   products,
+  isTruncated,
   ...props
 }) => {
   const [{ data }] = useQuery({
@@ -33,6 +84,9 @@ const CollectionGroup = ({
     data?.collectionByHandle.products
   )
 
+  const allProducts = latestProducts || products
+  const collectionProducts = isTruncated ? allProducts.slice(0, 4) : allProducts
+
   return (
     <CollectionProductGroup
       title={title}
@@ -42,15 +96,28 @@ const CollectionGroup = ({
       pb={6}
       {...props}
     >
-      {(latestProducts || products).map(product => (
-        <CollectionProduct
-          key={product.id}
-          product={product}
-          images={product.images}
-          collectionTitle={pageTitle}
-          collectionPath={pagePath}
-        />
-      ))}
+      {collectionProducts.map((product, i) => {
+        if (isTruncated && i + 1 === collectionProducts.length) {
+          return (
+            <AllCollectionThumbnailLink
+              key={product.id}
+              to={`/collections/${handle}`}
+              image={product.images[1]}
+              moreProductCount={allProducts.length - 3}
+            />
+          )
+        }
+
+        return (
+          <CollectionProduct
+            key={product.id}
+            product={product}
+            images={product.images}
+            collectionTitle={pageTitle}
+            collectionPath={pagePath}
+          />
+        )
+      })}
     </CollectionProductGroup>
   )
 }
@@ -61,6 +128,7 @@ const CollectionGroupsView = ({
   pagePath,
   collectionOrder,
   collections,
+  isTruncated,
 }) => {
   const location = useLocation()
   const currentParams = parse(location.search.replace('?', ''))
@@ -102,6 +170,7 @@ const CollectionGroupsView = ({
               <CollectionGroup
                 pageTitle={pageTitle}
                 pagePath={pagePath}
+                isTruncated
                 {...collection}
               />
             ))}

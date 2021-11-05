@@ -23,6 +23,7 @@ const CollectionPageTemplate = ({ pageContext, path, data }) => {
       )}
       collections={collections}
       pagePath={path}
+      isTruncated={data.sanityCollectionGroupPage.isTruncated}
     />
   )
 }
@@ -38,6 +39,7 @@ export const query = graphql`
       }
       title
       description
+      isTruncated
     }
     allShopifyCollection(filter: { handle: { in: $collections } }) {
       nodes {
