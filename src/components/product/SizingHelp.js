@@ -23,11 +23,7 @@ const SizingContent = ({ type }) => (
           />
         </Box>
         <Flex pt={4} sx={{ justifyContent: 'center' }}>
-          <Link
-            variant="button"
-            href="/static/bluboho-ring-sizer-guide.pdf"
-            download
-          >
+          <Link variant="button" href="/bluboho-ring-sizer-guide.pdf" download>
             Download Printout
           </Link>
         </Flex>

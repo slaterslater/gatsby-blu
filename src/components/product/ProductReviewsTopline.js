@@ -8,11 +8,7 @@ export const ReviewStars = ({ starPercentage }) => (
       {Array(5)
         .fill()
         .map((_, i) => (
-          <IoIosStarOutline
-            key={`outline-${i}`}
-            size={10}
-            style={{ marginLeft: '4px' }}
-          />
+          <Box as={IoIosStarOutline} key={`outline-${i}`} size={10} ml={1} />
         ))}
     </Box>
     <Box
@@ -32,11 +28,7 @@ export const ReviewStars = ({ starPercentage }) => (
         {Array(5)
           .fill()
           .map((_, i) => (
-            <IoIosStar
-              key={`full-${i}`}
-              size={10}
-              style={{ marginLeft: '4px' }}
-            />
+            <Box as={IoIosStar} key={`full-${i}`} size={10} ml={1} />
           ))}
       </Box>
     </Box>

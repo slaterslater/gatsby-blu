@@ -44,7 +44,7 @@ const RelatedProducts = ({ related }) => {
   if (!related) return <></>
   return (
     <>
-      <Heading as="h2" variant="caps">
+      <Heading as="h3" variant="caps">
         Related Products
       </Heading>
       <Grid

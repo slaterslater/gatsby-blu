@@ -72,6 +72,7 @@ const NavTab = ({ isCurrent, ...props }) => (
       textTransform: 'uppercase',
       fontSize: 4,
       letterSpacing: 'widest',
+      textAlign: 'center',
     }}
     {...props}
   />
