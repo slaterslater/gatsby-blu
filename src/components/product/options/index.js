@@ -24,7 +24,7 @@ const ProductOptions = () => {
     return (
       <Box key={`option-row-${name}`}>
         <Flex sx={{ gap: 3, alignItems: 'baseline' }} pb={4}>
-          <Heading as="h5" variant="caps" sx={{ fontSize: 9 }}>
+          <Heading as="div" variant="caps" sx={{ fontSize: 9 }}>
             select {name}
           </Heading>
           <SizingHelp />

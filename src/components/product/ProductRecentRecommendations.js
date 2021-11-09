@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { useQuery, gql } from 'urql'
-import { Box, NavLink, Flex, Grid, Container, Text } from 'theme-ui'
+import { Box, NavLink, Flex, Grid, Container, Heading, Text } from 'theme-ui'
 import { useMatch } from '@reach/router'
 import { RecentlyViewedProductsContext } from '../../contexts/RecentlyViewedProductsContext'
 import { CurrencyContext } from '../../contexts/CurrencyContext'
@@ -61,18 +61,34 @@ const useStackHandles = () => {
     })
 }
 
-const NavTab = ({ current, ...props }) => (
-  <NavLink
+const NavTab = ({ isCurrent, ...props }) => (
+  <Heading
+    as={NavLink}
+    pb={1}
     sx={{
+      fontWeight: 400,
+      borderBottom: '1px solid',
+      borderColor: isCurrent ? 'black' : 'transparent',
       textTransform: 'uppercase',
-      letterSpacing: 'caps',
-      fontWeight: current ? 'bold' : 'normal',
-      fontSize: 1,
-      textAlign: 'center',
+      fontSize: 4,
+      letterSpacing: 'widest',
     }}
     {...props}
   />
 )
+
+// const NavTab = ({ current, ...props }) => (
+//   <NavLink
+//     sx={{
+//       textTransform: 'uppercase',
+//       letterSpacing: 'caps',
+//       fontWeight: current ? 'bold' : 'normal',
+//       fontSize: 1,
+//       textAlign: 'center',
+//     }}
+//     {...props}
+//   />
+// )
 
 const ProductsList = ({ handles }) =>
   handles.map(handle => <Recent handle={handle} key={`recent-${handle}`} />)
@@ -86,10 +102,10 @@ const ProductRecentRecommendations = () => {
   return (
     <Container px={[0, 6, 7]} ml={[0, 'auto']} mr={[-5, 'auto']}>
       <Flex py={6} sx={{ gap: 6, justifyContent: 'center' }}>
-        <NavTab current={tab === 'stack'} onClick={() => setTab('stack')}>
+        <NavTab isCurrent={tab === 'stack'} onClick={() => setTab('stack')}>
           Stack It With
         </NavTab>
-        <NavTab current={tab === 'recent'} onClick={() => setTab('recent')}>
+        <NavTab isCurrent={tab === 'recent'} onClick={() => setTab('recent')}>
           Recently Viewed
         </NavTab>
       </Flex>

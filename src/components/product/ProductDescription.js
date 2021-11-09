@@ -53,17 +53,18 @@ export const ProductDescription = props => {
 
   const previewText = stripHtml(descriptionHtml)
 
-  // const { previewText } = stripHtml(descriptionHtml)
-
   return (
     <Box>
-      <Heading as="h3" variant="caps" pb={4} sx={{ textAlign: 'center' }}>
+      <Heading as="h2" variant="caps" pb={4} sx={{ textAlign: 'center' }}>
         The Story
       </Heading>
       {open ? (
-        <DescriptionHtml
-          dangerouslySetInnerHTML={{ __html: descriptionHtml }}
-        />
+        // <DescriptionHtml
+        //   dangerouslySetInnerHTML={{ __html: descriptionHtml }}
+        // />
+        <Text as="p" variant="copy" sx={{ textAlign: 'center' }}>
+          {previewText}
+        </Text>
       ) : (
         <>
           <Text as="p" variant="copy" sx={{ textAlign: 'center' }}>
@@ -71,6 +72,11 @@ export const ProductDescription = props => {
             <Button
               variant="link"
               type="button"
+              sx={{
+                textTransform: 'uppercase',
+                fontWeight: 'bold',
+                fontSize: 0,
+              }}
               pl={2}
               onClick={() => setOpen(true)}
             >
