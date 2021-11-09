@@ -92,3 +92,15 @@ export const useProductGalleryImages = () => {
   }
   return images || []
 }
+
+export const useProductGalleryVideos = () => {
+  const {
+    product: { media },
+  } = useContext(ProductContext)
+
+  const videos = media?.edges
+    .filter(({ node }) => node.mediaContentType === 'VIDEO')
+    .map(({ node }) => node)
+
+  return videos || []
+}
