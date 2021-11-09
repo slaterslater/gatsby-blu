@@ -9,6 +9,7 @@
 // import 'photoswipe/dist/default-skin/default-skin.css'
 import '@reach/dialog/styles.css'
 import 'tippy.js/dist/tippy.css'
+import '@reach/menu-button/styles.css'
 
 import React from 'react'
 import PropTypes from 'prop-types'

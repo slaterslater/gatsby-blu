@@ -1,13 +1,23 @@
 import { useMemo } from 'react'
 import { getShopifyImage } from '../lib/get-shopify-image'
 
-export function useShopifyImage({ image, width }) {
-  const { originalSrc, height, width: originalWidth } = image || {}
+export function useShopifyImage({ image, width, height }) {
+  const {
+    originalSrc,
+    src,
+    height: originalHeight,
+    width: originalWidth,
+  } = image || {}
   return useMemo(() => {
-    if (!originalSrc || !height || !originalWidth) return false
+    if (!(originalSrc || src) || !originalHeight || !originalWidth) return false
     return getShopifyImage({
-      image: { originalSrc, height, width: originalWidth },
+      image: {
+        originalSrc: originalSrc || src,
+        height: originalHeight,
+        width: originalWidth,
+      },
       width,
+      height,
     })
   }, [originalSrc, height, originalWidth, width])
 }

@@ -14,7 +14,7 @@ const CollectionPageTemplate = ({ data, pageContext, ...props }) => {
     clientData?.collectionByHandle.products
   )
 
-  const { products, handle } = data.shopifyCollection
+  const { products, handle, image } = data.shopifyCollection
 
   const title = data.shopifyCollection.title.toLowerCase()
   const description = data.shopifyCollection.description?.toLowerCase()
@@ -26,6 +26,7 @@ const CollectionPageTemplate = ({ data, pageContext, ...props }) => {
       title={title}
       handle={handle}
       description={description}
+      image={image}
       products={viewProducts}
       hasFilters
     />

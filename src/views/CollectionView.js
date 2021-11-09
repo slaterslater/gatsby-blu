@@ -10,6 +10,7 @@ import CollectionFilterAndSort from '../components/collection/CollectionFilterAn
 import { getSrcWithSize } from '../components/RemoteShopifyImage'
 import { escapeDoubleQuoteString } from '../lib/escapeDoubleQuoteStrings'
 import { useAnalytics } from '../lib/useAnalytics'
+import CollectionPageHeader from '../components/CollectionPageHeader'
 
 export const getCollectionProducts = products => {
   if (products)
@@ -48,7 +49,6 @@ const CollectionPage = ({
     }
   `)
 
-  const [isOpen, setOpen] = useState(false)
   const ldJSONSrc = getSrcWithSize(image?.src, '1024x_crop_center')
 
   const collectionUrl = `${siteUrl}/collections/${handle}`
@@ -69,29 +69,13 @@ const CollectionPage = ({
       <SEO title={title} description={description}>
         <script type="application/ld+json">{collectionLdJSON}</script>
       </SEO>
-      <Container as="main">
-        <ResultsHeader
-          title={title}
-          description={description}
-          resultType="products"
-          count={products?.length || 0}
-        >
-          {hasFilters && (
-            <Box sx={{ textAlign: 'right' }} pt={3}>
-              <Text variant="caps" sx={{ fontSize: 0 }}>
-                <Link
-                  role="button"
-                  sx={{ textDecoration: 'none', cursor: 'pointer' }}
-                  onClick={() => setOpen(prev => !prev)}
-                >
-                  Filter &amp; Sort
-                </Link>
-              </Text>
-            </Box>
-          )}
-        </ResultsHeader>
-        {hasFilters && <CollectionFilterAndSort isOpen={isOpen} />}
-        <Divider />
+      <CollectionPageHeader
+        title={title}
+        description={description}
+        image={image}
+      />
+      <Container pt={0}>
+        <CollectionFilterAndSort title={title} productCount={products.length} />
         <ProductGrid
           products={products}
           collectionTitle={title}

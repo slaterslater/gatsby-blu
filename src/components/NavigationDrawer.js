@@ -4,49 +4,36 @@ import { graphql, Link as GatsbyLink, useStaticQuery } from 'gatsby'
 import React, { useContext, useState } from 'react'
 import { AuthContext } from '../contexts/AuthContext'
 import ThemeLink from './app/ThemeLink'
+import Accordion from './Accordion'
 
 const NavGroup = ({ menu, children }) => {
   const [open, set] = useState(false)
 
   return (
-    <Box sx={{ position: 'relative' }}>
-      <Box py={4}>
-        <Link
-          sx={{ display: 'flex', textDecoration: 'none' }}
-          onClick={() => set(prev => !prev)}
-        >
-          <Text sx={{ flex: 1 }} variant="caps">
-            {children}
-          </Text>
-          <Text as={IoIosAdd} />
-        </Link>
-      </Box>
-      <Divider />
-      {open && (
-        <Box pb={5}>
-          {menu.subGroup.map(item => (
-            <Box key={`drawer-box-${item.title}`} pt={4}>
-              <Box pb={1}>
-                <Text sx={{ fontWeight: 'heading', fontSize: 1 }}>
-                  {item.title}
-                </Text>
-              </Box>
-              {item.links.map(link => (
-                <Box key={`drawer-${link.path}-${link.text}`} py={1}>
-                  <Link
-                    as={GatsbyLink}
-                    to={link.path}
-                    sx={{ textDecoration: 'none', fontSize: 1 }}
-                  >
-                    {link.text}
-                  </Link>
-                </Box>
-              ))}
+    <Accordion title={children}>
+      <Box pb={5}>
+        {menu.subGroup.map(item => (
+          <Box key={`drawer-box-${item.title}`} pt={4}>
+            <Box pb={1}>
+              <Text sx={{ fontWeight: 'heading', fontSize: 1 }}>
+                {item.title}
+              </Text>
             </Box>
-          ))}
-        </Box>
-      )}
-    </Box>
+            {item.links.map(link => (
+              <Box key={`drawer-${link.path}-${link.text}`} py={1}>
+                <Link
+                  as={GatsbyLink}
+                  to={link.path}
+                  sx={{ textDecoration: 'none', fontSize: 1 }}
+                >
+                  {link.text}
+                </Link>
+              </Box>
+            ))}
+          </Box>
+        ))}
+      </Box>
+    </Accordion>
   )
 }
 

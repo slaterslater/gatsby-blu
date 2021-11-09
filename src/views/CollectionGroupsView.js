@@ -12,6 +12,7 @@ import { COLLECTION_PAGE_QUERY } from '../queries/collection'
 import { sortProducts } from '../components/collection/CollectionProductGrid'
 import CollectionProduct from '../components/CollectionProduct'
 import CollectionFilterAndSort from '../components/collection/CollectionFilterAndSort'
+import CollectionPageHeader from '../components/CollectionPageHeader'
 import ThemeLink from '../components/app/ThemeLink'
 import { useShopifyImage } from '../hooks/shopifyImage'
 import LongArrowRight from '../components/icon/long-arrow-right'
@@ -140,30 +141,14 @@ const CollectionGroupsView = ({
     ? sortProducts({ products: allProducts, sort: currentParams.sort })
     : null
 
-  const [open, setOpen] = useState(false)
-
   return (
     <Layout>
-      <Container as="main">
-        <ResultsHeader
+      <CollectionPageHeader title={pageTitle} description={pageDescription} />
+      <Container pt={0} as="main">
+        <CollectionFilterAndSort
           title={pageTitle}
-          description={pageDescription}
-          resultType="products"
-          count={allProducts?.length || 0}
-        >
-          <Box sx={{ textAlign: 'right' }} pt={3}>
-            <Text variant="caps" sx={{ fontSize: 0 }}>
-              <Link
-                role="button"
-                sx={{ textDecoration: 'none', cursor: 'pointer' }}
-                onClick={() => setOpen(prev => !prev)}
-              >
-                Filter &amp; Sort
-              </Link>
-            </Text>
-          </Box>
-        </ResultsHeader>
-        <CollectionFilterAndSort isOpen={open} />
+          productCount={allProducts.length}
+        />
         <Grid>
           {!sortedProducts &&
             sortedCollections.map(collection => (

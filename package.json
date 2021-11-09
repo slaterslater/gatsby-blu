@@ -9,6 +9,7 @@
     "@emotion/styled": "^11.0.0",
     "@popmotion/popcorn": "^0.4.4",
     "@reach/dialog": "^0.15.0",
+    "@reach/menu-button": "^0.16.2",
     "@reach/rect": "^0.13.0",
     "@reach/router": "^1.3.4",
     "@sanity/block-content-to-react": "^3.0.0",
