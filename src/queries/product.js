@@ -65,6 +65,26 @@ export const PRODUCT_QUERY = gql`
         name
         values
       }
+      media(first: 25) {
+        edges {
+          node {
+            mediaContentType
+            ... on Video {
+              id
+              sources {
+                format
+                url
+              }
+              # preview {
+              #   image {
+              #     altText
+              #     originalSrc
+              #   }
+              # }
+            }
+          }
+        }
+      }
       images(first: 25) {
         edges {
           node {

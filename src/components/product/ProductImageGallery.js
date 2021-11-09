@@ -4,7 +4,10 @@ import { Flex, Box, Button } from 'theme-ui'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import FullscreenGallery from '../FullscreenGallery'
 import MobileGallery from './MobileGallery'
-import { useProductGalleryImages } from '../../hooks/product'
+import {
+  useProductGalleryImages,
+  useProductGalleryVideos,
+} from '../../hooks/product'
 import ShopifyGatsbyImage from '../ShopifyGatsbyImage'
 
 const GalleryImage = ({ image }) => (
@@ -13,6 +16,9 @@ const GalleryImage = ({ image }) => (
 
 const ProductImageGallery = () => {
   const images = useProductGalleryImages()
+  const videos = useProductGalleryVideos()
+
+  console.log(videos)
 
   const [{ isOpen, initialPage }, setGalleryState] = useState({
     isOpen: false,
