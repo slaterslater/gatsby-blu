@@ -29,8 +29,9 @@ export const ProductSpecifications = props => {
               pb={2}
               sx={{
                 fontSize: 0,
-                letterSpacing: 'wider',
-                lineHeight: 1.5,
+                letterSpacing: 'widest',
+                textTransform: 'lowercase',
+                lineHeight: '1.5em',
                 listStyleType: 'none',
               }}
             />
