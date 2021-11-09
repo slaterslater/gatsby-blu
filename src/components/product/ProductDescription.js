@@ -27,7 +27,8 @@ export const DescriptionHtml = styled.div`
     padding-bottom: 5px;
     letter-spacing: 0.1em;
   }
-  p {
+  p,
+  div {
     font-family: var(--theme-ui-font-body);
     line-height: 2.5;
     margin: 0 0 1em;
@@ -59,12 +60,9 @@ export const ProductDescription = props => {
         The Story
       </Heading>
       {open ? (
-        // <DescriptionHtml
-        //   dangerouslySetInnerHTML={{ __html: descriptionHtml }}
-        // />
-        <Text as="p" variant="copy" sx={{ textAlign: 'center' }}>
-          {previewText}
-        </Text>
+        <DescriptionHtml
+          dangerouslySetInnerHTML={{ __html: descriptionHtml }}
+        />
       ) : (
         <>
           <Text as="p" variant="copy" sx={{ textAlign: 'center' }}>
