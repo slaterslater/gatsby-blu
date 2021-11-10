@@ -1,5 +1,5 @@
-import { Flex, Box, Text, Heading } from 'theme-ui'
-import React from 'react'
+import { Link, Flex, Box, Text, Heading } from 'theme-ui'
+import React, { useMemo, useState } from 'react'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import { useShopifyImage } from '../hooks/shopifyImage'
 
@@ -11,6 +11,40 @@ const HeaderImage = ({ image }) => {
       alt={image.altText || ''}
       objectFit="cover"
     />
+  )
+}
+
+const RevealText = ({ children, chars = 250, ...props }) => {
+  const [expanded, setExpanded] = useState(false)
+
+  const truncatedText = useMemo(() => {
+    const lastSpaceIndex = children.slice(0, chars).lastIndexOf(' ')
+    return children.slice(0, lastSpaceIndex)
+  }, [children, chars])
+
+  if (children.length < chars) return <Text {...props}>{children}</Text>
+
+  if (expanded) return <Text {...props}>{children}</Text>
+
+  return (
+    <Text {...props}>
+      {truncatedText}...
+      <Link
+        pl={1}
+        role="button"
+        variant="caps"
+        aria-pressed={false}
+        onClick={() => setExpanded(true)}
+        sx={{
+          cursor: 'pointer',
+          fontWeight: 'medium',
+          textDecoration: 'underline',
+          whiteSpace: 'nowrap',
+        }}
+      >
+        read more
+      </Link>
+    </Text>
   )
 }
 
@@ -38,7 +72,7 @@ const CollectionPageHeader = ({ title, description, image }) => (
           {title}
         </Heading>
         {description && (
-          <Text
+          <RevealText
             as="p"
             mx="auto"
             mt={5}
@@ -53,7 +87,7 @@ const CollectionPageHeader = ({ title, description, image }) => (
             }}
           >
             {description}
-          </Text>
+          </RevealText>
         )}
       </Box>
     </Flex>
