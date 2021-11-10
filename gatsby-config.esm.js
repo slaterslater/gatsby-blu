@@ -233,6 +233,26 @@ module.exports = {
               ),
             output: '/product-feed.csv',
           },
+          {
+            query: `
+              {
+                allShopifyCollection {
+                  nodes {
+                    title
+                    handle
+                    description
+                  }
+                }
+              }
+            `,
+            serialize: ({ query: { allShopifyCollection } }) =>
+              allShopifyCollection.nodes.filter(
+                node =>
+                  (node.description && node.description.length > 250) ||
+                  !node.description
+              ),
+            output: '/collection-descriptions.csv',
+          },
         ],
       },
     },
