@@ -14,25 +14,25 @@ export const getSrcWithSize = (src = '', size) => {
 
 export const useShopifyImageMeta = (image = {}) => {
   let meta = []
-  // const fbThumb = getSrcWithSize(originalSrc, '1200x630_crop_center')
-  const fbThumb = useShopifyImage({ image, width: 1200, height: 630 })
+  // const fbThumb = getSrcWithSize(originalSrc, '1200x628_crop_center')
+  const fbThumb = useShopifyImage({ image, width: 1200, height: 628 })
   if (fbThumb) {
     meta = [
       ...meta,
       { property: 'og:image', content: fbThumb.images.fallback.src },
-      { property: 'og:image:height', content: 630 },
+      { property: 'og:image:height', content: 628 },
       { property: 'og:image:width', content: 1200 },
       { property: 'og:image:alt', content: image.altText || '' },
     ]
   }
   // const twThumb = getSrcWithSize(originalSrc, '1200x1200_crop_center')
-  const twThumb = useShopifyImage({ image, width: 1200, height: 630 })
+  const twThumb = useShopifyImage({ image, width: 1200, height: 628 })
   if (twThumb) {
     meta = [
       ...meta,
       { property: 'twitter:image', content: twThumb.images.fallback.src },
       { property: 'twitter:image:height', content: 1200 },
-      { property: 'twitter:image:width', content: 1200 },
+      { property: 'twitter:image:width', content: 628 },
       { property: 'twitter:image:alt', content: image.altText || '' },
     ]
   }
