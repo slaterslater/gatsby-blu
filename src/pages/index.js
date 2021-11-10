@@ -17,6 +17,7 @@ import { HeroOuter } from '../components/content/Hero'
 import Zodiac from '../components/Zodiac'
 import { useAnalytics } from '../lib/useAnalytics'
 import HomeLocations from '../components/home/locations'
+import { useShopifyImageMeta } from '../components/RemoteShopifyImage'
 
 const IndexPage = ({ data }) => {
   const {
@@ -42,11 +43,20 @@ const IndexPage = ({ data }) => {
   }
 `
 
+  const imageMeta = useShopifyImageMeta({
+    originalSrc:
+      'https://cdn.shopify.com/s/files/1/0685/0359/files/bluboho_logo.jpg?v=1614307775',
+    height: 1500,
+    width: 1500,
+    altText: '',
+    id: 'home-logo-img',
+  })
+
   useAnalytics('viewHome')
 
   return (
     <Layout>
-      <SEO title="Home">
+      <SEO title="home" meta={imageMeta}>
         <script type="application/ld+json">{websiteLdJSON}</script>
       </SEO>
       <SanityContent rawContent={data.sanityPage._rawContent} />
