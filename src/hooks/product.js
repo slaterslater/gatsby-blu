@@ -99,7 +99,7 @@ export const useProductGalleryVideos = () => {
   } = useContext(ProductContext)
 
   const videos = media?.edges
-    .filter(({ node }) => node.mediaContentType === 'VIDEO')
+    .filter(({ node }) => node.__typename === 'Video')
     .map(({ node }) => node)
 
   return videos || []

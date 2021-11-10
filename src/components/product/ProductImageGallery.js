@@ -17,8 +17,8 @@ const GalleryImage = ({ image }) => (
 const ProductImageGallery = () => {
   const images = useProductGalleryImages()
   const videos = useProductGalleryVideos()
-
-  console.log(videos)
+  const media = images.concat(videos)
+  console.log(media)
 
   const [{ isOpen, initialPage }, setGalleryState] = useState({
     isOpen: false,
