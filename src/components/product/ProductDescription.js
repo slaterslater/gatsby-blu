@@ -28,7 +28,8 @@ export const DescriptionHtml = styled.div`
     letter-spacing: 0.1em;
   }
   p,
-  div {
+  div,
+  span {
     font-family: var(--theme-ui-font-body);
     line-height: 2.5;
     margin: 0 0 1em;
