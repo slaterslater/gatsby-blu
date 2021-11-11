@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { wrap } from '@popmotion/popcorn'
 import { HiChevronLeft, HiChevronRight } from 'react-icons/hi'
 import { GatsbyImage } from 'gatsby-plugin-image'
+import { IoPlayOutline } from 'react-icons/io5'
 
 import { getShopifyImage } from '../../lib/get-shopify-image'
 
@@ -24,14 +25,50 @@ const Dot = ({ full, ...props }) => (
   />
 )
 
+const MobileGalleryVideo = ({ media }) => {
+  const toggleVideoPlayback = e => {
+    const video = e.target
+    if (video.classList.contains('playing')) {
+      video.pause()
+      video.classList.toggle('playing')
+    } else {
+      video.play()
+      video.classList.toggle('playing')
+    }
+  }
+
+  return (
+    <>
+      <Box
+        as={IoPlayOutline}
+        size={80}
+        sx={{
+          position: 'absolute',
+          top: '40%',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          color: 'darkerGray',
+        }}
+        onClick={toggleVideoPlayback}
+      />
+      <Box as="video" sx={{ width: '100%' }} loop muted>
+        {media.sources.map(({ url, format }, i) => (
+          <source key={`source-${i}`} src={url} type={`video/${format}`} />
+        ))}
+      </Box>
+    </>
+  )
+}
+
 const swipeConfidenceThreshold = 10000
 const swipePower = (offset, velocity) => Math.abs(offset) * velocity
 
-const MobileGallery = ({ images, hasDots = true, onImageClick }) => {
+const MobileGallery = ({ media, hasDots = true, onImageClick }) => {
   const [[currentPage, direction], setCurrentPage] = useState([0, 0])
 
-  if (!images[0]) return false
-  const imageIndex = wrap(0, images.length, currentPage)
+  if (!media[0]) return false
+  const imageIndex = wrap(0, media.length, currentPage)
+  const mediaType = media[imageIndex]
 
   const paginate = newDirection => {
     setCurrentPage([currentPage + newDirection, newDirection])
@@ -41,20 +78,19 @@ const MobileGallery = ({ images, hasDots = true, onImageClick }) => {
     setCurrentPage([index, index > currentPage ? 1 : -1])
   }
 
-  const imageData = useMemo(
-    () =>
-      getShopifyImage({
-        image: images[imageIndex],
-      }),
-    [imageIndex, JSON.stringify(images[imageIndex])]
-  )
+  const imageData = useMemo(() => {
+    if (mediaType.__typename !== 'Image') return null
+    return getShopifyImage({
+      image: mediaType,
+    })
+  }, [imageIndex, JSON.stringify(mediaType)])
 
   return (
     <Box>
       <AspectRatio ratio={1}>
         <AnimatePresence initial={false}>
           <MotionBox
-            key={`mobile-${images[imageIndex].originalSrc}`}
+            key={`mobile-${mediaType.__typename}-${imageIndex + 1}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -75,10 +111,12 @@ const MobileGallery = ({ images, hasDots = true, onImageClick }) => {
             }}
             onClick={() => onImageClick(imageIndex)}
           >
-            <GatsbyImage
-              image={imageData}
-              alt={images[imageIndex].altText || ''}
-            />
+            {mediaType.__typename === 'Image' && (
+              <GatsbyImage image={imageData} alt={mediaType.altText || ''} />
+            )}
+            {mediaType.__typename === 'Video' && (
+              <MobileGalleryVideo media={mediaType} />
+            )}
           </MotionBox>
         </AnimatePresence>
       </AspectRatio>
@@ -94,7 +132,7 @@ const MobileGallery = ({ images, hasDots = true, onImageClick }) => {
         {hasDots && (
           <Box mx={2}>
             <Flex>
-              {Array(images.length)
+              {Array(media.length)
                 .fill()
                 .map((_, i) => (
                   <Dot

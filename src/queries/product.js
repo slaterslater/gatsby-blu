@@ -77,8 +77,9 @@ export const PRODUCT_QUERY = gql`
               }
               # preview {
               #   image {
-              #     altText
-              #     originalSrc
+              #     # altText
+              #     # originalSrc
+              #     # status
               #   }
               # }
             }

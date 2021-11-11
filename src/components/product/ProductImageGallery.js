@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import { Flex, Box, Button } from 'theme-ui'
 import { GatsbyImage } from 'gatsby-plugin-image'
+import { IoPlayOutline } from 'react-icons/io5'
 import FullscreenGallery from '../FullscreenGallery'
 import MobileGallery from './MobileGallery'
 import {
@@ -12,6 +13,27 @@ import ShopifyGatsbyImage from '../ShopifyGatsbyImage'
 
 const GalleryImage = ({ image }) => (
   <ShopifyGatsbyImage image={image} getImageProps={{ width: 900 }} />
+)
+
+const GalleryVideo = ({ video }) => (
+  <>
+    <Box
+      as={IoPlayOutline}
+      size={80}
+      sx={{
+        position: 'relative',
+        top: '50%',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        color: 'darkerGray',
+      }}
+    />
+    <Box as="video" sx={{ width: '100%' }} loop muted>
+      {video.sources.map(({ url, format }, i) => (
+        <source key={`source-${i}`} src={url} type={`video/${format}`} />
+      ))}
+    </Box>
+  </>
 )
 
 const ProductImageGallery = () => {
@@ -30,7 +52,7 @@ const ProductImageGallery = () => {
       <AnimatePresence>
         {isOpen && (
           <FullscreenGallery
-            images={images}
+            media={media}
             isOpen={isOpen}
             initialPage={initialPage}
             onClose={() => setGalleryState({ isOpen: false, initialPage: 0 })}
@@ -39,7 +61,7 @@ const ProductImageGallery = () => {
       </AnimatePresence>
       <Box sx={{ display: ['block', 'none', 'none'], width: '100vw' }} mx={-5}>
         <MobileGallery
-          images={images}
+          media={media}
           onImageClick={i => setGalleryState({ isOpen: true, initialPage: i })}
         />
       </Box>
@@ -51,15 +73,20 @@ const ProductImageGallery = () => {
             gridGap: 4,
           }}
         >
-          {images.map((image, i) => (
+          {media.map((mediaType, i) => (
             <Button
               type="button"
               variant="unset"
-              key={image.id}
+              key={mediaType.id}
               sx={{ cursor: 'pointer' }}
               onClick={() => setGalleryState({ isOpen: true, initialPage: i })}
             >
-              <GalleryImage image={image} />
+              {mediaType.__typename === 'Image' && (
+                <GalleryImage image={mediaType} />
+              )}
+              {mediaType.__typename === 'Video' && (
+                <GalleryVideo video={mediaType} />
+              )}
             </Button>
           ))}
         </Box>

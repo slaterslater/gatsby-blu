@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Flex, IconButton, Grid, Box } from 'theme-ui'
 import PropTypes from 'prop-types'
 import { HiChevronLeft, HiChevronRight, HiX } from 'react-icons/hi'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import RemoteShopifyImage from './RemoteShopifyImage'
 import FluidShopifyImage from './FluidShopifyImage'
 
@@ -27,7 +27,42 @@ const ControlButton = props => (
   />
 )
 
-const FullscreenGallery = ({ isOpen, initialPage, onClose, images }) => {
+const Video = ({ media }) => {
+  const videoElement = useRef()
+
+  const toggleVideoPlayback = () => {
+    const video = videoElement.current
+    if (video.classList.contains('playing')) {
+      video.pause()
+      video.classList.toggle('playing')
+    } else {
+      video.play()
+      video.classList.toggle('playing')
+    }
+  }
+
+  useEffect(() => {
+    videoElement.current.play()
+    videoElement.current.classList.toggle('playing')
+  }, [media])
+
+  return (
+    <Box
+      as="video"
+      sx={{ width: '100%' }}
+      loop
+      muted
+      onClick={toggleVideoPlayback}
+      ref={videoElement}
+    >
+      {media.sources.map(({ url, format }, i) => (
+        <source key={`source-${i}`} src={url} type={`video/${format}`} />
+      ))}
+    </Box>
+  )
+}
+
+const FullscreenGallery = ({ isOpen, initialPage, onClose, media }) => {
   const [[currentPage, direction], setCurrentPage] = useState([
     initialPage || 0,
     0,
@@ -81,10 +116,15 @@ const FullscreenGallery = ({ isOpen, initialPage, onClose, images }) => {
             position: 'absolute',
           }}
         >
-          <RemoteShopifyImage
-            originalSrc={images[currentPage].originalSrc}
-            sx={{ flex: 1, objectFit: 'contain' }}
-          />
+          {media[currentPage].__typename === 'Image' && (
+            <RemoteShopifyImage
+              originalSrc={media[currentPage].originalSrc}
+              sx={{ flex: 1, objectFit: 'contain' }}
+            />
+          )}
+          {media[currentPage].__typename === 'Video' && (
+            <Video media={media[currentPage]} />
+          )}
         </MotionFlex>
       </AnimatePresence>
       <Flex
@@ -112,7 +152,7 @@ const FullscreenGallery = ({ isOpen, initialPage, onClose, images }) => {
           </ControlButton>
         </Box>
         <Box sx={{ width: 80, textAlign: 'center' }}>
-          {currentPage + 1 < images.length && (
+          {currentPage + 1 < media.length && (
             <ControlButton onClick={() => paginate(1)}>
               <HiChevronRight size={24} />
             </ControlButton>
