@@ -14,6 +14,8 @@ const CollectionPageTemplate = ({ pageContext, path, data }) => {
     }
   })
 
+  console.log(data.sanityCollectionGroupPage.image)
+
   return (
     <CollectionGroupsView
       pageTitle={data.sanityCollectionGroupPage.title}
@@ -24,6 +26,12 @@ const CollectionPageTemplate = ({ pageContext, path, data }) => {
       collections={collections}
       pagePath={path}
       isTruncated={data.sanityCollectionGroupPage.isTruncated}
+      seoGatsbyImage={
+        data.sanityCollectionGroupPage.seoImage?.asset.gatsbyImageData
+      }
+      headerImage={
+        data.sanityCollectionGroupPage.headerImage?.asset.gatsbyImageData
+      }
     />
   )
 }
@@ -36,6 +44,16 @@ export const query = graphql`
       collections {
         handle
         title
+      }
+      seoImage: image {
+        asset {
+          gatsbyImageData(width: 1200)
+        }
+      }
+      headerImage: image {
+        asset {
+          gatsbyImageData(width: 1200)
+        }
       }
       title
       description
