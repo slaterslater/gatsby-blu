@@ -22,7 +22,8 @@ const GalleryVideo = ({ video }) => (
       size={80}
       sx={{
         position: 'relative',
-        top: '50%',
+        marginTop: '-25%',
+        top: '60%',
         left: '50%',
         transform: 'translateX(-50%)',
         color: 'darkerGray',
