@@ -132,6 +132,7 @@ const CollectionGroupsView = ({
   collections,
   isTruncated,
   seoGatsbyImage,
+  headerImage,
 }) => {
   const location = useLocation()
   const currentParams = parse(location.search.replace('?', ''))
@@ -150,7 +151,11 @@ const CollectionGroupsView = ({
         description={pageDescription}
         gatsbyImage={seoGatsbyImage}
       />
-      <CollectionPageHeader title={pageTitle} description={pageDescription} />
+      <CollectionPageHeader
+        title={pageTitle}
+        description={pageDescription}
+        image={headerImage}
+      />
       <Container pt={0} as="main">
         <CollectionFilterAndSort
           title={pageTitle}

@@ -3,7 +3,7 @@ import React, { useMemo, useState } from 'react'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import { useShopifyImage } from '../hooks/shopifyImage'
 
-const HeaderImage = ({ image }) => {
+const ShopifyHeaderImage = ({ image, altText }) => {
   const imageData = useShopifyImage({ image })
   return (
     <GatsbyImage
@@ -12,6 +12,14 @@ const HeaderImage = ({ image }) => {
       objectFit="cover"
     />
   )
+}
+
+const HeaderImage = ({ image, altText }) => {
+  // gatsby image data returns images, shopify images do not
+  if (image?.images) {
+    return <GatsbyImage image={image} alt={altText || ''} objectFit="cover" />
+  }
+  return <ShopifyHeaderImage image={image} altText={image.altText} />
 }
 
 const RevealText = ({ children, chars = 250, ...props }) => {

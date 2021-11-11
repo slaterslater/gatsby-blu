@@ -14,8 +14,6 @@ const CollectionPageTemplate = ({ pageContext, path, data }) => {
     }
   })
 
-  console.log(data.sanityCollectionGroupPage.image)
-
   return (
     <CollectionGroupsView
       pageTitle={data.sanityCollectionGroupPage.title}
