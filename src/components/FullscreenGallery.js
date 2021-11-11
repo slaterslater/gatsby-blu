@@ -1,10 +1,11 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { Flex, IconButton, Grid, Box } from 'theme-ui'
+import { Flex, IconButton, Box } from 'theme-ui'
 import PropTypes from 'prop-types'
 import { HiChevronLeft, HiChevronRight, HiX } from 'react-icons/hi'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import RemoteShopifyImage from './RemoteShopifyImage'
-import FluidShopifyImage from './FluidShopifyImage'
+// import FluidShopifyImage from './FluidShopifyImage'
+import ProductVideo from './product/ProductVideo'
 
 const MotionBox = motion(Box)
 const MotionButton = motion(IconButton)
@@ -26,41 +27,6 @@ const ControlButton = props => (
     {...props}
   />
 )
-
-const Video = ({ media }) => {
-  const videoElement = useRef()
-
-  const toggleVideoPlayback = () => {
-    const video = videoElement.current
-    if (video.classList.contains('playing')) {
-      video.pause()
-      video.classList.toggle('playing')
-    } else {
-      video.play()
-      video.classList.toggle('playing')
-    }
-  }
-
-  useEffect(() => {
-    videoElement.current.play()
-    videoElement.current.classList.toggle('playing')
-  }, [media])
-
-  return (
-    <Box
-      as="video"
-      sx={{ width: '100%' }}
-      loop
-      muted
-      onClick={toggleVideoPlayback}
-      ref={videoElement}
-    >
-      {media.sources.map(({ url, format }, i) => (
-        <source key={`source-${i}`} src={url} type={`video/${format}`} />
-      ))}
-    </Box>
-  )
-}
 
 const FullscreenGallery = ({ isOpen, initialPage, onClose, media }) => {
   const [[currentPage, direction], setCurrentPage] = useState([
@@ -123,7 +89,7 @@ const FullscreenGallery = ({ isOpen, initialPage, onClose, media }) => {
             />
           )}
           {media[currentPage].__typename === 'Video' && (
-            <Video media={media[currentPage]} />
+            <ProductVideo video={media[currentPage]} enableTogglePlayback />
           )}
         </MotionFlex>
       </AnimatePresence>

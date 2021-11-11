@@ -6,9 +6,9 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { wrap } from '@popmotion/popcorn'
 import { HiChevronLeft, HiChevronRight } from 'react-icons/hi'
 import { GatsbyImage } from 'gatsby-plugin-image'
-import { IoPlayOutline } from 'react-icons/io5'
 
 import { getShopifyImage } from '../../lib/get-shopify-image'
+import ProductVideo from './ProductVideo'
 
 const MotionBox = motion(Box)
 const Dot = ({ full, ...props }) => (
@@ -24,41 +24,6 @@ const Dot = ({ full, ...props }) => (
     {...props}
   />
 )
-
-const MobileGalleryVideo = ({ media }) => {
-  const toggleVideoPlayback = e => {
-    const video = e.target
-    if (video.classList.contains('playing')) {
-      video.pause()
-      video.classList.toggle('playing')
-    } else {
-      video.play()
-      video.classList.toggle('playing')
-    }
-  }
-
-  return (
-    <>
-      <Box
-        as={IoPlayOutline}
-        size={80}
-        sx={{
-          position: 'absolute',
-          top: '40%',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          color: 'darkerGray',
-        }}
-        onClick={toggleVideoPlayback}
-      />
-      <Box as="video" sx={{ width: '100%' }} loop muted>
-        {media.sources.map(({ url, format }, i) => (
-          <source key={`source-${i}`} src={url} type={`video/${format}`} />
-        ))}
-      </Box>
-    </>
-  )
-}
 
 const swipeConfidenceThreshold = 10000
 const swipePower = (offset, velocity) => Math.abs(offset) * velocity
@@ -115,7 +80,7 @@ const MobileGallery = ({ media, hasDots = true, onImageClick }) => {
               <GatsbyImage image={imageData} alt={mediaType.altText || ''} />
             )}
             {mediaType.__typename === 'Video' && (
-              <MobileGalleryVideo media={mediaType} />
+              <ProductVideo video={mediaType} />
             )}
           </MotionBox>
         </AnimatePresence>
