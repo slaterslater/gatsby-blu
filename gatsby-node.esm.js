@@ -1,7 +1,10 @@
 import axios from 'axios'
 import path from 'path'
 import slugify from 'slugify'
-import { formatMetalAlternates } from './src/lib/formatMetalAlternates'
+import {
+  formatMetalAlternatesFromTags,
+  formatMetalAlternatesFromMetafields,
+} from './src/lib/formatMetalAlternates'
 
 const decodeShopifyId = id => {
   const buff = Buffer.from(id, 'base64')
@@ -55,6 +58,10 @@ async function createProductPages({ graphql, actions }) {
           handle
           shopifyId
           tags
+          metafields {
+            key
+            value
+          }
         }
       }
     }
@@ -62,7 +69,14 @@ async function createProductPages({ graphql, actions }) {
 
   data.allShopifyProduct.nodes.forEach(product => {
     const productId = decodeShopifyId(product.shopifyId)
-    const alternates = formatMetalAlternates(product.tags || [])
+    const alternatesFromTags = formatMetalAlternatesFromTags(product.tags || [])
+    const alternatesFromMetafields = formatMetalAlternatesFromMetafields(
+      product.metafields || []
+    )
+    const alternates =
+      alternatesFromMetafields.length > 0
+        ? alternatesFromMetafields
+        : alternatesFromTags
 
     actions.createPage({
       // What is the URL for this new page??
