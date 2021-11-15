@@ -84,6 +84,7 @@ async function createProductPages({ graphql, actions }) {
       component: productTemplate,
       context: {
         handle: product.handle,
+        shopifyId: product.shopifyId,
         productId,
         alternates,
       },
