@@ -56,6 +56,9 @@ const Footer = props => (
               borderColor: ['white', 'transparent'],
             }}
           >
+            <FooterLink to="/pages/holiday-exchange-policy">
+              holiday exchange policy
+            </FooterLink>
             <FooterLink to="/pages/faq">faq &amp; help</FooterLink>
             <FooterLink to="/pages/exchange-policy">
               orders &amp; exchanges
