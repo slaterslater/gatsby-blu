@@ -6,6 +6,6 @@ import MobileGallery from '../MobileGallery'
 const ProductModalGallery = () => {
   const { product } = useContext(ProductContext)
 
-  return <MobileGallery hasDots={false} images={product.images} />
+  return <MobileGallery hasDots={false} media={product.images} />
 }
 export default ProductModalGallery

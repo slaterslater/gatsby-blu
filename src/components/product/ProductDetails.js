@@ -35,8 +35,6 @@ const ProductDetails = ({ alternates }) => {
     product: { handle, variants, metafields },
   } = useContext(ProductContext)
 
-  console.log({ alternates })
-
   const { total, average, collectionHandle } = getMetafieldValues(metafields)
 
   const [customAttributes, setCustomAttributes] = useState(null)
