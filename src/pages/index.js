@@ -71,9 +71,9 @@ const IndexPage = ({ data }) => {
         align="left"
       >
         <StaticImage
-          src="../images/home/most-gifted-desktop.jpg"
+          src="../images/home/most-gifted.jpg"
           quality={82}
-          alt=""
+          alt="most gifted"
         />
       </HeroOuter>
       <Container variant="full">
