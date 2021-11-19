@@ -6,45 +6,50 @@ const Medallion = ({ src, title, children }) => (
   <Box
     sx={{
       width: '100%',
-      maxWidth: 130,
+      maxWidth: 150,
       textAlign: 'center',
     }}
   >
     <Box>{children}</Box>
-    <Text variant="caps" sx={{ whiteSpace: 'nowrap' }}>
+    {/* <Text variant="caps" sx={{ whiteSpace: 'nowrap' }}>
       {title}
-    </Text>
+    </Text> */}
   </Box>
 )
 
-const Mediallions = props => (
+const Mediallions = () => (
   <Flex sx={{ justifyContent: 'center' }}>
     <Box
       sx={{
         display: 'inline-grid',
         gridTemplateColumns: ['1fr 1fr', 'repeat(4, 1fr)'],
-        // flexWrap: ['wrap', 'nowrap'],
         justifyItems: 'center',
         gap: 7,
       }}
     >
       <Medallion title="Hand Crafted">
         <StaticImage
-          src="../images/homepage-jul-22/handcrafted200.png"
-          alt=""
+          src="../images/home/medallions/hand-crafted.png"
+          alt="Hand Crafted Medallion"
         />
       </Medallion>
       <Medallion title="Ethically Sourced">
         <StaticImage
-          src="../images/homepage-jul-22/ethically_sourced200.png"
-          alt=""
+          src="../images/home/medallions/ethically-sourced.png"
+          alt="Ethically Sourced Medallion"
         />
       </Medallion>
       <Medallion title="Recycled Materials">
-        <StaticImage src="../images/homepage-jul-22/recycle200.png" alt="" />
+        <StaticImage
+          src="../images/home/medallions/recycled-materials.png"
+          alt="Recycled Materials Medallion"
+        />
       </Medallion>
-      <Medallion title="Made in Canada">
-        <StaticImage src="../images/homepage-jul-22/local200.png" alt="" />
+      <Medallion>
+        <StaticImage
+          src="../images/home/medallions/made-in-canada.png"
+          alt="Made in Canada Medallion"
+        />
       </Medallion>
     </Box>
   </Flex>
