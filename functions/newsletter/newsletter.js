@@ -20,6 +20,7 @@ const CustomerSearch = gql`
           id
           email
           acceptsMarketing
+          tags
         }
       }
     }
@@ -33,6 +34,14 @@ const CustomerUpdate = gql`
         id
         acceptsMarketing
       }
+      userErrors {
+        field
+        message
+      }
+    }
+  }
+  mutation tagsAdd($id: ID!) {
+    tagsAdd(id: $id, tags: "newsletter") {
       userErrors {
         field
         message
@@ -54,6 +63,7 @@ const CustomerCreate = gql`
     }
   }
 `
+
 exports.handler = async (event, context) => {
   const body = JSON.parse(event.body)
 
@@ -74,12 +84,11 @@ exports.handler = async (event, context) => {
     query: `email:${email}`,
   })
 
+  // user already exists
   if (customersData.customers.edges.length) {
-    // user already exists
-
     // if exists and has marketing return 200
-    const { acceptsMarketing } = customersData.customers.edges[0].node
-    if (acceptsMarketing) {
+    const { acceptsMarketing, tags } = customersData.customers.edges[0].node
+    if (acceptsMarketing && tags.includes('newsletter')) {
       return {
         statusCode: 200,
         body: JSON.stringify({ message: `${email} accepts marketing` }),
@@ -90,6 +99,7 @@ exports.handler = async (event, context) => {
     const { id } = customersData.customers.edges[0].node
     try {
       await graphQLClient.request(CustomerUpdate, {
+        id,
         input: { acceptsMarketing: true, id },
       })
     } catch (e) {
@@ -101,11 +111,11 @@ exports.handler = async (event, context) => {
       body: JSON.stringify({ message: `${email} accepts marketing` }),
     }
   }
-  // if !exists create customer with marketing and return 201
 
+  // if !exists create customer with marketing and return 201
   try {
     await graphQLClient.request(CustomerCreate, {
-      input: { email, acceptsMarketing: true },
+      input: { email, acceptsMarketing: true, tags: 'newsletter' },
     })
   } catch (e) {
     return { statusCode: 400, message: e.message }
