@@ -28,7 +28,7 @@ const CustomerSearch = gql`
 `
 
 const CustomerUpdate = gql`
-  mutation customerUpdate($input: CustomerInput!) {
+  mutation CustomerUpdate($input: CustomerInput!, $id: ID!) {
     customerUpdate(input: $input) {
       customer {
         id
@@ -39,8 +39,6 @@ const CustomerUpdate = gql`
         message
       }
     }
-  }
-  mutation tagsAdd($id: ID!) {
     tagsAdd(id: $id, tags: "newsletter") {
       userErrors {
         field
