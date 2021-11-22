@@ -74,7 +74,7 @@ const MegaMenu = props => {
           links: group.links.map(link => {
             const nextLink = link
             const found = collections.find(
-              ({ handle }) => handle === link.path.split('/').pop()
+              ({ handle }) => handle === link.path?.split('/').pop()
             )
             if (found) {
               const { image } = found
