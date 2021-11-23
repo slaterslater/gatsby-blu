@@ -84,40 +84,43 @@ export const FooterNewsletterSubscribe = () => {
         handcrafted in toronto. ethically sourced. sign up today for the latest
         news, updates, and collection launches.
       </Text>
-      {success ? (
-        <Motion
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        >
-          <Text
-            variant="copy"
-            pt={7}
-            sx={{
-              fontSize: 0,
-              color: 'white',
-              fontFamily: 'body',
-              display: 'block',
-            }}
-          >
-            {/* Welcome to the Fam! */}
-            you are signed up!
-            <br />
-            check your email for a welcome message
-          </Text>
-        </Motion>
-      ) : (
-        <Motion
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        >
+      <Motion
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ ease: 'easeInOut', duration: 0.3 }}
+        key="newsletter-signup-form"
+      >
+        {success ? (
+          <>
+            <Heading
+              variant="caps"
+              as="h6"
+              sx={{ color: 'white', whiteSpace: 'nowrap' }}
+              py={3}
+            >
+              you are signed up!
+            </Heading>
+            <Text
+              variant="copy"
+              // pt={3}
+              sx={{
+                fontSize: 0,
+                color: 'white',
+                fontFamily: 'body',
+                display: 'block',
+              }}
+            >
+              check your email for a welcome message
+            </Text>
+          </>
+        ) : (
           <NewsletterSignUp
             color="white"
             onSubscribed={() => setSuccess(true)}
           />
-        </Motion>
-      )}
+        )}
+      </Motion>
     </AnimatePresence>
   )
 }
