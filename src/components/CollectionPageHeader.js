@@ -48,11 +48,18 @@ const RevealText = ({ children, chars = 250, ...props }) => {
   )
 }
 
-const CollectionPageHeader = ({ title, description, image }) => (
+const CollectionPageHeader = ({
+  title,
+  description,
+  image,
+  color = 'black',
+  bgColor = 'bbBeige',
+}) => (
   <Flex
     mx="auto"
     sx={{
-      bg: 'bbBeige',
+      color,
+      bg: bgColor,
       width: '100%',
       flexDirection: ['column-reverse', 'row'],
       alignItems: 'stretch',
