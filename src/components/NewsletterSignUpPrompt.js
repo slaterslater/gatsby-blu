@@ -48,6 +48,8 @@ const NewsletterSignUpPrompt = props => {
         >
           <Text
             variant="copy"
+            my={[0, 3]}
+            pt={[5, 0]}
             sx={{
               fontSize: 1,
               lineHeight: 'normal',
