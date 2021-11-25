@@ -8,6 +8,14 @@ import Layout from '../components/layout'
 import SEO from '../components/seo'
 import CollectionPageHeader from '../components/CollectionPageHeader'
 
+const holidayCollections = [
+  'star-gazer',
+  'dreamer',
+  'bright-star',
+  'cosmic-love',
+  'top-holiday-gifts',
+]
+
 const GiftCollection = ({ direction }) => (
   <Flex
     sx={{
@@ -46,13 +54,18 @@ const HolidayGiftGuidePage = ({ data }) => {
         bgColor="black"
       />
       <Container>
-        {[1, 2].map((num, i) => (
-          <GiftCollection direction={i % 2 ? 'row' : 'row-reverse'} />
+        {collections.map((collection, i) => (
+          <GiftCollection
+            collection={collection}
+            direction={i % 2 ? 'row' : 'row-reverse'}
+          />
         ))}
       </Container>
     </Layout>
   )
 }
+
+export default HolidayGiftGuidePage
 
 HolidayGiftGuidePage.propTypes = {
   data: PropTypes.shape({
@@ -68,7 +81,9 @@ HolidayGiftGuidePage.propTypes = {
   }),
 }
 
-export default HolidayGiftGuidePage
+GiftCollection.propTypes = {
+  direction: PropTypes.string,
+}
 
 export const query = graphql`
   query {
