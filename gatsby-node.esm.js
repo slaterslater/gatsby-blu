@@ -247,6 +247,44 @@ async function createPodcastEpisodePages({ graphql, actions }) {
   }
 }
 
+async function createGiftGuidePages({ graphql, actions }) {
+  const { data } = await graphql(`
+    {
+      allSanityGiftGuide {
+        nodes {
+          handle {
+            current
+          }
+          giftCollections {
+            handle
+            giftBoxes {
+              products {
+                productHandles
+              }
+            }
+          }
+        }
+      }
+    }
+  `)
+  if (!data) return
+  data.allSanityGiftGuide.nodes.forEach(guide => {
+    // const collectionHandles = guide.giftCollections
+    //   .map(({ handle }) => `^${handle}$`)
+    //   .join('|')
+    actions.createPage({
+      path: `/${guide.handle.current}`,
+      component: path.resolve('./src/templates/GiftGuideTemplate.js'),
+      context: {
+        guideHandle: guide.handle.current,
+        collections: guide.giftCollections.map(({ handle }) => handle),
+        // collectionRegex: `/${collectionHandles}/`,
+        // products: '',
+      },
+    })
+  })
+}
+
 // fetch data from podcast api and create nodes from returned array
 async function createPodcastNodes({ actions, createContentDigest }) {
   const url = `https://www.buzzsprout.com/api/${process.env.BUZZSPROUT_PODCAST_ID}/episodes.json`
@@ -308,5 +346,6 @@ export async function createPages(params) {
     createCollectionGroupPages(params),
     createPodcastIndexPages(params),
     createPodcastEpisodePages(params),
+    createGiftGuidePages(params),
   ])
 }
