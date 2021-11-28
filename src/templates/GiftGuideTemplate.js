@@ -3,7 +3,6 @@
 import { graphql } from 'gatsby'
 import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
-import { GatsbyImage } from 'gatsby-plugin-image'
 import { Heading, Grid, Box, Text, Container, Flex } from 'theme-ui'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
@@ -110,27 +109,3 @@ export const query = graphql`
     }
   }
 `
-
-// export const query = graphql`
-//   query {
-//     allShopifyCollection(
-//       filter: {
-//         handle: {
-//           in: [
-//             "star-gazer"
-//             "dreamer"
-//             "bright-star"
-//             "cosmic-love"
-//             "top-holiday-gifts"
-//           ]
-//         }
-//       }
-//     ) {
-//       nodes {
-//         title
-//         handle
-//         description
-//       }
-//     }
-//   }
-// `

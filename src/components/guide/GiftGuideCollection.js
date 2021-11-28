@@ -2,46 +2,7 @@ import React from 'react'
 import { Link, Flex, Box, Text, Heading, Button } from 'theme-ui'
 import PropTypes from 'prop-types'
 import { Link as GatsbyLink } from 'gatsby'
-import { GatsbyImage } from 'gatsby-plugin-image'
-
-// <GatsbyImage image={image} alt="" />
-
-const GiftBox = ({ box, index }) => {
-  console.log({ box })
-  // array of arrays
-  // index determines which applies
-  const [sm, md, lg] = [305, 370, 440]
-  const height = [
-    [sm, md, lg],
-    [lg, md, lg],
-    [md, sm, md],
-  ]
-  return (
-    <Flex sx={{ width: ['100%', '50%'], flexDirection: 'row', order: index }}>
-      {box.products.map(({ productImage }, i) => (
-        <Flex
-          p={3}
-          // py={3}
-          // pr={box.products[1] && !i && 3}
-          // pl={i && 3}
-          sx={{
-            // alignItems: 'stretch',
-            // flex: 1,
-            height: height[index],
-            // maxHeight: height[index],
-            width: `calc(100% / ${box.products.length})`,
-          }}
-        >
-          <GatsbyImage
-            image={productImage.image.asset.gatsbyImageData}
-            alt=""
-            objectFit="cover"
-          />
-        </Flex>
-      ))}
-    </Flex>
-  )
-}
+import GiftBox from './GiftBox'
 
 const GiftGuideCollection = ({ collection, direction }) => {
   const { title, surtitle, handle, description, giftBoxes } = collection
@@ -120,5 +81,6 @@ const GiftGuideCollection = ({ collection, direction }) => {
 export default GiftGuideCollection
 
 GiftGuideCollection.propTypes = {
+  collection: PropTypes.any,
   direction: PropTypes.string,
 }
