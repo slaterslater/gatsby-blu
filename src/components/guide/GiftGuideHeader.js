@@ -21,7 +21,7 @@ const GiftGuideHeader = ({ title, description, image }) => (
         justifyContent: 'center',
         textAlign: 'center',
         width: ['100%', '50%'],
-        minHeight: 275,
+        minHeight: [275, 225],
       }}
     >
       <Heading variant="h2" as="h1">
@@ -50,9 +50,11 @@ const GiftGuideHeader = ({ title, description, image }) => (
           alignItems: 'stretch',
           flex: 1,
           maxHeight: 325,
+          minHeight: [325, 225],
         }}
       >
-        <GatsbyImage image={image} alt="" style={{ width: '100%' }} />
+        <GatsbyImage image={image} alt="" objectFit="cover" />
+        {/* <GatsbyImage image={image} alt="" style={{ width: '100%' }} /> */}
       </Flex>
     )}
   </Flex>

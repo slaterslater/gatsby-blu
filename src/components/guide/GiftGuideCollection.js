@@ -2,37 +2,75 @@ import React from 'react'
 import { Link, Flex, Box, Text, Heading, Button } from 'theme-ui'
 import PropTypes from 'prop-types'
 import { Link as GatsbyLink } from 'gatsby'
+import { GatsbyImage } from 'gatsby-plugin-image'
+
+// <GatsbyImage image={image} alt="" />
+
+const GiftBox = ({ box, index }) => {
+  console.log({ box })
+  // array of arrays
+  // index determines which applies
+  const [sm, md, lg] = [305, 370, 440]
+  const height = [
+    [sm, md, lg],
+    [lg, md, lg],
+    [md, sm, md],
+  ]
+  return (
+    <Flex sx={{ width: ['100%', '50%'], flexDirection: 'row', order: index }}>
+      {box.products.map(({ productImage }, i) => (
+        <Flex
+          p={3}
+          // py={3}
+          // pr={box.products[1] && !i && 3}
+          // pl={i && 3}
+          sx={{
+            // alignItems: 'stretch',
+            // flex: 1,
+            height: height[index],
+            // maxHeight: height[index],
+            width: `calc(100% / ${box.products.length})`,
+          }}
+        >
+          <GatsbyImage
+            image={productImage.image.asset.gatsbyImageData}
+            alt=""
+            objectFit="cover"
+          />
+        </Flex>
+      ))}
+    </Flex>
+  )
+}
 
 const GiftGuideCollection = ({ collection, direction }) => {
-  const { handle, surtitle } = collection
+  const { title, surtitle, handle, description, giftBoxes } = collection
   console.log({ collection })
   return (
     <Flex
       sx={{
         width: '100%',
-        // display: ['flex', 'inline-grid'],
-        // flexDirection: 'column',
-        // gridTemplateColumns: '60% 30%',
-        // gridAutoFlow: flow,
-        // gap: 2,
-        // display: 'flex',
         flexWrap: 'wrap',
         flexDirection: ['column', direction],
-        // flexDirection: 'column',
       }}
     >
-      {[1, 2, 3].map((num, i) => (
-        <Box key={`gift-box-${i}`} sx={{ width: '50%' }}>
-          {num}
-        </Box>
+      {giftBoxes.map((box, i) => (
+        <GiftBox key={`gift-box-${i}`} box={box} index={i} />
       ))}
       <Flex
-        sx={{ width: '50%', flexDirection: 'column', alignItems: 'center' }}
+        py={[6, 0]}
+        sx={{
+          order: 1,
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: ['100%', '50%'],
+        }}
       >
         <Heading
           variant="h1"
           as="h2"
-          mt={6}
+          // mt={6}
           sx={{
             display: 'flex',
             flexDirection: 'column',
@@ -59,10 +97,12 @@ const GiftGuideCollection = ({ collection, direction }) => {
             fontSize: 1,
             lineHeight: 'body',
             letterSpacing: 'wider',
-            lineHeight: '1.5em',
+            // lineHeight: '1.5em',
+            textAlign: 'center',
+            width: 305,
           }}
         >
-          description
+          {description}
         </Text>
         <Button
           variant="sketchBlack"
@@ -70,7 +110,7 @@ const GiftGuideCollection = ({ collection, direction }) => {
           as={GatsbyLink}
           to={`/collections/${handle}`}
         >
-          shop {handle}
+          shop {title}
         </Button>
       </Flex>
     </Flex>

@@ -1,7 +1,7 @@
 // src/templates/GiftGuideTemplate.js
 
 import { graphql } from 'gatsby'
-import React from 'react'
+import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import { Heading, Grid, Box, Text, Container, Flex } from 'theme-ui'
@@ -20,6 +20,20 @@ const GiftGuidePage = ({ data }) => {
   console.log({ data })
   const collections = data.allShopifyCollection.nodes
   // useMemo to create new array combiniing giftcollections and collections
+  const giftCollectionsWithShopifyData = useMemo(
+    () =>
+      giftCollections.map(giftCollection => {
+        const relatedCollection = collections.find(
+          collection => collection.handle === giftCollection.handle
+        )
+        return {
+          ...giftCollection,
+          title: giftCollection.title || relatedCollection.title,
+          description: relatedCollection.description,
+        }
+      }),
+    [collections, giftCollections]
+  )
 
   return (
     <Layout>
@@ -29,12 +43,12 @@ const GiftGuidePage = ({ data }) => {
         description={description}
         image={headerImage.image.asset.gatsbyImageData}
       />
-      <Container>
-        {giftCollections.map((collection, i) => (
+      <Container sx={{ maxWidth: 985 }} py={[6, 7, 8]} px={[0, 3]}>
+        {giftCollectionsWithShopifyData.map((collection, i) => (
           <GiftGuideCollection
             key={`gift-collection-${i}`}
             collection={collection}
-            direction={i % 2 ? 'row' : 'row-reverse'}
+            direction={i % 2 ? 'row-reverse' : 'row'}
           />
         ))}
       </Container>
@@ -89,6 +103,7 @@ export const query = graphql`
     }
     allShopifyCollection(filter: { handle: { in: $collections } }) {
       nodes {
+        handle
         title
         description
       }
