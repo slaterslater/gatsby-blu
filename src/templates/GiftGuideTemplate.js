@@ -49,12 +49,8 @@ const GiftGuidePage = ({ data }) => {
           ...giftCollectionsWithShopifyData,
           ...giftCollectionsWithShopifyData,
         ].map((collection, i) => (
-          <GiftProvider>
-            <GiftGuideCollection
-              key={`gift-collection-${i}`}
-              collection={collection}
-              index={i}
-            />
+          <GiftProvider index={i} key={`gift-collection-${i}`}>
+            <GiftGuideCollection collection={collection} index={i} />
           </GiftProvider>
         ))}
       </Container>

@@ -2,18 +2,22 @@ import React from 'react'
 import { DialogOverlay, DialogContent } from '@reach/dialog'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Box, useThemeUI, Button, Flex } from 'theme-ui'
+import { useInitialProduct } from '../../hooks/product'
 
 const MotionDialogOverlay = motion(DialogOverlay)
 const MotionDialogContent = motion(DialogContent)
 const MotionBox = motion(Box)
 
-const GiftModal = ({ justifyContent, isOpen, setOpen, children }) => {
+const GiftModal = ({ justifyContent, handles, isOpen, setOpen, children }) => {
   const handleDismiss = () => setOpen(false)
-  const {
-    theme: {
-      colors: { backgroundShade },
-    },
-  } = useThemeUI()
+  const handle = handles[0]
+  const initialProduct = useInitialProduct({ handle })
+  console.log({ initialProduct })
+  // const {
+  //   theme: {
+  //     colors: { backgroundShade },
+  //   },
+  // } = useThemeUI()
   return (
     <AnimatePresence>
       {isOpen && (

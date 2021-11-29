@@ -1,32 +1,17 @@
 import React, { createContext, useContext, useState } from 'react'
 import PropTypes from 'prop-types'
 
-const defaultValues = {
-  collectionIndex: 0,
-  setCollectionIndex: () => {},
-}
-
-export const GiftContext = createContext(defaultValues)
+export const GiftContext = createContext(0)
 
 export const useGiftContext = () => useContext(GiftContext)
 
-const GiftProvider = ({ children }) => {
-  const [collectionIndex, setCollectionIndex] = useState(0)
-  return (
-    <GiftContext.Provider
-      value={{
-        ...defaultValues,
-        collectionIndex,
-        setCollectionIndex,
-      }}
-    >
-      {children}
-    </GiftContext.Provider>
-  )
+const GiftProvider = ({ index, ...props }) => {
+  const [collectionIndex, setCollectionIndex] = useState(index)
+  return <GiftContext.Provider value={{ collectionIndex }} {...props} />
 }
 
 export default GiftProvider
 
 GiftProvider.propTypes = {
-  children: PropTypes.any,
+  index: PropTypes.number,
 }

@@ -6,9 +6,9 @@ import GiftBox from './GiftBox'
 import { useGiftContext } from './GiftContext'
 
 const GiftGuideCollection = ({ collection, index }) => {
-  const { setCollectionIndex } = useGiftContext()
-  console.log(`setting index to ${index}`)
-  setCollectionIndex(index)
+  // const { setCollectionIndex } = useGiftContext()
+  // console.log(`setting index to ${index}`)
+  // setCollectionIndex(index)
   const { title, surtitle, handle, description, giftBoxes } = collection
   console.log({ collection })
   return (

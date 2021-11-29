@@ -9,13 +9,14 @@ import {
 import GiftModal from './GiftModal'
 import { useGiftContext } from './GiftContext'
 
-const GiftFeature = ({ feature, index }) => {
+const GiftFeature = ({ feature, boxIndex }) => {
   const { productImage, productHandles } = feature
   const featureBox = useRef(null)
   const [isModalOpen, setModalOpen] = useState(false)
   const { collectionIndex } = useGiftContext()
   const justifyContent =
-    collectionIndex % 2 === index % 3 || (collectionIndex % 2 && index % 3)
+    collectionIndex % 2 === boxIndex % 3 ||
+    (collectionIndex % 2 && boxIndex % 3)
       ? 'flex-start'
       : 'flex-end'
 
@@ -27,7 +28,7 @@ const GiftFeature = ({ feature, index }) => {
           mt={[3, 4]}
           mr={[3, 4]}
           ml="auto"
-          sx={{ color: index === 1 ? 'black' : 'white', cursor: 'pointer' }}
+          sx={{ color: boxIndex === 1 ? 'black' : 'white', cursor: 'pointer' }}
           size={32}
           onClick={() => {
             const y = featureBox.current.offsetTop - 115
@@ -46,8 +47,9 @@ const GiftFeature = ({ feature, index }) => {
         isOpen={isModalOpen}
         setOpen={setModalOpen}
         justifyContent={justifyContent}
+        handles={productHandles}
       >
-        <Text as="p">{productHandles.join(', ')}</Text>
+        {/* <Text as="p">{productHandles.join(', ')}</Text> */}
       </GiftModal>
     </>
   )
@@ -68,8 +70,9 @@ const GiftBox = ({ box, index }) => {
         order: index,
       }}
     >
-      {box.products.map(product => (
+      {box.products.map((product, i) => (
         <Flex
+          key={`gift-feature-box-${i}`}
           p={3}
           sx={{
             flexWrap: 'wrap',
@@ -78,11 +81,7 @@ const GiftBox = ({ box, index }) => {
             width: `calc(100% / ${box.products.length})`,
           }}
         >
-          <GiftFeature
-            key={`gift-feature-${index}`}
-            feature={product}
-            index={index}
-          />
+          <GiftFeature feature={product} boxIndex={index} />
         </Flex>
       ))}
     </Flex>
@@ -98,5 +97,5 @@ GiftBox.propTypes = {
 
 GiftFeature.propTypes = {
   feature: PropTypes.object,
-  index: PropTypes.number,
+  boxIndex: PropTypes.number,
 }
