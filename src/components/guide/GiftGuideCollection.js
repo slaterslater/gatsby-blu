@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { Link as GatsbyLink } from 'gatsby'
 import GiftBox from './GiftBox'
 
-const GiftGuideCollection = ({ collection, direction }) => {
+const GiftGuideCollection = ({ collection, index }) => {
   const { title, surtitle, handle, description, giftBoxes } = collection
   console.log({ collection })
   return (
@@ -12,11 +12,16 @@ const GiftGuideCollection = ({ collection, direction }) => {
       sx={{
         width: '100%',
         flexWrap: 'wrap',
-        flexDirection: ['column', direction],
+        flexDirection: ['column', index % 2 ? 'row-reverse' : 'row'],
       }}
     >
       {giftBoxes.map((box, i) => (
-        <GiftBox key={`gift-box-${i}`} box={box} index={i} />
+        <GiftBox
+          key={`gift-box-${i}`}
+          box={box}
+          // collectionIndex={index}
+          index={i}
+        />
       ))}
       <Flex
         py={[6, 0]}
@@ -25,7 +30,7 @@ const GiftGuideCollection = ({ collection, direction }) => {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          width: ['100%', '50%'],
+          width: ['100%', '60%'],
         }}
       >
         <Heading

@@ -1,13 +1,17 @@
 // src/templates/GiftGuideTemplate.js
 
 import { graphql } from 'gatsby'
-import React, { useMemo } from 'react'
+import React, { useMemo, createContext, useContext } from 'react'
 import PropTypes from 'prop-types'
 import { Heading, Grid, Box, Text, Container, Flex } from 'theme-ui'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
 import GiftGuideHeader from '../components/guide/GiftGuideHeader'
 import GiftGuideCollection from '../components/guide/GiftGuideCollection'
+
+export const IndexContext = createContext(0)
+
+export const useCollectionIndex = () => useContext(IndexContext)
 
 const GiftGuidePage = ({ data }) => {
   const {
@@ -43,12 +47,19 @@ const GiftGuidePage = ({ data }) => {
         image={headerImage.image.asset.gatsbyImageData}
       />
       <Container sx={{ maxWidth: 985 }} py={[6, 7, 8]} px={[0, 3]}>
-        {giftCollectionsWithShopifyData.map((collection, i) => (
-          <GiftGuideCollection
-            key={`gift-collection-${i}`}
-            collection={collection}
-            direction={i % 2 ? 'row-reverse' : 'row'}
-          />
+        {[
+          ...giftCollectionsWithShopifyData,
+          ...giftCollectionsWithShopifyData,
+          ...giftCollectionsWithShopifyData,
+        ].map((collection, i) => (
+          <IndexContext.Provider value={i}>
+            <GiftGuideCollection
+              key={`gift-collection-${i}`}
+              collection={collection}
+              // direction={i % 2 ? 'row-reverse' : 'row'}
+              index={i}
+            />
+          </IndexContext.Provider>
         ))}
       </Container>
     </Layout>
@@ -59,15 +70,8 @@ export default GiftGuidePage
 
 GiftGuidePage.propTypes = {
   data: PropTypes.shape({
-    allShopifyCollection: PropTypes.shape({
-      nodes: PropTypes.arrayOf(
-        PropTypes.shape({
-          title: PropTypes.string,
-          handle: PropTypes.string,
-          description: PropTypes.string,
-        })
-      ),
-    }),
+    sanityGiftGuide: PropTypes.object,
+    allShopifyCollection: PropTypes.object,
   }),
 }
 
@@ -92,7 +96,7 @@ export const query = graphql`
             productImage {
               image {
                 asset {
-                  gatsbyImageData
+                  gatsbyImageData(placeholder: BLURRED)
                 }
               }
             }

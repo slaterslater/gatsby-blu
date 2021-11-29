@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link, Flex, Box, Text, Heading } from 'theme-ui'
 import { GatsbyImage } from 'gatsby-plugin-image'
+import PropTypes from 'prop-types'
 
 const GiftGuideHeader = ({ title, description, image }) => (
   <Flex
@@ -59,5 +60,11 @@ const GiftGuideHeader = ({ title, description, image }) => (
     )}
   </Flex>
 )
+
+GiftGuideHeader.propTypes = {
+  title: PropTypes.string,
+  description: PropTypes.string,
+  image: PropTypes.object,
+}
 
 export default GiftGuideHeader
