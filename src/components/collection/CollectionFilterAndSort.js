@@ -63,11 +63,15 @@ const CollectionFilterAndSort = ({ title, productCount }) => {
             alignItems: 'center',
           }}
         >
-          <Text variant="caps">Collection</Text>
+          <Text variant="caps" sx={{ cursor: 'pointer' }}>
+            Collection
+          </Text>
           <Box sx={{ flexShrink: 0 }}>
             <Text as={VscTriangleRight} size={10} sx={{ color: '#C4C4C4' }} />
           </Box>
-          <Text variant="caps">{title}</Text>
+          <Text variant="caps" sx={{ cursor: 'pointer' }}>
+            {title}
+          </Text>
           <Box sx={{ flexShrink: 0 }}>
             <Text as={VscTriangleDown} size={10} sx={{ color: 'primary' }} />
           </Box>
