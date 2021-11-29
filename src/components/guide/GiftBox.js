@@ -11,9 +11,14 @@ import { useGiftContext } from './GiftContext'
 
 const GiftFeature = ({ feature, index }) => {
   const { productImage, productHandles } = feature
-  const { collectionIndex } = useGiftContext()
-  const [isModalOpen, setModalOpen] = useState(false)
   const featureBox = useRef(null)
+  const [isModalOpen, setModalOpen] = useState(false)
+  const { collectionIndex } = useGiftContext()
+  const justifyContent =
+    collectionIndex % 2 === index % 3 || (collectionIndex % 2 && index % 3)
+      ? 'flex-start'
+      : 'flex-end'
+
   return (
     <>
       <Flex ref={featureBox} sx={{ minWidth: '100%', height: 0, zIndex: 2 }}>
@@ -40,7 +45,7 @@ const GiftFeature = ({ feature, index }) => {
       <GiftModal
         isOpen={isModalOpen}
         setOpen={setModalOpen}
-        justifyContent={index % 2 ? 'flex-start' : 'flex-end'}
+        justifyContent={justifyContent}
       >
         <Text as="p">{productHandles.join(', ')}</Text>
       </GiftModal>
