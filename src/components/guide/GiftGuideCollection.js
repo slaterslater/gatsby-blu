@@ -3,8 +3,12 @@ import { Link, Flex, Box, Text, Heading, Button } from 'theme-ui'
 import PropTypes from 'prop-types'
 import { Link as GatsbyLink } from 'gatsby'
 import GiftBox from './GiftBox'
+import { useGiftContext } from './GiftContext'
 
 const GiftGuideCollection = ({ collection, index }) => {
+  const { setCollectionIndex } = useGiftContext()
+  console.log(`setting index to ${index}`)
+  setCollectionIndex(index)
   const { title, surtitle, handle, description, giftBoxes } = collection
   console.log({ collection })
   return (
@@ -87,5 +91,5 @@ export default GiftGuideCollection
 
 GiftGuideCollection.propTypes = {
   collection: PropTypes.any,
-  direction: PropTypes.string,
+  index: PropTypes.number,
 }

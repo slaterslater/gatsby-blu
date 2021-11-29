@@ -7,32 +7,25 @@ import {
   IoIosCloseCircleOutline as Close,
 } from 'react-icons/io'
 import GiftModal from './GiftModal'
-import { useCollectionIndex } from '../../templates/GiftGuideTemplate'
+import { useGiftContext } from './GiftContext'
 
-const GiftFeature = ({ feature, boxIndex }) => {
-  const TEST = useCollectionIndex()
-  console.log({ TEST })
+const GiftFeature = ({ feature, index }) => {
   const { productImage, productHandles } = feature
-  // console.log({ productHandles })
+  const { collectionIndex } = useGiftContext()
   const [isModalOpen, setModalOpen] = useState(false)
-  const x = useRef(null)
+  const featureBox = useRef(null)
   return (
     <>
-      {/* {isModalOpen && (
-        <Box>
-          <Text as="p">{productHandles.join(', ')}</Text>
-        </Box>
-      )} */}
-      <Flex ref={x} sx={{ minWidth: '100%', height: 0, zIndex: 2 }}>
+      <Flex ref={featureBox} sx={{ minWidth: '100%', height: 0, zIndex: 2 }}>
         <Box
           as={Open}
           mt={[3, 4]}
           mr={[3, 4]}
           ml="auto"
-          sx={{ color: boxIndex === 1 ? 'black' : 'white', cursor: 'pointer' }}
+          sx={{ color: index === 1 ? 'black' : 'white', cursor: 'pointer' }}
           size={32}
           onClick={() => {
-            const y = x.current.offsetTop - 115
+            const y = featureBox.current.offsetTop - 115
             window.scrollTo({ top: y, behavior: 'smooth' })
             setModalOpen(true)
           }}
@@ -47,8 +40,7 @@ const GiftFeature = ({ feature, boxIndex }) => {
       <GiftModal
         isOpen={isModalOpen}
         setOpen={setModalOpen}
-        // width={1100}
-        justifyContent={boxIndex % 2 ? 'flex-start' : 'flex-end'}
+        justifyContent={index % 2 ? 'flex-start' : 'flex-end'}
       >
         <Text as="p">{productHandles.join(', ')}</Text>
       </GiftModal>
@@ -57,7 +49,6 @@ const GiftFeature = ({ feature, boxIndex }) => {
 }
 
 const GiftBox = ({ box, index }) => {
-  console.log({ box })
   const [sm, md, lg] = [305, 370, 440]
   const height = [
     [sm, md, lg],
@@ -85,8 +76,7 @@ const GiftBox = ({ box, index }) => {
           <GiftFeature
             key={`gift-feature-${index}`}
             feature={product}
-            // color={index === 1 ? 'black' : 'white'}
-            boxIndex={index}
+            index={index}
           />
         </Flex>
       ))}
@@ -103,5 +93,5 @@ GiftBox.propTypes = {
 
 GiftFeature.propTypes = {
   feature: PropTypes.object,
-  color: PropTypes.string,
+  index: PropTypes.number,
 }

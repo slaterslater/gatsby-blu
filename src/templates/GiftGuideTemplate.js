@@ -8,10 +8,7 @@ import Layout from '../components/layout'
 import SEO from '../components/seo'
 import GiftGuideHeader from '../components/guide/GiftGuideHeader'
 import GiftGuideCollection from '../components/guide/GiftGuideCollection'
-
-export const IndexContext = createContext(0)
-
-export const useCollectionIndex = () => useContext(IndexContext)
+import GiftProvider from '../components/guide/GiftContext'
 
 const GiftGuidePage = ({ data }) => {
   const {
@@ -20,9 +17,9 @@ const GiftGuidePage = ({ data }) => {
     headerImage,
     giftCollections,
   } = data.sanityGiftGuide
-  console.log({ data })
+
   const collections = data.allShopifyCollection.nodes
-  // useMemo to create new array combiniing giftcollections and collections
+
   const giftCollectionsWithShopifyData = useMemo(
     () =>
       giftCollections.map(giftCollection => {
@@ -52,14 +49,13 @@ const GiftGuidePage = ({ data }) => {
           ...giftCollectionsWithShopifyData,
           ...giftCollectionsWithShopifyData,
         ].map((collection, i) => (
-          <IndexContext.Provider value={i}>
+          <GiftProvider>
             <GiftGuideCollection
               key={`gift-collection-${i}`}
               collection={collection}
-              // direction={i % 2 ? 'row-reverse' : 'row'}
               index={i}
             />
-          </IndexContext.Provider>
+          </GiftProvider>
         ))}
       </Container>
     </Layout>
