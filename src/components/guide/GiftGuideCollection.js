@@ -1,15 +1,11 @@
 import React from 'react'
-import { Link, Flex, Box, Text, Heading, Button } from 'theme-ui'
+import { Flex, Text, Heading, Button } from 'theme-ui'
 import PropTypes from 'prop-types'
 import { Link as GatsbyLink } from 'gatsby'
 import GiftBox from './GiftBox'
-import { useGiftContext } from './GiftContext'
 
 const GiftGuideCollection = ({ collection, index }) => {
-  // console.log(`setting index to ${index}`)
-  // setCollectionIndex(index)
   const { title, surtitle, handle, description, giftBoxes } = collection
-  console.log({ collection })
   return (
     <Flex
       sx={{
@@ -19,12 +15,7 @@ const GiftGuideCollection = ({ collection, index }) => {
       }}
     >
       {giftBoxes.map((box, i) => (
-        <GiftBox
-          key={`gift-box-${i}`}
-          box={box}
-          // collectionIndex={index}
-          index={i}
-        />
+        <GiftBox key={`gift-box-${i}`} box={box} index={i} />
       ))}
       <Flex
         py={[6, 0]}
@@ -39,7 +30,6 @@ const GiftGuideCollection = ({ collection, index }) => {
         <Heading
           variant="h1"
           as="h2"
-          // mt={6}
           sx={{
             display: 'flex',
             flexDirection: 'column',
@@ -66,7 +56,6 @@ const GiftGuideCollection = ({ collection, index }) => {
             fontSize: 1,
             lineHeight: 'body',
             letterSpacing: 'wider',
-            // lineHeight: '1.5em',
             textAlign: 'center',
             width: 305,
           }}

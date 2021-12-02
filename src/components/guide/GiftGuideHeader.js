@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, Flex, Box, Text, Heading } from 'theme-ui'
+import { Flex, Text, Heading } from 'theme-ui'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import PropTypes from 'prop-types'
 
@@ -54,8 +54,12 @@ const GiftGuideHeader = ({ title, description, image }) => (
           minHeight: [325, 225],
         }}
       >
-        <GatsbyImage image={image} alt="" objectFit="cover" />
-        {/* <GatsbyImage image={image} alt="" style={{ width: '100%' }} /> */}
+        <GatsbyImage
+          image={image}
+          alt=""
+          objectFit="cover"
+          style={{ width: '100%' }}
+        />
       </Flex>
     )}
   </Flex>

@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { DialogOverlay, DialogContent } from '@reach/dialog'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Box, useThemeUI, Button, Flex, Text, Grid } from 'theme-ui'
-import { useInitialProduct, useProductGalleryImages } from '../../hooks/product'
-import ElementSlider from '../ElementSlider'
+import { Box, Button, Flex, Grid } from 'theme-ui'
 import ProductProvider from '../product/ProductContext'
 import { ProductTitleAndPrice } from '../product/ProductTitleAndPrice'
 import ProductOptions from '../product/options'
 import AddToCart from '../product/AddToCart'
 import ThemeLink from '../app/ThemeLink'
-import ShopifyGatsbyImage from '../ShopifyGatsbyImage'
 import GiftProductGallery from './GiftProductGallery'
 import MetalOptions from '../product/MetalOptions'
 
@@ -20,34 +17,18 @@ const MotionBox = motion(Box)
 const GiftModal = ({
   justifyContent,
   modalWidth,
-  handles,
   products,
   isOpen,
   setOpen,
-  children,
 }) => {
   const handleDismiss = () => setOpen(false)
-
-  // const { collectionIndex, boxIndex } = useGiftContext()
-  // const [handle, setHandle] = useState(handles[0])
-  // const [handleIndex, setHandleIndex] = useState(0)
-
-  // console.log(boxIndex)
-
   const [productIndex, setProductIndex] = useState(0)
   const product = products[productIndex]
-
   const { variants } = product
   const alternates = {
     nodes: [],
   }
 
-  // console.log({variants})
-  // console.log(product)
-  // const initialProducts = handles.map(handle => useInitialProduct({ handle }))
-
-  // const initialProduct = useInitialProduct({ handle: handles[handleIndex] })
-  // console.log(`rendering ${productIndex}`)
   return (
     <AnimatePresence>
       {isOpen && (
@@ -90,7 +71,6 @@ const GiftModal = ({
                 type="button"
                 variant="link"
                 onClick={handleDismiss}
-                // mt={4}
                 my={3}
                 px={5}
                 sx={{
@@ -117,6 +97,7 @@ const GiftModal = ({
                   currentIndex={productIndex}
                   setProductIndex={setProductIndex}
                   image={product.images[0].originalSrc}
+                  alt={product.title}
                 />
                 <Grid
                   // key={`${product.handle}-details`}

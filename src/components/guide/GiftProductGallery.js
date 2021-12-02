@@ -33,6 +33,7 @@ const GiftProductGallery = ({
   hasDots = true,
   setProductIndex,
   image,
+  alt,
 }) => {
   const paginate = newDirection => {
     const newIndex = wrap(0, length, currentIndex + newDirection)
@@ -64,7 +65,7 @@ const GiftProductGallery = ({
               }
             }}
           >
-            <Image src={image} alt="" />
+            <Image src={image} alt={alt} />
           </MotionBox>
         </AnimatePresence>
       </AspectRatio>

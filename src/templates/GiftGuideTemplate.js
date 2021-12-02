@@ -1,9 +1,9 @@
 // src/templates/GiftGuideTemplate.js
 
 import { graphql } from 'gatsby'
-import React, { useMemo, createContext, useContext } from 'react'
+import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
-import { Heading, Grid, Box, Text, Container, Flex } from 'theme-ui'
+import { Container } from 'theme-ui'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
 import GiftGuideHeader from '../components/guide/GiftGuideHeader'
@@ -21,7 +21,6 @@ const GiftGuidePage = ({ data }) => {
   const collections = data.allShopifyCollection.nodes
   const allShopifyProduct = data.allShopifyProduct.nodes
 
-
   const giftCollectionsWithShopifyData = useMemo(
     () =>
       giftCollections.map(giftCollection => {
@@ -32,21 +31,20 @@ const GiftGuidePage = ({ data }) => {
           ...giftCollection,
           title: giftCollection.title || relatedCollection.title,
           description: relatedCollection.description,
-          giftBoxes: giftCollection.giftBoxes.map(({products}) => ({
+          giftBoxes: giftCollection.giftBoxes.map(({ products }) => ({
             products: products.map(product => ({
               ...product,
-              relatedProducts: product.productHandles.map(handle => allShopifyProduct.find(product => product.handle === handle))
-
-            }))
-
-
-          }))
+              relatedProducts: product.productHandles.map(handle =>
+                allShopifyProduct.find(
+                  shopifyProduct => shopifyProduct.handle === handle
+                )
+              ),
+            })),
+          })),
         }
       }),
-    [collections, giftCollections]
+    [collections, giftCollections, allShopifyProduct]
   )
-
-  console.log({giftCollectionsWithShopifyData})
 
   return (
     <Layout>
@@ -81,6 +79,7 @@ GiftGuidePage.propTypes = {
   data: PropTypes.shape({
     sanityGiftGuide: PropTypes.object,
     allShopifyCollection: PropTypes.object,
+    allShopifyProduct: PropTypes.object,
   }),
 }
 
@@ -178,9 +177,7 @@ export const query = graphql`
         }
       }
     }
-    alternates: allShopifyProduct(
-      filter: { shopifyId: { in: $alternates } }
-    ) {
+    alternates: allShopifyProduct(filter: { shopifyId: { in: $alternates } }) {
       nodes {
         id
         handle

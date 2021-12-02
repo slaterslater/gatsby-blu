@@ -1,45 +1,16 @@
-import React, { useContext, useEffect, useMemo, useRef, useState } from 'react'
-import { Link, Flex, Box, Text, Heading, Button } from 'theme-ui'
+import React, { useRef, useState } from 'react'
+import { Flex, Box } from 'theme-ui'
 import PropTypes from 'prop-types'
 import { GatsbyImage } from 'gatsby-plugin-image'
-import {
-  IoIosAddCircleOutline as Open,
-  IoIosCloseCircleOutline as Close,
-} from 'react-icons/io'
+import { IoIosAddCircleOutline as Open } from 'react-icons/io'
 import GiftModal from './GiftModal'
 import { useGiftContext } from './GiftContext'
 
 const GiftFeature = ({ feature, boxIndex }) => {
-  const { productImage, productHandles, relatedProducts } = feature
-
-
-  // console.log({relatedProducts})
-  
-  // have this match req data for alternates in product temp
-  // probably will need tags too to determine alternates
-  // const data = useStaticQuery(graphql`
-  //   query {
-  //     allShopifyProduct {
-  //       nodes {
-  //         title
-  //         handle
-  //       }
-  //     }
-  //   }
-  // `)
-
-  // const titles = data.allShopifyProduct.nodes
-  //   .filter(({ handle }) => productHandles.includes(handle))
-  //   .map(({ title }) => `title:'${title}'`)
-
-  // const products = useInitialProducts({ titles })
-
-  // find alternates here maybe usememo
-  // need to build a new product obj
-
   const featureBox = useRef(null)
   const [isModalOpen, setModalOpen] = useState(false)
   const { collectionIndex } = useGiftContext()
+  const { productImage, productHandles, relatedProducts } = feature
   const width = boxIndex % 3 ? '40%' : '60%'
   const justifyContent =
     collectionIndex % 2 === boxIndex % 3 ||
@@ -71,8 +42,8 @@ const GiftFeature = ({ feature, boxIndex }) => {
       </Flex>
       <GatsbyImage
         image={productImage.image.asset.gatsbyImageData}
-        alt=""
-        objectFit="cover"
+        alt={`gift feature ${collectionIndex + 1}.${boxIndex + 1}`}
+        objectFit={boxIndex === 1 ? 'contain' : 'cover'}
         style={{ flex: 1 }}
       />
       {relatedProducts && (
@@ -80,9 +51,8 @@ const GiftFeature = ({ feature, boxIndex }) => {
           isOpen={isModalOpen}
           setOpen={setModalOpen}
           justifyContent={justifyContent}
-          handles={productHandles}
-          products={relatedProducts}
           modalWidth={width}
+          products={relatedProducts}
         />
       )}
     </>
@@ -99,7 +69,7 @@ const GiftBox = ({ box, index }) => {
   return (
     <Flex
       sx={{
-        width: ['100%', index === 0 ? '60%' : '40%'],
+        width: ['100%', index % 3 ? '40%' : '60%'],
         flexDirection: 'row',
         order: index,
       }}
