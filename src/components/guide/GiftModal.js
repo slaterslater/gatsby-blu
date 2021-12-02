@@ -1,93 +1,155 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { DialogOverlay, DialogContent } from '@reach/dialog'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Box, useThemeUI, Button, Flex } from 'theme-ui'
-import { useInitialProduct } from '../../hooks/product'
+import { Box, useThemeUI, Button, Flex, Text, Grid } from 'theme-ui'
+import { useInitialProduct, useProductGalleryImages } from '../../hooks/product'
+import ElementSlider from '../ElementSlider'
+import ProductProvider from '../product/ProductContext'
+import { ProductTitleAndPrice } from '../product/ProductTitleAndPrice'
+import ProductOptions from '../product/options'
+import AddToCart from '../product/AddToCart'
+import ThemeLink from '../app/ThemeLink'
+import ShopifyGatsbyImage from '../ShopifyGatsbyImage'
+import GiftProductGallery from './GiftProductGallery'
 
 const MotionDialogOverlay = motion(DialogOverlay)
 const MotionDialogContent = motion(DialogContent)
 const MotionBox = motion(Box)
 
-const GiftModal = ({ justifyContent, handles, isOpen, setOpen, children }) => {
+const GiftModal = ({
+  justifyContent,
+  modalWidth,
+  handles,
+  products,
+  isOpen,
+  setOpen,
+  children,
+}) => {
   const handleDismiss = () => setOpen(false)
-  const handle = handles[0]
-  const initialProduct = useInitialProduct({ handle })
-  console.log({ initialProduct })
-  // const {
-  //   theme: {
-  //     colors: { backgroundShade },
-  //   },
-  // } = useThemeUI()
+
+  // const { collectionIndex, boxIndex } = useGiftContext()
+  // const [handle, setHandle] = useState(handles[0])
+  // const [handleIndex, setHandleIndex] = useState(0)
+
+  // console.log(boxIndex)
+
+  const [productIndex, setProductIndex] = useState(0)
+  const product = products[productIndex]
+
+  // console.log(product)
+  // const initialProducts = handles.map(handle => useInitialProduct({ handle }))
+
+  // const initialProduct = useInitialProduct({ handle: handles[handleIndex] })
+  // console.log(`rendering ${productIndex}`)
+  console.log('rendering giftmodal')
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <MotionDialogOverlay
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onDismiss={handleDismiss}
-          style={{
-            zIndex: 11,
-            // background: backgroundShade,
-          }}
-        >
-          <Flex
-            sx={{ width: '100%', maxWidth: 985, justifyContent }}
-            px={[0, 5]}
-            mx="auto"
+    <ProductProvider handle={product.handle} initial={product}>
+      <AnimatePresence>
+        {isOpen && (
+          <MotionDialogOverlay
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onDismiss={handleDismiss}
+            style={{
+              zIndex: 11,
+            }}
           >
-            <MotionBox
-              as={MotionDialogContent}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              // initial={{ y: '5px', opacity: 0 }}
-              // animate={{ y: '0', opacity: 1 }}
-              // exit={{ y: '20px', opacity: 0 }}
-              transition={{
-                min: 0,
-                max: 100,
-                bounceDamping: 9,
-                delay: '200ms',
-              }}
-              aria-label="Sidebar menu"
-              // m={[0, '10vh auto']}
-              // mt={['70px', '10vh']}
-              // p={[4, 5, 6]}
-              sx={{
-                borderRadius: '3px',
-                // 2D0 add breakpoints/ maxWidth
-                // width: 400,
-                minHeight: 420,
-                // minHeight: ['calc(100% - 70px)', 0],
-                width: ['100%', '60%'],
-                // maxWidth: ['100%', '90vw'],
-                marginTop: [0, 115],
-              }}
+            <Flex
+              sx={{ width: '100%', maxWidth: 985, justifyContent }}
+              mx="auto"
+              px={[3]}
             >
-              <Button
-                type="button"
-                variant="link"
-                onClick={handleDismiss}
+              <MotionBox
+                p={0}
+                mx={[0, 3]}
+                as={MotionDialogContent}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{
+                  min: 0,
+                  max: 100,
+                  bounceDamping: 9,
+                  delay: '200ms',
+                }}
+                aria-label="Gift Guide products"
                 sx={{
-                  // position: 'absolute',
-                  // top: 24,
-                  // right: 24,
-                  textTransform: 'uppercase',
-                  fontSize: 0,
-                  fontWeight: 600,
-                  letterSpacing: 'wider',
-                  // transform: ['translateY(-64px)'],
+                  borderRadius: '3px',
+                  minHeight: 420,
+                  width: ['100%', `calc(${modalWidth} - 24px)`],
+                  marginTop: [70, 105],
                 }}
               >
-                done
-              </Button>
-              {children}
-            </MotionBox>
-          </Flex>
-        </MotionDialogOverlay>
-      )}
-    </AnimatePresence>
+                <Button
+                  type="button"
+                  variant="link"
+                  onClick={handleDismiss}
+                  // mt={4}
+                  my={3}
+                  px={5}
+                  sx={{
+                    textTransform: 'uppercase',
+                    fontSize: 0,
+                    fontWeight: 600,
+                    letterSpacing: 'wider',
+                    width: '100%',
+                    textAlign: 'right',
+                  }}
+                >
+                  done
+                </Button>
+                <Flex
+                  mx="auto"
+                  sx={{
+                    justifyContent: 'center',
+                    flexDirection: 'column',
+                    maxWidth: ['100%', 365],
+                  }}
+                >
+                  <GiftProductGallery
+                    length={products.length}
+                    currentIndex={productIndex}
+                    setProductIndex={setProductIndex}
+                    image={product.images[0].originalSrc}
+                  />
+                  <Grid
+                    px={4}
+                    my={5}
+                    sx={{
+                      gap: 5,
+                      alignSelf: 'center',
+                      width: '100%',
+                      maxWidth: 400,
+                    }}
+                  >
+                    <ProductTitleAndPrice titleFontSize={2} priceFontSize={1} />
+                    {/* <MetalOptions product={{ variants }} alternates={alternates} /> */}
+                    <ProductOptions />
+                    <AddToCart
+                      customAttributes={[]}
+                      onAdded={() => setOpen(false)}
+                    />
+                    <Flex sx={{ justifyContent: 'center' }}>
+                      <ThemeLink
+                        to={`/products/${product.handle}`}
+                        variant="caps"
+                        sx={{
+                          textDecoration: 'underline',
+                          fontWeight: 'bold',
+                        }}
+                      >
+                        View Full Details
+                      </ThemeLink>
+                    </Flex>
+                  </Grid>
+                </Flex>
+              </MotionBox>
+            </Flex>
+          </MotionDialogOverlay>
+        )}
+      </AnimatePresence>
+    </ProductProvider>
   )
 }
 

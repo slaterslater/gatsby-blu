@@ -265,21 +265,65 @@ async function createGiftGuidePages({ graphql, actions }) {
           }
         }
       }
+      allShopifyProduct {
+        nodes {
+          handle
+          shopifyId
+          tags
+          metafields {
+            key
+            value
+          }
+        }
+      }
     }
   `)
-  if (!data) return
-  data.allSanityGiftGuide.nodes.forEach(guide => {
-    // const collectionHandles = guide.giftCollections
-    //   .map(({ handle }) => `^${handle}$`)
-    //   .join('|')
+  const guides = data.allSanityGiftGuide.nodes
+  const allShopifyProducts = data.allShopifyProduct.nodes
+  if (guides.length === 0) return
+  guides.forEach(guide => {
+    // get all product handles
+    const handles = guide.giftCollections.reduce(
+      (allGiftBoxes, { giftBoxes }) =>
+        allGiftBoxes.concat(
+          giftBoxes.reduce(
+            (allProducts, { products }) =>
+              allProducts.concat(
+                products.reduce(
+                  (allProductHandles, { productHandles }) =>
+                    allProductHandles.concat(productHandles),
+                  []
+                )
+              ),
+            []
+          )
+        ),
+      []
+    )
+    // get alternates
+    const alternates = handles.map(handle => allShopifyProducts
+      .find(product => product.handle === handle)
+    ).reduce((allAlternates, product) => {
+      const productId = decodeShopifyId(product.shopifyId)
+        const alternatesFromTags = formatMetalAlternatesFromTags(product.tags || [])
+        const alternatesFromMetafields = formatMetalAlternatesFromMetafields(
+          product.metafields || []
+        )
+        const alternates =
+          alternatesFromMetafields.length > 0
+            ? alternatesFromMetafields
+            : alternatesFromTags
+       return allAlternates.concat(alternates)  
+    },[])
+
     actions.createPage({
       path: `/${guide.handle.current}`,
       component: path.resolve('./src/templates/GiftGuideTemplate.js'),
       context: {
         guideHandle: guide.handle.current,
         collections: guide.giftCollections.map(({ handle }) => handle),
-        // collectionRegex: `/${collectionHandles}/`,
-        // products: '',
+        products: handles,
+        alternates,
       },
     })
   })

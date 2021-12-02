@@ -17,8 +17,10 @@ const GiftGuidePage = ({ data }) => {
     headerImage,
     giftCollections,
   } = data.sanityGiftGuide
-
+  console.log({ data })
   const collections = data.allShopifyCollection.nodes
+  const allShopifyProduct = data.allShopifyProduct.nodes
+
 
   const giftCollectionsWithShopifyData = useMemo(
     () =>
@@ -30,10 +32,21 @@ const GiftGuidePage = ({ data }) => {
           ...giftCollection,
           title: giftCollection.title || relatedCollection.title,
           description: relatedCollection.description,
+          giftBoxes: giftCollection.giftBoxes.map(({products}) => ({
+            products: products.map(product => ({
+              ...product,
+              relatedProducts: product.productHandles.map(handle => allShopifyProduct.find(product => product.handle === handle))
+
+            }))
+
+
+          }))
         }
       }),
     [collections, giftCollections]
   )
+
+  console.log({giftCollectionsWithShopifyData})
 
   return (
     <Layout>
@@ -43,7 +56,11 @@ const GiftGuidePage = ({ data }) => {
         description={description}
         image={headerImage.image.asset.gatsbyImageData}
       />
-      <Container sx={{ maxWidth: 985 }} py={[6, 7, 8]} px={[0, 3]}>
+      <Container
+        sx={{ maxWidth: 985, minWidth: 365 }}
+        py={[6, 7, 8]}
+        px={[0, 3]}
+      >
         {[
           ...giftCollectionsWithShopifyData,
           ...giftCollectionsWithShopifyData,
@@ -68,7 +85,12 @@ GiftGuidePage.propTypes = {
 }
 
 export const query = graphql`
-  query($guideHandle: String!, $collections: [String!]!) {
+  query(
+    $guideHandle: String!
+    $collections: [String!]!
+    $products: [String!]!
+    $alternates: [String]!
+  ) {
     sanityGiftGuide(handle: { current: { eq: $guideHandle } }) {
       title
       description
@@ -101,6 +123,75 @@ export const query = graphql`
         handle
         title
         description
+      }
+    }
+    allShopifyProduct(filter: { handle: { in: $products } }) {
+      nodes {
+        id
+        title
+        handle
+        descriptionHtml
+        description
+        productType
+        vendor
+        tags
+        handle
+        options {
+          name
+          values
+        }
+        images {
+          id
+          originalSrc
+          altText
+          height
+          width
+        }
+        metafields {
+          key
+          value
+        }
+        priceRange {
+          minVariantPrice {
+            currencyCode
+            amount
+          }
+          maxVariantPrice {
+            currencyCode
+            amount
+          }
+        }
+        variants {
+          title
+          id
+          shopifyId
+          priceNumber
+          priceV2 {
+            amount
+            currencyCode
+          }
+          sku
+          selectedOptions {
+            name
+            value
+          }
+        }
+      }
+    }
+    alternates: allShopifyProduct(
+      filter: { shopifyId: { in: $alternates } }
+    ) {
+      nodes {
+        id
+        handle
+        title
+        variants {
+          selectedOptions {
+            name
+            value
+          }
+          availableForSale
+        }
       }
     }
   }

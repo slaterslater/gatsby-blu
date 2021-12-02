@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { Link, Flex, Box, Text, Heading, Button } from 'theme-ui'
 import PropTypes from 'prop-types'
 import { GatsbyImage } from 'gatsby-plugin-image'
@@ -10,10 +10,36 @@ import GiftModal from './GiftModal'
 import { useGiftContext } from './GiftContext'
 
 const GiftFeature = ({ feature, boxIndex }) => {
-  const { productImage, productHandles } = feature
+  const { productImage, productHandles, relatedProducts } = feature
+
+
+  console.log({relatedProducts})
+  // have this match req data for alternates in product temp
+  // probably will need tags too to determine alternates
+  // const data = useStaticQuery(graphql`
+  //   query {
+  //     allShopifyProduct {
+  //       nodes {
+  //         title
+  //         handle
+  //       }
+  //     }
+  //   }
+  // `)
+
+  // const titles = data.allShopifyProduct.nodes
+  //   .filter(({ handle }) => productHandles.includes(handle))
+  //   .map(({ title }) => `title:'${title}'`)
+
+  // const products = useInitialProducts({ titles })
+
+  // find alternates here maybe usememo
+  // need to build a new product obj
+
   const featureBox = useRef(null)
   const [isModalOpen, setModalOpen] = useState(false)
   const { collectionIndex } = useGiftContext()
+  const width = boxIndex % 3 ? '40%' : '60%'
   const justifyContent =
     collectionIndex % 2 === boxIndex % 3 ||
     (collectionIndex % 2 && boxIndex % 3)
@@ -23,19 +49,24 @@ const GiftFeature = ({ feature, boxIndex }) => {
   return (
     <>
       <Flex ref={featureBox} sx={{ minWidth: '100%', height: 0, zIndex: 2 }}>
-        <Box
-          as={Open}
-          mt={[3, 4]}
-          mr={[3, 4]}
-          ml="auto"
-          sx={{ color: boxIndex === 1 ? 'black' : 'white', cursor: 'pointer' }}
-          size={32}
-          onClick={() => {
-            const y = featureBox.current.offsetTop - 115
-            window.scrollTo({ top: y, behavior: 'smooth' })
-            setModalOpen(true)
-          }}
-        />
+        {relatedProducts && (
+          <Box
+            as={Open}
+            mt={[3, 4]}
+            mr={[3, 4]}
+            ml="auto"
+            sx={{
+              color: boxIndex === 1 ? 'black' : 'white',
+              cursor: 'pointer',
+            }}
+            size={32}
+            onClick={() => {
+              const y = featureBox.current.offsetTop - 105
+              window.scrollTo({ top: y, behavior: 'smooth' })
+              setModalOpen(true)
+            }}
+          />
+        )}
       </Flex>
       <GatsbyImage
         image={productImage.image.asset.gatsbyImageData}
@@ -43,14 +74,16 @@ const GiftFeature = ({ feature, boxIndex }) => {
         objectFit="cover"
         style={{ flex: 1 }}
       />
-      <GiftModal
-        isOpen={isModalOpen}
-        setOpen={setModalOpen}
-        justifyContent={justifyContent}
-        handles={productHandles}
-      >
-        {/* <Text as="p">{productHandles.join(', ')}</Text> */}
-      </GiftModal>
+      {relatedProducts && (
+        <GiftModal
+          isOpen={isModalOpen}
+          setOpen={setModalOpen}
+          justifyContent={justifyContent}
+          handles={productHandles}
+          products={relatedProducts}
+          modalWidth={width}
+        />
+      )}
     </>
   )
 }

@@ -48,5 +48,5 @@ export const useProductPreorderMessage = tags =>
         const message = getPreorderMessage(tag)
         return message || acc
       }, ''),
-    tags
+    [tags]
   )
