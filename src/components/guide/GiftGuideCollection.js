@@ -5,7 +5,14 @@ import { Link as GatsbyLink } from 'gatsby'
 import GiftBox from './GiftBox'
 
 const GiftGuideCollection = ({ collection, index }) => {
-  const { title, surtitle, handle, description, giftBoxes } = collection
+  const {
+    title,
+    surtitle,
+    handle,
+    description,
+    isDescriptionVisible,
+    giftBoxes,
+  } = collection
   return (
     <Flex
       sx={{
@@ -45,7 +52,7 @@ const GiftGuideCollection = ({ collection, index }) => {
           >
             {surtitle}
           </Text>
-          {handle}
+          {title}
         </Heading>
         <Text
           as="p"
@@ -60,7 +67,7 @@ const GiftGuideCollection = ({ collection, index }) => {
             width: 305,
           }}
         >
-          {description}
+          {isDescriptionVisible && description}
         </Text>
         <Button
           variant="sketchBlack"

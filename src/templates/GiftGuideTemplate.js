@@ -17,7 +17,6 @@ const GiftGuidePage = ({ data }) => {
     headerImage,
     giftCollections,
   } = data.sanityGiftGuide
-  console.log({ data })
   const collections = data.allShopifyCollection.nodes
   const allShopifyProduct = data.allShopifyProduct.nodes
 
@@ -98,7 +97,9 @@ export const query = graphql`
       }
       giftCollections {
         surtitle
+        title
         handle
+        isDescriptionVisible
         giftBoxes {
           products {
             productHandles
