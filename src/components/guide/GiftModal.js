@@ -11,6 +11,7 @@ import AddToCart from '../product/AddToCart'
 import ThemeLink from '../app/ThemeLink'
 import ShopifyGatsbyImage from '../ShopifyGatsbyImage'
 import GiftProductGallery from './GiftProductGallery'
+import MetalOptions from '../product/MetalOptions'
 
 const MotionDialogOverlay = motion(DialogOverlay)
 const MotionDialogContent = motion(DialogContent)
@@ -36,6 +37,12 @@ const GiftModal = ({
   const [productIndex, setProductIndex] = useState(0)
   const product = products[productIndex]
 
+  const {variants} = product
+  const alternates = {
+    nodes: []
+  }
+
+  console.log({variants})
   // console.log(product)
   // const initialProducts = handles.map(handle => useInitialProduct({ handle }))
 
@@ -124,6 +131,7 @@ const GiftModal = ({
                     }}
                   >
                     <ProductTitleAndPrice titleFontSize={2} priceFontSize={1} />
+                    <MetalOptions product={{variants}} alternates={alternates} />
                     {/* <MetalOptions product={{ variants }} alternates={alternates} /> */}
                     <ProductOptions />
                     <AddToCart
