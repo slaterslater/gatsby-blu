@@ -1,12 +1,10 @@
 // adapted from ElementSlider.js
 
-import { Flex, AspectRatio, Box, IconButton, Text, Image } from 'theme-ui'
-import React, { useMemo, useState } from 'react'
+import { Flex, AspectRatio, Box, IconButton, Image } from 'theme-ui'
+import React from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { wrap } from '@popmotion/popcorn'
 import { HiChevronLeft, HiChevronRight } from 'react-icons/hi'
-import ShopifyGatsbyImage from '../ShopifyGatsbyImage'
-import { useProductGalleryImages } from '../../hooks/product'
 
 const MotionBox = motion(Box)
 const Dot = ({ full, ...props }) => (
