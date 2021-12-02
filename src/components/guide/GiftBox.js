@@ -13,7 +13,8 @@ const GiftFeature = ({ feature, boxIndex }) => {
   const { productImage, productHandles, relatedProducts } = feature
 
 
-  console.log({relatedProducts})
+  // console.log({relatedProducts})
+  
   // have this match req data for alternates in product temp
   // probably will need tags too to determine alternates
   // const data = useStaticQuery(graphql`

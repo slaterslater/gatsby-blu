@@ -37,127 +37,135 @@ const GiftModal = ({
   const [productIndex, setProductIndex] = useState(0)
   const product = products[productIndex]
 
-  const {variants} = product
+  const { variants } = product
   const alternates = {
-    nodes: []
+    nodes: [],
   }
 
-  console.log({variants})
+  // console.log({variants})
   // console.log(product)
   // const initialProducts = handles.map(handle => useInitialProduct({ handle }))
 
   // const initialProduct = useInitialProduct({ handle: handles[handleIndex] })
   // console.log(`rendering ${productIndex}`)
-  console.log('rendering giftmodal')
   return (
-    <ProductProvider handle={product.handle} initial={product}>
-      <AnimatePresence>
-        {isOpen && (
-          <MotionDialogOverlay
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onDismiss={handleDismiss}
-            style={{
-              zIndex: 11,
-            }}
+    <AnimatePresence>
+      {isOpen && (
+        <MotionDialogOverlay
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onDismiss={handleDismiss}
+          style={{
+            zIndex: 11,
+          }}
+        >
+          <Flex
+            sx={{ width: '100%', maxWidth: 985, justifyContent }}
+            mx="auto"
+            px={[3]}
           >
-            <Flex
-              sx={{ width: '100%', maxWidth: 985, justifyContent }}
-              mx="auto"
-              px={[3]}
+            <MotionBox
+              p={0}
+              mx={[0, 3]}
+              as={MotionDialogContent}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{
+                min: 0,
+                max: 100,
+                bounceDamping: 9,
+                delay: '200ms',
+              }}
+              aria-label="Gift Guide products"
+              sx={{
+                borderRadius: '3px',
+                minHeight: 420,
+                width: ['100%', `calc(${modalWidth} - 24px)`],
+                marginTop: [70, 105],
+              }}
             >
-              <MotionBox
-                p={0}
-                mx={[0, 3]}
-                as={MotionDialogContent}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{
-                  min: 0,
-                  max: 100,
-                  bounceDamping: 9,
-                  delay: '200ms',
-                }}
-                aria-label="Gift Guide products"
+              <Button
+                type="button"
+                variant="link"
+                onClick={handleDismiss}
+                // mt={4}
+                my={3}
+                px={5}
                 sx={{
-                  borderRadius: '3px',
-                  minHeight: 420,
-                  width: ['100%', `calc(${modalWidth} - 24px)`],
-                  marginTop: [70, 105],
+                  textTransform: 'uppercase',
+                  fontSize: 0,
+                  fontWeight: 600,
+                  letterSpacing: 'wider',
+                  width: '100%',
+                  textAlign: 'right',
                 }}
               >
-                <Button
-                  type="button"
-                  variant="link"
-                  onClick={handleDismiss}
-                  // mt={4}
-                  my={3}
-                  px={5}
+                done
+              </Button>
+              <Flex
+                mx="auto"
+                sx={{
+                  justifyContent: 'center',
+                  flexDirection: 'column',
+                  maxWidth: ['100%', 365],
+                }}
+              >
+                <GiftProductGallery
+                  length={products.length}
+                  currentIndex={productIndex}
+                  setProductIndex={setProductIndex}
+                  image={product.images[0].originalSrc}
+                />
+                <Grid
+                  // key={`${product.handle}-details`}
+                  px={4}
+                  my={5}
                   sx={{
-                    textTransform: 'uppercase',
-                    fontSize: 0,
-                    fontWeight: 600,
-                    letterSpacing: 'wider',
+                    gap: 5,
+                    alignSelf: 'center',
                     width: '100%',
-                    textAlign: 'right',
+                    maxWidth: 400,
                   }}
                 >
-                  done
-                </Button>
-                <Flex
-                  mx="auto"
-                  sx={{
-                    justifyContent: 'center',
-                    flexDirection: 'column',
-                    maxWidth: ['100%', 365],
-                  }}
-                >
-                  <GiftProductGallery
-                    length={products.length}
-                    currentIndex={productIndex}
-                    setProductIndex={setProductIndex}
-                    image={product.images[0].originalSrc}
-                  />
-                  <Grid
-                    px={4}
-                    my={5}
-                    sx={{
-                      gap: 5,
-                      alignSelf: 'center',
-                      width: '100%',
-                      maxWidth: 400,
-                    }}
+                  <ProductProvider
+                    handle={product.handle}
+                    initial={product}
+                    key={`${product.handle}-provider`}
                   >
                     <ProductTitleAndPrice titleFontSize={2} priceFontSize={1} />
-                    <MetalOptions product={{variants}} alternates={alternates} />
+                    <MetalOptions
+                      product={{ variants }}
+                      alternates={alternates}
+                    />
                     {/* <MetalOptions product={{ variants }} alternates={alternates} /> */}
                     <ProductOptions />
                     <AddToCart
                       customAttributes={[]}
                       onAdded={() => setOpen(false)}
                     />
-                    <Flex sx={{ justifyContent: 'center' }}>
-                      <ThemeLink
-                        to={`/products/${product.handle}`}
-                        variant="caps"
-                        sx={{
-                          textDecoration: 'underline',
-                          fontWeight: 'bold',
-                        }}
-                      >
-                        View Full Details
-                      </ThemeLink>
-                    </Flex>
-                  </Grid>
-                </Flex>
-              </MotionBox>
-            </Flex>
-          </MotionDialogOverlay>
-        )}
-      </AnimatePresence>
-    </ProductProvider>
+                  </ProductProvider>
+
+                  <Flex sx={{ justifyContent: 'center' }}>
+                    <ThemeLink
+                      to={`/products/${product.handle}`}
+                      variant="caps"
+                      sx={{
+                        textDecoration: 'underline',
+                        fontWeight: 'bold',
+                      }}
+                    >
+                      View Full Details
+                    </ThemeLink>
+                  </Flex>
+                </Grid>
+              </Flex>
+            </MotionBox>
+          </Flex>
+        </MotionDialogOverlay>
+      )}
+    </AnimatePresence>
   )
 }
 
