@@ -59,11 +59,7 @@ const GiftGuidePage = ({ data }) => {
         py={[6, 7, 8]}
         px={[0, 3]}
       >
-        {[
-          ...giftCollectionsWithShopifyData,
-          ...giftCollectionsWithShopifyData,
-          ...giftCollectionsWithShopifyData,
-        ].map((collection, i) => (
+        {giftCollectionsWithShopifyData.map((collection, i) => (
           <GiftProvider index={i} key={`gift-collection-${i}`}>
             <GiftGuideCollection collection={collection} index={i} />
           </GiftProvider>
