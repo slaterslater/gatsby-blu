@@ -247,6 +247,92 @@ async function createPodcastEpisodePages({ graphql, actions }) {
   }
 }
 
+async function createGiftGuidePages({ graphql, actions }) {
+  const { data } = await graphql(`
+    {
+      allSanityGiftGuide {
+        nodes {
+          handle {
+            current
+          }
+          giftCollections {
+            handle
+            giftBoxes {
+              products {
+                productHandles
+              }
+            }
+          }
+        }
+      }
+      allShopifyProduct {
+        nodes {
+          handle
+          shopifyId
+          tags
+          metafields {
+            key
+            value
+          }
+        }
+      }
+    }
+  `)
+  const guides = data.allSanityGiftGuide.nodes
+  const allShopifyProducts = data.allShopifyProduct.nodes
+  if (guides.length === 0) return
+  guides.forEach(guide => {
+    // get all product handles
+    const handles = guide.giftCollections.reduce(
+      (allGiftBoxes, { giftBoxes }) =>
+        allGiftBoxes.concat(
+          giftBoxes.reduce(
+            (allProducts, { products }) =>
+              allProducts.concat(
+                products.reduce(
+                  (allProductHandles, { productHandles }) =>
+                    allProductHandles.concat(productHandles),
+                  []
+                )
+              ),
+            []
+          )
+        ),
+      []
+    )
+    // get alternates
+    const alternates = handles
+      .map(handle =>
+        allShopifyProducts.find(product => product.handle === handle)
+      )
+      .reduce((allAlternates, product) => {
+        // const productId = decodeShopifyId(product.shopifyId)
+        const alternatesFromTags = formatMetalAlternatesFromTags(
+          product.tags || []
+        )
+        const alternatesFromMetafields = formatMetalAlternatesFromMetafields(
+          product.metafields || []
+        )
+        const moreAlternates =
+          alternatesFromMetafields.length > 0
+            ? alternatesFromMetafields
+            : alternatesFromTags
+        return allAlternates.concat(moreAlternates)
+      }, [])
+
+    actions.createPage({
+      path: `/${guide.handle.current}`,
+      component: path.resolve('./src/templates/GiftGuideTemplate.js'),
+      context: {
+        guideHandle: guide.handle.current,
+        collections: guide.giftCollections.map(({ handle }) => handle),
+        products: handles,
+        alternates,
+      },
+    })
+  })
+}
+
 // fetch data from podcast api and create nodes from returned array
 async function createPodcastNodes({ actions, createContentDigest }) {
   const url = `https://www.buzzsprout.com/api/${process.env.BUZZSPROUT_PODCAST_ID}/episodes.json`
@@ -308,5 +394,6 @@ export async function createPages(params) {
     createCollectionGroupPages(params),
     createPodcastIndexPages(params),
     createPodcastEpisodePages(params),
+    createGiftGuidePages(params),
   ])
 }
