@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Box, Flex, Image } from 'theme-ui'
+import Modal from '../Modal'
 import YotpoPost from './YotpoPost'
 
 const ProductReview = ({
@@ -12,7 +13,7 @@ const ProductReview = ({
   comment,
 }) => {
   const starPercentage = (score / 5) * 100
-
+  const [modalImage, setModalImage] = useState(false)
   return (
     <Box>
       <YotpoPost
@@ -29,9 +30,12 @@ const ProductReview = ({
             {imagesData.map(image => (
               <Image
                 mr={3}
-                sx={{ height: 100, width: 100 }}
+                sx={{ height: 100, width: 100, cursor: 'pointer' }}
                 src={image.thumbUrl}
                 key={image.thumbUrl}
+                onClick={() => {
+                  setModalImage(image.originalUrl)
+                }}
               />
             ))}
           </Flex>
@@ -43,10 +47,17 @@ const ProductReview = ({
             <YotpoPost
               displayName="Store Owner"
               date={comment.createdAt}
-              content={comment.createdAt}
+              content={comment.content}
             />
           </Box>
         </Box>
+      )}
+      {modalImage && (
+        <Modal isOpen setOpen={setModalImage} minHeight={false}>
+          <Flex sx={{ maxHeight: '75vh' }}>
+            <Image src={modalImage} sx={{ objectFit: 'cover' }} />
+          </Flex>
+        </Modal>
       )}
     </Box>
   )

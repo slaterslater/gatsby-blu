@@ -7,7 +7,13 @@ const MotionDialogOverlay = motion(DialogOverlay)
 const MotionDialogContent = motion(DialogContent)
 const MotionBox = motion(Box)
 
-const Modal = ({ isOpen, setOpen, width = 660, children }) => {
+const Modal = ({
+  isOpen,
+  setOpen,
+  width = 660,
+  minHeight = true,
+  children,
+}) => {
   const handleDismiss = () => setOpen(false)
   const {
     theme: {
@@ -40,7 +46,7 @@ const Modal = ({ isOpen, setOpen, width = 660, children }) => {
             sx={{
               borderRadius: '3px',
               width,
-              minHeight: ['calc(100% - 70px)', 0],
+              minHeight: [minHeight ? 'calc(100% - 70px)' : 0, 0],
               maxWidth: ['100%', '90vw'],
             }}
           >
