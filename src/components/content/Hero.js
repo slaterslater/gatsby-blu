@@ -3,7 +3,6 @@ import { Container, Box, Text, Heading, Button, Grid, Flex } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
 import { GatsbyImage, withArtDirection } from 'gatsby-plugin-image'
 import useGatsbySanityImageData from '../../lib/useGatsbySanityImageData'
-import OnePercentCallout from './OnePercentCallout'
 
 const SanityHeroBackground = ({ image1, image2, imageMobile }) => {
   const image1Data = useGatsbySanityImageData(image1, { q: 82 })
@@ -36,88 +35,83 @@ const SanityHeroBackground = ({ image1, image2, imageMobile }) => {
   )
 }
 
-export const HeroOuter = ({
-  children,
-  iconImage,
-  heading,
-  subheading,
-  align = 'right',
-  button,
-}) => (
-  // const iconImageData = null
-
-  <Box sx={{ position: 'relative' }}>
-    <Grid
-      sx={{
-        height: [450, 600],
-        bg: 'cream',
-        position: 'relative',
-        zIndex: 1,
-      }}
-    >
-      {children}
-    </Grid>
-    <Container
-      variant="wide"
-      py={6}
-      pt={7}
-      sx={{
-        bg: ['primary', 'transparent'],
-        textAlign: ['center', align || 'right'],
-        position: ['relative', 'absolute'],
-        bottom: 0,
-        right: 0,
-        zIndex: 1,
-      }}
-    >
-      <Box
+export const HeroOuter = ({ children, data, align = 'right' }) => {
+  const { heading, subheading, button } = data
+  const iconImage = data.iconImage || null
+  return (
+    <Box sx={{ position: 'relative' }}>
+      <Grid
         sx={{
-          display: 'inline-flex',
+          height: [450, 600],
+          bg: 'cream',
           position: 'relative',
-          flexDirection: ['column', 'row'],
-          alignItems: ['middle', 'flex-end'],
+          zIndex: 1,
         }}
       >
-        {iconImage && (
-          <Box
-            mr={2}
-            sx={{
-              transform: ['translateY(-78px)', 'none'],
-              height: [0, 'auto'],
-            }}
-          >
-            <GatsbyImage image={iconImage} alt="" />
-          </Box>
-        )}
-        {heading && (
-          <Heading
-            variant="h1"
-            as="h1"
-            sx={{
-              color: 'white',
-              fontSize: [6, 7],
-            }}
-          >
-            {heading}
-          </Heading>
-        )}
-      </Box>
-      {subheading && (
-        <Text
-          as="h2"
-          variant="looseSans"
-          pb={5}
-          sx={{ color: 'white', fontSize: 1, lineHeight: '1.5em' }}
+        {children}
+      </Grid>
+      <Container
+        variant="wide"
+        py={6}
+        pt={7}
+        sx={{
+          bg: ['primary', 'transparent'],
+          textAlign: ['center', align || 'right'],
+          position: ['relative', 'absolute'],
+          bottom: 0,
+          right: align === 'right' ? 0 : 'auto',
+          zIndex: 1,
+        }}
+      >
+        <Box
+          sx={{
+            display: 'inline-flex',
+            position: 'relative',
+            flexDirection: ['column', 'row'],
+            alignItems: ['middle', 'flex-end'],
+          }}
         >
-          {subheading}
-        </Text>
-      )}
-      <Button variant="sketchWhite" as={GatsbyLink} to={button.path}>
-        {button.text}
-      </Button>
-    </Container>
-  </Box>
-)
+          {iconImage && (
+            <Box
+              mr={2}
+              sx={{
+                transform: ['translateY(-78px)', 'none'],
+                height: [0, 'auto'],
+              }}
+            >
+              <GatsbyImage image={iconImage} alt="" />
+            </Box>
+          )}
+          {heading && (
+            <Heading
+              variant="h1"
+              as="h1"
+              sx={{
+                color: 'white',
+                fontSize: [6, 7],
+              }}
+            >
+              {heading}
+            </Heading>
+          )}
+        </Box>
+        {subheading && (
+          <Text
+            as="h2"
+            variant="looseSans"
+            pb={5}
+            sx={{ color: 'white', fontSize: 1, lineHeight: '1.5em' }}
+          >
+            {subheading}
+          </Text>
+        )}
+        <Button variant="sketchWhite" as={GatsbyLink} to={button.path}>
+          {button.text}
+        </Button>
+      </Container>
+    </Box>
+  )
+}
 
 const SanityHero = ({ node }) => {
   const {

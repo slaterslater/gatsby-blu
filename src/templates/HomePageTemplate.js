@@ -1,0 +1,298 @@
+import React, { useMemo } from 'react'
+import { graphql } from 'gatsby'
+import { GatsbyImage } from 'gatsby-plugin-image'
+import PropTypes from 'prop-types'
+import Layout from '../components/layout'
+import OnePercentCallout from '../components/content/OnePercentCallout'
+
+import SEO from '../components/seo'
+import HomepageReviews from '../components/HomepageReviews'
+import BrandStatement from '../components/BrandStatement'
+import Medallions from '../components/Medallions'
+import CollectionSpotlight from '../components/CollectionSpotlight'
+import { HeroOuter } from '../components/content/Hero'
+import Zodiac from '../components/Zodiac'
+import { useAnalytics } from '../lib/useAnalytics'
+import HomeLocations from '../components/home/Locations'
+import { useShopifyImageMeta } from '../components/RemoteShopifyImage'
+import HomePageHeader from '../components/home/HomePageHeader'
+import CollectionRowSlider from '../components/home/CollectionRowSlider'
+
+const IndexPage = ({ data }) => {
+  const {
+    site: {
+      siteMetadata: { siteUrl },
+    },
+  } = data
+
+  const websiteLdJSON = `
+  {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "url": "${siteUrl}",
+      "about" : {
+        "@type":"Thing",
+        "name":"Jewelry Store"
+      },
+      "potentialAction": {
+          "@type": "SearchAction",
+          "target": "${siteUrl}/search?q={query}&type=product",
+          "query-input": "required name=query"
+      }
+  }
+`
+
+  const imageMeta = useShopifyImageMeta({
+    originalSrc:
+      'https://cdn.shopify.com/s/files/1/0685/0359/files/bluboho_logo.jpg?v=1614307775',
+    height: 1500,
+    width: 1500,
+    altText: '',
+    id: 'home-logo-img',
+  })
+
+  useAnalytics('viewHome')
+
+  const collections = data.allShopifyCollection.nodes
+  const collectionGroupPages = data.allSanityCollectionGroupPage.nodes
+  const products = data.allShopifyProduct.nodes
+  const {
+    headerHero,
+    innerHero,
+    collectionRow,
+    collectionSpotlight,
+    reviews,
+    zodiac,
+    locations,
+    medallions,
+  } = data.allSanityHomePage.nodes[0]
+
+  const [collectionRowWithData, collectionSpotlightWithData] = useMemo(
+    () =>
+      [collectionRow, collectionSpotlight].map(obj =>
+        obj.map(subObj => {
+          if (subObj.title) return subObj
+          const collection = collections.find(
+            ({ handle }) => handle === subObj.handle
+          )
+          const collectionGroupPage = collectionGroupPages.find(
+            ({ slug }) => slug.current === subObj.handle
+          )
+          return {
+            ...subObj,
+            ...collection,
+            ...collectionGroupPage,
+          }
+        })
+      ),
+    [collections, collectionGroupPages, collectionRow, collectionSpotlight]
+  )
+
+  const reviewsWithProductData = useMemo(
+    () =>
+      reviews.map(review => {
+        const productData = products.find(
+          ({ handle }) => handle === review.productHandle
+        )
+        return {
+          ...review,
+          product: {
+            ...productData,
+            title: review.productTitle || productData.title,
+          },
+        }
+      }),
+    [reviews, products]
+  )
+
+  // console.log({ locations })
+
+  return (
+    <Layout>
+      <SEO title="home" meta={imageMeta}>
+        <script type="application/ld+json">{websiteLdJSON}</script>
+      </SEO>
+      <HomePageHeader data={headerHero[0]} />
+      <CollectionRowSlider collections={collectionRowWithData} />
+      <BrandStatement />
+      <CollectionSpotlight collections={collectionSpotlightWithData} />
+      <HomepageReviews reviews={reviewsWithProductData} />
+      <OnePercentCallout />
+      <HeroOuter data={innerHero[0]} align="left">
+        <GatsbyImage
+          image={innerHero[0].image1.asset.gatsbyImageData}
+          alt="most gifted"
+        />
+      </HeroOuter>
+      <Zodiac sign={zodiac[0]} />
+      <HomeLocations locations={locations} />
+      <Medallions medallions={medallions} />
+    </Layout>
+  )
+}
+
+export default IndexPage
+
+IndexPage.propTypes = {
+  data: PropTypes.object,
+}
+
+export const query = graphql`
+  query($collections: [String!], $products: [String!]) {
+    site {
+      siteMetadata {
+        siteUrl
+      }
+    }
+    allSanityHomePage {
+      nodes {
+        headerHero {
+          heading
+          subheading
+          button {
+            text
+            path
+          }
+          image1 {
+            asset {
+              gatsbyImageData(placeholder: BLURRED)
+            }
+          }
+          image2 {
+            asset {
+              gatsbyImageData(placeholder: BLURRED)
+            }
+          }
+          imageMobile {
+            asset {
+              gatsbyImageData(placeholder: BLURRED)
+            }
+          }
+          icon {
+            asset {
+              gatsbyImageData(placeholder: BLURRED)
+            }
+          }
+        }
+        innerHero {
+          heading
+          subheading
+          button {
+            text
+            path
+          }
+          image1 {
+            asset {
+              gatsbyImageData(placeholder: BLURRED)
+            }
+          }
+          image2 {
+            asset {
+              gatsbyImageData(placeholder: BLURRED)
+            }
+          }
+          imageMobile {
+            asset {
+              gatsbyImageData(placeholder: BLURRED)
+            }
+          }
+          icon {
+            asset {
+              gatsbyImageData(placeholder: BLURRED)
+            }
+          }
+        }
+        collectionRow {
+          title
+          handle
+          image {
+            asset {
+              gatsbyImageData(placeholder: BLURRED)
+            }
+          }
+        }
+        collectionSpotlight {
+          title
+          handle
+          image {
+            asset {
+              gatsbyImageData(
+                placeholder: BLURRED
+                layout: CONSTRAINED
+                width: 700
+                aspectRatio: 1
+              )
+            }
+          }
+        }
+        reviews {
+          author
+          content
+          score
+          productHandle
+          productTitle
+        }
+        zodiac {
+          name
+          backgroundColor {
+            hex
+          }
+          image {
+            asset {
+              gatsbyImageData(
+                # fit: FILLMAX
+                placeholder: BLURRED
+                # layout: FULL_WIDTH
+              )
+            }
+          }
+        }
+        locations {
+          name
+          imageOrientation
+          image {
+            asset {
+              gatsbyImageData(placeholder: BLURRED)
+            }
+          }
+        }
+        medallions {
+          image {
+            asset {
+              gatsbyImageData(placeholder: BLURRED)
+            }
+          }
+        }
+      }
+    }
+    allShopifyCollection(filter: { handle: { in: $collections } }) {
+      nodes {
+        handle
+        title
+      }
+    }
+    allSanityCollectionGroupPage(
+      filter: { slug: { current: { in: $collections } } }
+    ) {
+      nodes {
+        title
+        slug {
+          current
+        }
+      }
+    }
+    allShopifyProduct(filter: { handle: { in: $products } }) {
+      nodes {
+        title
+        handle
+        images {
+          originalSrc
+          altText
+          height
+          width
+          id
+        }
+      }
+    }
+  }
+`

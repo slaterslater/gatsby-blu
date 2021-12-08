@@ -1,30 +1,17 @@
 import React, { useState } from 'react'
-import { IconButton, Flex, Heading, Text, Box, Grid, Container } from 'theme-ui'
+import { IconButton, Flex, Heading, Text, Box, Container } from 'theme-ui'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useStaticQuery, graphql } from 'gatsby'
-import { useQuery } from 'urql'
 import { wrap } from '@popmotion/popcorn'
 import { ReviewStars } from './product/ProductReviewsTopline'
 import ThemeLink from './app/ThemeLink'
-import { HOMEPAGE_REVIEW_PRODUCT } from '../queries/homepage'
 import { MobileSlider } from './content/CollectionRow'
 import ShopifyGatsbyImage from './ShopifyGatsbyImage'
 
-const Review = ({
-  starPercentage,
-  excerpt,
-  author,
-  product: { handle, title },
-}) => {
-  const [{ data }] = useQuery({
-    query: HOMEPAGE_REVIEW_PRODUCT,
-    variables: { handle },
-  })
+const MotionBox = motion(Box)
 
-  const image = data?.productByHandle?.images.edges[0].node || {}
-
-  return (
+const Review = ({ starPercentage, excerpt, author, product }) => (
+  <AnimatePresence>
     <Flex sx={{ flexWrap: 'wrap-reverse' }}>
       <Box sx={{ flex: '1 260px', textAlign: 'center' }}>
         <Heading variant="caps" sx={{ py: 6 }}>
@@ -42,51 +29,44 @@ const Review = ({
         <ThemeLink
           variant="caps"
           sx={{ fontSize: 0, textDecoration: 'underline' }}
-          to={`/products/${handle}`}
+          to={`/products/${product.handle}`}
         >
-          shop {title}
+          shop {product.title}
         </ThemeLink>
       </Box>
       <Flex sx={{ flex: '1 260px', justifyContent: 'center' }}>
-        <Box sx={{ maxWidth: ['75%', '100%'] }}>
-          <ShopifyGatsbyImage image={image} />
-        </Box>
+        <MotionBox
+          key={`review-image-${product.handle}`}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
+          sx={{ maxWidth: ['75%', '100%'] }}
+        >
+          <ShopifyGatsbyImage image={product.images[0] || {}} />
+        </MotionBox>
       </Flex>
     </Flex>
-  )
-}
+  </AnimatePresence>
+)
 
-const DesktopReviews = ({ data }) => {
+const DesktopReviews = ({ reviews }) => {
   const [currentReview, setReview] = useState(0)
   const setCurrentReview = index => {
-    setReview(
-      wrap(0, data.allHomepageReviewsJson.nodes.length, currentReview + index)
-    )
+    setReview(wrap(0, reviews.length, currentReview + index))
   }
+  const review = reviews[currentReview]
 
   return (
     <>
-      <AnimatePresence>
-        {data.allHomepageReviewsJson.nodes.map((node, i) =>
-          currentReview === i ? (
-            <motion.div
-              key={node.id}
-              initial={{ opacity: 0, x: 9 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -4 }}
-            >
-              <Review
-                starPercentage={(node.score / 5) * 100}
-                author={node.author}
-                excerpt={node.content}
-                product={node.product}
-              />
-            </motion.div>
-          ) : (
-            false
-          )
-        )}
-      </AnimatePresence>
+      {review && (
+        <Review
+          starPercentage={(review.score / 5) * 100}
+          author={review.author}
+          excerpt={review.content}
+          product={review.product}
+        />
+      )}
       <Flex sx={{ justifyContent: 'center', gap: 4 }}>
         <IconButton type="button" onClick={() => setCurrentReview(-1)}>
           <FiChevronLeft />
@@ -99,43 +79,25 @@ const DesktopReviews = ({ data }) => {
   )
 }
 
-const ReviewsSlider = () => {
-  const data = useStaticQuery(graphql`
-    query {
-      allHomepageReviewsJson {
-        nodes {
-          author
-          content
-          score
-          product {
-            handle
-            title
-          }
-        }
-      }
-    }
-  `)
-
-  return (
-    <Container variant="medium">
-      <Box sx={{ display: ['none', 'block'] }}>
-        <DesktopReviews data={data} />
-      </Box>
-      <MobileSlider
-        sx={{ display: ['block', 'none'] }}
-        nodes={data.allHomepageReviewsJson.nodes.map(node => (
-          <Review
-            key={node.id}
-            starPercentage={(node.score / 5) * 100}
-            author={node.author}
-            excerpt={node.content}
-            product={node.product}
-          />
-        ))}
-        minCardWidth={280}
-      />
-    </Container>
-  )
-}
+const ReviewsSlider = ({ reviews }) => (
+  <Container variant="medium">
+    <Box sx={{ display: ['none', 'block'] }}>
+      <DesktopReviews reviews={reviews} />
+    </Box>
+    <MobileSlider
+      sx={{ display: ['block', 'none'] }}
+      nodes={reviews.map(review => (
+        <Review
+          key={`mobile-review-${review.poductHandle}`}
+          starPercentage={(review.score / 5) * 100}
+          author={review.author}
+          excerpt={review.content}
+          product={review.product}
+        />
+      ))}
+      minCardWidth={280}
+    />
+  </Container>
+)
 
 export default ReviewsSlider
