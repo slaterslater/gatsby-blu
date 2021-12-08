@@ -100,7 +100,12 @@ const AddToCart = ({ customAttributes, onAdded = () => {} }) => {
           </Button>
         </Flex>
         {preorderMessage && (
-          <Box sx={{ textAlign: 'center' }} pt={2}>
+          <Box
+            sx={{ textAlign: 'center', backgroundColor: 'cream' }}
+            pt={1}
+            pb={2}
+            mt={2}
+          >
             <Text sx={{ fontSize: 0, fontStyle: 'italic' }}>
               {preorderMessage}
             </Text>

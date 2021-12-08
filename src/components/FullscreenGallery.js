@@ -53,7 +53,7 @@ const FullscreenGallery = ({ isOpen, initialPage, onClose, media }) => {
       sx={{
         bg: 'white',
         height: '100vh',
-        height: 'calc(var(--vh, 1vh) * 100)',
+        // height: 'calc(var(--vh, 1vh) * 100)',
         width: '100vw',
         position: 'fixed',
         top: 0,

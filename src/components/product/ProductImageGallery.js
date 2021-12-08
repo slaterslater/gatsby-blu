@@ -43,7 +43,7 @@ const ProductImageGallery = () => {
           onImageClick={i => setGalleryState({ isOpen: true, initialPage: i })}
         />
       </Box>
-      <Flex>
+      <Flex sx={{ alignItems: 'flex-start' }}>
         <Box
           sx={{
             display: ['none', 'grid', 'grid'],
