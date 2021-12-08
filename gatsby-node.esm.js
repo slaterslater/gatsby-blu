@@ -250,7 +250,7 @@ async function createPodcastEpisodePages({ graphql, actions }) {
 async function createGiftGuidePages({ graphql, actions }) {
   const { data } = await graphql(`
     {
-      allSanityGiftGuide {
+      allSanityGiftGuide(filter: { isPageLive: { eq: true } }) {
         nodes {
           handle {
             current
