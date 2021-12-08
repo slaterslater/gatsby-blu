@@ -333,6 +333,46 @@ async function createGiftGuidePages({ graphql, actions }) {
   })
 }
 
+async function createHomePage({ graphql, actions }) {
+  const { data } = await graphql(`
+    {
+      allSanityHomePage {
+        nodes {
+          collectionRow {
+            handle
+          }
+          collectionSpotlight {
+            handle
+          }
+          reviews {
+            productHandle
+          }
+        }
+      }
+    }
+  `)
+  if (!data) return
+  const {
+    collectionRow,
+    collectionSpotlight,
+    reviews,
+  } = data.allSanityHomePage.nodes[0]
+
+  const collections = [...collectionRow, ...collectionSpotlight].map(
+    ({ handle }) => handle
+  )
+  const products = reviews.map(({ productHandle }) => productHandle)
+
+  actions.createPage({
+    path: `/`,
+    component: path.resolve('./src/templates/HomePageTemplate.js'),
+    context: {
+      collections,
+      products,
+    },
+  })
+}
+
 // fetch data from podcast api and create nodes from returned array
 async function createPodcastNodes({ actions, createContentDigest }) {
   const url = `https://www.buzzsprout.com/api/${process.env.BUZZSPROUT_PODCAST_ID}/episodes.json`
@@ -395,5 +435,6 @@ export async function createPages(params) {
     createPodcastIndexPages(params),
     createPodcastEpisodePages(params),
     createGiftGuidePages(params),
+    createHomePage(params),
   ])
 }

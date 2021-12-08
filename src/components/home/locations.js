@@ -1,41 +1,22 @@
 import React from 'react'
 import { Flex, Container, Heading } from 'theme-ui'
-import { StaticImage } from 'gatsby-plugin-image'
+import { GatsbyImage } from 'gatsby-plugin-image'
+import PropTypes from 'prop-types'
 import { MobileSlider } from '../content/CollectionRow'
-// import oakvilleImage from '../../images/home/oakville_store.jpg'
-// import yongeImage from '../../images/home/yonge_store.jpg'
-// import queenImage from '../../images/home/queen_store.jpg'
 import ThemeLink from '../app/ThemeLink'
 
-// const storeLocations = [
-//   {
-//     to: '/pages/oakville',
-//     text: 'Oakville',
-//     image: oakvilleImage,
-//   },
-//   {
-//     to: '/pages/yonge',
-//     text: 'Yonge Street',
-//     image: yongeImage,
-//   },
-//   {
-//     to: '/pages/queen',
-//     text: 'Queen Street',
-//     image: queenImage,
-//   },
-// ]
-
-const LocationBox = ({ to, text, children }) => (
+const LocationBox = ({ to, text, width, children }) => (
   <Flex
     sx={{
       flexDirection: 'column',
+      flexWrap: 'wrap',
       alignItems: 'center',
       height: '100%',
       alignSelf: 'stretch',
     }}
     px={4}
   >
-    <Flex sx={{ flex: 1, alignItems: 'center' }} mb={5}>
+    <Flex sx={{ flex: 1, alignItems: 'center', width }} mb={5}>
       {children}
     </Flex>
     <ThemeLink variant="sketchButtonBlack" to={to} mt="auto">
@@ -44,53 +25,39 @@ const LocationBox = ({ to, text, children }) => (
   </Flex>
 )
 
-const HomeLocations = props => (
+const HomeLocations = ({ locations }) => (
   <Container py={8}>
     <Heading as="h3" variant="h1" pb={5} sx={{ textAlign: 'center' }}>
       Store Locations
     </Heading>
     <MobileSlider
       minCardWidth={320}
-      nodes={[
+      nodes={locations.map((location, i) => (
         <LocationBox
-          key="oakville-location-box"
+          key={`location-box-${i}`}
           to="/pages/locations-and-hours"
-          text="Oakville"
+          text={location.name}
+          width={location.imageOrientation === 'portrait' ? '75%' : '100%'}
         >
-          <StaticImage
-            quality={100}
-            src="../../images/home/oakville_store.jpg"
-            alt="outline of Oakville storefront"
-            height={306}
+          <GatsbyImage
+            image={location.image.asset.gatsbyImageData}
+            alt={`outline of ${location.name} storefront`}
           />
-        </LocationBox>,
-        <LocationBox
-          key="yonge-location-box"
-          to="/pages/locations-and-hours"
-          text="Yonge Street"
-        >
-          <StaticImage
-            quality={100}
-            src="../../images/home/yonge_store.jpg"
-            alt="outline of Yonge Street storefront"
-            height={230}
-          />
-        </LocationBox>,
-        <LocationBox
-          key="queen-location-box"
-          to="/pages/locations-and-hours"
-          text="Queen Street"
-        >
-          <StaticImage
-            quality={100}
-            src="../../images/home/queen_store.jpg"
-            alt="outline of Queen Street storefront"
-            height={286}
-          />
-        </LocationBox>,
-      ]}
+        </LocationBox>
+      ))}
     />
   </Container>
 )
 
 export default HomeLocations
+
+HomeLocations.propTypes = {
+  locations: PropTypes.arrayOf(PropTypes.object),
+}
+
+LocationBox.propTypes = {
+  to: PropTypes.string,
+  text: PropTypes.string,
+  width: PropTypes.string,
+  children: PropTypes.object,
+}

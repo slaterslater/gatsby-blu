@@ -22,9 +22,9 @@ export const MobileSlider = ({ nodes, minCardWidth, ...props }) => (
     }}
   >
     <Flex mx={-2} px={5}>
-      {nodes.map(node => (
+      {nodes.map((node, i) => (
         <Box
-          key={node.id}
+          key={`mobile-slider-${i}`}
           mx={2}
           sx={{
             scrollSnapAlign: 'start',
