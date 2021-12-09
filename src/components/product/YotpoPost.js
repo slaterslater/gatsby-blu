@@ -18,7 +18,9 @@ const YotpoPost = ({
     )}
     <Box sx={{ flex: 1 }}>
       <Flex pb={2} sx={{ flexWrap: 'wrap', alignItems: 'center' }}>
-        <Text mr={[2]}>{displayName}</Text>
+        <Text mr={[2]} sx={{ fontWeight: 'bold' }}>
+          {displayName}
+        </Text>
         {starPercentage && (
           <Box>
             <ReviewStars starPercentage={starPercentage} />

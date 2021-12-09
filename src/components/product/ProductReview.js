@@ -45,7 +45,7 @@ const ProductReview = ({
         <Box pl={5} pt={5}>
           <Box sx={{ borderLeft: '2px solid', borderColor: 'border' }} pl={5}>
             <YotpoPost
-              displayName="Store Owner"
+              displayName="bluboho"
               date={comment.createdAt}
               content={comment.content}
             />
