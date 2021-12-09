@@ -9,6 +9,7 @@ import SEO from '../components/seo'
 import ElementSlider from '../components/ElementSlider'
 import CalendlyLink from '../components/consultation/CalendlyLink'
 import FAQ from '../components/consultation/FAQ'
+import { sendGtagEvent } from '../lib/useAnalytics'
 
 const CalendlyConsultationPage = ({ data }) => {
   const calendars = data.allSanityConsultation.nodes[0].calendars.filter(
@@ -40,7 +41,16 @@ const CalendlyConsultationPage = ({ data }) => {
   useEffect(() => {
     const max = calendlyPicker.current.offsetHeight - 600
     setFixedHeight(max > 600 ? max : 500)
-  }, [calendlyPicker])
+  }, [current])
+
+  // tracks page visits
+  useEffect(() => {
+    if (window.gtag) {
+      window.gtag('event', 'conversion', {
+        send_to: `${process.env.GATSBY_AW_CONVERSION_ID}/nweJCJmXtoYDEIu39dgD`,
+      })
+    }
+  }, [])
 
   return (
     <Layout>
