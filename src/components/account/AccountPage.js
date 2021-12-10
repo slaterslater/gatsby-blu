@@ -10,7 +10,9 @@ const AccountPage = ({ title, subtitle, links, currentPage, children }) => {
     <>
       <Container as="main" pb={8}>
         <Breadcrumbs py={0} currentPage={currentPage} links={links}>
-          <Link onClick={() => logout()}>logout</Link>
+          <Link mr={5} variant="outlineButton" onClick={() => logout()}>
+            logout
+          </Link>
         </Breadcrumbs>
         <Box pt={7}>
           <Heading>My Account</Heading>
