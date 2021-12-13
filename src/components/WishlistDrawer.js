@@ -2,6 +2,8 @@ import React, { useContext } from 'react'
 import { Box, Flex, Text, Divider, IconButton, Button } from 'theme-ui'
 import { IoIosClose } from 'react-icons/io'
 import { useQuery } from 'urql'
+import axios from 'axios'
+import { CgHello } from 'react-icons/cg'
 import { StoreContext } from '../contexts/StoreContext'
 import CartLineItem from './cart/CartLineItem'
 import { OrderSummary } from './cart/OrderSummary'
@@ -15,6 +17,15 @@ const EmptyWishlist = () => (
     <Text sx={{ fontSize: 1 }}>You have no items in your wishlist.</Text>
   </Box>
 )
+
+const sayHello = async () => {
+  const res = await axios.post(`/api/hello`, {
+    headers: { 'Content-Type': 'application/json' },
+  })
+  const json = await res.json()
+  console.log({ json })
+  return false
+}
 
 // const CartTag = ({ checkout }) => {
 //   useAnalytics('viewCart', checkout)
@@ -71,6 +82,15 @@ const WishlistDrawer = ({ onClose }) => {
             />
             <CheckoutButton href={checkoutUrl} />
           </Box> */}
+          <Box>
+            <Button
+              onClick={() => {
+                sayHello()
+              }}
+            >
+              HELLO
+            </Button>
+          </Box>
         </>
       )}
     </Flex>
