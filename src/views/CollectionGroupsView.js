@@ -155,7 +155,7 @@ const CollectionGroupsView = ({
               <CollectionGroup
                 pageTitle={pageTitle}
                 pagePath={pagePath}
-                isTruncated
+                isTruncated={isTruncated}
                 {...collection}
               />
             ))}
