@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import algoliasearch from 'algoliasearch/lite'
 import { connectStats, connectSearchBox } from 'react-instantsearch-dom'
-import { Text, Input } from 'theme-ui'
+import { Text, Input, Button } from 'theme-ui'
 import ProductListItem from '../product/ListItem'
 import { useProductTitle } from '../ProductTitle'
 import { useProductPrice } from '../CollectionProduct'
@@ -72,3 +72,8 @@ export const HitsCount = connectStats(({ nbHits }) => (
     {nbHits || 0} result{nbHits !== 1 ? 's' : ''}
   </Text>
 ))
+
+export const ViewMore = connectStats(({ nbHits }) => {
+  if (nbHits <= 4) return <HitsCount />
+  return <Button variant="inverted">{`view ${nbHits - 4} more`}</Button>
+})

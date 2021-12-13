@@ -11,6 +11,7 @@ import {
   InstantSearchInput,
   HitsCount,
   searchClient,
+  ViewMore,
 } from './search/shared'
 import SuggestedSearches from './search/SuggestedSearches'
 
@@ -84,7 +85,7 @@ const HeaderSearch = ({ isOpen, onClose }) => {
               <Box>
                 <Flex pt={2} sx={{ justifyContent: 'flex-end' }}>
                   <ThemeLink to={`/search?q=${term}`}>
-                    <HitsCount />
+                    <ViewMore />
                   </ThemeLink>
                 </Flex>
                 <Grid
