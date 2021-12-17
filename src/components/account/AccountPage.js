@@ -1,4 +1,4 @@
-import { Box, Container, Text, Heading, Link } from 'theme-ui'
+import { Box, Container, Text, Heading, Link, Button } from 'theme-ui'
 import React, { useContext } from 'react'
 import { Breadcrumbs } from '../Breadcrumbs'
 import { AuthContext } from '../../contexts/AuthContext'
@@ -10,9 +10,9 @@ const AccountPage = ({ title, subtitle, links, currentPage, children }) => {
     <>
       <Container as="main" pb={8}>
         <Breadcrumbs py={0} currentPage={currentPage} links={links}>
-          <Link mr={5} variant="outlineButton" onClick={() => logout()}>
+          <Button mr={5} variant="inverted" onClick={() => logout()}>
             logout
-          </Link>
+          </Button>
         </Breadcrumbs>
         <Box pt={7}>
           <Heading>My Account</Heading>

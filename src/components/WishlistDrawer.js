@@ -19,11 +19,12 @@ const EmptyWishlist = () => (
 )
 
 const sayHello = async () => {
-  const res = await axios.post(`/api/hello`, {
-    headers: { 'Content-Type': 'application/json' },
-  })
-  const json = await res.json()
-  console.log({ json })
+  // const root = `${window.location.protocol}//${window.location.host}/`
+  // const res = await axios.post(`/api/hello`, {
+  //   headers: { 'Content-Type': 'application/json' },
+  // })
+  // const json = await res.json()
+  console.log('make api call here...')
   return false
 }
 
@@ -33,14 +34,22 @@ const sayHello = async () => {
 // }
 
 const WishlistDrawer = ({ onClose }) => {
-  const { checkoutId } = useContext(StoreContext)
-  const [{ data, fetching }] = useQuery({
-    query: CHECKOUT_QUERY,
-    variables: { checkoutId },
-  })
+  // const { checkoutId } = useContext(StoreContext)
+  // const [{ data, fetching }] = useQuery({
+  //   query: CHECKOUT_QUERY,
+  //   variables: { checkoutId },
+  // })
 
-  const { webUrl: checkoutUrl } = data?.node || {}
+  // const { webUrl: checkoutUrl } = data?.node || {}
 
+  // query wishlist products here...
+  const data = {
+    node: {
+      lineItems: { edges: [] },
+    },
+  }
+
+  console.log('wishlist...')
   return (
     <Flex
       sx={{
