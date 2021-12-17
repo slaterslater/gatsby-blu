@@ -1,16 +1,8 @@
-const GraphqlRequest = require('graphql-request')
+import { gql } from 'graphql-request'
 
-const { GraphQLClient, gql } = GraphqlRequest
+import getClient from '../lib/adminApiClient'
 
-const shop = 'blubohoo'
-const url = `https://${shop}.myshopify.com/admin/api/2021-01/graphql.json`
-
-const graphQLClient = new GraphQLClient(url, {
-  headers: {
-    'X-Shopify-Access-Token': `${process.env.SHOPIFY_ADMIN_API_NEWSLETTER_PASSWORD}`,
-    'Content-Type': 'application/json',
-  },
-})
+const graphQLClient = getClient()
 
 const CustomerSearch = gql`
   query CustomerSearch($query: String!) {
@@ -62,35 +54,25 @@ const CustomerCreate = gql`
   }
 `
 
-exports.handler = async (event, context) => {
-  const body = JSON.parse(event.body)
+export default async function (req, res) {
+  const { email } = req.body
 
-  const requiredFields = ['email']
-
-  for (const field of requiredFields) {
-    if (!body[field]) {
-      return {
-        statusCode: 400,
-        body: JSON.stringify({ message: `You are missing the ${field} field` }),
-      }
-    }
+  if (!email) {
+    return res.status(400).json({ error: `You are missing the email` })
   }
-
-  const { email } = body
 
   const customersData = await graphQLClient.request(CustomerSearch, {
     query: `email:${email}`,
   })
+
+  const message = `${email} accepts marketing`
 
   // user already exists
   if (customersData.customers.edges.length) {
     // if exists and has marketing return 200
     const { acceptsMarketing, tags } = customersData.customers.edges[0].node
     if (acceptsMarketing && tags.includes('newsletter')) {
-      return {
-        statusCode: 200,
-        body: JSON.stringify({ message: `${email} accepts marketing` }),
-      }
+      return res.status(200).json({ message })
     }
 
     // if exists update marketing and return 201
@@ -104,10 +86,7 @@ exports.handler = async (event, context) => {
       return { statusCode: 400, body: JSON.stringify({ message: e.message }) }
     }
 
-    return {
-      statusCode: 201,
-      body: JSON.stringify({ message: `${email} accepts marketing` }),
-    }
+    return res.status(201).json({ message })
   }
 
   // if !exists create customer with marketing and return 201
@@ -120,8 +99,5 @@ exports.handler = async (event, context) => {
   }
 
   // if newsletter created
-  return {
-    statusCode: 201,
-    body: JSON.stringify({ message: `${email} accepts marketing` }),
-  }
+  return res.status(201).json({ message })
 }

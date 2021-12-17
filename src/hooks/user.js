@@ -6,13 +6,9 @@ import { USER_QUERY } from '../queries/user'
 export function useCurrentUser() {
   const { accessToken, isLoggedIn } = useContext(AuthContext)
 
-  const [{ data }] = useQuery({
+  return useQuery({
     query: USER_QUERY,
     variables: { customerAccessToken: accessToken },
     pause: isLoggedIn,
   })
-
-  console.log(data)
-
-  return [{ data }]
 }
