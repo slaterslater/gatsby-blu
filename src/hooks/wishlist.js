@@ -17,7 +17,7 @@ export const WISHLIST_QUERY = gql`
 export function useWishlist() {
   const { accessToken, isLoggedIn } = useContext(AuthContext)
 
-  const [{ data, error, loading }] = useQuery({
+  const [{ data, error, loading }, reexecuteQuery] = useQuery({
     query: WISHLIST_QUERY,
     variables: { customerAccessToken: accessToken },
     pause: !isLoggedIn,
@@ -25,8 +25,11 @@ export function useWishlist() {
 
   if (data?.customer?.wishlist?.value) {
     // separate string of handles by space
-    return data.customer.wishlist.value.split(' ')
+    return [
+      data.customer.wishlist.value.split(' '),
+      () => reexecuteQuery({ requestPolicy: 'network-only' }),
+    ]
   }
 
-  return []
+  return [[]]
 }

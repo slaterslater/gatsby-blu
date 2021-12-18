@@ -1,11 +1,12 @@
 import pluralize from 'pluralize'
-import { Box, Text } from 'theme-ui'
 import React from 'react'
+import { Grid } from 'theme-ui'
 import { useWishlist } from '../../hooks/wishlist'
 import AccountPage from './AccountPage'
+import WishlistItem from './WishlistItem'
 
 const WishlistPage = props => {
-  const wishlist = useWishlist()
+  const [wishlist, refreshWishlist] = useWishlist()
 
   return (
     <AccountPage
@@ -17,11 +18,15 @@ const WishlistPage = props => {
       )} in your wishlist`}
       currentPage={{ text: 'Wishlist', path: '/account/wishlist' }}
     >
-      {wishlist.map(handle => (
-        <Box key={handle}>
-          <Text>{handle}</Text>
-        </Box>
-      ))}
+      <Grid pt={4} sx={{ gridAutoFlow: 'row', gap: 4 }}>
+        {wishlist.map(handle => (
+          <WishlistItem
+            handle={handle}
+            key={handle}
+            onRemove={() => refreshWishlist()}
+          />
+        ))}
+      </Grid>
     </AccountPage>
   )
 }
