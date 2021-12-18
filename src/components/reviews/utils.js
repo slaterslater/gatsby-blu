@@ -1,17 +1,10 @@
-import { useState, useEffect } from 'react'
+import { decode } from 'shopify-gid'
 import camelCaseRecursive from 'camelcase-keys-recursive'
 import axios from 'axios'
 
 export const useAdminProductId = hashedId => {
-  const [productId, setId] = useState('')
-
-  useEffect(() => {
-    const id = atob(hashedId.replace('Shopify__Product__', ''))
-    const [adminNumber] = id.split('/').slice(-1)
-    setId(adminNumber)
-  }, [])
-
-  return productId
+  const { id } = decode(hashedId.replace('Shopify__Product__', ''))
+  return id
 }
 
 export const yotpoFetcher = (path, resourceName = 'reviews') =>

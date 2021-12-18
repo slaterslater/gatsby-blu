@@ -9,9 +9,6 @@ export const USER_QUERY = gql`
       lastName
       email
       id
-      wishlist: metafield(namespace: "my_fields", key: "wishlist") {
-        value
-      }
     }
   }
 `

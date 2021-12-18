@@ -10,6 +10,7 @@ const CustomerWishlistQuery = gql`
   query CustomerWishlistQuery($id: ID!) {
     customer(id: $id) {
       wishlist: metafield(namespace: "my_fields", key: "wishlist") {
+        id
         value
       }
     }
@@ -43,51 +44,57 @@ export default async function (req, res) {
   const { type, id } = decode(userId)
   const adminId = `gid://shopify/${type}/${id}`
 
-  console.log({ adminId })
-
   // let data
   const data = await graphQLClient.request(CustomerWishlistQuery, {
     id: adminId,
   })
-  // } catch (e) {
-  //   return res.status(400).json({ error: 'could not find user' })
-  // }
 
-  console.log({ data })
-  const { value: wishlist } = data?.customer?.wishlist || {}
-  console.log(wishlist)
+  const getUpdateUserInput = field => ({
+    id: adminId,
+    metafields: [field],
+  })
 
-  let value
-  if (req.method === 'DELETE') {
-    value = wishlist
-      .split(' ')
-      .filter(handle => handle !== productHandle)
-      .join(' ')
+  if (!data?.customer) {
+    return res.status(400).json({ error: 'no user' })
   }
 
-  if (req.method === 'POST') {
-    if (!wishlist) {
-      value = productHandle
-    } else {
-      value = `${wishlist} ${productHandle}`
+  const { wishlist } = data?.customer
+
+  // customer update input
+  let input
+
+  if (!wishlist.id) {
+    // no wishlist so create a new one
+    input = getUpdateUserInput({
+      key: 'wishlist',
+      namespace: 'my_fields',
+      type: 'single_line_text_field',
+      value: productHandle,
+    })
+  } else {
+    if (req.method === 'DELETE') {
+      const value = wishlist.value
+        .split(' ')
+        .filter(handle => handle !== productHandle)
+        .join(' ')
+
+      input = getUpdateUserInput({
+        ...wishlist,
+        value,
+      })
+    }
+    if (req.method === 'POST') {
+      const set = new Set(wishlist.value.split(' '))
+      set.add(productHandle)
+      const value = Array.from(set).join(' ')
+
+      input = getUpdateUserInput({ ...wishlist, value })
     }
   }
 
-  const input = {
-    metafields: [
-      {
-        key: 'wishlist',
-        namespace: 'my_fields',
-        value,
-      },
-    ],
-  }
-
-  const metafieldData = await graphQLClient.request(CustomerWishlistMutation, {
+  const cData = await graphQLClient.request(CustomerWishlistMutation, {
     input,
   })
 
-  console.log(metafieldData)
-
-  res.status(201).json(metafieldData.privateMetafield)
+  res.status(201).json(cData.customerUpdate)
 }

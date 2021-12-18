@@ -9,6 +9,6 @@ export function useCurrentUser() {
   return useQuery({
     query: USER_QUERY,
     variables: { customerAccessToken: accessToken },
-    pause: isLoggedIn,
+    pause: !isLoggedIn,
   })
 }

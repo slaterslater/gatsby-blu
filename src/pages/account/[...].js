@@ -4,6 +4,7 @@ import LoginPage from '../../components/account/LoginPage'
 import CreateAccountPage from '../../components/account/CreateAccountPage'
 import ForgotPasswordPage from '../../components/account/ForgotPasswordPage'
 import OrdersPage from '../../components/account/OrdersPage'
+import WishlistPage from '../../components/account/WishlistPage'
 import OrderDetailPage from '../../components/account/OrderDetailPage'
 import Layout from '../../components/layout'
 import AuthenticatedRoute from '../../components/AuthenticatedRoute'
@@ -22,6 +23,8 @@ const Account = props => (
         component={OrderDetailPage}
         path="/orders/:orderNumber"
       />
+      <AuthenticatedRoute component={WishlistPage} path="/wishlist" />
+      <AuthenticatedRoute component={OrdersPage} path="/orders" />
       <AuthenticatedRoute component={OrdersPage} path="/" />
     </Router>
   </Layout>
