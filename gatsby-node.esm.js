@@ -300,25 +300,38 @@ async function createGiftGuidePages({ graphql, actions }) {
         ),
       []
     )
-    // get alternates
-    const alternates = handles
-      .map(handle =>
-        allShopifyProducts.find(product => product.handle === handle)
+
+    // get products
+    const badHandles = []
+    const productHandles = handles.map(handle => {
+      const found = allShopifyProducts.find(
+        product => product.handle === handle
       )
-      .reduce((allAlternates, product) => {
-        // const productId = decodeShopifyId(product.shopifyId)
-        const alternatesFromTags = formatMetalAlternatesFromTags(
-          product.tags || []
-        )
-        const alternatesFromMetafields = formatMetalAlternatesFromMetafields(
-          product.metafields || []
-        )
-        const moreAlternates =
-          alternatesFromMetafields.length > 0
-            ? alternatesFromMetafields
-            : alternatesFromTags
-        return allAlternates.concat(moreAlternates)
-      }, [])
+      if (!found) badHandles.push(handle)
+      return found
+    })
+
+    // exits if any products can't be found
+    if (badHandles.length) {
+      console.error(badHandles.join('\n'))
+      return
+    }
+
+    // get alternates
+    const alternates = productHandles.reduce((allAlternates, product) => {
+      if (!product) return allAlternates
+      const alternatesFromTags = formatMetalAlternatesFromTags(
+        product.tags || []
+      )
+      const alternatesFromMetafields = formatMetalAlternatesFromMetafields(
+        product.metafields || []
+      )
+      const moreAlternates =
+        alternatesFromMetafields.length > 0
+          ? alternatesFromMetafields
+          : alternatesFromTags
+      return allAlternates.concat(moreAlternates)
+    }, [])
 
     actions.createPage({
       path: `/${guide.handle.current}`,
