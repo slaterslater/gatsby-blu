@@ -5,6 +5,7 @@ import {
   formatMetalAlternatesFromTags,
   formatMetalAlternatesFromMetafields,
 } from './src/lib/formatMetalAlternates'
+import { logBadGiftGuideData } from './src/lib/logBadGiftGuideData'
 
 const decodeShopifyId = id => {
   const buff = Buffer.from(id, 'base64')
@@ -303,7 +304,7 @@ async function createGiftGuidePages({ graphql, actions }) {
 
     // get products
     const badHandles = []
-    const productHandles = handles.map(handle => {
+    const allHandles = handles.map(handle => {
       const found = allShopifyProducts.find(
         product => product.handle === handle
       )
@@ -313,12 +314,13 @@ async function createGiftGuidePages({ graphql, actions }) {
 
     // exits if any products can't be found
     if (badHandles.length) {
-      console.error(badHandles.join('\n'))
+      // console.error(badHandles.join('\n'))
+      logBadGiftGuideData(badHandles, guide.giftCollections)
       return
     }
 
     // get alternates
-    const alternates = productHandles.reduce((allAlternates, product) => {
+    const alternates = allHandles.reduce((allAlternates, product) => {
       if (!product) return allAlternates
       const alternatesFromTags = formatMetalAlternatesFromTags(
         product.tags || []
