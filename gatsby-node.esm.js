@@ -119,10 +119,6 @@ async function createCollectionPages({ graphql, actions }) {
     node => node.slug.current
   )
 
-  // const collectionHandles = data.allShopifyCollection.nodes.map(
-  //   node => node.handle
-  // )
-
   data.allShopifyCollection.nodes.forEach(collection => {
     if (!collectionGroupSlugs.includes(collection.handle)) {
       actions.createPage({
@@ -283,8 +279,12 @@ async function createGiftGuidePages({ graphql, actions }) {
   const allShopifyProducts = data.allShopifyProduct.nodes
   if (guides.length === 0) return
   guides.forEach(guide => {
+    const {
+      handle: { current: guideHandle },
+      giftCollections,
+    } = guide
     // get all product handles
-    const handles = guide.giftCollections.reduce(
+    const handles = giftCollections.reduce(
       (allGiftBoxes, { giftBoxes }) =>
         allGiftBoxes.concat(
           giftBoxes.reduce(
@@ -312,10 +312,9 @@ async function createGiftGuidePages({ graphql, actions }) {
       return found
     })
 
-    // exits if any products can't be found
+    // log any handles that can't be found and skip remaining steps
     if (badHandles.length) {
-      // console.error(badHandles.join('\n'))
-      logBadGiftGuideData(badHandles, guide.giftCollections)
+      logBadGiftGuideData(badHandles, guideHandle, giftCollections)
       return
     }
 
@@ -336,11 +335,11 @@ async function createGiftGuidePages({ graphql, actions }) {
     }, [])
 
     actions.createPage({
-      path: `/${guide.handle.current}`,
+      path: `/${guideHandle}`,
       component: path.resolve('./src/templates/GiftGuideTemplate.js'),
       context: {
-        guideHandle: guide.handle.current,
-        collections: guide.giftCollections.map(({ handle }) => handle),
+        guideHandle,
+        collections: giftCollections.map(({ handle }) => handle),
         products: handles,
         alternates,
       },

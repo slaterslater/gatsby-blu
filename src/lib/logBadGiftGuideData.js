@@ -1,4 +1,8 @@
-export const logBadGiftGuideData = (badHandles, giftCollections) => {
+export const logBadGiftGuideData = (
+  badHandles,
+  guideHandle,
+  giftCollections
+) => {
   const bad = badHandles.map(handle => {
     const info = {}
     const c = giftCollections.find(collection => {
@@ -20,6 +24,7 @@ export const logBadGiftGuideData = (badHandles, giftCollections) => {
   const errors = bad
     .map(
       ({ handle, collection, boxNum, prodNum }) => `
+      gift guide: ${guideHandle}
       collection: ${collection}
       box: ${boxNum}
       set: ${prodNum}
