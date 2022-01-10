@@ -4,7 +4,10 @@ import VariantPrice from './VariantPrice'
 import ProductTitle from '../ProductTitle'
 import { ProductContext } from './ProductContext'
 
-export const ProductTitleAndPrice = props => {
+export const ProductTitleAndPrice = ({
+  titleFontSize = 3,
+  priceFontSize = 2,
+}) => {
   const {
     product: { title, variants },
     selectedVariant,
@@ -22,7 +25,7 @@ export const ProductTitleAndPrice = props => {
         as="h1"
         sx={{
           fontFamily: 'body',
-          fontSize: 3,
+          fontSize: titleFontSize,
           textTransform: 'lowercase',
           letterSpacing: 'widest',
           lineHeight: 1.5,
@@ -38,7 +41,7 @@ export const ProductTitleAndPrice = props => {
           ontWeight: 'body',
           whiteSpace: 'nowrap',
           lineHeight: 1,
-          fontSize: 2,
+          fontSize: priceFontSize,
         }}
       >
         <VariantPrice variant={selectedVariant || variants[0]} />

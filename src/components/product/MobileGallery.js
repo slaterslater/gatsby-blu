@@ -8,6 +8,7 @@ import { HiChevronLeft, HiChevronRight } from 'react-icons/hi'
 import { GatsbyImage } from 'gatsby-plugin-image'
 
 import { getShopifyImage } from '../../lib/get-shopify-image'
+import ProductVideo from './ProductVideo'
 
 const MotionBox = motion(Box)
 const Dot = ({ full, ...props }) => (
@@ -27,11 +28,12 @@ const Dot = ({ full, ...props }) => (
 const swipeConfidenceThreshold = 10000
 const swipePower = (offset, velocity) => Math.abs(offset) * velocity
 
-const MobileGallery = ({ images, hasDots = true, onImageClick }) => {
+const MobileGallery = ({ media, hasDots = true, onImageClick }) => {
   const [[currentPage, direction], setCurrentPage] = useState([0, 0])
 
-  if (!images[0]) return false
-  const imageIndex = wrap(0, images.length, currentPage)
+  if (!media[0]) return false
+  const imageIndex = wrap(0, media.length, currentPage)
+  const mediaType = media[imageIndex]
 
   const paginate = newDirection => {
     setCurrentPage([currentPage + newDirection, newDirection])
@@ -41,20 +43,19 @@ const MobileGallery = ({ images, hasDots = true, onImageClick }) => {
     setCurrentPage([index, index > currentPage ? 1 : -1])
   }
 
-  const imageData = useMemo(
-    () =>
-      getShopifyImage({
-        image: images[imageIndex],
-      }),
-    [imageIndex, JSON.stringify(images[imageIndex])]
-  )
+  const imageData = useMemo(() => {
+    if (mediaType.__typename !== 'Image') return null
+    return getShopifyImage({
+      image: mediaType,
+    })
+  }, [imageIndex, JSON.stringify(mediaType)])
 
   return (
     <Box>
       <AspectRatio ratio={1}>
         <AnimatePresence initial={false}>
           <MotionBox
-            key={`mobile-${images[imageIndex].originalSrc}`}
+            key={`mobile-${mediaType.__typename}-${imageIndex + 1}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -75,10 +76,12 @@ const MobileGallery = ({ images, hasDots = true, onImageClick }) => {
             }}
             onClick={() => onImageClick(imageIndex)}
           >
-            <GatsbyImage
-              image={imageData}
-              alt={images[imageIndex].altText || ''}
-            />
+            {mediaType.__typename === 'Image' && (
+              <GatsbyImage image={imageData} alt={mediaType.altText || ''} />
+            )}
+            {mediaType.__typename === 'Video' && (
+              <ProductVideo video={mediaType} />
+            )}
           </MotionBox>
         </AnimatePresence>
       </AspectRatio>
@@ -94,7 +97,7 @@ const MobileGallery = ({ images, hasDots = true, onImageClick }) => {
         {hasDots && (
           <Box mx={2}>
             <Flex>
-              {Array(images.length)
+              {Array(media.length)
                 .fill()
                 .map((_, i) => (
                   <Dot

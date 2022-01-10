@@ -1,7 +1,11 @@
 import axios from 'axios'
 import path from 'path'
 import slugify from 'slugify'
-import { formatMetalAlternates } from './src/lib/formatMetalAlternates'
+import {
+  formatMetalAlternatesFromTags,
+  formatMetalAlternatesFromMetafields,
+} from './src/lib/formatMetalAlternates'
+import { logBadGiftGuideData } from './src/lib/logBadGiftGuideData'
 
 const decodeShopifyId = id => {
   const buff = Buffer.from(id, 'base64')
@@ -55,6 +59,10 @@ async function createProductPages({ graphql, actions }) {
           handle
           shopifyId
           tags
+          metafields {
+            key
+            value
+          }
         }
       }
     }
@@ -62,7 +70,14 @@ async function createProductPages({ graphql, actions }) {
 
   data.allShopifyProduct.nodes.forEach(product => {
     const productId = decodeShopifyId(product.shopifyId)
-    const alternates = formatMetalAlternates(product.tags || [])
+    const alternatesFromTags = formatMetalAlternatesFromTags(product.tags || [])
+    const alternatesFromMetafields = formatMetalAlternatesFromMetafields(
+      product.metafields || []
+    )
+    const alternates =
+      alternatesFromMetafields.length > 0
+        ? alternatesFromMetafields
+        : alternatesFromTags
 
     actions.createPage({
       // What is the URL for this new page??
@@ -70,6 +85,7 @@ async function createProductPages({ graphql, actions }) {
       component: productTemplate,
       context: {
         handle: product.handle,
+        shopifyId: product.shopifyId,
         productId,
         alternates,
       },
@@ -102,10 +118,6 @@ async function createCollectionPages({ graphql, actions }) {
   const collectionGroupSlugs = data.allSanityCollectionGroupPage.nodes.map(
     node => node.slug.current
   )
-
-  // const collectionHandles = data.allShopifyCollection.nodes.map(
-  //   node => node.handle
-  // )
 
   data.allShopifyCollection.nodes.forEach(collection => {
     if (!collectionGroupSlugs.includes(collection.handle)) {
@@ -232,6 +244,149 @@ async function createPodcastEpisodePages({ graphql, actions }) {
   }
 }
 
+async function createGiftGuidePages({ graphql, actions }) {
+  const { data } = await graphql(`
+    {
+      allSanityGiftGuide(filter: { isPageLive: { eq: true } }) {
+        nodes {
+          handle {
+            current
+          }
+          giftCollections {
+            handle
+            giftBoxes {
+              products {
+                productHandles
+              }
+            }
+          }
+        }
+      }
+      allShopifyProduct {
+        nodes {
+          handle
+          shopifyId
+          tags
+          metafields {
+            key
+            value
+          }
+        }
+      }
+    }
+  `)
+  const guides = data.allSanityGiftGuide.nodes
+  const allShopifyProducts = data.allShopifyProduct.nodes
+  if (guides.length === 0) return
+  guides.forEach(guide => {
+    const {
+      handle: { current: guideHandle },
+      giftCollections,
+    } = guide
+    // get all product handles
+    const handles = giftCollections.reduce(
+      (allGiftBoxes, { giftBoxes }) =>
+        allGiftBoxes.concat(
+          giftBoxes.reduce(
+            (allProducts, { products }) =>
+              allProducts.concat(
+                products.reduce(
+                  (allProductHandles, { productHandles }) =>
+                    allProductHandles.concat(productHandles),
+                  []
+                )
+              ),
+            []
+          )
+        ),
+      []
+    )
+
+    // get products
+    const badHandles = []
+    const allHandles = handles.map(handle => {
+      const found = allShopifyProducts.find(
+        product => product.handle === handle
+      )
+      if (!found) badHandles.push(handle)
+      return found
+    })
+
+    // log any handles that can't be found and skip remaining steps
+    if (badHandles.length) {
+      logBadGiftGuideData(badHandles, guideHandle, giftCollections)
+      return
+    }
+
+    // get alternates
+    const alternates = allHandles.reduce((allAlternates, product) => {
+      if (!product) return allAlternates
+      const alternatesFromTags = formatMetalAlternatesFromTags(
+        product.tags || []
+      )
+      const alternatesFromMetafields = formatMetalAlternatesFromMetafields(
+        product.metafields || []
+      )
+      const moreAlternates =
+        alternatesFromMetafields.length > 0
+          ? alternatesFromMetafields
+          : alternatesFromTags
+      return allAlternates.concat(moreAlternates)
+    }, [])
+
+    actions.createPage({
+      path: `/${guideHandle}`,
+      component: path.resolve('./src/templates/GiftGuideTemplate.js'),
+      context: {
+        guideHandle,
+        collections: giftCollections.map(({ handle }) => handle),
+        products: handles,
+        alternates,
+      },
+    })
+  })
+}
+
+async function createHomePage({ graphql, actions }) {
+  const { data } = await graphql(`
+    {
+      allSanityHomePage {
+        nodes {
+          collectionRow {
+            handle
+          }
+          collectionSpotlight {
+            handle
+          }
+          reviews {
+            productHandle
+          }
+        }
+      }
+    }
+  `)
+  if (!data) return
+  const {
+    collectionRow,
+    collectionSpotlight,
+    reviews,
+  } = data.allSanityHomePage.nodes[0]
+
+  const collections = [...collectionRow, ...collectionSpotlight].map(
+    ({ handle }) => handle
+  )
+  const products = reviews.map(({ productHandle }) => productHandle)
+
+  actions.createPage({
+    path: `/`,
+    component: path.resolve('./src/templates/HomePageTemplate.js'),
+    context: {
+      collections,
+      products,
+    },
+  })
+}
+
 // fetch data from podcast api and create nodes from returned array
 async function createPodcastNodes({ actions, createContentDigest }) {
   const url = `https://www.buzzsprout.com/api/${process.env.BUZZSPROUT_PODCAST_ID}/episodes.json`
@@ -293,5 +448,7 @@ export async function createPages(params) {
     createCollectionGroupPages(params),
     createPodcastIndexPages(params),
     createPodcastEpisodePages(params),
+    createGiftGuidePages(params),
+    createHomePage(params),
   ])
 }

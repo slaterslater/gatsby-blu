@@ -31,9 +31,13 @@ const SinglePodcastPage = ({ data: { podcast, ...data }, pageContext }) => {
 
   return (
     <Layout>
-      <SEO title={`episode ${podcast.episode_number} | ${podcast.title}`} description={`tru blu podcast - episode ${podcast.episode_number} - ${podcast.title}`} />
+      <SEO
+        title={`episode ${podcast.episode_number} | ${podcast.title}`}
+        description={`tru blu podcast - episode ${podcast.episode_number} - ${podcast.title}`}
+      />
       <Helmet>
         <script
+          defer
           src={`${podcast.audio_url.replace(
             /.mp3$/,
             '.js'

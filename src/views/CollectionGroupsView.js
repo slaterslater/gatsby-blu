@@ -104,7 +104,7 @@ const CollectionGroup = ({
             <AllCollectionThumbnailLink
               key={product.id}
               to={`/collections/${handle}`}
-              image={product.images[1]}
+              image={product.images[1] || product.images[0]}
               moreProductCount={allProducts.length - 3}
             />
           )
@@ -167,7 +167,7 @@ const CollectionGroupsView = ({
               <CollectionGroup
                 pageTitle={pageTitle}
                 pagePath={pagePath}
-                isTruncated
+                isTruncated={isTruncated}
                 {...collection}
               />
             ))}

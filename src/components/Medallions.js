@@ -1,53 +1,50 @@
 import React from 'react'
-import { Text, Box, Flex, Grid } from 'theme-ui'
-import { StaticImage } from 'gatsby-plugin-image'
+import { Box, Flex, Container } from 'theme-ui'
+import { GatsbyImage } from 'gatsby-plugin-image'
+import PropTypes from 'prop-types'
 
-const Medallion = ({ src, title, children }) => (
+const Medallion = ({ children }) => (
   <Box
     sx={{
       width: '100%',
-      maxWidth: 130,
+      maxWidth: [100, 115, 135],
       textAlign: 'center',
     }}
   >
     <Box>{children}</Box>
-    <Text variant="caps" sx={{ whiteSpace: 'nowrap' }}>
-      {title}
-    </Text>
   </Box>
 )
 
-const Mediallions = props => (
-  <Flex sx={{ justifyContent: 'center' }}>
-    <Box
-      sx={{
-        display: 'inline-grid',
-        gridTemplateColumns: ['1fr 1fr', 'repeat(4, 1fr)'],
-        // flexWrap: ['wrap', 'nowrap'],
-        justifyItems: 'center',
-        gap: 7,
-      }}
-    >
-      <Medallion title="Hand Crafted">
-        <StaticImage
-          src="../images/homepage-jul-22/handcrafted200.png"
-          alt=""
-        />
-      </Medallion>
-      <Medallion title="Ethically Sourced">
-        <StaticImage
-          src="../images/homepage-jul-22/ethically_sourced200.png"
-          alt=""
-        />
-      </Medallion>
-      <Medallion title="Recycled Materials">
-        <StaticImage src="../images/homepage-jul-22/recycle200.png" alt="" />
-      </Medallion>
-      <Medallion title="Made in Canada">
-        <StaticImage src="../images/homepage-jul-22/local200.png" alt="" />
-      </Medallion>
-    </Box>
-  </Flex>
+const Medallions = ({ medallions }) => (
+  <Container variant="full" pt={[5, 6, 7, 8]} sx={{ bg: 'bbBeige' }}>
+    <Flex sx={{ justifyContent: 'center' }}>
+      <Box
+        sx={{
+          display: 'inline-grid',
+          gridTemplateColumns: ['1fr 1fr', 'repeat(4, 1fr)'],
+          justifyItems: 'center',
+          gap: 7,
+        }}
+      >
+        {medallions.map(({ image, altText }, i) => (
+          <Medallion key={`medallion=${i}`}>
+            <GatsbyImage
+              image={image.asset.gatsbyImageData}
+              alt={`${altText} Medallion`}
+            />
+          </Medallion>
+        ))}
+      </Box>
+    </Flex>
+  </Container>
 )
 
-export default Mediallions
+export default Medallions
+
+Medallions.propTypes = {
+  medallions: PropTypes.arrayOf(PropTypes.object),
+}
+
+Medallion.propTypes = {
+  children: PropTypes.object,
+}

@@ -3,14 +3,20 @@ import { useField, ErrorMessage, Field, Form, Formik } from 'formik'
 import React, { useState, useContext } from 'react'
 import { Input, IconButton, Box, Flex, Text } from 'theme-ui'
 import * as yup from 'yup'
-import { FiCheckSquare, FiAlertCircle } from 'react-icons/fi'
+import { FiCheckSquare, FiAlertCircle, FiClock } from 'react-icons/fi'
 import { CgArrowLongRight } from 'react-icons/cg'
+
 import { InputControl } from './app/formik/FormControlWrap'
 import SubmitButton from './app/formik/SubmitButton'
 import { CalloutBox } from './product/ProductCTACallout'
 import { NewsletterContext } from '../contexts/NewsletterContext'
 
-export const NewsletterForm = ({ onSuccess, onError, children }) => (
+export const NewsletterForm = ({
+  setWorking,
+  onSuccess,
+  onError,
+  children,
+}) => (
   <Formik
     initialValues={{ email: '' }}
     validationSchema={yup.object({
@@ -18,12 +24,13 @@ export const NewsletterForm = ({ onSuccess, onError, children }) => (
     })}
     onSubmit={async (values, { setSubmitting, reset }) => {
       try {
+        setWorking(true)
         const res = await axios.post(
           `${process.env.GATSBY_SERVERLESS_BASE}/newsletter`,
           values,
           { headers: { 'Content-Type': 'application/json' } }
         )
-
+        setWorking(false)
         if (res.status >= 400 && res.status < 600) {
           onError(res, values)
         } else {
@@ -33,6 +40,7 @@ export const NewsletterForm = ({ onSuccess, onError, children }) => (
         setSubmitting(false)
       } catch (e) {
         onError(e)
+        setWorking(false)
       }
     }}
   >
@@ -40,11 +48,12 @@ export const NewsletterForm = ({ onSuccess, onError, children }) => (
   </Formik>
 )
 
-const EmailField = ({ color }) => {
+const EmailField = ({ color, disabled }) => {
   const [field, meta, helpers] = useField({ name: 'email' })
   return (
     <Input
       placeholder="enter your email address"
+      disabled={disabled}
       px={1}
       sx={{
         width: '100%',
@@ -56,6 +65,11 @@ const EmailField = ({ color }) => {
         fontFamily: 'body',
         letterSpacing: '.1em',
         '&::placeholder': { color },
+        // tries to prevent autofill from changing the input's style
+        '&:-webkit-autofill, &:-webkit-autofill:focus': {
+          transition:
+            'background-color 600000s 0s, color 600000s 0s, font-family 600000s 0s, font-weight 600000s 0s, letter-spacing 600000s 0s',
+        },
       }}
       {...field}
     />
@@ -67,7 +81,7 @@ export const NewsletterSignUp = ({
   onSubscribed = () => {},
 }) => {
   const [error, setError] = useState(null)
-
+  const [working, setWorking] = useState(false)
   return (
     <NewsletterForm
       onSuccess={() => {
@@ -76,6 +90,7 @@ export const NewsletterSignUp = ({
       onError={() => {
         console.log('error')
       }}
+      setWorking={setWorking}
     >
       <Form>
         <Flex
@@ -86,7 +101,7 @@ export const NewsletterSignUp = ({
             borderColor: color,
           }}
         >
-          <EmailField color={color} />
+          <EmailField color={color} disabled={working} />
           <IconButton
             type="submit"
             ml="auto"
@@ -95,7 +110,16 @@ export const NewsletterSignUp = ({
               flex: '0 1 max-content',
             }}
           >
-            <Text as={CgArrowLongRight} size={24} sx={{ color }} />
+            <Text
+              as={working ? FiClock : CgArrowLongRight}
+              size={24}
+              sx={{ color }}
+            />
+            {/* {working ? (
+              <Text as={FiClock} size={24} sx={{ color }} />
+            ) : (
+              <Text as={CgArrowLongRight} size={24} sx={{ color }} />
+            )} */}
           </IconButton>
         </Flex>
         <ErrorMessage

@@ -1,10 +1,11 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { Flex, IconButton, Grid, Box } from 'theme-ui'
+import { Flex, IconButton, Box } from 'theme-ui'
 import PropTypes from 'prop-types'
 import { HiChevronLeft, HiChevronRight, HiX } from 'react-icons/hi'
 import React, { useEffect, useState } from 'react'
 import RemoteShopifyImage from './RemoteShopifyImage'
-import FluidShopifyImage from './FluidShopifyImage'
+// import FluidShopifyImage from './FluidShopifyImage'
+import ProductVideo from './product/ProductVideo'
 
 const MotionBox = motion(Box)
 const MotionButton = motion(IconButton)
@@ -27,7 +28,7 @@ const ControlButton = props => (
   />
 )
 
-const FullscreenGallery = ({ isOpen, initialPage, onClose, images }) => {
+const FullscreenGallery = ({ isOpen, initialPage, onClose, media }) => {
   const [[currentPage, direction], setCurrentPage] = useState([
     initialPage || 0,
     0,
@@ -52,7 +53,7 @@ const FullscreenGallery = ({ isOpen, initialPage, onClose, images }) => {
       sx={{
         bg: 'white',
         height: '100vh',
-        height: 'calc(var(--vh, 1vh) * 100)',
+        // height: 'calc(var(--vh, 1vh) * 100)',
         width: '100vw',
         position: 'fixed',
         top: 0,
@@ -81,10 +82,15 @@ const FullscreenGallery = ({ isOpen, initialPage, onClose, images }) => {
             position: 'absolute',
           }}
         >
-          <RemoteShopifyImage
-            originalSrc={images[currentPage].originalSrc}
-            sx={{ flex: 1, objectFit: 'contain' }}
-          />
+          {media[currentPage].__typename === 'Image' && (
+            <RemoteShopifyImage
+              originalSrc={media[currentPage].originalSrc}
+              sx={{ flex: 1, objectFit: 'contain' }}
+            />
+          )}
+          {media[currentPage].__typename === 'Video' && (
+            <ProductVideo video={media[currentPage]} enableTogglePlayback />
+          )}
         </MotionFlex>
       </AnimatePresence>
       <Flex
@@ -112,7 +118,7 @@ const FullscreenGallery = ({ isOpen, initialPage, onClose, images }) => {
           </ControlButton>
         </Box>
         <Box sx={{ width: 80, textAlign: 'center' }}>
-          {currentPage + 1 < images.length && (
+          {currentPage + 1 < media.length && (
             <ControlButton onClick={() => paginate(1)}>
               <HiChevronRight size={24} />
             </ControlButton>

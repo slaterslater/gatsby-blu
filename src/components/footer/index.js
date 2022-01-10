@@ -2,8 +2,12 @@ import { Text, Container, Flex, Box, Grid } from 'theme-ui'
 import React from 'react'
 import { StaticImage } from 'gatsby-plugin-image'
 import ThemeLink from '../app/ThemeLink'
-import NewsletterSignUp from '../NewsletterForm'
-import { CollapsibleFooterSection, FooterSection } from './sections'
+// import NewsletterSignUp from '../NewsletterForm'
+import {
+  CollapsibleFooterSection,
+  FooterNewsletterSubscribe,
+  FooterSection,
+} from './sections'
 import { FooterA, FooterLink, FooterText } from './links'
 import CurrencyPicker from '../CurrencyPicker'
 
@@ -56,6 +60,9 @@ const Footer = props => (
               borderColor: ['white', 'transparent'],
             }}
           >
+            <FooterLink to="/pages/holiday-exchange-policy">
+              holiday exchange policy
+            </FooterLink>
             <FooterLink to="/pages/faq">faq &amp; help</FooterLink>
             <FooterLink to="/pages/exchange-policy">
               orders &amp; exchanges
@@ -107,22 +114,7 @@ const Footer = props => (
           sx={{ width: '100%', maxWidth: ['auto', 360], order: [-1, 0] }}
           p={[6, 0]}
         >
-          <Text
-            variant="copy"
-            sx={{
-              fontSize: 0,
-              color: 'white',
-              transform: 'translateY(-5px)',
-              display: 'block',
-            }}
-            pb={4}
-          >
-            handcrafted in toronto. ethically sourced. sign up today for the
-            latest news, updates, and collection launches.
-          </Text>
-          <Box>
-            <NewsletterSignUp color="white" />
-          </Box>
+          <FooterNewsletterSubscribe />
         </FooterSection>
       </Container>
     </Box>

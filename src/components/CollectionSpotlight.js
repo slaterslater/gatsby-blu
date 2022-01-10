@@ -1,6 +1,7 @@
 import React from 'react'
-import { Container, Grid, Flex, Heading, Text, Box } from 'theme-ui'
-import { StaticImage } from 'gatsby-plugin-image'
+import { Container, Grid, Flex, Heading } from 'theme-ui'
+import { GatsbyImage } from 'gatsby-plugin-image'
+import PropTypes from 'prop-types'
 import ThemeLink from './app/ThemeLink'
 
 export const CollectionSpotlightCard = ({ title, path, children }) => (
@@ -22,7 +23,7 @@ export const CollectionSpotlightCard = ({ title, path, children }) => (
   </Flex>
 )
 
-const CollectionSpotlight = props => (
+const CollectionSpotlight = ({ collections }) => (
   <Container variant="wide">
     <Grid
       sx={{
@@ -31,34 +32,27 @@ const CollectionSpotlight = props => (
         justifyContent: 'center',
       }}
     >
-      <CollectionSpotlightCard
-        title="ONE OF A KIND SAPPHIRE RINGS"
-        path="/collections/one-of-a-kind-beloved-engagement-rings"
-      >
-        <StaticImage
-          src="../images/home/ooak2.jpg"
-          aspectRatio={1}
-          width={700}
-          layout="constrained"
-          quality={82}
-          alt=""
-        />
-      </CollectionSpotlightCard>
-      <CollectionSpotlightCard
-        title="Most Loved"
-        path="/collections/best-sellers-1"
-      >
-        <StaticImage
-          src="../images/home/most-loved2.jpg"
-          aspectRatio={1}
-          width={700}
-          layout="constrained"
-          quality={82}
-          alt=""
-        />
-      </CollectionSpotlightCard>
+      {collections.map(({ title, handle, image }) => (
+        <CollectionSpotlightCard
+          title={title}
+          path={`/collections/${handle}`}
+          key={`collection-spotlight-${handle}`}
+        >
+          <GatsbyImage image={image.asset.gatsbyImageData} alt={title} />
+        </CollectionSpotlightCard>
+      ))}
     </Grid>
   </Container>
 )
 
 export default CollectionSpotlight
+
+CollectionSpotlight.propTypes = {
+  collections: PropTypes.arrayOf(PropTypes.object),
+}
+
+CollectionSpotlightCard.propTypes = {
+  title: PropTypes.string,
+  path: PropTypes.string,
+  children: PropTypes.object,
+}

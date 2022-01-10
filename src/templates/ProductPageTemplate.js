@@ -24,7 +24,11 @@ const ProductPageTemplate = ({ data, ...props }) => {
 export default ProductPageTemplate
 
 export const query = graphql`
-  query ProductPage($handle: String!, $alternates: [String]!) {
+  query ProductPage(
+    $handle: String!
+    $shopifyId: String!
+    $alternates: [String]!
+  ) {
     site {
       siteMetadata {
         siteUrl
@@ -81,7 +85,9 @@ export const query = graphql`
         }
       }
     }
-    alternates: allShopifyProduct(filter: { shopifyId: { in: $alternates } }) {
+    alternates: allShopifyProduct(
+      filter: { shopifyId: { in: $alternates, ne: $shopifyId } }
+    ) {
       nodes {
         id
         handle
