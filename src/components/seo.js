@@ -14,7 +14,6 @@ import { escapeDoubleQuoteString } from '../lib/escapeDoubleQuoteStrings'
 import { useShopifyImage } from '../hooks/shopifyImage'
 
 const useGatsbyImageMeta = (gatsbyImageData = {}, altText = '') => {
-  console.log({ gatsbyImageData })
   const { src } = gatsbyImageData.images?.fallback || {}
   if (!src) return []
   return [
@@ -45,12 +44,10 @@ const useSEOImageMeta = ({ shopifyImage = {}, gatsbyImage = {} }) => {
   })
 
   const shopifyPageImageMeta = useShopifyImageMeta(shopifyImage)
-  // const gatsbyPageImageMeta =
   const gatsbyImageMeta = useGatsbyImageMeta(gatsbyImage)
 
   if (!isEmpty(shopifyImage)) return shopifyPageImageMeta
   if (!isEmpty(gatsbyImageMeta)) return gatsbyImageMeta
-  // if (!isEmpty(shopifyImage)) return shopifyPageImageMeta
   return defaultImageMeta
 }
 
