@@ -30,7 +30,7 @@ const useGatsbyImageMeta = (gatsbyImageData = {}, altText = '') => {
 
 const useShopifyImageMeta = (image = {}) => {
   const gatsbyImageData = useShopifyImage({ image, width: 1200, height: 628 })
-  return useGatsbyImageMeta(gatsbyImageData, image.altText)
+  return useGatsbyImageMeta(gatsbyImageData, image?.altText)
 }
 
 const useSEOImageMeta = ({ shopifyImage = {}, gatsbyImage = {} }) => {
