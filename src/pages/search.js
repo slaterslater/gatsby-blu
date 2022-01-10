@@ -12,6 +12,7 @@ import {
 } from '../components/search/shared'
 import SuggestedSearches from '../components/search/SuggestedSearches'
 import { useAnalytics } from '../lib/useAnalytics'
+import SEO from '../components/seo'
 
 const SearchHits = connectInfiniteHits(
   ({ hits, hasMore, refineNext, ...rest }) => (
@@ -49,7 +50,8 @@ const SearchPage = ({ location: { search } }) => {
   useAnalytics('viewSearch')
 
   return (
-    <Layout title="product search">
+    <Layout>
+      <SEO title="product search" description="search for a bluboho product" />
       <Container>
         <InstantSearch
           searchClient={searchClient}
