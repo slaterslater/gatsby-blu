@@ -8,6 +8,8 @@ const CollectionPageTemplate = ({ pageContext, path, data }) => {
     description,
     collections,
     isTruncated,
+    seoImage,
+    headerImage,
   } = data.sanityCollectionGroupPage
 
   const collectionsWithGroupData = data.allShopifyCollection.nodes.map(node => {
@@ -29,6 +31,8 @@ const CollectionPageTemplate = ({ pageContext, path, data }) => {
       collections={collectionsWithGroupData}
       pagePath={path}
       isTruncated={isTruncated}
+      seoGatsbyImage={seoImage?.asset.gatsbyImageData}
+      headerImage={headerImage?.asset.gatsbyImageData}
     />
   )
 }
@@ -41,6 +45,16 @@ export const query = graphql`
       collections {
         handle
         title
+      }
+      seoImage: image {
+        asset {
+          gatsbyImageData(width: 1200)
+        }
+      }
+      headerImage: image {
+        asset {
+          gatsbyImageData(width: 1200)
+        }
       }
       title
       description

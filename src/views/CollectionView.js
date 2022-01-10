@@ -7,10 +7,7 @@ import ProductGrid from '../components/collection/CollectionProductGrid'
 import ResultsHeader from '../components/collection/ResultsHeader'
 import SEO from '../components/seo'
 import CollectionFilterAndSort from '../components/collection/CollectionFilterAndSort'
-import {
-  getSrcWithSize,
-  useShopifyImageMeta,
-} from '../components/RemoteShopifyImage'
+import { getSrcWithSize } from '../components/RemoteShopifyImage'
 import { escapeDoubleQuoteString } from '../lib/escapeDoubleQuoteStrings'
 import { useAnalytics } from '../lib/useAnalytics'
 import CollectionPageHeader from '../components/CollectionPageHeader'
@@ -67,11 +64,9 @@ const CollectionPage = ({
     }
   `
 
-  const imageMeta = useShopifyImageMeta(image)
-
   return (
     <Layout>
-      <SEO title={title} description={description} meta={imageMeta}>
+      <SEO title={title} description={description} shopifyImage={image}>
         <script type="application/ld+json">{collectionLdJSON}</script>
       </SEO>
       <CollectionPageHeader

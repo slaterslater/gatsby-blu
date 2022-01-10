@@ -11,6 +11,7 @@ const BlogTemplate = ({ data }) => (
     <SEO
       title={data.shopifyArticle.title}
       description={data.shopifyArticle.excerpt}
+      shopifyImage={data.shopifyArticle.image}
     />
     <Container sx={{ maxWidth: 800 }}>
       <Box pb={4}>
@@ -43,6 +44,13 @@ export const query = graphql`
       excerpt
       contentHtml
       publishedAt
+      image {
+        altText
+        originalSrc: src
+        id
+        height
+        width
+      }
       author {
         name
       }
