@@ -23,13 +23,8 @@ export function useWishlist() {
     pause: !isLoggedIn,
   })
 
-  if (data?.customer?.wishlist?.value) {
-    // separate string of handles by space
-    return [
-      data.customer.wishlist.value.split(' '),
-      () => reexecuteQuery({ requestPolicy: 'network-only' }),
-    ]
-  }
+  // separate string of handles by space
+  const wishlist = data?.customer?.wishlist?.value.split(' ') || []
 
-  return [[]]
+  return [wishlist, () => reexecuteQuery({ requestPolicy: 'network-only' })]
 }
