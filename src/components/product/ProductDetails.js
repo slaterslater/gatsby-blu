@@ -15,6 +15,7 @@ import { ProductDescription } from './ProductDescription'
 import { ProductShipping } from './ProductShipping'
 import { ProductTitleAndPrice } from './ProductTitleAndPrice'
 import RelatedProducts from './RelatedProducts'
+import WishlistButton from './WishlistButton'
 
 const getMetafieldValues = (metafields = []) => {
   const fields = {
@@ -41,7 +42,7 @@ const ProductDetails = ({ alternates }) => {
 
   const [{ data }] = useQuery({
     query: gql`
-      query($collectionHandle: String!) {
+      query ($collectionHandle: String!) {
         collectionByHandle(handle: $collectionHandle) {
           products(first: 250) {
             edges {
@@ -81,7 +82,10 @@ const ProductDetails = ({ alternates }) => {
         <MetalOptions product={{ variants }} alternates={alternates} />
         <ProductOptions />
         <Engraving onChange={attribute => setCustomAttributes([attribute])} />
-        <AddToCart customAttributes={customAttributes} />
+        <Grid sx={{ gridTemplateColumns: '1fr 48px', gap: '1px' }}>
+          <AddToCart customAttributes={customAttributes} />
+          <WishlistButton />
+        </Grid>
         <ProductShipping />
         <ProductDescription />
         <EngagementConsultationButton />

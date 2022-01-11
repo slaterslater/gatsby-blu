@@ -1,7 +1,6 @@
 import React from 'react'
 import SEO from '../seo'
 import { useProductTitle } from '../ProductTitle'
-import { useShopifyImageMeta } from '../RemoteShopifyImage'
 import { escapeDoubleQuoteString } from '../../lib/escapeDoubleQuoteStrings'
 
 const ProductSEO = ({ product }) => {
@@ -40,14 +39,11 @@ const ProductSEO = ({ product }) => {
         .toString()}]
     }
   `
-  const imageMeta = useShopifyImageMeta(product.images[0])
-
   return (
     <SEO
       title={title}
       description={product.description}
-      meta={imageMeta}
-      originalSrc={product.images[0]?.originalSrc}
+      shopifyImage={product.images[0]}
     >
       <script type="application/ld+json">{productLdJSON}</script>
     </SEO>

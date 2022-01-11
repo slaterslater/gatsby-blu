@@ -16,6 +16,7 @@ import CollectionPageHeader from '../components/CollectionPageHeader'
 import ThemeLink from '../components/app/ThemeLink'
 import { useShopifyImage } from '../hooks/shopifyImage'
 import LongArrowRight from '../components/icon/long-arrow-right'
+import SEO from '../components/seo'
 
 const sortCollections = (nodes, arr) =>
   nodes.sort((a, b) => arr.indexOf(a.handle) - arr.indexOf(b.handle))
@@ -130,6 +131,8 @@ const CollectionGroupsView = ({
   collectionOrder,
   collections,
   isTruncated,
+  seoGatsbyImage,
+  headerImage,
 }) => {
   const location = useLocation()
   const currentParams = parse(location.search.replace('?', ''))
@@ -143,7 +146,16 @@ const CollectionGroupsView = ({
 
   return (
     <Layout>
-      <CollectionPageHeader title={pageTitle} description={pageDescription} />
+      <SEO
+        title={pageTitle}
+        description={pageDescription}
+        gatsbyImage={seoGatsbyImage}
+      />
+      <CollectionPageHeader
+        title={pageTitle}
+        description={pageDescription}
+        image={headerImage}
+      />
       <Container pt={0} as="main">
         <CollectionFilterAndSort
           title={pageTitle}
@@ -155,7 +167,7 @@ const CollectionGroupsView = ({
               <CollectionGroup
                 pageTitle={pageTitle}
                 pagePath={pagePath}
-                isTruncated
+                isTruncated={isTruncated}
                 {...collection}
               />
             ))}

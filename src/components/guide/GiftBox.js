@@ -10,7 +10,7 @@ const GiftFeature = ({ feature, boxIndex }) => {
   const featureBox = useRef(null)
   const [isModalOpen, setModalOpen] = useState(false)
   const { collectionIndex } = useGiftContext()
-  const { productImage, productHandles, relatedProducts } = feature
+  const { productImage, productHandles, buttonColor, relatedProducts } = feature
   const width = boxIndex % 3 ? '40%' : '60%'
   const justifyContent =
     collectionIndex % 2 === boxIndex % 3 ||
@@ -28,7 +28,7 @@ const GiftFeature = ({ feature, boxIndex }) => {
             mr={[3, 4]}
             ml="auto"
             sx={{
-              color: boxIndex === 1 ? 'black' : 'white',
+              color: buttonColor || boxIndex === 1 ? 'black' : 'white',
               cursor: 'pointer',
             }}
             size={32}

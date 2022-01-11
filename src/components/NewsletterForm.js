@@ -1,15 +1,10 @@
 import axios from 'axios'
-import { useField, ErrorMessage, Field, Form, Formik } from 'formik'
-import React, { useState, useContext } from 'react'
+import { useField, ErrorMessage, Form, Formik } from 'formik'
+import React, { useState } from 'react'
 import { Input, IconButton, Box, Flex, Text } from 'theme-ui'
 import * as yup from 'yup'
-import { FiCheckSquare, FiAlertCircle, FiClock } from 'react-icons/fi'
+import { FiClock } from 'react-icons/fi'
 import { CgArrowLongRight } from 'react-icons/cg'
-
-import { InputControl } from './app/formik/FormControlWrap'
-import SubmitButton from './app/formik/SubmitButton'
-import { CalloutBox } from './product/ProductCTACallout'
-import { NewsletterContext } from '../contexts/NewsletterContext'
 
 export const NewsletterForm = ({
   setWorking,
@@ -25,11 +20,9 @@ export const NewsletterForm = ({
     onSubmit={async (values, { setSubmitting, reset }) => {
       try {
         setWorking(true)
-        const res = await axios.post(
-          `${process.env.GATSBY_SERVERLESS_BASE}/newsletter`,
-          values,
-          { headers: { 'Content-Type': 'application/json' } }
-        )
+        const res = await axios.post(`/api/newsletter`, values, {
+          headers: { 'Content-Type': 'application/json' },
+        })
         setWorking(false)
         if (res.status >= 400 && res.status < 600) {
           onError(res, values)
