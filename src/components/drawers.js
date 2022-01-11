@@ -4,7 +4,6 @@ import { AnimatePresence, motion } from 'framer-motion'
 import useKeyPress from 'react-use-keypress'
 import CartDrawer from './CartDrawer'
 import NavigationDrawer from './NavigationDrawer'
-import WishlistDrawer from './WishlistDrawer'
 
 const MotionBox = motion(Box)
 const MotionFlex = motion(Flex)
@@ -89,11 +88,6 @@ const Drawers = ({ children }) => {
           {openDrawer === 'cart' && (
             <DrawerOuter key="cart-drawer" origin="right">
               <CartDrawer onClose={() => setOpenDrawer('')} />
-            </DrawerOuter>
-          )}
-          {openDrawer === 'wishlist' && (
-            <DrawerOuter key="wishlist-drawer" origin="right">
-              <WishlistDrawer onClose={() => setOpenDrawer('')} />
             </DrawerOuter>
           )}
           {openDrawer === 'navigation' && (

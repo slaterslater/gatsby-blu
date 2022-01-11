@@ -124,9 +124,11 @@ const Header = () => {
                 onClick={() =>
                   !shouldRenew && !isLoggedIn
                     ? navigate('/account/login', {
-                        state: { toOrigin: window.location.pathname },
+                        // state: { toOrigin: window.location.pathname },
+                        state: { toOrigin: '/account/wishlist' },
                       })
-                    : setOpenDrawer('wishlist')
+                    : // : setOpenDrawer('wishlist')
+                      navigate('/account/wishlist')
                 }
                 aria-label="Wishlist"
               >
