@@ -8,6 +8,7 @@ import Pagination from '../components/Pagination'
 import TopStory from '../components/blog/TopStory'
 import ArticleListItem from '../components/blog/ArticleListItem'
 import ReviewPagination from '../components/reviews/ReviewPagination'
+import SEO from '../components/seo'
 
 const BlogTemplate = ({ data, pageContext }) => {
   const { limit, currentPage } = pageContext
@@ -17,6 +18,10 @@ const BlogTemplate = ({ data, pageContext }) => {
 
   return (
     <Layout>
+      <SEO
+        title="bluboho blog"
+        shopifyImage={data.allShopifyArticle.nodes[0].image}
+      />
       <Container>
         <Heading as="h1" variant="h2" sx={{ textAlign: 'center' }} pb={4}>
           Blog

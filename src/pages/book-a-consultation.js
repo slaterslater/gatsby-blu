@@ -9,7 +9,6 @@ import SEO from '../components/seo'
 import ElementSlider from '../components/ElementSlider'
 import CalendlyLink from '../components/consultation/CalendlyLink'
 import FAQ from '../components/consultation/FAQ'
-import { sendGtagEvent } from '../lib/useAnalytics'
 
 const CalendlyConsultationPage = ({ data }) => {
   const calendars = data.allSanityConsultation.nodes[0].calendars.filter(
@@ -38,18 +37,17 @@ const CalendlyConsultationPage = ({ data }) => {
   const [fixedHeight, setFixedHeight] = useState('auto')
   const [current, setCurrent] = useState({ index: 0, ...calendars[0] })
   const calendlyPicker = useRef(null)
-  useEffect(() => {
-    const max = calendlyPicker.current.offsetHeight - 600
-    setFixedHeight(max > 600 ? max : 500)
-  }, [current])
 
-  // tracks page visits
   useEffect(() => {
+    // track page visits
     if (window.gtag) {
       window.gtag('event', 'conversion', {
         send_to: `${process.env.GATSBY_AW_CONVERSION_ID}/nweJCJmXtoYDEIu39dgD`,
       })
     }
+    // calculate height
+    const max = calendlyPicker.current.offsetHeight - 160 // calendars - (heading + text)
+    setFixedHeight(max > 630 ? max : 630) // 630 = iframe + heading
   }, [])
 
   return (
@@ -120,7 +118,7 @@ const CalendlyConsultationPage = ({ data }) => {
           <Box
             mx={3}
             sx={{
-              height: [400, 600],
+              height: [500, `calc(100% - 30px)`], // 30 = heading
               width: ['auto', '50%'],
               order: [current.index, calendars.length + 2],
               borderBottom: ['1px solid', 'none'],
@@ -130,6 +128,7 @@ const CalendlyConsultationPage = ({ data }) => {
             <Heading
               as="h3"
               variant="caps"
+              pb={3}
               sx={{
                 display: ['none', 'inline-grid'],
                 width: '100%',

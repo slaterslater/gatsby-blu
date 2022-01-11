@@ -3,8 +3,17 @@ import { graphql } from 'gatsby'
 import CollectionGroupsView from '../views/CollectionGroupsView'
 
 const CollectionPageTemplate = ({ pageContext, path, data }) => {
-  const collections = data.allShopifyCollection.nodes.map(node => {
-    const group = data.sanityCollectionGroupPage.collections.find(
+  const {
+    title,
+    description,
+    collections,
+    isTruncated,
+    seoImage,
+    headerImage,
+  } = data.sanityCollectionGroupPage
+
+  const collectionsWithGroupData = data.allShopifyCollection.nodes.map(node => {
+    const group = collections.find(
       groupNode => groupNode.handle === node.handle
     )
 
@@ -16,14 +25,14 @@ const CollectionPageTemplate = ({ pageContext, path, data }) => {
 
   return (
     <CollectionGroupsView
-      pageTitle={data.sanityCollectionGroupPage.title}
-      pageDescription={data.sanityCollectionGroupPage.description}
-      collectionOrder={data.sanityCollectionGroupPage.collections.map(
-        item => item.handle
-      )}
-      collections={collections}
+      pageTitle={title}
+      pageDescription={description}
+      collectionOrder={collections.map(item => item.handle)}
+      collections={collectionsWithGroupData}
       pagePath={path}
-      isTruncated={data.sanityCollectionGroupPage.isTruncated}
+      isTruncated={isTruncated}
+      seoGatsbyImage={seoImage?.asset.gatsbyImageData}
+      headerImage={headerImage?.asset.gatsbyImageData}
     />
   )
 }
@@ -36,6 +45,16 @@ export const query = graphql`
       collections {
         handle
         title
+      }
+      seoImage: image {
+        asset {
+          gatsbyImageData(width: 1200)
+        }
+      }
+      headerImage: image {
+        asset {
+          gatsbyImageData(width: 1200)
+        }
       }
       title
       description

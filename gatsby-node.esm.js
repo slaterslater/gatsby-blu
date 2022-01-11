@@ -5,6 +5,7 @@ import {
   formatMetalAlternatesFromTags,
   formatMetalAlternatesFromMetafields,
 } from './src/lib/formatMetalAlternates'
+import { logBadGiftGuideData } from './src/lib/logBadGiftGuideData'
 
 const decodeShopifyId = id => {
   const buff = Buffer.from(id, 'base64')
@@ -117,10 +118,6 @@ async function createCollectionPages({ graphql, actions }) {
   const collectionGroupSlugs = data.allSanityCollectionGroupPage.nodes.map(
     node => node.slug.current
   )
-
-  // const collectionHandles = data.allShopifyCollection.nodes.map(
-  //   node => node.handle
-  // )
 
   data.allShopifyCollection.nodes.forEach(collection => {
     if (!collectionGroupSlugs.includes(collection.handle)) {
@@ -282,8 +279,12 @@ async function createGiftGuidePages({ graphql, actions }) {
   const allShopifyProducts = data.allShopifyProduct.nodes
   if (guides.length === 0) return
   guides.forEach(guide => {
+    const {
+      handle: { current: guideHandle },
+      giftCollections,
+    } = guide
     // get all product handles
-    const handles = guide.giftCollections.reduce(
+    const handles = giftCollections.reduce(
       (allGiftBoxes, { giftBoxes }) =>
         allGiftBoxes.concat(
           giftBoxes.reduce(
@@ -300,32 +301,45 @@ async function createGiftGuidePages({ graphql, actions }) {
         ),
       []
     )
-    // get alternates
-    const alternates = handles
-      .map(handle =>
-        allShopifyProducts.find(product => product.handle === handle)
+
+    // get products
+    const badHandles = []
+    const allHandles = handles.map(handle => {
+      const found = allShopifyProducts.find(
+        product => product.handle === handle
       )
-      .reduce((allAlternates, product) => {
-        // const productId = decodeShopifyId(product.shopifyId)
-        const alternatesFromTags = formatMetalAlternatesFromTags(
-          product.tags || []
-        )
-        const alternatesFromMetafields = formatMetalAlternatesFromMetafields(
-          product.metafields || []
-        )
-        const moreAlternates =
-          alternatesFromMetafields.length > 0
-            ? alternatesFromMetafields
-            : alternatesFromTags
-        return allAlternates.concat(moreAlternates)
-      }, [])
+      if (!found) badHandles.push(handle)
+      return found
+    })
+
+    // log any handles that can't be found and skip remaining steps
+    if (badHandles.length) {
+      logBadGiftGuideData(badHandles, guideHandle, giftCollections)
+      return
+    }
+
+    // get alternates
+    const alternates = allHandles.reduce((allAlternates, product) => {
+      if (!product) return allAlternates
+      const alternatesFromTags = formatMetalAlternatesFromTags(
+        product.tags || []
+      )
+      const alternatesFromMetafields = formatMetalAlternatesFromMetafields(
+        product.metafields || []
+      )
+      const moreAlternates =
+        alternatesFromMetafields.length > 0
+          ? alternatesFromMetafields
+          : alternatesFromTags
+      return allAlternates.concat(moreAlternates)
+    }, [])
 
     actions.createPage({
-      path: `/${guide.handle.current}`,
+      path: `/${guideHandle}`,
       component: path.resolve('./src/templates/GiftGuideTemplate.js'),
       context: {
-        guideHandle: guide.handle.current,
-        collections: guide.giftCollections.map(({ handle }) => handle),
+        guideHandle,
+        collections: giftCollections.map(({ handle }) => handle),
         products: handles,
         alternates,
       },

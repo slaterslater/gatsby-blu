@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import algoliasearch from 'algoliasearch/lite'
 import { connectStats, connectSearchBox } from 'react-instantsearch-dom'
 import { Text, Input, Button } from 'theme-ui'
@@ -19,7 +19,9 @@ export const InstantSearchInput = connectSearchBox(
     onChange = () => {},
     initialValue,
   }) => {
+    const inputRef = useRef()
     useEffect(() => {
+      inputRef.current.focus()
       if (initialValue) {
         refine(initialValue)
       }
@@ -27,6 +29,7 @@ export const InstantSearchInput = connectSearchBox(
 
     return (
       <Input
+        ref={inputRef}
         variant="bigSearch"
         type="text"
         value={currentRefinement}

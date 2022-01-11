@@ -110,6 +110,9 @@ export const query = graphql`
                 }
               }
             }
+            buttonColor {
+              hex
+            }
           }
         }
       }

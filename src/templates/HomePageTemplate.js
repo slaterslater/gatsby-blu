@@ -4,7 +4,6 @@ import { GatsbyImage } from 'gatsby-plugin-image'
 import PropTypes from 'prop-types'
 import Layout from '../components/layout'
 import OnePercentCallout from '../components/content/OnePercentCallout'
-
 import SEO from '../components/seo'
 import HomepageReviews from '../components/HomepageReviews'
 import BrandStatement from '../components/BrandStatement'
@@ -14,7 +13,6 @@ import { HeroOuter } from '../components/content/Hero'
 import Zodiac from '../components/Zodiac'
 import { useAnalytics } from '../lib/useAnalytics'
 import HomeLocations from '../components/home/Locations'
-import { useShopifyImageMeta } from '../components/RemoteShopifyImage'
 import HomePageHeader from '../components/home/HomePageHeader'
 import CollectionRowSlider from '../components/home/CollectionRowSlider'
 
@@ -41,15 +39,6 @@ const IndexPage = ({ data }) => {
       }
   }
 `
-
-  const imageMeta = useShopifyImageMeta({
-    originalSrc:
-      'https://cdn.shopify.com/s/files/1/0685/0359/files/bluboho_logo.jpg?v=1614307775',
-    height: 1500,
-    width: 1500,
-    altText: '',
-    id: 'home-logo-img',
-  })
 
   useAnalytics('viewHome')
 
@@ -105,11 +94,9 @@ const IndexPage = ({ data }) => {
     [reviews, products]
   )
 
-  // console.log({ locations })
-
   return (
     <Layout>
-      <SEO title="home" meta={imageMeta}>
+      <SEO title="home">
         <script type="application/ld+json">{websiteLdJSON}</script>
       </SEO>
       <HomePageHeader data={headerHero[0]} />
