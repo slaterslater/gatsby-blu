@@ -6,7 +6,7 @@ import AccountPage from './AccountPage'
 import WishlistItem from './WishlistItem'
 
 const WishlistPage = props => {
-  const [wishlist, refreshWishlist] = useWishlist()
+  const { wishlist } = useWishlist()
 
   return (
     <AccountPage
@@ -20,11 +20,7 @@ const WishlistPage = props => {
     >
       <Grid pt={4} sx={{ gridAutoFlow: 'row', gap: 4 }}>
         {wishlist.map(handle => (
-          <WishlistItem
-            handle={handle}
-            key={handle}
-            onRemove={() => refreshWishlist()}
-          />
+          <WishlistItem handle={handle} key={handle} />
         ))}
       </Grid>
     </AccountPage>

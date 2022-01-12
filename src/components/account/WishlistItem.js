@@ -2,16 +2,15 @@ import React, { useState, useContext } from 'react'
 import PropTypes from 'prop-types'
 import { Grid, Box, Text, Heading, Button } from 'theme-ui'
 import { useQuery } from 'urql'
-import axios from 'axios'
 import { CurrencyContext } from '../../contexts/CurrencyContext'
 import { PRODUCT_ITEM_QUERY } from '../../queries/product'
 import ShopifyGatsbyImage from '../ShopifyGatsbyImage'
 import ProductTitle from '../ProductTitle'
-import { useCurrentUser } from '../../hooks/user'
 import ThemeLink from '../app/ThemeLink'
+import { useWishlist } from '../../hooks/wishlist'
 
-const WishlistItem = ({ handle, onRemove }) => {
-  const [{ data: currentUser }] = useCurrentUser()
+const WishlistItem = ({ handle }) => {
+  const { updateWishlist } = useWishlist()
   const [disabled, setDisabled] = useState(false)
   const { countryCode } = useContext(CurrencyContext)
   const [{ data }] = useQuery({
@@ -44,16 +43,7 @@ const WishlistItem = ({ handle, onRemove }) => {
               variant="link"
               onClick={async () => {
                 setDisabled(true)
-                console.log({ handle })
-                await axios.delete(
-                  `/api/user/${currentUser?.customer?.id || ''}/wishlist`,
-                  {
-                    data: {
-                      productHandle: handle,
-                    },
-                  }
-                )
-                await onRemove()
+                await updateWishlist(handle, 'DELETE')
               }}
             >
               remove
@@ -67,6 +57,5 @@ const WishlistItem = ({ handle, onRemove }) => {
 
 WishlistItem.propTypes = {
   handle: PropTypes.string.isRequired,
-  onRemove: PropTypes.func.isRequired,
 }
 export default WishlistItem
