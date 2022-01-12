@@ -6,30 +6,42 @@ import { navigate } from 'gatsby'
 import { useCurrentUser } from '../../hooks/user'
 import { ProductContext } from './ProductContext'
 import { useWishlist } from '../../hooks/wishlist'
+import { AuthContext } from '../../contexts/AuthContext'
 
 const WishlistButton = props => {
   const [loading, setLoading] = useState(false)
   const {
     product: { handle },
   } = useContext(ProductContext)
+  const { isLoggedIn } = useContext(AuthContext)
   const [{ data }] = useCurrentUser()
   const [wishlist, refreshWishlist] = useWishlist()
+  const isListed = wishlist.includes(handle)
 
-  const addToWishlist = async () => {
+  const updateWishlist = async method => {
     setLoading(true)
     await post(`/api/user/${data?.customer?.id || ''}/wishlist`, {
       productHandle: handle,
+      method,
     })
     await refreshWishlist()
     setLoading(false)
   }
 
-  const isListed = wishlist.includes(handle)
+  const handleClick = () => {
+    if (isLoggedIn) {
+      updateWishlist(isListed ? 'DELETE' : 'POST')
+    } else {
+      navigate('/account/login', {
+        state: { toOrigin: window.location.pathname },
+      })
+    }
+  }
 
   return (
     <IconButton
       type="button"
-      onClick={isListed ? () => navigate('/account/wishlist') : addToWishlist}
+      onClick={handleClick}
       disabled={loading}
       sx={{
         opacity: loading ? 0.8 : 1,

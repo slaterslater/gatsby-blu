@@ -1,6 +1,4 @@
 import { decode } from 'shopify-gid'
-// move this function to /users/:id/wishlist
-
 import { gql } from 'graphql-request'
 import getClient from '../../../lib/adminApiClient'
 
@@ -33,9 +31,20 @@ const CustomerWishlistMutation = gql`
   }
 `
 
+const CustomerWishlistDelete = gql`
+  mutation metafieldDelete($input: MetafieldDeleteInput!) {
+    metafieldDelete(input: $input) {
+      userErrors {
+        field
+        message
+      }
+    }
+  }
+`
+
 export default async function (req, res) {
   const { userId } = req.params
-  const { productHandle } = req.body
+  const { productHandle, method = 'POST' } = req.body
 
   if (!productHandle) {
     return res.status(422).json({ error: 'product handle is required' })
@@ -43,6 +52,15 @@ export default async function (req, res) {
 
   const { type, id } = decode(userId)
   const adminId = `gid://shopify/${type}/${id}`
+
+  // delete wishlist (can't save empty string)
+  const deleteWishlist = async wishlistId => {
+    await graphQLClient.request(CustomerWishlistDelete, {
+      input: {
+        id: wishlistId,
+      },
+    })
+  }
 
   // let data
   const data = await graphQLClient.request(CustomerWishlistQuery, {
@@ -63,7 +81,7 @@ export default async function (req, res) {
   // customer update input
   let input
 
-  if (!wishlist.id) {
+  if (!wishlist?.id) {
     // no wishlist so create a new one
     input = getUpdateUserInput({
       key: 'wishlist',
@@ -72,26 +90,28 @@ export default async function (req, res) {
       value: productHandle,
     })
   } else {
-    if (req.method === 'DELETE') {
+    if (method === 'DELETE') {
       const value = wishlist.value
         .split(' ')
         .filter(handle => handle !== productHandle)
         .join(' ')
-
+      if (!value) {
+        // can't save empty string to shopify metafield
+        await deleteWishlist(wishlist.id)
+        return res.status(201).json({ message: 'wishlist deleted' })
+      }
       input = getUpdateUserInput({
         ...wishlist,
         value,
       })
     }
-    if (req.method === 'POST') {
+    if (method === 'POST') {
       const set = new Set(wishlist.value.split(' '))
       set.add(productHandle)
       const value = Array.from(set).join(' ')
-
       input = getUpdateUserInput({ ...wishlist, value })
     }
   }
-
   const cData = await graphQLClient.request(CustomerWishlistMutation, {
     input,
   })
