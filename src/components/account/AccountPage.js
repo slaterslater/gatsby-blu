@@ -10,26 +10,67 @@ const AccountPage = ({ title, subtitle, links, currentPage, children }) => {
   return (
     <>
       <Container as="main" pb={8}>
-        <Breadcrumbs py={0} currentPage={currentPage} links={links}>
+        {/* <Breadcrumbs py={0} currentPage={currentPage} links={links}>
           <Button mr={5} variant="inverted" onClick={() => logout()}>
             logout
           </Button>
-        </Breadcrumbs>
-        <Grid pt={7} sx={{ gridTemplateColumns: '180px 1fr' }}>
-          <Box>
-            <Box>
-              <ThemeLink to="/account/orders">Orders</ThemeLink>
-            </Box>
-            <Box>
-              <ThemeLink to="/account/wishlist">Wishlist</ThemeLink>
+        </Breadcrumbs> */}
+        <Box
+          pt={[4, 7]}
+          sx={{
+            display: ['flex', 'grid'],
+            flexDirection: 'column-reverse',
+            gridTemplateColumns: '180px 1fr',
+          }}
+        >
+          <Box as="nav" mt={[3, 0]} sx={{ width: ['100%', 180] }}>
+            <Box
+              as="ul"
+              p={0}
+              sx={{
+                listStyle: 'none',
+                columnCount: [2, 1],
+              }}
+            >
+              <Box as="li" mb={2} mx={[5, 0]}>
+                <Link as={ThemeLink} variant="caps" to="/account/orders">
+                  Orders
+                </Link>
+              </Box>
+              <Box as="li" mb={2} mx={[5, 0]}>
+                <Link as={ThemeLink} variant="caps" to="/account/wishlist">
+                  Wishlist
+                </Link>
+              </Box>
+              <Box as="li" mb={2} mx={[5, 0]}>
+                <Link
+                  role="button"
+                  variant="caps"
+                  aria-pressed={false}
+                  sx={{
+                    cursor: 'pointer',
+                  }}
+                  onClick={() => logout()}
+                >
+                  logout
+                </Link>
+              </Box>
             </Box>
           </Box>
           <Box>
-            <Heading>{title}</Heading>
-            <Text sx={{ fontSize: 2 }}>{subtitle}</Text>
+            <Heading
+              as="h2"
+              variant="h2"
+              sx={{ textAlign: ['center', 'left'] }}
+            >
+              {title}
+            </Heading>
+            <Text sx={{ fontSize: 2, textAlign: ['center', 'left'] }}>
+              {subtitle}
+            </Text>
             {children}
           </Box>
-        </Grid>
+        </Box>
       </Container>
     </>
   )

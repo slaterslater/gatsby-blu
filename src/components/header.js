@@ -101,7 +101,7 @@ const Header = () => {
                   sx={{ transform: 'translateY(1px)' }}
                 />
               </IconButton>
-              {/* <IconButton
+              <IconButton
                 as={GatsbyLink}
                 sx={{ cursor: 'pointer', display: ['flex', 'none'] }}
                 to="/search"
@@ -114,9 +114,9 @@ const Header = () => {
                   size={24}
                   sx={{ transform: 'translateY(1px)' }}
                 />
-              </IconButton> */}
+              </IconButton>
             </Flex>
-            <Box sx={{ position: 'relative' }}>
+            <Box sx={{ position: 'relative', display: ['none', 'flex'] }}>
               <CartBadge />
               <IconButton
                 sx={{ cursor: 'pointer' }}

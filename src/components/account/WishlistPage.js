@@ -11,11 +11,11 @@ const WishlistPage = props => {
   return (
     <AccountPage
       title="Wishlist"
-      subtitle={`${pluralize(
-        'items',
-        wishlist?.length || 0,
-        true
-      )} in your wishlist`}
+      // subtitle={`${pluralize(
+      //   'items',
+      //   wishlist?.length || 0,
+      //   true
+      // )} in your wishlist`}
       currentPage={{ text: 'Wishlist', path: '/account/wishlist' }}
     >
       <Grid pt={4} sx={{ gridAutoFlow: 'row', gap: 4 }}>
