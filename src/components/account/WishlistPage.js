@@ -18,7 +18,14 @@ const WishlistPage = props => {
       // )} in your wishlist`}
       currentPage={{ text: 'Wishlist', path: '/account/wishlist' }}
     >
-      <Grid pt={4} sx={{ gridAutoFlow: 'row', gap: 4 }}>
+      <Grid
+        pt={4}
+        sx={{
+          maxWidth: 1200,
+          gridTemplateColumns: ['repeat(2, 1fr)', 'repeat(3, 1fr)'],
+          gap: [1, 3],
+        }}
+      >
         {wishlist.map(handle => (
           <WishlistItem handle={handle} key={handle} />
         ))}
