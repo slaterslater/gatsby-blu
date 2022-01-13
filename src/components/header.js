@@ -1,6 +1,6 @@
 import { Flex, Text, Box, Image, Link, Grid, IconButton } from 'theme-ui'
 import { Link as GatsbyLink, navigate } from 'gatsby'
-import { IoIosMenu, IoIosSearch } from 'react-icons/io'
+import { IoIosMenu } from 'react-icons/io'
 import { AiOutlineUser } from 'react-icons/ai'
 import { RiShoppingBagLine } from 'react-icons/ri'
 import { BiSearchAlt2 } from 'react-icons/bi'
@@ -124,11 +124,9 @@ const Header = () => {
                 onClick={() =>
                   !shouldRenew && !isLoggedIn
                     ? navigate('/account/login', {
-                        // state: { toOrigin: window.location.pathname },
                         state: { toOrigin: '/account/wishlist' },
                       })
-                    : // : setOpenDrawer('wishlist')
-                      navigate('/account/wishlist')
+                    : navigate('/account/wishlist')
                 }
                 aria-label="Wishlist"
               >
