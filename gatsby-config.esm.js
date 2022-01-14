@@ -167,6 +167,10 @@ module.exports = {
       resolve: 'gatsby-plugin-sitemap',
       options: {
         excludes: ['/account'],
+        resolvePagePath: ({ path }) => {
+          const uri = path.endsWith('/') ? path : `${path}/`
+          return siteUrl + uri
+        },
       },
     },
     {
