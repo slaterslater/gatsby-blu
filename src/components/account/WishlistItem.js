@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react'
 import PropTypes from 'prop-types'
-import { Box, Text, Button, Flex, Link, IconButton } from 'theme-ui'
+import { Box, Text, Flex, Link, IconButton } from 'theme-ui'
 import { useQuery } from 'urql'
 import { Link as GatsbyLink } from 'gatsby'
 import { IoClose } from 'react-icons/io5'
@@ -9,7 +9,7 @@ import { PRODUCT_ITEM_QUERY } from '../../queries/product'
 import ShopifyGatsbyImage from '../ShopifyGatsbyImage'
 import ProductTitle from '../ProductTitle'
 import { useWishlist } from '../../hooks/wishlist'
-import ProductProvider from '../product/ProductContext'
+import ProductModal from '../product/ProductModal'
 
 const WishlistItem = ({ handle }) => {
   const { updateWishlist } = useWishlist()
@@ -23,11 +23,11 @@ const WishlistItem = ({ handle }) => {
   if (!data) return <></>
 
   const { product } = data
-
-  console.log({ product })
   return (
     <>
-      <Flex sx={{ flexDirection: 'column', alignItems: 'center' }}>
+      <Flex
+        sx={{ flexDirection: 'column', alignItems: 'center', height: '100%' }}
+      >
         <IconButton
           p={0}
           ml="auto"
@@ -40,21 +40,17 @@ const WishlistItem = ({ handle }) => {
         >
           <Text as={IoClose} size={18} />
         </IconButton>
-        {product?.images.edges[0] ? (
-          <ShopifyGatsbyImage
-            image={product.images.edges[0].node}
-            getImageProps={{ width: 395, objectFit: 'cover' }}
-          />
-        ) : (
-          <Box height={80} width={80} sx={{ bg: 'border' }} />
-        )}
-        <Box
-          as={ProductProvider}
-          handle={handle}
-          initial={product}
-          key={`${handle}-provider`}
-          p={4}
-        >
+        <Box my="auto">
+          {product?.images.edges[0] ? (
+            <ShopifyGatsbyImage
+              image={product.images.edges[0].node}
+              getImageProps={{ width: 395, objectFit: 'cover' }}
+            />
+          ) : (
+            <Box height={80} width={80} sx={{ bg: 'border' }} />
+          )}
+        </Box>
+        <Flex sx={{ flexDirection: 'column', textAlign: 'center' }}>
           <Link
             as={GatsbyLink}
             variant="small"
@@ -65,33 +61,30 @@ const WishlistItem = ({ handle }) => {
             }}
             to={`/products/${handle}`}
             py={3}
+            mt="auto"
           >
             <ProductTitle title={product.title} />
           </Link>
-          <Text>{`from ${
-            product.priceRange.minVariantPrice.currencyCode
-          } $${Math.ceil(product.priceRange.minVariantPrice.amount)} `}</Text>
-        </Box>
-      </Flex>
-      {/* <Box sx={{ alignSelf: 'center' }}>
-        <Heading variant="h1" pb={1} sx={{ flex: 1, fontSize: 1 }}>
-          <ThemeLink to={`/products/${handle}`}>
-            <ProductTitle title={product.title} />
-          </ThemeLink>
-          <Box pt={1}>
-            <Button
-              type="button"
-              variant="link"
-              onClick={async () => {
-                setDisabled(true)
-                await updateWishlist(handle, 'DELETE')
+          <Text>
+            {`from ${
+              product.priceRange.minVariantPrice.currencyCode
+            } $${Math.ceil(product.priceRange.minVariantPrice.amount)} `}
+          </Text>
+          <ProductModal handle={handle}>
+            <Text
+              variant="caps"
+              sx={{
+                display: 'block',
+                fontWeight: 'bold',
+                textDecoration: 'underline',
               }}
+              py={4}
             >
-              remove
-            </Button>
-          </Box>
-        </Heading>
-      </Box> */}
+              Add to bag
+            </Text>
+          </ProductModal>
+        </Flex>
+      </Flex>
     </>
   )
 }

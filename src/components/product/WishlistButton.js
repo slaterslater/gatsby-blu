@@ -14,10 +14,12 @@ const WishlistButton = props => {
   const { isLoggedIn } = useContext(AuthContext)
   const { wishlist, updateWishlist } = useWishlist()
   const isListed = wishlist.includes(handle)
+  const [isHeartFull, setIsHeartFull] = useState(isListed)
 
   const handleClick = async () => {
     if (isLoggedIn) {
       setLoading(true)
+      setIsHeartFull(!isHeartFull)
       await updateWishlist(handle, isListed ? 'DELETE' : 'POST')
       setLoading(false)
     } else {
@@ -33,7 +35,7 @@ const WishlistButton = props => {
       onClick={handleClick}
       disabled={loading}
       sx={{
-        opacity: loading ? 0.8 : 1,
+        opacity: loading ? 0.85 : 1,
         transition: 'opacity .3s ease',
         bg: 'primary',
         borderRadius: 0,
@@ -44,7 +46,7 @@ const WishlistButton = props => {
       }}
     >
       <Text
-        as={isListed ? IoIosHeart : IoIosHeartEmpty}
+        as={isHeartFull ? IoIosHeart : IoIosHeartEmpty}
         size={20}
         color="white"
       />

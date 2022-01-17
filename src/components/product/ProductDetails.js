@@ -32,9 +32,11 @@ const getMetafieldValues = (metafields = []) => {
 }
 
 const ProductDetails = ({ alternates }) => {
-  const {
-    product: { handle, variants, metafields },
-  } = useContext(ProductContext)
+  const { product } = useContext(ProductContext)
+  const { handle, variants, metafields } = product
+  // const {
+  //   product: { handle, variants, metafields },
+  // } = useContext(ProductContext)
 
   const { total, average, collectionHandle } = getMetafieldValues(metafields)
 
@@ -79,7 +81,7 @@ const ProductDetails = ({ alternates }) => {
     <>
       <Grid sx={{ gridAutoFlow: 'row', gap: 5 }}>
         <ProductTitleAndPrice />
-        <MetalOptions product={{ variants }} alternates={alternates} />
+        <MetalOptions product={product} alternates={alternates} />
         <ProductOptions />
         <Engraving onChange={attribute => setCustomAttributes([attribute])} />
         <Grid sx={{ gridTemplateColumns: '1fr 48px', gap: '1px' }}>

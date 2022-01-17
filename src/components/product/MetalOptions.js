@@ -1,11 +1,10 @@
-import React, { useState } from 'react'
-import { Heading, Flex, Box, Divider } from 'theme-ui'
+import React, { useMemo, useState } from 'react'
+import { Flex } from 'theme-ui'
 import ThemeLink from '../app/ThemeLink'
 import MetalOptionSwatch from '../MetalOptionSwatch'
 
-const getVariantMetalColor = (variant = {}) =>
-  variant.selectedOptions?.find(opt => opt.name?.toLowerCase() === 'metal')
-    ?.value
+const getMetalColor = (options = []) =>
+  options.find(({ name }) => name?.toLowerCase() === 'metal')?.values[0]
 
 const MetalOption = ({ title, handle, metal, isCurrent, ...props }) => {
   if (!metal) return false
@@ -21,20 +20,28 @@ const MetalOption = ({ title, handle, metal, isCurrent, ...props }) => {
 }
 
 const MetalOptions = ({ product, alternates }) => {
-  const productMetalColor = getVariantMetalColor(product.variants?.[0])
+  const productMetalColor = getMetalColor(product.options)
   const [title, setTitle] = useState(productMetalColor)
   if (!productMetalColor) return false
 
-  const alternateMetalColors = alternates.nodes.map(product => ({
-    metal: getVariantMetalColor(product.variants[0]),
-    isCurrent: false,
-    handle: product.handle,
-  }))
+  const colors = useMemo(() => {
+    const alternateMetalColors = alternates.nodes
+      .filter(alternate => {
+        const prodId = product.id.replace('Shopify__Product__', '')
+        return alternate !== null && alternate.id !== prodId
+      })
+      .map(alternate => ({
+        metal: getMetalColor(alternate.options),
+        isCurrent: false,
+        handle: alternate.handle,
+      }))
+      .filter(alternate => alternate.metal)
 
-  const colors = [
-    { metal: productMetalColor, isCurrent: true },
-    ...alternateMetalColors,
-  ].sort((a, b) => (a.metal?.toLowerCase() < b.metal?.toLowerCase() ? 1 : -1))
+    return [
+      { metal: productMetalColor, isCurrent: true },
+      ...alternateMetalColors,
+    ].sort((a, b) => (a.metal?.toLowerCase() < b.metal?.toLowerCase() ? 1 : -1))
+  }, [product, alternates, productMetalColor])
 
   if (!colors?.length) return false
 
