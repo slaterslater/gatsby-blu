@@ -10,7 +10,8 @@ import ReviewPagination from '../components/reviews/ReviewPagination'
 
 const PodcastsPage = ({ data, pageContext }) => {
   const podcasts = data.podcasts.edges
-  const { currentPage, totalPages } = pageContext
+  const { currentPage } = pageContext
+  const totalPages = Math.ceil(data.podcasts.totalCount / 6)
   return (
     <Layout>
       <SEO title="tru blu podcast" description="tru blu podcast" />
@@ -103,13 +104,14 @@ const PodcastsPage = ({ data, pageContext }) => {
 export default PodcastsPage
 
 export const query = graphql`
-  query($skip: Int = 0, $limit: Int = 6) {
+  query ($skip: Int = 0, $limit: Int = 6) {
     podcasts: allPodcast(
       filter: { episode_number: { gt: 0 } }
       sort: { fields: published_at, order: DESC }
       skip: $skip
       limit: $limit
     ) {
+      totalCount
       edges {
         node {
           id

@@ -21,7 +21,7 @@ const Announcement = ({ text, to, isVisible }) =>
           as={to ? GatsbyLink : 'span'}
           color="inherit"
           to={to}
-          sx={{ textDecoration: 'none' }}
+          sx={{ textDecoration: 'none', color: 'white' }}
         >
           {text}
         </Link>
@@ -72,7 +72,7 @@ const Announcements = () => {
     <Flex
       p={[3]}
       sx={{ justifyContent: 'center', alignItems: 'center' }}
-      bg="cream"
+      bg="primary"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >

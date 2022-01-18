@@ -203,7 +203,6 @@ async function createPodcastIndexPages({ graphql, actions }) {
         skip: i * limit,
         limit,
         currentPage: i + 1,
-        totalPages,
       },
     })
   }
@@ -366,11 +365,8 @@ async function createHomePage({ graphql, actions }) {
     }
   `)
   if (!data) return
-  const {
-    collectionRow,
-    collectionSpotlight,
-    reviews,
-  } = data.allSanityHomePage.nodes[0]
+  const { collectionRow, collectionSpotlight, reviews } =
+    data.allSanityHomePage.nodes[0]
 
   const collections = [...collectionRow, ...collectionSpotlight].map(
     ({ handle }) => handle
