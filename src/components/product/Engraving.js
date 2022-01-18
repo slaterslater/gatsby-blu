@@ -21,7 +21,12 @@ const AutoSave = () => {
   return null
 }
 
-export const useEngraveableChars = (tags = []) => {
+export const useEngraveableChars = (tags = [], metafields = []) => {
+  const metafieldChars = metafields.find(
+    ({ key }) => key === 'engravable_characters'
+  )?.value
+  if (metafieldChars) return metafieldChars
+  // remove the below conditions after product audit
   if (tags.includes('5 letter engraving')) {
     return 5
   }
