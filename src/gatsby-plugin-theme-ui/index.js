@@ -50,7 +50,7 @@ const colors = {
   cream: '#ECE7E1',
   bbBeige: '#F7F4EF',
   white: '#FFFFFF',
-  whiteGold: '#FFFFF4',
+  whiteGold: '#F2F2F1',
   yellowGold: '#e9d68f',
   sterlingSilver: '#c7c7c7',
   roseGold: '#e0c5ae',

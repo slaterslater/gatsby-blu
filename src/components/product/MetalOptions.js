@@ -4,7 +4,9 @@ import ThemeLink from '../app/ThemeLink'
 import MetalOptionSwatch from '../MetalOptionSwatch'
 
 const getMetalColor = (options = []) =>
-  options.find(({ name }) => name?.toLowerCase() === 'metal')?.values[0]
+  options
+    .find(({ name }) => name?.toLowerCase() === 'metal')
+    ?.values[0].toLowerCase()
 
 const MetalOption = ({ title, handle, metal, isCurrent, ...props }) => {
   if (!metal) return false
@@ -22,9 +24,10 @@ const MetalOption = ({ title, handle, metal, isCurrent, ...props }) => {
 const MetalOptions = ({ product, alternates }) => {
   const productMetalColor = getMetalColor(product.options)
   const [title, setTitle] = useState(productMetalColor)
-  if (!productMetalColor) return false
 
   const colors = useMemo(() => {
+    if (!productMetalColor) return []
+    const metal = ['yellow gold', 'rose gold', 'sterling silver', 'white gold']
     const alternateMetalColors = alternates.nodes
       .filter(alternate => {
         const prodId = product.id.replace('Shopify__Product__', '')
@@ -40,10 +43,10 @@ const MetalOptions = ({ product, alternates }) => {
     return [
       { metal: productMetalColor, isCurrent: true },
       ...alternateMetalColors,
-    ].sort((a, b) => (a.metal?.toLowerCase() < b.metal?.toLowerCase() ? 1 : -1))
+    ].sort((a, b) => metal.indexOf(a.metal) - metal.indexOf(b.metal))
   }, [product, alternates, productMetalColor])
 
-  if (!colors?.length) return false
+  if (!productMetalColor || !colors?.length) return false
 
   return (
     <Flex>
