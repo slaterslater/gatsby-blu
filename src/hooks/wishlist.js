@@ -29,7 +29,9 @@ export function useWishlist() {
     reexecuteQuery({ requestPolicy: 'network-only' })
 
   const updateWishlist = async (productHandle, method) => {
-    await post(`/api/user/${data?.customer?.id || ''}/wishlist`, {
+    // await post(`/api/user/${data?.customer?.id || ''}/wishlist`, {
+    await post(`/api/wishlist`, {
+      userId: data?.customer?.id,
       productHandle,
       method,
     })
