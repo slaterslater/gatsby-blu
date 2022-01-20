@@ -45,7 +45,7 @@ const CustomerWishlistDelete = gql`
 `
 
 export default async function (req, res) {
-  const { userId, productHandle, method = 'POST' } = req.body
+  const { productHandle, userId } = req.body
 
   if (!productHandle) {
     return res.status(422).json({ error: 'product handle is required' })
@@ -91,7 +91,7 @@ export default async function (req, res) {
       value: productHandle,
     })
   } else {
-    if (method === 'DELETE') {
+    if (req.method === 'DELETE') {
       const value = wishlist.value
         .split(' ')
         .filter(handle => handle !== productHandle)
@@ -106,7 +106,7 @@ export default async function (req, res) {
         value,
       })
     }
-    if (method === 'POST') {
+    if (req.method === 'POST') {
       const set = new Set(wishlist.value.split(' '))
       set.add(productHandle)
       const value = Array.from(set).join(' ')

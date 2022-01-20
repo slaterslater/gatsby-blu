@@ -12,7 +12,7 @@ const WishlistButton = props => {
     product: { handle },
   } = useContext(ProductContext)
   const { isLoggedIn } = useContext(AuthContext)
-  const { wishlist, updateWishlist } = useWishlist()
+  const { wishlist, addToWishlist, removeFromWishlist } = useWishlist()
   const isListed = wishlist.includes(handle)
   const [isHeartFull, setIsHeartFull] = useState(isListed)
 
@@ -20,7 +20,8 @@ const WishlistButton = props => {
     if (isLoggedIn) {
       setLoading(true)
       setIsHeartFull(!isHeartFull)
-      await updateWishlist(handle, isListed ? 'DELETE' : 'POST')
+      const updateWishlist = isListed ? removeFromWishlist : addToWishlist
+      await updateWishlist(handle)
       setLoading(false)
     } else {
       navigate('/account/login', {

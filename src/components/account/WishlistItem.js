@@ -12,7 +12,7 @@ import { useWishlist } from '../../hooks/wishlist'
 import ProductModal from '../product/ProductModal'
 
 const WishlistItem = ({ handle }) => {
-  const { updateWishlist } = useWishlist()
+  const { removeFromWishlist } = useWishlist()
   const [disabled, setDisabled] = useState(false)
   const { countryCode } = useContext(CurrencyContext)
   const [{ data }] = useQuery({
@@ -34,7 +34,7 @@ const WishlistItem = ({ handle }) => {
           mr={4}
           onClick={async () => {
             setDisabled(true)
-            await updateWishlist(handle, 'DELETE')
+            await removeFromWishlist(handle)
           }}
           sx={{ cursor: 'pointer' }}
         >
