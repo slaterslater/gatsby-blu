@@ -20,7 +20,7 @@ const BlogTemplate = ({ data, pageContext }) => {
     <Layout>
       <SEO
         title="bluboho blog"
-        shopifyImage={data.allShopifyArticle.nodes[0].image}
+        shopifyImage={data.allShopifyArticle.nodes[0]?.image}
       />
       <Container>
         <Heading as="h1" variant="h2" sx={{ textAlign: 'center' }} pb={4}>
