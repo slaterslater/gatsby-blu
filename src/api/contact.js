@@ -1,9 +1,9 @@
 // google oauth follows: https://medium.com/@nickroach_50526/sending-emails-with-node-js-using-smtp-gmail-and-oauth2-316fe9c790a1
+import nodemailer from 'nodemailer'
+import googleapis from 'googleapis'
+import { nanoid } from 'nanoid'
 
-const nodemailer = require('nodemailer')
-const googleapis = require('googleapis')
-const { nanoid } = require('nanoid')
-const createRecipientList = require('./createRecipientList')
+import createRecipientList from '../lib/createRecipientList'
 
 const { OAuth2 } = googleapis.google.auth
 
@@ -30,16 +30,12 @@ const transporter = nodemailer.createTransport({
   },
 })
 
-exports.handler = async (event, context) => {
-  const body = JSON.parse(event.body)
+export default async function (req, res) {
+  const { body } = req
 
-  if (body.decepticon)
-    return {
-      statusCode: 400,
-      body: JSON.stringify({
-        message: 'oops! something went wrong',
-      }),
-    }
+  if (body.decepticon) {
+    return res.status(400).text('oops! something went wrong')
+  }
 
   const html = `
     <div style="padding: 24px; border: 1px solid #e7e7e7; border-radius: 4px;max-width: 480px;">
@@ -69,8 +65,5 @@ exports.handler = async (event, context) => {
     html,
   })
 
-  return {
-    statusCode: 200,
-    body: JSON.stringify(info),
-  }
+  return res.status(200).json(info)
 }

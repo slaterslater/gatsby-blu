@@ -1,20 +1,23 @@
 import { Flex, Text, Box, Image, Link, Grid, IconButton } from 'theme-ui'
-import { Link as GatsbyLink } from 'gatsby'
-import { IoIosMenu, IoIosSearch } from 'react-icons/io'
+import { Link as GatsbyLink, navigate } from 'gatsby'
+import { IoIosMenu } from 'react-icons/io'
 import { AiOutlineUser } from 'react-icons/ai'
 import { RiShoppingBagLine } from 'react-icons/ri'
 import { BiSearchAlt2 } from 'react-icons/bi'
+import { FiHeart } from 'react-icons/fi'
 import React, { useContext, useState } from 'react'
 import logo from '../images/bluboho-logo-vector-black.svg'
 import HeaderSearch from './HeaderSearch'
 import MegaMenu from './header/MegaMenu'
 import { DrawerContext } from './drawers'
 import CartBadge from './cart/CartBadge'
-// import HeaderDropdown from './header/HeaderDropdown'
+import { AuthContext } from '../contexts/AuthContext'
+import WishlistBadge from './header/WishlistBadge'
 
 const Header = () => {
   const [searchOpen, setSearchOpen] = useState(false)
   const [, setOpenDrawer] = useContext(DrawerContext)
+  const { isLoggedIn, shouldRenew } = useContext(AuthContext)
 
   return (
     <Box
@@ -99,7 +102,7 @@ const Header = () => {
                   sx={{ transform: 'translateY(1px)' }}
                 />
               </IconButton>
-              <IconButton
+              {/* <IconButton
                 as={GatsbyLink}
                 sx={{ cursor: 'pointer', display: ['flex', 'none'] }}
                 to="/search"
@@ -112,8 +115,25 @@ const Header = () => {
                   size={24}
                   sx={{ transform: 'translateY(1px)' }}
                 />
-              </IconButton>
+              </IconButton> */}
             </Flex>
+            <Box sx={{ position: 'relative' }}>
+              <WishlistBadge />
+              <IconButton
+                sx={{ cursor: 'pointer' }}
+                mr={2}
+                onClick={() =>
+                  shouldRenew || !isLoggedIn
+                    ? navigate('/account/login', {
+                        state: { toOrigin: '/account/wishlist' },
+                      })
+                    : navigate('/account/wishlist')
+                }
+                aria-label="Wishlist"
+              >
+                <Text as={FiHeart} color="black" size={21} />
+              </IconButton>
+            </Box>
             <Box sx={{ position: 'relative' }}>
               <CartBadge />
               <IconButton

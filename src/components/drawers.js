@@ -20,7 +20,7 @@ const DrawerOuter = ({ origin, ...props }) => (
       bg: 'white',
       top: 0,
       width: 360,
-      height: '100vh',
+      // height: '100vh',
       height: 'calc(var(--vh, 1vh) * 100)',
       maxWidth: '90vw',
       position: 'fixed',

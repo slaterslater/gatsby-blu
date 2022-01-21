@@ -38,7 +38,7 @@ export const ProductTitleAndPrice = ({
       <Text
         sx={{
           letterSpacing: 'widest',
-          ontWeight: 'body',
+          fontWeight: 'body',
           whiteSpace: 'nowrap',
           lineHeight: 1,
           fontSize: priceFontSize,

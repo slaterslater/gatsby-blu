@@ -50,6 +50,7 @@ const colors = {
   cream: '#ECE7E1',
   bbBeige: '#F7F4EF',
   white: '#FFFFFF',
+  whiteGold: '#EDE9D8',
   yellowGold: '#e9d68f',
   sterlingSilver: '#c7c7c7',
   roseGold: '#e0c5ae',
@@ -64,8 +65,7 @@ colors.background = colors.white
 export default {
   colors,
   fonts: {
-    body:
-      '"Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
+    body: '"Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
     heading: '"Sorts Mill Goudy", Georgia, serif',
     monospace: 'Menlo, monospace',
   },

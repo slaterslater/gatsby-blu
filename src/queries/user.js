@@ -8,6 +8,7 @@ export const USER_QUERY = gql`
       firstName
       lastName
       email
+      id
     }
   }
 `

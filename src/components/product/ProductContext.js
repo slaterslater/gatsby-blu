@@ -8,7 +8,7 @@ import { CurrencyContext } from '../../contexts/CurrencyContext'
 export const ProductContext = createContext({})
 
 const getInitialSelectedOptions = options =>
-  options.reduce(
+  options?.reduce(
     (acc, el) => ({
       ...acc,
       [el.name]: el.values.length === 1 ? el.values[0] : null,

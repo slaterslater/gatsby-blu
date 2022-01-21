@@ -140,3 +140,19 @@ export const PRODUCT_QUERY = gql`
     }
   }
 `
+
+export const ALTERNATES_QUERY = gql`
+  query ($ids: [ID!]!) {
+    nodes(ids: $ids) {
+      ... on Product {
+        id
+        title
+        handle
+        options {
+          name
+          values
+        }
+      }
+    }
+  }
+`

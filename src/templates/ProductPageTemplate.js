@@ -92,6 +92,10 @@ export const query = graphql`
         id
         handle
         title
+        options {
+          name
+          values
+        }
         variants {
           selectedOptions {
             name

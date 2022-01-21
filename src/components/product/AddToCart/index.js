@@ -59,7 +59,7 @@ const AddToCart = ({ customAttributes, onAdded = () => {} }) => {
   const getButtonState = () => {
     const defaults = {
       handleClick: addToCart,
-      buttonText: `Add To Cart - ${price}`,
+      buttonText: `Add To Bag - ${price}`,
       disabled: false,
     }
 

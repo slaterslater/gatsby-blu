@@ -9,6 +9,7 @@ import AddToCart from '../product/AddToCart'
 import ThemeLink from '../app/ThemeLink'
 import GiftProductGallery from './GiftProductGallery'
 import MetalOptions from '../product/MetalOptions'
+import WishlistButton from '../product/WishlistButton'
 
 const MotionDialogOverlay = motion(DialogOverlay)
 const MotionDialogContent = motion(DialogContent)
@@ -120,12 +121,14 @@ const GiftModal = ({
                       product={{ variants }}
                       alternates={alternates}
                     />
-                    {/* <MetalOptions product={{ variants }} alternates={alternates} /> */}
                     <ProductOptions />
-                    <AddToCart
-                      customAttributes={[]}
-                      onAdded={() => setOpen(false)}
-                    />
+                    <Grid sx={{ gridTemplateColumns: '1fr 48px', gap: '1px' }}>
+                      <AddToCart
+                        customAttributes={[]}
+                        onAdded={() => setOpen(false)}
+                      />
+                      <WishlistButton />
+                    </Grid>
                   </ProductProvider>
 
                   <Flex sx={{ justifyContent: 'center' }}>

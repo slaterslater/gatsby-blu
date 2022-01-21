@@ -13,10 +13,9 @@ const validationSchema = yup.object({
   password: yup.string().required(),
 })
 
-const LoginForm = () => {
+const LoginForm = ({ toOrigin }) => {
   const [showError, setShowError] = useState(false)
   const { login } = useContext(AuthContext)
-
   return (
     <>
       {showError && <p>there was a problem loggin in :(</p>}
@@ -27,7 +26,7 @@ const LoginForm = () => {
           setShowError(false)
           try {
             await login({ email, password })
-            return navigate('/account')
+            return navigate(toOrigin || '/account')
           } catch (e) {
             console.log(e)
             setShowError(true)

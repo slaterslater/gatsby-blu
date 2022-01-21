@@ -15,6 +15,7 @@ import { ProductDescription } from './ProductDescription'
 import { ProductShipping } from './ProductShipping'
 import { ProductTitleAndPrice } from './ProductTitleAndPrice'
 import RelatedProducts from './RelatedProducts'
+import WishlistButton from './WishlistButton'
 
 const getMetafieldValues = (metafields = []) => {
   const fields = {
@@ -31,9 +32,11 @@ const getMetafieldValues = (metafields = []) => {
 }
 
 const ProductDetails = ({ alternates }) => {
-  const {
-    product: { handle, variants, metafields },
-  } = useContext(ProductContext)
+  const { product } = useContext(ProductContext)
+  const { handle, variants, metafields } = product
+  // const {
+  //   product: { handle, variants, metafields },
+  // } = useContext(ProductContext)
 
   const { total, average, collectionHandle } = getMetafieldValues(metafields)
 
@@ -41,7 +44,7 @@ const ProductDetails = ({ alternates }) => {
 
   const [{ data }] = useQuery({
     query: gql`
-      query($collectionHandle: String!) {
+      query ($collectionHandle: String!) {
         collectionByHandle(handle: $collectionHandle) {
           products(first: 250) {
             edges {
@@ -78,10 +81,13 @@ const ProductDetails = ({ alternates }) => {
     <>
       <Grid sx={{ gridAutoFlow: 'row', gap: 5 }}>
         <ProductTitleAndPrice />
-        <MetalOptions product={{ variants }} alternates={alternates} />
+        <MetalOptions product={product} alternates={alternates} />
         <ProductOptions />
         <Engraving onChange={attribute => setCustomAttributes([attribute])} />
-        <AddToCart customAttributes={customAttributes} />
+        <Grid sx={{ gridTemplateColumns: '1fr 48px', gap: '1px' }}>
+          <AddToCart customAttributes={customAttributes} />
+          <WishlistButton />
+        </Grid>
         <ProductShipping />
         <ProductDescription />
         <EngagementConsultationButton />
