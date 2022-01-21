@@ -96,7 +96,7 @@ const NavigationDrawer = ({ onClose }) => {
   const toggleSignIn = () => {
     closeDrawer()
     if (shouldRenew || !isLoggedIn) {
-      login()
+      navigate('/account/login')
     } else {
       logout()
     }

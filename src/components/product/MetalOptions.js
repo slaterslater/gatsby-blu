@@ -27,7 +27,7 @@ const MetalOptions = ({ product, alternates }) => {
 
   const colors = useMemo(() => {
     if (!productMetalColor) return []
-    const metal = ['yellow gold', 'rose gold', 'sterling silver', 'white gold']
+    const metal = ['yellow gold', 'rose gold', 'white gold', 'sterling silver']
     const alternateMetalColors = alternates.nodes
       .filter(alternate => {
         const prodId = product.id.replace('Shopify__Product__', '')
