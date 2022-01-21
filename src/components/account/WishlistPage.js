@@ -20,6 +20,7 @@ const WishlistPage = props => {
     >
       <Grid
         pt={4}
+        px={[4, 0]}
         sx={{
           maxWidth: 1200,
           gridTemplateColumns: ['repeat(2, 1fr)', 'repeat(3, 1fr)'],

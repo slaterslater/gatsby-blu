@@ -2,8 +2,11 @@ import { Divider, Link, Box, Text, IconButton, Flex, Input } from 'theme-ui'
 import { IoIosClose } from 'react-icons/io'
 import { BiSearchAlt2 } from 'react-icons/bi'
 import { graphql, Link as GatsbyLink, navigate, useStaticQuery } from 'gatsby'
-import React, { useRef } from 'react'
+import React, { useRef, useContext } from 'react'
+import { useQuery } from 'urql'
 import Accordion from './Accordion'
+import { AuthContext } from '../contexts/AuthContext'
+import { CUSTOMER_QUERY } from '../queries/customer'
 
 const NavGroup = ({ menu, closeDrawer, children }) => (
   <Accordion title={children}>
@@ -31,7 +34,9 @@ const NavGroup = ({ menu, closeDrawer, children }) => (
 )
 
 const NavigationDrawer = ({ onClose }) => {
-  const data = useStaticQuery(graphql`
+  const closeDrawer = () => onClose()
+  const searchInput = useRef(null)
+  const query = useStaticQuery(graphql`
     {
       allSanityMegaMenu {
         nodes {
@@ -49,20 +54,53 @@ const NavigationDrawer = ({ onClose }) => {
       }
     }
   `)
+  const megaMenu = query.allSanityMegaMenu.nodes[0].groups
+  const accountMenu = {
+    subGroup: [
+      {
+        title: null,
+        links: [
+          {
+            text: 'orders',
+            path: '/account/orders',
+          },
+          {
+            text: 'wishlist',
+            path: '/account/wishlist',
+          },
+        ],
+      },
+    ],
+  }
 
-  const closeDrawer = () => onClose()
-  const searchInput = useRef(null)
-  const megaMenu = data.allSanityMegaMenu.nodes[0].groups
-  const miniMenu = [
-    {
-      title: 'Account',
-      path: '/account',
-    },
-    {
-      title: 'Wishlist',
-      path: '/account/wishlist',
-    },
-  ]
+  const { accessToken, isLoggedIn, shouldRenew, login, logout } =
+    useContext(AuthContext)
+  const [{ data }] = useQuery({
+    query: CUSTOMER_QUERY,
+    variables: { customerAccessToken: accessToken },
+  })
+
+  const guest = data?.customer.firstName
+  const their = guest ? `${guest}'${!guest.match(/s$/i) && 's'}` : null
+  // const miniMenu = [
+  //   {
+  //     title: 'Account',
+  //     path: '/account',
+  //   },
+  //   {
+  //     title: 'Wishlist',
+  //     path: '/account/wishlist',
+  //   },
+  // ]
+
+  const toggleSignIn = () => {
+    closeDrawer()
+    if (shouldRenew || !isLoggedIn) {
+      login()
+    } else {
+      logout()
+    }
+  }
 
   return (
     <Flex
@@ -115,7 +153,16 @@ const NavigationDrawer = ({ onClose }) => {
             {menu.title}
           </NavGroup>
         ))}
-        {miniMenu.map(menu => (
+        {!shouldRenew && isLoggedIn && (
+          <NavGroup
+            key="drawer-account"
+            menu={accountMenu}
+            closeDrawer={closeDrawer}
+          >
+            {`${their} Account`}
+          </NavGroup>
+        )}
+        {/* {miniMenu.map(menu => (
           <Box key={`drawer-title-${menu.title}`}>
             <Link
               as={GatsbyLink}
@@ -135,7 +182,22 @@ const NavigationDrawer = ({ onClose }) => {
             </Link>
             <Divider />
           </Box>
-        ))}
+        ))} */}
+        <Link
+          onClick={toggleSignIn}
+          p={4}
+          sx={{
+            display: 'block',
+            letterSpacing: 'caps',
+            textTransform: 'uppercase',
+            fontWeight: 'heading',
+            textDecoration: 'none',
+            fontSize: 0,
+          }}
+        >
+          {shouldRenew || !isLoggedIn ? 'Sign in' : 'Logout'}
+        </Link>
+        <Divider />
       </Box>
     </Flex>
   )

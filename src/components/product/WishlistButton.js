@@ -7,7 +7,6 @@ import { useWishlist } from '../../hooks/wishlist'
 import { AuthContext } from '../../contexts/AuthContext'
 
 const WishlistButton = props => {
-  const [loading, setLoading] = useState(false)
   const {
     product: { handle },
   } = useContext(ProductContext)
@@ -15,6 +14,7 @@ const WishlistButton = props => {
   const { wishlist, addToWishlist, removeFromWishlist } = useWishlist()
   const isListed = wishlist.includes(handle)
   const [isHeartFull, setIsHeartFull] = useState(isListed)
+  const [loading, setLoading] = useState(false)
 
   const handleClick = async () => {
     if (isLoggedIn) {
@@ -35,6 +35,7 @@ const WishlistButton = props => {
       type="button"
       onClick={handleClick}
       disabled={loading}
+      mt="auto"
       sx={{
         opacity: loading ? 0.85 : 1,
         transition: 'opacity .3s ease',

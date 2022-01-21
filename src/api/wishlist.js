@@ -47,8 +47,10 @@ const CustomerWishlistDelete = gql`
 export default async function (req, res) {
   const { productHandle, userId } = req.body
 
-  if (!productHandle) {
-    return res.status(422).json({ error: 'product handle is required' })
+  if (!productHandle || !userId) {
+    return res
+      .status(422)
+      .json({ error: 'product handle & user ID are required' })
   }
 
   const { type, id } = decode(userId)

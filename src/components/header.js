@@ -12,6 +12,7 @@ import MegaMenu from './header/MegaMenu'
 import { DrawerContext } from './drawers'
 import CartBadge from './cart/CartBadge'
 import { AuthContext } from '../contexts/AuthContext'
+import WishlistBadge from './header/WishlistBadge'
 
 const Header = () => {
   const [searchOpen, setSearchOpen] = useState(false)
@@ -101,7 +102,7 @@ const Header = () => {
                   sx={{ transform: 'translateY(1px)' }}
                 />
               </IconButton>
-              <IconButton
+              {/* <IconButton
                 as={GatsbyLink}
                 sx={{ cursor: 'pointer', display: ['flex', 'none'] }}
                 to="/search"
@@ -114,15 +115,15 @@ const Header = () => {
                   size={24}
                   sx={{ transform: 'translateY(1px)' }}
                 />
-              </IconButton>
+              </IconButton> */}
             </Flex>
-            <Box sx={{ position: 'relative', display: ['none', 'flex'] }}>
-              <CartBadge />
+            <Box sx={{ position: 'relative' }}>
+              <WishlistBadge />
               <IconButton
                 sx={{ cursor: 'pointer' }}
                 mr={2}
                 onClick={() =>
-                  !shouldRenew && !isLoggedIn
+                  shouldRenew || !isLoggedIn
                     ? navigate('/account/login', {
                         state: { toOrigin: '/account/wishlist' },
                       })

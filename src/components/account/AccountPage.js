@@ -9,7 +9,7 @@ const AccountPage = ({ title, subtitle, links, currentPage, children }) => {
 
   return (
     <>
-      <Container as="main" pb={8}>
+      <Container as="main" pb={[0, 8]} px={[0, 6]}>
         {/* <Breadcrumbs py={0} currentPage={currentPage} links={links}>
           <Button mr={5} variant="inverted" onClick={() => logout()}>
             logout
@@ -23,7 +23,16 @@ const AccountPage = ({ title, subtitle, links, currentPage, children }) => {
             gridTemplateColumns: '180px 1fr',
           }}
         >
-          <Box as="nav" mt={[3, 0]} sx={{ width: ['100%', 180] }}>
+          <Box
+            as="nav"
+            mt={[3, 0]}
+            py={[6, 0]}
+            px={[5, 0]}
+            sx={{
+              width: ['100%', 170],
+              backgroundColor: ['bbBackground', 'white'],
+            }}
+          >
             <Box
               as="ul"
               p={0}
