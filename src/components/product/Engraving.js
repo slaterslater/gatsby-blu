@@ -1,4 +1,4 @@
-import { Text } from 'theme-ui'
+import { Text, Box } from 'theme-ui'
 import { Formik, Form, useFormikContext } from 'formik'
 import React, { useContext, useEffect } from 'react'
 import * as Yup from 'yup'
@@ -137,9 +137,25 @@ const EngravingForm = ({ chars, hasLocation, onSubmit }) => {
               options={locationOptions}
             />
           )}
-          <Text sx={{ fontSize: 0, color: 'darkerGray' }}>
-            up to {chars} characters - characters are engraved exactly as shown
-          </Text>
+          <Box as="ul" sx={{ listStyleType: 'none' }} p={1}>
+            {[
+              `up to ${chars} character${chars > 1 ? 's' : ''}`,
+              'characters are engraved exactly as shown',
+              'allow 2-3 weeks for engraving',
+            ].map(text => (
+              <Box
+                as="li"
+                sx={{
+                  fontSize: 0,
+                  color: 'darkerGray',
+                  letterSpacing: 'wider',
+                }}
+                pb={1}
+              >
+                {text}
+              </Box>
+            ))}
+          </Box>
           <AutoSave />
         </RevealBox>
       </Form>
