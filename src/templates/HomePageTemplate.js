@@ -5,16 +5,17 @@ import PropTypes from 'prop-types'
 import Layout from '../components/layout'
 import OnePercentCallout from '../components/content/OnePercentCallout'
 import SEO from '../components/seo'
-import HomepageReviews from '../components/HomepageReviews'
-import BrandStatement from '../components/BrandStatement'
-import Medallions from '../components/Medallions'
-import CollectionSpotlight from '../components/CollectionSpotlight'
+import HomepageReviews from '../components/home/HomepageReviews'
+import BrandStatement from '../components/home/BrandStatement'
+import Medallions from '../components/home/Medallions'
+import CollectionSpotlight from '../components/home/CollectionSpotlight'
 import { HeroOuter } from '../components/content/Hero'
-import Zodiac from '../components/Zodiac'
+import Zodiac from '../components/home/Zodiac'
 import { useAnalytics } from '../lib/useAnalytics'
 import HomeLocations from '../components/home/Locations'
 import HomePageHeader from '../components/home/HomePageHeader'
 import CollectionRowSlider from '../components/home/CollectionRowSlider'
+import HeroToggle from '../components/home/heroToggle'
 
 const IndexPage = ({ data }) => {
   const {
@@ -105,12 +106,13 @@ const IndexPage = ({ data }) => {
       <CollectionSpotlight collections={collectionSpotlightWithData} />
       <HomepageReviews reviews={reviewsWithProductData} />
       <OnePercentCallout />
-      <HeroOuter data={innerHero[0]} align="left">
+      {/* <HeroOuter data={innerHero[0]} align="left">
         <GatsbyImage
           image={innerHero[0].image1.asset.gatsbyImageData}
           alt="most gifted"
         />
-      </HeroOuter>
+      </HeroOuter> */}
+      <HeroToggle heros={innerHero} />
       <Zodiac sign={zodiac[0]} />
       <HomeLocations locations={locations} />
       <Medallions medallions={medallions} />
@@ -125,7 +127,7 @@ IndexPage.propTypes = {
 }
 
 export const query = graphql`
-  query($collections: [String!], $products: [String!]) {
+  query ($collections: [String!], $products: [String!]) {
     site {
       siteMetadata {
         siteUrl

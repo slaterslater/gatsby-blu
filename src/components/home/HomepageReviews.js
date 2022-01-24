@@ -3,10 +3,10 @@ import { IconButton, Flex, Heading, Text, Box, Container } from 'theme-ui'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import { motion, AnimatePresence } from 'framer-motion'
 import { wrap } from '@popmotion/popcorn'
-import { ReviewStars } from './product/ProductReviewsTopline'
-import ThemeLink from './app/ThemeLink'
-import { MobileSlider } from './content/CollectionRow'
-import ShopifyGatsbyImage from './ShopifyGatsbyImage'
+import { ReviewStars } from '../product/ProductReviewsTopline'
+import ThemeLink from '../app/ThemeLink'
+import { MobileSlider } from '../content/CollectionRow'
+import ShopifyGatsbyImage from '../ShopifyGatsbyImage'
 
 const MotionBox = motion(Box)
 

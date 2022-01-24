@@ -2,7 +2,7 @@ import React from 'react'
 import { Container, Grid, Flex, Heading } from 'theme-ui'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import PropTypes from 'prop-types'
-import ThemeLink from './app/ThemeLink'
+import ThemeLink from '../app/ThemeLink'
 
 export const CollectionSpotlightCard = ({ title, path, children }) => (
   <Flex
