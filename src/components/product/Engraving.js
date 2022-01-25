@@ -6,8 +6,7 @@ import { StaticImage } from 'gatsby-plugin-image'
 import { InputControl, SegmentedControl } from '../app/formik/FormControlWrap'
 import RevealBox from '../RevealBox'
 import { ProductContext } from './ProductContext'
-// import { AutoSave } from '../app/formik/AutoSave'
-//
+
 const AutoSave = () => {
   const ctx = useFormikContext()
 
@@ -35,9 +34,10 @@ export const useEngraveableChars = (tags = [], metafields = []) => {
   return 0
 }
 
-const Engraving = ({ onChange }) => {
+const Engraving = () => {
   const {
     product: { tags, metafields },
+    setCustomAttributes,
   } = useContext(ProductContext)
   const chars = useEngraveableChars(tags, metafields)
   if (!chars) return false
@@ -47,8 +47,7 @@ const Engraving = ({ onChange }) => {
       chars={chars}
       hasLocation={tags.includes('legacy ring Engravable')}
       onSubmit={async ({ text, font, location }) => {
-        // console.log({ text, font, location })
-        await onChange({
+        setCustomAttributes({
           key: 'engraving',
           value: `"${text}", ${font}${location ? `, ${location}` : ''}`,
         })
@@ -142,8 +141,9 @@ const EngravingForm = ({ chars, hasLocation, onSubmit }) => {
               `up to ${chars} character${chars > 1 ? 's' : ''}`,
               'characters are engraved exactly as shown',
               'allow 2-3 weeks for engraving',
-            ].map(text => (
+            ].map((text, i) => (
               <Box
+                key={`engraving-fyi-${i}`}
                 as="li"
                 sx={{
                   fontSize: 0,

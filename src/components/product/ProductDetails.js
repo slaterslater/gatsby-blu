@@ -83,9 +83,9 @@ const ProductDetails = ({ alternates }) => {
         <ProductTitleAndPrice />
         <MetalOptions product={product} alternates={alternates} />
         <ProductOptions />
-        <Engraving onChange={attribute => setCustomAttributes([attribute])} />
+        <Engraving />
         <Grid sx={{ gridTemplateColumns: '1fr 48px', gap: '1px' }}>
-          <AddToCart customAttributes={customAttributes} />
+          <AddToCart />
           <WishlistButton />
         </Grid>
         <ProductShipping />

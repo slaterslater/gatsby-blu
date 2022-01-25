@@ -12,8 +12,9 @@ import { getTagAttributes, useProductPreorderMessage } from './util'
 import NotifyModal from './NotifyModal'
 import { useVariantPrice } from '../VariantPrice'
 
-const AddToCart = ({ customAttributes, onAdded = () => {} }) => {
-  const { selectedVariant, product, quantity } = useContext(ProductContext)
+const AddToCart = ({ onAdded = () => {} }) => {
+  const { selectedVariant, product, quantity, customAttributes } =
+    useContext(ProductContext)
   const price = useVariantPrice(selectedVariant || product.variants[0])
 
   const preorderMessage = useProductPreorderMessage(product.tags)
@@ -25,9 +26,8 @@ const AddToCart = ({ customAttributes, onAdded = () => {} }) => {
 
   // some kind of issue with useMutation: fetching only updates if you're also requesting data
   // i'm feeling strongly we should switch to graphql-request library + swr
-  const [{ data, fetching }, addCheckoutLineItem] = useMutation(
-    AddCheckoutLineItem
-  )
+  const [{ data, fetching }, addCheckoutLineItem] =
+    useMutation(AddCheckoutLineItem)
 
   const [isOn, toggleOn] = useToggle()
 
@@ -46,9 +46,8 @@ const AddToCart = ({ customAttributes, onAdded = () => {} }) => {
       checkoutId,
       lineItems,
     }).then(({ data }) => {
-      const [
-        newEdge,
-      ] = data.checkoutLineItemsAdd.checkout.lineItems.edges.slice(-1)
+      const [newEdge] =
+        data.checkoutLineItemsAdd.checkout.lineItems.edges.slice(-1)
 
       setOpenDrawer('cart')
       onAdded()
