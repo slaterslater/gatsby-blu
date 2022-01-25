@@ -16,6 +16,15 @@ const ProductSizes = ({ option }) => {
   const shouldDisplayFractions =
     mainSize && metafields.some(({ key }) => key === 'fractional_sizes')
 
+  const updateProductSizeAttribute = async (value, fraction) => {
+    await selectOption(name, value)
+    await setCustomAttributes({
+      key: 'fraction',
+      value: fraction,
+    })
+    setSize([value, fraction])
+  }
+
   return (
     <Box key="option-row-size">
       <Flex sx={{ gap: 3, alignItems: 'baseline' }} pb={4}>
@@ -33,10 +42,11 @@ const ProductSizes = ({ option }) => {
         {values.map(value => (
           <VariantOption
             key={`variant-option-size-${value}`}
-            isSelected={mainSize === value}
+            isSelected={mainSize === value && !fractionSize}
             onClick={() => {
-              selectOption(name, value)
-              setSize([value, null])
+              updateProductSizeAttribute(value, null)
+              // selectOption(name, value)
+              // setSize([value, null])
             }}
             m={1}
           >
@@ -44,33 +54,49 @@ const ProductSizes = ({ option }) => {
           </VariantOption>
         ))}
       </Flex>
-      <Flex
-        sx={{
-          flexWrap: 'wrap',
-        }}
-        pt={1}
-        m={-1}
-      >
-        {shouldDisplayFractions &&
-          [0, 0.25, 0.5].map(value => (
-            <VariantOption
-              key={`variant-option-fraction-${value}`}
-              isSelected={
-                fractionSize === value || (!fractionSize && value === 0)
-              }
-              onClick={() => {
-                setCustomAttributes({
-                  key: 'fraction',
-                  value: String(value),
-                })
-                setSize([mainSize, value])
-              }}
-              m={1}
-            >
-              {Number(mainSize) + value}
-            </VariantOption>
-          ))}
-      </Flex>
+      {shouldDisplayFractions &&
+        ['¼', '½'].map(fraction => (
+          <Flex
+            sx={{
+              flexWrap: 'wrap',
+            }}
+            m={-1}
+          >
+            {values.map(value => (
+              <VariantOption
+                key={`variant-option-${value}-${fraction}`}
+                isSelected={mainSize === value && fractionSize === fraction}
+                isHidden={mainSize !== value}
+                onClick={() => {
+                  if (mainSize !== value) return
+                  setCustomAttributes({
+                    key: 'fraction',
+                    value: fraction,
+                  })
+                  setSize([value, fraction])
+                }}
+                m={1}
+              >
+                <Flex
+                  sx={{
+                    justifyContent: 'center',
+                  }}
+                >
+                  {value}
+                  <sup
+                    style={{
+                      fontSize: '9px',
+                      width: '6px',
+                      lineHeight: '0.5',
+                    }}
+                  >
+                    {fraction}
+                  </sup>
+                </Flex>
+              </VariantOption>
+            ))}
+          </Flex>
+        ))}
     </Box>
   )
 }

@@ -84,7 +84,13 @@ const ProductProvider = ({ initial, handle, ...props }) => {
         ({ key }) => key === attribute.key
       )
       if (current) {
-        current.value = attribute.value
+        if (!attribute.value) {
+          draft.customAttributes = draft.customAttributes.filter(
+            ({ key }) => key !== attribute.key
+          )
+        } else {
+          current.value = attribute.value
+        }
       } else {
         draft.customAttributes.push(attribute)
       }
