@@ -17,6 +17,8 @@ const AddToCart = ({ onAdded = () => {} }) => {
     useContext(ProductContext)
   const price = useVariantPrice(selectedVariant || product.variants[0])
 
+  console.log({ customAttributes })
+
   const preorderMessage = useProductPreorderMessage(product.tags)
 
   const sendAnalytics = useSendAnalytics('addToCart')
