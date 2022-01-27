@@ -15,6 +15,7 @@ import { useAnalytics } from '../lib/useAnalytics'
 import HomeLocations from '../components/home/Locations'
 import HomePageHeader from '../components/home/HomePageHeader'
 import CollectionRowSlider from '../components/home/CollectionRowSlider'
+import Socials from '../components/home/SocialBlocks'
 
 const IndexPage = ({ data }) => {
   const {
@@ -105,6 +106,7 @@ const IndexPage = ({ data }) => {
       <CollectionSpotlight collections={collectionSpotlightWithData} />
       <HomepageReviews reviews={reviewsWithProductData} />
       <OnePercentCallout />
+      <Socials />
       <HeroOuter data={innerHero[0]} align="left">
         <GatsbyImage
           image={innerHero[0].image1.asset.gatsbyImageData}
@@ -125,7 +127,7 @@ IndexPage.propTypes = {
 }
 
 export const query = graphql`
-  query($collections: [String!], $products: [String!]) {
+  query ($collections: [String!], $products: [String!]) {
     site {
       siteMetadata {
         siteUrl
