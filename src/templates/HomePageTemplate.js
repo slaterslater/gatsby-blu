@@ -106,13 +106,7 @@ const IndexPage = ({ data }) => {
       <CollectionSpotlight collections={collectionSpotlightWithData} />
       <HomepageReviews reviews={reviewsWithProductData} />
       <OnePercentCallout />
-      {/* <HeroOuter data={innerHero[0]} align="left">
-        <GatsbyImage
-          image={innerHero[0].image1.asset.gatsbyImageData}
-          alt="most gifted"
-        />
-      </HeroOuter> */}
-      <HeroToggle heros={innerHero} />
+      <HeroToggle heros={[...innerHero, ...headerHero]} />
       <Zodiac sign={zodiac[0]} />
       <HomeLocations locations={locations} />
       <Medallions medallions={medallions} />

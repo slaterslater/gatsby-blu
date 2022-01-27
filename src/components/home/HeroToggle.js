@@ -1,45 +1,44 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import { Box } from 'theme-ui'
 import { motion, AnimatePresence } from 'framer-motion'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import { wrap } from '@popmotion/popcorn'
 import useInterval from '../../lib/useInterval'
 import { HeroOuter } from '../content/Hero'
 
-const Toggle = ({ children, isVisible }) =>
-  isVisible && (
-    <motion.div
-      initial={{ opacity: 0, y: -3 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 2 }}
-    >
-      {children}
-    </motion.div>
-  )
-
-// Announcement.propTypes = {
-//   text: PropTypes.string.isRequired,
-//   to: PropTypes.string,
-//   isVisible: PropTypes.bool.isRequired,
-// }
-// Announcement.defaultProps = {
-//   to: '',
-// }
+const MotionBox = motion(Box)
+const heroVariants = {
+  initial: {
+    opacity: 0.2,
+  },
+  in: {
+    opacity: 1,
+    transition: {
+      opacity: {
+        duration: 1,
+      },
+    },
+  },
+  out: {
+    opacity: 0.2,
+    transition: {
+      opacity: {
+        duration: 1,
+      },
+    },
+  },
+}
 
 const HeroToggle = ({ heros }) => {
-  const delay = 5000 // 5 seconds
-  const { length } = heros
   const [isPaused, setIsPaused] = useState(false)
   const [current, setCurrent] = useState(0)
+  const hero = heros[current]
+  const { length } = heros
+  const delay = 5000 // 5 seconds
 
   useInterval(
     () => {
-      // setCurrent(curr => {
-      //   if (curr + 1 >= heros.length) {
-      //     return 0
-      //   }
-      //   return curr + 1
-      // })
       const next = wrap(0, length, current + 1)
       setCurrent(next)
     },
@@ -48,16 +47,21 @@ const HeroToggle = ({ heros }) => {
 
   return (
     <AnimatePresence>
-      {[...heros, ...heros, ...heros, ...heros].map((hero, i) => (
-        <Toggle key={`hero-${i}`} isVisible={current === i}>
-          <HeroOuter data={hero} align="left">
-            <GatsbyImage
-              image={hero.image1.asset.gatsbyImageData}
-              alt={hero.heading}
-            />
-          </HeroOuter>
-        </Toggle>
-      ))}
+      <HeroOuter data={hero} align="left">
+        <MotionBox
+          key={`toggle-hero-${current}`}
+          initial="initial"
+          animate="in"
+          exit="out"
+          variants={heroVariants}
+        >
+          <GatsbyImage
+            image={hero.image1.asset.gatsbyImageData}
+            alt={hero.heading}
+            style={{ height: '100%' }}
+          />
+        </MotionBox>
+      </HeroOuter>
     </AnimatePresence>
   )
 }
