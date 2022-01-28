@@ -106,7 +106,8 @@ const IndexPage = ({ data }) => {
       <CollectionSpotlight collections={collectionSpotlightWithData} />
       <HomepageReviews reviews={reviewsWithProductData} />
       <OnePercentCallout />
-      <HeroToggle heros={[...innerHero, ...headerHero]} />
+      <HeroToggle heros={[...innerHero, ...headerHero]} delay={6000} />
+      {/* <HeroToggle heros={innerHero} /> */}
       <Zodiac sign={zodiac[0]} />
       <HomeLocations locations={locations} />
       <Medallions medallions={medallions} />

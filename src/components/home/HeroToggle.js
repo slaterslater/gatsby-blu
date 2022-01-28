@@ -8,38 +8,15 @@ import useInterval from '../../lib/useInterval'
 import { HeroOuter } from '../content/Hero'
 
 const MotionBox = motion(Box)
-// const heroVariants = {
-//   initial: {
-//     opacity: 0.2,
-//   },
-//   in: {
-//     opacity: 1,
-//     transition: {
-//       opacity: {
-//         duration: 1.5,
-//       },
-//     },
-//   },
-//   out: {
-//     opacity: 0.2,
-//     transition: {
-//       opacity: {
-//         duration: 0.8,
-//       },
-//     },
-//   },
-// }
 
-const HeroToggle = ({ heros }) => {
+const HeroToggle = ({ heros, delay = 6000 }) => {
   const [isPaused, setIsPaused] = useState(false)
   const [current, setCurrent] = useState(0)
   const hero = heros[current]
-  const { length } = heros
-  const delay = 6000 // 5 seconds
 
   useInterval(
     () => {
-      const next = wrap(0, length, current + 1)
+      const next = wrap(0, heros.length, current + 1)
       setCurrent(next)
     },
     isPaused ? null : delay
@@ -58,12 +35,11 @@ const HeroToggle = ({ heros }) => {
             ease: 'easeInOut',
           }}
           sx={{ backgroundColor: 'cream' }}
-          // variants={heroVariants}
         >
           <GatsbyImage
             image={hero.image1.asset.gatsbyImageData}
             alt={hero.heading}
-            style={{ height: '100%' }}
+            style={{ overflow: 'hidden', maxHeight: 600, height: '100%' }}
           />
         </MotionBox>
       </HeroOuter>
@@ -72,12 +48,8 @@ const HeroToggle = ({ heros }) => {
 }
 
 HeroToggle.propTypes = {
-  // announcements: PropTypes.arrayOf(
-  //   PropTypes.shape({
-  //     text: PropTypes.string,
-  //     to: PropTypes.string,
-  //   })
-  // ),
+  heros: PropTypes.arrayOf(PropTypes.object),
+  delay: PropTypes.number,
 }
 
 export default HeroToggle
