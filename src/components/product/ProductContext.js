@@ -78,21 +78,22 @@ const ProductProvider = ({ initial, handle, ...props }) => {
   }
 
   // const setCustomAttributes = (name, content) => {
-  const setCustomAttributes = attribute => {
+  const setCustomAttributes = newAttribute => {
     updateValue(draft => {
-      const current = draft.customAttributes.find(
-        ({ key }) => key === attribute.key
+      const customAttribute = draft.customAttributes.find(
+        ({ key }) => key === newAttribute.key
       )
-      if (current) {
-        if (!attribute.value) {
+      if (!customAttribute && !newAttribute.value) return
+      if (customAttribute) {
+        if (!newAttribute.value) {
           draft.customAttributes = draft.customAttributes.filter(
-            ({ key }) => key !== attribute.key
+            attribute => attribute !== customAttribute
           )
         } else {
-          current.value = attribute.value
+          customAttribute.value = newAttribute.value
         }
       } else {
-        draft.customAttributes.push(attribute)
+        draft.customAttributes.push(newAttribute)
       }
     })
   }

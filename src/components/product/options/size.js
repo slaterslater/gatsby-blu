@@ -45,8 +45,6 @@ const ProductSizes = ({ option }) => {
             isSelected={mainSize === value && !fractionSize}
             onClick={() => {
               updateProductSizeAttribute(value, null)
-              // selectOption(name, value)
-              // setSize([value, null])
             }}
             m={1}
           >
@@ -57,6 +55,7 @@ const ProductSizes = ({ option }) => {
       {shouldDisplayFractions &&
         ['¼', '½'].map(fraction => (
           <Flex
+            key={`variant-option-fraction-${fraction}`}
             sx={{
               flexWrap: 'wrap',
             }}

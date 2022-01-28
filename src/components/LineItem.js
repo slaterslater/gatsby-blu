@@ -5,11 +5,12 @@ import { useProductTitle } from './ProductTitle'
 import { useShopifyImage } from '../hooks/shopifyImage'
 
 const getItemOptionDescription = item => {
-  if (item.variant?.title) {
-    if (item.variant.title.toLowerCase() === 'default title') return ''
-    return item.variant?.title?.replace(' /', ',')
-  }
-  return ''
+  const title = item.variant?.title.toLowerCase()
+  if (!title || title === 'default title') return ''
+  const fractionalSize = item.customAttributes.find(
+    ({ key }) => key === 'fraction'
+  )?.value
+  return item.variant?.title?.replace(' /', fractionalSize || ',')
 }
 
 const LineItem = ({ item, imgSize, children }) => {
@@ -44,7 +45,9 @@ const LineItem = ({ item, imgSize, children }) => {
           </Box>
         )}
         {item.customAttributes
-          .filter(attribute => attribute.key !== 'wrapping')
+          .filter(
+            attribute => !['wrapping', 'fraction'].includes(attribute.key)
+          )
           .map(attribute => (
             <Box key={`${item.id}-${attribute.name}-${attribute.value}`}>
               <Text variant="small" sx={{ color: 'darkGray' }}>
