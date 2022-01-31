@@ -6,24 +6,23 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { HiChevronLeft, HiChevronRight } from 'react-icons/hi'
 import { wrap } from '@popmotion/popcorn'
 
+// background images are in the static folder
+// image size should be 500 x 175
 const socials = [
   {
     title: 'instagram',
     icon: RiInstagramFill,
     href: 'https://www.instagram.com/bluboho',
-    bgColor: 'yellowGold',
   },
   {
     title: 'facebook',
     icon: FaFacebook,
     href: 'https://www.facebook.com/blubohojewelry',
-    bgColor: 'roseGold',
   },
   {
     title: 'pinterest',
     icon: FaPinterest,
     href: 'https://www.pinterest.ca/bluboho',
-    bgColor: 'sterlingSilver',
   },
 ]
 const swipeConfidenceThreshold = 10000
@@ -31,13 +30,13 @@ const swipePower = (offset, velocity) => Math.abs(offset) * velocity
 const MotionBox = motion(Box)
 
 const SocialBlocks = () => {
-  const [[currentPage, direction], setCurrentPage] = useState([0, 0])
+  const [[current, direction], setCurrent] = useState([0, 0])
 
-  const socialIndex = wrap(0, socials.length, currentPage)
-  const { title, icon, href, bgColor } = socials[socialIndex]
+  const socialIndex = wrap(0, socials.length, current)
+  const { title, icon, href } = socials[socialIndex]
 
   const paginate = newDirection => {
-    setCurrentPage([currentPage + newDirection, newDirection])
+    setCurrent([current + newDirection, newDirection])
   }
 
   return (
@@ -84,7 +83,9 @@ const SocialBlocks = () => {
                 width: '100%',
                 height: 75,
                 position: 'absolute',
-                backgroundColor: bgColor,
+                backgroundColor: 'bbBeige',
+                backgroundImage: `url('/socials/bg${socialIndex + 1}.png')`,
+                backgroundSize: '100% auto',
                 justifyContent: 'center',
                 alignItems: 'center',
               }}
@@ -107,7 +108,7 @@ const SocialBlocks = () => {
         </IconButton>
       </Box>
       <Box sx={{ display: ['none', 'flex'], height: 165, width: '100%' }}>
-        {socials.map(({ text, path, icon, bgColor }) => (
+        {socials.map(({ text, href, icon }) => (
           <Flex
             as={Link}
             key={`social-block-${text}`}
@@ -115,12 +116,13 @@ const SocialBlocks = () => {
               flex: 1,
               justifyContent: 'center',
               alignItems: 'center',
-              // width: '100%',
               height: '100%',
-              backgroundColor: bgColor,
+              backgroundColor: 'bbBeige',
+              backgroundImage: `url('/socials/bg${socialIndex + 1}.png')`,
+              backgroundSize: 'auto 100%',
               color: 'white',
             }}
-            href={path}
+            href={href}
           >
             <Box as={icon} size={42} />
           </Flex>

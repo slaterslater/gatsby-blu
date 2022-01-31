@@ -7,7 +7,7 @@ const Medallion = ({ children }) => (
   <Box
     sx={{
       width: '100%',
-      maxWidth: [100, 115, 135],
+      maxWidth: [75, 100, 125],
       textAlign: 'center',
     }}
   >
@@ -16,25 +16,23 @@ const Medallion = ({ children }) => (
 )
 
 const Medallions = ({ medallions }) => (
-  <Container variant="full" pt={[5, 6, 7, 8]} sx={{ bg: 'bbBeige' }}>
-    <Flex sx={{ justifyContent: 'center' }}>
-      <Box
-        sx={{
-          display: 'inline-grid',
-          gridTemplateColumns: ['1fr 1fr', 'repeat(4, 1fr)'],
-          justifyItems: 'center',
-          gap: 7,
-        }}
-      >
-        {medallions.map(({ image, altText }, i) => (
-          <Medallion key={`medallion=${i}`}>
-            <GatsbyImage
-              image={image.asset.gatsbyImageData}
-              alt={`${altText} Medallion`}
-            />
-          </Medallion>
-        ))}
-      </Box>
+  <Container sx={{ bg: 'bbBeige' }}>
+    <Flex
+      sx={{
+        justifyContent: 'space-between',
+        width: '100%',
+        maxWidth: [400, 550, 625],
+      }}
+      mx="auto"
+    >
+      {medallions.map(({ image, altText }, i) => (
+        <Medallion key={`medallion=${i}`}>
+          <GatsbyImage
+            image={image.asset.gatsbyImageData}
+            alt={`${altText} Medallion`}
+          />
+        </Medallion>
+      ))}
     </Flex>
   </Container>
 )
