@@ -16,7 +16,7 @@ const Medallion = ({ children }) => (
 )
 
 const Medallions = ({ medallions }) => (
-  <Container sx={{ bg: 'bbBeige' }}>
+  <Container sx={{ bg: 'bbBeige', maxWidth: '100%' }}>
     <Flex
       sx={{
         justifyContent: 'space-between',

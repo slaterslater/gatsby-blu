@@ -119,7 +119,7 @@ const SocialBlocks = () => {
               height: '100%',
               backgroundColor: 'bbBeige',
               backgroundImage: `url('/socials/bg${i + 1}.png')`,
-              backgroundSize: 'auto 100%',
+              backgroundSize: 'cover',
               color: 'white',
             }}
             href={href}
