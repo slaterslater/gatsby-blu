@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container, Grid, Heading, Text, Box } from 'theme-ui'
-import ThemeLink from './app/ThemeLink'
+import ThemeLink from '../app/ThemeLink'
 
 const BrandStatement = props => (
   <Container variant="narrow">

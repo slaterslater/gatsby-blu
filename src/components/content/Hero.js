@@ -114,15 +114,8 @@ export const HeroOuter = ({ children, data, align = 'right' }) => {
 }
 
 const SanityHero = ({ node }) => {
-  const {
-    image1,
-    image2,
-    imageMobile,
-    icon,
-    heading,
-    subheading,
-    button,
-  } = node
+  const { image1, image2, imageMobile, icon, heading, subheading, button } =
+    node
   const iconImageData = useGatsbySanityImageData(icon, {
     height: 60,
     width: 59,
