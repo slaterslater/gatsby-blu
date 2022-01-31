@@ -38,7 +38,11 @@ const Zodiac = ({ sign }) => {
           alignItems: 'center',
         }}
       >
-        <GatsbyImage image={sign.image.asset.gatsbyImageData} alt="" />
+        <GatsbyImage
+          image={sign.image.asset.gatsbyImageData}
+          alt=""
+          style={{ height: '100%' }}
+        />
       </Flex>
       <Heading as="h3" variant="h1" py={5} px={2}>
         Zodiac: {sign.name}
