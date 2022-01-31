@@ -13,11 +13,8 @@ import { useAnalytics } from '../lib/useAnalytics'
 import HomeLocations from '../components/home/Locations'
 import HomePageHeader from '../components/home/HomePageHeader'
 import CollectionRowSlider from '../components/home/CollectionRowSlider'
-<<<<<<< HEAD
 import Socials from '../components/home/SocialBlocks'
-=======
 import HeroToggle from '../components/home/HeroToggle'
->>>>>>> main
 
 const IndexPage = ({ data }) => {
   const {
