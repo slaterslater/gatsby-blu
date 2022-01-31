@@ -108,7 +108,7 @@ const SocialBlocks = () => {
         </IconButton>
       </Box>
       <Box sx={{ display: ['none', 'flex'], height: 165, width: '100%' }}>
-        {socials.map(({ text, href, icon }) => (
+        {socials.map(({ text, href, icon }, i) => (
           <Flex
             as={Link}
             key={`social-block-${text}`}
@@ -118,7 +118,7 @@ const SocialBlocks = () => {
               alignItems: 'center',
               height: '100%',
               backgroundColor: 'bbBeige',
-              backgroundImage: `url('/socials/bg${socialIndex + 1}.png')`,
+              backgroundImage: `url('/socials/bg${i + 1}.png')`,
               backgroundSize: 'auto 100%',
               color: 'white',
             }}
