@@ -16,6 +16,7 @@ import { ProductShipping } from './ProductShipping'
 import { ProductTitleAndPrice } from './ProductTitleAndPrice'
 import RelatedProducts from './RelatedProducts'
 import WishlistButton from './WishlistButton'
+import ProductBadges from './ProductBadges'
 
 const getMetafieldValues = (metafields = []) => {
   const fields = {
@@ -91,6 +92,7 @@ const ProductDetails = ({ alternates }) => {
         <ProductShipping />
         <ProductDescription />
         <EngagementConsultationButton />
+        <ProductBadges />
         <ProductSpecifications />
         <ProductReviewsTopline
           score={average}

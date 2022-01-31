@@ -2,7 +2,7 @@ import { GatsbyImage } from 'gatsby-plugin-image'
 import { Flex, Heading, Text, Container } from 'theme-ui'
 import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
-import ThemeLink from './app/ThemeLink'
+import ThemeLink from '../app/ThemeLink'
 
 const Zodiac = ({ sign }) => {
   const dateRange = useMemo(() => {
