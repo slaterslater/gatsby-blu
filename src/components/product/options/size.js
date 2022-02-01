@@ -12,15 +12,16 @@ const ProductSizes = ({ option }) => {
     product: { metafields },
   } = useContext(ProductContext)
   const [size, setSize] = useState([])
-  const [mainSize, fractionSize] = size
+  const [baseSize, fractionSize] = size
   const shouldDisplayFractions =
-    mainSize && metafields.some(({ key }) => key === 'fractional_sizes')
+    baseSize && metafields.some(({ key }) => key === 'fractional_sizes')
 
   const updateProductSizeAttribute = async (value, fraction) => {
-    await selectOption(name, value)
+    if (value !== baseSize) await selectOption(name, value)
+    const custom = fraction ? `${value}${fraction}` : fraction
     await setCustomAttributes({
-      key: 'fraction',
-      value: fraction,
+      key: 'size',
+      value: custom,
     })
     setSize([value, fraction])
   }
@@ -42,7 +43,7 @@ const ProductSizes = ({ option }) => {
         {values.map(value => (
           <VariantOption
             key={`variant-option-size-${value}`}
-            isSelected={mainSize === value && !fractionSize}
+            isSelected={baseSize === value && !fractionSize}
             onClick={() => {
               updateProductSizeAttribute(value, null)
             }}
@@ -64,15 +65,11 @@ const ProductSizes = ({ option }) => {
             {values.map(value => (
               <VariantOption
                 key={`variant-option-${value}-${fraction}`}
-                isSelected={mainSize === value && fractionSize === fraction}
-                isHidden={mainSize !== value}
+                isSelected={baseSize === value && fractionSize === fraction}
+                isHidden={baseSize !== value}
                 onClick={() => {
-                  if (mainSize !== value) return
-                  setCustomAttributes({
-                    key: 'fraction',
-                    value: fraction,
-                  })
-                  setSize([value, fraction])
+                  if (baseSize !== value) return
+                  updateProductSizeAttribute(value, fraction)
                 }}
                 m={1}
               >
