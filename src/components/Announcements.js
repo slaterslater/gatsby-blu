@@ -72,7 +72,8 @@ const Announcements = () => {
     <Flex
       p={[3]}
       sx={{ justifyContent: 'center', alignItems: 'center' }}
-      bg="cream"
+      bg="primary"
+      color="white"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
