@@ -61,6 +61,7 @@ export const HeroOuter = ({ children, data, align = 'right' }) => {
           bottom: 0,
           right: align === 'right' ? 0 : 'auto',
           zIndex: 1,
+          marginTop: '-1px',
         }}
       >
         <Box

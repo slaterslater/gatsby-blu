@@ -111,7 +111,7 @@ const SocialBlocks = () => {
         {socials.map(({ text, href, icon }, i) => (
           <Flex
             as={Link}
-            key={`social-block-${text}`}
+            key={`social-block-${i}`}
             sx={{
               flex: 1,
               justifyContent: 'center',
