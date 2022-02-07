@@ -50,7 +50,7 @@ const ExchangeForm = ({ onSuccess }) => (
       const { firstName, lastName, email } = values
       body.subject = `webstore exchange request from ${firstName} ${lastName} (${email})`
       try {
-        await fetch(`${process.env.GATSBY_SERVERLESS_BASE}/contact`, {
+        await fetch('/api/contact', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(body),
