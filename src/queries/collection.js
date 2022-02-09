@@ -31,6 +31,21 @@ export const COLLECTION_PAGE_QUERY = gql`
     collectionByHandle(handle: $handle) {
       title
       description
+      metafields(first: 5) {
+        edges {
+          node {
+            key
+            value
+            # reference {
+            #   ... on MediaImage {
+            #     image {
+            #       originalSrc
+            #     }
+            #   }
+            # }
+          }
+        }
+      }
       products(first: 250) {
         edges {
           cursor
@@ -70,6 +85,29 @@ export const COLLECTION_PAGE_QUERY = gql`
           }
         }
       }
+    }
+  }
+`
+
+// ideally this isn't needed and can just get reference from metafields in collectionByhandle
+export const COLLECTION_IMAGES_QUERY = gql`
+  query ($ids: [ID!]!) {
+    nodes(ids: $ids) {
+      id
+      # ... on Product {
+      #   id
+      #   title
+      #   handle
+      #   options {
+      #     name
+      #     values
+      #   }
+      # }
+      # ... on MediaImage {
+      #   image {
+      #     originalSrc
+      #   }
+      # }
     }
   }
 `

@@ -47,6 +47,12 @@ const ProductGrid = ({
 }) => {
   const sortedProducts = useSortedProducts(products)
 
+  // eventually the images will come from shopify or CMS
+  const collectionImages = Array.from({ length: 4 }).map(
+    (_, i) => sortedProducts[i].images[1]
+  )
+  console.log({ collectionImages })
+
   return (
     <CollectionProductGroup title={title} key={collectionTitle}>
       {sortedProducts.map((product, i) => (
