@@ -98,10 +98,11 @@ const SegmentedField = ({ label, id, name, options }) => {
 
   return (
     <Flex sx={{ gap: 2 }}>
-      {options.map(({ value, component }) => (
+      {options.map(({ value, component }, i) => (
         <Button
           type="button"
           variant="outline"
+          key={`segment-button-${i}`}
           sx={{
             borderColor: value === field.value ? 'black' : 'border',
             display: 'inline-flex',

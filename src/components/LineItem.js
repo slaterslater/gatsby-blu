@@ -1,15 +1,18 @@
-import { Heading, IconButton, Text, Box, Grid } from 'theme-ui'
+import { Heading, Text, Box, Grid } from 'theme-ui'
 import React from 'react'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import { useProductTitle } from './ProductTitle'
 import { useShopifyImage } from '../hooks/shopifyImage'
 
 const getItemOptionDescription = item => {
-  if (item.variant?.title) {
-    if (item.variant.title.toLowerCase() === 'default title') return ''
-    return item.variant?.title?.replace(' /', ',')
-  }
-  return ''
+  const title = item.variant?.title.toLowerCase()
+  if (!title || title === 'default title') return ''
+  const fractionalSize = item.customAttributes
+    .find(({ key }) => key === 'size')
+    ?.value.split('')
+    .pop()
+  console.log({ fractionalSize })
+  return item.variant?.title?.replace(' /', fractionalSize || ',')
 }
 
 const LineItem = ({ item, imgSize, children }) => {
@@ -44,7 +47,7 @@ const LineItem = ({ item, imgSize, children }) => {
           </Box>
         )}
         {item.customAttributes
-          .filter(attribute => attribute.key !== 'wrapping')
+          .filter(attribute => !['wrapping', 'size'].includes(attribute.key))
           .map(attribute => (
             <Box key={`${item.id}-${attribute.name}-${attribute.value}`}>
               <Text variant="small" sx={{ color: 'darkGray' }}>

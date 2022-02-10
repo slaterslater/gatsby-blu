@@ -4,6 +4,7 @@ import { ProductContext } from '../ProductContext'
 import SizingHelp from '../SizingHelp'
 import VariantOption from './option'
 import PairsOptions from './pairs'
+import ProductSizes from './size'
 
 const ProductOptions = () => {
   const {
@@ -17,6 +18,9 @@ const ProductOptions = () => {
 
   if (offersPairs && offersPairs.value === 'true') return <PairsOptions />
 
+  const sizeOption = options.find(({ name }) => name.toLowerCase() === 'size')
+  if (sizeOption) return <ProductSizes option={sizeOption} />
+
   return options.map(({ name, values }) => {
     // if there's only one option value, don't show the option row
     if (values.length < 2) return false
@@ -27,7 +31,6 @@ const ProductOptions = () => {
           <Heading as="div" variant="caps" sx={{ fontSize: 9 }}>
             select {name}
           </Heading>
-          <SizingHelp />
         </Flex>
         <Flex
           sx={{
