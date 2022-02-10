@@ -1,13 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useLocation } from '@reach/router'
 import { useQuery } from 'urql'
-import { Container, Grid, Link, Box, Text, Flex } from 'theme-ui'
+import { Container, Grid, Box, Text, Flex } from 'theme-ui'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import { parse } from 'qs'
 import Layout from '../components/layout'
 import CollectionProductGroup from '../components/CollectionProductGroup'
-import ResultsHeader from '../components/collection/ResultsHeader'
-import CollectionView, { getCollectionProducts } from './CollectionView'
+import { getCollectionProducts } from './CollectionView'
 import { COLLECTION_PAGE_QUERY } from '../queries/collection'
 import { sortProducts } from '../components/collection/CollectionProductGrid'
 import CollectionProduct from '../components/CollectionProduct'
@@ -81,12 +80,12 @@ const CollectionGroup = ({
     query: COLLECTION_PAGE_QUERY,
     variables: { handle },
   })
-
   const latestProducts = getCollectionProducts(
     data?.collectionByHandle.products
   )
-
-  const allProducts = latestProducts || products
+  const allProducts = (latestProducts || products).filter(
+    ({ tags }) => !tags.includes('hidden')
+  )
   const collectionProducts = isTruncated ? allProducts.slice(0, 4) : allProducts
 
   return (

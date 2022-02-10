@@ -81,7 +81,7 @@ const NavigationDrawer = ({ onClose }) => {
   })
 
   const guest = data?.customer.firstName
-  const their = guest ? `${guest}'${!guest.match(/s$/i) && 's'}` : null
+  const their = guest ? `${guest}'${!guest.match(/s$/i) ? 's' : ''}` : null
   // const miniMenu = [
   //   {
   //     title: 'Account',

@@ -1,11 +1,9 @@
 import { Button, Container, Grid, Divider, Heading } from 'theme-ui'
 import { useQuery } from 'urql'
 import React, { useState } from 'react'
-import ReactVisibilitySensor from 'react-visibility-sensor'
 import Layout from '../components/layout'
 import { PAGINATED_COLLECTION_PRODUCTS_QUERY } from '../queries/collection'
 import SearchProduct from '../components/SearchProduct'
-// import ResultsHeader from '../components/collection/ResultsHeader'
 
 const Page = ({ cursor, isLastPage, onLoadMore }) => {
   const [{ data, fetching }] = useQuery({
@@ -13,13 +11,14 @@ const Page = ({ cursor, isLastPage, onLoadMore }) => {
     variables: { handle: 'all', after: cursor },
   })
 
-  // console.log(cursor, data?.collectionByHandle.products.edges[0].cursor)
-
   if (!data) return false
+  const filteredCollections = data.collectionByHandle.products.edges.filter(
+    ({ node }) => !node.tags.includes('hidden')
+  )
 
   return (
     <>
-      {data.collectionByHandle.products.edges.map(({ node }) => {
+      {filteredCollections.map(({ node }) => {
         const images = node.images.edges.map(({ node }) => node)
         return (
           <SearchProduct
@@ -33,9 +32,7 @@ const Page = ({ cursor, isLastPage, onLoadMore }) => {
         <Button
           onClick={() => {
             onLoadMore(
-              data.collectionByHandle.products.edges[
-                data.collectionByHandle.products.edges.length - 1
-              ].cursor
+              filteredCollections[filteredCollections.length - 1].cursor
             )
           }}
           type="button"

@@ -4,17 +4,15 @@ import FormattedPrice from './FormattedPrice'
 import { useVariantPresentmentPrice } from '../hooks/variant'
 
 // handle discount allocations
-export const getDiscountedPrice = ({
+export const getDiscountedPrice = (
   originalTotalPrice,
-  discountAllocations = [],
-}) => {
+  discountAllocations = []
+) => {
   if (!discountAllocations.length) return undefined
-
   const discountTotal = discountAllocations.reduce(
     (acc, el) => acc + el.allocatedAmount.amount,
     0
   )
-
   return {
     ...originalTotalPrice,
     amount: originalTotalPrice.amount - discountTotal,
@@ -23,30 +21,36 @@ export const getDiscountedPrice = ({
 
 const VariantPrice = ({ item }) => {
   const presentmentPrice = useVariantPresentmentPrice(item.variant)
-
   return <FormattedPrice priceV2={presentmentPrice || {}} />
 }
 
-const LineItemPrice = ({ item, ...props }) => {
-  // handle discount allocations
-  const discountedPrice = false
-
+const LineItemPrice = ({
+  item,
+  originalTotalPrice,
+  discountAllocations,
+  ...props
+}) => {
+  if (item) return <VariantPrice item={item} />
+  const discountedPrice = getDiscountedPrice(
+    originalTotalPrice,
+    discountAllocations
+  )
   return (
     <Grid
       sx={{ display: 'inline-grid', gridAutoFlow: 'column', gap: 2 }}
       {...props}
     >
-      {/* {!!discountedPrice && ( */}
-      {/*   <Text> */}
-      {/*     <FormattedPrice priceV2={discountedPrice} /> */}
-      {/*   </Text> */}
-      {/* )} */}
       <Text
         variant={discountedPrice ? 'strike' : ''}
         sx={{ color: discountedPrice ? 'darkGray' : 'body' }}
       >
-        {!!item.variant && <VariantPrice item={item} />}
+        <FormattedPrice priceV2={originalTotalPrice} />
       </Text>
+      {discountedPrice && (
+        <Text>
+          <FormattedPrice priceV2={discountedPrice} />
+        </Text>
+      )}
     </Grid>
   )
 }

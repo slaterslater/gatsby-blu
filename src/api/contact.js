@@ -1,13 +1,11 @@
 // google oauth follows: https://medium.com/@nickroach_50526/sending-emails-with-node-js-using-smtp-gmail-and-oauth2-316fe9c790a1
 import nodemailer from 'nodemailer'
-import googleapis from 'googleapis'
+import { google } from 'googleapis'
 import { nanoid } from 'nanoid'
 
 import createRecipientList from '../lib/createRecipientList'
 
-const { OAuth2 } = googleapis.google.auth
-
-const oauth2Client = new OAuth2(
+const oauth2Client = new google.auth.OAuth2(
   process.env.CONTACT_FORM_OAUTH_CLIENT_ID,
   process.env.CONTACT_FORM_OAUTH_CLIENT_SECRET,
   'https://developers.google.com/oauthplayground'
@@ -53,13 +51,12 @@ export default async function (req, res) {
   `
 
   const to = createRecipientList(body)
-
   // include a nanoid in the subject to avoid threading
   const nanoId = nanoid(6)
   const subject = `${body.subject} - ${nanoId}`
 
   const info = await transporter.sendMail({
-    from: 'bluboho contact form <ian@bluboho.com>',
+    from: 'bluboho contact form <guestexperience@bluboho.com>',
     subject,
     to,
     html,

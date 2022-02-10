@@ -16,7 +16,6 @@ const CollectionPageTemplate = ({ pageContext, path, data }) => {
     const group = collections.find(
       groupNode => groupNode.handle === node.handle
     )
-
     return {
       ...node,
       title: group?.title || node.title,

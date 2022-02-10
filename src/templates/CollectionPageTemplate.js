@@ -13,19 +13,16 @@ const CollectionPageTemplate = ({ data, pageContext, ...props }) => {
   const clientProducts = getCollectionProducts(
     clientData?.collectionByHandle.products
   )
-
-  const { products, handle, image } = data.shopifyCollection
-
-  const title = data.shopifyCollection.title.toLowerCase()
-  const description = data.shopifyCollection.description?.toLowerCase()
-
-  const viewProducts = clientProducts || products
+  const { products, handle, image, title, description } = data.shopifyCollection
+  const viewProducts = (clientProducts || products).filter(
+    ({ tags }) => !tags.includes('hidden')
+  )
 
   return (
     <CollectionView
-      title={title}
+      title={title.toLowerCase()}
       handle={handle}
-      description={description}
+      description={description.toLowerCase()}
       image={image}
       products={viewProducts}
       hasFilters

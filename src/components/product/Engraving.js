@@ -45,7 +45,9 @@ const Engraving = () => {
   return (
     <EngravingForm
       chars={chars}
-      hasLocation={tags.includes('legacy ring Engravable')}
+      hasLocation={tags.some(
+        tag => tag.toLowerCase() === 'legacy ring engravable'
+      )}
       onSubmit={async ({ text, font, location }) => {
         setCustomAttributes({
           key: 'engraving',

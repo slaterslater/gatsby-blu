@@ -61,6 +61,7 @@ export const HeroOuter = ({ children, data, align = 'right' }) => {
           bottom: 0,
           right: align === 'right' ? 0 : 'auto',
           zIndex: 1,
+          marginTop: '-1px',
         }}
       >
         <Box
@@ -114,15 +115,8 @@ export const HeroOuter = ({ children, data, align = 'right' }) => {
 }
 
 const SanityHero = ({ node }) => {
-  const {
-    image1,
-    image2,
-    imageMobile,
-    icon,
-    heading,
-    subheading,
-    button,
-  } = node
+  const { image1, image2, imageMobile, icon, heading, subheading, button } =
+    node
   const iconImageData = useGatsbySanityImageData(icon, {
     height: 60,
     width: 59,
