@@ -63,7 +63,7 @@ const ProductSizes = ({ option }) => {
                     updateProductSizeAttribute(value, fraction)
                   }}
                   m={1}
-                  mt={-1}
+                  mt={0}
                 >
                   <Flex
                     sx={{
