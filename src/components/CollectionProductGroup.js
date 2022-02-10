@@ -21,7 +21,7 @@ const CollectionProductGroup = ({ title, children, ...props }) => (
     <Grid
       as="section"
       sx={{
-        gap: 6,
+        gap: 3,
         gridTemplateColumns: [
           'repeat(2, 1fr)',
           'repeat(2, 1fr)',

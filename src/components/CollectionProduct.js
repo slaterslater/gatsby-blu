@@ -37,12 +37,11 @@ const CollectionProduct = ({
   collectionTitle,
   collectionPath,
   images,
+  order,
 }) => {
   const [price, hasRange] = useProductPrice(product)
   const title = useProductTitle(product.title)
-
-  const firstImage = images[0]
-  const secondImage = images[1]
+  const [firstImage, secondImage] = images
 
   return (
     <ProductListItem
@@ -55,6 +54,7 @@ const CollectionProduct = ({
       secondImage={secondImage}
       tags={product.tags}
       availableForSale={product.availableForSale}
+      order={order}
     />
   )
 }

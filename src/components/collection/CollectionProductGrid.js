@@ -3,9 +3,11 @@ import React, { useMemo } from 'react'
 import { parse } from 'qs'
 import { DateTime } from 'luxon'
 import { useLocation } from '@reach/router'
+import { GatsbyImage } from 'gatsby-plugin-image'
 import CollectionProduct from '../CollectionProduct'
 import CollectionProductGroup from '../CollectionProductGroup'
 import BookAConsultationCallout from '../content/BookAConsultationCallout'
+import { useShopifyImage } from '../../hooks/shopifyImage'
 
 export const sortProducts = ({ products, sort }) =>
   products.sort((a, b) => {
@@ -38,6 +40,11 @@ const useSortedProducts = products => {
   }, [sort, products])
 }
 
+const CollectionImage = ({ image, fallbackAlt }) => {
+  const imageData = useShopifyImage({ image, width: 715, height: 445 })
+  return <GatsbyImage image={imageData} alt={image.altText || fallbackAlt} />
+}
+
 const ProductGrid = ({
   products,
   collectionTitle,
@@ -46,6 +53,11 @@ const ProductGrid = ({
   description,
 }) => {
   const sortedProducts = useSortedProducts(products)
+
+  // determine max num of images to show based on sortedProducts length
+  // const prodLen = sortedProducts.length
+  // let imageNum = Math.floor(prodLen / 10) * 2
+  // if (prodLen % 8 === 0 || prodLen % 9 === 0) imageNum += 1
 
   // eventually the images will come from shopify or CMS
   const collectionImages = Array.from({ length: 4 }).map(
@@ -68,8 +80,28 @@ const ProductGrid = ({
             images={product.images}
             collectionTitle={collectionTitle}
             collectionPath={collectionPath}
+            order={i}
           />
         </>
+      ))}
+      {collectionImages.map((image, i) => (
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            // move this into function
+            // also it's not working over 30 items...
+            order: i % 4 ? 5 * i + ((i + 1) % 5) : 5 * i + 5,
+            gridColumn: 'span 2',
+            gridRow: i % 2 ? '' : 'span 2',
+            flexGrow: 0,
+          }}
+        >
+          <CollectionImage
+            image={image}
+            fallbackAlt={`collection-image-${i}`}
+          />
+        </Box>
       ))}
     </CollectionProductGroup>
   )

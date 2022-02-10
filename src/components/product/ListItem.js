@@ -124,13 +124,18 @@ const ProductListItemInner = ({
   </Box>
 )
 
-const ProductListItem = ({ to, linkState, ...props }) => {
+const ProductListItem = ({ to, linkState, order, ...props }) => {
   if (to)
     return (
       <GatsbyLink
         to={to}
         state={linkState}
-        style={{ textDecoration: 'none', position: 'relative', zIndex: 1 }}
+        style={{
+          textDecoration: 'none',
+          position: 'relative',
+          zIndex: 1,
+          order,
+        }}
       >
         <ProductListItemInner {...props} />
       </GatsbyLink>
