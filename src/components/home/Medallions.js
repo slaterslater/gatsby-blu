@@ -1,6 +1,5 @@
 import React from 'react'
-import { Box, Flex, Container } from 'theme-ui'
-import { GatsbyImage } from 'gatsby-plugin-image'
+import { Box, Flex, Image, Container } from 'theme-ui'
 import PropTypes from 'prop-types'
 
 const Medallion = ({ children }) => (
@@ -15,7 +14,7 @@ const Medallion = ({ children }) => (
   </Box>
 )
 
-const Medallions = ({ medallions }) => (
+const Medallions = () => (
   <Container sx={{ bg: 'bbBeige', maxWidth: '100%' }}>
     <Flex
       sx={{
@@ -25,12 +24,14 @@ const Medallions = ({ medallions }) => (
       }}
       mx="auto"
     >
-      {medallions.map(({ image, altText }, i) => (
-        <Medallion key={`medallion=${i}`}>
-          <GatsbyImage
-            image={image.asset.gatsbyImageData}
-            alt={`${altText} Medallion`}
-          />
+      {[
+        'ethically-sourced',
+        'hand-crafted',
+        'made-in-canada',
+        'recycled-materials',
+      ].map(src => (
+        <Medallion key={`medallion=${src}`}>
+          <Image src={`/medallions/${src}.png`} alt={`${src} Medallion`} />
         </Medallion>
       ))}
     </Flex>
@@ -39,9 +40,9 @@ const Medallions = ({ medallions }) => (
 
 export default Medallions
 
-Medallions.propTypes = {
-  medallions: PropTypes.arrayOf(PropTypes.object),
-}
+// Medallions.propTypes = {
+//   medallions: PropTypes.arrayOf(PropTypes.object),
+// }
 
 Medallion.propTypes = {
   children: PropTypes.object,
