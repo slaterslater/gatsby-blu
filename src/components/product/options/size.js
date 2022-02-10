@@ -41,58 +41,51 @@ const ProductSizes = ({ option }) => {
         m={-1}
       >
         {values.map(value => (
-          <VariantOption
-            key={`variant-option-size-${value}`}
-            isSelected={baseSize === value && !fractionSize}
-            onClick={() => {
-              updateProductSizeAttribute(value, null)
-            }}
-            m={1}
-          >
-            {value}
-          </VariantOption>
-        ))}
-      </Flex>
-      {shouldDisplayFractions &&
-        ['¼', '½'].map(fraction => (
-          <Flex
-            key={`variant-option-fraction-${fraction}`}
-            sx={{
-              flexWrap: 'wrap',
-            }}
-            m={-1}
-          >
-            {values.map(value => (
-              <VariantOption
-                key={`variant-option-${value}-${fraction}`}
-                isSelected={baseSize === value && fractionSize === fraction}
-                isHidden={baseSize !== value}
-                onClick={() => {
-                  if (baseSize !== value) return
-                  updateProductSizeAttribute(value, fraction)
-                }}
-                m={1}
-              >
-                <Flex
-                  sx={{
-                    justifyContent: 'center',
+          <Flex sx={{ flexDirection: 'column', flex: 1 }}>
+            <VariantOption
+              key={`variant-option-size-${value}`}
+              isSelected={baseSize === value && !fractionSize}
+              onClick={() => {
+                updateProductSizeAttribute(value, null)
+              }}
+              m={1}
+            >
+              {value}
+            </VariantOption>
+            {shouldDisplayFractions &&
+              ['¼', '½'].map(fraction => (
+                <VariantOption
+                  key={`variant-option-${value}-${fraction}`}
+                  isSelected={baseSize === value && fractionSize === fraction}
+                  isHidden={baseSize !== value}
+                  onClick={() => {
+                    if (baseSize !== value) return
+                    updateProductSizeAttribute(value, fraction)
                   }}
+                  m={1}
+                  mt={-1}
                 >
-                  {value}
-                  <sup
-                    style={{
-                      fontSize: '9px',
-                      width: '6px',
-                      lineHeight: '0.5',
+                  <Flex
+                    sx={{
+                      justifyContent: 'center',
                     }}
                   >
-                    {fraction}
-                  </sup>
-                </Flex>
-              </VariantOption>
-            ))}
+                    {value}
+                    <sup
+                      style={{
+                        fontSize: '9px',
+                        width: '6px',
+                        lineHeight: '0.8',
+                      }}
+                    >
+                      {fraction}
+                    </sup>
+                  </Flex>
+                </VariantOption>
+              ))}
           </Flex>
         ))}
+      </Flex>
     </Box>
   )
 }
