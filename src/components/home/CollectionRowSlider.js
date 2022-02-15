@@ -2,45 +2,10 @@
 
 import { GatsbyImage } from 'gatsby-plugin-image'
 import React from 'react'
-import { Container, Flex, Box, AspectRatio } from 'theme-ui'
+import { Container, Box, AspectRatio } from 'theme-ui'
 import PropTypes from 'prop-types'
 import ThemeLink from '../app/ThemeLink'
-
-export const MobileSlider = ({ nodes, minCardWidth, ...props }) => (
-  <Box
-    {...props}
-    sx={{
-      width: 'calc(100% + 24px)',
-      overflowX: 'auto',
-      webkitOverflowScrolling: 'touch',
-      scrollSnapType: 'x mandatory',
-      scrollBehavior: 'smooth',
-      msOverflowStyle: 'none',
-      justifyContent: 'center',
-      scrollbarWidth: 'none',
-      '&::-webkit-scrollbar': {
-        display: 'none',
-      },
-      ...(props.sx || {}),
-    }}
-  >
-    <Flex mx={-2} px={5}>
-      {nodes.map((node, i) => (
-        <Box
-          key={`mobile-slider-${i}`}
-          mx={2}
-          sx={{
-            scrollSnapAlign: 'start',
-            minWidth: [minCardWidth, 0],
-            flex: 1,
-          }}
-        >
-          {node}
-        </Box>
-      ))}
-    </Flex>
-  </Box>
-)
+import { MobileSlider } from '../content/CollectionRow'
 
 const CollectionRowSlider = ({ collections, minCardWidth = 230, ...props }) => (
   <Container variant="wide" mt={[5, 6, 7, 8]}>

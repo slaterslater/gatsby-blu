@@ -31,7 +31,7 @@ const transporter = nodemailer.createTransport({
 export default async function (req, res) {
   const { body } = req
 
-  if (body.decepticon) {
+  if (body.decepticons) {
     return res.status(400).text('oops! something went wrong')
   }
 
@@ -51,12 +51,15 @@ export default async function (req, res) {
   `
 
   const to = createRecipientList(body)
+  const contact = body.subject.includes('wholesale')
+    ? 'wholesale'
+    : 'guestexperience'
+  const from = `bluboho contact form <${contact}@bluboho.com>`
   // include a nanoid in the subject to avoid threading
-  const nanoId = nanoid(6)
-  const subject = `${body.subject} - ${nanoId}`
+  const subject = `${body.subject} - ${nanoid(6)}`
 
   const info = await transporter.sendMail({
-    from: 'bluboho contact form <guestexperience@bluboho.com>',
+    from,
     subject,
     to,
     html,
