@@ -9,12 +9,12 @@ const validFormats = new Set(['jpg', 'png', 'webp', 'auto']);
 export interface ShopifyImage {
   width: number
   height: number
-  originalSrc: string
+  url: string
 }
 export interface IGetShopifyImageArgs
   extends Omit<
-    IGetImageDataArgs,
-    'urlBuilder' | 'baseUrl' | 'formats' | 'sourceWidth' | 'sourceHeight'
+  IGetImageDataArgs,
+  'urlBuilder' | 'baseUrl' | 'formats' | 'sourceWidth' | 'sourceHeight'
   > {
   image: ShopifyImage
 }
@@ -53,7 +53,7 @@ export function urlBuilder({
 
 export function getShopifyImage({ image, ...args }: IGetShopifyImageArgs) {
   const {
-    originalSrc: baseUrl,
+    url: baseUrl,
     width: sourceWidth,
     height: sourceHeight,
   } = image

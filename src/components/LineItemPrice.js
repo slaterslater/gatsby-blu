@@ -1,7 +1,6 @@
 import { Grid, Text } from 'theme-ui'
 import React from 'react'
 import FormattedPrice from './FormattedPrice'
-import { useVariantPresentmentPrice } from '../hooks/variant'
 
 // handle discount allocations
 export const getDiscountedPrice = (
@@ -19,18 +18,13 @@ export const getDiscountedPrice = (
   }
 }
 
-const VariantPrice = ({ item }) => {
-  const presentmentPrice = useVariantPresentmentPrice(item.variant)
-  return <FormattedPrice priceV2={presentmentPrice || {}} />
-}
-
 const LineItemPrice = ({
   item,
   originalTotalPrice,
   discountAllocations,
   ...props
 }) => {
-  if (item) return <VariantPrice item={item} />
+  if (item) return <FormattedPrice priceV2={item.variant.priceV2 || {}} />
   const discountedPrice = getDiscountedPrice(
     originalTotalPrice,
     discountAllocations

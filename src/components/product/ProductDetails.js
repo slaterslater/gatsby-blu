@@ -46,7 +46,7 @@ const ProductDetails = ({ alternates }) => {
   const [{ data }] = useQuery({
     query: gql`
       query ($collectionHandle: String!) {
-        collectionByHandle(handle: $collectionHandle) {
+        collection(handle: $collectionHandle) {
           products(first: 250) {
             edges {
               node {
@@ -62,7 +62,7 @@ const ProductDetails = ({ alternates }) => {
 
   const related = useMemo(() => {
     // make an array of product handles
-    const productHandles = data?.collectionByHandle?.products?.edges
+    const productHandles = data?.collection?.products?.edges
     if (!productHandles) return null
     // get index of handle
     const currentIndex = productHandles.findIndex(

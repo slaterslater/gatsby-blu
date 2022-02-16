@@ -15,7 +15,7 @@ export const getSrcWithSize = (src = '', size) => {
 // export const useShopifyOgImage = src =>
 //   getSrcWithSize(src,
 
-const useShopifyImageCDNSizes = (originalSrc, sizes = defaultSizes) =>
+const useShopifyImageCDNSizes = (url, sizes = defaultSizes) =>
   useMemo(() => {
     const sizesWithRetina = Array.from(
       new Set([
@@ -24,23 +24,23 @@ const useShopifyImageCDNSizes = (originalSrc, sizes = defaultSizes) =>
         ...sizes.map(size => size * 3),
       ])
     )
-    const baseSrc = getSrcWithSize(originalSrc, `${sizes[0]}x`)
+    const baseSrc = getSrcWithSize(url, `${sizes[0]}x`)
 
     const formattedSrcSet = sizesWithRetina.map(
-      width => `${getSrcWithSize(originalSrc, `${width}x`)} ${width}w`
+      width => `${getSrcWithSize(url, `${width}x`)} ${width}w`
     )
 
     return [baseSrc, formattedSrcSet]
-  }, [sizes, originalSrc])
+  }, [sizes, url])
 
 const RemoteShopifyImage = ({
-  originalSrc,
+  url,
   ratio,
   sizes,
   altText,
   ...props
 }) => {
-  const [src, srcSet] = useShopifyImageCDNSizes(originalSrc, sizes)
+  const [src, srcSet] = useShopifyImageCDNSizes(url, sizes)
 
   if (ratio)
     return (
@@ -63,7 +63,7 @@ RemoteShopifyImage.defaultProps = {
 }
 
 RemoteShopifyImage.propTypes = {
-  originalSrc: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
   sizes: PropTypes.arrayOf(PropTypes.number),
   altText: PropTypes.string,
 }

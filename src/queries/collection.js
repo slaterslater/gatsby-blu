@@ -5,8 +5,12 @@ import { PRODUCT_PRICE_RANGE_FRAGMENT } from './product'
 
 export const PAGINATED_COLLECTION_PRODUCTS_QUERY = gql`
   ${SEARCH_PRODUCT_FRAGMENT}
-  query PaginatedCollectionProducts($handle: String!, $after: String) {
-    collectionByHandle(handle: $handle) {
+  query PaginatedCollectionProducts(
+    $handle: String!
+    $after: String
+    $countryCode: CountryCode
+  ) @inContext(country: $countryCode) {
+    collection(handle: $handle) {
       products(first: 50, after: $after) {
         pageInfo {
           hasNextPage
@@ -27,8 +31,9 @@ export const PAGINATED_COLLECTION_PRODUCTS_QUERY = gql`
 export const COLLECTION_PAGE_QUERY = gql`
   ${SEARCH_PRODUCT_FRAGMENT}
   ${PRODUCT_PRICE_RANGE_FRAGMENT}
-  query CollectionPageQuery($handle: String!) {
-    collectionByHandle(handle: $handle) {
+  query CollectionPageQuery($handle: String!, $countryCode: CountryCode)
+  @inContext(country: $countryCode) {
+    collection(handle: $handle) {
       title
       description
       products(first: 250) {
@@ -41,16 +46,6 @@ export const COLLECTION_PAGE_QUERY = gql`
                   priceV2 {
                     currencyCode
                     amount
-                  }
-                  presentmentPrices(first: 100) {
-                    edges {
-                      node {
-                        price {
-                          amount
-                          currencyCode
-                        }
-                      }
-                    }
                   }
                 }
               }

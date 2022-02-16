@@ -55,7 +55,7 @@ export const InstantSearchProduct = ({ hit }) => {
   const title = useProductTitle(hit.title)
   const [price, hasRange] = useProductPrice(hit)
 
-  // const price
+  console.log({ hit })
   return (
     <ProductListItem
       title={title}

@@ -84,7 +84,7 @@ export const query = graphql`
         handle
         content
         image {
-          originalSrc: src
+          url
           altText
           height
           width

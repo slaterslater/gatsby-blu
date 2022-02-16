@@ -50,7 +50,7 @@ export const query = graphql`
       }
       images {
         id
-        originalSrc
+        url
         altText
         height
         width

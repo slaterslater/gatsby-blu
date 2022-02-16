@@ -1,6 +1,7 @@
 import { GraphQLClient } from 'graphql-request'
 
-const url = `https://${process.env.GATSBY_SHOPIFY_SHOP_NAME}/admin/api/2021-10/graphql.json`
+const API_VERSION = process.env.GATSBY_SHOPIFY_API_VERSION
+const url = `https://${process.env.GATSBY_SHOPIFY_SHOP_NAME}/admin/api/${API_VERSION}/graphql.json`
 
 const getClient = () =>
   new GraphQLClient(url, {

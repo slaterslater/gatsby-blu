@@ -1,18 +1,20 @@
 import { Button, Container, Grid, Divider, Heading } from 'theme-ui'
 import { useQuery } from 'urql'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Layout from '../components/layout'
 import { PAGINATED_COLLECTION_PRODUCTS_QUERY } from '../queries/collection'
 import SearchProduct from '../components/SearchProduct'
+import { CurrencyContext } from '../contexts/CurrencyContext'
 
 const Page = ({ cursor, isLastPage, onLoadMore }) => {
+  const { countryCode } = useContext(CurrencyContext)
   const [{ data, fetching }] = useQuery({
     query: PAGINATED_COLLECTION_PRODUCTS_QUERY,
-    variables: { handle: 'all', after: cursor },
+    variables: { handle: 'all', after: cursor, countryCode },
   })
 
   if (!data) return false
-  const filteredCollections = data.collectionByHandle.products.edges.filter(
+  const filteredCollections = data.collection.products.edges.filter(
     ({ node }) => !node.tags.includes('hidden')
   )
 
@@ -28,7 +30,7 @@ const Page = ({ cursor, isLastPage, onLoadMore }) => {
           />
         )
       })}
-      {data?.collectionByHandle.products.pageInfo.hasNextPage && isLastPage && (
+      {data?.collection.products.pageInfo.hasNextPage && isLastPage && (
         <Button
           onClick={() => {
             onLoadMore(
