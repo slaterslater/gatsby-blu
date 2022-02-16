@@ -29,7 +29,7 @@ export const CHECKOUT_FRAGMENT = gql`
             title
             image {
               altText
-              originalSrc
+              url
               height
               width
               id

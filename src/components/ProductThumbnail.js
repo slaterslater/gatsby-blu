@@ -7,9 +7,9 @@ const getSrcWithSize = (src, size) => {
   return src.replace(extName, `_${size}${extName}`)
 }
 
-const ProductThumbnail = ({ originalSrc, alt }) => {
+const ProductThumbnail = ({ url, alt }) => {
   const srcs = [200, 400, 600].map(
-    width => `${getSrcWithSize(originalSrc, `${width}x`)} ${width}w`
+    width => `${getSrcWithSize(url, `${width}x`)} ${width}w`
   )
 
   return <Image src={srcs[0]} srcSet={srcs.join(', ')} alt={alt} />

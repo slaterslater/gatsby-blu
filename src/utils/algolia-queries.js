@@ -19,7 +19,7 @@ const productQuery = `
         vendor
         images {
           id
-          originalSrc
+          url
           altText
           height
           width

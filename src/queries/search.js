@@ -21,7 +21,7 @@ export const SEARCH_PRODUCT_FRAGMENT = gql`
       edges {
         node {
           altText
-          originalSrc
+          url
           height
           width
           id

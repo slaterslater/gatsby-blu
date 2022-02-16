@@ -97,7 +97,7 @@ const GiftModal = ({
                   length={products.length}
                   currentIndex={productIndex}
                   setProductIndex={setProductIndex}
-                  image={product.images[0].originalSrc}
+                  image={product.images[0].url}
                   alt={product.title}
                 />
                 <Grid
