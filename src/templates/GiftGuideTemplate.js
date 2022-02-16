@@ -11,12 +11,8 @@ import GiftGuideCollection from '../components/guide/GiftGuideCollection'
 import GiftProvider from '../components/guide/GiftContext'
 
 const GiftGuidePage = ({ data }) => {
-  const {
-    title,
-    description,
-    headerImage,
-    giftCollections,
-  } = data.sanityGiftGuide
+  const { title, description, headerImage, giftCollections } =
+    data.sanityGiftGuide
   const collections = data.allShopifyCollection.nodes
   const allShopifyProduct = data.allShopifyProduct.nodes
 
@@ -79,7 +75,7 @@ GiftGuidePage.propTypes = {
 }
 
 export const query = graphql`
-  query(
+  query (
     $guideHandle: String!
     $collections: [String!]!
     $products: [String!]!

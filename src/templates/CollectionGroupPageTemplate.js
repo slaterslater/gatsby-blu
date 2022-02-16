@@ -89,16 +89,6 @@ export const query = graphql`
               amount
               currencyCode
             }
-            presentmentPrices {
-              edges {
-                node {
-                  price {
-                    amount
-                    currencyCode
-                  }
-                }
-              }
-            }
           }
           priceRange {
             minVariantPrice {

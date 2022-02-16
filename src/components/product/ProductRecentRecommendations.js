@@ -1,11 +1,9 @@
 import React, { useContext, useState } from 'react'
-import { useQuery, gql } from 'urql'
-import { Box, NavLink, Flex, Grid, Container, Heading, Text } from 'theme-ui'
+import { useQuery } from 'urql'
+import { Box, NavLink, Flex, Grid, Container, Heading } from 'theme-ui'
 import { useMatch } from '@reach/router'
 import { RecentlyViewedProductsContext } from '../../contexts/RecentlyViewedProductsContext'
 import { CurrencyContext } from '../../contexts/CurrencyContext'
-import SearchProduct from '../SearchProduct'
-import { SEARCH_PRODUCT_FRAGMENT } from '../../queries/search'
 import { ProductContext } from './ProductContext'
 import { PRODUCT_ITEM_QUERY } from '../../queries/product'
 import ProductListItem from './ListItem'
@@ -77,19 +75,6 @@ const NavTab = ({ isCurrent, ...props }) => (
     {...props}
   />
 )
-
-// const NavTab = ({ current, ...props }) => (
-//   <NavLink
-//     sx={{
-//       textTransform: 'uppercase',
-//       letterSpacing: 'caps',
-//       fontWeight: current ? 'bold' : 'normal',
-//       fontSize: 1,
-//       textAlign: 'center',
-//     }}
-//     {...props}
-//   />
-// )
 
 const ProductsList = ({ handles }) =>
   handles.map(handle => <Recent handle={handle} key={`recent-${handle}`} />)

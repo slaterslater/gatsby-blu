@@ -9,6 +9,7 @@ import CheckoutButton from './cart/CheckoutButton'
 import { CHECKOUT_QUERY } from '../queries/checkout'
 import OrderNote from './OrderNote'
 import { useAnalytics } from '../lib/useAnalytics'
+import { CurrencyContext } from '../contexts/CurrencyContext'
 
 const EmptyCart = () => (
   <Box py={5} px={4} sx={{ textAlign: 'center' }}>
@@ -23,9 +24,10 @@ const CartTag = ({ checkout }) => {
 
 const CartDrawer = ({ onClose }) => {
   const { checkoutId } = useContext(StoreContext)
+  const { countryCode } = useContext(CurrencyContext)
   const [{ data, fetching }] = useQuery({
     query: CHECKOUT_QUERY,
-    variables: { checkoutId },
+    variables: { checkoutId, countryCode },
   })
 
   const { webUrl: checkoutUrl } = data?.node || {}

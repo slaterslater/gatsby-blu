@@ -211,20 +211,6 @@ export default {
                   title
                   weight
                   weightUnit
-                  presentmentPrices(first: 250) {
-                    edges {
-                      node {
-                        price {
-                          amount
-                          currencyCode
-                        }
-                        compareAtPrice {
-                          amount
-                          currencyCode
-                        }
-                      }
-                    }
-                  }
                 }
               }
             }

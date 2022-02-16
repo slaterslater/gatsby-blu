@@ -11,7 +11,6 @@ const getItemOptionDescription = item => {
     .find(({ key }) => key === 'size')
     ?.value.split('')
     .pop()
-  console.log({ fractionalSize })
   return item.variant?.title?.replace(' /', fractionalSize || ',')
 }
 

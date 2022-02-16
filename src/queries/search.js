@@ -7,18 +7,14 @@ export const SEARCH_PRODUCT_FRAGMENT = gql`
     title
     availableForSale
     tags
-    presentmentPriceRanges(first: 5) {
-      edges {
-        node {
-          minVariantPrice {
-            amount
-            currencyCode
-          }
-          maxVariantPrice {
-            amount
-            currencyCode
-          }
-        }
+    priceRange {
+      minVariantPrice {
+        amount
+        currencyCode
+      }
+      maxVariantPrice {
+        amount
+        currencyCode
       }
     }
     images(first: 2) {
@@ -37,7 +33,7 @@ export const SEARCH_PRODUCT_FRAGMENT = gql`
 
 export const SEARCH_QUERY = gql`
   ${SEARCH_PRODUCT_FRAGMENT}
-  query($query: String!, $first: Int!, $after: String) {
+  query ($query: String!, $first: Int!, $after: String) {
     products(first: $first, query: $query, after: $after, sortKey: RELEVANCE) {
       pageInfo {
         hasNextPage

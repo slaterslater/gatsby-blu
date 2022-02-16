@@ -12,20 +12,20 @@ const ClientCollectionPage = ({ params: { handle } }) => {
     variables: { handle },
   })
 
-  if (data?.collectionByHandle) {
-    const products = getCollectionProducts(data.collectionByHandle.products)
+  if (data?.collection) {
+    const products = getCollectionProducts(data.collection.products)
     return (
       <CollectionView
         handle={handle}
-        title={data.collectionByHandle.title}
-        description={data.collectionByHandle.description}
+        title={data.collection.title}
+        description={data.collection.description}
         products={products}
         hasFilters
       />
     )
   }
 
-  if (data && !data.collectionByHandle) return <NotFoundView />
+  if (data && !data.collection) return <NotFoundView />
   return false
 }
 

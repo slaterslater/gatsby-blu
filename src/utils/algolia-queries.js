@@ -40,16 +40,6 @@ const productQuery = `
             amount
             currencyCode
           }
-          presentmentPrices {
-            edges {
-              node {
-                price {
-                  amount
-                  currencyCode
-                }
-              }
-            }
-          }
         }
       }
     }
