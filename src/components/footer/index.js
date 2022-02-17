@@ -89,7 +89,7 @@ const Footer = props => (
             <FooterLink to="/pages/care-and-wear-disclaimer">
               jewelry care &amp; wear
             </FooterLink>
-            <FooterLink pb={0} to="/pages/wholesale-application">
+            <FooterLink pb={0} to="/wholesale">
               Wholesale
             </FooterLink>
           </CollapsibleFooterSection>
