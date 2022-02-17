@@ -258,7 +258,7 @@ export const query = graphql`
         title
         handle
         images {
-          originalSrc
+          url
           altText
           height
           width

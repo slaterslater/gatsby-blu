@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { parse } from 'qs'
-import { Flex, Button, Input, Grid, Box, Text, Container } from 'theme-ui'
+import { Button, Grid, Box, Container } from 'theme-ui'
 import { IoIosSearch } from 'react-icons/io'
 import { InstantSearch, connectInfiniteHits } from 'react-instantsearch-dom'
 import Layout from '../components/layout'
@@ -57,11 +57,6 @@ const SearchPage = ({ location: { search } }) => {
           searchClient={searchClient}
           indexName={process.env.GATSBY_ALGOLIA_INDEX_NAME}
         >
-          {/* <ResultsHeader */}
-          {/*   title={`Search: ${term}`} */}
-          {/*   count={query.data?.products.edges.length || 0} */}
-          {/*   resultType="results" */}
-          {/* /> */}
           <Grid
             pb={4}
             sx={{

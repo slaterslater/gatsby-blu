@@ -1,32 +1,24 @@
-import React, { useContext } from 'react'
-import { CurrencyContext } from '../contexts/CurrencyContext'
+import React from 'react'
 import { useProductTitle } from './ProductTitle'
 import ProductListItem from './product/ListItem'
 
 const SearchProduct = ({ product, images }) => {
-  const { currencyCode } = useContext(CurrencyContext)
   const [firstImage, secondImage] = images
-
+  const { handle, priceRange, tags, availableForSale } = product
   const title = useProductTitle(product.title)
-
-  const hasRange = product.presentmentPriceRanges.edges.find(
-    ({ node }) => node.maxVariantPrice.amount !== node.minVariantPrice.amount
-  )
-
-  const presentmentPrice = product.presentmentPriceRanges.edges.find(
-    ({ node }) => node.minVariantPrice.currencyCode === currencyCode
-  )
+  const hasRange =
+    priceRange.maxVariantPrice.amount !== priceRange.minVariantPrice.amount
 
   return (
     <ProductListItem
       title={title}
-      to={`/products/${product.handle}`}
+      to={`/products/${handle}`}
       firstImage={firstImage}
       secondImage={secondImage}
-      price={presentmentPrice.node.minVariantPrice}
+      price={priceRange.minVariantPrice}
       hasRange={hasRange}
-      tags={product.tags}
-      availableForSale={product.availableForSale}
+      tags={tags}
+      availableForSale={availableForSale}
     />
   )
 }

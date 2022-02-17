@@ -29,7 +29,9 @@ const BlogTemplate = ({ data }) => (
         }}
       />
       <Box pt={4}>
-        <Text variant="caps">Written By {data.shopifyArticle.author.name}</Text>
+        <Text variant="caps">
+          Written By {data.shopifyArticle.authorV2.name}
+        </Text>
       </Box>
     </Container>
   </Layout>
@@ -46,12 +48,12 @@ export const query = graphql`
       publishedAt
       image {
         altText
-        originalSrc: src
+        url
         id
         height
         width
       }
-      author {
+      authorV2 {
         name
       }
     }

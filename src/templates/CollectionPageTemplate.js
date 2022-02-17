@@ -1,18 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { graphql } from 'gatsby'
 import { useQuery } from 'urql'
 import CollectionView, { getCollectionProducts } from '../views/CollectionView'
 import { COLLECTION_PAGE_QUERY } from '../queries/collection'
+import { CurrencyContext } from '../contexts/CurrencyContext'
 
 const CollectionPageTemplate = ({ data, pageContext, ...props }) => {
+  const { countryCode } = useContext(CurrencyContext)
   const [{ data: clientData }] = useQuery({
     query: COLLECTION_PAGE_QUERY,
-    variables: { handle: pageContext.handle },
+    variables: { handle: pageContext.handle, countryCode },
   })
 
-  const clientProducts = getCollectionProducts(
-    clientData?.collectionByHandle.products
-  )
+  const clientProducts = getCollectionProducts(clientData?.collection.products)
   const { products, handle, image, title, description } = data.shopifyCollection
   const viewProducts = (clientProducts || products).filter(
     ({ tags }) => !tags.includes('hidden')
@@ -51,7 +51,7 @@ export const query = graphql`
         title
         vendor
         images {
-          originalSrc
+          url
           altText
           height
           width
@@ -62,16 +62,6 @@ export const query = graphql`
           priceV2 {
             amount
             currencyCode
-          }
-          presentmentPrices {
-            edges {
-              node {
-                price {
-                  amount
-                  currencyCode
-                }
-              }
-            }
           }
         }
         priceRange {

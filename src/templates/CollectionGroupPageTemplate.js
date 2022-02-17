@@ -77,7 +77,7 @@ export const query = graphql`
           title
           vendor
           images {
-            originalSrc
+            url
             altText
             height
             width
@@ -88,16 +88,6 @@ export const query = graphql`
             priceV2 {
               amount
               currencyCode
-            }
-            presentmentPrices {
-              edges {
-                node {
-                  price {
-                    amount
-                    currencyCode
-                  }
-                }
-              }
             }
           }
           priceRange {

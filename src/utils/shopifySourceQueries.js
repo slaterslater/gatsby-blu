@@ -10,7 +10,7 @@ export default {
         edges {
           cursor
           node {
-            author {
+            authorV2 {
               bio
               email
               firstName
@@ -42,14 +42,14 @@ export default {
             image {
               altText
               id
-              src
+              url
               height
               width
             }
             publishedAt
             tags
             title
-            url
+            onlineStoreUrl
             seo {
               title
               description
@@ -71,7 +71,7 @@ export default {
             id
             handle
             title
-            url
+            onlineStoreUrl
           }
         }
       }
@@ -131,7 +131,7 @@ export default {
                 node {
                   id
                   altText
-                  originalSrc
+                  url
                   height
                   width
                 }
@@ -182,7 +182,7 @@ export default {
                   image {
                     altText
                     id
-                    originalSrc
+                    url
                     height
                     width
                   }
@@ -211,20 +211,6 @@ export default {
                   title
                   weight
                   weightUnit
-                  presentmentPrices(first: 250) {
-                    edges {
-                      node {
-                        price {
-                          amount
-                          currencyCode
-                        }
-                        compareAtPrice {
-                          amount
-                          currencyCode
-                        }
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -273,7 +259,7 @@ export default {
             body
             bodySummary
             updatedAt
-            url
+            onlineStoreUrl
           }
         }
       }

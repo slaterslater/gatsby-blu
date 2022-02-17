@@ -8,7 +8,7 @@ import { SHOP_CURRENCIES } from '../queries/shop'
 const CurrencyCode = React.forwardRef(
   ({ color = 'white', children, ...props }, ref) => {
     const moneySymbol = children === 'GBP' ? '£' : '$'
-
+    CurrencyCode.displayName = 'CurrencyCode'
     return (
       <Button
         type="button"

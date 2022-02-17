@@ -73,7 +73,7 @@ export const useProductGalleryImages = () => {
     return [
       ...images,
       {
-        originalSrc:
+        url:
           'https://cdn.shopify.com/s/files/1/0685/0359/files/packaging-4.jpg?v=1620925677',
         height: 3000,
         width: 3000,
@@ -81,7 +81,7 @@ export const useProductGalleryImages = () => {
         id: 'packaging-id-17757575234566',
       },
       {
-        originalSrc:
+        url:
           'https://cdn.shopify.com/s/files/1/0685/0359/files/packaging-9.jpg?v=1620925676',
         height: 3000,
         width: 3000,

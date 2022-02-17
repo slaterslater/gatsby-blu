@@ -28,7 +28,7 @@ const PaginatedQuestions = props => {
     { fallbackData: fallback }
   )
 
-  console.log(data?.data.respo)
+  // console.log(data?.data.respo)
 
   if (!data?.data?.response?.questions?.length && !fetching)
     return (

@@ -81,7 +81,7 @@ const MegaMenu = props => {
               const gatsbyImageData = getShopifyImage({
                 image: {
                   ...image,
-                  originalSrc: image.src,
+                  url: image.src,
                 },
               })
               nextLink.image = gatsbyImageData
