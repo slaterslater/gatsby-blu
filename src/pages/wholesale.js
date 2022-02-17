@@ -15,7 +15,7 @@ const WholesalePage = ({ data }) => {
       key={`images-${i}`}
       image={image.childImageSharp.gatsbyImageData}
       alt=""
-      style={{ height: '100%' }}
+      style={{ height: '100%', maxHeight: 450 }}
     />
   ))
   return (
