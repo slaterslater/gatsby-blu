@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useContext, useMemo, useState } from 'react'
+import React, { useContext, useMemo } from 'react'
 import { Grid } from 'theme-ui'
 import { wrap } from '@popmotion/popcorn'
 import { useQuery, gql } from 'urql'
@@ -34,14 +34,8 @@ const getMetafieldValues = (metafields = []) => {
 
 const ProductDetails = ({ alternates }) => {
   const { product } = useContext(ProductContext)
-  const { handle, variants, metafields } = product
-  // const {
-  //   product: { handle, variants, metafields },
-  // } = useContext(ProductContext)
-
+  const { handle, metafields } = product
   const { total, average, collectionHandle } = getMetafieldValues(metafields)
-
-  const [customAttributes, setCustomAttributes] = useState(null)
 
   const [{ data }] = useQuery({
     query: gql`

@@ -41,9 +41,8 @@ const ProductSizes = ({ option }) => {
         m={-1}
       >
         {values.map(value => (
-          <Flex sx={{ flexDirection: 'column', flex: 1 }}>
+          <Flex key={`size-${value}`} sx={{ flexDirection: 'column', flex: 1 }}>
             <VariantOption
-              key={`variant-option-size-${value}`}
               isSelected={baseSize === value && !fractionSize}
               onClick={() => {
                 updateProductSizeAttribute(value, null)
@@ -55,7 +54,7 @@ const ProductSizes = ({ option }) => {
             {shouldDisplayFractions &&
               ['¼', '½'].map(fraction => (
                 <VariantOption
-                  key={`variant-option-${value}-${fraction}`}
+                  key={`size-${value}-${fraction}`}
                   isSelected={baseSize === value && fractionSize === fraction}
                   isHidden={baseSize !== value}
                   onClick={() => {

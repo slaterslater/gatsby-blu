@@ -79,7 +79,6 @@ const NavigationDrawer = ({ onClose }) => {
     query: CUSTOMER_QUERY,
     variables: { customerAccessToken: accessToken },
   })
-  console.log({ data })
   const guest = data?.customer.firstName
   const their = guest ? `${guest}'${!guest.match(/s$/i) ? 's' : ''}` : null
 
