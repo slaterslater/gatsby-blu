@@ -1,5 +1,4 @@
 import { useContext } from 'react'
-// import { post } from 'axios'
 import axios from 'axios'
 import { useQuery } from 'urql'
 import gql from 'graphql-tag'
