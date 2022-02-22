@@ -21,7 +21,7 @@ const ShopifyGatsbyImage = ({
 
 ShopifyGatsbyImage.propTypes = {
   image: PropTypes.shape({
-    originalSrc: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
     height: PropTypes.number.isRequired,
     width: PropTypes.number.isRequired,
     altText: PropTypes.string,

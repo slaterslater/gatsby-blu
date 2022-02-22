@@ -84,7 +84,7 @@ const FullscreenGallery = ({ isOpen, initialPage, onClose, media }) => {
         >
           {media[currentPage].__typename === 'Image' && (
             <RemoteShopifyImage
-              originalSrc={media[currentPage].originalSrc}
+              url={media[currentPage].url}
               sx={{ flex: 1, objectFit: 'contain' }}
             />
           )}

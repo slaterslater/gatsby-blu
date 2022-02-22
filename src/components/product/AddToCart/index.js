@@ -1,95 +1,23 @@
-import React, { useContext, useMemo } from 'react'
-import { Text, Button, Flex, Box } from 'theme-ui'
-import { useMutation } from 'urql'
-import { StoreContext } from '../../../contexts/StoreContext'
-import { DrawerContext } from '../../drawers'
-import { AddCheckoutLineItem } from '../../../mutations/cart'
+import React, { useContext } from 'react'
+import { Text, Button, Box, Grid } from 'theme-ui'
+import PropTypes from 'prop-types'
 import ProductCTACallout from '../ProductCTACallout'
-import { useSendAnalytics } from '../../../lib/useAnalytics'
-import useToggle from '../../../lib/useToggle'
 import { ProductContext } from '../ProductContext'
-import { getTagAttributes, useProductPreorderMessage } from './util'
 import NotifyModal from './NotifyModal'
-import { useVariantPrice } from '../VariantPrice'
+import { useCart } from '../../../hooks/cart'
+import { useProductPreorderMessage } from './util'
+import WishlistButton from '../WishlistButton'
 
-const AddToCart = ({ customAttributes, onAdded = () => {} }) => {
-  const { selectedVariant, product, quantity } = useContext(ProductContext)
-  const price = useVariantPrice(selectedVariant || product.variants[0])
-
-  const preorderMessage = useProductPreorderMessage(product.tags)
-
-  const sendAnalytics = useSendAnalytics('addToCart')
-
-  const [, setOpenDrawer] = useContext(DrawerContext)
-  const { checkoutId } = useContext(StoreContext)
-
-  // some kind of issue with useMutation: fetching only updates if you're also requesting data
-  // i'm feeling strongly we should switch to graphql-request library + swr
-  const [{ data, fetching }, addCheckoutLineItem] = useMutation(
-    AddCheckoutLineItem
-  )
-
-  const [isOn, toggleOn] = useToggle()
-
-  const addToCart = async () => {
-    const lineItems = [{ quantity, variantId: selectedVariant.shopifyId }]
-
-    const nextAttributes = [
-      ...(customAttributes || []),
-      ...getTagAttributes(product.tags),
-    ]
-
-    if (nextAttributes.length) {
-      lineItems[0].customAttributes = nextAttributes
-    }
-    addCheckoutLineItem({
-      checkoutId,
-      lineItems,
-    }).then(({ data }) => {
-      const [
-        newEdge,
-      ] = data.checkoutLineItemsAdd.checkout.lineItems.edges.slice(-1)
-
-      setOpenDrawer('cart')
-      onAdded()
-      sendAnalytics(newEdge.node)
-    })
-  }
-
-  const getButtonState = () => {
-    const defaults = {
-      handleClick: addToCart,
-      buttonText: `Add To Bag - ${price}`,
-      disabled: false,
-    }
-
-    switch (true) {
-      case fetching:
-        return { ...defaults, disabled: true }
-      case !selectedVariant:
-        return { ...defaults, disabled: true }
-      case !selectedVariant.availableForSale && !product.willRestock:
-        return { ...defaults, disabled: true, buttonText: 'Sold Out' }
-      case !selectedVariant.availableForSale &&
-        product.willRestock?.value === 'false':
-        return { ...defaults, disabled: true, buttonText: 'Sold Out' }
-      case selectedVariant &&
-        !selectedVariant.availableForSale &&
-        product.willRestock?.value === 'true':
-        return { ...defaults, handleClick: toggleOn, buttonText: 'Notify Me' }
-      default:
-        return defaults
-    }
-  }
-
-  // console.log(selectedVariant)
-  const { handleClick, disabled, buttonText } = getButtonState()
+const AddToCart = ({ onAdded = () => {} }) => {
+  const { handleClick, disabled, buttonText, isOn, toggleOn } = useCart(onAdded)
+  const { product } = useContext(ProductContext)
+  const preorderMessage = useProductPreorderMessage(product.metafields)
 
   return (
     <>
       <Box>
-        {!disabled && <ProductCTACallout pb={4} tags={product.tags} />}
-        <Flex>
+        <ProductCTACallout pb={4} tags={product.tags} />
+        <Grid sx={{ gridTemplateColumns: '1fr 48px', gap: '1px' }}>
           <Button
             disabled={disabled}
             type="button"
@@ -98,13 +26,14 @@ const AddToCart = ({ customAttributes, onAdded = () => {} }) => {
           >
             {buttonText}
           </Button>
-        </Flex>
+          <WishlistButton />
+        </Grid>
         {preorderMessage && (
           <Box
             sx={{ textAlign: 'center', backgroundColor: 'cream' }}
             pt={1}
             pb={2}
-            mt={2}
+            mt={4}
           >
             <Text sx={{ fontSize: 0, fontStyle: 'italic' }}>
               {preorderMessage}
@@ -118,3 +47,7 @@ const AddToCart = ({ customAttributes, onAdded = () => {} }) => {
 }
 
 export default AddToCart
+
+AddToCart.propTypes = {
+  onAdded: PropTypes.func,
+}

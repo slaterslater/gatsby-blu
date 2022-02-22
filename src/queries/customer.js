@@ -64,7 +64,7 @@ export const CUSTOMER_QUERY = gql`
                       value
                     }
                     image {
-                      originalSrc
+                      url
                       altText
                       id
                       height

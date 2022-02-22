@@ -25,21 +25,11 @@ export const CHECKOUT_FRAGMENT = gql`
             product {
               id
             }
-            presentmentPrices(first: 5) {
-              edges {
-                node {
-                  price {
-                    amount
-                    currencyCode
-                  }
-                }
-              }
-            }
             availableForSale
             title
             image {
               altText
-              originalSrc
+              url
               height
               width
               id
@@ -71,7 +61,8 @@ export const CHECKOUT_FRAGMENT = gql`
 
 export const CHECKOUT_QUERY = gql`
   ${CHECKOUT_FRAGMENT}
-  query CheckoutQuery($checkoutId: ID!) {
+  query CheckoutQuery($checkoutId: ID!, $countryCode: CountryCode)
+  @inContext(country: $countryCode) {
     node(id: $checkoutId) {
       ... on Checkout {
         ...CheckoutFields

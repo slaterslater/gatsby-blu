@@ -70,7 +70,7 @@ const TopStoryWithImage = ({ article: { title, image, handle }, ...props }) => {
 const TopStory = ({ article, ...props }) => {
   const { image, title, handle } = article
 
-  if (image?.originalSrc)
+  if (image?.url)
     return <TopStoryWithImage article={article} {...props} />
 
   return (

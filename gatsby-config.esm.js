@@ -1,7 +1,6 @@
 import dotenv from 'dotenv'
 import shopifySourceQueries from './src/utils/shopifySourceQueries'
 import { algoliaQueries } from './src/utils/algolia-queries'
-import { urlBuilder, getIdFromHash } from './src/lib/productFeed'
 
 dotenv.config({
   path: `.env`,
@@ -149,7 +148,7 @@ module.exports = {
         shopName: process.env.SHOPIFY_SHOP_NAME,
         // The storefront access token
         accessToken: process.env.SHOPIFY_STOREFRONT_KEY,
-        apiVersion: '2021-07',
+        apiVersion: process.env.GATSBY_SHOPIFY_API_VERSION,
         paginationSize: 80,
         collections: ['shop'],
         downloadImages: false,

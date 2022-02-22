@@ -74,7 +74,7 @@ const ProductView = ({ product, alternates }) => {
             sku: variants[0]?.sku,
             product_description: description,
             product_url: location?.href,
-            product_image_url: images[0]?.originalSrc,
+            product_image_url: images[0]?.url,
           }}
         />
       </Container>

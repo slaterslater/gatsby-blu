@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, createContext } from 'react'
+import React, { useContext, useEffect, createContext, useState } from 'react'
 import { useQuery } from 'urql'
 import { useImmer } from 'use-immer'
 import { getProduct } from '../../hooks/product'
@@ -39,10 +39,6 @@ const ProductProvider = ({ initial, handle, ...props }) => {
     query: PRODUCT_QUERY,
     variables: { handle, countryCode },
   })
-  // const product = useLatestProduct({
-  //   handle: data.shopifyProduct.handle,
-  //   initial: data.shopifyProduct,
-  // })
 
   const [value, updateValue] = useImmer({
     product: initial,
@@ -50,10 +46,11 @@ const ProductProvider = ({ initial, handle, ...props }) => {
     quantity: 1,
     selectedVariant: undefined,
     ...getInitialOptionValues(initial),
+    customAttributes: [],
+    setCustomAttributes: () => {},
   })
 
   // update product from async request
-  // get
   useEffect(() => {
     if (data) {
       const latestProduct = getProduct(data.product)
@@ -80,9 +77,31 @@ const ProductProvider = ({ initial, handle, ...props }) => {
     })
   }
 
+  // const setCustomAttributes = (name, content) => {
+  const setCustomAttributes = newAttribute => {
+    updateValue(draft => {
+      const customAttribute = draft.customAttributes.find(
+        ({ key }) => key === newAttribute.key
+      )
+      if (!customAttribute && !newAttribute.value) return
+      if (customAttribute) {
+        if (!newAttribute.value) {
+          draft.customAttributes = draft.customAttributes.filter(
+            attribute => attribute !== customAttribute
+          )
+        } else {
+          customAttribute.value = newAttribute.value
+        }
+      } else {
+        draft.customAttributes.push(newAttribute)
+      }
+    })
+  }
+
   useEffect(() => {
     updateValue(draft => {
       draft.selectOption = selectOption
+      draft.setCustomAttributes = setCustomAttributes
     })
   }, [])
 

@@ -5,6 +5,7 @@ const storeEmails = {
 }
 
 function createRecipientList(body) {
+  if (body.subject.includes('wholesale')) return ['wholesale@bluboho.com']
   const mailList = ['guestexperience@bluboho.com']
 
   if (body.subject.includes('bridal')) {

@@ -37,7 +37,7 @@ export const PRODUCT_ITEM_QUERY = gql`
         edges {
           node {
             altText
-            originalSrc
+            url
             height
             width
             id
@@ -78,7 +78,7 @@ export const PRODUCT_QUERY = gql`
               # preview {
               #   image {
               #     # altText
-              #     # originalSrc
+              #     # url
               #     # status
               #   }
               # }
@@ -90,7 +90,7 @@ export const PRODUCT_QUERY = gql`
         edges {
           node {
             altText
-            originalSrc
+            url
             height
             width
             id

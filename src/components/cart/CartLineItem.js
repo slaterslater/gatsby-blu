@@ -85,6 +85,7 @@ const CartLineItem = ({ onRemoveItem, item, imgSize }) => {
             sendAnalytics(item)
             removeLineItem({ checkoutId, lineItemIds: [item.id] })
           }}
+          sx={{ cursor: 'pointer' }}
         >
           <FiTrash />
         </IconButton>

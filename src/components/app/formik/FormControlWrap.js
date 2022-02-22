@@ -98,10 +98,11 @@ const SegmentedField = ({ label, id, name, options }) => {
 
   return (
     <Flex sx={{ gap: 2 }}>
-      {options.map(({ value, component }) => (
+      {options.map(({ value, component }, i) => (
         <Button
           type="button"
           variant="outline"
+          key={`segment-button-${i}`}
           sx={{
             borderColor: value === field.value ? 'black' : 'border',
             display: 'inline-flex',
@@ -124,7 +125,14 @@ export const SegmentedControl = ({ label, id, name, options }) => (
   </FormControlWrap>
 )
 
-export const TextareaControl = ({ label, id, name, type, placeholder }) => (
+export const TextareaControl = ({
+  label,
+  id,
+  name,
+  type,
+  placeholder,
+  ...props
+}) => (
   <FormControlWrap label={label} id={id} name={name}>
     <Field
       name={name}
@@ -132,6 +140,7 @@ export const TextareaControl = ({ label, id, name, type, placeholder }) => (
       as={Textarea}
       type={type}
       placeholder={placeholder}
+      {...props}
     />
   </FormControlWrap>
 )

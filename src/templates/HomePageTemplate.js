@@ -53,7 +53,6 @@ const IndexPage = ({ data }) => {
     reviews,
     zodiac,
     locations,
-    medallions,
   } = data.allSanityHomePage.nodes[0]
 
   const [collectionRowWithData, collectionSpotlightWithData] = useMemo(
@@ -108,7 +107,7 @@ const IndexPage = ({ data }) => {
       <HeroToggle heros={innerHero} />
       <Zodiac sign={zodiac[0]} />
       <HomeLocations locations={locations} />
-      <Medallions medallions={medallions} />
+      <Medallions />
       <Socials />
     </Layout>
   )
@@ -217,29 +216,19 @@ export const query = graphql`
         }
         zodiac {
           name
+          description
           backgroundColor {
             hex
           }
-          image {
-            asset {
-              gatsbyImageData(
-                # fit: FILLMAX
-                placeholder: BLURRED
-                # layout: FULL_WIDTH
-              )
-            }
-          }
-        }
-        locations {
-          name
-          imageOrientation
           image {
             asset {
               gatsbyImageData(placeholder: BLURRED)
             }
           }
         }
-        medallions {
+        locations {
+          name
+          imageOrientation
           image {
             asset {
               gatsbyImageData(placeholder: BLURRED)
@@ -269,7 +258,7 @@ export const query = graphql`
         title
         handle
         images {
-          originalSrc
+          url
           altText
           height
           width

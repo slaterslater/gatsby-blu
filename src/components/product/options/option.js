@@ -2,7 +2,7 @@ import React from 'react'
 import { Button } from 'theme-ui'
 import { motion } from 'framer-motion'
 
-const VariantOption = ({ isSelected, ...props }) => (
+const VariantOption = ({ isSelected, isHidden = false, ...props }) => (
   <Button
     type="button"
     variant="secondary"
@@ -10,7 +10,10 @@ const VariantOption = ({ isSelected, ...props }) => (
     px={1}
     sx={{
       border: '1px solid',
-      borderColor: isSelected ? 'black' : 'border',
+      borderColor: isHidden ? 'white' : isSelected ? 'black' : 'border',
+      color: isHidden ? 'white' : 'primary',
+      cursor: isHidden ? 'auto' : 'pointer',
+      userSelect: isHidden ? 'none' : 'auto',
       outline: 'none',
       flex: '1 1 auto',
     }}

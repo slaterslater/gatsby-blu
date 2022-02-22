@@ -73,25 +73,14 @@ const NavigationDrawer = ({ onClose }) => {
     ],
   }
 
-  const { accessToken, isLoggedIn, shouldRenew, login, logout } =
+  const { accessToken, isLoggedIn, shouldRenew, logout } =
     useContext(AuthContext)
   const [{ data }] = useQuery({
     query: CUSTOMER_QUERY,
     variables: { customerAccessToken: accessToken },
   })
-
   const guest = data?.customer.firstName
   const their = guest ? `${guest}'${!guest.match(/s$/i) ? 's' : ''}` : null
-  // const miniMenu = [
-  //   {
-  //     title: 'Account',
-  //     path: '/account',
-  //   },
-  //   {
-  //     title: 'Wishlist',
-  //     path: '/account/wishlist',
-  //   },
-  // ]
 
   const toggleSignIn = () => {
     closeDrawer()
@@ -162,27 +151,6 @@ const NavigationDrawer = ({ onClose }) => {
             {`${their} Account`}
           </NavGroup>
         )}
-        {/* {miniMenu.map(menu => (
-          <Box key={`drawer-title-${menu.title}`}>
-            <Link
-              as={GatsbyLink}
-              to={menu.path}
-              onClick={closeDrawer}
-              p={4}
-              sx={{
-                display: 'block',
-                letterSpacing: 'caps',
-                textTransform: 'uppercase',
-                fontWeight: 'heading',
-                textDecoration: 'none',
-                fontSize: 0,
-              }}
-            >
-              {menu.title}
-            </Link>
-            <Divider />
-          </Box>
-        ))} */}
         <Link
           onClick={toggleSignIn}
           p={4}

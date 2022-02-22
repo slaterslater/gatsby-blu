@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useContext, useMemo, useState } from 'react'
+import React, { useContext, useMemo } from 'react'
 import { Grid } from 'theme-ui'
 import { wrap } from '@popmotion/popcorn'
 import { useQuery, gql } from 'urql'
@@ -15,7 +15,6 @@ import { ProductDescription } from './ProductDescription'
 import { ProductShipping } from './ProductShipping'
 import { ProductTitleAndPrice } from './ProductTitleAndPrice'
 import RelatedProducts from './RelatedProducts'
-import WishlistButton from './WishlistButton'
 import ProductBadges from './ProductBadges'
 
 const getMetafieldValues = (metafields = []) => {
@@ -34,19 +33,13 @@ const getMetafieldValues = (metafields = []) => {
 
 const ProductDetails = ({ alternates }) => {
   const { product } = useContext(ProductContext)
-  const { handle, variants, metafields } = product
-  // const {
-  //   product: { handle, variants, metafields },
-  // } = useContext(ProductContext)
-
+  const { handle, metafields } = product
   const { total, average, collectionHandle } = getMetafieldValues(metafields)
-
-  const [customAttributes, setCustomAttributes] = useState(null)
 
   const [{ data }] = useQuery({
     query: gql`
       query ($collectionHandle: String!) {
-        collectionByHandle(handle: $collectionHandle) {
+        collection(handle: $collectionHandle) {
           products(first: 250) {
             edges {
               node {
@@ -62,7 +55,7 @@ const ProductDetails = ({ alternates }) => {
 
   const related = useMemo(() => {
     // make an array of product handles
-    const productHandles = data?.collectionByHandle?.products?.edges
+    const productHandles = data?.collection?.products?.edges
     if (!productHandles) return null
     // get index of handle
     const currentIndex = productHandles.findIndex(
@@ -79,29 +72,24 @@ const ProductDetails = ({ alternates }) => {
   }, [handle, data])
 
   return (
-    <>
-      <Grid sx={{ gridAutoFlow: 'row', gap: 5 }}>
-        <ProductTitleAndPrice />
-        <MetalOptions product={product} alternates={alternates} />
-        <ProductOptions />
-        <Engraving onChange={attribute => setCustomAttributes([attribute])} />
-        <Grid sx={{ gridTemplateColumns: '1fr 48px', gap: '1px' }}>
-          <AddToCart customAttributes={customAttributes} />
-          <WishlistButton />
-        </Grid>
-        <ProductShipping />
-        <ProductDescription />
-        <EngagementConsultationButton />
-        <ProductBadges />
-        <ProductSpecifications />
-        <ProductReviewsTopline
-          score={average}
-          possibleScore={5}
-          totalReviews={total}
-        />
-        <RelatedProducts related={related} />
-      </Grid>
-    </>
+    <Grid sx={{ gridAutoFlow: 'row', gap: 5 }}>
+      <ProductTitleAndPrice />
+      <MetalOptions alternates={alternates} />
+      <ProductOptions />
+      <Engraving />
+      <AddToCart />
+      <ProductShipping />
+      <ProductDescription />
+      <EngagementConsultationButton />
+      <ProductBadges />
+      <ProductSpecifications />
+      <ProductReviewsTopline
+        score={average}
+        possibleScore={5}
+        totalReviews={total}
+      />
+      <RelatedProducts related={related} />
+    </Grid>
   )
 }
 

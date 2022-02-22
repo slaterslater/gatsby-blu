@@ -1,13 +1,12 @@
 import React from 'react'
-import { Container, Flex, Box, AspectRatio } from 'theme-ui'
-import ContentOuter from './ContentOuter'
+import { Container, Flex, Box } from 'theme-ui'
 import ImageLinkCard from './ImageLinkCard'
 
-export const MobileSlider = ({ nodes, minCardWidth, ...props }) => (
+export const MobileSlider = ({ nodes, minCardWidth, gap = 2, ...props }) => (
   <Box
     {...props}
     sx={{
-      width: 'calc(100% + 24px)',
+      width: '100%',
       overflowX: 'auto',
       webkitOverflowScrolling: 'touch',
       scrollSnapType: 'x mandatory',
@@ -21,11 +20,11 @@ export const MobileSlider = ({ nodes, minCardWidth, ...props }) => (
       ...(props.sx || {}),
     }}
   >
-    <Flex mx={-2} px={5}>
+    <Flex>
       {nodes.map((node, i) => (
         <Box
           key={`mobile-slider-${i}`}
-          mx={2}
+          mx={gap}
           sx={{
             scrollSnapAlign: 'start',
             minWidth: [minCardWidth, 0],

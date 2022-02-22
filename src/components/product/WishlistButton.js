@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { IconButton, Text } from 'theme-ui'
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
 import { navigate } from 'gatsby'
@@ -6,7 +6,7 @@ import { ProductContext } from './ProductContext'
 import { useWishlist } from '../../hooks/wishlist'
 import { AuthContext } from '../../contexts/AuthContext'
 
-const WishlistButton = props => {
+const WishlistButton = () => {
   const {
     product: { handle },
   } = useContext(ProductContext)
@@ -15,6 +15,10 @@ const WishlistButton = props => {
   const isListed = wishlist.includes(handle)
   const [isHeartFull, setIsHeartFull] = useState(isListed)
   const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    setIsHeartFull(isListed)
+  }, [isListed])
 
   const handleClick = async () => {
     if (isLoggedIn) {
@@ -37,7 +41,7 @@ const WishlistButton = props => {
       disabled={loading}
       mt="auto"
       sx={{
-        opacity: loading ? 0.85 : 1,
+        opacity: loading ? 0.8 : 1,
         transition: 'opacity .3s ease',
         bg: 'primary',
         borderRadius: 0,

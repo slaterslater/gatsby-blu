@@ -19,7 +19,7 @@ const productQuery = `
         vendor
         images {
           id
-          originalSrc
+          url
           altText
           height
           width
@@ -39,16 +39,6 @@ const productQuery = `
           priceV2 {
             amount
             currencyCode
-          }
-          presentmentPrices {
-            edges {
-              node {
-                price {
-                  amount
-                  currencyCode
-                }
-              }
-            }
           }
         }
       }

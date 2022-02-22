@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useLocation } from '@reach/router'
 import { useQuery } from 'urql'
 import { Container, Grid, Box, Text, Flex } from 'theme-ui'
@@ -16,6 +16,7 @@ import ThemeLink from '../components/app/ThemeLink'
 import { useShopifyImage } from '../hooks/shopifyImage'
 import LongArrowRight from '../components/icon/long-arrow-right'
 import SEO from '../components/seo'
+import { CurrencyContext } from '../contexts/CurrencyContext'
 
 const sortCollections = (nodes, arr) =>
   nodes.sort((a, b) => arr.indexOf(a.handle) - arr.indexOf(b.handle))
@@ -76,13 +77,12 @@ const CollectionGroup = ({
   isTruncated,
   ...props
 }) => {
+  const { countryCode } = useContext(CurrencyContext)
   const [{ data }] = useQuery({
     query: COLLECTION_PAGE_QUERY,
-    variables: { handle },
+    variables: { handle, countryCode },
   })
-  const latestProducts = getCollectionProducts(
-    data?.collectionByHandle.products
-  )
+  const latestProducts = getCollectionProducts(data?.collection.products)
   const allProducts = (latestProducts || products).filter(
     ({ tags }) => !tags.includes('hidden')
   )
