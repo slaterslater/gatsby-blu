@@ -48,11 +48,11 @@ OrderSummary.propTypes = {
   loading: PropTypes.bool.isRequired,
   subtotalPriceV2: PropTypes.shape({
     amount: PropTypes.string.isRequired,
-    currency: PropTypes.string.isRequired,
+    currencyCode: PropTypes.string.isRequired,
   }).isRequired,
   totalPriceV2: PropTypes.shape({
-    amount: PropTypes.number.isRequired,
-    currency: PropTypes.string.isRequired,
+    amount: PropTypes.string.isRequired,
+    currencyCode: PropTypes.string.isRequired,
   }).isRequired,
   shippingPriceV2: PropTypes.shape({
     amount: PropTypes.number,

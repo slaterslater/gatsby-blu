@@ -15,7 +15,6 @@ import { ProductDescription } from './ProductDescription'
 import { ProductShipping } from './ProductShipping'
 import { ProductTitleAndPrice } from './ProductTitleAndPrice'
 import RelatedProducts from './RelatedProducts'
-import WishlistButton from './WishlistButton'
 import ProductBadges from './ProductBadges'
 
 const getMetafieldValues = (metafields = []) => {
@@ -73,29 +72,24 @@ const ProductDetails = ({ alternates }) => {
   }, [handle, data])
 
   return (
-    <>
-      <Grid sx={{ gridAutoFlow: 'row', gap: 5 }}>
-        <ProductTitleAndPrice />
-        <MetalOptions product={product} alternates={alternates} />
-        <ProductOptions />
-        <Engraving />
-        <Grid sx={{ gridTemplateColumns: '1fr 48px', gap: '1px' }}>
-          <AddToCart />
-          <WishlistButton />
-        </Grid>
-        <ProductShipping />
-        <ProductDescription />
-        <EngagementConsultationButton />
-        <ProductBadges />
-        <ProductSpecifications />
-        <ProductReviewsTopline
-          score={average}
-          possibleScore={5}
-          totalReviews={total}
-        />
-        <RelatedProducts related={related} />
-      </Grid>
-    </>
+    <Grid sx={{ gridAutoFlow: 'row', gap: 5 }}>
+      <ProductTitleAndPrice />
+      <MetalOptions alternates={alternates} />
+      <ProductOptions />
+      <Engraving />
+      <AddToCart />
+      <ProductShipping />
+      <ProductDescription />
+      <EngagementConsultationButton />
+      <ProductBadges />
+      <ProductSpecifications />
+      <ProductReviewsTopline
+        score={average}
+        possibleScore={5}
+        totalReviews={total}
+      />
+      <RelatedProducts related={related} />
+    </Grid>
   )
 }
 

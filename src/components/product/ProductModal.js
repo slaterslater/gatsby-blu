@@ -9,7 +9,6 @@ import { useInitialProduct } from '../../hooks/product'
 import { ProductTitleAndPrice } from './ProductTitleAndPrice'
 import ThemeLink from '../app/ThemeLink'
 import ProductModalGallery from './modal/gallery'
-import WishlistButton from './WishlistButton'
 import {
   formatMetalAlternatesFromMetafields,
   formatMetalAlternatesFromTags,
@@ -68,13 +67,7 @@ const ProductModal = ({ handle, children }) => {
                   alternates={alternates}
                 />
                 <ProductOptions />
-                <Grid sx={{ gridTemplateColumns: '1fr 48px', gap: '1px' }}>
-                  <AddToCart
-                    customAttributes={[]}
-                    onAdded={() => setOpen(false)}
-                  />
-                  <WishlistButton />
-                </Grid>
+                <AddToCart onAdded={() => setOpen(false)} />
                 <Flex sx={{ justifyContent: 'center' }}>
                   <ThemeLink
                     to={`/products/${handle}`}

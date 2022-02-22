@@ -1,7 +1,8 @@
-import React, { useMemo, useState } from 'react'
+import React, { useContext, useMemo, useState } from 'react'
 import { Flex } from 'theme-ui'
 import ThemeLink from '../app/ThemeLink'
 import MetalOptionSwatch from '../MetalOptionSwatch'
+import { ProductContext } from './ProductContext'
 
 const getMetalColor = (options = []) =>
   options
@@ -21,7 +22,8 @@ const MetalOption = ({ title, handle, metal, isCurrent, ...props }) => {
   )
 }
 
-const MetalOptions = ({ product, alternates }) => {
+const MetalOptions = ({ alternates }) => {
+  const { product } = useContext(ProductContext)
   const productMetalColor = getMetalColor(product.options)
   const [title, setTitle] = useState(productMetalColor)
 

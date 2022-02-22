@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import { Box, Flex, Heading } from 'theme-ui'
 import { ProductContext } from '../ProductContext'
-import SizingHelp from '../SizingHelp'
 import VariantOption from './option'
 import PairsOptions from './pairs'
 import ProductSizes from './size'

@@ -12,15 +12,16 @@ export const DrawerContext = createContext([])
 
 const DrawerOuter = ({ origin, ...props }) => (
   <MotionFlex
-    initial={{ [origin]: '-100%', boxShadow: 'none' }}
-    animate={{ [origin]: 0, boxShadow: '0 0 45px rgba(0,0,0,.2)' }}
-    exit={{ [origin]: '-100%', boxShadow: 'none' }}
+    initial={{ [origin]: '-100%' }}
+    animate={{ [origin]: 0 }}
+    exit={{ [origin]: '-100%' }}
     transition={{ ease: 'easeOut', delay: 0.1 }}
     sx={{
       bg: 'white',
       top: 0,
       width: 360,
       // height: '100vh',
+      boxShadow: '0 0 45px rgba(0,0,0,.2)',
       height: 'calc(var(--vh, 1vh) * 100)',
       maxWidth: '90vw',
       position: 'fixed',
