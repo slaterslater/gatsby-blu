@@ -5,13 +5,13 @@ import { useProductTitle } from './ProductTitle'
 import { useShopifyImage } from '../hooks/shopifyImage'
 
 const getItemOptionDescription = item => {
-  const title = item.variant?.title.toLowerCase()
+  const title = item.variant?.title.toLowerCase().replace(/\s\//, ', ')
   if (!title || title === 'default title') return ''
   const fractionalSize = item.customAttributes
     .find(({ key }) => key === 'size')
     ?.value.split('')
     .pop()
-  return item.variant?.title?.replace(' /', fractionalSize || ',')
+  return title.replace(/,|$/, fractionalSize || '')
 }
 
 const LineItem = ({ item, imgSize, children }) => {
