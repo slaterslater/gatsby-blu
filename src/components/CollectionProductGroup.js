@@ -27,6 +27,7 @@ const CollectionProductGroup = ({ title, children, ...props }) => (
           'repeat(2, 1fr)',
           'repeat(4, 1fr)',
         ],
+        gridAutoRows: 'minmax(250px, auto)',
       }}
       pt={4}
     >

@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react'
 import { parse } from 'qs'
+import { Box } from 'theme-ui'
 import { DateTime } from 'luxon'
 import { useLocation } from '@reach/router'
 import { GatsbyImage } from 'gatsby-plugin-image'
@@ -39,9 +40,9 @@ const useSortedProducts = products => {
   }, [sort, products])
 }
 
-const CollectionImage = ({ image, fallbackAlt }) => {
+const CollectionImage = ({ image }) => {
   const imageData = useShopifyImage({ image, width: 715, height: 445 })
-  return <GatsbyImage image={imageData} alt={image.altText || fallbackAlt} />
+  return <GatsbyImage image={imageData} alt="" />
 }
 
 const ProductGrid = ({
@@ -50,56 +51,61 @@ const ProductGrid = ({
   collectionPath,
   title,
   description,
+  collectionImages,
 }) => {
   const sortedProducts = useSortedProducts(products)
+  const prodLen = sortedProducts.length
+
+  const collectionImageOrder = i => {
+    const n = i % 4
+    const x = n ? n + 1 : 5
+    return i * 5 + x
+  }
 
   // determine max num of images to show based on sortedProducts length
-  // const prodLen = sortedProducts.length
-  // let imageNum = Math.floor(prodLen / 10) * 2
-  // if (prodLen % 8 === 0 || prodLen % 9 === 0) imageNum += 1
-
-  // eventually the images will come from shopify or CMS
-  const collectionImages = Array.from({ length: 4 }).map(
-    (_, i) => sortedProducts[i].images[1]
-  )
-  console.log({ collectionImages })
+  // calculate order to insert images into product grid
+  const orderedImages = useMemo(() => {
+    const colImgLen = collectionImages?.length
+    if (!colImgLen) return []
+    let imageNum = Math.floor(prodLen / 10) * 2
+    if ([8, 9].some(n => n === prodLen % 10)) imageNum += 1
+    imageNum = colImgLen > imageNum ? imageNum : colImgLen
+    return Array.from({ length: imageNum }).map((_, i) => ({
+      ...collectionImages[i],
+      order: collectionImageOrder(i),
+    }))
+  }, [prodLen, collectionImages])
 
   return (
     <CollectionProductGroup title={title} key={collectionTitle}>
       {sortedProducts.map((product, i) => (
-        <>
+        <Box key={product.id} sx={{ order: i }}>
           {collectionPath?.includes('bridal') && i === 6 && (
             <BookAConsultationCallout
               sx={{ gridColumn: 'span 2', m: [0, 0, 4] }}
             />
           )}
           <CollectionProduct
-            key={product.id}
             product={product}
             images={product.images}
             collectionTitle={collectionTitle}
             collectionPath={collectionPath}
-            order={i}
           />
-        </>
+        </Box>
       ))}
-      {collectionImages.map((image, i) => (
+      {orderedImages.map((image, i) => (
         <Box
+          key={`collection-image-${i}`}
           sx={{
             display: 'flex',
             justifyContent: 'center',
-            // move this into function
-            // also it's not working over 30 items...
-            order: i % 4 ? 5 * i + ((i + 1) % 5) : 5 * i + 5,
+            order: image.order,
             gridColumn: 'span 2',
             gridRow: i % 2 ? '' : 'span 2',
             flexGrow: 0,
           }}
         >
-          <CollectionImage
-            image={image}
-            fallbackAlt={`collection-image-${i}`}
-          />
+          <CollectionImage image={image} />
         </Box>
       ))}
     </CollectionProductGroup>

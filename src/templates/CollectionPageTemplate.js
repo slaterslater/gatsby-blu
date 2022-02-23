@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useMemo } from 'react'
 import { graphql } from 'gatsby'
 import { useQuery } from 'urql'
 import CollectionView, { getCollectionProducts } from '../views/CollectionView'
@@ -13,31 +13,22 @@ const CollectionPageTemplate = ({ data, pageContext, ...props }) => {
   })
 
   const { products: collectionProducts, metafields } =
-    clientData?.collectionByHandle || {}
+    clientData?.collection || {}
 
-  // change this once COLLECTION_PAGE_QUERY returns MediaImage data
-  // currently returns only value ie: ID
-  // const ids = metafields?.edges
-  //   .filter(({ node }) => node.key.startsWith('collection_image'))
-  //   .map(({ node }) => node.value)
-
-  // remove this once COLLECTION_PAGE_QUERY returns MediaImage data
-  //
-  // const [{ data: collectionImagesData }] = useQuery({
-  //   query: COLLECTION_IMAGES_QUERY,
-  //   variables: {
-  //     ids: [
-  //       // 'gid://shopify/Product/6782339055782',
-  //       // 'gid://shopify/Product/6782204969126',
-  //       // 'gid://shopify/Product/6782338695334',
-  //       // 'gid://shopify/MediaImage/21428661911718',
-  //       // 'gid://shopify/MediaImage/21428661846182',
-  //       // 'gid://shopify/MediaImage/21428659093670',
-  //     ],
-  //   },
-  // })
-
-  // console.log({ clientData, collectionImagesData })
+  const collectionImages = useMemo(
+    () =>
+      metafields?.edges
+        .filter(({ node }) => node.key.startsWith('collection_image'))
+        .map(({ node }) => {
+          const imageData = node.reference.image
+          return {
+            key: node.key,
+            ...imageData,
+          }
+        })
+        .sort((a, b) => a.key.localeCompare(b.key)),
+    [metafields]
+  )
 
   const clientProducts = getCollectionProducts(collectionProducts)
   const {
@@ -47,8 +38,12 @@ const CollectionPageTemplate = ({ data, pageContext, ...props }) => {
     title,
     description,
   } = data.shopifyCollection
-  const products = (clientProducts || sourceProducts).filter(
-    ({ tags }) => !tags.includes('hidden')
+  const products = useMemo(
+    () =>
+      (clientProducts || sourceProducts).filter(
+        ({ tags }) => !tags.includes('hidden')
+      ),
+    [clientProducts, sourceProducts]
   )
 
   return (
@@ -57,6 +52,7 @@ const CollectionPageTemplate = ({ data, pageContext, ...props }) => {
       handle={handle}
       description={description.toLowerCase()}
       image={image}
+      collectionImages={collectionImages}
       products={products}
       hasFilters
     />

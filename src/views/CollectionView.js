@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import { Box, Text, Link, Container, Divider } from 'theme-ui'
+import { Container } from 'theme-ui'
 import { graphql, useStaticQuery } from 'gatsby'
 import Layout from '../components/layout'
 import ProductGrid from '../components/collection/CollectionProductGrid'
-import ResultsHeader from '../components/collection/ResultsHeader'
 import SEO from '../components/seo'
 import CollectionFilterAndSort from '../components/collection/CollectionFilterAndSort'
 import { getSrcWithSize } from '../components/RemoteShopifyImage'
@@ -33,6 +32,7 @@ const CollectionPage = ({
   hasFilters,
   hasSidebar,
   image,
+  collectionImages,
 }) => {
   useAnalytics('viewItemList', products, title, handle)
   const {
@@ -80,6 +80,7 @@ const CollectionPage = ({
           products={products}
           collectionTitle={title}
           collectionPath={`/collections/${handle}`}
+          collectionImages={collectionImages}
         />
       </Container>
     </Layout>

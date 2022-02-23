@@ -1,11 +1,9 @@
 import React from 'react'
-import { AspectRatio, Grid, Flex, Box, Text, Link, Badge } from 'theme-ui'
+import { AspectRatio, Grid, Flex, Box, Text, Badge } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
-// import { CollectionThumbnail } from '../CollectionProduct'
 import { motion } from 'framer-motion'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import FormattedPrice from '../FormattedPrice'
-// import { getShopifyImage } from '../../lib/get-shopify-image'
 import { useShopifyImage } from '../../hooks/shopifyImage'
 
 const MotionBox = motion(Box)
@@ -124,7 +122,7 @@ const ProductListItemInner = ({
   </Box>
 )
 
-const ProductListItem = ({ to, linkState, order, ...props }) => {
+const ProductListItem = ({ to, linkState, ...props }) => {
   if (to)
     return (
       <GatsbyLink
@@ -134,7 +132,6 @@ const ProductListItem = ({ to, linkState, order, ...props }) => {
           textDecoration: 'none',
           position: 'relative',
           zIndex: 1,
-          order,
         }}
       >
         <ProductListItemInner {...props} />

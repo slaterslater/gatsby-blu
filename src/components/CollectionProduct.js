@@ -22,24 +22,23 @@ const CollectionProduct = ({
   collectionTitle,
   collectionPath,
   images,
-  order,
 }) => {
   const [price, hasRange] = useProductPrice(product)
   const title = useProductTitle(product.title)
   const [firstImage, secondImage] = images
+  const { handle, tags, availableForSale } = product
 
   return (
     <ProductListItem
-      to={`/products/${product.handle}`}
+      to={`/products/${handle}`}
       linkState={{ collectionTitle, collectionPath }}
       hasRange={hasRange}
       price={price}
       title={title}
       firstImage={firstImage}
       secondImage={secondImage}
-      tags={product.tags}
-      availableForSale={product.availableForSale}
-      order={order}
+      tags={tags}
+      availableForSale={availableForSale}
     />
   )
 }
