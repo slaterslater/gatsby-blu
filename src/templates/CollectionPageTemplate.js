@@ -4,46 +4,46 @@ import { useQuery } from 'urql'
 import CollectionView, { getCollectionProducts } from '../views/CollectionView'
 import { COLLECTION_PAGE_QUERY } from '../queries/collection'
 import { CurrencyContext } from '../contexts/CurrencyContext'
+import { useLatestCollection } from '../hooks/collection'
 
 const CollectionPageTemplate = ({ data, pageContext, ...props }) => {
-  const { countryCode } = useContext(CurrencyContext)
-  const [{ data: clientData }] = useQuery({
-    query: COLLECTION_PAGE_QUERY,
-    variables: { handle: pageContext.handle, countryCode },
-  })
+  // const { countryCode } = useContext(CurrencyContext)
+  // const [{ data: clientData }] = useQuery({
+  //   query: COLLECTION_PAGE_QUERY,
+  //   variables: { handle: pageContext.handle, countryCode },
+  // })
 
-  const { products: collectionProducts, metafields } =
-    clientData?.collection || {}
+  // const { products: collectionProducts, metafields } =
+  //   clientData?.collection || {}
 
-  const collectionImages = useMemo(
-    () =>
-      metafields?.edges
-        .filter(({ node }) => node.key.startsWith('collection_image'))
-        .map(({ node }) => {
-          const imageData = node.reference.image
-          return {
-            key: node.key,
-            ...imageData,
-          }
-        })
-        .sort((a, b) => a.key.localeCompare(b.key)),
-    [metafields]
-  )
+  // const collectionImages = useMemo(
+  //   () =>
+  //     metafields?.edges
+  //       .filter(({ node }) => node.key.startsWith('collection_image'))
+  //       .map(({ node }) => {
+  //         const imageData = node.reference.image
+  //         return {
+  //           key: node.key,
+  //           ...imageData,
+  //         }
+  //       })
+  //       .sort((a, b) => a.key.localeCompare(b.key)),
+  //   [metafields]
+  // )
 
-  const clientProducts = getCollectionProducts(collectionProducts)
-  const {
-    products: sourceProducts,
+  // const clientProducts = getCollectionProducts(collectionProducts)
+  const { products, handle, image, title, description } = data.shopifyCollection
+  // const products = useMemo(
+  //   () =>
+  //     (clientProducts || sourceProducts).filter(
+  //       ({ tags }) => !tags.includes('hidden')
+  //     ),
+  //   [clientProducts, sourceProducts]
+  // )
+
+  const { collectionProducts, collectionImages } = useLatestCollection(
     handle,
-    image,
-    title,
-    description,
-  } = data.shopifyCollection
-  const products = useMemo(
-    () =>
-      (clientProducts || sourceProducts).filter(
-        ({ tags }) => !tags.includes('hidden')
-      ),
-    [clientProducts, sourceProducts]
+    products
   )
 
   return (
@@ -53,7 +53,7 @@ const CollectionPageTemplate = ({ data, pageContext, ...props }) => {
       description={description.toLowerCase()}
       image={image}
       collectionImages={collectionImages}
-      products={products}
+      products={collectionProducts}
       hasFilters
     />
   )

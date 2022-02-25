@@ -73,7 +73,7 @@ const ProductListItemInner = ({
   tags,
   availableForSale,
 }) => (
-  <Box as="article" sx={{ position: 'relative', zIndex: 1 }}>
+  <Box as="article" sx={{ position: 'relative', zIndex: 1 }} pb={[5, 6]}>
     <ProductItemLabel tags={tags} soldOut={!availableForSale} />
     <Flex sx={{ flexDirection: 'column', position: 'relative' }} as="article">
       <CollectionThumbnail

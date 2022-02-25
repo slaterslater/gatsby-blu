@@ -1,23 +1,51 @@
 import React from 'react'
-import { Flex, Divider, Box, Heading, Grid } from 'theme-ui'
+import { Link } from 'gatsby'
+import { Flex, Box, Heading, Grid, Button, Text } from 'theme-ui'
 
-const CollectionProductGroup = ({ title, children, ...props }) => (
+const CollectionDetails = ({ title, description, index }) => (
+  <Flex
+    sx={{
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gridColumn: 'span 2',
+    }}
+  >
+    <Heading variant="h2" as="h2" mb={5}>
+      {title}{' '}
+      <Text
+        as="span"
+        sx={{
+          fontFamily: 'body',
+          fontSize: 3,
+          textTransform: 'lowercase',
+          letterSpacing: 'widest',
+          lineHeight: 1.5,
+          fontWeight: 'body',
+        }}
+      >
+        collection
+      </Text>
+    </Heading>
+    <Text as="p" variant="copy" sx={{ textAlign: 'center', maxWidth: 375 }}>
+      {description}
+    </Text>
+    <Button
+      as={Link}
+      to="/book-a-consultation"
+      sx={{ fontSize: 1, letterSpacing: 'widest' }}
+      mt={6}
+      mb={[7, 0]}
+      py={4}
+      px={7}
+    >
+      book ring consultation
+    </Button>
+  </Flex>
+)
+
+const CollectionProductGroup = ({ title, description, children, ...props }) => (
   <Box id={title} py={3} {...props}>
-    {title && (
-      <Flex py={2} sx={{ alignItems: 'center' }}>
-        <Heading
-          as="h3"
-          mr={4}
-          variant="caps"
-          sx={{
-            fontSize: 0,
-          }}
-        >
-          {title.toLowerCase()}
-        </Heading>
-        <Divider sx={{ flex: 1 }} />
-      </Flex>
-    )}
     <Grid
       as="section"
       sx={{
@@ -31,6 +59,9 @@ const CollectionProductGroup = ({ title, children, ...props }) => (
       }}
       pt={4}
     >
+      {description && (
+        <CollectionDetails title={title} description={description} />
+      )}
       {children}
     </Grid>
   </Box>

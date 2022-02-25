@@ -1,70 +1,37 @@
-import React, { useContext } from 'react'
+import React, { useMemo } from 'react'
 import { useLocation } from '@reach/router'
-import { useQuery } from 'urql'
-import { Container, Grid, Box, Text, Flex } from 'theme-ui'
-import { GatsbyImage } from 'gatsby-plugin-image'
+import { Container, Grid, Box } from 'theme-ui'
 import { parse } from 'qs'
+import { GatsbyImage } from 'gatsby-plugin-image'
 import Layout from '../components/layout'
 import CollectionProductGroup from '../components/CollectionProductGroup'
-import { getCollectionProducts } from './CollectionView'
-import { COLLECTION_PAGE_QUERY } from '../queries/collection'
 import { sortProducts } from '../components/collection/CollectionProductGrid'
 import CollectionProduct from '../components/CollectionProduct'
 import CollectionFilterAndSort from '../components/collection/CollectionFilterAndSort'
 import CollectionPageHeader from '../components/CollectionPageHeader'
-import ThemeLink from '../components/app/ThemeLink'
-import { useShopifyImage } from '../hooks/shopifyImage'
-import LongArrowRight from '../components/icon/long-arrow-right'
 import SEO from '../components/seo'
-import { CurrencyContext } from '../contexts/CurrencyContext'
+import { useLatestCollection } from '../hooks/collection'
+import { useShopifyImage } from '../hooks/shopifyImage'
 
 const sortCollections = (nodes, arr) =>
   nodes.sort((a, b) => arr.indexOf(a.handle) - arr.indexOf(b.handle))
 
-const AllCollectionThumbnailLink = ({ to, image, moreProductCount }) => {
-  const imageData = useShopifyImage({ image, width: 360 })
+const CollectionImage = ({ image }) => {
+  const imageData = useShopifyImage({ image, width: 715, height: 445 })
+  return <GatsbyImage image={imageData} alt="" />
+}
 
-  return (
-    <Flex sx={{ flexDirection: 'column' }}>
-      <Grid>
-        <ThemeLink
-          to={to}
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexDirection: 'column',
-            bg: 'rgba(249, 248, 246, .2)',
-            gridArea: '1 / 1 / -1 / -1',
-            zIndex: 10,
-            color: 'white',
-            textDecoration: 'none',
-            textTransform: 'uppercase',
-            fontSize: 0,
-            letterSpacing: 'widest',
-            fontWeight: '500',
-          }}
-        >
-          <Box my={3} px={3} py={2} sx={{ bg: 'white', color: 'white' }}>
-            <Text variant="caps" sx={{ color: 'primary', fontSize: 9 }}>
-              view {moreProductCount} more
-            </Text>
-          </Box>
-          <Box sx={{ height: 0 }}>
-            <LongArrowRight />
-          </Box>
-        </ThemeLink>
-        <Box
-          sx={{
-            gridArea: '1 / 1 / -1 / -1',
-          }}
-        >
-          <GatsbyImage image={imageData} alt={image.altText || ''} />
-        </Box>
-      </Grid>
-      <Box sx={{ flex: 1 }} />
-    </Flex>
-  )
+// there's likely a better way...
+const collectionImageOrder = (index, i) => {
+  const base = i * 5
+  let n
+  if (index % 2) {
+    n = (i + 1) % 4
+    return base + n
+  }
+  n = i % 4
+  const x = n ? n + 1 : 5
+  return base + x - 2
 }
 
 const CollectionGroup = ({
@@ -74,19 +41,38 @@ const CollectionGroup = ({
   title,
   description,
   products,
-  isTruncated,
+  index = 0,
   ...props
 }) => {
-  const { countryCode } = useContext(CurrencyContext)
-  const [{ data }] = useQuery({
-    query: COLLECTION_PAGE_QUERY,
-    variables: { handle, countryCode },
-  })
-  const latestProducts = getCollectionProducts(data?.collection.products)
-  const allProducts = (latestProducts || products).filter(
-    ({ tags }) => !tags.includes('hidden')
+  const { collectionImages } = useLatestCollection(
+    // const { collectionProducts, collectionImages } = useLatestCollection(
+    handle,
+    products
   )
-  const collectionProducts = isTruncated ? allProducts.slice(0, 4) : allProducts
+
+  // delete
+  const collectionProducts = products
+
+  // product length minus 2 because of the title/description/button
+  const prodLen = collectionProducts - 2
+  // determine max num of images to show based on sortedProducts length
+  // calculate order to insert images into product grid
+  const orderedImages = useMemo(() => {
+    const colImgLen = collectionImages?.length
+    if (!colImgLen) return []
+    let imageNum = Math.floor(prodLen / 10) * 2
+    if ([8, 9].some(n => n === prodLen % 10)) imageNum += 1
+    imageNum = colImgLen > imageNum ? imageNum : colImgLen
+    return Array.from({ length: imageNum }).map((_, i) => ({
+      ...collectionImages[i],
+      order: collectionImageOrder(index, i),
+    }))
+  }, [prodLen, collectionImages, index])
+
+  // console.log(
+  //   { index },
+  //   orderedImages.map(({ order }) => order)
+  // )
 
   return (
     <CollectionProductGroup
@@ -97,28 +83,31 @@ const CollectionGroup = ({
       pb={6}
       {...props}
     >
-      {collectionProducts.map((product, i) => {
-        if (isTruncated && i + 1 === collectionProducts.length) {
-          return (
-            <AllCollectionThumbnailLink
-              key={product.id}
-              to={`/collections/${handle}`}
-              image={product.images[1] || product.images[0]}
-              moreProductCount={allProducts.length - 3}
-            />
-          )
-        }
-
-        return (
+      {collectionProducts.map((product, i) => (
+        <Box key={product.id} sx={{ order: i }}>
           <CollectionProduct
-            key={product.id}
             product={product}
             images={product.images}
             collectionTitle={pageTitle}
             collectionPath={pagePath}
           />
-        )
-      })}
+        </Box>
+      ))}
+      {orderedImages.map((image, i) => (
+        <Box
+          key={`collection-image-${i}`}
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            order: image.order,
+            gridColumn: 'span 2',
+            gridRow: i % 2 ? '' : 'span 2',
+            flexGrow: 0,
+          }}
+        >
+          <CollectionImage image={image} />
+        </Box>
+      ))}
     </CollectionProductGroup>
   )
 }
@@ -129,7 +118,6 @@ const CollectionGroupsView = ({
   pagePath,
   collectionOrder,
   collections,
-  isTruncated,
   seoGatsbyImage,
   headerImage,
 }) => {
@@ -162,11 +150,11 @@ const CollectionGroupsView = ({
         />
         <Grid>
           {!sortedProducts &&
-            sortedCollections.map(collection => (
+            sortedCollections.map((collection, i) => (
               <CollectionGroup
                 pageTitle={pageTitle}
                 pagePath={pagePath}
-                isTruncated={isTruncated}
+                index={i}
                 {...collection}
               />
             ))}
