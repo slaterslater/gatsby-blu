@@ -16,8 +16,12 @@ import { useShopifyImage } from '../hooks/shopifyImage'
 const sortCollections = (nodes, arr) =>
   nodes.sort((a, b) => arr.indexOf(a.handle) - arr.indexOf(b.handle))
 
-const CollectionImage = ({ image }) => {
-  const imageData = useShopifyImage({ image, width: 715, height: 445 })
+const CollectionImage = ({ image, height }) => {
+  const imageData = useShopifyImage({
+    image,
+    width: 715,
+    height,
+  })
   return <GatsbyImage image={imageData} alt="" />
 }
 
@@ -44,14 +48,10 @@ const CollectionGroup = ({
   index = 0,
   ...props
 }) => {
-  const { collectionImages } = useLatestCollection(
-    // const { collectionProducts, collectionImages } = useLatestCollection(
+  const { collectionProducts, collectionImages } = useLatestCollection(
     handle,
     products
   )
-
-  // delete
-  const collectionProducts = products
 
   // product length minus 2 because of the title/description/button
   const prodLen = collectionProducts - 2
@@ -68,11 +68,6 @@ const CollectionGroup = ({
       order: collectionImageOrder(index, i),
     }))
   }, [prodLen, collectionImages, index])
-
-  // console.log(
-  //   { index },
-  //   orderedImages.map(({ order }) => order)
-  // )
 
   return (
     <CollectionProductGroup
@@ -105,7 +100,7 @@ const CollectionGroup = ({
             flexGrow: 0,
           }}
         >
-          <CollectionImage image={image} />
+          <CollectionImage image={image} height={i % 2 ? 445 : 900} />
         </Box>
       ))}
     </CollectionProductGroup>
@@ -152,6 +147,7 @@ const CollectionGroupsView = ({
           {!sortedProducts &&
             sortedCollections.map((collection, i) => (
               <CollectionGroup
+                key={collection.title}
                 pageTitle={pageTitle}
                 pagePath={pagePath}
                 index={i}

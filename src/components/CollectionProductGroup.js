@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'gatsby'
 import { Flex, Box, Heading, Grid, Button, Text } from 'theme-ui'
 
-const CollectionDetails = ({ title, description, index }) => (
+const CollectionDetails = ({ title, description }) => (
   <Flex
     sx={{
       flexDirection: 'column',
