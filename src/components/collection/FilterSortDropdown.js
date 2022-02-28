@@ -1,7 +1,7 @@
 import React from 'react'
 import { Menu, MenuButton, MenuList, MenuLink } from '@reach/menu-button'
 import { VscTriangleDown, VscTriangleUp } from 'react-icons/vsc'
-import { Link, Flex, Grid, Box, Text, Checkbox, Container } from 'theme-ui'
+import { Box, Text } from 'theme-ui'
 import ThemeLink from '../app/ThemeLink'
 
 const FilterSortDropdown = ({ title, items }) => (

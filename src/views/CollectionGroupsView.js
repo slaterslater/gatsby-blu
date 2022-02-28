@@ -44,6 +44,7 @@ const CollectionGroup = ({
   handle,
   title,
   description,
+  consultation,
   products,
   index = 0,
   ...props
@@ -73,6 +74,7 @@ const CollectionGroup = ({
     <CollectionProductGroup
       title={title}
       description={description}
+      consultation={consultation}
       products={products}
       pt={6}
       pb={6}
@@ -110,6 +112,7 @@ const CollectionGroup = ({
 const CollectionGroupsView = ({
   pageTitle,
   pageDescription,
+  consultation,
   pagePath,
   collectionOrder,
   collections,
@@ -151,6 +154,7 @@ const CollectionGroupsView = ({
                 pageTitle={pageTitle}
                 pagePath={pagePath}
                 index={i}
+                consultation={consultation}
                 {...collection}
               />
             ))}

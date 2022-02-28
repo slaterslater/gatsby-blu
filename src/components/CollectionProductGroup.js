@@ -1,8 +1,8 @@
 import React from 'react'
-import { Link } from 'gatsby'
+import { navigate } from 'gatsby'
 import { Flex, Box, Heading, Grid, Button, Text } from 'theme-ui'
 
-const CollectionDetails = ({ title, description }) => (
+const CollectionDetails = ({ title, description, consultation }) => (
   <Flex
     sx={{
       flexDirection: 'column',
@@ -30,21 +30,32 @@ const CollectionDetails = ({ title, description }) => (
     <Text as="p" variant="copy" sx={{ textAlign: 'center', maxWidth: 375 }}>
       {description}
     </Text>
-    <Button
-      as={Link}
-      to="/book-a-consultation"
-      sx={{ fontSize: 1, letterSpacing: 'widest' }}
-      mt={6}
-      mb={[7, 0]}
-      py={4}
-      px={7}
-    >
-      book ring consultation
-    </Button>
+    {consultation && (
+      <Button
+        onClick={() =>
+          navigate('/book-a-consultation', {
+            state: { consultation },
+          })
+        }
+        sx={{ fontSize: 1, letterSpacing: 'widest' }}
+        mt={6}
+        mb={[7, 0]}
+        py={4}
+        px={7}
+      >
+        {`book ${consultation}`}
+      </Button>
+    )}
   </Flex>
 )
 
-const CollectionProductGroup = ({ title, description, children, ...props }) => (
+const CollectionProductGroup = ({
+  title,
+  description,
+  consultation,
+  children,
+  ...props
+}) => (
   <Box id={title} py={3} {...props}>
     <Grid
       as="section"
@@ -60,7 +71,11 @@ const CollectionProductGroup = ({ title, description, children, ...props }) => (
       pt={4}
     >
       {description && (
-        <CollectionDetails title={title} description={description} />
+        <CollectionDetails
+          title={title}
+          description={description}
+          consultation={consultation}
+        />
       )}
       {children}
     </Grid>
