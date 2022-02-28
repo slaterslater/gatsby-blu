@@ -76,7 +76,7 @@ const CollectionGroup = ({
       description={description}
       consultation={consultation}
       products={products}
-      pt={6}
+      pt={3}
       pb={6}
       {...props}
     >
