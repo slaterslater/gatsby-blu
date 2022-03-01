@@ -74,7 +74,6 @@ const CollectionGroup = ({
   title,
   description,
   products,
-  isTruncated,
   ...props
 }) => {
   const { countryCode } = useContext(CurrencyContext)
@@ -86,7 +85,7 @@ const CollectionGroup = ({
   const allProducts = (latestProducts || products).filter(
     ({ tags }) => !tags.includes('hidden')
   )
-  const collectionProducts = isTruncated ? allProducts.slice(0, 4) : allProducts
+  const collectionProducts = allProducts
 
   return (
     <CollectionProductGroup
@@ -97,28 +96,15 @@ const CollectionGroup = ({
       pb={6}
       {...props}
     >
-      {collectionProducts.map((product, i) => {
-        if (isTruncated && i + 1 === collectionProducts.length) {
-          return (
-            <AllCollectionThumbnailLink
-              key={product.id}
-              to={`/collections/${handle}`}
-              image={product.images[1] || product.images[0]}
-              moreProductCount={allProducts.length - 3}
-            />
-          )
-        }
-
-        return (
-          <CollectionProduct
-            key={product.id}
-            product={product}
-            images={product.images}
-            collectionTitle={pageTitle}
-            collectionPath={pagePath}
-          />
-        )
-      })}
+      {collectionProducts.map((product, i) => (
+        <CollectionProduct
+          key={product.id}
+          product={product}
+          images={product.images}
+          collectionTitle={pageTitle}
+          collectionPath={pagePath}
+        />
+      ))}
     </CollectionProductGroup>
   )
 }
@@ -129,7 +115,6 @@ const CollectionGroupsView = ({
   pagePath,
   collectionOrder,
   collections,
-  isTruncated,
   seoGatsbyImage,
   headerImage,
 }) => {
@@ -166,7 +151,6 @@ const CollectionGroupsView = ({
               <CollectionGroup
                 pageTitle={pageTitle}
                 pagePath={pagePath}
-                isTruncated={isTruncated}
                 {...collection}
               />
             ))}

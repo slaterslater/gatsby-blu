@@ -3,14 +3,8 @@ import { graphql } from 'gatsby'
 import CollectionGroupsView from '../views/CollectionGroupsView'
 
 const CollectionPageTemplate = ({ pageContext, path, data }) => {
-  const {
-    title,
-    description,
-    collections,
-    isTruncated,
-    seoImage,
-    headerImage,
-  } = data.sanityCollectionGroupPage
+  const { title, description, collections, seoImage, headerImage } =
+    data.sanityCollectionGroupPage
 
   const collectionsWithGroupData = data.allShopifyCollection.nodes.map(node => {
     const group = collections.find(
@@ -29,7 +23,6 @@ const CollectionPageTemplate = ({ pageContext, path, data }) => {
       collectionOrder={collections.map(item => item.handle)}
       collections={collectionsWithGroupData}
       pagePath={path}
-      isTruncated={isTruncated}
       seoGatsbyImage={seoImage?.asset.gatsbyImageData}
       headerImage={headerImage?.asset.gatsbyImageData}
     />
@@ -57,7 +50,6 @@ export const query = graphql`
       }
       title
       description
-      isTruncated
     }
     allShopifyCollection(filter: { handle: { in: $collections } }) {
       nodes {
