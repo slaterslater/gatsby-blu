@@ -44,13 +44,9 @@ const CalendlyConsultationPage = ({ data, location }) => {
     setFixedHeight(max > 630 ? max : 630) // 630 = iframe + heading
 
     // set inital calendar
-    const initialConsultation = location.state?.consultation
-    if (initialConsultation) {
-      const calendar = calendars.find(
-        ({ title }) =>
-          initialConsultation.toLowerCase() ==
-          title.toLowerCase().split(/\s-\s/)[0]
-      )
+    const initialSlug = location.state?.consultation
+    if (initialSlug) {
+      const calendar = calendars.find(({ slug }) => initialSlug === slug)
       calendar.index = calendars.indexOf(calendar)
       setCurrent(calendar)
     }
@@ -225,4 +221,5 @@ export const query = graphql`
 
 CalendlyConsultationPage.propTypes = {
   data: PropTypes.any,
+  location: PropTypes.object,
 }

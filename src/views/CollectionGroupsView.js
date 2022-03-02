@@ -76,6 +76,7 @@ const CollectionGroup = ({
       description={description}
       consultation={consultation}
       products={products}
+      showDetails
       pt={3}
       pb={6}
       {...props}
@@ -138,7 +139,7 @@ const CollectionGroupsView = ({
       />
       <CollectionPageHeader
         title={pageTitle}
-        description={pageDescription}
+        // description={pageDescription}
         image={headerImage}
       />
       <Container pt={0} as="main">
