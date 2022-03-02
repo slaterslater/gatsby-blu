@@ -54,10 +54,8 @@ const Announcement = ({ text, to, message, isVisible }) => {
 Announcement.propTypes = {
   text: PropTypes.string.isRequired,
   to: PropTypes.string,
+  message: PropTypes.string,
   isVisible: PropTypes.bool.isRequired,
-}
-Announcement.defaultProps = {
-  to: '',
 }
 
 const Announcements = () => {
@@ -78,7 +76,6 @@ const Announcements = () => {
   const [delay] = useState(5000)
   const [isPaused, setIsPaused] = useState(false)
   const [current, setCurrent] = useState(0)
-  console.log({ announcements })
   useInterval(
     () => {
       setCurrent(curr => {
@@ -113,15 +110,6 @@ const Announcements = () => {
       </AnimatePresence>
     </Flex>
   )
-}
-
-Announcements.propTypes = {
-  announcements: PropTypes.arrayOf(
-    PropTypes.shape({
-      text: PropTypes.string,
-      to: PropTypes.string,
-    })
-  ),
 }
 
 export default Announcements
