@@ -1,11 +1,9 @@
 import React from 'react'
-import { AspectRatio, Grid, Flex, Box, Text, Link, Badge } from 'theme-ui'
+import { AspectRatio, Grid, Flex, Box, Text, Badge } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
-// import { CollectionThumbnail } from '../CollectionProduct'
 import { motion } from 'framer-motion'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import FormattedPrice from '../FormattedPrice'
-// import { getShopifyImage } from '../../lib/get-shopify-image'
 import { useShopifyImage } from '../../hooks/shopifyImage'
 
 const MotionBox = motion(Box)
@@ -75,7 +73,7 @@ const ProductListItemInner = ({
   tags,
   availableForSale,
 }) => (
-  <Box as="article" sx={{ position: 'relative', zIndex: 1 }}>
+  <Box as="article" sx={{ position: 'relative', zIndex: 1 }} pb={[5, 6]}>
     <ProductItemLabel tags={tags} soldOut={!availableForSale} />
     <Flex sx={{ flexDirection: 'column', position: 'relative' }} as="article">
       <CollectionThumbnail
@@ -94,9 +92,10 @@ const ProductListItemInner = ({
         <Box mb="auto" sx={{ alignSelf: 'top', textAlign: 'center' }}>
           <Text
             as="h1"
-            variant="caps"
+            variant="small"
             sx={{
               color: 'darkerGray',
+              letterSpacing: 'widest',
             }}
           >
             {title}
@@ -130,7 +129,11 @@ const ProductListItem = ({ to, linkState, ...props }) => {
       <GatsbyLink
         to={to}
         state={linkState}
-        style={{ textDecoration: 'none', position: 'relative', zIndex: 1 }}
+        style={{
+          textDecoration: 'none',
+          position: 'relative',
+          zIndex: 1,
+        }}
       >
         <ProductListItemInner {...props} />
       </GatsbyLink>

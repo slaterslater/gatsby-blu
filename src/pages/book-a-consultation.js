@@ -10,7 +10,7 @@ import ElementSlider from '../components/ElementSlider'
 import CalendlyLink from '../components/consultation/CalendlyLink'
 import FAQ from '../components/consultation/FAQ'
 
-const CalendlyConsultationPage = ({ data }) => {
+const CalendlyConsultationPage = ({ data, location }) => {
   const calendars = data.allSanityConsultation.nodes[0].calendars.filter(
     ({ active }) => active === true
   )
@@ -39,15 +39,24 @@ const CalendlyConsultationPage = ({ data }) => {
   const calendlyPicker = useRef(null)
 
   useEffect(() => {
+    // calculate height
+    const max = calendlyPicker.current.offsetHeight - 160 // calendars - (heading + text)
+    setFixedHeight(max > 630 ? max : 630) // 630 = iframe + heading
+
+    // set inital calendar
+    const initialSlug = location.state?.consultation
+    if (initialSlug) {
+      const calendar = calendars.find(({ slug }) => initialSlug === slug)
+      calendar.index = calendars.indexOf(calendar)
+      setCurrent(calendar)
+    }
+
     // track page visits
     if (window.gtag) {
       window.gtag('event', 'conversion', {
         send_to: `${process.env.GATSBY_AW_CONVERSION_ID}/nweJCJmXtoYDEIu39dgD`,
       })
     }
-    // calculate height
-    const max = calendlyPicker.current.offsetHeight - 160 // calendars - (heading + text)
-    setFixedHeight(max > 630 ? max : 630) // 630 = iframe + heading
   }, [])
 
   return (
@@ -212,4 +221,5 @@ export const query = graphql`
 
 CalendlyConsultationPage.propTypes = {
   data: PropTypes.any,
+  location: PropTypes.object,
 }

@@ -36,6 +36,23 @@ export const COLLECTION_PAGE_QUERY = gql`
     collection(handle: $handle) {
       title
       description
+      metafields(first: 5) {
+        edges {
+          node {
+            key
+            value
+            reference {
+              ... on MediaImage {
+                image {
+                  url
+                  height
+                  width
+                }
+              }
+            }
+          }
+        }
+      }
       products(first: 250) {
         edges {
           cursor
