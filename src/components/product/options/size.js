@@ -52,7 +52,7 @@ const ProductSizes = ({ option }) => {
               {value}
             </VariantOption>
             {shouldDisplayFractions &&
-              ['¼', '½'].map(fraction => (
+              ['¼', '½', '¾'].map(fraction => (
                 <VariantOption
                   key={`size-${value}-${fraction}`}
                   isSelected={baseSize === value && fractionSize === fraction}
