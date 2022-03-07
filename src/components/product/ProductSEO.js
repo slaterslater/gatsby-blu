@@ -3,7 +3,7 @@ import SEO from '../seo'
 import { useProductTitle } from '../ProductTitle'
 import { escapeDoubleQuoteString } from '../../lib/escapeDoubleQuoteStrings'
 
-const ProductSEO = ({ product }) => {
+const ProductSEO = ({ product, isHidden }) => {
   const title = useProductTitle(product.title)
   const productUrl = `https://www.bluboho.com/products/${product.handle}`
 
@@ -39,11 +39,19 @@ const ProductSEO = ({ product }) => {
         .toString()}]
     }
   `
+  const noIndex = [
+    {
+      name: 'robots',
+      content: 'noindex',
+    },
+  ]
+
   return (
     <SEO
       title={title}
       description={product.description}
       shopifyImage={product.images[0]}
+      meta={isHidden ? noIndex : []}
     >
       <script type="application/ld+json">{productLdJSON}</script>
     </SEO>

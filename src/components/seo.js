@@ -35,8 +35,7 @@ const useShopifyImageMeta = (image = {}) => {
 
 const useSEOImageMeta = ({ shopifyImage = {}, gatsbyImage = {} }) => {
   const defaultImageMeta = useShopifyImageMeta({
-    url:
-      'https://cdn.shopify.com/s/files/1/0685/0359/files/bluboho_logo.jpg?v=1614307775',
+    url: 'https://cdn.shopify.com/s/files/1/0685/0359/files/bluboho_logo.jpg?v=1614307775',
     height: 1500,
     width: 1500,
     altText: '',
