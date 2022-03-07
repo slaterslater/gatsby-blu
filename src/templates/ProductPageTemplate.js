@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { graphql } from 'gatsby'
 import Layout from '../components/layout'
 import ProductSEO from '../components/product/ProductSEO'
@@ -12,10 +12,12 @@ import { useViewProductAnalytics, useLatestProduct } from '../hooks/product'
 
 const ProductPageTemplate = ({ data, ...props }) => {
   useViewProductAnalytics(data)
+  const { tags } = data.shopifyProduct
+  const isHidden = useMemo(() => tags.includes('hidden'), [tags])
 
   return (
     <Layout>
-      <ProductSEO product={data.shopifyProduct} />
+      <ProductSEO product={data.shopifyProduct} isHidden={isHidden} />
       <ProductView product={data.shopifyProduct} alternates={data.alternates} />
     </Layout>
   )
