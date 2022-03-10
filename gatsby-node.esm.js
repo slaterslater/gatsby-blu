@@ -303,19 +303,15 @@ async function createGiftGuidePages({ graphql, actions }) {
 
     // get products
     const badHandles = []
-    const allHandles = handles.map(handle => {
+    const allHandles = handles.filter(handle => {
       const found = allShopifyProducts.find(
         product => product.handle === handle
       )
       if (!found) badHandles.push(handle)
-      return found
+      return !!found
     })
-
-    // log any handles that can't be found and skip remaining steps
-    if (badHandles.length) {
-      logBadGiftGuideData(badHandles, guideHandle, giftCollections)
-      return
-    }
+    // log any handles that can't be found
+    logBadGiftGuideData(badHandles, guideHandle, giftCollections)
 
     // get alternates
     const alternates = allHandles.reduce((allAlternates, product) => {

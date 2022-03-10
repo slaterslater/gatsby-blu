@@ -3,6 +3,7 @@ export const logBadGiftGuideData = (
   guideHandle,
   giftCollections
 ) => {
+  if (!badHandles.length) return
   const bad = badHandles.map(handle => {
     const info = {}
     const c = giftCollections.find(collection => {

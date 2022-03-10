@@ -1,7 +1,7 @@
 // src/templates/GiftGuideTemplate.js
 
 import { graphql } from 'gatsby'
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { Container } from 'theme-ui'
 import Layout from '../components/layout'
@@ -27,14 +27,23 @@ const GiftGuidePage = ({ data }) => {
           title: giftCollection.title || relatedCollection.title,
           description: relatedCollection.description,
           giftBoxes: giftCollection.giftBoxes.map(({ products }) => ({
-            products: products.map(product => ({
-              ...product,
-              relatedProducts: product.productHandles.map(handle =>
-                allShopifyProduct.find(
-                  shopifyProduct => shopifyProduct.handle === handle
-                )
-              ),
-            })),
+            products: products.map(product => {
+              const filteredProductHandles = product.productHandles.filter(
+                productHandle =>
+                  allShopifyProduct.some(
+                    ({ handle }) => productHandle === handle
+                  )
+              )
+              return {
+                ...product,
+                productHandles: filteredProductHandles,
+                relatedProducts: filteredProductHandles.map(handle =>
+                  allShopifyProduct.find(
+                    shopifyProduct => shopifyProduct.handle === handle
+                  )
+                ),
+              }
+            }),
           })),
         }
       }),
