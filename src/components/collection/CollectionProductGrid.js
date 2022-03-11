@@ -80,11 +80,6 @@ const ProductGrid = ({
     <CollectionProductGroup title={title} key={collectionTitle}>
       {sortedProducts.map((product, i) => (
         <Box key={product.id} sx={{ order: i }}>
-          {collectionPath?.includes('bridal') && i === 6 && (
-            <BookAConsultationCallout
-              sx={{ gridColumn: 'span 2', m: [0, 0, 4] }}
-            />
-          )}
           <CollectionProduct
             product={product}
             images={product.images}
@@ -93,6 +88,9 @@ const ProductGrid = ({
           />
         </Box>
       ))}
+      {collectionPath?.includes('bridal') && (
+        <BookAConsultationCallout sx={{ order: 7, gridColumn: 'span 2' }} />
+      )}
       {orderedImages.map((image, i) => (
         <Box
           key={`collection-image-${i}`}
