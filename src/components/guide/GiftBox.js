@@ -21,22 +21,24 @@ const GiftFeature = ({ feature, boxIndex }) => {
   return (
     <>
       <Flex ref={featureBox} sx={{ minWidth: '100%', height: 0, zIndex: 2 }}>
-        <Box
-          as={Open}
-          mt={[3, 4]}
-          mr={[3, 4]}
-          ml="auto"
-          sx={{
-            color: buttonColor || boxIndex === 1 ? 'black' : 'white',
-            cursor: 'pointer',
-          }}
-          size={32}
-          onClick={() => {
-            const y = featureBox.current.offsetTop - 105
-            window.scrollTo({ top: y, behavior: 'smooth' })
-            setModalOpen(true)
-          }}
-        />
+        {relatedProducts.length > 0 && (
+          <Box
+            as={Open}
+            mt={[3, 4]}
+            mr={[3, 4]}
+            ml="auto"
+            sx={{
+              color: buttonColor || boxIndex === 1 ? 'black' : 'white',
+              cursor: 'pointer',
+            }}
+            size={32}
+            onClick={() => {
+              const y = featureBox.current.offsetTop - 105
+              window.scrollTo({ top: y, behavior: 'smooth' })
+              setModalOpen(true)
+            }}
+          />
+        )}
       </Flex>
       <GatsbyImage
         image={productImage.image.asset.gatsbyImageData}
