@@ -20,9 +20,12 @@ const WishlistItem = ({ handle }) => {
     variables: { handle, countryCode },
   })
 
-  if (!data) return <></>
+  if (data?.product == null) return <></>
 
-  const { product } = data
+  const {
+    product: { title, images, priceRange },
+  } = data
+
   return (
     <Flex
       sx={{
@@ -33,9 +36,9 @@ const WishlistItem = ({ handle }) => {
       pb={6}
     >
       <Box>
-        {product?.images.edges[0] ? (
+        {images.edges[0] ? (
           <ShopifyGatsbyImage
-            image={product.images.edges[0].node}
+            image={images.edges[0].node}
             getImageProps={{ width: '395px' }}
             gatsbyImageProps={{ height: '395', objectFit: 'contain' }}
           />
@@ -73,11 +76,11 @@ const WishlistItem = ({ handle }) => {
         to={`/products/${handle}`}
         py={3}
       >
-        <ProductTitle title={product.title} />
+        <ProductTitle title={title} />
       </Link>
       <Text mt="auto" py={1}>
-        {`from ${product.priceRange.minVariantPrice.currencyCode} $${Math.ceil(
-          product.priceRange.minVariantPrice.amount
+        {`from ${priceRange.minVariantPrice.currencyCode} $${Math.ceil(
+          priceRange.minVariantPrice.amount
         )} `}
       </Text>
       <ProductModal handle={handle}>
