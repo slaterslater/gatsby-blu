@@ -78,9 +78,10 @@ async function createProductPages({ graphql, actions }) {
       alternatesFromMetafields.length > 0
         ? alternatesFromMetafields
         : alternatesFromTags
+    // pass hidden context to hide product page from google...
+    const hidden = product.tags.includes('hidden')
 
     actions.createPage({
-      // What is the URL for this new page??
       path: `/products/${product.handle}`,
       component: productTemplate,
       context: {
@@ -88,6 +89,7 @@ async function createProductPages({ graphql, actions }) {
         shopifyId: product.shopifyId,
         productId,
         alternates,
+        hidden,
       },
     })
   })

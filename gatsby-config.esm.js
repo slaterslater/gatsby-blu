@@ -165,10 +165,25 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-sitemap',
       options: {
+        query: `
+        {
+          site {
+            siteMetadata {
+              siteUrl
+            }
+          }
+          allSitePage(filter: {context: {hidden: {ne: true}}}) {
+            nodes {
+              path
+            }
+          }
+        }
+        `,
         excludes: ['/account'],
+        filterPages: ({ path }) => path.includes('['),
         resolvePagePath: ({ path }) => {
-          const uri = path.endsWith('/') ? path : `${path}/`
-          return siteUrl + uri
+          const pathWithTrailingSlash = path.endsWith('/') ? path : `${path}/`
+          return siteUrl + pathWithTrailingSlash
         },
       },
     },
