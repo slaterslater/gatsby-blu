@@ -91,7 +91,7 @@ const SinglePodcastPage = ({ data: { podcast, ...data }, pageContext }) => {
 export default SinglePodcastPage
 
 export const query = graphql`
-  query($slug: String!, $id: String!) {
+  query ($slug: String!) {
     podcast(slug: { eq: $slug }) {
       id
       title
@@ -99,14 +99,6 @@ export const query = graphql`
       episode_number
       audio_url
       published_at(formatString: "MMMM D, YYYY")
-    }
-    sanityPodcast(id: { eq: $id }) {
-      id
-      supportPhotos {
-        asset {
-          gatsbyImageData
-        }
-      }
     }
   }
 `

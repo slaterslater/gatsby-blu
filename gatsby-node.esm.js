@@ -236,7 +236,7 @@ async function createPodcastEpisodePages({ graphql, actions }) {
       path: `/podcasts/${slug(i)}`,
       component: path.resolve('./src/templates/PodcastTemplate.js'),
       context: {
-        id: podcasts[i].node.id,
+        // id: podcasts[i].node.id,
         slug: slug(i),
         prev: i !== 0 ? slug(i - 1) : null,
         next: i !== totalCount - 1 ? slug(i + 1) : null,
