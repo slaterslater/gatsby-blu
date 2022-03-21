@@ -24,8 +24,8 @@ const GiftGuidePage = ({ data }) => {
         )
         return {
           ...giftCollection,
-          title: giftCollection.title || relatedCollection.title,
-          description: relatedCollection.description,
+          title: giftCollection.title || relatedCollection?.title,
+          description: relatedCollection?.description,
           giftBoxes: giftCollection.giftBoxes.map(({ products }) => ({
             products: products.map(product => {
               const filteredProductHandles = product.productHandles.filter(
