@@ -40,8 +40,12 @@ const useSortedProducts = products => {
   }, [sort, products])
 }
 
-const CollectionImage = ({ image }) => {
-  const imageData = useShopifyImage({ image, width: 715, height: 445 })
+const CollectionImage = ({ image, tall = false }) => {
+  const imageData = useShopifyImage({
+    image,
+    width: 715,
+    height: tall ? 900 : 445,
+  })
   return <GatsbyImage image={imageData} alt="" />
 }
 
@@ -103,7 +107,7 @@ const ProductGrid = ({
             flexGrow: 0,
           }}
         >
-          <CollectionImage image={image} />
+          <CollectionImage image={image} tall={!(i % 2)} />
         </Box>
       ))}
     </CollectionProductGroup>
