@@ -47,7 +47,7 @@ const Footer = props => (
           >
             <FooterLink to="/pages/locations-and-hours">email us</FooterLink>
             <FooterLink to="/pages/locations-and-hours">call us</FooterLink>
-            <FooterText>m - f 9am - 5pm EST</FooterText>
+            <FooterText>mon - sun &nbsp; 9am - 5pm EST</FooterText>
             <FooterLink to="/pages/locations-and-hours">visit us</FooterLink>
             <FooterLink pb={0} to="/book-a-consultation">
               book virtual appointment
