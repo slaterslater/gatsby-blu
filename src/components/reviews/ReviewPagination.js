@@ -53,16 +53,24 @@ const ReviewPagination = ({
           ...
         </PageButton>
       )}
-      {pagesBefore.map(n => (
-        <PageButton onClick={() => handleClick(n)} {...getLinkProps(n)}>
+      {pagesBefore.map((n, i) => (
+        <PageButton
+          key={`pages-before-${i}`}
+          onClick={() => handleClick(n)}
+          {...getLinkProps(n)}
+        >
           {n}
         </PageButton>
       ))}
       <PageButton isCurrent disabled>
         {currentPage}
       </PageButton>
-      {pagesAfter.map(n => (
-        <PageButton onClick={() => handleClick(n)} {...getLinkProps(n)}>
+      {pagesAfter.map((n, i) => (
+        <PageButton
+          key={`pages-after-${i}`}
+          onClick={() => handleClick(n)}
+          {...getLinkProps(n)}
+        >
           {n}
         </PageButton>
       ))}

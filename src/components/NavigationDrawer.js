@@ -79,7 +79,7 @@ const NavigationDrawer = ({ onClose }) => {
     query: CUSTOMER_QUERY,
     variables: { customerAccessToken: accessToken },
   })
-  const guest = data?.customer.firstName
+  const guest = data?.customer?.firstName
   const their = guest ? `${guest}'${!guest.match(/s$/i) ? 's' : ''}` : null
 
   const toggleSignIn = () => {

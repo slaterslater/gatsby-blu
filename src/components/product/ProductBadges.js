@@ -7,6 +7,9 @@ const allBadges = [
   'antique-diamond',
   'artist-cut',
   'one-of-a-kind',
+  'visit-oakville',
+  'visit-queen',
+  'visit-yonge',
 ]
 
 const ProductBadges = () => {

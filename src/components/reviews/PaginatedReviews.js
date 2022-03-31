@@ -18,10 +18,7 @@ const ReviewsList = props => {
 
   const productId = useAdminProductId(id)
 
-  const {
-    data,
-    fetching,
-  } = useSWR(
+  const { data, fetching } = useSWR(
     `https://api-cdn.yotpo.com/v1/widget/${process.env.GATSBY_YOTPO_APP_KEY}/products/${productId}/reviews.json?page=1&per_page=100`,
     yotpoFetcher,
     { fallbackData: fallback }
@@ -47,7 +44,7 @@ const ReviewsList = props => {
       <Grid sx={{ gridAutoFlow: 'row', gap: 7 }}>
         {currentReviews.map(node => (
           <React.Fragment key={node.id}>
-            <ProductReview key={node.id} {...node} />
+            <ProductReview {...node} />
             <Divider />
           </React.Fragment>
         ))}
@@ -67,7 +64,3 @@ const ReviewsList = props => {
 }
 
 export default ReviewsList
-//   {data.reviews.map(node => (
-//   ))}
-//   </Grid>
-// ))}
