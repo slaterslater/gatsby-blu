@@ -37,7 +37,7 @@ const ProductCTACallout = ({ tags, ...props }) => {
       <CalloutBox
         icon={AiFillInfoCircle}
         title="This Piece is a Special Order"
-        description="please allow 6 - 8 weeks for production and delivery"
+        description="please allow 4 - 6 weeks for production and delivery"
         bg="cream"
         {...props}
       />
