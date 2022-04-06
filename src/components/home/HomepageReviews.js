@@ -12,8 +12,8 @@ const MotionBox = motion(Box)
 
 const Review = ({ starPercentage, excerpt, author, product }) => (
   <AnimatePresence>
-    <Flex sx={{ flexWrap: 'wrap-reverse' }}>
-      <Box sx={{ flex: '1 260px', textAlign: 'center' }}>
+    <Flex sx={{ flexWrap: 'wrap-reverse' }} mb={[0, 5]}>
+      <Box sx={{ flex: '1 260px', textAlign: 'center' }} pr={[0, 5]}>
         <Heading variant="caps" sx={{ py: 6 }}>
           From our Guests
         </Heading>
