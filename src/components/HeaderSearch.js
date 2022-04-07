@@ -16,7 +16,11 @@ import {
 import SuggestedSearches from './search/SuggestedSearches'
 
 const SearchHits = connectHits(({ hits }) =>
-  hits.map(hit => <InstantSearchProduct key={`hit-${hit.id}`} hit={hit} />)
+  hits.map(hit => (
+    <Flex sx={{ justifyContent: 'center' }}>
+      <InstantSearchProduct key={`hit-${hit.id}`} hit={hit} />
+    </Flex>
+  ))
 )
 
 const MotionBox = motion(Box)
