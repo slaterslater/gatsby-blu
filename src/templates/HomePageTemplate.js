@@ -78,18 +78,20 @@ const IndexPage = ({ data }) => {
 
   const reviewsWithProductData = useMemo(
     () =>
-      reviews.map(review => {
-        const productData = products.find(
-          ({ handle }) => handle === review.productHandle
-        )
-        return {
-          ...review,
-          product: {
-            ...productData,
-            title: review.productTitle || productData.title,
-          },
-        }
-      }),
+      reviews
+        .map(review => {
+          const productData = products.find(
+            ({ handle }) => handle === review.productHandle
+          )
+          return {
+            ...review,
+            product: {
+              ...productData,
+              title: review.productTitle || productData.title,
+            },
+          }
+        })
+        .filter(({ product }) => product.handle),
     [reviews, products]
   )
 

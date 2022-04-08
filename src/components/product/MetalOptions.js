@@ -30,17 +30,18 @@ const MetalOptions = ({ alternates }) => {
   const colors = useMemo(() => {
     if (!productMetalColor) return []
     const metal = ['yellow gold', 'rose gold', 'white gold', 'sterling silver']
-    const alternateMetalColors = alternates.nodes
-      .filter(alternate => {
-        const prodId = product.id.replace('Shopify__Product__', '')
-        return alternate !== null && alternate.id !== prodId
-      })
-      .map(alternate => ({
-        metal: getMetalColor(alternate.options),
-        isCurrent: false,
-        handle: alternate.handle,
-      }))
-      .filter(alternate => alternate.metal)
+    const alternateMetalColors =
+      alternates?.nodes
+        .filter(alternate => {
+          const prodId = product.id.replace('Shopify__Product__', '')
+          return alternate !== null && alternate.id !== prodId
+        })
+        .map(alternate => ({
+          metal: getMetalColor(alternate.options),
+          isCurrent: false,
+          handle: alternate.handle,
+        }))
+        .filter(alternate => alternate.metal) || []
 
     return [
       { metal: productMetalColor, isCurrent: true },
