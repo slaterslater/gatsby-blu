@@ -50,7 +50,9 @@ const LoginForm = ({ toOrigin }) => {
               <ErrorMessage component={Text} pt={3} name="email" />
             </Box>
             <Box pb={3}>
-              <Label htmlFor="login_password">Password</Label>
+              <Label htmlFor="login_password" pb={2}>
+                Password
+              </Label>
               <Field
                 name="password"
                 id="login_password"
