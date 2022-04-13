@@ -1,7 +1,7 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Box, Flex, Text, Divider, IconButton, Button } from 'theme-ui'
 import { IoIosClose } from 'react-icons/io'
-import { useQuery } from 'urql'
+import { useMutation, useQuery } from 'urql'
 import { StoreContext } from '../contexts/StoreContext'
 import CartLineItem from './cart/CartLineItem'
 import { OrderSummary } from './cart/OrderSummary'
@@ -10,6 +10,8 @@ import { CHECKOUT_QUERY } from '../queries/checkout'
 import OrderNote from './OrderNote'
 import { useAnalytics } from '../lib/useAnalytics'
 import { CurrencyContext } from '../contexts/CurrencyContext'
+import { AuthContext } from '../contexts/AuthContext'
+import { AssociateCustomerWithCheckout } from '../mutations/cart'
 
 const EmptyCart = () => (
   <Box py={5} px={4} sx={{ textAlign: 'center' }}>
@@ -25,12 +27,25 @@ const CartTag = ({ checkout }) => {
 const CartDrawer = ({ onClose }) => {
   const { checkoutId } = useContext(StoreContext)
   const { countryCode } = useContext(CurrencyContext)
+  const { accessToken } = useContext(AuthContext)
   const [{ data, fetching }] = useQuery({
     query: CHECKOUT_QUERY,
     variables: { checkoutId, countryCode },
   })
-
   const { webUrl: checkoutUrl } = data?.node || {}
+
+  const [, associateCustomerWithCheckout] = useMutation(
+    AssociateCustomerWithCheckout
+  )
+
+  useEffect(() => {
+    if ((accessToken, checkoutId)) {
+      associateCustomerWithCheckout({
+        checkoutId,
+        customerAccessToken: accessToken,
+      })
+    }
+  }, [accessToken, checkoutId, associateCustomerWithCheckout])
 
   return (
     <Flex

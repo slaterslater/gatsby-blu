@@ -85,7 +85,7 @@ export const RemoveCheckoutLineItem = gql`
 export const AssociateCustomerWithCheckout = gql`
   ${CHECKOUT_FRAGMENT}
   ${ERROR_FRAGMENT}
-  mutation associateCustomerWithCheckout(
+  mutation checkoutCustomerAssociateV2(
     $checkoutId: ID!
     $customerAccessToken: String!
   ) {
@@ -109,7 +109,7 @@ export const AssociateCustomerWithCheckout = gql`
 export const UpdateCheckoutAttributes = gql`
   ${CHECKOUT_FRAGMENT}
   ${ERROR_FRAGMENT}
-  mutation($checkoutId: ID!, $input: CheckoutAttributesUpdateInput!) {
+  mutation ($checkoutId: ID!, $input: CheckoutAttributesUpdateInput!) {
     checkoutAttributesUpdate(checkoutId: $checkoutId, input: $input) {
       checkout {
         ...CheckoutFields
