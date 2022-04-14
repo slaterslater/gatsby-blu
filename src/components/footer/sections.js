@@ -60,7 +60,7 @@ export const FooterSection = ({
   </Box>
 )
 
-export const FooterNewsletterSubscribe = () => {
+export const FooterNewsletterSubscribe = ({ color = 'white' }) => {
   const [success, setSuccess] = useState(false)
   const Motion = motion(Box)
   useEffect(() => {
@@ -75,7 +75,7 @@ export const FooterNewsletterSubscribe = () => {
         variant="copy"
         sx={{
           fontSize: 0,
-          color: 'white',
+          color,
           transform: 'translateY(-5px)',
           display: 'block',
         }}
@@ -96,7 +96,7 @@ export const FooterNewsletterSubscribe = () => {
             <Heading
               variant="caps"
               as="h6"
-              sx={{ color: 'white', whiteSpace: 'nowrap' }}
+              sx={{ color, whiteSpace: 'nowrap' }}
               py={3}
             >
               you are signed up!
@@ -106,7 +106,7 @@ export const FooterNewsletterSubscribe = () => {
               // pt={3}
               sx={{
                 fontSize: 0,
-                color: 'white',
+                color,
                 fontFamily: 'body',
                 display: 'block',
               }}
@@ -116,7 +116,7 @@ export const FooterNewsletterSubscribe = () => {
           </>
         ) : (
           <NewsletterSignUp
-            color="white"
+            color={color}
             onSubscribed={() => setSuccess(true)}
           />
         )}

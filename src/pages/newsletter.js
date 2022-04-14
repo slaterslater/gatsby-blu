@@ -1,8 +1,7 @@
-import { LayoutGroupContext } from 'framer-motion'
 import React from 'react'
 import { Box, Heading } from 'theme-ui'
-import NewsletterForm from '../components/NewsletterForm'
 import Layout from '../components/layout'
+import { FooterNewsletterSubscribe } from '../components/footer/sections'
 
 const NewsletterPage = props => (
   <Layout
@@ -15,8 +14,8 @@ const NewsletterPage = props => (
       variant="sectionWrap"
       mx="auto"
     >
-      <Heading>Sign up for the newsletter</Heading>
-      <NewsletterForm variant="primary" />
+      <Heading mb={5}>Sign up for the newsletter</Heading>
+      <FooterNewsletterSubscribe color="primary" />
     </Box>
   </Layout>
 )

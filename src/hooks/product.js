@@ -110,3 +110,49 @@ export const useProductGalleryVideos = () => {
 
   return videos || []
 }
+
+export const useProductGalleryMedia = () => {
+  const {
+    product: { media, metafields },
+  } = useContext(ProductContext)
+  const giftPackagingImageStyle = useMetafieldValue(
+    'gift_wrapping_style',
+    metafields
+  )
+
+  const productGalleryMedia =
+    media?.edges.map(({ node }) => {
+      if (node.image) return node.image
+      return node
+    }) || []
+  console.log({ productGalleryMedia })
+
+  if (!giftPackagingImageStyle) return productGalleryMedia
+
+  const packagingImages = [
+    {
+      type: 'paper',
+      url: 'https://cdn.shopify.com/s/files/1/0685/0359/files/packaging-4.jpg?v=1620925677',
+    },
+    {
+      type: 'velvet',
+      url: 'https://cdn.shopify.com/s/files/1/0685/0359/files/packaging-box-velvet.jpg?v=1648745248',
+    },
+  ]
+
+  const { url } = packagingImages.find(
+    ({ type }) => type === giftPackagingImageStyle.toLowerCase()
+  )
+
+  return [
+    ...productGalleryMedia,
+    {
+      url,
+      height: 3000,
+      width: 3000,
+      altText: 'packaging',
+      id: 'product_packaging_style',
+      __typename: 'Image',
+    },
+  ]
+}

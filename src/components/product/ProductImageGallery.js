@@ -1,13 +1,9 @@
 import React, { useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import { Flex, Box, Button } from 'theme-ui'
-// import { GatsbyImage } from 'gatsby-plugin-image'
 import FullscreenGallery from '../FullscreenGallery'
 import MobileGallery from './MobileGallery'
-import {
-  useProductGalleryImages,
-  useProductGalleryVideos,
-} from '../../hooks/product'
+import { useProductGalleryMedia } from '../../hooks/product'
 import ShopifyGatsbyImage from '../ShopifyGatsbyImage'
 import ProductVideo from './ProductVideo'
 
@@ -16,9 +12,7 @@ const GalleryImage = ({ image }) => (
 )
 
 const ProductImageGallery = () => {
-  const images = useProductGalleryImages()
-  const videos = useProductGalleryVideos()
-  const media = images.concat(videos)
+  const media = useProductGalleryMedia()
 
   const [{ isOpen, initialPage }, setGalleryState] = useState({
     isOpen: false,

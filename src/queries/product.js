@@ -68,20 +68,21 @@ export const PRODUCT_QUERY = gql`
       media(first: 25) {
         edges {
           node {
-            # mediaContentType
             ... on Video {
               id
               sources {
                 format
                 url
               }
-              # preview {
-              #   image {
-              #     # altText
-              #     # url
-              #     # status
-              #   }
-              # }
+            }
+            ... on MediaImage {
+              image {
+                altText
+                url
+                height
+                width
+                id
+              }
             }
           }
         }
