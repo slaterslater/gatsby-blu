@@ -125,7 +125,6 @@ export const useProductGalleryMedia = () => {
       if (node.image) return node.image
       return node
     }) || []
-  console.log({ productGalleryMedia })
 
   if (!giftPackagingImageStyle) return productGalleryMedia
 

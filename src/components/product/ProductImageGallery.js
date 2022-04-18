@@ -19,6 +19,8 @@ const ProductImageGallery = () => {
     initialPage: 0,
   })
 
+  if (!media.length) return <></>
+
   return (
     <>
       <AnimatePresence>
