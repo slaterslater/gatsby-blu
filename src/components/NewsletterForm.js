@@ -15,7 +15,7 @@ export const NewsletterForm = ({
   <Formik
     initialValues={{ email: '' }}
     validationSchema={yup.object({
-      email: yup.string().email().required(),
+      email: yup.string().email(),
     })}
     onSubmit={async (values, { setSubmitting, reset }) => {
       try {
@@ -73,7 +73,6 @@ export const NewsletterSignUp = ({
   color = 'gray',
   onSubscribed = () => {},
 }) => {
-  const [error, setError] = useState(null)
   const [working, setWorking] = useState(false)
   return (
     <NewsletterForm
@@ -85,7 +84,7 @@ export const NewsletterSignUp = ({
       }}
       setWorking={setWorking}
     >
-      <Form>
+      <Box as={Form} mt={3} mb={5}>
         <Flex
           sx={{
             flex: '1 0 max-content',
@@ -106,13 +105,8 @@ export const NewsletterSignUp = ({
             <Text
               as={working ? FiClock : CgArrowLongRight}
               size={24}
-              sx={{ color }}
+              sx={{ color, minWidth: 25 }}
             />
-            {/* {working ? (
-              <Text as={FiClock} size={24} sx={{ color }} />
-            ) : (
-              <Text as={CgArrowLongRight} size={24} sx={{ color }} />
-            )} */}
           </IconButton>
         </Flex>
         <ErrorMessage
@@ -122,7 +116,7 @@ export const NewsletterSignUp = ({
           sx={{ color: 'error' }}
           name="email"
         />
-      </Form>
+      </Box>
     </NewsletterForm>
   )
 }
