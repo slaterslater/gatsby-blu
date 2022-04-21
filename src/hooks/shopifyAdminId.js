@@ -1,7 +1,8 @@
 import { useMemo } from 'react'
 
 export function useShopifyAdminId(hashedId = '') {
-  return useMemo(() => atob(hashedId), [hashedId])
+  // return useMemo(() => atob(hashedId), [hashedId])
+  return hashedId
 }
 
 export function useShopifyAdminIdNumber(hashedId = '') {

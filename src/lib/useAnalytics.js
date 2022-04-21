@@ -4,7 +4,8 @@ import { CurrencyContext } from '../contexts/CurrencyContext'
 
 const getAdminId = (id = '') => {
   const [storefrontId] = id.split('__').slice(-1)
-  const gid = atob(storefrontId)
+  // const gid = atob(storefrontId)
+  const gid = storefrontId
   const [adminId] = gid.split('/').slice(-1)
   return adminId
 }

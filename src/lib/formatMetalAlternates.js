@@ -5,7 +5,8 @@ const formatIdStr = str => (typeof window !== 'undefined' ? str : btoa(str))
 const getShopifyId = tag => {
   const productId = tag.replace('__metal-alternate-of:', '')
   const shopifyGid = `gid://shopify/Product/${productId}`
-  return formatIdStr(shopifyGid)
+  // return formatIdStr(shopifyGid)
+  return shopifyGid
 }
 
 export const formatMetalAlternatesFromTags = (tags = []) =>
@@ -14,4 +15,5 @@ export const formatMetalAlternatesFromTags = (tags = []) =>
 export const formatMetalAlternatesFromMetafields = (metafields = []) =>
   metafields
     .filter(field => field.key.startsWith('metal_option_'))
-    .map(field => formatIdStr(field.value))
+    // .map(field => formatIdStr(field.value))
+    .map(field => field.value)

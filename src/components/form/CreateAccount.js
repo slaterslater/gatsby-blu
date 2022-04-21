@@ -26,7 +26,7 @@ const validationSchema = yup.object({
 
 const CreateAccountForm = props => {
   const [, createCustomer] = useMutation(CustomerCreate)
-  const { accessToken, login } = useContext(AuthContext)
+  const { login } = useContext(AuthContext)
 
   return (
     <Formik

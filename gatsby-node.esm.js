@@ -69,7 +69,7 @@ async function createProductPages({ graphql, actions }) {
   `)
 
   data.allShopifyProduct.nodes.forEach(product => {
-    const productId = decodeShopifyId(product.shopifyId)
+    // const productId = decodeShopifyId(product.shopifyId)
     const alternatesFromTags = formatMetalAlternatesFromTags(product.tags || [])
     const alternatesFromMetafields = formatMetalAlternatesFromMetafields(
       product.metafields || []
@@ -87,7 +87,7 @@ async function createProductPages({ graphql, actions }) {
       context: {
         handle: product.handle,
         shopifyId: product.shopifyId,
-        productId,
+        // productId,
         alternates,
         hidden,
       },
