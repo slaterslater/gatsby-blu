@@ -7,7 +7,7 @@ import { FaRegStar } from 'react-icons/fa'
 const AvailableLocations = ({ locations }) => {
   let message = null
   if (!locations) message = 'loading...'
-  else if (!locations.length) message = 'sold out at all locations'
+  else if (!locations.length) message = 'not currently available in-store'
   if (message) {
     return (
       <Text as="p" variant="caps" py={3} px={5}>
