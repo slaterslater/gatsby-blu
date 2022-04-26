@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import useKeyPress from 'react-use-keypress'
 import CartDrawer from './CartDrawer'
 import NavigationDrawer from './NavigationDrawer'
+import AvailabilityDrawer from './product/AvailabilityDrawer'
 
 const MotionBox = motion(Box)
 const MotionFlex = motion(Flex)
@@ -43,6 +44,7 @@ function setHeight() {
 
 const Drawers = ({ children }) => {
   const [openDrawer, setOpenDrawer] = useState('')
+  const [productHandle, setProductHandle] = useState('')
 
   const closeDrawer = () => !!openDrawer && setOpenDrawer('')
   useKeyPress('Escape', closeDrawer)
@@ -65,7 +67,9 @@ const Drawers = ({ children }) => {
   }, [openDrawer])
 
   return (
-    <DrawerContext.Provider value={[openDrawer, setOpenDrawer]}>
+    <DrawerContext.Provider
+      value={{ openDrawer, setOpenDrawer, productHandle, setProductHandle }}
+    >
       <Box>
         <AnimatePresence>
           {!!openDrawer && (
@@ -94,6 +98,14 @@ const Drawers = ({ children }) => {
           {openDrawer === 'navigation' && (
             <DrawerOuter key="navigation-drawer" origin="left">
               <NavigationDrawer onClose={() => setOpenDrawer('')} />
+            </DrawerOuter>
+          )}
+          {openDrawer === 'availablity' && (
+            <DrawerOuter key="availability-drawer" origin="right">
+              <AvailabilityDrawer
+                onClose={() => setOpenDrawer('')}
+                handle={productHandle}
+              />
             </DrawerOuter>
           )}
         </AnimatePresence>

@@ -15,7 +15,7 @@ import { AddCheckoutLineItem } from '../mutations/cart'
 export function useCart(onAdded = () => {}) {
   const sendAnalytics = useSendAnalytics('addToCart')
   const [isOn, toggleOn] = useToggle()
-  const [, setOpenDrawer] = useContext(DrawerContext)
+  const { setOpenDrawer } = useContext(DrawerContext)
   const { checkoutId } = useContext(StoreContext)
 
   const { selectedVariant, product, quantity, customAttributes } =

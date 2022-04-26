@@ -16,7 +16,7 @@ import WishlistBadge from './header/WishlistBadge'
 
 const Header = () => {
   const [searchOpen, setSearchOpen] = useState(false)
-  const [, setOpenDrawer] = useContext(DrawerContext)
+  const { setOpenDrawer } = useContext(DrawerContext)
   const { isLoggedIn, shouldRenew } = useContext(AuthContext)
 
   return (
