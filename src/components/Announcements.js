@@ -23,8 +23,7 @@ const Announcement = ({ text, subtext, to, message, isVisible }) => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 2 }}
     >
-      <Text
-        as="p"
+      <Box
         sx={{ fontSize: 0, letterSpacing: '.05em', fontWeight: 'heading' }}
         variant="caps"
       >
@@ -55,7 +54,7 @@ const Announcement = ({ text, subtext, to, message, isVisible }) => {
             <AnnouncementText text={text} subtext={subtext} />
           </Link>
         )}
-      </Text>
+      </Box>
     </motion.div>
   ) : null
 }
