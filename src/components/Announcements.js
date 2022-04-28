@@ -6,7 +6,16 @@ import { motion, AnimatePresence } from 'framer-motion'
 import useInterval from '../lib/useInterval'
 import Modal from './Modal'
 
-const Announcement = ({ text, to, message, isVisible }) => {
+const AnnouncementText = ({ text, subtext }) => (
+  <Flex sx={{ alignItems: 'baseline' }}>
+    <Box>{text}</Box>
+    <Box sx={{ fontSize: '5px' }} pl={1}>
+      {subtext}
+    </Box>
+  </Flex>
+)
+
+const Announcement = ({ text, subtext, to, message, isVisible }) => {
   const [isOpen, setIsOpen] = useState(false)
   return isVisible ? (
     <motion.div
@@ -26,7 +35,7 @@ const Announcement = ({ text, to, message, isVisible }) => {
             onClick={() => setIsOpen(prev => !prev)}
             sx={{ cursor: 'pointer' }}
           >
-            {text}
+            <AnnouncementText text={text} subtext={subtext} />
             <Modal isOpen={isOpen} setOpen={setIsOpen} width={1100}>
               <Box sx={{ textAlign: 'center' }}>
                 <Heading variant="h2" sx={{ fontSize: 3 }} pb={4}>
@@ -41,9 +50,9 @@ const Announcement = ({ text, to, message, isVisible }) => {
             as={to ? GatsbyLink : 'span'}
             color="inherit"
             to={to}
-            sx={{ textDecoration: 'none' }}
+            sx={{ textDecoration: 'none', textAlign: 'center' }}
           >
-            {text}
+            <AnnouncementText text={text} subtext={subtext} />
           </Link>
         )}
       </Text>
@@ -53,6 +62,7 @@ const Announcement = ({ text, to, message, isVisible }) => {
 
 Announcement.propTypes = {
   text: PropTypes.string.isRequired,
+  subtext: PropTypes.string,
   to: PropTypes.string,
   message: PropTypes.string,
   isVisible: PropTypes.bool.isRequired,
@@ -65,6 +75,7 @@ const Announcements = () => {
         nodes {
           announcements {
             text
+            subtext
             path
             message
           }
@@ -98,11 +109,12 @@ const Announcements = () => {
       onMouseLeave={() => setIsPaused(false)}
     >
       <AnimatePresence>
-        {announcements.map(({ text, path, message }, i) => (
+        {announcements.map(({ text, subtext, path, message }, i) => (
           <Announcement
             key={`${text}-${path}`}
             isVisible={current === i}
             text={text}
+            subtext={subtext}
             to={path}
             message={message}
           />
