@@ -7,13 +7,15 @@ const ShopifyGatsbyImage = ({
   image,
   getImageProps = { width: null },
   gatsbyImageProps = {},
+  style = {},
 }) => {
   const imageData = useShopifyImage({ image, width: getImageProps.width })
 
   return (
     <GatsbyImage
       image={imageData}
-      alt={image.altText || ''}
+      alt={image.altText || 'heyoooooo'}
+      style={style}
       {...gatsbyImageProps}
     />
   )
@@ -31,6 +33,7 @@ ShopifyGatsbyImage.propTypes = {
     width: PropTypes.number,
   }),
   gatsbyImageProps: PropTypes.shape({}),
+  style: PropTypes.shape({}),
 }
 
 export default ShopifyGatsbyImage

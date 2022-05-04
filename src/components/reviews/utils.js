@@ -3,7 +3,8 @@ import camelCaseRecursive from 'camelcase-keys-recursive'
 import axios from 'axios'
 
 export const useAdminProductId = hashedId => {
-  const { id } = decode(hashedId.replace('Shopify__Product__', ''))
+  const { id } = hashedId.replace('Shopify__Product__', '')
+  // const { id } = decode(hashedId.replace('Shopify__Product__', ''))
   return id
 }
 

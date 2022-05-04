@@ -8,7 +8,11 @@ import ShopifyGatsbyImage from '../ShopifyGatsbyImage'
 import ProductVideo from './ProductVideo'
 
 const GalleryImage = ({ image }) => (
-  <ShopifyGatsbyImage image={image} getImageProps={{ width: 900 }} />
+  <ShopifyGatsbyImage
+    image={image}
+    getImageProps={{ width: 900 }}
+    style={{ aspectRatio: '1' }}
+  />
 )
 
 const ProductImageGallery = () => {

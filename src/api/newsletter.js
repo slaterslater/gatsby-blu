@@ -7,12 +7,13 @@ const graphQLClient = getClient()
 const CustomerSearch = gql`
   query CustomerSearch($query: String!) {
     customers(first: 5, query: $query) {
-      edges {
-        node {
-          id
-          email
-          acceptsMarketing
-          tags
+      nodes {
+        id
+        email
+        tags
+        emailMarketingConsent {
+          marketingState
+          consentUpdatedAt
         }
       }
     }
@@ -20,12 +21,8 @@ const CustomerSearch = gql`
 `
 
 const CustomerUpdate = gql`
-  mutation CustomerUpdate($input: CustomerInput!, $id: ID!) {
-    customerUpdate(input: $input) {
-      customer {
-        id
-        acceptsMarketing
-      }
+  mutation ($input: CustomerEmailMarketingConsentUpdateInput!, $id: ID!) {
+    customerEmailMarketingConsentUpdate(input: $input) {
       userErrors {
         field
         message
@@ -66,21 +63,33 @@ export default async function (req, res) {
   })
 
   const message = `${email} accepts marketing`
+  const [customer] = customersData.customers.nodes
+  const emailMarketingConsent = {
+    marketingState: 'SUBSCRIBED',
+    marketingOptInLevel: 'SINGLE_OPT_IN',
+    consentUpdatedAt: new Date().toISOString(),
+  }
 
   // user already exists
-  if (customersData.customers.edges.length) {
+  if (customer) {
     // if exists and has marketing return 200
-    const { acceptsMarketing, tags } = customersData.customers.edges[0].node
-    if (acceptsMarketing && tags.includes('newsletter')) {
+    const {
+      id,
+      emailMarketingConsent: { marketingState },
+      tags,
+    } = customer
+    if (marketingState === 'SUBSCRIBED' && tags.includes('newsletter')) {
       return res.status(200).json({ message })
     }
 
     // if exists update marketing and return 201
-    const { id } = customersData.customers.edges[0].node
     try {
       await graphQLClient.request(CustomerUpdate, {
         id,
-        input: { acceptsMarketing: true, id },
+        input: {
+          customerId: id,
+          emailMarketingConsent,
+        },
       })
     } catch (e) {
       return { statusCode: 400, body: JSON.stringify({ message: e.message }) }
@@ -92,7 +101,11 @@ export default async function (req, res) {
   // if !exists create customer with marketing and return 201
   try {
     await graphQLClient.request(CustomerCreate, {
-      input: { email, acceptsMarketing: true, tags: 'newsletter' },
+      input: {
+        email,
+        tags: 'newsletter',
+        emailMarketingConsent,
+      },
     })
   } catch (e) {
     return { statusCode: 400, message: e.message }
