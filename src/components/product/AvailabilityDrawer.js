@@ -3,6 +3,7 @@ import { IoIosClose } from 'react-icons/io'
 import React, { useEffect, useMemo, useState } from 'react'
 import axios from 'axios'
 import { FaRegStar } from 'react-icons/fa'
+import PropTypes from 'prop-types'
 
 const AvailableLocations = ({ locations }) => {
   let message = null
@@ -91,12 +92,15 @@ const AvailabilityDrawer = ({ onClose, handle }) => {
       </Box>
       {isLowStock && (
         <Flex
-          mt={5}
+          mt={7}
           sx={{ justifyContent: 'flex-end', alignItems: 'center' }}
           p={5}
         >
           <Box as={FaRegStar} size={12} mr={4} />
-          <Text as="p">low stock</Text>
+          <Flex sx={{ flexDirection: 'column' }}>
+            <Text as="p">low stock</Text>
+            <Text as="p">call ahead</Text>
+          </Flex>
         </Flex>
       )}
     </Flex>
@@ -104,3 +108,12 @@ const AvailabilityDrawer = ({ onClose, handle }) => {
 }
 
 export default AvailabilityDrawer
+
+AvailableLocations.propTypes = {
+  locations: PropTypes.arrayOf(PropTypes.obj),
+}
+
+AvailabilityDrawer.propTypes = {
+  onClose: PropTypes.func,
+  handle: PropTypes.string,
+}
