@@ -1,12 +1,13 @@
 import React from 'react'
-import { Box, Heading } from 'theme-ui'
+import { Box, Heading, Text } from 'theme-ui'
 import Layout from '../components/layout'
-import { FooterNewsletterSubscribe } from '../components/footer/sections'
+import NewsletterSubscribe from '../components/NewsletterSubscribe'
+import SmsSubscribe from '../components/SmsSubscribe'
 
 const NewsletterPage = props => (
   <Layout
     title="newsletter sign up"
-    description="be the first to know when we launch new collections, new products, events, what we’re musing over, and all the other magic we have planned! We love..."
+    description="be the first to know when we launch new collections, new products, events, what we're musing over, and all the other magic we have planned! We love..."
   >
     <Box
       as="main"
@@ -14,8 +15,21 @@ const NewsletterPage = props => (
       variant="sectionWrap"
       mx="auto"
     >
-      <Heading mb={5}>Sign up for the newsletter</Heading>
-      <FooterNewsletterSubscribe color="primary" />
+      <Heading mb={5}>sign up for the newsletter</Heading>
+      <Text
+        variant="copy"
+        as="p"
+        sx={{
+          fontSize: 0,
+          color: 'primary',
+        }}
+        pb={4}
+      >
+        handcrafted in toronto. ethically sourced. sign up today for the latest
+        news, updates, and collection launches.
+      </Text>
+      <SmsSubscribe color="primary" />
+      <NewsletterSubscribe color="primary" />
     </Box>
   </Layout>
 )

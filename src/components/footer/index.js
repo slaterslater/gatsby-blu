@@ -2,7 +2,6 @@ import { Text, Container, Flex, Box, Grid } from 'theme-ui'
 import React from 'react'
 import { StaticImage } from 'gatsby-plugin-image'
 import ThemeLink from '../app/ThemeLink'
-// import NewsletterSignUp from '../NewsletterForm'
 import {
   CollapsibleFooterSection,
   FooterNewsletterSubscribe,
@@ -49,8 +48,11 @@ const Footer = props => (
             <FooterLink to="/pages/locations-and-hours">call us</FooterLink>
             <FooterText>mon - sun &nbsp; 9am - 5pm EST</FooterText>
             <FooterLink to="/pages/locations-and-hours">visit us</FooterLink>
-            <FooterLink pb={0} to="/book-a-consultation">
+            <FooterLink to="/book-a-consultation">
               book virtual appointment
+            </FooterLink>
+            <FooterLink pb={0} to="/newsletter">
+              subscribe
             </FooterLink>
           </CollapsibleFooterSection>
           <CollapsibleFooterSection
