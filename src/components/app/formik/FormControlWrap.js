@@ -42,6 +42,7 @@ export const CheckboxControl = ({ label, id, name }) => (
     </Label>
     <ErrorMessage
       component={Text}
+      as="p"
       pt={3}
       px={1}
       sx={{ color: 'error' }}
