@@ -51,12 +51,17 @@ const CalendlyConsultationPage = ({ data, location }) => {
       setCurrent(calendar)
     }
 
-    // track page visits
-    if (window.gtag) {
+    // send gtag if event booked
+    const isCalendlyEventBooked = e =>
+      e.origin === 'https://calendly.com' &&
+      e.data.event === 'calendly.event_scheduled'
+
+    window.addEventListener('message', e => {
+      if (!isCalendlyEventBooked(e) || !window.gtag) return
       window.gtag('event', 'conversion', {
         send_to: `${process.env.GATSBY_AW_CONVERSION_ID}/nweJCJmXtoYDEIu39dgD`,
       })
-    }
+    })
   }, [])
 
   return (
