@@ -11,9 +11,8 @@ const Outer = motion(Box)
 const NewsletterSignUpPrompt = props => {
   const [isOn, setOn] = useState(false)
   const [success, setSuccess] = useState(false)
-  const { subscribe, dismissPrompt, shouldPrompt } = useContext(
-    NewsletterContext
-  )
+  const { subscribe, dismissPrompt, shouldPrompt } =
+    useContext(NewsletterContext)
 
   useTimeout(() => {
     if (shouldPrompt) {
