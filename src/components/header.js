@@ -6,7 +6,8 @@ import { RiShoppingBagLine } from 'react-icons/ri'
 import { BiSearchAlt2 } from 'react-icons/bi'
 import { FiHeart } from 'react-icons/fi'
 import React, { useContext, useState } from 'react'
-import logo from '../images/bluboho-logo-vector-black.svg'
+// import logo from '../images/bluboho-logo-vector-black.svg'
+import logo from '../images/bluboho-logo.png'
 import HeaderSearch from './HeaderSearch'
 import MegaMenu from './header/MegaMenu'
 import { DrawerContext } from './drawers'
@@ -64,7 +65,7 @@ const Header = () => {
               src={logo}
               alt="bluboho"
               title="bluboho"
-              sx={{ height: 26, display: 'block' }}
+              sx={{ height: 'auto', maxHeight: 75, display: 'block' }}
             />
           </Link>
           <Flex
