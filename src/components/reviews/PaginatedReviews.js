@@ -16,7 +16,7 @@ const ReviewsList = props => {
     product: { id },
   } = useContext(ProductContext)
 
-  const productId = useAdminProductId(id)
+  const [productId] = id.match(/\d+$/)
 
   const { data, fetching } = useSWR(
     `https://api-cdn.yotpo.com/v1/widget/${process.env.GATSBY_YOTPO_APP_KEY}/products/${productId}/reviews.json?page=1&per_page=100`,

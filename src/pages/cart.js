@@ -9,13 +9,15 @@ import { OrderSummary } from '../components/cart/OrderSummary'
 import { StoreContext } from '../contexts/StoreContext'
 import { AuthContext } from '../contexts/AuthContext'
 import { AssociateCustomerWithCheckout } from '../mutations/cart'
+import { CurrencyContext } from '../contexts/CurrencyContext'
 
 const ShoppingCartPage = props => {
   const { checkoutId } = useContext(StoreContext)
+  const { countryCode } = useContext(CurrencyContext)
   const { accessToken } = useContext(AuthContext)
   const [{ data, fetching }] = useQuery({
     query: CHECKOUT_QUERY,
-    variables: { checkoutId },
+    variables: { checkoutId, countryCode },
     pause: !checkoutId,
   })
 
