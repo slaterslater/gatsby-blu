@@ -1,10 +1,10 @@
 import { Text, Alert, Grid, Box, Divider } from 'theme-ui'
-import React, { useEffect, useState, useContext, useRef } from 'react'
+import React, { useState, useContext } from 'react'
 import useSWR from 'swr'
 import { ProductContext } from '../product/ProductContext'
 import { useProductReviewsFallback } from '../product/ProductReviewsFallback'
 import ReviewPagination from './ReviewPagination'
-import { useAdminProductId, yotpoFetcher } from './utils'
+import { yotpoFetcher } from './utils'
 import ProductQuestion from '../product/ProductQuestion'
 
 const PaginatedQuestions = props => {

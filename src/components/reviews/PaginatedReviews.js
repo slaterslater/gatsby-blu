@@ -5,7 +5,7 @@ import { ProductContext } from '../product/ProductContext'
 import { useProductReviewsFallback } from '../product/ProductReviewsFallback'
 import ProductReview from '../product/ProductReview'
 import ReviewPagination from './ReviewPagination'
-import { useAdminProductId, yotpoFetcher } from './utils'
+import { yotpoFetcher } from './utils'
 
 const ReviewsList = props => {
   const perPage = 5
