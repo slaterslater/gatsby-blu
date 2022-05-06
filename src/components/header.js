@@ -65,7 +65,7 @@ const Header = () => {
               src={logo}
               alt="bluboho"
               title="bluboho"
-              sx={{ height: 'auto', maxHeight: 75, display: 'block' }}
+              sx={{ height: 'auto', maxHeight: [50, 75], display: 'block' }}
             />
           </Link>
           <Flex
