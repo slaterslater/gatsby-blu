@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useContext, useMemo } from 'react'
+import React, { useContext, useEffect, useMemo } from 'react'
 import { Grid } from 'theme-ui'
 import { wrap } from '@popmotion/popcorn'
 import { useQuery, gql } from 'urql'
@@ -16,6 +16,7 @@ import { ProductShipping } from './ProductShipping'
 import { ProductTitleAndPrice } from './ProductTitleAndPrice'
 import RelatedProducts from './RelatedProducts'
 import ProductBadges from './ProductBadges'
+import { CurrencyContext } from '../../contexts/CurrencyContext'
 
 const getMetafieldValues = (metafields = []) => {
   const fields = {
@@ -33,7 +34,8 @@ const getMetafieldValues = (metafields = []) => {
 
 const ProductDetails = ({ alternates }) => {
   const { product } = useContext(ProductContext)
-  const { handle, metafields } = product
+  const { currencyCode, setCurrency } = useContext(CurrencyContext)
+  const { handle, metafields, tags } = product
   const { total, average, collectionHandle } = getMetafieldValues(metafields)
 
   const [{ data }] = useQuery({
@@ -52,6 +54,14 @@ const ProductDetails = ({ alternates }) => {
     `,
     variables: { collectionHandle },
   })
+
+  // USD tag sets currency
+  useEffect(() => {
+    const isUSD =
+      tags.find(tag => tag.toUpperCase() === 'USD') && currencyCode !== 'USD'
+    if (!isUSD) return
+    setCurrency('USD')
+  }, [])
 
   const related = useMemo(() => {
     // make an array of product handles
