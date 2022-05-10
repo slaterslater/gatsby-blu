@@ -20,7 +20,7 @@ export const ProductShipping = props => {
           }}
           mb={3}
         >
-          FREE SHIPPING WITHIN CANADA: 2-14 BUSINESS DAYS
+          FREE SHIPPING WITHIN CANADA: 2-8 BUSINESS DAYS
         </Text>
         <ProductAvailabilityButton />
       </Box>
