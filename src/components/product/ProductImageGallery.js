@@ -23,7 +23,7 @@ const ProductImageGallery = () => {
     initialPage: 0,
   })
 
-  if (!media.length) return <></>
+  if (!media.length) return <Box />
 
   return (
     <>
