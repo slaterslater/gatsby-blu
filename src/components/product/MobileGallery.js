@@ -45,9 +45,12 @@ const MobileGallery = ({ media, hasDots = true, onImageClick }) => {
 
   const imageData = useMemo(() => {
     if (mediaType.__typename !== 'Image') return null
-    return getShopifyImage({
-      image: mediaType,
-    })
+    const image = {
+      ...mediaType,
+      height: 800,
+      width: 640,
+    }
+    return getShopifyImage({ image })
   }, [imageIndex, JSON.stringify(mediaType)])
 
   return (
