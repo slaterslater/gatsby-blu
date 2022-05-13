@@ -47,7 +47,7 @@ const MobileGallery = ({ media, hasDots = true, onImageClick }) => {
     if (mediaType.__typename !== 'Image') return null
     const image = {
       ...mediaType,
-      height: 800,
+      height: 640,
       width: 640,
     }
     return getShopifyImage({ image })
