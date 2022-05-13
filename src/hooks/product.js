@@ -115,10 +115,13 @@ export const useProductGalleryMedia = () => {
   const {
     product: { media, metafields },
   } = useContext(ProductContext)
+
   const giftPackagingImageStyle = useMetafieldValue(
     'gift_wrapping_style',
     metafields
   )
+
+  if (!media) return []
 
   const productGalleryMedia =
     media?.edges.map(({ node }) => {
