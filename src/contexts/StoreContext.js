@@ -16,7 +16,7 @@ const initialValues = {
 export const StoreContext = createContext(initialValues)
 
 const StoreProvider = props => {
-  const { currencyCode } = useContext(CurrencyContext)
+  const { currencyCode, countryCode } = useContext(CurrencyContext)
   const [checkoutId, setCheckoutId] = useState(initialValues.checkoutId)
 
   const [{ data, fetching, error }] = useQuery({
@@ -29,7 +29,11 @@ const StoreProvider = props => {
 
   const createCheckoutAndStoreId = async checkoutVariables => {
     try {
-      const { data, error } = await createCheckout(checkoutVariables)
+      const { data, error } = await createCheckout({
+        ...checkoutVariables,
+        countryCode,
+        buyerIdentity: { countryCode },
+      })
 
       if (data) {
         const { id } = data.checkoutCreate.checkout
@@ -58,7 +62,7 @@ const StoreProvider = props => {
     // when the component mounts
     const currentCheckoutId = store.get(STORAGE_CHECKOUT_ID)
     if (!currentCheckoutId) {
-      createCheckoutAndStoreId({ presentmentCurrencyCode: currencyCode })
+      createCheckoutAndStoreId()
     } else {
       setCheckoutId(currentCheckoutId)
     }
@@ -89,7 +93,6 @@ const StoreProvider = props => {
 
       createCheckoutAndStoreId({
         lineItems: nextLineItems,
-        presentmentCurrencyCode: currencyCode,
       })
     }
     if (

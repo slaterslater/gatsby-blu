@@ -11,15 +11,13 @@ const ERROR_FRAGMENT = gql`
 
 export const CreateCheckout = gql`
   ${CHECKOUT_FRAGMENT}
-  mutation CreateCheckout(
+  mutation (
+    $countryCode: CountryCode!
+    $buyerIdentity: CheckoutBuyerIdentityInput!
     $lineItems: [CheckoutLineItemInput!]
-    $presentmentCurrencyCode: CurrencyCode
-  ) {
+  ) @inContext(country: $countryCode) {
     checkoutCreate(
-      input: {
-        lineItems: $lineItems
-        presentmentCurrencyCode: $presentmentCurrencyCode
-      }
+      input: { lineItems: $lineItems, buyerIdentity: $buyerIdentity }
     ) {
       checkout {
         ...CheckoutFields
