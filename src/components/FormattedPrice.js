@@ -11,8 +11,9 @@ export const useFormattedPrice = ({ amount, currencyCode = 'CAD' }) => {
 
   return useMemo(() => {
     if (!amount || !currencyCode) return null
-
-    return formatter.format(amount)
+    const formattedPrice = formatter.format(amount)
+    if (formattedPrice.charAt(0) !== '$') return formattedPrice
+    return `US${formattedPrice}`
   }, [amount, currencyCode, formatter])
 }
 

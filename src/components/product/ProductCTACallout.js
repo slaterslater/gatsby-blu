@@ -22,7 +22,11 @@ export const CalloutBox = ({
           </Text>
         )}
         {description && (
-          <Text as="p" pr={4} sx={{ color: 'darkerGray', fontSize: 0 }}>
+          <Text
+            as="p"
+            pr={4}
+            sx={{ color: 'darkerGray', fontSize: 0, whiteSpace: 'pre-line' }}
+          >
             {description}
           </Text>
         )}
@@ -32,18 +36,34 @@ export const CalloutBox = ({
 )
 
 const ProductCTACallout = ({ tags, ...props }) => {
-  if (tags.includes('made-to-order')) {
-    return (
-      <CalloutBox
-        icon={AiFillInfoCircle}
-        title="This Piece is a Special Order"
-        description="please allow 4 - 6 weeks for production and delivery"
-        bg="cream"
-        {...props}
-      />
-    )
-  }
-  return null
+  const mto = tags.includes('made-to-order')
+  const usd = tags.some(tag => tag.toLowerCase() === 'usd')
+  if (!mto && !usd) return null
+  const description = []
+  if (mto)
+    description.push('please allow 4 - 6 weeks for production and delivery')
+  if (usd) description.push('item will be charged in USD')
+  return (
+    <CalloutBox
+      icon={AiFillInfoCircle}
+      title="This Piece is a Special Order"
+      description={description.join(`\n\n`)}
+      bg="cream"
+      {...props}
+    />
+  )
 }
+
+// const ProductCTACallout = ({ tags, ...props }) => (
+//     {tags.includes('made-to-order') && (
+//       <CalloutBox
+//         icon={AiFillInfoCircle}
+//         title="This Piece is a Special Order"
+//         description="please allow 4 - 6 weeks for production and delivery"
+//         bg="cream"
+//         {...props}
+//       />
+//     )}
+// )
 
 export default ProductCTACallout
