@@ -21,7 +21,10 @@ const ShareTheLovePage = () => {
 
   // need description copy
   return (
-    <Layout title={pageTitle} description="???">
+    <Layout
+      title={pageTitle}
+      description="share the love: we want to hear your love story!"
+    >
       <StoriesHeader title={pageTitle}>
         <StaticImage
           src="../../images/stories/header.png"
