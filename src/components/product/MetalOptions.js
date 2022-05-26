@@ -4,10 +4,14 @@ import ThemeLink from '../app/ThemeLink'
 import MetalOptionSwatch from '../MetalOptionSwatch'
 import { ProductContext } from './ProductContext'
 
-const getMetalColor = (options = []) =>
-  options
+const metals = ['yellow gold', 'rose gold', 'white gold', 'sterling silver']
+
+const getMetalColor = (options = []) => {
+  const color = options
     .find(({ name }) => name?.toLowerCase() === 'metal')
     ?.values[0].toLowerCase()
+  return metals.includes(color) ? color : null
+}
 
 const MetalOption = ({ title, handle, metal, isCurrent, ...props }) => {
   if (!metal) return false
@@ -29,7 +33,6 @@ const MetalOptions = ({ alternates }) => {
 
   const colors = useMemo(() => {
     if (!productMetalColor) return []
-    const metal = ['yellow gold', 'rose gold', 'white gold', 'sterling silver']
     const alternateMetalColors =
       alternates?.nodes
         .filter(alternate => {
@@ -46,7 +49,7 @@ const MetalOptions = ({ alternates }) => {
     return [
       { metal: productMetalColor, isCurrent: true },
       ...alternateMetalColors,
-    ].sort((a, b) => metal.indexOf(a.metal) - metal.indexOf(b.metal))
+    ].sort((a, b) => metals.indexOf(a.metal) - metals.indexOf(b.metal))
   }, [product, alternates, productMetalColor])
 
   if (!productMetalColor || !colors?.length) return false
