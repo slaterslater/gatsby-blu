@@ -38,6 +38,7 @@ export default async function (req, res) {
   const html = `
     <div style="padding: 24px; border: 1px solid #e7e7e7; border-radius: 4px;max-width: 480px;">
       ${Object.keys(body)
+        .filter(key => key !== 'subject')
         .map(
           key => `
           <div style="padding-bottom: 16px;">
@@ -51,10 +52,7 @@ export default async function (req, res) {
   `
 
   const to = createRecipientList(body)
-  const contact = body.subject.includes('wholesale')
-    ? 'wholesale'
-    : 'guestexperience'
-  const from = `bluboho contact form <${contact}@bluboho.com>`
+  const from = `bluboho contact form <noreply@bluboho.com>`
   // include a nanoid in the subject to avoid threading
   const subject = `${body.subject} - ${nanoid(6)}`
 
