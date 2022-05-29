@@ -86,8 +86,9 @@ const GiftProductGallery = ({
                     <Dot
                       key={`dot-${i}`}
                       full={i === currentIndex}
-                      onClick={() => {}}
-                      // onClick={() => paginateTo(i)}
+                      onClick={() => {
+                        setProductIndex(i)
+                      }}
                     />
                   ))}
               </Flex>
