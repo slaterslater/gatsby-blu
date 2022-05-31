@@ -129,7 +129,10 @@ const ImageSwiper = () => {
 }
 
 const MuskokaPage = () => (
-  <Layout>
+  <Layout
+    title="bluboho muskoka location"
+    description="dip your toe into the world of bluboho in port carling, muskoka"
+  >
     <Flex
       sx={{
         bg: 'bbBeige',
