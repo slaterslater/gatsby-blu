@@ -393,6 +393,32 @@ async function createHomePage({ graphql, actions }) {
   })
 }
 
+async function createLocationPages({ graphql, actions }) {
+  const { data } = await graphql(`
+    {
+      allSanityLocation {
+        nodes {
+          slug {
+            current
+          }
+        }
+      }
+    }
+  `)
+
+  data.allSanityLocation.nodes.forEach(node => {
+    const slug = node.slug.current
+    const component = path.resolve('./src/templates/LocationPageTemplate.js')
+    actions.createPage({
+      path: `/locations/${slug}`,
+      component,
+      context: {
+        slug,
+      },
+    })
+  })
+}
+
 // fetch data from podcast api and create nodes from returned array
 async function createPodcastNodes({ actions, createContentDigest }) {
   const url = `https://www.buzzsprout.com/api/${process.env.BUZZSPROUT_PODCAST_ID}/episodes.json`
@@ -456,5 +482,6 @@ export async function createPages(params) {
     createPodcastEpisodePages(params),
     createGiftGuidePages(params),
     createHomePage(params),
+    createLocationPages(params),
   ])
 }
