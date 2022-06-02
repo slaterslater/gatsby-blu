@@ -97,7 +97,7 @@ export const SubMenu = ({ menu }) => {
             variant="caps"
             as="h4"
             pb={4}
-            sx={{ fontSize: 0, fontFamily: 'body', whiteSpace: 'nowrap' }}
+            sx={{ fontSize: 0, fontFamily: 'body' /* whiteSpace: 'nowrap' */ }}
           >
             {list.title}
           </Heading>
