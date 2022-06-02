@@ -98,6 +98,10 @@ const IndexPage = ({ data }) => {
   return (
     <Layout>
       <SEO title="home">
+        <meta
+          name="google-site-verification"
+          content="vQiYyQAU-CvwpUnqiElf9CgPBy0VeML-opmKcJmEhjs"
+        />
         <script type="application/ld+json">{websiteLdJSON}</script>
       </SEO>
       <HomePageHeader data={headerHero[0]} />
