@@ -24,7 +24,7 @@ const LineItemPrice = ({
   discountAllocations,
   ...props
 }) => {
-  if (item) return <FormattedPrice priceV2={item.variant.priceV2 || {}} />
+  if (item) return <FormattedPrice priceV2={item.variant?.priceV2 || {}} />
   const discountedPrice = getDiscountedPrice(
     originalTotalPrice,
     discountAllocations

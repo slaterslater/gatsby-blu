@@ -134,7 +134,7 @@ const events = {
     sendAWEvent('page_view', {
       ecomm_pagetype: 'cart',
       ecomm_prodid: checkout?.lineItems.edges.map(
-        ({ node }) => node.variant.product.id
+        ({ node }) => node.variant?.product.id
       ),
     })
   },
