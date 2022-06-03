@@ -1,6 +1,5 @@
 // src/api/wishlist.js
 
-import { decode } from 'shopify-gid'
 import { gql } from 'graphql-request'
 import getClient from '../lib/adminApiClient'
 
@@ -53,9 +52,6 @@ export default async function (req, res) {
       .json({ error: 'product handle & user ID are required' })
   }
 
-  const { type, id } = decode(userId)
-  const adminId = `gid://shopify/${type}/${id}`
-
   // delete wishlist (can't save empty string)
   const deleteWishlist = async wishlistId => {
     await graphQLClient.request(CustomerWishlistDelete, {
@@ -67,11 +63,11 @@ export default async function (req, res) {
 
   // let data
   const data = await graphQLClient.request(CustomerWishlistQuery, {
-    id: adminId,
+    id: userId,
   })
 
   const getUpdateUserInput = field => ({
-    id: adminId,
+    id: userId,
     metafields: [field],
   })
 
