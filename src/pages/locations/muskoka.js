@@ -275,28 +275,32 @@ const MuskokaPage = () => (
                 display: 'flex',
                 justifyContent: 'space-between',
               },
+              span: {
+                minWidth: 125,
+                textAlign: 'center',
+              },
             }}
           >
             <Text as="li">
-              monday <span>10:00am - 6:00pm</span>
+              monday <span>closed</span>
             </Text>
             <Text as="li">
-              tuesday <span>10:00am - 6:00pm</span>
+              tuesday <span>closed</span>
             </Text>
             <Text as="li">
-              wednesday <span>10:00am - 6:00pm</span>
+              wednesday <span>closed</span>
             </Text>
             <Text as="li">
-              thursday <span>10:00am - 6:00pm</span>
+              thursday <span>closed</span>
             </Text>
             <Text as="li">
-              friday <span>10:00am - 6:00pm</span>
+              friday <span>12:00pm - 5:00pm</span>
             </Text>
             <Text as="li">
-              saturday <span>10:00am - 6:00pm</span>
+              saturday <span>11:00am - 6:00pm</span>
             </Text>
             <Text as="li">
-              sunday <span>10:00am - 6:00pm</span>
+              sunday <span>12:00pm - 4:00pm</span>
             </Text>
           </Flex>
         </Flex>
