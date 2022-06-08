@@ -34,12 +34,12 @@ export const useLatestProduct = ({ handle, initial }) => {
   }, [data, initial])
 }
 
-export const useViewProductAnalytics = data => {
+export const useViewProductAnalytics = product => {
   const { search } = useLocation()
 
   const { variant, currency } = parse(search?.replace('?', ''))
   useAnalytics('viewProduct', {
-    product: data.shopifyProduct,
+    product,
     variant,
     currency,
   })

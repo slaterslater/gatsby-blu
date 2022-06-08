@@ -14,7 +14,7 @@ import ProductProvider from '../components/product/ProductContext'
 
 // const getCollectionTypePath =
 
-const ProductView = ({ product, alternates }) => {
+const ProductView = ({ product, alternates, badges }) => {
   const location = useLocation()
 
   const {
@@ -62,7 +62,7 @@ const ProductView = ({ product, alternates }) => {
           <ProductImageGallery />
           <Box sx={{ position: 'relative' }}>
             <Box sx={{ position: 'sticky', top: 120 }}>
-              <ProductDetails alternates={alternates} />
+              <ProductDetails alternates={alternates} badges={badges} />
             </Box>
           </Box>
         </Grid>

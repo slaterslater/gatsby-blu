@@ -11,14 +11,20 @@ import ProductView from '../views/ProductView'
 import { useViewProductAnalytics, useLatestProduct } from '../hooks/product'
 
 const ProductPageTemplate = ({ data, ...props }) => {
-  useViewProductAnalytics(data)
-  const { tags } = data.shopifyProduct
-  const isHidden = useMemo(() => tags.includes('hidden'), [tags])
-
+  const { product, alternates, badges } = data
+  useViewProductAnalytics(product)
+  const isHidden = useMemo(
+    () => product.tags.includes('hidden'),
+    [product.tags]
+  )
   return (
     <Layout>
-      <ProductSEO product={data.shopifyProduct} isHidden={isHidden} />
-      <ProductView product={data.shopifyProduct} alternates={data.alternates} />
+      <ProductSEO product={product} isHidden={isHidden} />
+      <ProductView
+        product={product}
+        alternates={alternates}
+        badges={badges.nodes}
+      />
     </Layout>
   )
 }
@@ -30,13 +36,14 @@ export const query = graphql`
     $handle: String!
     $shopifyId: String!
     $alternates: [String]!
+    $badges: [String]!
   ) {
     site {
       siteMetadata {
         siteUrl
       }
     }
-    shopifyProduct(handle: { eq: $handle }) {
+    product: shopifyProduct(handle: { eq: $handle }) {
       id
       title
       handle
@@ -104,6 +111,17 @@ export const query = graphql`
             value
           }
           availableForSale
+        }
+      }
+    }
+    badges: allSanityProductBadge(filter: { name: { in: $badges } }) {
+      nodes {
+        id
+        name
+        image {
+          asset {
+            gatsbyImageData(width: 55, placeholder: BLURRED, height: 55)
+          }
         }
       }
     }
