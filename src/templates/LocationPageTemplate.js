@@ -1,6 +1,6 @@
 import { graphql } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
-import { useRef } from 'react'
+import React, { useRef } from 'react'
 import { Box, Container, Divider, Flex, Heading, Link, Text } from 'theme-ui'
 import ImageSwiper from '../components/ImageSwiper'
 import Layout from '../components/layout'
@@ -28,7 +28,7 @@ const LocationPageTemplate = ({ data }) => {
   const tel = `+1 ${phone.slice(0, 3)}-${phone.slice(3, 6)}-${phone.slice(6)}`
 
   return (
-    <Layout title={name} description={description.replace(descRegExp, ' ')}>
+    <Layout title={name} description={description?.replace(descRegExp, ' ')}>
       <Flex
         sx={{
           bg: 'bbBeige',
@@ -179,7 +179,7 @@ const LocationPageTemplate = ({ data }) => {
                 const { name, isClosed, open, close } = day
                 const time = t => {
                   const [hh, mm] = t.split(':')
-                  return `${hh % 12}:${mm}${hh < 12 ? 'am' : 'pm'}`
+                  return `${hh % 12 || 12}:${mm}${hh < 12 ? 'am' : 'pm'}`
                 }
                 return (
                   <Text key={name} as="li">
@@ -193,43 +193,49 @@ const LocationPageTemplate = ({ data }) => {
             </Flex>
           </Flex>
         </Flex>
-        <ImageSwiper images={galleryImages} delay={5000} />
-        <Heading
-          as="h3"
-          pt={6}
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            width: '100%',
-            maxWidth: 325,
-            fontSize: 4,
-            textAlign: 'center',
-            fontStyle: 'italic',
-            fontWeight: 'body',
-            letterSpacing: '0.2em',
-            textTransform: 'lowercase',
-            whiteSpace: 'pre-line',
-            div: {
-              marginTop: 15,
-              paddingLeft: 15,
-              lineHeight: '60px',
-            },
-            span: {
-              fontSize: '3em',
-            },
-            'span:last-child': {
-              alignSelf: 'flex-end',
-            },
-          }}
-        >
-          <span>&ldquo;</span>
-          <div>{description.replace(descRegExp, '\n')}</div>
-          <span>&bdquo;</span>
-        </Heading>
-        <Divider
-          my={7}
-          sx={{ borderColor: 'primary', borderWidth: 2, width: 80 }}
-        />
+        {!!galleryImages.length && (
+          <ImageSwiper images={galleryImages} delay={5000} />
+        )}
+        {!!description && (
+          <>
+            <Heading
+              as="h3"
+              pt={6}
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                width: '100%',
+                maxWidth: 325,
+                fontSize: 4,
+                textAlign: 'center',
+                fontStyle: 'italic',
+                fontWeight: 'body',
+                letterSpacing: '0.2em',
+                textTransform: 'lowercase',
+                whiteSpace: 'pre-line',
+                div: {
+                  marginTop: 15,
+                  paddingLeft: 15,
+                  lineHeight: '60px',
+                },
+                span: {
+                  fontSize: '3em',
+                },
+                'span:last-child': {
+                  alignSelf: 'flex-end',
+                },
+              }}
+            >
+              <span>&ldquo;</span>
+              <div>{description.replace(descRegExp, '\n')}</div>
+              <span>&bdquo;</span>
+            </Heading>
+            <Divider
+              my={7}
+              sx={{ borderColor: 'primary', borderWidth: 2, width: 80 }}
+            />
+          </>
+        )}
         <Text
           as="p"
           variant="copy"
@@ -246,7 +252,6 @@ const LocationPageTemplate = ({ data }) => {
           {text}
         </Text>
         <Box
-          // id="map"
           sx={{
             width: '100%',
             height: '100%',
