@@ -23,6 +23,11 @@ const Story = ({ details, index }) => {
     }
   }, [people])
 
+  const consultation = [
+    { to: '/book-a-consultation', text: 'book an engagement consultation' },
+    { to: './share-the-love/', text: 'share your love story' },
+  ]
+
   return (
     <>
       {!!index && (
@@ -38,9 +43,9 @@ const Story = ({ details, index }) => {
             as={Link}
             variant="outline"
             sx={{ textAlign: 'center', fontSize: 1 }}
-            to="/book-a-consultation"
+            to={consultation[index % 2].to}
           >
-            book an engagement consultation
+            {consultation[index % 2].text}
           </Button>
         </Flex>
       )}
