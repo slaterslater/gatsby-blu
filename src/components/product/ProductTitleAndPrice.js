@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
-import { Link, Text, Box, Grid, Heading } from 'theme-ui'
-import VariantPrice from './VariantPrice'
+import { Text, Grid, Heading } from 'theme-ui'
+import { useVariantPrice } from './VariantPrice'
 import ProductTitle from '../ProductTitle'
 import { ProductContext } from './ProductContext'
 
@@ -12,6 +12,8 @@ export const ProductTitleAndPrice = ({
     product: { title, variants },
     selectedVariant,
   } = useContext(ProductContext)
+
+  const variantPrice = useVariantPrice(selectedVariant || variants[0])
 
   return (
     <Grid
@@ -36,6 +38,7 @@ export const ProductTitleAndPrice = ({
         <ProductTitle title={title} />
       </Heading>
       <Text
+        id="price"
         sx={{
           letterSpacing: 'widest',
           fontWeight: 'body',
@@ -44,7 +47,7 @@ export const ProductTitleAndPrice = ({
           fontSize: priceFontSize,
         }}
       >
-        <VariantPrice variant={selectedVariant || variants[0]} />
+        {variantPrice}
       </Text>
     </Grid>
   )

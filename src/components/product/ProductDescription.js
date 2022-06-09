@@ -45,22 +45,23 @@ export const DescriptionHtml = styled.div`
   }
 `
 
-const stripHtml = (str = '') => str.replace(/(<([^>]+)>)/gi, '')
+// const stripHtml = (str = '') => str.replace(/(<([^>]+)>)/gi, '')
 
 export const ProductDescription = props => {
-  const [open, setOpen] = useState(false)
+  // const [open, setOpen] = useState(false)
   const {
     product: { descriptionHtml },
   } = useContext(ProductContext)
 
-  const previewText = stripHtml(descriptionHtml)
+  // const previewText = stripHtml(descriptionHtml)
 
   return (
     <Box>
       <Heading as="h2" variant="caps" pb={4} sx={{ textAlign: 'center' }}>
         The Story
       </Heading>
-      {open ? (
+      <DescriptionHtml dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
+      {/* {open ? (
         <DescriptionHtml
           dangerouslySetInnerHTML={{ __html: descriptionHtml }}
         />
@@ -83,7 +84,7 @@ export const ProductDescription = props => {
             </Button>
           </Text>
         </>
-      )}
+      )} */}
     </Box>
   )
 }
