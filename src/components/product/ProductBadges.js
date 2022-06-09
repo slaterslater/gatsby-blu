@@ -1,37 +1,27 @@
-import React, { useContext } from 'react'
-import { Flex, Image } from 'theme-ui'
-import { ProductContext } from './ProductContext'
+import React from 'react'
+import { GatsbyImage } from 'gatsby-plugin-image'
+import { Flex, Box } from 'theme-ui'
+import PropTypes from 'prop-types'
 
-const allBadges = [
-  'hand-carved',
-  'antique-diamond',
-  'artist-cut',
-  'one-of-a-kind',
-  'visit-oakville',
-  'visit-queen',
-  'visit-yonge',
-]
-
-const ProductBadges = () => {
-  const {
-    product: { tags },
-  } = useContext(ProductContext)
-  const badges = allBadges.filter(badge =>
-    tags.some(tag => tag.toLowerCase().replace(/\s/g, '-') === badge)
-  )
+const ProductBadges = ({ badges }) => {
   if (!badges.length) return <></>
   return (
     <Flex sx={{ flexWrap: 'wrap' }}>
-      {badges.map(badge => (
-        <Image
-          key={`${badge}-badge`}
-          src={`/badges/${badge}.jpg`}
-          sx={{ height: 55, width: 55 }}
-          mx={[3, 1, 2]}
-        />
+      {badges.map(({ id, name, image }) => (
+        <Box key={id} mx={[3, 1, 2]}>
+          <GatsbyImage
+            image={image.asset.gatsbyImageData}
+            alt=""
+            title={name}
+          />
+        </Box>
       ))}
     </Flex>
   )
 }
 
 export default ProductBadges
+
+ProductBadges.propTypes = {
+  badges: PropTypes.object,
+}

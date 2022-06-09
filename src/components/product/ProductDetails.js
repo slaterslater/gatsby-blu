@@ -32,7 +32,7 @@ const getMetafieldValues = (metafields = []) => {
   return fields
 }
 
-const ProductDetails = ({ alternates }) => {
+const ProductDetails = ({ alternates, badges }) => {
   const { product } = useContext(ProductContext)
   const { currencyCode, setCurrency } = useContext(CurrencyContext)
   const { handle, metafields, tags } = product
@@ -91,7 +91,7 @@ const ProductDetails = ({ alternates }) => {
       <ProductShipping />
       <ProductDescription />
       <EngagementConsultationButton />
-      <ProductBadges />
+      <ProductBadges badges={badges} />
       <ProductSpecifications />
       <ProductReviewsTopline
         score={average}

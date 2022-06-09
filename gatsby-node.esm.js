@@ -65,11 +65,15 @@ async function createProductPages({ graphql, actions }) {
           }
         }
       }
+      allSanityProductBadge {
+        nodes {
+          name
+        }
+      }
     }
   `)
-
+  const badgeNames = data.allSanityProductBadge.nodes.map(badge => badge.name)
   data.allShopifyProduct.nodes.forEach(product => {
-    // const productId = decodeShopifyId(product.shopifyId)
     const alternatesFromTags = formatMetalAlternatesFromTags(product.tags || [])
     const alternatesFromMetafields = formatMetalAlternatesFromMetafields(
       product.metafields || []
@@ -81,15 +85,23 @@ async function createProductPages({ graphql, actions }) {
     // pass hidden context to hide product page from google...
     const hidden = product.tags.includes('hidden')
 
+    // get badges
+    const badges = badgeNames.filter(name =>
+      product.tags.some(tag => {
+        const stripped = s => s.toLowerCase().replace(/[\s-]/g, '')
+        return stripped(name) === stripped(tag)
+      })
+    )
+
     actions.createPage({
       path: `/products/${product.handle}`,
       component: productTemplate,
       context: {
         handle: product.handle,
         shopifyId: product.shopifyId,
-        // productId,
         alternates,
         hidden,
+        badges,
       },
     })
   })
