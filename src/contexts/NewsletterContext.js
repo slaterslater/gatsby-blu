@@ -65,7 +65,6 @@ const NewsletterProvider = props => {
         isSubscribed,
         subscribe,
         shouldPrompt: !seen,
-        // shouldPrompt: !hasDismissed,
         dismissPrompt,
       }}
       {...props}

@@ -140,7 +140,7 @@ const Layout = ({ title, description, children }) => (
         <Footer />
       </Flex>
       <TidioLink />
-      <NewsletterSignUpPrompt />
+      {/* <NewsletterSignUpPrompt /> */}
     </Drawers>
   </RecentlyViewedProductsProvider>
 )
