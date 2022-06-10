@@ -6,8 +6,6 @@ import { RiShoppingBagLine } from 'react-icons/ri'
 import { BiSearchAlt2 } from 'react-icons/bi'
 import { FiHeart } from 'react-icons/fi'
 import React, { useContext, useState } from 'react'
-// import logo from '../images/bluboho-logo-vector-black.svg'
-import logo from '../images/bluboho-logo.png'
 import HeaderSearch from './HeaderSearch'
 import MegaMenu from './header/MegaMenu'
 import { DrawerContext } from './drawers'
@@ -60,12 +58,12 @@ const Header = () => {
           >
             <Box as={IoIosMenu} color="black" size={24} />
           </IconButton>
-          <Link as={GatsbyLink} to="/" sx={{ justifySelf: 'center' }}>
+          <Link as={GatsbyLink} to="/" sx={{ justifySelf: 'center' }} py={2}>
             <Image
-              src={logo}
+              src="/bluboho-logo-01.svg"
               alt="bluboho"
               title="bluboho"
-              sx={{ height: 'auto', maxHeight: [50, 75], display: 'block' }}
+              sx={{ height: 'auto', width: 180, display: 'block' }}
             />
           </Link>
           <Flex
