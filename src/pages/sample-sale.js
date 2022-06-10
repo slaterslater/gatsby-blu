@@ -131,6 +131,9 @@ const SampleSalePage = () => {
             <ReleaseDate />
           </Box>
         </Flex>
+        <Heading as="h2" variant="copy" sx={{ fontSize: 1 }}>
+          sign up to get access to the sample sale
+        </Heading>
         <Box
           as="section"
           sx={{ width: '100%', maxWidth: 480 }}
