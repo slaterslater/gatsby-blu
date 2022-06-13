@@ -4,6 +4,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import axios from 'axios'
 import { FaRegStar } from 'react-icons/fa'
 import PropTypes from 'prop-types'
+import { graphql, Link, useStaticQuery } from 'gatsby'
 
 const AvailableLocations = ({ locations }) => {
   let message = null
@@ -16,11 +17,24 @@ const AvailableLocations = ({ locations }) => {
       </Text>
     )
   }
-  return locations.map(({ name, available }, i) => (
+  return locations.map(({ name, slug, shopName, available }, i) => (
     <Flex key={`store-${i}`} sx={{ alignItems: 'baseline' }}>
-      <Text as="p" variant="caps" py={3} pl={5}>
-        {name}
-      </Text>
+      {slug ? (
+        <Text
+          as={Link}
+          to={`/locations/${slug.current}`}
+          variant="caps"
+          sx={{ color: 'primary' }}
+          py={3}
+          pl={5}
+        >
+          {name}
+        </Text>
+      ) : (
+        <Text as="p" variant="caps" py={3} pl={5}>
+          {shopName}
+        </Text>
+      )}
       {available < 4 && <Box as={FaRegStar} size={12} ml={3} />}
     </Flex>
   ))
@@ -28,6 +42,19 @@ const AvailableLocations = ({ locations }) => {
 
 const AvailabilityDrawer = ({ onClose, handle }) => {
   const [locations, setLocations] = useState(null)
+  const data = useStaticQuery(graphql`
+    {
+      allSanityLocation {
+        nodes {
+          name
+          postalCode
+          slug {
+            current
+          }
+        }
+      }
+    }
+  `)
 
   useEffect(() => {
     const getAvailabilityByLocation = async () => {
@@ -50,12 +77,21 @@ const AvailabilityDrawer = ({ onClose, handle }) => {
               !hiddenLocations.includes(location.name.toLowerCase())
           )
           .forEach(({ node: { available, location } }) => {
-            const { name } = location
-            const store = total.find(spot => spot.name === name)
+            const {
+              id,
+              name: shopName,
+              address: { zip },
+            } = location
+            const store = total.find(spot => spot.id === id)
             if (store) {
               store.available += available
             } else {
-              total.push({ name, available })
+              const { name, slug } =
+                data.allSanityLocation.nodes.find(
+                  ({ postalCode }) =>
+                    postalCode.toUpperCase() === zip.toUpperCase()
+                ) || {}
+              total.push({ id, name, shopName, available, slug })
             }
           })
         return total
@@ -110,7 +146,14 @@ const AvailabilityDrawer = ({ onClose, handle }) => {
 export default AvailabilityDrawer
 
 AvailableLocations.propTypes = {
-  locations: PropTypes.arrayOf(PropTypes.obj),
+  locations: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      shopName: PropTypes.string,
+      slug: PropTypes.obj,
+      available: PropTypes.number,
+    })
+  ),
 }
 
 AvailabilityDrawer.propTypes = {
