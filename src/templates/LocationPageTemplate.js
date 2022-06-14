@@ -262,6 +262,7 @@ const LocationPageTemplate = ({ data }) => {
         >
           <Box
             as="iframe"
+            id="map"
             ref={mapRef}
             src={mapSrc}
             sx={{

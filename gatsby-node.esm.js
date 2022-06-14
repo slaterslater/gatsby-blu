@@ -396,7 +396,7 @@ async function createHomePage({ graphql, actions }) {
 async function createLocationPages({ graphql, actions }) {
   const { data } = await graphql(`
     {
-      allSanityLocation {
+      allSanityLocation(filter: { isPopup: { ne: true } }) {
         nodes {
           slug {
             current
@@ -407,6 +407,7 @@ async function createLocationPages({ graphql, actions }) {
   `)
 
   data.allSanityLocation.nodes.forEach(node => {
+    // if (node)
     const slug = node.slug.current
     const component = path.resolve('./src/templates/LocationPageTemplate.js')
     actions.createPage({
