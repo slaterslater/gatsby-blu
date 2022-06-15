@@ -14,7 +14,7 @@ import ProductModal from './ProductModal'
 
 const Recent = ({ value }) => {
   const { countryCode } = useContext(CurrencyContext)
-  const isId = value.startsWith('gid:')
+  const isId = value?.startsWith('gid:')
   const params = {
     query: isId ? PRODUCT_ITEM_QUERY_BY_ID : PRODUCT_ITEM_QUERY,
     variables: { ...(isId ? { id: value } : { handle: value }), countryCode },
@@ -91,7 +91,6 @@ const ProductsList = ({ values }) =>
 
 const ProductRecentRecommendations = () => {
   const stackValues = useStackHandlesAndIds()
-  console.log({ stackValues })
   const recentValues = useRecentlyViewedHandles()
 
   const [tab, setTab] = useState('stack')
