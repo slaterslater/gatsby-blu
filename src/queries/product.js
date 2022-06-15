@@ -15,35 +15,52 @@ export const PRODUCT_PRICE_RANGE_FRAGMENT = gql`
   }
 `
 
+export const PRODUCT_ITEM_QUERY_FRAGMENT = gql`
+  fragment ProductItemQueryFields on Product {
+    handle
+    title
+    priceRange {
+      minVariantPrice {
+        amount
+        currencyCode
+      }
+      maxVariantPrice {
+        amount
+        currencyCode
+      }
+    }
+    tags
+    availableForSale
+    images(first: 2) {
+      edges {
+        node {
+          altText
+          url
+          height
+          width
+          id
+        }
+      }
+    }
+  }
+`
+
 export const PRODUCT_ITEM_QUERY = gql`
+  ${PRODUCT_ITEM_QUERY_FRAGMENT}
   query ProductItemQuery($handle: String, $countryCode: CountryCode)
   @inContext(country: $countryCode) {
     product(handle: $handle) {
-      handle
-      title
-      priceRange {
-        minVariantPrice {
-          amount
-          currencyCode
-        }
-        maxVariantPrice {
-          amount
-          currencyCode
-        }
-      }
-      tags
-      availableForSale
-      images(first: 2) {
-        edges {
-          node {
-            altText
-            url
-            height
-            width
-            id
-          }
-        }
-      }
+      ...ProductItemQueryFields
+    }
+  }
+`
+
+export const PRODUCT_ITEM_QUERY_BY_ID = gql`
+  ${PRODUCT_ITEM_QUERY_FRAGMENT}
+  query ProductItemQuery($id: ID, $countryCode: CountryCode)
+  @inContext(country: $countryCode) {
+    product(id: $id) {
+      ...ProductItemQueryFields
     }
   }
 `

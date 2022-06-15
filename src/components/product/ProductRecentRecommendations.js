@@ -5,35 +5,44 @@ import { useMatch } from '@reach/router'
 import { RecentlyViewedProductsContext } from '../../contexts/RecentlyViewedProductsContext'
 import { CurrencyContext } from '../../contexts/CurrencyContext'
 import { ProductContext } from './ProductContext'
-import { PRODUCT_ITEM_QUERY } from '../../queries/product'
+import {
+  PRODUCT_ITEM_QUERY,
+  PRODUCT_ITEM_QUERY_BY_ID,
+} from '../../queries/product'
 import ProductListItem from './ListItem'
 import ProductModal from './ProductModal'
 
-const Recent = ({ handle }) => {
+const Recent = ({ value }) => {
   const { countryCode } = useContext(CurrencyContext)
-  const [{ data }] = useQuery({
-    query: PRODUCT_ITEM_QUERY,
-    variables: { handle, countryCode },
-  })
-
+  const isId = value.startsWith('gid:')
+  const params = {
+    query: isId ? PRODUCT_ITEM_QUERY_BY_ID : PRODUCT_ITEM_QUERY,
+    variables: { ...(isId ? { id: value } : { handle: value }), countryCode },
+  }
+  const [{ data }] = useQuery(params)
   if (!data?.product) return false
 
-  const [title] = data.product.title.split(' - ')
-  const hasRange =
-    data.product.priceRange.maxVariantPrice.amount !==
-    data.product.priceRange.minVariantPrice.amount
+  const {
+    product: {
+      title,
+      images,
+      priceRange: { maxVariantPrice, minVariantPrice },
+      availableForSale,
+      tags,
+    },
+  } = data
 
   return (
     <Box sx={{ scrollSnapAlign: 'start' }}>
-      <ProductModal handle={handle}>
+      <ProductModal handle={data.product.handle}>
         <ProductListItem
-          firstImage={data.product.images.edges[0]?.node}
-          secondImage={data.product.images.edges[1]?.node}
-          title={title}
-          price={data.product.priceRange.minVariantPrice}
-          hasRange={hasRange}
-          availableForSale={data.product.availableForSale}
-          tags={data.product.tags}
+          firstImage={images.edges[0]?.node}
+          secondImage={images.edges[1]?.node}
+          title={title.split(' - ')}
+          price={minVariantPrice}
+          hasRange={maxVariantPrice.amount !== minVariantPrice.amount}
+          availableForSale={availableForSale}
+          tags={tags}
         />
       </ProductModal>
     </Box>
@@ -47,16 +56,17 @@ const useRecentlyViewedHandles = () => {
   return recentlyViewed?.filter(recent => recent !== handle).slice(0, 3) || []
 }
 
-const useStackHandles = () => {
+const useStackHandlesAndIds = () => {
   const {
-    product: { tags },
+    product: { tags, metafields },
   } = useContext(ProductContext)
+
+  // return stackwith values from metafield or tags
+  const [stackWithIds] = metafields?.filter(field => field.key === 'stack_with')
+  if (stackWithIds) return JSON.parse(stackWithIds.value)
   return tags
     ?.filter(tag => tag.includes('__with'))
-    .map(tag => {
-      const [, stackHandle] = tag.split(':')
-      return stackHandle
-    })
+    .map(tag => tag.split(':')[1])
 }
 
 const NavTab = ({ isCurrent, ...props }) => (
@@ -76,12 +86,13 @@ const NavTab = ({ isCurrent, ...props }) => (
   />
 )
 
-const ProductsList = ({ handles }) =>
-  handles.map(handle => <Recent handle={handle} key={`recent-${handle}`} />)
+const ProductsList = ({ values }) =>
+  values.map(value => <Recent value={value} key={`recent-${value}`} />)
 
 const ProductRecentRecommendations = () => {
-  const stackHandles = useStackHandles()
-  const recentHanldes = useRecentlyViewedHandles()
+  const stackValues = useStackHandlesAndIds()
+  console.log({ stackValues })
+  const recentValues = useRecentlyViewedHandles()
 
   const [tab, setTab] = useState('stack')
 
@@ -109,8 +120,8 @@ const ProductRecentRecommendations = () => {
           scrollBehavior: 'smooth',
         }}
       >
-        {tab === 'recent' && <ProductsList handles={recentHanldes} />}
-        {tab === 'stack' && <ProductsList handles={stackHandles} />}
+        {tab === 'recent' && <ProductsList values={recentValues} />}
+        {tab === 'stack' && <ProductsList values={stackValues} />}
       </Grid>
     </Container>
   )
