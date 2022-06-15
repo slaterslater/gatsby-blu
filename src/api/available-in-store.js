@@ -19,7 +19,11 @@ const ProductAvailableInStore = gql`
                   node {
                     available
                     location {
+                      id
                       name
+                      address {
+                        zip
+                      }
                     }
                   }
                 }

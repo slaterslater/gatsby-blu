@@ -42,8 +42,8 @@ const ReviewsList = props => {
   return (
     <>
       <Grid sx={{ gridAutoFlow: 'row', gap: 7 }}>
-        {currentReviews.map(node => (
-          <React.Fragment key={node.id}>
+        {currentReviews.map((node, i) => (
+          <React.Fragment key={`review-${i}`}>
             <ProductReview {...node} />
             <Divider />
           </React.Fragment>
@@ -55,7 +55,7 @@ const ReviewsList = props => {
           onPageClick={n => {
             setPage(n)
           }}
-          totalPages={totalPages}
+          totalPages={totalPages || 1}
           boundaryPages={2}
         />
       </Box>

@@ -23,5 +23,5 @@ const ProductBadges = ({ badges }) => {
 export default ProductBadges
 
 ProductBadges.propTypes = {
-  badges: PropTypes.object,
+  badges: PropTypes.arrayOf(PropTypes.object),
 }
