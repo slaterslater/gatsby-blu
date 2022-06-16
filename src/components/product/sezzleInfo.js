@@ -6,7 +6,7 @@ import { CurrencyContext } from '../../contexts/CurrencyContext'
 const SezzleInfo = ({ variantPrice }) => {
   const { currencyCode } = useContext(CurrencyContext)
   // sezzle for canada and if less than 1,000
-  if (currencyCode !== 'CAD' || variantPrice.includes(',')) return <></>
+  if (currencyCode !== 'CAD' || variantPrice?.includes(',')) return <></>
   // get digits from price string and divide by 4
   const price = variantPrice.match(/\d+/)
   const sezzlePayment = variantPrice.replace(/\d+/, Math.ceil(price / 4))
