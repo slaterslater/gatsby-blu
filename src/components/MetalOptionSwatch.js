@@ -1,4 +1,4 @@
-import { camelize, underscore } from 'inflected'
+import { camelize } from 'inflected'
 import { Box } from 'theme-ui'
 import React from 'react'
 
@@ -11,6 +11,8 @@ const MetalOptionSwatch = ({ metal, isCurrent }) => {
         borderRadius: '50%',
         border: '1px solid',
         borderColor: isCurrent ? '#c4c4c4' : 'transparent',
+        height: 22,
+        width: 22,
       }}
     >
       <Box

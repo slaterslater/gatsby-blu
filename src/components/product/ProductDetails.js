@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useContext, useEffect, useMemo } from 'react'
-import { Grid } from 'theme-ui'
+import { Box, Flex, Grid } from 'theme-ui'
 import { wrap } from '@popmotion/popcorn'
 import { useQuery, gql } from 'urql'
 import ProductReviewsTopline from './ProductReviewsTopline'
@@ -17,6 +17,8 @@ import { ProductTitleAndPrice } from './ProductTitleAndPrice'
 import RelatedProducts from './RelatedProducts'
 import ProductBadges from './ProductBadges'
 import { CurrencyContext } from '../../contexts/CurrencyContext'
+import SezzleInfo from './sezzleInfo'
+import { useVariantPrice } from './VariantPrice'
 
 const getMetafieldValues = (metafields = []) => {
   const fields = {
@@ -33,7 +35,9 @@ const getMetafieldValues = (metafields = []) => {
 }
 
 const ProductDetails = ({ alternates, badges }) => {
-  const { product } = useContext(ProductContext)
+  const { product, selectedVariant } = useContext(ProductContext)
+  const variant = selectedVariant || product.variants[0]
+  const variantPrice = useVariantPrice(variant)
   const { currencyCode, setCurrency } = useContext(CurrencyContext)
   const { handle, metafields, tags } = product
   const { total, average, collectionHandle } = getMetafieldValues(metafields)
@@ -84,7 +88,12 @@ const ProductDetails = ({ alternates, badges }) => {
   return (
     <Grid sx={{ gridAutoFlow: 'row', gap: 5 }}>
       <ProductTitleAndPrice />
-      <MetalOptions alternates={alternates} />
+      <Flex>
+        <MetalOptions alternates={alternates} />
+        <Box sx={{ alignSelf: 'flex-end' }} ml="auto" pr={1}>
+          <SezzleInfo variantPrice={variantPrice} />
+        </Box>
+      </Flex>
       <ProductOptions />
       <Engraving />
       <AddToCart />
