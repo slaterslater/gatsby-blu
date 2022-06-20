@@ -55,6 +55,12 @@ const sendPinEvent = (name, payload = {}) => {
   }
 }
 
+const sendTripleEvent = (name, payload) => {
+  if (window.TriplePixel) {
+    window.TriplePixel(name, payload)
+  }
+}
+
 const events = {
   viewHome: () => {
     sendAWEvent('page_view', { ecomm_pagetype: 'home' })
@@ -115,6 +121,7 @@ const events = {
       AddedItemPrice: lineItem.variant?.priceV2.amount,
       AddedItemQuantity: 1,
     })
+    sendTripleEvent('AddToCart', { item: lineItem.id, q: 1 })
   },
   viewCart: payload => {
     const checkout = payload

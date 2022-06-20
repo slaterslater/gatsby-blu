@@ -20,7 +20,6 @@ const NewsletterSignUpModal = () => {
   useTimeout(() => {
     if (shouldPrompt) {
       setOn(true)
-      console.log(text.current)
     }
   }, 1000)
 

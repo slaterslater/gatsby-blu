@@ -16,10 +16,6 @@ const AddToCart = ({ onAdded = () => {} }) => {
 
   return (
     <>
-      {/* TBD whether sezzle group can use this?
-      <Helmet>
-        <script src="https://widget.sezzle.com/v1/javascript/price-widget?uuid=e6537e78-c3de-4cfa-8de6-a3bdde741681" />
-      </Helmet> */}
       <Box>
         <ProductCTACallout pb={4} tags={product.tags} />
         <Grid sx={{ gridTemplateColumns: '1fr 48px', gap: '1px' }}>
