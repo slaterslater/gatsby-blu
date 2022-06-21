@@ -23,7 +23,7 @@ const LocationPageTemplate = ({ data }) => {
   } = data.sanityLocation
 
   const mapRef = useRef(null)
-  const mapSrc = map.match(/(?<=src=")[^"]*/)[0]
+  const mapSrc = map.match(/https:\/\/.[^"]+/)[0]
   const descRegExp = /\s*\+\s*/g
   const tel = `+1 ${phone.slice(0, 3)}-${phone.slice(3, 6)}-${phone.slice(6)}`
 
