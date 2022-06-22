@@ -45,7 +45,7 @@ export const query = graphql`
         vendor
         images {
           url
-          altText
+          #altText
           height
           width
           id

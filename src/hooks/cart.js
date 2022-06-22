@@ -18,7 +18,7 @@ export function useCart(onAdded = () => {}) {
   const { setOpenDrawer } = useContext(DrawerContext)
   const { checkoutId } = useContext(StoreContext)
 
-  const { selectedVariant, product, quantity, customAttributes } =
+  const { selectedVariant, product, quantity, customAttributes, stack } =
     useContext(ProductContext)
   const price = useVariantPrice(selectedVariant || product.variants[0])
   const isPreorder = !!useProductPreorderMessage(product.metafields)
@@ -26,7 +26,7 @@ export function useCart(onAdded = () => {}) {
   const [{ data, fetching }, addCheckoutLineItem] =
     useMutation(AddCheckoutLineItem)
 
-  const addToCart = async () => {
+  const addToCart = async (shouldOpen = true) => {
     const lineItems = [{ quantity, variantId: selectedVariant.shopifyId }]
     const nextAttributes = [
       ...(customAttributes || []),
@@ -45,9 +45,108 @@ export function useCart(onAdded = () => {}) {
         ({ node }) => node.variant.id === lineItems[0].variantId
       ).node
 
-    setOpenDrawer('cart')
+    if (shouldOpen) setOpenDrawer('cart')
     onAdded()
     sendAnalytics(addedItem)
+  }
+
+  const addStackToCart = async () => {
+    const shouldOpen = false
+    await addToCart(shouldOpen)
+
+    const offersPairs = product.offersPairs?.value === 'true'
+    const selectedOptions = selectedVariant?.selectedOptions.filter(
+      option => option.name.toLowerCase() !== 'metal'
+    )
+    const fractionSize = customAttributes.find(
+      attr => attr.key === 'size'
+    )?.value
+
+    const stackVariants = stack
+      .map(stackProduct => {
+        const stackVariant = {
+          shopifyId: stackProduct.variants[0].shopifyId,
+          availableForSale: stackProduct.variants[0].availableForSale,
+          quantity: 1,
+          tags: stackProduct.tags,
+          metafields: stackProduct.metafields,
+          customAttributes: [],
+        }
+
+        // inconsistent name fields...
+        const hasOptions =
+          stackProduct.options.filter(
+            option =>
+              option.name.toLowerCase() !== 'metal' &&
+              option.values?.some(value => !value.match(/single|pair/i))
+          )?.length > 0
+
+        if (selectedOptions.length && hasOptions) {
+          if (fractionSize) {
+            const hasFractions = stackProduct.metafields.some(
+              ({ key, value }) => key === 'fractional_sizes' && value === 'true'
+            )
+            const fractionAttribute = [{ key: 'size', value: fractionSize }]
+            stackVariant.customAttributes = hasFractions
+              ? fractionAttribute
+              : []
+          }
+          // match values because inconsistent name fields
+          const stackVariantWithSimilarOption = stackProduct.variants.find(
+            variant =>
+              variant.selectedOptions.some(({ value }) =>
+                selectedOptions.some(option => option.value === value)
+              )
+          )
+          const { shopifyId, availableForSale } =
+            stackVariantWithSimilarOption || {}
+          stackVariant.shopifyId = shopifyId
+          stackVariant.availableForSale = availableForSale
+        }
+
+        if (offersPairs) {
+          const variantOffersPairs =
+            stackProduct.metafields.find(
+              field => field.key.toLowerCase() === 'offers_pairs'
+            )?.value === 'true'
+          if (variantOffersPairs && quantity % 2 === 0)
+            stackVariant.quantity = 2
+          console.log({ variantOffersPairs, stackProduct, selectedOptions })
+        }
+
+        return stackVariant
+      })
+      .filter(
+        ({ shopifyId, availableForSale }) => availableForSale && shopifyId
+      )
+
+    const lineItems = stackVariants.map(variant => ({
+      variantId: variant.shopifyId,
+      quantity: variant.quantity,
+      customAttributes: [
+        ...variant.customAttributes,
+        ...getProductAttributes({
+          tags: variant.tags,
+          metafields: variant.metafields,
+        }),
+      ],
+    }))
+
+    const cart = await addCheckoutLineItem({
+      checkoutId,
+      lineItems,
+    })
+
+    setOpenDrawer('cart')
+    onAdded()
+    // send analytics for each
+    stackVariants.forEach(item => {
+      const addedItem =
+        cart.data.checkoutLineItemsAdd.checkout.lineItems.edges.find(
+          ({ node }) => node.variant.id === item.shopifyId
+        ).node
+      sendAnalytics(addedItem)
+    })
   }
 
   const getButtonState = () => {
@@ -78,5 +177,5 @@ export function useCart(onAdded = () => {}) {
 
   const { handleClick, disabled, buttonText } = getButtonState()
 
-  return { handleClick, disabled, buttonText, isOn, toggleOn }
+  return { handleClick, disabled, buttonText, isOn, toggleOn, addStackToCart }
 }

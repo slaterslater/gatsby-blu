@@ -46,7 +46,8 @@ const WishlistButton = () => {
         bg: 'primary',
         borderRadius: 0,
         width: 48,
-        height: 47,
+        // height: 47,
+        height: '100%',
         color: 'white',
         cursor: 'pointer',
       }}

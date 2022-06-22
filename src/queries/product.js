@@ -135,6 +135,12 @@ export const PRODUCT_QUERY = gql`
       offersPairs: metafield(namespace: "my_fields", key: "offers_pairs") {
         value
       }
+      offersFractions: metafield(
+        namespace: "my_fields"
+        key: "fractional_sizes"
+      ) {
+        value
+      }
       variants(first: 100) {
         edges {
           node {
@@ -174,3 +180,21 @@ export const ALTERNATES_QUERY = gql`
     }
   }
 `
+
+// export const STACK_WITH_QUERY = gql`
+//   query ($ids: [ID!]!, $countryCode: CountryCode)
+//   @inContext(country: $countryCode) {
+//     nodes(ids: $ids) {
+//       ... on Product {
+//         variants(first: 50) {
+//           nodes {
+//             priceV2 {
+//               amount
+//               currencyCode
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// `

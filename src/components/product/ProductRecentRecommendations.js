@@ -96,7 +96,12 @@ const ProductRecentRecommendations = () => {
   const [tab, setTab] = useState('stack')
 
   return (
-    <Container px={[0, 6, 7]} ml={[0, 'auto']} mr={[-5, 'auto']}>
+    <Container
+      id="recommendations"
+      px={[0, 6, 7]}
+      ml={[0, 'auto']}
+      mr={[-5, 'auto']}
+    >
       <Flex py={6} sx={{ gap: 6, justifyContent: 'center' }}>
         <NavTab isCurrent={tab === 'stack'} onClick={() => setTab('stack')}>
           Stack It With

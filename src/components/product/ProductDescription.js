@@ -5,11 +5,12 @@ import { Text, Box, Button, Heading } from 'theme-ui'
 import { ProductContext } from './ProductContext'
 
 export const DescriptionHtml = styled.div`
+  padding: 0 8px;
   color: var(--theme-ui-colors-black);
   font-size: 12px;
   font-weight: medium;
   line-height: 1.5;
-  text-align: center;
+  text-align: left;
 
   h3 {
     text-transform: uppercase;
@@ -57,7 +58,7 @@ export const ProductDescription = props => {
 
   return (
     <Box>
-      <Heading as="h2" variant="caps" pb={4} sx={{ textAlign: 'center' }}>
+      <Heading as="h2" variant="caps" pb={4} px={2}>
         The Story
       </Heading>
       <DescriptionHtml dangerouslySetInnerHTML={{ __html: descriptionHtml }} />

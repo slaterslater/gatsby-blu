@@ -73,7 +73,8 @@ async function createProductPages({ graphql, actions }) {
     }
   `)
   const badgeNames = data.allSanityProductBadge.nodes.map(badge => badge.name)
-  data.allShopifyProduct.nodes.forEach(product => {
+  const products = data.allShopifyProduct.nodes
+  products.forEach(product => {
     const alternatesFromTags = formatMetalAlternatesFromTags(product.tags || [])
     const alternatesFromMetafields = formatMetalAlternatesFromMetafields(
       product.metafields || []
@@ -93,6 +94,20 @@ async function createProductPages({ graphql, actions }) {
       })
     )
 
+    // get stackWith Ids
+    const [stackWithField] = product.metafields.filter(
+      field => field.key === 'stack_with'
+    )
+    const stackWithIds = stackWithField
+      ? JSON.parse(stackWithField.value)
+      : product.tags
+          .filter(tag => tag.includes('__with'))
+          .map(tag => {
+            const handle = tag.split(':')[1]
+            const stackProduct = products.find(p => p.handle === handle)
+            return stackProduct ? stackProduct.shopifyId : ''
+          })
+
     actions.createPage({
       path: `/products/${product.handle}`,
       component: productTemplate,
@@ -102,6 +117,7 @@ async function createProductPages({ graphql, actions }) {
         alternates,
         hidden,
         badges,
+        stackWithIds,
       },
     })
   })

@@ -33,7 +33,14 @@ const getInitialOptionValues = (product = { options: [] }) => {
   return { selectedOptions }
 }
 
-const ProductProvider = ({ initial, handle, ...props }) => {
+const ProductProvider = ({
+  initial,
+  handle,
+  alternates,
+  badges,
+  stack,
+  ...props
+}) => {
   const { countryCode } = useContext(CurrencyContext)
   const [{ data }] = useQuery({
     query: PRODUCT_QUERY,
@@ -48,6 +55,9 @@ const ProductProvider = ({ initial, handle, ...props }) => {
     ...getInitialOptionValues(initial),
     customAttributes: [],
     setCustomAttributes: () => {},
+    alternates,
+    badges,
+    stack,
   })
 
   // update product from async request

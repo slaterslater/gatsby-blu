@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import { Flex, Box } from 'theme-ui'
 import PropTypes from 'prop-types'
+import { ProductContext } from './ProductContext'
 
-const ProductBadges = ({ badges }) => {
+const ProductBadges = () => {
+  const { badges } = useContext(ProductContext)
   if (!badges.length) return <></>
   return (
     <Flex sx={{ flexWrap: 'wrap' }}>
