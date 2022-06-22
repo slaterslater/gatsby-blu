@@ -44,10 +44,10 @@ const Footer = props => (
               borderColor: ['white', 'transparent'],
             }}
           >
-            <FooterLink to="/pages/locations-and-hours">email us</FooterLink>
-            <FooterLink to="/pages/locations-and-hours">call us</FooterLink>
+            <FooterLink to="/locations">email us</FooterLink>
+            <FooterLink to="/locations">call us</FooterLink>
             <FooterText>mon - sun &nbsp; 9am - 5pm EST</FooterText>
-            <FooterLink to="/pages/locations-and-hours">visit us</FooterLink>
+            <FooterLink to="/locations">visit us</FooterLink>
             <FooterLink to="/book-a-consultation">
               book virtual appointment
             </FooterLink>
