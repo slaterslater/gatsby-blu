@@ -1,13 +1,13 @@
-import { graphql, Link as GatsbyLink } from 'gatsby'
-import { GatsbyImage, StaticImage } from 'gatsby-plugin-image'
+import { graphql } from 'gatsby'
+import { StaticImage } from 'gatsby-plugin-image'
 import React from 'react'
-import { Box, Container, Flex, Heading, Link, Text } from 'theme-ui'
+import { Box, Container, Flex, Heading, Text } from 'theme-ui'
 import Layout from '../../components/layout'
 import PermanentStore from '../../components/location/PermanentStore'
 import PopupStore from '../../components/location/PopupStore'
 
 const LocationIndexPage = ({ data }) => {
-  const [locations, popups] = data.locations.nodes.reduce(
+  const [locations, popups] = data.allSanityLocation.nodes.reduce(
     (all, location) => {
       const storeTypeIndex = location.isPopup ? 1 : 0
       all[storeTypeIndex].push(location)
@@ -16,7 +16,7 @@ const LocationIndexPage = ({ data }) => {
     [[], []]
   )
   return (
-    <Layout title="locations" description="">
+    <Layout title="locations" description="step inside and meet the magic">
       <Flex
         sx={{
           flexDirection: 'column',
@@ -37,7 +37,6 @@ const LocationIndexPage = ({ data }) => {
             color: 'white',
             fontSize: 5,
             textAlign: 'center',
-            // transform: ['translateY(calc(100% - 50px))', 'translateY(-200px)'],
             transform: ['translateY(calc(-35vw + -90%))', 'translateY(-200px)'],
           }}
         >
@@ -70,7 +69,7 @@ const LocationIndexPage = ({ data }) => {
           up close — ethically and sustainably-made
           gold looks good on you.`}
         </Text>
-        {popups && (
+        {!!popups?.length && (
           <Flex
             sx={{
               flexDirection: 'column',
@@ -78,7 +77,6 @@ const LocationIndexPage = ({ data }) => {
               width: ['100%', 'calc(100% - 80px)'],
               bg: 'bbBeige',
               maxWidth: 880,
-              // overflowY: 'scroll',
             }}
             mx="auto"
             mb={6}
@@ -113,7 +111,8 @@ const LocationIndexPage = ({ data }) => {
               sx={{
                 width: '100%',
                 maxHeight: 300,
-                overflowY: 'scroll',
+                overflowY:
+                  popups.length > 1 ? 'scroll' : ['scroll', 'scroll', 'hidden'],
                 '::-webkit-scrollbar': {
                   '-webkit-appearance': 'none',
                 },
@@ -130,15 +129,17 @@ const LocationIndexPage = ({ data }) => {
                 },
               }}
             >
-              {[...popups, ...popups, ...popups].map(popup => (
+              {popups.map(popup => (
                 <PopupStore key={popup.id} location={popup} />
               ))}
             </Box>
           </Flex>
         )}
-        {locations.map(location => (
-          <PermanentStore key={location.id} location={location} />
-        ))}
+        <Box sx={{ width: '100%', maxWidth: 900 }} mx="auto" px={[3, 4, 6]}>
+          {locations.map(location => (
+            <PermanentStore key={location.id} location={location} />
+          ))}
+        </Box>
       </Container>
     </Layout>
   )
@@ -148,7 +149,7 @@ export default LocationIndexPage
 
 export const query = graphql`
   {
-    locations: allSanityLocation {
+    allSanityLocation {
       nodes {
         id
         name
@@ -170,7 +171,7 @@ export const query = graphql`
         }
         storeImage {
           asset {
-            gatsbyImageData(placeholder: BLURRED, fit: FILLMAX, aspectRatio: 1)
+            gatsbyImageData(placeholder: BLURRED, fit: FILLMAX, width: 220)
           }
         }
       }

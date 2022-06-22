@@ -11,26 +11,24 @@ const ContactOptions = ({ location, mapRef = null }) => {
       sx={{
         flexDirection: 'column',
         justifyContent: 'space-between',
-        // width: '100%',
-        // maxWidth: 260,
         maxHeight: 275,
-        // minHeight: [260, 0],
         textAlign: ['center', 'center', 'left'],
       }}
       mt={[0, 0, 5]}
-      // pl={[0, 2, 6]}
-      // ml={[0, 4, 6]}
       mx="auto"
     >
       <Box pb={6}>
         <Heading as="h3" variant="h2" sx={{ fontSize: 3 }} pb={2}>
           location
         </Heading>
-        <GatsbyLink
-          to={isPopup ? null : `${slug.current}#map`}
+        <Link
+          as={isPopup ? Text : GatsbyLink}
+          to={`${slug?.current}#map` || '.'}
           onClick={e => {
             if (!mapRef) return
             e.preventDefault()
+            const y = mapRef.current.offsetTop - 105
+            window.scrollTo({ top: y, behavior: 'smooth' })
           }}
           variant="small"
           sx={{ fontSize: 1, display: 'block' }}
@@ -48,7 +46,7 @@ const ContactOptions = ({ location, mapRef = null }) => {
             <br />
             {`${city}, ${province} ${postalCode}`}
           </Text>
-        </GatsbyLink>
+        </Link>
       </Box>
       <Box pb={6}>
         <Heading as="h3" variant="h2" sx={{ fontSize: 3 }} pb={2}>

@@ -7,10 +7,9 @@ const StoreHours = ({ daysOpen }) => (
       flexDirection: 'column',
       width: '100%',
       maxWidth: 250,
-      maxHeight: 275,
+      minHeight: [0, 0, 275],
     }}
     my={[6, 6, 5]}
-    // mr={[0, 5, 6]}
     pr={[0, 4]}
     mx="auto"
   >
@@ -29,7 +28,6 @@ const StoreHours = ({ daysOpen }) => (
         flexDirection: 'column',
         justifyContent: 'space-around',
         listStyleType: 'none',
-        minHeight: [275, 0],
         padding: 0,
         flex: 1,
         li: {

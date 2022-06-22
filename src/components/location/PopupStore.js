@@ -1,4 +1,4 @@
-import { GatsbyImage, StaticImage } from 'gatsby-plugin-image'
+import { GatsbyImage } from 'gatsby-plugin-image'
 import React from 'react'
 import { Flex, Grid, Heading } from 'theme-ui'
 import ContactOptions from './ContactOptions'
@@ -15,19 +15,13 @@ const PopupStore = ({ location }) => {
       mb={4}
     >
       <Flex
-        sx={{ width: 200, flexDirection: 'column', justifyContent: 'flex-end' }}
+        sx={{ width: 200, flexDirection: 'column', justifyContent: 'center' }}
         mx="auto"
       >
-        {/* <GatsbyImage image={storeImage.asset.gatsbyImageData} alt={name} /> */}
-        <StaticImage
-          src="../../images/DELETETHIS.calgary.png"
-          alt="DELETE THIS IMAGE"
-          height={200}
-          width={200}
-        />
+        <GatsbyImage image={storeImage.asset.gatsbyImageData} alt={name} />
         <Heading
           as="h3"
-          sx={{ transform: 'translateY(-110px)', color: 'white' }}
+          sx={{ fontSize: 5, transform: 'translateY(-110px)', color: 'white' }}
           mx="auto"
         >
           {name}
