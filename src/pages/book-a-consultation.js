@@ -11,9 +11,7 @@ import CalendlyLink from '../components/consultation/CalendlyLink'
 import FAQ from '../components/consultation/FAQ'
 
 const CalendlyConsultationPage = ({ data, location }) => {
-  const calendars = data.allSanityConsultation.nodes[0].calendars.filter(
-    ({ active }) => active === true
-  )
+  const { calendars } = data.sanityConsultation
   const images = [
     <StaticImage
       src="../images/consultation/offering1.jpg"
@@ -74,7 +72,7 @@ const CalendlyConsultationPage = ({ data, location }) => {
         <StaticImage
           src="../images/consultation/consultation-booking-header.jpg"
           alt="Book a Consultation Appointment"
-          style={{ objectFit: 'cover', maxHeight: '400px' }}
+          placeholder="blurred"
         />
       </Box>
       <Container as="main" sx={{ maxWidth: 1400 }} p={0}>
@@ -91,6 +89,9 @@ const CalendlyConsultationPage = ({ data, location }) => {
             height: ['auto', fixedHeight],
             maxWidth: 825,
             alignContent: 'center',
+            '.active': {
+              borderColor: 'black',
+            },
           }}
         >
           <Heading
@@ -109,8 +110,15 @@ const CalendlyConsultationPage = ({ data, location }) => {
               calendar={calendar}
               order={i}
               isActive={current.index === i}
-              setCurrent={setCurrent}
-            />
+              handleChange={() => {
+                setCurrent({
+                  index: i,
+                  ...calendar,
+                })
+              }}
+            >
+              {calendar.title.toLowerCase()}
+            </CalendlyLink>
           ))}
           <Text
             as="p"
@@ -210,15 +218,10 @@ export default CalendlyConsultationPage
 
 export const query = graphql`
   {
-    allSanityConsultation(
-      filter: { calendars: { elemMatch: { active: { eq: true } } } }
-    ) {
-      nodes {
-        calendars {
-          title
-          slug
-          active
-        }
+    sanityConsultation {
+      calendars {
+        title
+        slug
       }
     }
   }
