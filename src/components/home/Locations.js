@@ -35,7 +35,7 @@ const HomeLocations = ({ locations }) => (
       nodes={locations.map((location, i) => (
         <LocationBox
           key={`location-box-${i}`}
-          to="/pages/locations-and-hours"
+          to="locations"
           text={location.name}
           width={location.imageOrientation === 'portrait' ? '75%' : '100%'}
         >
