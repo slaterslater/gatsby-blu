@@ -98,7 +98,7 @@ const IndexPage = ({ data }) => {
 
   return (
     <Layout>
-      <SEO title="home">
+      <SEO title="shop online jewelry">
         <meta
           name="google-site-verification"
           content="vQiYyQAU-CvwpUnqiElf9CgPBy0VeML-opmKcJmEhjs"
