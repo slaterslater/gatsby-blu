@@ -165,6 +165,7 @@ const LinkedBraceletsPage = () => {
           src="../images/linked-bracelets/linked-bracelets-header.jpg"
           alt=""
           layout="fullWidth"
+          placeholder='blurred'
         />
       </Flex>
       <Container>
