@@ -5,14 +5,10 @@ import { Flex, Box, Heading, Grid, Button, Text } from 'theme-ui'
 const CollectionDetails = ({ title, description, consultation }) => {
   const data = useStaticQuery(graphql`
     {
-      allSanityConsultation(
-        filter: { calendars: { elemMatch: { active: { ne: false } } } }
-      ) {
-        nodes {
-          calendars {
-            title
-            slug
-          }
+      sanityConsultation {
+        calendars {
+          title
+          slug
         }
       }
     }
@@ -20,11 +16,10 @@ const CollectionDetails = ({ title, description, consultation }) => {
 
   const currentConsultationTitle = useMemo(() => {
     if (!consultation) return null
-    const [consultationTitle] = data.allSanityConsultation.nodes.map(
-      ({ calendars }) =>
-        calendars.find(({ slug }) => slug === consultation)?.title
-    )
-    return consultationTitle.split(/\s-\s/)[0]
+    const [consultationTitle] = data.sanityConsultation.calendars
+      .find(({ slug }) => slug === consultation)
+      ?.title.split(/\s-\s/)
+    return consultationTitle
   }, [data, consultation])
 
   return (
