@@ -162,7 +162,7 @@ const LinkedBraceletsPage = () => {
         }}
       >
         <StaticImage
-          src="../images/linked-bracelets/linked-bracelets-header.jpg"
+          src="../images/linked-bracelets/linked-bracelets-header2.jpg"
           alt=""
           layout="fullWidth"
           placeholder='blurred'
