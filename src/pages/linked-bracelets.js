@@ -129,7 +129,6 @@ const QuestionAnswer = ({ faq, index, expanded, setExpanded }) => {
               py={5}
               dangerouslySetInnerHTML={{ __html: answer }}
             />
-           
           </MotionBox>
         )}
       </AnimatePresence>
@@ -165,7 +164,7 @@ const LinkedBraceletsPage = () => {
           src="../images/linked-bracelets/linked-bracelets-header2.jpg"
           alt=""
           layout="fullWidth"
-          placeholder='blurred'
+          placeholder="blurred"
         />
       </Flex>
       <Container>
