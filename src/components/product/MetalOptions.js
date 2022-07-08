@@ -1,4 +1,5 @@
 import React, { useContext, useMemo, useState } from 'react'
+import { Flex } from 'theme-ui'
 import ThemeLink from '../app/ThemeLink'
 import MetalOptionSwatch from '../MetalOptionSwatch'
 import { ProductContext } from './ProductContext'
@@ -51,15 +52,19 @@ const MetalOptions = ({ alternates }) => {
     ].sort((a, b) => metals.indexOf(a.metal) - metals.indexOf(b.metal))
   }, [product, alternates, productMetalColor])
 
-  return colors?.map(({ isCurrent, metal, handle }) => (
-    <MetalOption
-      title={title}
-      key={`metal-option-${metal}`}
-      {...{ isCurrent, metal, handle }}
-      onMouseOver={() => setTitle(metal)}
-      onMouseLeave={() => setTitle(productMetalColor)}
-    />
-  ))
+  return (
+    <Flex>
+      {colors?.map(({ isCurrent, metal, handle }) => (
+        <MetalOption
+          title={title}
+          key={`metal-option-${metal}`}
+          {...{ isCurrent, metal, handle }}
+          onMouseOver={() => setTitle(metal)}
+          onMouseLeave={() => setTitle(productMetalColor)}
+        />
+      ))}
+    </Flex>
+  )
 }
 
 export default MetalOptions
