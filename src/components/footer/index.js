@@ -89,7 +89,7 @@ const Footer = props => (
             <FooterLink to="/pages/the-bluboho-origin-story">
               the origin story
             </FooterLink>
-            <FooterLink to="/pages/careers">careers</FooterLink>
+            <FooterLink to="/careers">careers</FooterLink>
             <FooterLink to="/pages/care-and-wear-disclaimer">
               jewelry care &amp; wear
             </FooterLink>
