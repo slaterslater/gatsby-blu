@@ -33,7 +33,7 @@ export const query = graphql`
       handle
       image {
         src
-        altText
+        #altText
         height
         width
       }
