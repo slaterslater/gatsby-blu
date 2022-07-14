@@ -50,21 +50,22 @@ const NewsletterSignUpModal = () => {
             transition={{ min: 0, max: 100, bounceDamping: 9, delay: '200ms' }}
             aria-label="newsletter signup"
             m={[0, '10vh auto']}
-            mt={['150px', '10vh']}
-            p={[4, 5, 6]}
+            mt={['60px', '10vh']}
+            // p={[4, 5, 6]}
+            mx="auto"
             sx={{
-              borderRadius: '3px',
               width: 660,
               maxWidth: ['100%', '90vw'],
               background: 'transparent',
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
+              alignContent: 'center',
               flexDirection: 'column',
               '.offScreen': { position: 'absolute', left: '-9999em' },
             }}
           >
-            <Link as={GatsbyLink} to="/sample-sale" className="offScreen">
+            <Link as={GatsbyLink} to="/newsletter" className="offScreen">
               sign up because the last time we did this it sold out in 2 weeks
             </Link>
             <Button
@@ -83,17 +84,19 @@ const NewsletterSignUpModal = () => {
             >
               close
             </Button>
-            <Image src="/homepage-pop-up-2022-june-01-01.png" alt="" />
+            <Image src="/homepage-pop-up-2022-july-1.png" alt="" />
             <Link
               as={GatsbyLink}
-              to="/sample-sale"
+              to="/newsletter"
               sx={{
-                width: 150,
-                height: 50,
+                // bg: 'primary',
+                // opacity: 0.5,
+                width: ['30%', 175],
+                height: ['calc(6vw + 20px)', 75],
                 transform: [
-                  'translateY(-100px)',
-                  'translateY(-135px)',
-                  'translateY(-135px)',
+                  'translateY(calc(-6vw * 4.5))',
+                  'translateY(-190px)',
+                  'translateY(-190px)',
                 ],
               }}
             >
@@ -103,103 +106,6 @@ const NewsletterSignUpModal = () => {
         </MotionDialogOverlay>
       )}
     </AnimatePresence>
-    // <AnimatePresence>
-    //   {isOn && (
-    //     <MotionDialogOverlay
-    //       initial={{ opacity: 0 }}
-    //       animate={{ opacity: 1 }}
-    //       exit={{ opacity: 0 }}
-    //       onDismiss={handleDismiss}
-    //       style={{
-    //         zIndex: 11,
-    //         background: 'transparent',
-    //       }}
-    //     >
-    //       <MotionBox
-    //         as={MotionDialogContent}
-    //         initial={{ y: '5px', opacity: 0 }}
-    //         animate={{ y: '0', opacity: 1 }}
-    //         exit={{ y: '20px', opacity: 0 }}
-    //         transition={{ min: 0, max: 100, bounceDamping: 9, delay: '200ms' }}
-    //         aria-label="Sidebar menu"
-    //         m={[0, '10vh auto']}
-    //         mt={['70px', '10vh']}
-    //         p={[4, 5, 6]}
-    //         sx={{
-    //           borderRadius: '3px',
-    //           width: 660,
-    //           // minHeight: [minHeight ? 'calc(100% - 70px)' : 0, 0],
-    //           maxWidth: ['100%', '90vw'],
-    //           bg: 'none',
-    //         }}
-    //       >
-    //         <Button
-    //           type="button"
-    //           variant="link"
-    //           onClick={handleDismiss}
-    //           sx={{
-    //             position: 'absolute',
-    //             top: 24,
-    //             right: 24,
-    //             textTransform: 'uppercase',
-    //             fontSize: 0,
-    //             fontWeight: 600,
-    //             letterSpacing: 'wider',
-    //             transform: ['translateY(-64px)'],
-    //           }}
-    //         >
-    //           done
-    //         </Button>
-    //         <Flex sx={{ justifyContent: 'center', alignContent: 'center' }}>
-    //           <Image src="/homepage-pop-up-2022-june-01-01.png" alt="" />
-    //         </Flex>
-    //       </MotionBox>
-    //     </MotionDialogOverlay>
-    //   )}
-    // </AnimatePresence>
-    // <AnimatePresence>
-    //   {isOn && (
-    //     <MotionBox
-    //       initial={{ y: '20%', opacity: 0 }}
-    //       animate={{ y: 0, opacity: 1 }}
-    //       exit={{ y: '20%', opacity: 0 }}
-    //       transition={{ ease: 'easeInOut', duration: 0.3 }}
-    //       p={3}
-    //       px={7}
-    //       sx={{
-    //         display: 'flex',
-    //         alignItems: 'center',
-    //         justifyContent: 'center',
-    //         flexWrap: ['wrap', 'wrap', 'nowrap'],
-    //         bg: 'cream',
-    //         zIndex: 10,
-    //         position: 'fixed',
-    //         left: 0,
-    //         right: 0,
-    //         bottom: 0,
-    //         gap: [2, 2, 6],
-    //         pb: [6, 0],
-    //       }}
-    //     >
-    //       <Text>image goes here</Text>
-    //       <IconButton
-    //         type="button"
-    //         onClick={() => {
-    //           dismissPrompt()
-    //           setOn(false)
-    //         }}
-    //         sx={{
-    //           position: 'absolute',
-    //           left: '12px',
-    //           bottom: '50%',
-    //           transform: 'translateY(50%)',
-    //         }}
-    //       >
-    //         <Text as={IoIosClose} sx={{ color: 'black', fontSize: 8 }} />
-    //       </IconButton>
-    //     </MotionBox>
-    //   )}
-    // </AnimatePresence>
   )
 }
 
