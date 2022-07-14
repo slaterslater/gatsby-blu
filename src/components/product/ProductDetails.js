@@ -19,6 +19,7 @@ import ProductBadges from './ProductBadges'
 import { CurrencyContext } from '../../contexts/CurrencyContext'
 import SezzleInfo from './sezzleInfo'
 import { useVariantPrice } from './VariantPrice'
+import ColorOptions from './ColorOptions'
 
 const getMetafieldValues = (metafields = []) => {
   const fields = {
@@ -94,6 +95,7 @@ const ProductDetails = () => {
           <SezzleInfo variantPrice={variantPrice} />
         </Box>
       </Flex>
+      <ColorOptions />
       <ProductOptions />
       <Engraving />
       <AddToCart />

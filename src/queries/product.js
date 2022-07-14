@@ -139,6 +139,10 @@ export const PRODUCT_QUERY = gql`
         namespace: "my_fields"
         key: "fractional_sizes"
       ) {
+      productColor: metafield(namespace: "my_fields", key: "product_color") {
+        value
+      }
+      colorAlternates: metafield(namespace: "my_fields", key: "color_options") {
         value
       }
       variants(first: 100) {
@@ -175,6 +179,9 @@ export const ALTERNATES_QUERY = gql`
         options {
           name
           values
+        }
+        productColor: metafield(namespace: "my_fields", key: "product_color") {
+          value
         }
       }
     }
