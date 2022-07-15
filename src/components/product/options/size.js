@@ -14,7 +14,10 @@ const ProductSizes = ({ option }) => {
   const [size, setSize] = useState([])
   const [baseSize, fractionSize] = size
   const shouldDisplayFractions =
-    baseSize && metafields.some(({ key }) => key === 'fractional_sizes')
+    baseSize &&
+    metafields.some(
+      ({ key, value }) => key === 'fractional_sizes' && value === false
+    )
 
   const updateProductSizeAttribute = async (value, fraction) => {
     if (value !== baseSize) await selectOption(name, value)

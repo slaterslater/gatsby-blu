@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import { Text, Button, Box, Grid } from 'theme-ui'
 import PropTypes from 'prop-types'
-import { Helmet } from 'react-helmet'
 import ProductCTACallout from '../ProductCTACallout'
 import { ProductContext } from '../ProductContext'
 import NotifyModal from './NotifyModal'
@@ -17,7 +16,7 @@ const AddToCart = ({ onAdded = () => {} }) => {
   return (
     <>
       <Box>
-        <ProductCTACallout pb={4} tags={product.tags} />
+        <ProductCTACallout pb={4} />
         <Grid sx={{ gridTemplateColumns: '1fr 48px', gap: '1px' }}>
           <Button
             disabled={disabled}

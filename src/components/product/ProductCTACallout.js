@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Flex, Box, Text } from 'theme-ui'
 import { AiFillInfoCircle } from 'react-icons/ai'
+import { ProductContext } from './ProductContext'
 
 export const CalloutBox = ({
   icon: Icon,
@@ -35,12 +36,22 @@ export const CalloutBox = ({
   </Box>
 )
 
-const ProductCTACallout = ({ tags, ...props }) => {
+const ProductCTACallout = props => {
+  const {
+    product: { tags },
+    selectedVariant,
+  } = useContext(ProductContext)
+
   const mto = tags.includes('made-to-order')
   const usd = tags.some(tag => tag.toLowerCase() === 'usd')
-  if (!mto && !usd) return null
+  const isSize10 = selectedVariant?.selectedOptions?.some(
+    ({ name, value }) => name.toLowerCase() === 'size' && value === '10'
+  )
+
+  if (!mto && !usd && !isSize10) return null
+
   const description = []
-  if (mto)
+  if (mto || isSize10)
     description.push(
       `this piece is a final sale\nplease allow 4 - 6 weeks for production and delivery`
     )
@@ -55,17 +66,5 @@ const ProductCTACallout = ({ tags, ...props }) => {
     />
   )
 }
-
-// const ProductCTACallout = ({ tags, ...props }) => (
-//     {tags.includes('made-to-order') && (
-//       <CalloutBox
-//         icon={AiFillInfoCircle}
-//         title="This Piece is a Special Order"
-//         description="please allow 4 - 6 weeks for production and delivery"
-//         bg="cream"
-//         {...props}
-//       />
-//     )}
-// )
 
 export default ProductCTACallout
