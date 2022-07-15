@@ -66,7 +66,7 @@ const NewsletterSignUpModal = () => {
             }}
           >
             <Link as={GatsbyLink} to="/newsletter" className="offScreen">
-              sign up because the last time we did this it sold out in 2 weeks
+              join our list to get exclusive access
             </Link>
             <Button
               type="button"
