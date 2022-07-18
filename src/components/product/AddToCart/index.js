@@ -7,6 +7,7 @@ import NotifyModal from './NotifyModal'
 import { useCart } from '../../../hooks/cart'
 import { useProductPreorderMessage } from './util'
 import WishlistButton from '../WishlistButton'
+import AddStackButton from '../AddStackButton'
 
 const AddToCart = ({ onAdded = () => {} }) => {
   const { handleClick, disabled, buttonText, isOn, toggleOn } = useCart(onAdded)
@@ -28,6 +29,7 @@ const AddToCart = ({ onAdded = () => {} }) => {
           </Button>
           <WishlistButton />
         </Grid>
+        <AddStackButton onAdded={onAdded} />
         {preorderMessage && (
           <Box
             sx={{ textAlign: 'center', backgroundColor: 'cream' }}

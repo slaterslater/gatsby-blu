@@ -26,8 +26,8 @@ const MetalOption = ({ title, handle, metal, isCurrent, ...props }) => {
   )
 }
 
-const MetalOptions = ({ alternates }) => {
-  const { product } = useContext(ProductContext)
+const MetalOptions = () => {
+  const { product, alternates } = useContext(ProductContext)
   const productMetalColor = getMetalColor(product.options)
   const [title, setTitle] = useState(productMetalColor)
 

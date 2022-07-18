@@ -34,7 +34,7 @@ const getMetafieldValues = (metafields = []) => {
   return fields
 }
 
-const ProductDetails = ({ alternates, badges }) => {
+const ProductDetails = () => {
   const { product, selectedVariant } = useContext(ProductContext)
   const variant = selectedVariant || product.variants[0]
   const variantPrice = useVariantPrice(variant)
@@ -89,7 +89,7 @@ const ProductDetails = ({ alternates, badges }) => {
     <Grid sx={{ gridAutoFlow: 'row', gap: 5 }}>
       <ProductTitleAndPrice />
       <Flex>
-        <MetalOptions alternates={alternates} />
+        <MetalOptions />
         <Box sx={{ alignSelf: 'flex-end' }} ml="auto" pr={1}>
           <SezzleInfo variantPrice={variantPrice} />
         </Box>
@@ -100,7 +100,7 @@ const ProductDetails = ({ alternates, badges }) => {
       <ProductShipping />
       <ProductDescription />
       <EngagementConsultationButton />
-      <ProductBadges badges={badges} />
+      <ProductBadges />
       <ProductSpecifications />
       <ProductReviewsTopline
         score={average}

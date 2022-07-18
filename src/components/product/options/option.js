@@ -10,7 +10,8 @@ const VariantOption = ({ isSelected, isHidden = false, ...props }) => (
     px={1}
     sx={{
       border: '1px solid',
-      borderColor: isHidden ? 'white' : isSelected ? 'black' : 'border',
+      borderColor: isHidden ? 'white' : isSelected ? 'black' : 'cream',
+      bg: isHidden ? 'white' : isSelected ? 'cream' : 'prodBackground',
       color: isHidden ? 'white' : 'primary',
       cursor: isHidden ? 'auto' : 'pointer',
       userSelect: isHidden ? 'none' : 'auto',

@@ -57,6 +57,7 @@ const colors = {
   error: '#f8382a',
   backgroundShade: 'rgba(249, 248, 246, .9)',
   bbBackground: '#F9F8F6',
+  prodBackground: '#fbf9f7',
 }
 colors.text = colors.black
 colors.primary = colors.navy

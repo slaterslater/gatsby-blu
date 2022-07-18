@@ -1,0 +1,77 @@
+import { GatsbyImage } from 'gatsby-plugin-image'
+import React, { useContext, useMemo } from 'react'
+import { Button, Flex, Grid } from 'theme-ui'
+import { useCart } from '../../hooks/cart'
+import { useShopifyImage } from '../../hooks/shopifyImage'
+import { ProductContext } from './ProductContext'
+
+const ThumbnailImage = ({ image, alt = '' }) => {
+  const imageData = useShopifyImage({ image, width: 80 })
+
+  return <GatsbyImage image={imageData} alt={alt} />
+}
+
+const AddStackButton = () => {
+  const { disabled, addStackToCart } = useCart()
+  const {
+    product: { availableForSale },
+    stack,
+  } = useContext(ProductContext)
+
+  const stackImages = useMemo(
+    () =>
+      stack?.map(({ title, images }) => ({
+        alt: title,
+        image: images[0],
+      })),
+    [stack]
+  )
+
+  const scrollToStack = () => {
+    const recommendations = document.querySelector('#recommendations')
+    const top = recommendations.offsetTop - 50
+    window.scrollTo({ top, behavior: 'smooth' })
+  }
+  if (!stack?.length || !availableForSale) return <></>
+  return (
+    <>
+      <Button
+        disabled={disabled}
+        type="button"
+        onClick={addStackToCart}
+        sx={{
+          flex: 1,
+          fontSize: 1,
+          py: 4,
+          letterSpacing: 'widest',
+          width: '100%',
+        }}
+        mt={1}
+      >
+        add stack
+      </Button>
+      <Flex
+        onClick={scrollToStack}
+        sx={{
+          justifyContent: 'center',
+          bg: 'prodBackground',
+          height: 80,
+          cursor: 'pointer',
+        }}
+        mt={1}
+      >
+        <Grid
+          sx={{
+            gridTemplateColumns: 'repeat(3, 80px)',
+          }}
+        >
+          {stackImages?.map(({ image, alt }, i) => (
+            <ThumbnailImage image={image} alt={alt} key={`stack-thumb-${i}`} />
+          ))}
+        </Grid>
+      </Flex>
+    </>
+  )
+}
+
+export default AddStackButton

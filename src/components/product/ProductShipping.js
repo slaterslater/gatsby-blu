@@ -8,7 +8,8 @@ export const ProductShipping = props => {
 
   if (currencyCode === 'CAD')
     return (
-      <Box mt={-2} pb={2} sx={{ textAlign: 'center' }}>
+      <Box mt={-2} px={2} pb={2}>
+        {/* <Box mt={-2} pb={2} sx={{ textAlign: 'center' }}> */}
         <Text
           as="small"
           sx={{
