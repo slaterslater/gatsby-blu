@@ -44,9 +44,10 @@ const ProductCTACallout = props => {
 
   const mto = tags.includes('made-to-order')
   const usd = tags.some(tag => tag.toLowerCase() === 'usd')
-  const isSize10 = selectedVariant?.selectedOptions?.some(
-    ({ name, value }) => name.toLowerCase() === 'size' && value === '10'
-  )
+  // const isSize10 = selectedVariant?.selectedOptions?.some(
+  //   ({ name, value }) => name.toLowerCase() === 'size' && value === '10'
+  // )
+  const isSize10 = false
 
   if (!mto && !usd && !isSize10) return null
 
