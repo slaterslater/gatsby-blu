@@ -1,8 +1,7 @@
-import React, { useMemo, useEffect, createContext, useState } from 'react'
+import React, { useEffect, createContext, useState } from 'react'
 import { useMutation } from 'urql'
 import { DateTime } from 'luxon'
 import store from 'store'
-import { navigate } from '@reach/router'
 import {
   CustomerAccessTokenCreate,
   CustomerAccessTokenRenew,

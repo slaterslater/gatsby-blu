@@ -23,16 +23,14 @@ const initialValues = {
 export const NewsletterContext = createContext(initialValues)
 
 const NewsletterProvider = props => {
-  const { customerAccessToken } = useContext(AuthContext)
+  const { accessToken } = useContext(AuthContext)
   const [isSubscribed, setIsSubscribed] = useState(false)
   const [hasDismissed, setHasDismissed] = useState()
-  // temp fix to show at least once
-  const [seen, setSeen] = useState(false)
 
   const [{ data }] = useQuery({
     query: CUSTOMER_QUERY,
-    variables: { customerAccessToken },
-    pause: !!customerAccessToken,
+    variables: { customerAccessToken: accessToken },
+    // pause: !!customerAccessToken,
   })
 
   const subscribed = store.get(STORAGE_IS_SUBSCRIBED)
@@ -52,7 +50,6 @@ const NewsletterProvider = props => {
   const dismissPrompt = useCallback(() => {
     store.set(STORAGE_DISMISSED_NEWSLETTER_PROMPT, true)
     setHasDismissed(true)
-    setSeen(true)
   }, [setHasDismissed])
 
   useEffect(() => {
@@ -64,7 +61,7 @@ const NewsletterProvider = props => {
       value={{
         isSubscribed,
         subscribe,
-        shouldPrompt: !seen,
+        shouldPrompt: isSubscribed ? false : !hasDismissed,
         dismissPrompt,
       }}
       {...props}
