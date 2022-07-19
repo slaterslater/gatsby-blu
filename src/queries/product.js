@@ -141,6 +141,12 @@ export const PRODUCT_QUERY = gql`
       ) {
         value
       }
+      productColor: metafield(namespace: "my_fields", key: "product_color") {
+        value
+      }
+      colorAlternates: metafield(namespace: "my_fields", key: "color_options") {
+        value
+      }
       variants(first: 100) {
         edges {
           node {
@@ -175,6 +181,9 @@ export const ALTERNATES_QUERY = gql`
         options {
           name
           values
+        }
+        productColor: metafield(namespace: "my_fields", key: "product_color") {
+          value
         }
       }
     }

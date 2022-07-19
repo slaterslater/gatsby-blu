@@ -13,7 +13,7 @@ const ProductSizes = ({ option }) => {
   } = useContext(ProductContext)
   const [size, setSize] = useState([])
   const [baseSize, fractionSize] = size
-  const shouldDisplayFractions = baseSize && offersFractions
+  const shouldDisplayFractions = baseSize && offersFractions?.value === 'true'
 
   const updateProductSizeAttribute = async (value, fraction) => {
     if (value !== baseSize) await selectOption(name, value)
