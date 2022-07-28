@@ -89,7 +89,7 @@ export const HeroOuter = ({ children, data, align = 'right' }) => {
               as="h1"
               sx={{
                 color: 'white',
-                fontSize: [6, 7],
+                fontSize: [6, 5],
               }}
             >
               {heading}
