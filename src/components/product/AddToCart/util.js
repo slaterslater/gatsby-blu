@@ -17,7 +17,7 @@ export const getProductAttributes = ({ tags, metafields }) => {
   if (madeToOrder)
     ProductAttributes.push({
       key: 'made to order',
-      value: `this piece is a final sale\nallow 4 - 6 weeks production and delivery`,
+      value: `this piece is a final sale\nallow 6 - 8 weeks production and delivery`,
     })
   if (preorderMessage)
     ProductAttributes.push({

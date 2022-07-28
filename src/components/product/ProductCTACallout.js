@@ -54,7 +54,7 @@ const ProductCTACallout = props => {
   const description = []
   if (mto || isSize10)
     description.push(
-      `this piece is a final sale\nplease allow 4 - 6 weeks for production and delivery`
+      `this piece is a final sale\nplease allow 6 - 8 weeks for production and delivery`
     )
   if (usd) description.push('item will be charged in USD')
   return (
