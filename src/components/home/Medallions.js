@@ -1,18 +1,5 @@
 import React from 'react'
-import { Box, Flex, Image, Container } from 'theme-ui'
-import PropTypes from 'prop-types'
-
-const Medallion = ({ children }) => (
-  <Box
-    sx={{
-      width: '100%',
-      maxWidth: [75, 100, 125],
-      textAlign: 'center',
-    }}
-  >
-    <Box>{children}</Box>
-  </Box>
-)
+import { Flex, Image, Container } from 'theme-ui'
 
 const Medallions = () => (
   <Container sx={{ bg: 'bbBeige', maxWidth: '100%' }}>
@@ -20,7 +7,7 @@ const Medallions = () => (
       sx={{
         justifyContent: 'space-between',
         width: '100%',
-        maxWidth: [400, 550, 625],
+        maxWidth: [400, 580, 680],
       }}
       mx="auto"
     >
@@ -30,20 +17,15 @@ const Medallions = () => (
         'made-in-canada',
         'recycled-materials',
       ].map(src => (
-        <Medallion key={`medallion=${src}`}>
-          <Image src={`/medallions/${src}.png`} alt={`${src} Medallion`} />
-        </Medallion>
+        <Image
+          key={`medallion=${src}`}
+          src={`/medallions/${src}.png`}
+          alt={`${src} Medallion`}
+          sx={{ width: [75, 100, 125], height: [60, 85, 105] }}
+        />
       ))}
     </Flex>
   </Container>
 )
 
 export default Medallions
-
-// Medallions.propTypes = {
-//   medallions: PropTypes.arrayOf(PropTypes.object),
-// }
-
-Medallion.propTypes = {
-  children: PropTypes.object,
-}

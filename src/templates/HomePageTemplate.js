@@ -54,7 +54,7 @@ const IndexPage = ({ data }) => {
     reviews,
     zodiac,
     locations,
-  } = data.allSanityHomePage.nodes[0]
+  } = data.sanityHomePage
 
   const [collectionRowWithData, collectionSpotlightWithData] = useMemo(
     () =>
@@ -134,113 +134,111 @@ export const query = graphql`
         siteUrl
       }
     }
-    allSanityHomePage {
-      nodes {
-        headerHero {
-          heading
-          subheading
-          button {
-            text
-            path
-          }
-          image1 {
-            asset {
-              gatsbyImageData(placeholder: BLURRED)
-            }
-          }
-          image2 {
-            asset {
-              gatsbyImageData(placeholder: BLURRED)
-            }
-          }
-          imageMobile {
-            asset {
-              gatsbyImageData(placeholder: BLURRED)
-            }
-          }
-          icon {
-            asset {
-              gatsbyImageData(placeholder: BLURRED)
-            }
+    sanityHomePage {
+      headerHero {
+        heading
+        subheading
+        button {
+          text
+          path
+        }
+        image1 {
+          asset {
+            gatsbyImageData(placeholder: BLURRED)
           }
         }
-        innerHero {
-          heading
-          subheading
-          button {
-            text
-            path
-          }
-          image1 {
-            asset {
-              gatsbyImageData(placeholder: BLURRED)
-            }
-          }
-          image2 {
-            asset {
-              gatsbyImageData(placeholder: BLURRED)
-            }
-          }
-          imageMobile {
-            asset {
-              gatsbyImageData(placeholder: BLURRED)
-            }
-          }
-          icon {
-            asset {
-              gatsbyImageData(placeholder: BLURRED)
-            }
+        image2 {
+          asset {
+            gatsbyImageData(placeholder: BLURRED)
           }
         }
-        collectionRow {
-          title
-          handle
-          image {
-            asset {
-              gatsbyImageData(placeholder: BLURRED)
-            }
+        imageMobile {
+          asset {
+            gatsbyImageData(placeholder: BLURRED, width: 500)
           }
         }
-        collectionSpotlight {
-          title
-          handle
-          image {
-            asset {
-              gatsbyImageData(
-                placeholder: BLURRED
-                layout: CONSTRAINED
-                width: 700
-                aspectRatio: 1
-              )
-            }
+        icon {
+          asset {
+            gatsbyImageData(placeholder: BLURRED)
           }
         }
-        reviews {
-          author
-          content
-          score
-          productHandle
-          productTitle
+      }
+      innerHero {
+        heading
+        subheading
+        button {
+          text
+          path
         }
-        zodiac {
-          name
-          description
-          backgroundColor {
-            hex
-          }
-          image {
-            asset {
-              gatsbyImageData(placeholder: BLURRED)
-            }
+        image1 {
+          asset {
+            gatsbyImageData(placeholder: BLURRED)
           }
         }
-        locations {
-          name
-          imageOrientation
-          image {
-            asset {
-              gatsbyImageData(placeholder: BLURRED)
-            }
+        image2 {
+          asset {
+            gatsbyImageData(placeholder: BLURRED)
+          }
+        }
+        imageMobile {
+          asset {
+            gatsbyImageData(placeholder: BLURRED)
+          }
+        }
+        icon {
+          asset {
+            gatsbyImageData(placeholder: BLURRED)
+          }
+        }
+      }
+      collectionRow {
+        title
+        handle
+        image {
+          asset {
+            gatsbyImageData(placeholder: BLURRED, width: 300)
+          }
+        }
+      }
+      collectionSpotlight {
+        title
+        handle
+        image {
+          asset {
+            gatsbyImageData(
+              placeholder: BLURRED
+              layout: CONSTRAINED
+              width: 700
+              aspectRatio: 1
+            )
+          }
+        }
+      }
+      reviews {
+        author
+        content
+        score
+        productHandle
+        productTitle
+      }
+      zodiac {
+        name
+        description
+        backgroundColor {
+          hex
+        }
+        image {
+          asset {
+            gatsbyImageData(placeholder: BLURRED)
+          }
+        }
+      }
+      locations {
+        name
+        imageOrientation
+        image {
+          asset {
+            gatsbyImageData(placeholder: BLURRED)
           }
         }
       }

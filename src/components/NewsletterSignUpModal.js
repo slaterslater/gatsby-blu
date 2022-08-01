@@ -21,7 +21,7 @@ const NewsletterSignUpModal = () => {
     if (shouldPrompt) {
       setOn(true)
     }
-  }, 1000)
+  }, 8000)
 
   const handleDismiss = () => {
     dismissPrompt()

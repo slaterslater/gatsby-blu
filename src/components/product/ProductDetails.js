@@ -89,7 +89,7 @@ const ProductDetails = () => {
   return (
     <Grid sx={{ gridAutoFlow: 'row', gap: 5 }}>
       <ProductTitleAndPrice />
-      <Flex>
+      <Flex sx={{ height: 35 }}>
         <MetalOptions />
         <Box sx={{ alignSelf: 'flex-end' }} ml="auto" pr={1}>
           <SezzleInfo variantPrice={variantPrice} />
