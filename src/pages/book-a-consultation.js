@@ -68,13 +68,13 @@ const CalendlyConsultationPage = ({ data, location }) => {
         title="Book a Consultation Appointment"
         description="Let us work with you throughout your engagement ring consultation on finding your beloved by bluboho engagement ring or wedding band"
       />
-      <Box sx={{ maxHeight: 400 }}>
+      <Flex sx={{ justifyContent: 'stretch', maxHeight: 400 }}>
         <StaticImage
           src="../images/consultation/consultation-booking-header.jpg"
           alt="Book a Consultation Appointment"
           placeholder="blurred"
         />
-      </Box>
+      </Flex>
       <Container as="main" sx={{ maxWidth: 1400 }} p={0}>
         <Box py={[6, 8]} sx={{ width: '100%', textAlign: 'center' }}>
           <Heading variant="h2">book a consultation</Heading>
