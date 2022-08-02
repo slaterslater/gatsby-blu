@@ -61,7 +61,7 @@ const ContentFlex = ({ heading, children }) => (
       width: '100%',
       flexWrap: 'wrap',
       justifyContent: ['center', 'space-between'],
-      p: { maxWidth: 380, marginTop: '24px', fontSize: 1 },
+      p: { maxWidth: [380, '47%', 380], marginTop: '24px', fontSize: 1 },
     }}
     mx="auto"
     px={5}
