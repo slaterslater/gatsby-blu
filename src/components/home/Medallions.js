@@ -21,7 +21,7 @@ const Medallions = () => (
           key={`medallion=${src}`}
           src={`/medallions/${src}.png`}
           alt={`${src} Medallion`}
-          sx={{ width: [75, 100, 125], height: [60, 85, 105] }}
+          sx={{ width: [75, 100, 125], height: 'auto' }}
         />
       ))}
     </Flex>
