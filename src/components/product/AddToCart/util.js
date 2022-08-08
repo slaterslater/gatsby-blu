@@ -9,12 +9,15 @@ export const getPreorderMessage = preorder => {
   return `expected to ship week of ${preorderDate.toFormat('MMM d')}`
 }
 
-export const getProductAttributes = ({ tags, metafields }) => {
+export const getProductAttributes = ({ tags, metafields }, variant) => {
   const ProductAttributes = []
   const madeToOrder = tags.some(tag => tag.includes('made-to-order'))
+  const isSize10 = variant.selectedOptions?.some(
+    ({ name, value }) => name.toLowerCase() === 'size' && value === '10'
+  )
   const preorder = metafields.find(({ key }) => key === 'pre_order')
   const preorderMessage = getPreorderMessage(preorder)
-  if (madeToOrder)
+  if (madeToOrder || isSize10)
     ProductAttributes.push({
       key: 'made to order',
       value: `this piece is a final sale\nallow 6 - 8 weeks production and delivery`,

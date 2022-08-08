@@ -30,7 +30,7 @@ export function useCart(onAdded = () => {}) {
     const lineItems = [{ quantity, variantId: selectedVariant.shopifyId }]
     const nextAttributes = [
       ...(customAttributes || []),
-      ...getProductAttributes(product),
+      ...getProductAttributes(product, selectedVariant),
     ]
 
     if (nextAttributes.length) {
@@ -64,7 +64,7 @@ export function useCart(onAdded = () => {}) {
 
     const stackVariants = stack
       .map(stackProduct => {
-        const stackVariant = {
+        let stackVariant = {
           shopifyId: stackProduct.variants[0].shopifyId,
           availableForSale: stackProduct.variants[0].availableForSale,
           quantity: 1,
@@ -98,10 +98,17 @@ export function useCart(onAdded = () => {}) {
                 selectedOptions.some(option => option.value === value)
               )
           )
-          const { shopifyId, availableForSale } =
-            stackVariantWithSimilarOption || {}
-          stackVariant.shopifyId = shopifyId
-          stackVariant.availableForSale = availableForSale
+          const {
+            shopifyId,
+            availableForSale,
+            selectedOptions: options,
+          } = stackVariantWithSimilarOption || {}
+          stackVariant = {
+            ...stackVariant,
+            shopifyId,
+            availableForSale,
+            selectedOptions: options,
+          }
         }
 
         if (offersPairs) {
@@ -111,7 +118,6 @@ export function useCart(onAdded = () => {}) {
             )?.value === 'true'
           if (variantOffersPairs && quantity % 2 === 0)
             stackVariant.quantity = 2
-          console.log({ variantOffersPairs, stackProduct, selectedOptions })
         }
 
         return stackVariant
@@ -125,10 +131,14 @@ export function useCart(onAdded = () => {}) {
       quantity: variant.quantity,
       customAttributes: [
         ...variant.customAttributes,
-        ...getProductAttributes({
-          tags: variant.tags,
-          metafields: variant.metafields,
-        }),
+        ...getProductAttributes(
+          {
+            tags: variant.tags,
+            metafields: variant.metafields,
+          },
+          // a little smelly, but need a way to determine size for mto callout...
+          { selectedOptions: variant.selectedOptions }
+        ),
       ],
     }))
 
