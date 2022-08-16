@@ -23,7 +23,7 @@ const ProductImageGallery = () => {
     initialPage: 0,
   })
 
-  if (!media.length) return <Box />
+  if (!media.length) return <Box sx={{ minHeight: 'calc(100vw + 50px)' }} />
 
   return (
     <>
