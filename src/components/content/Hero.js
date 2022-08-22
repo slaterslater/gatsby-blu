@@ -1,5 +1,14 @@
 import React from 'react'
-import { Container, Box, Text, Heading, Button, Grid, Flex } from 'theme-ui'
+import {
+  Container,
+  Box,
+  Text,
+  Heading,
+  Button,
+  Grid,
+  Flex,
+  Divider,
+} from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
 import { GatsbyImage, withArtDirection } from 'gatsby-plugin-image'
 import useGatsbySanityImageData from '../../lib/useGatsbySanityImageData'
@@ -96,7 +105,7 @@ export const HeroOuter = ({ children, data, align = 'right' }) => {
             </Heading>
           )}
         </Box>
-        {subheading && (
+        {subheading ? (
           <Text
             as="h2"
             variant="looseSans"
@@ -105,6 +114,8 @@ export const HeroOuter = ({ children, data, align = 'right' }) => {
           >
             {subheading}
           </Text>
+        ) : (
+          <Divider sx={{ borderColor: 'transparent' }} m={0} pb={4} />
         )}
         <Button variant="sketchWhite" as={GatsbyLink} to={button.path}>
           {button.text}
