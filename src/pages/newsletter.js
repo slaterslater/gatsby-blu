@@ -28,8 +28,8 @@ const NewsletterPage = props => (
         handcrafted in toronto. ethically sourced. sign up today for the latest
         news, updates, and collection launches.
       </Text>
-      <SmsSubscribe color="primary" />
       <NewsletterSubscribe color="primary" />
+      <SmsSubscribe color="primary" />
     </Box>
   </Layout>
 )
