@@ -85,7 +85,7 @@ const Layout = ({ title, description, children }) => (
             src={`https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=${process.env.GATSBY_KLAVIYO_PUBLIC_KEY}`}
           />
         )} */}
-        {process.env.GATSBY_ADROLL_ADV_ID && process.env.GATSBY_ADROLL_PIX_ID && (
+        {/* {process.env.GATSBY_ADROLL_ADV_ID && process.env.GATSBY_ADROLL_PIX_ID && (
           <script type="text/javascript">
             {`
               adroll_adv_id = "${process.env.GATSBY_ADROLL_ADV_ID}";
@@ -113,7 +113,7 @@ const Layout = ({ title, description, children }) => (
               adroll.track("pageView");
               `}
           </script>
-        )}
+        )} */}
         <noscript>
           {`
             <img
@@ -126,14 +126,14 @@ const Layout = ({ title, description, children }) => (
 
             `}
         </noscript>
-        {process.env.NODE_ENV === 'production' && (
+        {/* {process.env.NODE_ENV === 'production' && (
           <script type="text/javascript">
             {`
             TripleHeadless = "${process.env.GATSBY_SHOPIFY_SHOP_NAME}";
             ~function(W,H,A,L,E,_){function O(T,R){void 0===R&&(R=!1),H=new XMLHttpRequest,H.open("GET","//triplewhale-pixel.web.app/triplepx.txt?"+~(Date.now()/9e7),!0),H.send(null),H.onreadystatechange=function(){4===H.readyState&&200===H.status?setTimeout(function(){return eval(H.responseText)},50):(299<H.status||H.status<200)&&T&&!R&&(R=!0,O(T-1))}}if(L=window,!L[H+"sn"]){L[H+"sn"]=1;try{A.setItem(H,1+(0|A.getItem(H)||0)),W.includes("⇈")&&A.setItem(H+"Stg",1+(0|A.getItem(H+"Stg")||0)),(E=JSON.parse(A.getItem(H+"U")||"[]")).push(location.href),A.setItem(H+"U",JSON.stringify(E))}catch(e){}A.getItem('"!nC\`')||(A=L,A[H]||(L=function(){return Date.now().toString(36)+"_"+Math.random().toString(36)},E=A[H]=function(t,e){return W=L(),(E._q=E._q||[]).push([W,t,e]),E._headless=!0,W},E.ch=W,O(5)))}}("","TriplePixel",localStorage);
           `}
           </script>
-        )}
+        )} */}
       </SEO>
       <Flex
         sx={{
