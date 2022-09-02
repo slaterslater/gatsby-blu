@@ -59,7 +59,7 @@ const SpecialOffersPage = () => (
     <Header height={400}>
       <StaticImage
         className="headerFull"
-        src="../images/special-offer/header.jpg"
+        src="../images/special-offer/header-full.jpg"
         alt=""
         placeholder="blurred"
         cropFocus="NORTH"
