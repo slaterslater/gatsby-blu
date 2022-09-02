@@ -13,7 +13,6 @@ import '@reach/menu-button/styles.css'
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useStaticQuery, graphql } from 'gatsby'
 import { Flex } from 'theme-ui'
 import Announcements from './Announcements'
 
@@ -22,7 +21,7 @@ import Footer from './footer'
 import Drawers from './drawers'
 import SEO from './seo'
 import RecentlyViewedProductsProvider from '../contexts/RecentlyViewedProductsContext'
-import NewsletterSignUpPrompt from './NewsletterSignUpPrompt'
+// import NewsletterSignUpPrompt from './NewsletterSignUpPrompt'
 import TidioLink from './TidioLink'
 
 const orgLdJSON = `
@@ -77,43 +76,17 @@ const Layout = ({ title, description, children }) => (
             `}
           </script>
         )}
-        {/* uncomment to inject klaviyo popout forms */}
-        {/* {process.env.GATSBY_KLAVIYO_PUBLIC_KEY && (
-          <script
-            type="application/javascript"
-            async
-            src={`https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=${process.env.GATSBY_KLAVIYO_PUBLIC_KEY}`}
-          />
-        )} */}
-        {/* {process.env.GATSBY_ADROLL_ADV_ID && process.env.GATSBY_ADROLL_PIX_ID && (
+        {process.env.GATSBY_TIKTOK_PIXEL_ID && (
           <script type="text/javascript">
             {`
-              adroll_adv_id = "${process.env.GATSBY_ADROLL_ADV_ID}";
-              adroll_pix_id = "${process.env.GATSBY_ADROLL_PIX_ID}";
-              adroll_version = "2.0";
-              (function(w, d, e, o, a) {
-                w.__adroll_loaded = true;
-                w.adroll = w.adroll || [];
-                w.adroll.f = [ 'setProperties', 'identify', 'track' ];
-                var roundtripUrl = "https://s.adroll.com/j/" + adroll_adv_id
-                    + "/roundtrip.js";
-                for (a = 0; a < w.adroll.f.length; a++) {
-                  w.adroll[w.adroll.f[a]] = w.adroll[w.adroll.f[a]] || (function(n) {
-                    return function() {
-                      w.adroll.push([ n, arguments ])
-                    }
-                  })(w.adroll.f[a])
-                }
-                e = d.createElement('script');
-                o = d.getElementsByTagName('script')[0];
-                e.async = 1;
-                e.src = roundtripUrl;
-                o.parentNode.insertBefore(e, o);
-              })(window, document);
-              adroll.track("pageView");
-              `}
+              !function (w, d, t) {
+                w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var o=document.createElement("script");o.type="text/javascript",o.async=!0,o.src=i+"?sdkid="+e+"&lib="+t;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};
+                ttq.load(${process.env.GATSBY_TIKTOK_PIXEL_ID});
+                ttq.page();
+              }(window, document, 'ttq');
+            `}
           </script>
-        )} */}
+        )}
         <noscript>
           {`
             <img
@@ -126,14 +99,6 @@ const Layout = ({ title, description, children }) => (
 
             `}
         </noscript>
-        {/* {process.env.NODE_ENV === 'production' && (
-          <script type="text/javascript">
-            {`
-            TripleHeadless = "${process.env.GATSBY_SHOPIFY_SHOP_NAME}";
-            ~function(W,H,A,L,E,_){function O(T,R){void 0===R&&(R=!1),H=new XMLHttpRequest,H.open("GET","//triplewhale-pixel.web.app/triplepx.txt?"+~(Date.now()/9e7),!0),H.send(null),H.onreadystatechange=function(){4===H.readyState&&200===H.status?setTimeout(function(){return eval(H.responseText)},50):(299<H.status||H.status<200)&&T&&!R&&(R=!0,O(T-1))}}if(L=window,!L[H+"sn"]){L[H+"sn"]=1;try{A.setItem(H,1+(0|A.getItem(H)||0)),W.includes("⇈")&&A.setItem(H+"Stg",1+(0|A.getItem(H+"Stg")||0)),(E=JSON.parse(A.getItem(H+"U")||"[]")).push(location.href),A.setItem(H+"U",JSON.stringify(E))}catch(e){}A.getItem('"!nC\`')||(A=L,A[H]||(L=function(){return Date.now().toString(36)+"_"+Math.random().toString(36)},E=A[H]=function(t,e){return W=L(),(E._q=E._q||[]).push([W,t,e]),E._headless=!0,W},E.ch=W,O(5)))}}("","TriplePixel",localStorage);
-          `}
-          </script>
-        )} */}
       </SEO>
       <Flex
         sx={{
