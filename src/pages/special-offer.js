@@ -62,7 +62,7 @@ const SpecialOffersPage = () => (
         src="../images/special-offer/header-full.jpg"
         alt=""
         placeholder="blurred"
-        cropFocus="NORTH"
+        cropfocus="NORTH"
         style={{ flex: 1 }}
       />
       <StaticImage
@@ -70,7 +70,6 @@ const SpecialOffersPage = () => (
         src="../images/special-offer/header-mobile.jpg"
         alt=""
         placeholder="blurred"
-        cropFocus="NORTH"
         style={{ flex: 1 }}
       />
     </Header>
