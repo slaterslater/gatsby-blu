@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Flex, Heading, Text } from 'theme-ui'
 
-const StoreHours = ({ daysOpen }) => (
+const StoreHours = ({ daysOpen, isTempClosed }) => (
   <Flex
     sx={{
       flexDirection: 'column',
@@ -51,7 +51,9 @@ const StoreHours = ({ daysOpen }) => (
           <Text key={name} as="li">
             {name}
             <span>
-              {isClosed ? 'closed' : `${time(open)} - ${time(close)}`}
+              {isClosed || isTempClosed
+                ? 'closed'
+                : `${time(open)} - ${time(close)}`}
             </span>
           </Text>
         )

@@ -2,14 +2,25 @@ import { graphql } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import React, { useRef } from 'react'
 import { Box, Container, Divider, Flex, Grid, Heading, Text } from 'theme-ui'
+import { DateTime } from 'luxon'
 import ImageSwiper from '../components/ImageSwiper'
 import Layout from '../components/layout'
 import ContactOptions from '../components/location/ContactOptions'
 import StoreHours from '../components/location/StoreHours'
 
 const LocationPageTemplate = ({ data }) => {
-  const { name, description, text, daysOpen, map, storeImage, galleryImages } =
-    data.sanityLocation
+  const {
+    name,
+    description,
+    text,
+    daysOpen,
+    map,
+    storeImage,
+    galleryImages,
+    isTempClosed,
+    openingDate,
+  } = data.sanityLocation
+  const storeWillOpen = DateTime.fromISO(openingDate).toFormat('LLLL yyyy')
 
   const mapRef = useRef(null)
   const [mapSrc] = map.match(/https:\/\/.[^"]+/)
@@ -40,6 +51,22 @@ const LocationPageTemplate = ({ data }) => {
           alignItems: 'center',
         }}
       >
+        {isTempClosed && (
+          <Box
+            sx={{
+              textAlign: 'center',
+              h4: { fontSize: 1, fontWeight: 'bold' },
+            }}
+            mb={4}
+          >
+            <Heading as="h4" variant="caps" pb={2}>
+              temporarily closed
+            </Heading>
+            <Text as="p" variant="caps">
+              will open {storeWillOpen}
+            </Text>
+          </Box>
+        )}
         <Grid
           sx={{
             width: '100%',
@@ -61,7 +88,7 @@ const LocationPageTemplate = ({ data }) => {
             <GatsbyImage image={storeImage.asset.gatsbyImageData} alt={name} />
           </Box>
           <ContactOptions location={data.sanityLocation} mapRef={mapRef} />
-          <StoreHours daysOpen={daysOpen} />
+          <StoreHours daysOpen={daysOpen} isTempClosed={isTempClosed} />
         </Grid>
         {!!galleryImages.length && (
           <ImageSwiper images={galleryImages} delay={5000} />
@@ -166,6 +193,8 @@ export const query = graphql`
       description
       text
       map
+      isTempClosed
+      openingDate
       daysOpen {
         name
         isClosed
