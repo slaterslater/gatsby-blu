@@ -132,13 +132,16 @@ module.exports = {
     },
     `gatsby-plugin-emotion`,
     {
-      resolve: `gatsby-plugin-google-fonts`,
+      resolve: `gatsby-plugin-google-fonts-with-attributes`,
       options: {
         fonts: [
           `Sorts Mill Goudy`,
           `Montserrat\:300,400,500,600`, // you can also specify font weights and styles
         ],
         display: 'swap',
+        attributes: {
+          rel: 'stylesheet preload prefetch',
+        },
       },
     },
     {
