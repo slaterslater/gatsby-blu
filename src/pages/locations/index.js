@@ -171,6 +171,7 @@ export const query = graphql`
         }
         isTempClosed
         openingDate
+        closeMessage
         storeImage {
           asset {
             gatsbyImageData(placeholder: BLURRED, fit: FILLMAX, width: 220)

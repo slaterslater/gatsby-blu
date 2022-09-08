@@ -7,10 +7,17 @@ import ContactOptions from './ContactOptions'
 import StoreHours from './StoreHours'
 
 const PermanentStore = ({ location }) => {
-  const { name, slug, daysOpen, storeImage, isTempClosed } = location
-  const storeWillOpen = DateTime.fromISO(location.openingDate).toFormat(
-    'LLLL yyyy'
-  )
+  const {
+    name,
+    slug,
+    daysOpen,
+    storeImage,
+    isTempClosed,
+    openingDate,
+    closeMessage,
+  } = location
+  const storeWillOpen = DateTime.fromISO(openingDate).toFormat('LLLL yyyy')
+
   return (
     <>
       <Link
@@ -26,7 +33,7 @@ const PermanentStore = ({ location }) => {
           mb={4}
         >
           <Heading as="h4" variant="caps" pb={2}>
-            temporarily closed
+            {closeMessage}
           </Heading>
           <Text as="p" variant="caps">
             will open {storeWillOpen}

@@ -19,9 +19,9 @@ const LocationPageTemplate = ({ data }) => {
     galleryImages,
     isTempClosed,
     openingDate,
+    closeMessage,
   } = data.sanityLocation
   const storeWillOpen = DateTime.fromISO(openingDate).toFormat('LLLL yyyy')
-
   const mapRef = useRef(null)
   const [mapSrc] = map.match(/https:\/\/.[^"]+/)
   const descRegExp = /\s*\+\s*/g
@@ -60,7 +60,7 @@ const LocationPageTemplate = ({ data }) => {
             mb={4}
           >
             <Heading as="h4" variant="caps" pb={2}>
-              temporarily closed
+              {closeMessage}
             </Heading>
             <Text as="p" variant="caps">
               will open {storeWillOpen}
@@ -195,6 +195,7 @@ export const query = graphql`
       map
       isTempClosed
       openingDate
+      closeMessage
       daysOpen {
         name
         isClosed
