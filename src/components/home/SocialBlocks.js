@@ -84,7 +84,7 @@ const SocialBlocks = () => {
                 height: 75,
                 position: 'absolute',
                 backgroundColor: 'bbBeige',
-                backgroundImage: `url('/socials/bg${socialIndex + 1}.png')`,
+                backgroundImage: `url('/socials/bg${socialIndex + 1}.webp')`,
                 backgroundSize: '100% auto',
                 justifyContent: 'center',
                 alignItems: 'center',
