@@ -25,7 +25,7 @@ const PermanentStore = ({ location }) => {
         to={`/locations/${slug.current}`}
         sx={{ width: '100%', textAlign: 'center', display: 'block' }}
       >
-        <Heading as="h3" variant="h2" my={6}>{`${name} jewlery store`}</Heading>
+        <Heading as="h3" variant="h2" my={6}>{`${name} jewelry store`}</Heading>
       </Link>
       {isTempClosed && (
         <Box
