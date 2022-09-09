@@ -3,15 +3,8 @@ import { Flex } from 'theme-ui'
 import ThemeLink from '../app/ThemeLink'
 import MetalOptionSwatch from '../MetalOptionSwatch'
 import { ProductContext } from './ProductContext'
-
-const metals = ['yellow gold', 'rose gold', 'white gold', 'sterling silver']
-
-const getMetalColor = (options = []) => {
-  const color = options
-    .find(({ name }) => name?.toLowerCase() === 'metal')
-    ?.values[0].toLowerCase()
-  return metals.includes(color) ? color : null
-}
+import { metals } from '../../data/metals'
+import { useProductMetalColor } from '../../hooks/product'
 
 const MetalOption = ({ title, handle, metal, isCurrent, ...props }) => {
   if (!metal) return false
@@ -28,7 +21,7 @@ const MetalOption = ({ title, handle, metal, isCurrent, ...props }) => {
 
 const MetalOptions = () => {
   const { product, alternates } = useContext(ProductContext)
-  const productMetalColor = getMetalColor(product.options)
+  const productMetalColor = useProductMetalColor(product.options)
   const [title, setTitle] = useState(productMetalColor)
 
   const colors = useMemo(() => {
@@ -40,7 +33,7 @@ const MetalOptions = () => {
           return alternate !== null && alternate.id !== prodId
         })
         .map(alternate => ({
-          metal: getMetalColor(alternate.options),
+          metal: useProductMetalColor(alternate.options),
           isCurrent: false,
           handle: alternate.handle,
         }))
