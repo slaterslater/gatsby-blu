@@ -44,6 +44,7 @@ const SocialBlocks = () => {
       <Box sx={{ display: ['flex', 'none'], color: 'white' }}>
         <IconButton
           type="button"
+          aria-label="previous social link"
           onClick={() => paginate(-1)}
           p={1}
           ml={6}
@@ -98,6 +99,7 @@ const SocialBlocks = () => {
         </AnimatePresence>
         <IconButton
           type="button"
+          aria-label="next social link"
           onClick={() => paginate(1)}
           p={1}
           sx={{ outline: 'none', zIndex: 2, height: 75 }}

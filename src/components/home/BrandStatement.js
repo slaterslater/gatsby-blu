@@ -14,7 +14,7 @@ const BrandStatement = props => (
         }}
         py={6}
       >
-        <Heading as="h3" variant="h1" pb={2}>
+        <Heading as="h2" variant="h1" pb={2}>
           Conviction &amp; Purpose
         </Heading>
         <Text as="p" sx={{ maxWidth: 360 }} pb={4} mx="auto">

@@ -96,6 +96,7 @@ export const NewsletterSignUp = ({
           <EmailField color={color} disabled={working} />
           <IconButton
             type="submit"
+            aria-label="submit"
             ml="auto"
             sx={{
               cursor: 'pointer',

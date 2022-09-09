@@ -35,6 +35,7 @@ const TidioLink = () => {
   return (
     <Flex
       role="button"
+      aria-label="open chat window"
       aria-pressed={isOpen}
       onClick={() => setOpen(prev => !prev)}
       disabled={isAvailable}
