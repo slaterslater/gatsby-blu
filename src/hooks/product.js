@@ -7,6 +7,7 @@ import { useAnalytics } from '../lib/useAnalytics'
 import { CurrencyContext } from '../contexts/CurrencyContext'
 import { ProductContext } from '../components/product/ProductContext'
 import { useMetafieldValue } from './useMetafield'
+import { metals } from '../data/metals'
 
 export const getProduct = product => ({
   ...product,
@@ -157,4 +158,11 @@ export const useProductGalleryMedia = () => {
       __typename: 'Image',
     },
   ]
+}
+
+export const useProductMetalColor = (options = []) => {
+  const color = options
+    .find(({ name }) => name?.toLowerCase() === 'metal')
+    ?.values[0].toLowerCase()
+  return metals.includes(color) ? color : null
 }
