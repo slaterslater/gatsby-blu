@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { Flex, Text, Button } from 'theme-ui'
-import { useCart } from '../../hooks/cart'
+// import { useCart } from '../../hooks/cart'
 import { DrawerContext } from '../drawers'
 import { ProductContext } from './ProductContext'
 
 const ProductAvailabilityButton = () => {
-  const { buttonText } = useCart()
-  const [viewed, setViewed] = useState(false)
+  // const { buttonText } = useCart()
+  // const [viewed, setViewed] = useState(false)
   const {
     product: { handle },
   } = useContext(ProductContext)
@@ -18,11 +18,11 @@ const ProductAvailabilityButton = () => {
     setProductHandle(handle)
   }, [handle, setProductHandle])
 
-  useEffect(() => {
-    if (viewed || buttonText !== 'Sold Out') return
-    setOpenDrawer('availablity')
-    setViewed(true)
-  }, [buttonText, viewed, setOpenDrawer])
+  // useEffect(() => {
+  //   if (viewed || buttonText !== 'Sold Out') return
+  //   setOpenDrawer('availablity')
+  //   setViewed(true)
+  // }, [buttonText, viewed, setOpenDrawer])
 
   return (
     <Flex sx={{ gap: 3, alignItems: 'baseline' }} pb={4}>
@@ -41,7 +41,7 @@ const ProductAvailabilityButton = () => {
         type="button"
         onClick={() => {
           setOpenDrawer('availablity')
-          setViewed(true)
+          // setViewed(true)
         }}
         variant="link"
         disabled={!!openDrawer}
