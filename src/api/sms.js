@@ -47,49 +47,79 @@ export default async function (req, res) {
     query: `phone:${phone}`,
   })
 
-  const message = `${phone} accepts marketing`
   const [customer] = customersData.customers.nodes
-  const smsMarketingConsent = {
-    marketingState: 'SUBSCRIBED',
-    marketingOptInLevel: 'SINGLE_OPT_IN',
-    consentUpdatedAt: new Date().toISOString(),
-  }
 
-  // // user already exists
   if (customer) {
-    //   // if exists and has marketing return 200
     const {
       id,
       smsMarketingConsent: { marketingState },
     } = customer
-
-    if (marketingState === 'SUBSCRIBED') {
-      return res.status(200).json({ message })
+    const smsMarketingConsent = {
+      marketingState: 'SUBSCRIBED',
+      marketingOptInLevel: 'SINGLE_OPT_IN',
+      consentUpdatedAt: new Date().toISOString(),
     }
-    //   // if exists update marketing and return 201
-    try {
-      await graphQLClient.request(CustomerUpdate, {
-        input: {
-          customerId: id,
-          smsMarketingConsent,
-        },
-      })
-    } catch (e) {
-      return { statusCode: 400, body: JSON.stringify({ message: e.message }) }
-    }
+    // const message = `${phone} accepts marketing`
 
-    return res.status(201).json({ message })
+    // if (marketingState === 'SUBSCRIBED') {
+    // return res.status(200).json({ message })
+    // }
+    if (marketingState !== 'SUBSCRIBED') {
+      try {
+        await graphQLClient.request(CustomerUpdate, {
+          input: {
+            customerId: id,
+            smsMarketingConsent,
+          },
+        })
+      } catch (e) {
+        return res.status(400).json({
+          message: `error updating ${phone} in Shopify \n ${e.message}`,
+        })
+      }
+    }
+    // return res.status(201).json({ message })
   }
 
   try {
-    // add profile to klaviyo list
-    const API_KEY = process.env.GATSBY_KLAVIYO_API_KEY
-    const LIST_ID = 'RSCLYt'
-    const url = `https://a.klaviyo.com/api/v2/list/${LIST_ID}/subscribe?api_key=${API_KEY}`
-    const profiles = [{ phone_number: phone, sms_consent: true }]
-    await axios.post(url, { profiles })
-    return res.status(201).json({ message: 'profile added to klaviyo' })
+    // add subscriber to yotpo list
+    const storeId = process.env.YOTPO_APP_KEY
+    const secret = process.env.YOTPO_APP_SECRET
+
+    const subscriber = {
+      phone,
+      list_id: 4096107,
+      source: 'bluboho.com',
+    }
+    const headers = {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    }
+
+    // uToken expires every 14 days...
+    // https://core-api.yotpo.com/reference/yotpo-authentication
+
+    const tokenRequest = await axios.post(
+      `https://api.yotpo.com/core/v3/stores/${storeId}/access_tokens`,
+      { secret },
+      { headers }
+    )
+
+    await axios.post(
+      `https://api.yotpo.com/messaging/v3/stores/${storeId}/subscribers`,
+      { subscriber },
+      {
+        headers: {
+          'X-Yotpo-Token': tokenRequest.data.access_token,
+          ...headers,
+        },
+      }
+    )
+
+    return res.status(201).json({ message: `${phone} added to yotpo` })
   } catch (e) {
-    return { statusCode: 400, body: JSON.stringify({ message: e.message }) }
+    return res.status(400).json({
+      message: `error updating ${phone} in yotpo \n ${e.message}`,
+    })
   }
 }
