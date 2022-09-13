@@ -12,6 +12,7 @@ import { useStaticQuery, graphql } from 'gatsby'
 import { isEmpty } from 'lodash'
 import { escapeDoubleQuoteString } from '../lib/escapeDoubleQuoteStrings'
 import { useShopifyImage } from '../hooks/shopifyImage'
+import { orgLdJSON } from '../data/orgData'
 
 const useGatsbyImageMeta = (gatsbyImageData = {}, altText = '') => {
   const { src } = gatsbyImageData.images?.fallback || {}
@@ -126,6 +127,7 @@ function SEO({
         ...meta,
       ]}
     >
+      <script type="application/ld+json">{orgLdJSON}</script>
       {children}
     </Helmet>
   )

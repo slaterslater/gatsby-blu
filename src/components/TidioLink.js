@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { IoChatboxEllipsesSharp } from 'react-icons/io5'
-import { Flex, Box } from 'theme-ui'
+import { Box } from 'theme-ui'
 
 const TidioLink = () => {
   const [isAvailable, setAvailable] = useState(false)
@@ -24,22 +24,24 @@ const TidioLink = () => {
   }, [])
 
   useEffect(() => {
+    if (!isAvailable) return
     if (isOpen) {
       window.tidioChatApi.show()
       window.tidioChatApi.open()
     } else {
       window.tidioChatApi?.close()
     }
-  }, [isOpen])
+  }, [isAvailable, isOpen])
 
   return (
-    <Flex
+    <Box
       role="button"
       aria-label="open chat window"
       aria-pressed={isOpen}
       onClick={() => setOpen(prev => !prev)}
       disabled={isAvailable}
       sx={{
+        display: isAvailable ? 'flex' : 'none',
         cursor: 'pointer',
         alignItems: 'center',
         justifyContent: 'center',
@@ -54,8 +56,8 @@ const TidioLink = () => {
         color: '#fff',
       }}
     >
-      <Box as={IoChatboxEllipsesSharp} size={24} />
-    </Flex>
+      <IoChatboxEllipsesSharp size={24} />
+    </Box>
   )
 }
 
