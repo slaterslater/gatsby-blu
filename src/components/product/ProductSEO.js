@@ -53,6 +53,7 @@ const ProductSEO = ({ product, isHidden }) => {
       shopifyImage={product.images[0]}
       meta={isHidden ? noIndex : []}
     >
+      <link rel="canonical" href={productUrl} />
       <script type="application/ld+json">{productLdJSON}</script>
     </SEO>
   )
