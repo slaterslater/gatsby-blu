@@ -3,6 +3,7 @@ import { useLocation } from '@reach/router'
 import { Container, Grid, Box } from 'theme-ui'
 import { parse } from 'qs'
 import { GatsbyImage } from 'gatsby-plugin-image'
+import { graphql, useStaticQuery } from 'gatsby'
 import Layout from '../components/layout'
 import CollectionProductGroup from '../components/CollectionProductGroup'
 import { sortProducts } from '../components/collection/CollectionProductGrid'
@@ -120,6 +121,20 @@ const CollectionGroupsView = ({
   seoGatsbyImage,
   headerImage,
 }) => {
+  const {
+    site: {
+      siteMetadata: { siteUrl },
+    },
+  } = useStaticQuery(graphql`
+    {
+      site {
+        siteMetadata {
+          siteUrl
+        }
+      }
+    }
+  `)
+
   const location = useLocation()
   const currentParams = parse(location.search.replace('?', ''))
 
@@ -136,7 +151,9 @@ const CollectionGroupsView = ({
         title={pageTitle}
         description={pageDescription}
         gatsbyImage={seoGatsbyImage}
-      />
+      >
+        <link rel="canonical" href={`${siteUrl}${pagePath}`} />
+      </SEO>
       <CollectionPageHeader
         title={pageTitle}
         // description={pageDescription}

@@ -67,6 +67,7 @@ const CollectionPage = ({
   return (
     <Layout>
       <SEO title={title} description={description} shopifyImage={image}>
+        <link rel="canonical" href={collectionUrl} />
         <script type="application/ld+json">{collectionLdJSON}</script>
       </SEO>
       <CollectionPageHeader
