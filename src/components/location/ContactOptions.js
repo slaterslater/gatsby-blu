@@ -23,7 +23,7 @@ const ContactOptions = ({ location, mapRef = null }) => {
         </Heading>
         <Link
           as={isPopup ? Text : GatsbyLink}
-          to={`${slug?.current}#map` || '.'}
+          to={slug ? `${slug.current}#map` : '.'}
           onClick={e => {
             if (!mapRef) return
             e.preventDefault()
