@@ -76,7 +76,7 @@ const Layout = ({ title, description, children }) => (
             `}
           </script>
         )}
-        {/* {process.env.GATSBY_TIKTOK_PIXEL_ID && (
+        {process.env.GATSBY_TIKTOK_PIXEL_ID && (
           <script type="text/javascript">
             {`
               !function (w, d, t) {
@@ -86,7 +86,7 @@ const Layout = ({ title, description, children }) => (
               }(window, document, 'ttq');
             `}
           </script>
-        )} */}
+        )}
         <noscript>
           {`
             <img
