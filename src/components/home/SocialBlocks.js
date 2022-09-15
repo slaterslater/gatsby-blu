@@ -120,7 +120,7 @@ const SocialBlocks = () => {
               alignItems: 'center',
               height: '100%',
               backgroundColor: 'bbBeige',
-              backgroundImage: `url('/socials/bg${i + 1}.png')`,
+              backgroundImage: `url('/socials/bg${i + 1}.webp')`,
               backgroundSize: 'cover',
               color: 'white',
             }}

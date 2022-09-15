@@ -14,22 +14,22 @@ const Medallions = () => (
       mx="auto"
     >
       <StaticImage
-        src="../../images/home/medallions/ethically-sourced.webp"
+        src="../../images/medallions/ethically-sourced.webp"
         alt=""
         placeholder="blurred"
       />
       <StaticImage
-        src="../../images/home/medallions/hand-crafted.webp"
+        src="../../images/medallions/hand-crafted.webp"
         alt=""
         placeholder="blurred"
       />
       <StaticImage
-        src="../../images/home/medallions/made-in-canada.webp"
+        src="../../images/medallions/made-in-canada.webp"
         alt=""
         placeholder="blurred"
       />
       <StaticImage
-        src="../../images/home/medallions/recycled-materials.webp"
+        src="../../images/medallions/recycled-materials.webp"
         alt=""
         placeholder="blurred"
       />
