@@ -1,6 +1,6 @@
 import { GatsbyImage } from 'gatsby-plugin-image'
 import React, { useContext, useMemo } from 'react'
-import { Button, Flex, Grid } from 'theme-ui'
+import { Button, Flex, Box } from 'theme-ui'
 import { useCart } from '../../hooks/cart'
 import { useShopifyImage } from '../../hooks/shopifyImage'
 import { ProductContext } from './ProductContext'
@@ -8,7 +8,11 @@ import { ProductContext } from './ProductContext'
 const ThumbnailImage = ({ image, alt = '' }) => {
   const imageData = useShopifyImage({ image, width: 80 })
 
-  return <GatsbyImage image={imageData} alt={alt} />
+  return (
+    <Box mx={2}>
+      <GatsbyImage image={imageData} alt={alt} />
+    </Box>
+  )
 }
 
 const AddStackButton = () => {
@@ -60,15 +64,9 @@ const AddStackButton = () => {
         }}
         mt={1}
       >
-        <Grid
-          sx={{
-            gridTemplateColumns: 'repeat(3, 80px)',
-          }}
-        >
-          {stackImages?.map(({ image, alt }, i) => (
-            <ThumbnailImage image={image} alt={alt} key={`stack-thumb-${i}`} />
-          ))}
-        </Grid>
+        {stackImages?.map(({ image, alt }, i) => (
+          <ThumbnailImage image={image} alt={alt} key={`stack-thumb-${i}`} />
+        ))}
       </Flex>
     </>
   )
