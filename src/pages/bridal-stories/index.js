@@ -1,28 +1,70 @@
-import { graphql, Link } from 'gatsby'
+import { graphql, Link as GatsbyLink } from 'gatsby'
 import { GatsbyImage, StaticImage } from 'gatsby-plugin-image'
-import React, { useMemo } from 'react'
+import React from 'react'
 import { Box, Flex, Heading, Text, Button } from 'theme-ui'
 import Layout from '../../components/layout'
 import StoriesHeader from '../../components/StoriesHeader'
 
+const WhoWearsWhat = ({ people }) => (
+  <Text as="p" variant="copy" mt={6} mb={4}>
+    {people
+      .filter(({ wearing }) => wearing)
+      .map((person, i) => {
+        const { name, wearing, shopLink } = person
+        return (
+          <>
+            {i !== 0 ? <span> and </span> : null}
+            <span>{name} is wearing the </span>
+            {shopLink ? (
+              <Box
+                as={GatsbyLink}
+                to={shopLink}
+                sx={{
+                  color: 'primary',
+                  fontWeight: 'bold',
+                  textDecoration: 'none',
+                  ':hover': { textDecoration: 'underline' },
+                }}
+              >
+                {wearing}
+              </Box>
+            ) : (
+              <Text> {wearing}</Text>
+            )}
+          </>
+        )
+      })}
+  </Text>
+)
+
+const Socials = ({ people }) => (
+  <Box
+    as="ul"
+    sx={{ padding: 0, listStyle: 'none', wordBreak: 'break-all' }}
+    mt={3}
+  >
+    {people
+      .filter(({ social }) => social)
+      .map(({ social }, i) => (
+        <Text
+          as="li"
+          key={social}
+          sx={{
+            fontWeight: 'bold',
+            display: 'inline',
+            wordBreak: i === 0 ? 'break-all' : 'break-word',
+          }}
+          pr={i === 0 ? 5 : 0}
+        >
+          {social}
+        </Text>
+      ))}
+  </Box>
+)
+
 const Story = ({ details, index }) => {
   const { title, quote, people, image, overlay } = details
   const flexStagger = index % 2 ? 'row-reverse' : 'row'
-
-  const { names, socials, comment } = useMemo(() => {
-    const allNames = people.map(({ name }) => name).join(' & ')
-    const allSocials = people.filter(({ social }) => social)
-    const whoIsWearingWhat = people
-      .filter(({ wearing }) => wearing)
-      .map(({ name, wearing }) => `${name} is wearing ${wearing}`)
-      .join(' and ')
-    return {
-      names: allNames,
-      socials: allSocials,
-      comment: whoIsWearingWhat,
-    }
-  }, [people])
-
   const consultation = [
     { to: '/book-a-consultation', text: 'book an engagement consultation' },
     { to: './share-the-love/', text: 'share your love story' },
@@ -40,7 +82,7 @@ const Story = ({ details, index }) => {
           }}
         >
           <Button
-            as={Link}
+            as={GatsbyLink}
             variant="outline"
             sx={{ textAlign: 'center', fontSize: 1 }}
             to={consultation[index % 2].to}
@@ -102,32 +144,12 @@ const Story = ({ details, index }) => {
           </Text>
           <Box as="ul" sx={{ padding: 0 }} ml={3}>
             <Text as="li" variant="caps" sx={{ fontSize: 1 }} pl={2}>
-              {names}
+              {/* {names} */}
+              {people.map(({ name }) => name).join(' & ')}
             </Text>
           </Box>
-          <Box
-            as="ul"
-            sx={{ padding: 0, listStyle: 'none', wordBreak: 'break-all' }}
-            mt={3}
-          >
-            {socials.map(({ social }, i) => (
-              <Text
-                as="li"
-                key={`${social}-${names}-${i}`}
-                sx={{
-                  fontWeight: 'bold',
-                  display: 'inline',
-                  wordBreak: i === 0 ? 'break-all' : 'break-word',
-                }}
-                pr={i + 1 === socials.length ? 0 : 5}
-              >
-                {social}
-              </Text>
-            ))}
-          </Box>
-          <Text as="p" variant="copy" mt={6} mb={4}>
-            {comment}
-          </Text>
+          <Socials people={people} />
+          <WhoWearsWhat people={people} />
         </Box>
       </Flex>
     </>
@@ -174,6 +196,7 @@ export const query = graphql`
           name
           social
           wearing
+          shopLink
         }
         image {
           asset {
