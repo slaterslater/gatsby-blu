@@ -16,7 +16,7 @@ export const CollapsibleFooterSection = ({ title, sx, children, ...props }) => {
       >
         <Heading
           variant="caps"
-          as="h3"
+          as="h2"
           sx={{ color: 'white', whiteSpace: 'nowrap' }}
           pb={5}
         >

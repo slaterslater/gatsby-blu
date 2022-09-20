@@ -37,6 +37,7 @@ const WishlistButton = () => {
   return (
     <IconButton
       type="button"
+      aria-label={`${isHeartFull ? 'remove from' : 'add to'} wishlist`}
       onClick={handleClick}
       disabled={loading}
       mt="auto"

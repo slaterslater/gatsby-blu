@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { useQuery } from 'urql'
-import { Box, NavLink, Flex, Grid, Container, Heading } from 'theme-ui'
+import { Box, NavLink, Flex, Grid, Container, Heading, Button } from 'theme-ui'
 import { useMatch } from '@reach/router'
 import { RecentlyViewedProductsContext } from '../../contexts/RecentlyViewedProductsContext'
 import { CurrencyContext } from '../../contexts/CurrencyContext'
@@ -70,17 +70,23 @@ const useStackHandlesAndIds = () => {
 }
 
 const NavTab = ({ isCurrent, ...props }) => (
-  <Heading
-    as={NavLink}
+  <Button
+    variant="caps"
     pb={1}
     sx={{
       fontWeight: 400,
       borderBottom: '1px solid',
       borderColor: isCurrent ? 'black' : 'transparent',
       textTransform: 'uppercase',
+      fontFamily: 'heading',
+      backgroundColor: 'transparent',
+      color: 'primary',
       fontSize: 4,
+      borderRadius: 0,
       letterSpacing: 'widest',
       textAlign: 'center',
+      padding: 0,
+      cursor: 'pointer',
     }}
     {...props}
   />

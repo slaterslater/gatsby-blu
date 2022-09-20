@@ -91,6 +91,7 @@ const MobileGallery = ({ media, hasDots = true, onImageClick }) => {
       <Flex pt={2} sx={{ justifyContent: 'center', alignItems: 'center' }}>
         <IconButton
           type="button"
+          aria-label="previous image"
           onClick={() => paginate(-1)}
           p={1}
           sx={{ outline: 'none' }}
@@ -115,6 +116,7 @@ const MobileGallery = ({ media, hasDots = true, onImageClick }) => {
         )}
         <IconButton
           type="button"
+          aria-label="next image"
           onClick={() => paginate(1)}
           p={1}
           sx={{ outline: 'none' }}
