@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import Tippy from '@tippyjs/react'
-import { Grid, Box, Button } from 'theme-ui'
+import { Grid, Box, Button, Flex } from 'theme-ui'
 import { useQuery } from 'urql'
 import { CurrencyContext } from '../contexts/CurrencyContext'
 import { SHOP_CURRENCIES } from '../queries/shop'
@@ -14,15 +14,15 @@ const CurrencyCode = React.forwardRef(
         type="button"
         ref={ref}
         sx={{
-          display: 'grid',
-          gap: 2,
-          gridAutoFlow: 'column',
           letterSpacing: 'caps',
           bg: 'transparent',
           fontSize: 0,
           color,
+          width: 48,
+          lineHeight: 'body',
         }}
-        p={0}
+        px={0}
+        py={3}
         {...props}
       >
         {`${moneySymbol} ${children}`}
@@ -43,6 +43,7 @@ const CurrencyPicker = props => {
         theme="light"
         visible={visible}
         onClickOutside={() => setVisible(prev => !prev)}
+        style={{ height: 48 }}
         content={
           <Grid p={2} sx={{ gridAutoFlow: 'row' }}>
             {data.shop.paymentSettings.enabledPresentmentCurrencies.map(

@@ -155,6 +155,7 @@ const Footer = props => (
               columnGap: 6,
               justifyContent: 'center',
             }}
+            pt={[5, 0]}
           >
             <Text variant="caps" sx={{ justifySelf: 'right' }}>
               Bluboho &copy; {new Date().getFullYear()}
@@ -169,9 +170,7 @@ const Footer = props => (
             >
               Privacy Policy
             </ThemeLink>
-            <Box>
-              <CurrencyPicker />
-            </Box>
+            <CurrencyPicker />
           </Grid>
         </Flex>
       </Flex>

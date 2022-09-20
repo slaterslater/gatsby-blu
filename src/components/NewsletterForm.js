@@ -52,6 +52,7 @@ const EmailField = ({ color, disabled }) => {
         width: '100%',
         minWidth: 220,
         maxWidth: 360,
+        height: 48,
         color,
         border: 'none',
         outline: 'none',
@@ -101,7 +102,9 @@ export const NewsletterSignUp = ({
             sx={{
               cursor: 'pointer',
               flex: '0 1 max-content',
+              height: 48,
             }}
+            p={4}
           >
             <Text
               as={working ? FiClock : CgArrowLongRight}

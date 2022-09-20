@@ -63,7 +63,8 @@ const Header = () => {
               src="/bluboho-logo-01.svg"
               alt="bluboho"
               title="bluboho"
-              sx={{ height: [40, 55], width: 180, display: 'block' }}
+              width={180}
+              height={50}
             />
           </Link>
           <Flex
@@ -101,20 +102,6 @@ const Header = () => {
                   sx={{ transform: 'translateY(1px)' }}
                 />
               </IconButton>
-              {/* <IconButton
-                as={GatsbyLink}
-                sx={{ cursor: 'pointer', display: ['flex', 'none'] }}
-                to="/search"
-                mr={2}
-                aria-label="Search"
-              >
-                <Text
-                  as={BiSearchAlt2}
-                  color="black"
-                  size={24}
-                  sx={{ transform: 'translateY(1px)' }}
-                />
-              </IconButton> */}
             </Flex>
             <Box sx={{ position: 'relative' }}>
               <WishlistBadge />

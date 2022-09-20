@@ -1,17 +1,23 @@
 import React from 'react'
-import { Heading, Box, IconButton, Flex, NavLink, Button } from 'theme-ui'
+import { Button, Box, Flex } from 'theme-ui'
 
 const NavHeading = ({ isCurrent, ...props }) => (
-  <Heading
-    as={NavLink}
+  <Button
+    variant="caps"
     pb={1}
     sx={{
       fontWeight: 400,
       borderBottom: '1px solid',
       borderColor: isCurrent ? 'black' : 'transparent',
+      backgroundColor: 'transparent',
+      color: 'primary',
+      borderRadius: 0,
       textTransform: 'uppercase',
       fontSize: 4,
       letterSpacing: 'widest',
+      fontFamily: 'heading',
+      padding: 0,
+      cursor: 'pointer',
     }}
     {...props}
   />

@@ -94,7 +94,7 @@ const MobileGallery = ({ media, hasDots = true, onImageClick }) => {
           aria-label="previous image"
           onClick={() => paginate(-1)}
           p={1}
-          sx={{ outline: 'none' }}
+          sx={{ outline: 'none', width: 48, height: 48 }}
         >
           <HiChevronLeft size={16} />
         </IconButton>
@@ -119,7 +119,7 @@ const MobileGallery = ({ media, hasDots = true, onImageClick }) => {
           aria-label="next image"
           onClick={() => paginate(1)}
           p={1}
-          sx={{ outline: 'none' }}
+          sx={{ outline: 'none', width: 48, height: 48 }}
         >
           <HiChevronRight size={16} />
         </IconButton>

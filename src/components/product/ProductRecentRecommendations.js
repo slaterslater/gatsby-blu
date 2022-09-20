@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { useQuery } from 'urql'
-import { Box, NavLink, Flex, Grid, Container, Heading, Button } from 'theme-ui'
+import { Box, Flex, Grid, Container, Button } from 'theme-ui'
 import { useMatch } from '@reach/router'
 import { RecentlyViewedProductsContext } from '../../contexts/RecentlyViewedProductsContext'
 import { CurrencyContext } from '../../contexts/CurrencyContext'
