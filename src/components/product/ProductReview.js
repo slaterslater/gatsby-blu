@@ -29,6 +29,7 @@ const ProductReview = ({
           <Flex pt={4} sx={{ flexWrap: 'wrap' }}>
             {imagesData.map(image => (
               <Image
+                alt=""
                 mr={3}
                 sx={{ height: 100, width: 100, cursor: 'pointer' }}
                 src={image.thumbUrl}
