@@ -151,22 +151,23 @@ const Footer = props => (
             sx={{
               gridTemplateColumns: ['repeat(2, 1fr)', 'repeat(4, max-content)'],
               alignItems: 'center',
-              rowGap: 3,
+              rowGap: 1,
               columnGap: 6,
               justifyContent: 'center',
             }}
             pt={[5, 0]}
           >
-            <Text variant="caps" sx={{ justifySelf: 'right' }}>
+            <Text variant="caps" sx={{ justifySelf: 'right' }} py={3}>
               Bluboho &copy; {new Date().getFullYear()}
             </Text>
-            <ThemeLink to="/pages/terms-of-service" variant="small">
+            <ThemeLink to="/pages/terms-of-service" variant="small" py={3}>
               Terms of Service
             </ThemeLink>
             <ThemeLink
               to="/pages/privacy-policy"
               variant="small"
               sx={{ justifySelf: 'right' }}
+              py={3}
             >
               Privacy Policy
             </ThemeLink>

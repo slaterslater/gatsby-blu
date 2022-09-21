@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import Tippy from '@tippyjs/react'
-import { Grid, Box, Button, Flex } from 'theme-ui'
+import { Box, Button } from 'theme-ui'
 import { useQuery } from 'urql'
 import { CurrencyContext } from '../contexts/CurrencyContext'
 import { SHOP_CURRENCIES } from '../queries/shop'
@@ -44,24 +44,20 @@ const CurrencyPicker = props => {
         visible={visible}
         onClickOutside={() => setVisible(prev => !prev)}
         style={{ height: 48 }}
-        content={
-          <Grid p={2} sx={{ gridAutoFlow: 'row' }}>
-            {data.shop.paymentSettings.enabledPresentmentCurrencies.map(
-              currency => (
-                <Box key={`currenct-${currency}`}>
-                  <CurrencyCode
-                    onClick={() => {
-                      setCurrency(currency)
-                      setVisible(false)
-                    }}
-                  >
-                    {currency}
-                  </CurrencyCode>
-                </Box>
-              )
-            )}
-          </Grid>
-        }
+        content={data.shop.paymentSettings.enabledPresentmentCurrencies.map(
+          currency => (
+            <Box key={`currenct-${currency}`}>
+              <CurrencyCode
+                onClick={() => {
+                  setCurrency(currency)
+                  setVisible(false)
+                }}
+              >
+                {currency}
+              </CurrencyCode>
+            </Box>
+          )
+        )}
       >
         <CurrencyCode color="black" onClick={() => setVisible(prev => !prev)}>
           {currencyCode}
