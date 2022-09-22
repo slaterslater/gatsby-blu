@@ -14,7 +14,7 @@ const ShopifyGatsbyImage = ({
   return (
     <GatsbyImage
       image={imageData}
-      alt={image.altText || 'heyoooooo'}
+      alt={image.altText || ''}
       style={style}
       {...gatsbyImageProps}
     />

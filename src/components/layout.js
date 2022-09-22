@@ -19,10 +19,9 @@ import Footer from './footer'
 import Drawers from './drawers'
 import SEO from './seo'
 import RecentlyViewedProductsProvider from '../contexts/RecentlyViewedProductsContext'
-// import NewsletterSignUpPrompt from './NewsletterSignUpPrompt'
-import TidioLink from './TidioLink'
 
 const ThirdPartyScripts = loadable(() => import('./ThirdPartyScripts'))
+const TidioLink = loadable(() => import('./TidioLink'))
 
 const Layout = ({ title, description, children }) => (
   <RecentlyViewedProductsProvider>
@@ -41,7 +40,6 @@ const Layout = ({ title, description, children }) => (
         <Footer />
       </Flex>
       <TidioLink />
-      {/* <NewsletterSignUpPrompt /> */}
     </Drawers>
     <ThirdPartyScripts />
   </RecentlyViewedProductsProvider>

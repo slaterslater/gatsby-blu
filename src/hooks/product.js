@@ -114,7 +114,7 @@ export const useProductGalleryVideos = () => {
 
 export const useProductGalleryMedia = () => {
   const {
-    product: { media, metafields },
+    product: { title, media, metafields },
   } = useContext(ProductContext)
 
   const giftPackagingImageStyle = useMetafieldValue(
@@ -126,8 +126,12 @@ export const useProductGalleryMedia = () => {
 
   const productGalleryMedia =
     media?.edges.map(({ node }) => {
-      if (node.image) return node.image
-      return node
+      const { image } = node
+      if (!image) return node
+      return {
+        ...image,
+        altText: image.altText || title,
+      }
     }) || []
 
   if (!giftPackagingImageStyle) return productGalleryMedia
