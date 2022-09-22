@@ -35,6 +35,7 @@ const CurrencyPicker = props => {
   const [visible, setVisible] = useState(false)
   const { currencyCode, setCurrency } = useContext(CurrencyContext)
   const [{ data }] = useQuery({ query: SHOP_CURRENCIES })
+  const { enabledPresentmentCurrencies } = data?.shop.paymentSettings || []
 
   if (data && currencyCode)
     return (
@@ -43,21 +44,18 @@ const CurrencyPicker = props => {
         theme="light"
         visible={visible}
         onClickOutside={() => setVisible(prev => !prev)}
-        style={{ height: 48 }}
-        content={data.shop.paymentSettings.enabledPresentmentCurrencies.map(
-          currency => (
-            <Box key={`currenct-${currency}`}>
-              <CurrencyCode
-                onClick={() => {
-                  setCurrency(currency)
-                  setVisible(false)
-                }}
-              >
-                {currency}
-              </CurrencyCode>
-            </Box>
-          )
-        )}
+        content={enabledPresentmentCurrencies.map(currency => (
+          <Box key={`currenct-${currency}`}>
+            <CurrencyCode
+              onClick={() => {
+                setCurrency(currency)
+                setVisible(false)
+              }}
+            >
+              {currency}
+            </CurrencyCode>
+          </Box>
+        ))}
       >
         <CurrencyCode color="black" onClick={() => setVisible(prev => !prev)}>
           {currencyCode}
