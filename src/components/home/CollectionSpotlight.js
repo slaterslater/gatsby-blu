@@ -10,7 +10,7 @@ export const CollectionSpotlightCard = ({ title, path, children }) => (
     sx={{ textAlign: 'center', bg: 'cream', flexDirection: 'column' }}
   >
     {children}
-    <Heading variant="h1" as="h4" py={5} mt="auto">
+    <Heading variant="h1" as="h2" py={5} mt="auto">
       {title}
     </Heading>
     <ThemeLink

@@ -34,6 +34,7 @@ const OnePercentCallout = props => (
         <ThemeLink
           to="/one-percent-for-the-planet"
           variant="caps"
+          aria-label="environmental commitments"
           sx={{ fontSize: [1, 0], textDecoration: 'underline' }}
         >
           Learn More
