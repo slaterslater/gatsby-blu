@@ -14,7 +14,7 @@ const WhoWearsWhat = ({ people }) => (
         return (
           <>
             {i !== 0 ? <span> and </span> : null}
-            <span>{name} is wearing the </span>
+            <span>{name} is wearing </span>
             {shopLink ? (
               <Box
                 as={GatsbyLink}
@@ -144,7 +144,6 @@ const Story = ({ details, index }) => {
           </Text>
           <Box as="ul" sx={{ padding: 0 }} ml={3}>
             <Text as="li" variant="caps" sx={{ fontSize: 1 }} pl={2}>
-              {/* {names} */}
               {people.map(({ name }) => name).join(' & ')}
             </Text>
           </Box>

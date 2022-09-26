@@ -9,7 +9,6 @@ export const ProductShipping = props => {
   if (currencyCode === 'CAD')
     return (
       <Box mt={-2} px={2} pb={2}>
-        {/* <Box mt={-2} pb={2} sx={{ textAlign: 'center' }}> */}
         <Text
           as="small"
           sx={{
@@ -21,7 +20,7 @@ export const ProductShipping = props => {
           }}
           mb={3}
         >
-          FREE SHIPPING WITHIN CANADA: 2-8 BUSINESS DAYS
+          free shipping canada-wide over $75
         </Text>
         <ProductAvailabilityButton />
       </Box>
