@@ -141,6 +141,7 @@ module.exports = {
         display: 'swap',
         attributes: {
           rel: 'stylesheet preload prefetch',
+          as: 'style',
         },
       },
     },
