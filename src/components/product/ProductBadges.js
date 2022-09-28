@@ -6,7 +6,7 @@ import { ProductContext } from './ProductContext'
 
 const ProductBadges = () => {
   const { badges } = useContext(ProductContext)
-  if (!badges.length) return <></>
+  if (!badges || !badges.length) return <></>
   return (
     <Flex sx={{ flexWrap: 'wrap' }}>
       {badges.map(({ id, name, image }) => (
