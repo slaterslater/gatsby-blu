@@ -5,7 +5,7 @@ import { useProductTitle } from './ProductTitle'
 import { useShopifyImage } from '../hooks/shopifyImage'
 
 const getItemOptionDescription = item => {
-  const title = item.variant?.title.toLowerCase().replace(/\s\//, ', ')
+  const title = item.variant?.title?.toLowerCase().replace(/\s\//, ', ')
   if (!title || title === 'default title') return ''
   const fractionalSize = item.customAttributes
     .find(({ key }) => key === 'size')
