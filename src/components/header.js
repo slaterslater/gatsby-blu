@@ -1,4 +1,4 @@
-import { Flex, Text, Box, Image, Link, Grid, IconButton } from 'theme-ui'
+import { Flex, Box, Image, Link, Grid, IconButton, Heading } from 'theme-ui'
 import { Link as GatsbyLink, navigate } from 'gatsby'
 import { IoIosMenu } from 'react-icons/io'
 import { AiOutlineUser } from 'react-icons/ai'
@@ -59,10 +59,12 @@ const Header = () => {
             <Box as={IoIosMenu} color="black" size={24} />
           </IconButton>
           <Link as={GatsbyLink} to="/" sx={{ justifySelf: 'center' }} py={2}>
+            <Heading as="h1" sx={{ position: 'absolute', left: '-999em' }}>
+              bluboho refined jewelry
+            </Heading>
             <Image
               src="/bluboho-logo-01.svg"
-              alt="bluboho"
-              title="bluboho"
+              alt="bluboho logo"
               width={180}
               height={50}
             />
@@ -82,7 +84,7 @@ const Header = () => {
                 mr={2}
                 aria-label="Account"
               >
-                <Text
+                <Box
                   as={AiOutlineUser}
                   color="black"
                   size={24}
@@ -95,7 +97,7 @@ const Header = () => {
                 mr={2}
                 aria-label="Search"
               >
-                <Text
+                <Box
                   as={BiSearchAlt2}
                   color="black"
                   size={24}
@@ -117,7 +119,7 @@ const Header = () => {
                 }
                 aria-label="Wishlist"
               >
-                <Text as={FiHeart} color="black" size={21} />
+                <Box as={FiHeart} color="black" size={21} />
               </IconButton>
             </Box>
             <Box sx={{ position: 'relative' }}>
@@ -127,7 +129,7 @@ const Header = () => {
                 onClick={() => setOpenDrawer('cart')}
                 aria-label="Cart"
               >
-                <Text as={RiShoppingBagLine} color="black" size={24} />
+                <Box as={RiShoppingBagLine} color="black" size={24} />
               </IconButton>
             </Box>
           </Flex>
