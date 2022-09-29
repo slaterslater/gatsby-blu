@@ -53,7 +53,9 @@ const ProductView = ({ product, alternates, badges, stack }) => {
             {
               path:
                 location?.state?.collectionPath ||
-                `/collections/${pluralize(productType.toLowerCase())}`,
+                `/collections/${pluralize(
+                  productType.toLowerCase().replace(/\s/g, '-')
+                )}`,
               text: location?.state?.collectionTitle || pluralize(productType),
             },
           ]}
