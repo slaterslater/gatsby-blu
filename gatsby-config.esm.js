@@ -185,10 +185,12 @@ module.exports = {
         `,
         excludes: ['/account'],
         filterPages: ({ path }) => path.includes('['),
-        resolvePagePath: ({ path }) => {
-          const pathWithTrailingSlash = path.endsWith('/') ? path : `${path}/`
-          return siteUrl + pathWithTrailingSlash
-        },
+        resolvePagePath: ({ path }) =>
+          // const pathWithTrailingSlash = path.endsWith('/') ? path : `${path}/`
+          // return siteUrl + pathWithTrailingSlash
+
+          // removes trailing slash...
+          siteUrl + path.replace(/\/$/, ''),
       },
     },
     `gatsby-plugin-loadable-components-ssr`,
