@@ -48,7 +48,7 @@ const ProductSEO = ({ product, isHidden }) => {
 
   return (
     <SEO
-      title={title}
+      title={product.title.toLowerCase()}
       description={product.description}
       shopifyImage={product.images[0]}
       meta={isHidden ? noIndex : []}
