@@ -190,7 +190,10 @@ module.exports = {
           // return siteUrl + pathWithTrailingSlash
 
           // removes trailing slash...
-          siteUrl + path.replace(/\/$/, ''),
+          // siteUrl + path.replace(/\/$/, ''),
+
+          // que sera sera
+          siteUrl + path,
       },
     },
     `gatsby-plugin-loadable-components-ssr`,
