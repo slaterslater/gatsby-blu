@@ -17,7 +17,7 @@ const PodcastsPage = ({ data, pageContext }) => {
     <Layout>
       <SEO
         title={`tru blu podcast page ${currentPage}`}
-        description="tru blu podcast"
+        description={`page ${currentPage} of the tru blu podcast, where Maggie Aurocco, the co-founder of bluboho jewelry, looks to broaden the band on how we look at relationships.`}
       />
       <Flex
         sx={{
