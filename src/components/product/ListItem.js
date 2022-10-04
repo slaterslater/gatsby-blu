@@ -91,9 +91,9 @@ const ProductListItemInner = ({
       >
         <Box mb="auto" sx={{ alignSelf: 'top', textAlign: 'center' }}>
           <Text
-            as="h1"
             variant="small"
             sx={{
+              fontWeight: 'bold',
               color: 'darkerGray',
               letterSpacing: 'widest',
             }}
