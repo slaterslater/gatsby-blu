@@ -10,11 +10,15 @@ import ReviewPagination from '../components/reviews/ReviewPagination'
 
 const PodcastsPage = ({ data, pageContext }) => {
   const podcasts = data.podcasts.edges
-  const { currentPage } = pageContext
+  const { currentPage = 1 } = pageContext
   const totalPages = Math.ceil(data.podcasts.totalCount / 6)
+
   return (
     <Layout>
-      <SEO title="tru blu podcast" description="tru blu podcast" />
+      <SEO
+        title={`tru blu podcast page ${currentPage}`}
+        description="tru blu podcast"
+      />
       <Flex
         sx={{
           bg: '#f2eee9',
