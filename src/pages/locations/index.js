@@ -20,6 +20,21 @@ const LocationIndexPage = ({ data }) => {
       <Flex
         sx={{
           flexDirection: 'column',
+          justifyContent: 'stretch',
+          '*': { flex: 1 },
+          width: '100%',
+          height: 400,
+        }}
+      >
+        <StaticImage
+          src="../../images/locations-page-header.webp"
+          alt=""
+          placeholder="blurred"
+        />
+      </Flex>
+      {/* <Flex
+        sx={{
+          flexDirection: 'column',
           width: '100%',
           height: 'auto',
           maxHeight: 400,
@@ -42,7 +57,7 @@ const LocationIndexPage = ({ data }) => {
         >
           locations
         </Heading>
-      </Flex>
+      </Flex> */}
       <Container
         as="main"
         sx={{
@@ -52,6 +67,17 @@ const LocationIndexPage = ({ data }) => {
         }}
         pt={2}
       >
+        <Heading
+          as="h2"
+          variant="h2"
+          sx={{
+            fontSize: 5,
+            textAlign: 'center',
+          }}
+          my={7}
+        >
+          locations
+        </Heading>
         <Text
           as="p"
           variant="copy"
