@@ -165,6 +165,7 @@ export function useCart(onAdded = () => {}) {
       buttonText: `${isPreorder ? 'pre-order' : 'Add To Bag'} - ${price}`,
       disabled: false,
     }
+    const productIsNew = product.tags.some(tag => tag.toLowerCase() === 'new')
 
     switch (true) {
       case fetching:
@@ -179,7 +180,11 @@ export function useCart(onAdded = () => {}) {
       case selectedVariant &&
         !selectedVariant.availableForSale &&
         product.willRestock?.value === 'true':
-        return { ...defaults, handleClick: toggleOn, buttonText: 'Notify Me' }
+        return {
+          ...defaults,
+          handleClick: toggleOn,
+          buttonText: productIsNew ? 'coming soon!' : 'join the waitlist',
+        }
       default:
         return defaults
     }
