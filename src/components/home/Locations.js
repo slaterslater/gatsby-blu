@@ -16,10 +16,22 @@ const LocationBox = ({ to, text, width, children }) => (
     }}
     px={4}
   >
-    <Flex sx={{ flex: 1, alignItems: 'center', width }} mb={5}>
+    <Flex sx={{ flex: 1, alignItems: 'flex-end', width }} mb={5}>
       {children}
     </Flex>
-    <ThemeLink variant="sketchButtonBlack" to={to} mt="auto">
+    <ThemeLink
+      variant="caps"
+      to={to}
+      mt="auto"
+      py={3}
+      sx={{
+        bg: 'bbBeige',
+        width: '100%',
+        textDecoration: 'none',
+        textAlign: 'center',
+        fontSize: 0,
+      }}
+    >
       {text}
     </ThemeLink>
   </Flex>
