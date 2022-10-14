@@ -166,6 +166,7 @@ export function useCart(onAdded = () => {}) {
       disabled: false,
     }
     const productIsNew = product.tags.some(tag => tag.toLowerCase() === 'new')
+    const mto = product.tags.some(tag => tag.toLowerCase() === 'made-to-order')
 
     switch (true) {
       case fetching:
@@ -179,7 +180,8 @@ export function useCart(onAdded = () => {}) {
         return { ...defaults, disabled: true, buttonText: 'Sold Out' }
       case selectedVariant &&
         !selectedVariant.availableForSale &&
-        product.willRestock?.value === 'true':
+        product.willRestock?.value === 'true' &&
+        !mto:
         return {
           ...defaults,
           handleClick: toggleOn,
