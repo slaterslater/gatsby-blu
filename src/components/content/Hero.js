@@ -1,14 +1,5 @@
 import React from 'react'
-import {
-  Container,
-  Box,
-  Text,
-  Heading,
-  Button,
-  Grid,
-  Flex,
-  Divider,
-} from 'theme-ui'
+import { Container, Box, Text, Button, Grid, Divider } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
 import { GatsbyImage, withArtDirection } from 'gatsby-plugin-image'
 import useGatsbySanityImageData from '../../lib/useGatsbySanityImageData'
@@ -93,16 +84,15 @@ export const HeroOuter = ({ children, data, align = 'right' }) => {
             </Box>
           )}
           {heading && (
-            <Heading
+            <Text
               variant="h1"
-              as="h1"
               sx={{
                 color: 'white',
                 fontSize: [6, 5],
               }}
             >
               {heading}
-            </Heading>
+            </Text>
           )}
         </Box>
         {subheading ? (

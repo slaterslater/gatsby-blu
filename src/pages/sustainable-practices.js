@@ -61,7 +61,7 @@ const ContentFlex = ({ heading, children }) => (
       width: '100%',
       flexWrap: 'wrap',
       justifyContent: ['center', 'space-between'],
-      h4: { fontWeight: 'bold', fontSize: 1, marginTop: '48px' },
+      h3: { fontWeight: 'bold', fontSize: 1, marginTop: '48px' },
       p: { maxWidth: [380, '47%', 380], marginTop: '24px', fontSize: 1 },
       '.box': { maxWidth: ['100%', '50%'] },
       '.box > p': { maxWidth: [380, '92%', 380] },
@@ -72,7 +72,7 @@ const ContentFlex = ({ heading, children }) => (
   >
     {heading && (
       <Heading
-        as="h3"
+        as="h2"
         variant="caps"
         sx={{ fontSize: 1, width: [370, '100%'] }}
         py={1}
@@ -105,7 +105,7 @@ const SustainablePracticesPage = () => (
         style={{ flex: 1 }}
       />
     </Banner>
-    <Heading as="h2" variant="h2" my={[3, 5]} sx={{ textAlign: 'center' }}>
+    <Heading as="h1" variant="h2" my={[3, 5]} sx={{ textAlign: 'center' }}>
       sustainable practices
     </Heading>
     <ContentFlex>
@@ -175,14 +175,14 @@ const SustainablePracticesPage = () => (
     </Banner>
     <Box sx={{ textAlign: ['left', 'center'], maxWidth: 540 }} mx="auto" px={5}>
       <Heading
-        as="h3"
+        as="h2"
         variant="h2"
         my={[3, 5]}
         sx={{ textAlign: ['left', 'center'], maxWidth: 540 }}
       >
         here are some of the ways we are working to minimize our impact
       </Heading>
-      <Heading as="h4" variant="caps" my={5} sx={{ fontSize: 1 }}>
+      <Heading as="h3" variant="caps" my={5} sx={{ fontSize: 1 }}>
         ethical practices &amp; traceability:
       </Heading>
     </Box>
@@ -220,7 +220,7 @@ const SustainablePracticesPage = () => (
       </Button>
     </Flex>
     <Heading
-      as="h4"
+      as="h3"
       variant="caps"
       px={5}
       sx={{ textAlign: ['left', 'center'], width: '100%', maxWidth: 540 }}
@@ -264,7 +264,7 @@ const SustainablePracticesPage = () => (
       </ImageFlex>
     </ContentGrid>
     <Heading
-      as="h3"
+      as="h2"
       variant="h2"
       my={[3, 5]}
       px={5}
@@ -288,7 +288,7 @@ const SustainablePracticesPage = () => (
     </Text>
     <ContentFlex>
       <Box className="box">
-        <Heading as="h4" variant="caps" sx={{ fontWeight: 'bold' }}>
+        <Heading as="h3" variant="caps" sx={{ fontWeight: 'bold' }}>
           recycled metals:
         </Heading>
         <Text as="p" variant="copy">
@@ -300,7 +300,7 @@ const SustainablePracticesPage = () => (
         </Text>
       </Box>
       <Box className="box">
-        <Heading as="h4" variant="caps" sx={{ fontWeight: 'bold' }}>
+        <Heading as="h3" variant="caps" sx={{ fontWeight: 'bold' }}>
           why recycled metals?
         </Heading>
         <Text as="p" variant="copy">
@@ -311,7 +311,7 @@ const SustainablePracticesPage = () => (
         </Text>
       </Box>
       <Box className="box">
-        <Heading as="h4" variant="caps" sx={{ fontWeight: 'bold' }}>
+        <Heading as="h3" variant="caps" sx={{ fontWeight: 'bold' }}>
           where do recycled gold &amp; silver come from?
         </Heading>
         <Text as="p" variant="copy">
@@ -322,7 +322,7 @@ const SustainablePracticesPage = () => (
         </Text>
       </Box>
       <Box className="box">
-        <Heading as="h4" variant="caps" sx={{ fontWeight: 'bold' }}>
+        <Heading as="h3" variant="caps" sx={{ fontWeight: 'bold' }}>
           ethically-sourced diamonds:
         </Heading>
         <Text as="p" variant="copy">
@@ -352,7 +352,7 @@ const SustainablePracticesPage = () => (
     </Banner>
     <Box sx={{ textAlign: ['left', 'center'] }} mx="auto" px={5}>
       <Heading
-        as="h3"
+        as="h2"
         variant="h2"
         my={[3, 5]}
         sx={{ maxWidth: 540 }}
@@ -360,7 +360,7 @@ const SustainablePracticesPage = () => (
       >
         antique diamonds
       </Heading>
-      <Heading as="h4" variant="caps" my={4} sx={{ fontSize: 1 }}>
+      <Heading as="h3" variant="caps" my={4} sx={{ fontSize: 1 }}>
         very environmentally friendly, as they have effectively been "upcycled"
       </Heading>
     </Box>

@@ -59,9 +59,6 @@ const Header = () => {
             <Box as={IoIosMenu} color="black" size={24} />
           </IconButton>
           <Link as={GatsbyLink} to="/" sx={{ justifySelf: 'center' }} py={2}>
-            <Heading as="h1" sx={{ position: 'absolute', left: '-999em' }}>
-              bluboho refined jewelry
-            </Heading>
             <Image
               src="/bluboho-logo-01.svg"
               alt="bluboho logo"

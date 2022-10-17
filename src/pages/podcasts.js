@@ -4,7 +4,6 @@ import { graphql, Link as GatsbyLink } from 'gatsby'
 import { Heading, Grid, Box, Text, Container, Image, Flex } from 'theme-ui'
 import { StaticImage } from 'gatsby-plugin-image'
 import Layout from '../components/layout'
-import SEO from '../components/seo'
 import SubscribeLinks from '../components/podcasts/SubscribeLinks'
 import ReviewPagination from '../components/reviews/ReviewPagination'
 
@@ -14,28 +13,34 @@ const PodcastsPage = ({ data, pageContext }) => {
   const totalPages = Math.ceil(data.podcasts.totalCount / 6)
 
   return (
-    <Layout>
-      <SEO
-        title={`tru blu podcast page ${currentPage}`}
-        description={`page ${currentPage} of the tru blu podcast, where Maggie Aurocco, the co-founder of bluboho jewelry, looks to broaden the band on how we look at relationships.`}
-      />
+    <Layout
+      title={`tru blu podcast page ${currentPage}`}
+      description={`page ${currentPage} of the tru blu podcast, where Maggie Aurocco, the co-founder of bluboho jewelry, looks to broaden the band on how we look at relationships.`}
+    >
       <Flex
         sx={{
           bg: '#f2eee9',
           justifyContent: 'center',
         }}
       >
-        <Box sx={{ display: ['flex', 'none'] }}>
+        <Heading as="h1" sx={{ position: 'absolute', zIndex: -100 }}>
+          The Tru Blu Podcast
+        </Heading>
+        <Box sx={{ display: ['block', 'none'] }}>
           <StaticImage
+            classname="small"
             src="../images/podcast/trublu-header-sm.jpg"
             alt="the trublu podcast by bluboho"
+            placeholder="blurred"
           />
         </Box>
-        <Box sx={{ display: ['none', 'flex'], maxHeight: 600 }}>
+        <Box sx={{ display: ['none', 'block'], maxHeight: 600 }}>
           <StaticImage
+            className="large"
             src="../images/podcast/trublu-header-lg.jpg"
             alt="the trublu podcast by bluboho"
             objectFit="contain"
+            placeholder="blurred"
           />
         </Box>
       </Flex>
@@ -44,7 +49,7 @@ const PodcastsPage = ({ data, pageContext }) => {
           <>
             <Heading
               variant="h2"
-              as="h1"
+              as="h2"
               mt={3}
               pb={7}
               sx={{ textAlign: 'center' }}

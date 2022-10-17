@@ -69,7 +69,7 @@ const ContentFlex = ({ heading, children }) => (
   >
     {heading && (
       <Heading
-        as="h3"
+        as="h2"
         variant="caps"
         sx={{ fontSize: 1, width: [370, '100%'] }}
         py={1}
@@ -103,7 +103,7 @@ const SapphiresPage = () => (
         style={{ flex: 1 }}
       />
     </Banner>
-    <Heading as="h2" variant="h2" my={8} sx={{ textAlign: 'center' }}>
+    <Heading as="h1" variant="h2" my={8} sx={{ textAlign: 'center' }}>
       why sapphires?
     </Heading>
     <ContentFlex heading="sapphires:">

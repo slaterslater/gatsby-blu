@@ -14,9 +14,9 @@ const Review = ({ starPercentage, excerpt, author, product }) => (
   <AnimatePresence>
     <Flex sx={{ flexWrap: 'wrap-reverse' }} mb={[0, 5]}>
       <Box sx={{ flex: '1 260px', textAlign: 'center' }} pr={[0, 5]}>
-        <Heading variant="caps" sx={{ py: 6 }}>
+        <Text variant="caps" sx={{ display: 'block' }} py={6}>
           From our Guests
-        </Heading>
+        </Text>
         <Box pb={4}>
           <ReviewStars starPercentage={starPercentage} />
         </Box>

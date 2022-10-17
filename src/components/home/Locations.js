@@ -39,7 +39,7 @@ const LocationBox = ({ to, text, width, children }) => (
 
 const HomeLocations = ({ locations }) => (
   <Container py={8}>
-    <Heading as="h3" variant="h1" pb={5} sx={{ textAlign: 'center' }}>
+    <Heading as="h2" variant="h1" pb={5} sx={{ textAlign: 'center' }}>
       Store Locations
     </Heading>
     <MobileSlider

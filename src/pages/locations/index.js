@@ -32,32 +32,6 @@ const LocationIndexPage = ({ data }) => {
           placeholder="blurred"
         />
       </Flex>
-      {/* <Flex
-        sx={{
-          flexDirection: 'column',
-          width: '100%',
-          height: 'auto',
-          maxHeight: 400,
-        }}
-      >
-        <StaticImage
-          src="../../images/locations-page-header.jpg"
-          alt=""
-          layout="fullWidth"
-        />
-        <Heading
-          as="h2"
-          variant="h2"
-          sx={{
-            color: 'white',
-            fontSize: 5,
-            textAlign: 'center',
-            transform: ['translateY(calc(-35vw + -90%))', 'translateY(-200px)'],
-          }}
-        >
-          locations
-        </Heading>
-      </Flex> */}
       <Container
         as="main"
         sx={{
@@ -68,7 +42,7 @@ const LocationIndexPage = ({ data }) => {
         pt={2}
       >
         <Heading
-          as="h2"
+          as="h1"
           variant="h2"
           sx={{
             fontSize: 5,
