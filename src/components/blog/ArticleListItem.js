@@ -21,7 +21,7 @@ const ArticleListItem = ({ article: { handle, title, content, image } }) => {
         </Link>
       )}
       <Grid sx={{ gridAutoFlow: 'row', gap: 4 }} px={3} pt={4}>
-        <Heading as="h6" variant="caps" sx={{ fontSize: 3 }}>
+        <Heading as="h2" variant="caps" sx={{ fontSize: 3 }}>
           {title}
         </Heading>
         <Text as="p" sx={{ fontSize: 2, lineHeight: 1.7 }}>

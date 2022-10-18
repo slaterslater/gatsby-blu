@@ -35,7 +35,7 @@ const LocationPageTemplate = ({ data }) => {
         }}
       >
         <Heading
-          as="h2"
+          as="h1"
           variant="h2"
           sx={{ fontSize: 4, textAlign: 'center' }}
           py={7}
@@ -43,6 +43,9 @@ const LocationPageTemplate = ({ data }) => {
           {name}
         </Heading>
       </Flex>
+      <Heading as="h2" sx={{ zIndex: -100, position: 'absolute' }}>
+        {`${name} jewelry store details`}
+      </Heading>
       <Container
         as="main"
         sx={{
@@ -55,13 +58,17 @@ const LocationPageTemplate = ({ data }) => {
           <Box
             sx={{
               textAlign: 'center',
-              h4: { fontSize: 1, fontWeight: 'bold' },
             }}
             mb={4}
           >
-            <Heading as="h4" variant="caps" pb={2}>
+            <Text
+              as="p"
+              variant="caps"
+              pb={2}
+              sx={{ fontSize: 1, fontWeight: 'bold' }}
+            >
               {closeMessage}
-            </Heading>
+            </Text>
             <Text as="p" variant="caps">
               will open {storeWillOpen}
             </Text>

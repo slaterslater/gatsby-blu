@@ -5,7 +5,6 @@ import { InlineWidget } from 'react-calendly'
 import PropTypes from 'prop-types'
 import { graphql } from 'gatsby'
 import Layout from '../components/layout'
-import SEO from '../components/seo'
 import ElementSlider from '../components/ElementSlider'
 import CalendlyLink from '../components/consultation/CalendlyLink'
 import FAQ from '../components/consultation/FAQ'
@@ -63,11 +62,10 @@ const CalendlyConsultationPage = ({ data, location }) => {
   }, [])
 
   return (
-    <Layout>
-      <SEO
-        title="Book a Consultation Appointment"
-        description="Let us work with you throughout your engagement ring consultation on finding your beloved by bluboho engagement ring or wedding band"
-      />
+    <Layout
+      title="Book a Consultation Appointment"
+      description="Let us work with you throughout your engagement ring consultation on finding your beloved by bluboho engagement ring or wedding band"
+    >
       <Flex sx={{ justifyContent: 'stretch', maxHeight: 400 }}>
         <StaticImage
           src="../images/consultation/consultation-booking-header.jpg"
@@ -77,7 +75,9 @@ const CalendlyConsultationPage = ({ data, location }) => {
       </Flex>
       <Container as="main" sx={{ maxWidth: 1400 }} p={0}>
         <Box py={[6, 8]} sx={{ width: '100%', textAlign: 'center' }}>
-          <Heading variant="h2">book a consultation</Heading>
+          <Heading as="h1" variant="h2">
+            book a consultation
+          </Heading>
         </Box>
         <Flex
           ref={calendlyPicker}
@@ -94,16 +94,16 @@ const CalendlyConsultationPage = ({ data, location }) => {
             },
           }}
         >
-          <Heading
+          <Text
             as="h3"
             variant="caps"
             pt={1}
             pb={6}
             mx={['auto', 3]}
-            sx={{ fontSize: 1 }}
+            sx={{ fontSize: 1, display: 'block' }}
           >
             choose your appointment
-          </Heading>
+          </Text>
           {calendars.map((calendar, i) => (
             <CalendlyLink
               key={`calendly-${i}`}
@@ -147,19 +147,18 @@ const CalendlyConsultationPage = ({ data, location }) => {
               borderColor: 'border',
             }}
           >
-            <Heading
-              as="h3"
+            <Text
               variant="caps"
               pb={3}
               sx={{
-                display: ['none', 'inline-grid'],
+                display: ['none', 'block'],
                 width: '100%',
                 textAlign: 'center',
                 fontSize: 1,
               }}
             >
               {current.title}
-            </Heading>
+            </Text>
             <InlineWidget
               url={`https://calendly.com/ringconsultation/${current.slug}`}
               styles={{

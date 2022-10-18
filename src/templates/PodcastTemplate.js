@@ -2,13 +2,12 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import { graphql, Link } from 'gatsby'
-import { Text, Flex, Heading, Grid, Box, Container } from 'theme-ui'
+import { graphql } from 'gatsby'
+import { Text, Flex, Heading, Box, Container } from 'theme-ui'
 import { Helmet } from 'react-helmet'
 import styled from '@emotion/styled'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import Layout from '../components/layout'
-import SEO from '../components/seo'
 import ThemeLink from '../components/app/ThemeLink'
 
 const PodcastDescription = styled.div`
@@ -30,11 +29,10 @@ const SinglePodcastPage = ({ data: { podcast, ...data }, pageContext }) => {
   const { prev, next } = pageContext
 
   return (
-    <Layout>
-      <SEO
-        title={`episode ${podcast.episode_number} | ${podcast.title}`}
-        description={`tru blu podcast - episode ${podcast.episode_number} - ${podcast.title}`}
-      />
+    <Layout
+      title={`episode ${podcast.episode_number} | ${podcast.title}`}
+      description={`tru blu podcast - episode ${podcast.episode_number} - ${podcast.title}`}
+    >
       <Helmet>
         <script
           defer

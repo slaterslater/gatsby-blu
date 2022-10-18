@@ -52,7 +52,7 @@ const TopStoryWithImage = ({ article: { title, image, handle }, ...props }) => {
         p={[4, 6]}
       >
         <Heading
-          as="h1"
+          as="h2"
           variant="caps"
           pb={4}
           sx={{ color: 'white', fontSize: [3, 4], fontWeight: 'normal' }}
@@ -70,12 +70,11 @@ const TopStoryWithImage = ({ article: { title, image, handle }, ...props }) => {
 const TopStory = ({ article, ...props }) => {
   const { image, title, handle } = article
 
-  if (image?.url)
-    return <TopStoryWithImage article={article} {...props} />
+  if (image?.url) return <TopStoryWithImage article={article} {...props} />
 
   return (
     <Box pt={6} {...props}>
-      <Heading as="h1" variant="caps" pb={4} sx={{ fontSize: [3, 4] }}>
+      <Heading as="h2" variant="caps" pb={4} sx={{ fontSize: [3, 4] }}>
         {title}
       </Heading>
       <Button variant="inverted" as={GatsbyLink} to={`/blog/${handle}`}>

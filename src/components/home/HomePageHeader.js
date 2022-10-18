@@ -1,4 +1,4 @@
-import { Box, Grid } from 'theme-ui'
+import { Box, Grid, Heading } from 'theme-ui'
 import { GatsbyImage, withArtDirection } from 'gatsby-plugin-image'
 import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
@@ -25,6 +25,9 @@ const HomePageHeader = ({ data }) => {
 
   return (
     <HeroOuter data={{ heading, subheading, button }}>
+      <Heading as="h1" sx={{ position: 'absolute', zIndex: -100 }}>
+        Bluboho Refined Jewelry
+      </Heading>
       <Grid
         sx={{
           gridTemplateColumns: ['1fr', image2Data ? '1fr 1fr' : '1fr'],

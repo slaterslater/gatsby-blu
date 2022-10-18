@@ -59,16 +59,15 @@ const Zodiac = ({ sign }) => {
         bg="bbBeige"
         p={7}
       >
-        <Heading as="h3" variant="h1" py={5} px={2}>
+        <Heading as="h2" variant="h1" py={5} px={2}>
           Zodiac: {sign.name}
         </Heading>
-        <Heading
-          as="h4"
+        <Text
           variant="h1"
           sx={{ fontSize: 1, lineHeight: '1.5em', textTransform: 'lowercase' }}
         >
           {dateRange}
-        </Heading>
+        </Text>
         <Text
           variant="copy"
           sx={{ textTransform: 'lowercase', maxWidth: 435 }}

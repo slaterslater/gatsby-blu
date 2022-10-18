@@ -24,22 +24,22 @@ const IndexPage = ({ data }) => {
     },
   } = data
 
-  //   const websiteLdJSON = `
-  //   {
-  //       "@context": "https://schema.org",
-  //       "@type": "WebSite",
-  //       "url": "${siteUrl}",
-  //       "about" : {
-  //         "@type":"Thing",
-  //         "name":"Jewelry Store"
-  //       },
-  //       "potentialAction": {
-  //           "@type": "SearchAction",
-  //           "target": "${siteUrl}/search?q={query}&type=product",
-  //           "query-input": "required name=query"
-  //       }
-  //   }
-  // `
+  const websiteLdJSON = `
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "url": "${siteUrl}",
+        "about" : {
+          "@type":"Thing",
+          "name":"Jewelry Store"
+        },
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "${siteUrl}/search?q={query}&type=product",
+            "query-input": "required name=query"
+        }
+    }
+  `
 
   useAnalytics('viewHome')
 
@@ -103,7 +103,7 @@ const IndexPage = ({ data }) => {
           name="google-site-verification"
           content="vQiYyQAU-CvwpUnqiElf9CgPBy0VeML-opmKcJmEhjs"
         />
-        {/* <script type="application/ld+json">{websiteLdJSON}</script> */}
+        <script type="application/ld+json">{websiteLdJSON}</script>
       </SEO>
       <HomePageHeader data={headerHero[0]} />
       <CollectionRowSlider collections={collectionRowWithData} />

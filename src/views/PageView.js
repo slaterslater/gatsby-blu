@@ -10,7 +10,7 @@ const PageView = ({ title, summary, body, currentPath }) => (
   <Layout title={title} description={summary}>
     <Container as="main" pb={8} sx={{ maxWidth: 680 }}>
       <Box pt={7} pb={2}>
-        <Heading>{title}</Heading>
+        <Heading as="h1">{title}</Heading>
       </Box>
       {currentPath?.includes('/pages/exchange-form') && (
         <Exchange variant="primary" />

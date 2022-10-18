@@ -168,7 +168,7 @@ const LinkedBraceletsPage = () => {
         />
       </Flex>
       <Container>
-        <Heading as="h2" variant="h2" mt={[3, 6]} sx={{ textAlign: 'center' }}>
+        <Heading as="h1" variant="h2" mt={[3, 6]} sx={{ textAlign: 'center' }}>
           linked bracelets
         </Heading>
         <Grid
@@ -180,16 +180,19 @@ const LinkedBraceletsPage = () => {
           mx="auto"
         >
           <Box>
-            <Heading
-              as="h3"
+            <Text
               variant="caps"
               pt={[6, 8, 9]}
               pb={6}
               mx={['auto', 3]}
-              sx={{ fontSize: 1, textAlign: ['center', 'center', 'left'] }}
+              sx={{
+                fontSize: 1,
+                textAlign: ['center', 'center', 'left'],
+                display: 'block',
+              }}
             >
               choose your appointment
-            </Heading>
+            </Text>
             <CalendlyLink>yonge st. location | 20 min </CalendlyLink>
             <Text
               as="p"
@@ -240,7 +243,7 @@ const LinkedBraceletsPage = () => {
         </Box>
         <Heading
           variant="h2"
-          as="h3"
+          as="h2"
           mt={[5, 0]}
           pb={6}
           sx={{ textAlign: 'center', textIndent: '1em' }}

@@ -14,14 +14,13 @@ export const CollapsibleFooterSection = ({ title, sx, children, ...props }) => {
         aria-pressed={isOpen}
         onClick={() => setOpen(prev => !prev)}
       >
-        <Heading
+        <Text
           variant="caps"
-          as="h2"
           sx={{ color: 'white', whiteSpace: 'nowrap' }}
           pb={5}
         >
           {title}
-        </Heading>
+        </Text>
         <Box
           as={VscChevronDown}
           ml="auto"
@@ -48,14 +47,13 @@ export const FooterSection = ({
   ...props
 }) => (
   <Box sx={{ flex: 1, ...(sx || {}) }} {...props}>
-    <Heading
+    <Text
       variant="caps"
-      as="h3"
-      sx={{ color: 'white', whiteSpace: 'nowrap' }}
+      sx={{ display: 'block', color: 'white', whiteSpace: 'nowrap' }}
       pb={5}
     >
       {title}
-    </Heading>
+    </Text>
     {children}
   </Box>
 )
