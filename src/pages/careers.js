@@ -95,14 +95,15 @@ const Career = ({ position, isOpen, handleClick }) => {
                 alignItems: ['center', 'flex-start'],
               }}
             >
-              <Heading
-                as="h4"
+              <Text
+                as="p"
                 pt={5}
                 variant="copy"
                 sx={{ fontWeight: 'body' }}
-              >{`location: ${location}`}</Heading>
+              >{`location: ${location}`}</Text>
               <Text
                 variant="copy"
+                as="p"
                 sx={{
                   fontSize: 1,
                   width: '100%',
@@ -201,7 +202,7 @@ const CareersPage = () => {
         />
       </Box>
       <Container sx={{ textAlign: 'center' }}>
-        <Heading as="h2" variant="h2">
+        <Heading as="h1" variant="h2">
           Careers
         </Heading>
         <Text
@@ -221,7 +222,7 @@ const CareersPage = () => {
         </Text>
         {!!positions.length && (
           <>
-            <Heading as="h3" variant="caps" sx={{ fontSize: 1 }} pb={[6, 6, 7]}>
+            <Heading as="h2" variant="caps" sx={{ fontSize: 1 }} pb={[6, 6, 7]}>
               available positions
             </Heading>
             <Box
