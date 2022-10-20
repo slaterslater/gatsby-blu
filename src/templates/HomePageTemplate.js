@@ -107,10 +107,10 @@ const IndexPage = ({ data }) => {
       </SEO>
       <HomePageHeader data={headerHero[0]} />
       <CollectionRowSlider collections={collectionRowWithData} />
-      <BrandStatement />
       <CollectionSpotlight collections={collectionSpotlightWithData} />
       <HomepageReviews reviews={reviewsWithProductData} />
       <OnePercentCallout />
+      <BrandStatement />
       <HeroToggle heros={innerHero} />
       <Zodiac sign={zodiac[0]} />
       <HomeLocations locations={locations} />
