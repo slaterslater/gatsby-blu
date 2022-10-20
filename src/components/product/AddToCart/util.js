@@ -13,7 +13,11 @@ export const getProductAttributes = ({ tags, metafields }, variant) => {
   const ProductAttributes = []
   const madeToOrder = tags.some(tag => tag.includes('made-to-order'))
   const isSize10 = variant.selectedOptions?.some(
-    ({ name, value }) => name.toLowerCase() === 'size' && value === '10'
+    ({ name, value }) =>
+      name.toLowerCase() === 'size' &&
+      (value === '10' ||
+        value === 'size 1 (53 x 43 mm)' ||
+        value === 'size 5 (60 x 51 mm)')
   )
   const preorder = metafields.find(({ key }) => key === 'pre_order')
   const preorderMessage = getPreorderMessage(preorder)

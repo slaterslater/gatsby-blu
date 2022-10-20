@@ -42,10 +42,16 @@ const ProductCTACallout = props => {
     selectedVariant,
   } = useContext(ProductContext)
 
+  console.table({ selectedVariant })
+
   const mto = tags.includes('made-to-order')
   const usd = tags.some(tag => tag.toLowerCase() === 'usd')
   const isSize10 = selectedVariant?.selectedOptions?.some(
-    ({ name, value }) => name.toLowerCase() === 'size' && value === '10'
+    ({ name, value }) =>
+      name.toLowerCase() === 'size' &&
+      (value === '10' ||
+        value === 'size 1 (53 x 43 mm)' ||
+        value === 'size 5 (60 x 51 mm)')
   )
 
   if (!mto && !usd && !isSize10) return null
