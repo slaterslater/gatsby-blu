@@ -42,7 +42,8 @@ const ProductCTACallout = props => {
     selectedVariant,
   } = useContext(ProductContext)
 
-  console.table({ selectedVariant })
+  const [mto1] = JSON.parse(selectedVariant.madeToOrder.value)
+  console.log({ mto1 })
 
   const mto = tags.includes('made-to-order')
   const usd = tags.some(tag => tag.toLowerCase() === 'usd')

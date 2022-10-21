@@ -164,6 +164,12 @@ export const PRODUCT_QUERY = gql`
               amount
               currencyCode
             }
+            madeToOrder: metafield(
+              namespace: "my_fields"
+              key: "made_to_order"
+            ) {
+              value
+            }
           }
         }
       }
