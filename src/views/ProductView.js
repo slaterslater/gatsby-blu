@@ -11,10 +11,11 @@ import ProductReviews from '../components/product/ProductReviews'
 import ProductImageGallery from '../components/product/ProductImageGallery'
 import ProductRecentRecommendations from '../components/product/ProductRecentRecommendations'
 import ProductProvider from '../components/product/ProductContext'
+import ContemplationCard from '../components/product/ContemplationCard'
 
 // const getCollectionTypePath =
 
-const ProductView = ({ product, alternates, badges, stack }) => {
+const ProductView = ({ product, alternates, badges, stack, card }) => {
   const location = useLocation()
 
   const {
@@ -40,6 +41,7 @@ const ProductView = ({ product, alternates, badges, stack }) => {
       stack={stack}
     >
       <Container pt={0}>
+        {/* <Container sx={{ padding: 0 }} px={0}> */}
         <Breadcrumbs
           pt={[3, 5]}
           px={0}
@@ -74,6 +76,9 @@ const ProductView = ({ product, alternates, badges, stack }) => {
             </Box>
           </Box>
         </Grid>
+      </Container>
+      <ContemplationCard card={card} />
+      <Container>
         <ProductRecentRecommendations tags={tags} />
         <ProductReviews
           yotpoProductDetails={{
