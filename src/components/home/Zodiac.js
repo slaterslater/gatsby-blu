@@ -38,8 +38,9 @@ const Zodiac = ({ sign }) => {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
+          bg: 'bbBeige',
         }}
-        bg={sign.backgroundColor.hex || 'bbBeige'}
+        // bg={sign.backgroundColor.hex || 'bbBeige'}
         px={2}
       >
         <GatsbyImage
