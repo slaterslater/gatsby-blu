@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { Flex, Box, Text } from 'theme-ui'
 import { AiFillInfoCircle } from 'react-icons/ai'
 import { ProductContext } from './ProductContext'
+import { useMadeToOrder } from '../../hooks/product'
 
 export const CalloutBox = ({
   icon: Icon,
@@ -39,28 +40,17 @@ export const CalloutBox = ({
 const ProductCTACallout = props => {
   const {
     product: { tags },
-    selectedVariant,
   } = useContext(ProductContext)
-
-  const [mto1] = JSON.parse(selectedVariant.madeToOrder.value)
-  console.log({ mto1 })
-
-  const mto = tags.includes('made-to-order')
+  const mto = useMadeToOrder()
   const usd = tags.some(tag => tag.toLowerCase() === 'usd')
-  const isSize10 = selectedVariant?.selectedOptions?.some(
-    ({ name, value }) =>
-      name.toLowerCase() === 'size' &&
-      (value === '10' ||
-        value === 'size 1 (53 x 43 mm)' ||
-        value === 'size 5 (60 x 51 mm)')
-  )
 
-  if (!mto && !usd && !isSize10) return null
+  if (!mto && !usd) return null
 
   const description = []
-  if (mto || isSize10)
+
+  if (mto)
     description.push(
-      `this piece is a final sale\nplease allow 4 - 6 weeks for production and delivery`
+      `this piece is a final sale\nplease allow ${mto} weeks for production and delivery`
     )
   if (usd) description.push('item will be charged in USD')
   return (
