@@ -147,6 +147,9 @@ export const PRODUCT_QUERY = gql`
       colorAlternates: metafield(namespace: "my_fields", key: "color_options") {
         value
       }
+      madeToOrder: metafield(namespace: "my_fields", key: "made_to_order") {
+        value
+      }
       variants(first: 100) {
         edges {
           node {
@@ -163,6 +166,12 @@ export const PRODUCT_QUERY = gql`
             priceV2 {
               amount
               currencyCode
+            }
+            madeToOrder: metafield(
+              namespace: "my_fields"
+              key: "made_to_order"
+            ) {
+              value
             }
           }
         }

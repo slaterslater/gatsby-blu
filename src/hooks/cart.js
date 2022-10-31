@@ -11,6 +11,7 @@ import { StoreContext } from '../contexts/StoreContext'
 import { useSendAnalytics } from '../lib/useAnalytics'
 import useToggle from '../lib/useToggle'
 import { AddCheckoutLineItem } from '../mutations/cart'
+import { useMadeToOrder } from './product'
 
 export function useCart(onAdded = () => {}) {
   const sendAnalytics = useSendAnalytics('addToCart')
@@ -22,6 +23,7 @@ export function useCart(onAdded = () => {}) {
     useContext(ProductContext)
   const price = useVariantPrice(selectedVariant || product.variants[0])
   const isPreorder = !!useProductPreorderMessage(product.metafields)
+  const madeToOrder = useMadeToOrder()
 
   const [{ data, fetching }, addCheckoutLineItem] =
     useMutation(AddCheckoutLineItem)
@@ -30,7 +32,7 @@ export function useCart(onAdded = () => {}) {
     const lineItems = [{ quantity, variantId: selectedVariant.shopifyId }]
     const nextAttributes = [
       ...(customAttributes || []),
-      ...getProductAttributes(product, selectedVariant),
+      ...getProductAttributes(product, madeToOrder),
     ]
 
     if (nextAttributes.length) {
@@ -133,11 +135,9 @@ export function useCart(onAdded = () => {}) {
         ...variant.customAttributes,
         ...getProductAttributes(
           {
-            tags: variant.tags,
             metafields: variant.metafields,
           },
-          // a little smelly, but need a way to determine size for mto callout...
-          { selectedOptions: variant.selectedOptions }
+          madeToOrder
         ),
       ],
     }))
@@ -166,7 +166,6 @@ export function useCart(onAdded = () => {}) {
       disabled: false,
     }
     const productIsNew = product.tags.some(tag => tag.toLowerCase() === 'new')
-    const mto = product.tags.some(tag => tag.toLowerCase() === 'made-to-order')
 
     switch (true) {
       case fetching:
@@ -181,7 +180,7 @@ export function useCart(onAdded = () => {}) {
       case selectedVariant &&
         !selectedVariant.availableForSale &&
         product.willRestock?.value === 'true' &&
-        !mto:
+        !madeToOrder:
         return {
           ...defaults,
           handleClick: toggleOn,

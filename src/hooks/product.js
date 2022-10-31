@@ -170,3 +170,25 @@ export const useProductMetalColor = (options = []) => {
     ?.values[0].toLowerCase()
   return metals.includes(color) ? color : null
 }
+
+export const useMadeToOrder = () => {
+  const {
+    product: { tags, madeToOrder },
+    selectedVariant,
+  } = useContext(ProductContext)
+
+  const weeks = {
+    'made-to-order': process.env.GATSBY_MADE_TO_ORDER,
+    'made-to-order-2': process.env.GATSBY_MADE_TO_ORDER_2,
+  }
+
+  const mto = madeToOrder?.value || selectedVariant?.madeToOrder?.value
+  if (mto) return weeks[JSON.parse(mto)[0]]
+
+  const isSize10 = selectedVariant?.selectedOptions?.some(
+    ({ name, value }) => name.toLowerCase() === 'size' && value === '10'
+  )
+  if (isSize10 || tags.includes('made-to-order')) return weeks['made-to-order']
+
+  return null
+}
