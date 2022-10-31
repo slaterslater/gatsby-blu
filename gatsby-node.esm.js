@@ -108,6 +108,11 @@ async function createProductPages({ graphql, actions }) {
             return stackProduct ? stackProduct.shopifyId : ''
           })
 
+    // get contemplation card
+    const card = product.metafields.find(({ key }) => key === 'card')
+    // return card ? regex matching case insensitive title : pattern that always fails
+    const [cardTitleExp] = card ? `/${JSON.parse(card.value)}/i` : ['/^\b$/']
+
     actions.createPage({
       path: `/products/${product.handle}`,
       component: productTemplate,
@@ -118,6 +123,7 @@ async function createProductPages({ graphql, actions }) {
         hidden,
         badges,
         stackWithIds,
+        cardTitleExp,
       },
     })
   })

@@ -11,7 +11,7 @@ import ProductView from '../views/ProductView'
 import { useViewProductAnalytics, useLatestProduct } from '../hooks/product'
 
 const ProductPageTemplate = ({ data, ...props }) => {
-  const { product, alternates, badges, stack } = data
+  const { product, alternates, badges, stack, card } = data
   useViewProductAnalytics(product)
 
   return (
@@ -22,6 +22,7 @@ const ProductPageTemplate = ({ data, ...props }) => {
         alternates={alternates}
         badges={badges.nodes}
         stack={stack.nodes}
+        card={card}
       />
     </Layout>
   )
@@ -36,6 +37,7 @@ export const query = graphql`
     $alternates: [String]!
     $badges: [String]!
     $stackWithIds: [String]!
+    $cardTitleExp: String!
   ) {
     site {
       siteMetadata {
@@ -154,6 +156,36 @@ export const query = graphql`
             amount
             currencyCode
           }
+        }
+      }
+    }
+    card: sanityCard(title: { regex: $cardTitleExp }) {
+      title
+      subtitle
+      text
+      stones
+      amplify
+      amulets
+      collectionHandle
+      energy
+      image {
+        asset {
+          gatsbyImageData(
+            width: 250
+            height: 425
+            placeholder: BLURRED
+            layout: FIXED
+          )
+        }
+      }
+      icons {
+        asset {
+          gatsbyImageData(
+            width: 285
+            height: 75
+            placeholder: BLURRED
+            layout: FIXED
+          )
         }
       }
     }
