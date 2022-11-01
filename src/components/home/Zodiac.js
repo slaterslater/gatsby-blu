@@ -79,7 +79,7 @@ const Zodiac = ({ sign }) => {
         <ThemeLink
           variant="caps"
           sx={{ fontSize: 0, textDecoration: 'underline' }}
-          to={`/collections/${sign.name}`}
+          to={`/collections/${sign.collectionHandle || sign.name}`}
         >
           Shop Now
         </ThemeLink>

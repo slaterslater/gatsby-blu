@@ -224,6 +224,7 @@ export const query = graphql`
       zodiac {
         name
         description
+        collectionHandle
         backgroundColor {
           hex
         }
