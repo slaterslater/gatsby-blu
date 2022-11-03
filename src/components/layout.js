@@ -32,6 +32,7 @@ const Layout = ({ title, description, children }) => (
           minHeight: '100vh',
           flexDirection: 'column',
           alignItems: 'stretch',
+          overflow: 'hidden',
         }}
       >
         <Announcements />

@@ -1,7 +1,7 @@
+import { Link } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import React from 'react'
-import { Box, Grid, Text } from 'theme-ui'
-import ThemeLink from '../app/ThemeLink'
+import { Box, Button, Grid, Text } from 'theme-ui'
 
 const SubTitle = ({ title, subtitle }) => (
   <Box>
@@ -12,7 +12,7 @@ const SubTitle = ({ title, subtitle }) => (
   </Box>
 )
 
-const ContemplationCard = ({ card }) => {
+const ContemplationCard = ({ card, buttonVariant = 'outline' }) => {
   if (!card) return null
   const {
     title,
@@ -52,9 +52,11 @@ const ContemplationCard = ({ card }) => {
       <Box
         sx={{
           order: 0,
-          boxShadow: '2px 5px 10px grey',
+          boxShadow: '2px 5px 20px grey',
           borderRadius: 15,
           height: 425,
+          maxWidth: 250,
+          img: { borderRadius: 15 },
         }}
         mx="auto"
       >
@@ -73,7 +75,7 @@ const ContemplationCard = ({ card }) => {
       <Box
         className="flexCol"
         sx={{
-          order: [3, 3, 3, 1],
+          order: [1, 3, 3, 1],
           gridColumn: ['auto', '1 / span 2', '1 / span 2', 'auto'],
           textAlign: ['center', 'center', 'center', 'left'],
         }}
@@ -86,15 +88,16 @@ const ContemplationCard = ({ card }) => {
         >
           {text}
         </Text>
-        <ThemeLink
-          variant="outlineButton"
-          sx={{ textAlign: 'center', fontSize: 1, minWidth: 200 }}
+        <Button
+          as={Link}
+          variant={buttonVariant}
+          sx={{ textAlign: 'center', fontSize: 1, maxWidth: 250 }}
           to={`/collections/${collectionHandle}`}
           mx={['auto', 'auto', 'auto', 0]}
           mt={5}
         >
           {`shop ${title}`}
-        </ThemeLink>
+        </Button>
       </Box>
     </Grid>
   )
