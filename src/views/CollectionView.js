@@ -25,6 +25,7 @@ export const getCollectionProducts = products => {
 }
 
 const CollectionPage = ({
+  seo,
   title,
   description,
   products,
@@ -50,15 +51,15 @@ const CollectionPage = ({
   `)
 
   const ldJSONSrc = getSrcWithSize(image?.src, '1024x_crop_center')
-
+  const descriptionString = escapeDoubleQuoteString(description)
   const collectionUrl = `${siteUrl}/collections/${handle}`
 
   const collectionLdJSON = `
     {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
-      "name": "${title}",
-      "description": "${escapeDoubleQuoteString(description)}", 
+      "name": "${seo.title || title}",
+      "description": "${seo.description || descriptionString}", 
       "image": "${ldJSONSrc}",
       "@id": "${collectionUrl}"
     }
@@ -66,7 +67,11 @@ const CollectionPage = ({
 
   return (
     <Layout>
-      <SEO title={title} description={description} shopifyImage={image}>
+      <SEO
+        title={seo.title || title}
+        description={seo.description || description}
+        shopifyImage={image}
+      >
         <link rel="canonical" href={collectionUrl} />
         <script type="application/ld+json">{collectionLdJSON}</script>
       </SEO>

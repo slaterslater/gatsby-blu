@@ -4,7 +4,8 @@ import CollectionView from '../views/CollectionView'
 import { useLatestCollection } from '../hooks/collection'
 
 const CollectionPageTemplate = ({ data, pageContext, ...props }) => {
-  const { products, handle, image, title, description } = data.shopifyCollection
+  const { products, handle, image, title, description, seo } =
+    data.shopifyCollection
   const { collectionProducts, collectionImages } = useLatestCollection(
     handle,
     products
@@ -12,6 +13,7 @@ const CollectionPageTemplate = ({ data, pageContext, ...props }) => {
 
   return (
     <CollectionView
+      seo={seo}
       title={title.toLowerCase()}
       handle={handle}
       description={description.toLowerCase()}
@@ -30,6 +32,10 @@ export const query = graphql`
     shopifyCollection(handle: { eq: $handle }) {
       title
       description
+      seo {
+        title
+        description
+      }
       handle
       image {
         src

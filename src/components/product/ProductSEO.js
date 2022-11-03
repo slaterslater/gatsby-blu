@@ -6,6 +6,7 @@ import { escapeDoubleQuoteString } from '../../lib/escapeDoubleQuoteStrings'
 const ProductSEO = ({ product }) => {
   const title = useProductTitle(product.title)
   const productUrl = `https://www.bluboho.com/products/${product.handle}`
+  const descriptionString = escapeDoubleQuoteString(product.description)
 
   const productLdJSON = `
     {
@@ -15,8 +16,8 @@ const ProductSEO = ({ product }) => {
       "brand": {
         "name": "${product.vendor}"
       },
-      "name": "${title}",
-      "description": "${escapeDoubleQuoteString(product.description)}",
+      "name": "${product.seo.title || title}",
+      "description": "${product.seo.description || descriptionString}",
       "category": "${product.productType}",
       "url": "${productUrl}",
       "sku": "${product.variants[0].sku}",
@@ -48,8 +49,8 @@ const ProductSEO = ({ product }) => {
 
   return (
     <SEO
-      title={product.title.toLowerCase()}
-      description={product.description}
+      title={product.seo.title || product.title.toLowerCase()}
+      description={product.seo.description || product.description}
       shopifyImage={product.images[0]}
       meta={product.tags.includes('hidden') ? noIndex : []}
     >

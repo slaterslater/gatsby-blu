@@ -88,6 +88,10 @@ export default {
           node {
             description
             descriptionHtml
+            seo {
+              title
+              description
+            }
             handle
             id
             image {
@@ -124,6 +128,10 @@ export default {
             createdAt
             description
             descriptionHtml
+            seo {
+              title
+              description
+            }
             handle
             id
             images(first: 250) {

@@ -50,6 +50,10 @@ export const query = graphql`
       handle
       descriptionHtml
       description
+      seo {
+        title
+        description
+      }
       productType
       vendor
       tags
