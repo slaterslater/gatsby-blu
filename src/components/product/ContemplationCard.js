@@ -53,7 +53,7 @@ const ContemplationCard = ({ card }) => {
         sx={{
           order: 0,
           boxShadow: '2px 5px 10px grey',
-          borderRadius: 10,
+          borderRadius: 15,
           height: 425,
         }}
         mx="auto"
@@ -89,7 +89,7 @@ const ContemplationCard = ({ card }) => {
         <ThemeLink
           variant="outlineButton"
           sx={{ textAlign: 'center', fontSize: 1, maxWidth: 250 }}
-          to={`/collection/${collectionHandle}`}
+          to={`/collections/${collectionHandle}`}
           mx={['auto', 'auto', 'auto', 0]}
           mt={5}
         >
