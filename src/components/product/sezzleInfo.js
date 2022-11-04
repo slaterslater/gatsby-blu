@@ -23,7 +23,7 @@ const SezzleInfo = ({ variantPrice }) => {
         lineHeight: '1.5em',
       }}
     >
-      or 4 intrest-free payments
+      or 4 interest-free payments
       <Flex sx={{ justifyContent: 'flex-end', alignContent: 'center' }}>
         of&nbsp;
         <span>{sezzlePayment}</span>
