@@ -88,7 +88,7 @@ const ContemplationCard = ({ card }) => {
         </Text>
         <ThemeLink
           variant="outlineButton"
-          sx={{ textAlign: 'center', fontSize: 1, maxWidth: 250 }}
+          sx={{ textAlign: 'center', fontSize: 1, minWidth: 200 }}
           to={`/collections/${collectionHandle}`}
           mx={['auto', 'auto', 'auto', 0]}
           mt={5}
