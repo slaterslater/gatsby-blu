@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Image, Grid, Box, Flex, Heading } from 'theme-ui'
 import ThemeLink from '../../app/ThemeLink'
+import BelovedSignupModal from './BelovedSignupModal'
 
 const FeatureImage = ({ gatsbyImageData, alt, path = null, min = 0 }) => {
   if (!gatsbyImageData) return <></>
@@ -101,33 +102,41 @@ export const SubMenu = ({ menu }) => {
           >
             {list.title}
           </Heading>
-          <Box as="ul" sx={{ listStyleType: 'none', padding: 0 }}>
+          <Box
+            as="ul"
+            sx={{
+              listStyleType: 'none',
+              padding: 0,
+              'li > *': {
+                fontSize: 0,
+                letterSpacing: 'wider',
+                whiteSpace: 'nowrap',
+                display: 'block',
+                paddingTop: 2,
+                paddingBottom: 2,
+              },
+            }}
+          >
             {list.links.map(link => (
               <Box
                 as="li"
                 key={`dropdown-link-${link.path}-${link.text}`}
-                py={1}
                 onMouseEnter={() => {
-                  if (link.image)
-                    setHoverImage({ src: link.image, alt: link.text })
+                  if (!link.image) return
+                  setHoverImage({ src: link.image, alt: link.text })
                 }}
                 onMouseLeave={() => setHoverImage(null)}
               >
-                <ThemeLink
-                  to={link.path}
-                  variant="nav"
-                  sx={{
-                    fontSize: 0,
-                    letterSpacing: 'wider',
-                    whiteSpace: 'nowrap',
-                    display: 'block',
-                  }}
-                  py={1}
-                >
+                <ThemeLink to={link.path} variant="nav">
                   {link.text}
                 </ThemeLink>
               </Box>
             ))}
+            {list.title.trim() === 'how to buy an engagement ring' && (
+              <Box as="li">
+                <BelovedSignupModal />
+              </Box>
+            )}
           </Box>
         </Box>
       ))}

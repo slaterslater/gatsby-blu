@@ -1,4 +1,3 @@
-import { borderColor } from 'styled-system'
 import { Button, Text } from 'theme-ui'
 
 export const HeaderLink = props => (

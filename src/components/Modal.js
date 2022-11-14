@@ -29,7 +29,7 @@ const Modal = ({
           exit={{ opacity: 0 }}
           onDismiss={handleDismiss}
           style={{
-            zIndex: 11,
+            zIndex: 110,
             background: backgroundShade,
           }}
         >
