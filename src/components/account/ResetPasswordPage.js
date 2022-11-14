@@ -26,8 +26,10 @@ const ResetPasswordPage = props => {
   const [, resetPassword] = useMutation(CustomerPasswordReset)
 
   return (
-    <Container as="main" sx={{ maxWidth: 480 }}>
-      <Heading pb={5}>reset your password</Heading>
+    <Container as="main" sx={{ maxWidth: 480, h1: { fontSize: 5 } }}>
+      <Heading as="h1" pb={5}>
+        reset your password
+      </Heading>
       {showError && <p>there was a problem resetting your password</p>}
       <Formik
         initialValues={initialValues}

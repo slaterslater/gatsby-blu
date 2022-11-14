@@ -66,7 +66,7 @@ const AccountPage = ({ title, subtitle, links, currentPage, children }) => {
           </Box>
         </Box>
         <Box>
-          <Heading as="h2" variant="h2" sx={{ textAlign: ['center', 'left'] }}>
+          <Heading as="h1" variant="h2" sx={{ textAlign: ['center', 'left'] }}>
             {title}
           </Heading>
           <Text sx={{ fontSize: 2, textAlign: ['center', 'left'] }}>

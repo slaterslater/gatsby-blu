@@ -4,8 +4,13 @@ import ThemeLink from '../app/ThemeLink'
 import CreateAccountForm from '../form/CreateAccount'
 
 const CreateAccountPage = props => (
-  <Box as="main" sx={{ maxWidth: 600 }} variant="sectionWrap" mx="auto">
-    <Heading>Create Account</Heading>
+  <Box
+    as="main"
+    sx={{ maxWidth: 600, h1: { fontSize: 5 } }}
+    variant="sectionWrap"
+    mx="auto"
+  >
+    <Heading as="h1">Create Account</Heading>
     <CreateAccountForm />
     <Flex
       sx={{ gap: 3, alignItems: 'baseline', justifyContent: 'right' }}

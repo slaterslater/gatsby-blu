@@ -30,7 +30,9 @@ const ActivateAccountPage = props => {
 
   return (
     <Container as="main" sx={{ maxWidth: 480 }}>
-      <Heading pb={5}>activate your account</Heading>
+      <Heading as="h1" pb={5}>
+        activate your account
+      </Heading>
       {showError && <p>there was a problem activating your account</p>}
       <Formik
         initialValues={initialValues}

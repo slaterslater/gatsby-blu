@@ -11,11 +11,13 @@ const NewsletterPage = props => (
   >
     <Box
       as="main"
-      sx={{ width: '100%', maxWidth: 480 }}
+      sx={{ width: '100%', maxWidth: 480, h1: { fontSize: 5 } }}
       variant="sectionWrap"
       mx="auto"
     >
-      <Heading mb={5}>sign up for the newsletter</Heading>
+      <Heading as="h1" mb={5}>
+        sign up for the newsletter
+      </Heading>
       <Text
         variant="copy"
         as="p"
