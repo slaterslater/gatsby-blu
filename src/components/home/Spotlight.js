@@ -4,7 +4,7 @@ import { GatsbyImage } from 'gatsby-plugin-image'
 import PropTypes from 'prop-types'
 import ThemeLink from '../app/ThemeLink'
 
-export const CollectionSpotlightCard = ({ title, path, children }) => (
+export const SpotlightCard = ({ title, path, children }) => (
   <Flex
     p={6}
     sx={{ textAlign: 'center', bg: 'cream', flexDirection: 'column' }}
@@ -23,7 +23,7 @@ export const CollectionSpotlightCard = ({ title, path, children }) => (
   </Flex>
 )
 
-const CollectionSpotlight = ({ collections }) => (
+const Spotlight = ({ spotlights }) => (
   <Container variant="wide">
     <Grid
       sx={{
@@ -32,26 +32,22 @@ const CollectionSpotlight = ({ collections }) => (
         justifyContent: 'center',
       }}
     >
-      {collections.map(({ title, handle, image }) => (
-        <CollectionSpotlightCard
-          title={title}
-          path={`/collections/${handle}`}
-          key={`collection-spotlight-${handle}`}
-        >
-          <GatsbyImage image={image.asset.gatsbyImageData} alt={title} />
-        </CollectionSpotlightCard>
+      {spotlights.map(({ image, button: { text, path }, i }) => (
+        <SpotlightCard title={text} path={path} key={`spotlight-${i}`}>
+          <GatsbyImage image={image.asset.gatsbyImageData} alt={text} />
+        </SpotlightCard>
       ))}
     </Grid>
   </Container>
 )
 
-export default CollectionSpotlight
+export default Spotlight
 
-CollectionSpotlight.propTypes = {
-  collections: PropTypes.arrayOf(PropTypes.object),
+Spotlight.propTypes = {
+  spotlights: PropTypes.arrayOf(PropTypes.object),
 }
 
-CollectionSpotlightCard.propTypes = {
+SpotlightCard.propTypes = {
   title: PropTypes.string,
   path: PropTypes.string,
   children: PropTypes.object,

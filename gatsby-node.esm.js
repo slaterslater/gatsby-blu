@@ -386,9 +386,6 @@ async function createHomePage({ graphql, actions }) {
           collectionRow {
             handle
           }
-          collectionSpotlight {
-            handle
-          }
           reviews {
             productHandle
           }

@@ -7,7 +7,7 @@ import SEO from '../components/seo'
 import HomepageReviews from '../components/home/HomepageReviews'
 import BrandStatement from '../components/home/BrandStatement'
 import Medallions from '../components/home/Medallions'
-import CollectionSpotlight from '../components/home/CollectionSpotlight'
+import Spotlight from '../components/home/Spotlight'
 import Zodiac from '../components/home/Zodiac'
 import { useAnalytics } from '../lib/useAnalytics'
 import HomeLocations from '../components/home/Locations'
@@ -50,15 +50,15 @@ const IndexPage = ({ data }) => {
     headerHero,
     innerHero,
     collectionRow,
-    collectionSpotlight,
+    spotlights,
     reviews,
     zodiac,
     locations,
   } = data.sanityHomePage
 
-  const [collectionRowWithData, collectionSpotlightWithData] = useMemo(
+  const [collectionRowWithData] = useMemo(
     () =>
-      [collectionRow, collectionSpotlight].map(obj =>
+      [collectionRow].map(obj =>
         obj.map(subObj => {
           if (subObj.title) return subObj
           const collection = collections.find(
@@ -74,7 +74,7 @@ const IndexPage = ({ data }) => {
           }
         })
       ),
-    [collections, collectionGroupPages, collectionRow, collectionSpotlight]
+    [collections, collectionGroupPages, collectionRow]
   )
 
   const reviewsWithProductData = useMemo(
@@ -107,7 +107,7 @@ const IndexPage = ({ data }) => {
       </SEO>
       <HomePageHeader data={headerHero[0]} />
       <CollectionRowSlider collections={collectionRowWithData} />
-      <CollectionSpotlight collections={collectionSpotlightWithData} />
+      <Spotlight spotlights={spotlights} />
       <HomepageReviews reviews={reviewsWithProductData} />
       <OnePercentCallout />
       <BrandStatement />
@@ -197,6 +197,17 @@ export const query = graphql`
         image {
           asset {
             gatsbyImageData(placeholder: BLURRED, width: 300)
+          }
+        }
+      }
+      spotlights {
+        button {
+          text
+          path
+        }
+        image {
+          asset {
+            gatsbyImageData(placeholder: BLURRED)
           }
         }
       }
