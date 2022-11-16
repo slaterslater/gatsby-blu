@@ -394,12 +394,9 @@ async function createHomePage({ graphql, actions }) {
     }
   `)
   if (!data) return
-  const { collectionRow, collectionSpotlight, reviews } =
-    data.allSanityHomePage.nodes[0]
+  const { collectionRow, reviews } = data.allSanityHomePage.nodes[0]
 
-  const collections = [...collectionRow, ...collectionSpotlight].map(
-    ({ handle }) => handle
-  )
+  const collections = collectionRow.map(({ handle }) => handle)
   const products = reviews.map(({ productHandle }) => productHandle)
 
   actions.createPage({

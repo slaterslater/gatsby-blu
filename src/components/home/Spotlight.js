@@ -32,7 +32,7 @@ const Spotlight = ({ spotlights }) => (
         justifyContent: 'center',
       }}
     >
-      {spotlights.map(({ image, button: { text, path }, i }) => (
+      {spotlights.map(({ image, button: { text, path } }, i) => (
         <SpotlightCard title={text} path={path} key={`spotlight-${i}`}>
           <GatsbyImage image={image.asset.gatsbyImageData} alt={text} />
         </SpotlightCard>

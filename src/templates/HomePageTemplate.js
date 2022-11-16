@@ -56,24 +56,22 @@ const IndexPage = ({ data }) => {
     locations,
   } = data.sanityHomePage
 
-  const [collectionRowWithData] = useMemo(
+  const collectionRowWithData = useMemo(
     () =>
-      [collectionRow].map(obj =>
-        obj.map(subObj => {
-          if (subObj.title) return subObj
-          const collection = collections.find(
-            ({ handle }) => handle === subObj.handle
-          )
-          const collectionGroupPage = collectionGroupPages.find(
-            ({ slug }) => slug.current === subObj.handle
-          )
-          return {
-            ...subObj,
-            ...collection,
-            ...collectionGroupPage,
-          }
-        })
-      ),
+      collectionRow.map(collection => {
+        if (collection.title) return collection
+        const collectionData = collections.find(
+          ({ handle }) => handle === collection.handle
+        )
+        const collectionGroupPage = collectionGroupPages.find(
+          ({ slug }) => slug.current === collection.handle
+        )
+        return {
+          ...collection,
+          ...collectionData,
+          ...collectionGroupPage,
+        }
+      }),
     [collections, collectionGroupPages, collectionRow]
   )
 
@@ -122,10 +120,6 @@ const IndexPage = ({ data }) => {
 }
 
 export default IndexPage
-
-IndexPage.propTypes = {
-  data: PropTypes.object,
-}
 
 export const query = graphql`
   query ($collections: [String!], $products: [String!]) {
