@@ -32,13 +32,15 @@ const Recent = ({ value }) => {
     },
   } = data
 
+  const [formatTitle] = title.toLowerCase().split(' - ')
+
   return (
     <Box sx={{ scrollSnapAlign: 'start' }}>
       <ProductModal handle={data.product.handle}>
         <ProductListItem
           firstImage={images.edges[0]?.node}
           secondImage={images.edges[1]?.node}
-          title={title.split(' - ')}
+          title={formatTitle}
           price={minVariantPrice}
           hasRange={maxVariantPrice.amount !== minVariantPrice.amount}
           availableForSale={availableForSale}
