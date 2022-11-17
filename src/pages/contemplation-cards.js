@@ -317,7 +317,7 @@ const ContemplationCardPage = ({ data }) => {
           ))}
         </Grid>
         <Heading as="h1" variant="h2" sx={{ textAlign: 'center' }} my={7}>
-          connection cards
+          contemplation cards
         </Heading>
         <Grid
           sx={{
