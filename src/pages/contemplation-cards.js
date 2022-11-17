@@ -123,8 +123,8 @@ const ContemplationCardPage = ({ data }) => {
 
   return (
     <Layout
-      title="message from the universe"
-      description="close your eyes, ask a question, or set an intention— then pull a card to receive a message from the universe"
+      title="pick a card for a message from the universe"
+      description="close your eyes and ask a question-our card reading will reveal a message from the universe and connect you to the amulets that will guide you on your journey."
     >
       <Grid
         sx={{
