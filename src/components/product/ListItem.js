@@ -1,42 +1,114 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { AspectRatio, Grid, Flex, Box, Text, Badge } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion, useAnimation } from 'framer-motion'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import FormattedPrice from '../FormattedPrice'
 import { useShopifyImage } from '../../hooks/shopifyImage'
 
 const MotionBox = motion(Box)
 
+const Dot = ({ full }) => (
+  <MotionBox
+    sx={{
+      height: 5,
+      width: 5,
+      border: '1px solid',
+      borderColor: '#DDCAA6',
+      borderRadius: '50%',
+      bg: full ? '#DDCAA6' : 'transparent',
+    }}
+    ml={1}
+  />
+)
+
+const DragBox = ({ children, primary = false, controls, shuffleImg }) => {
+  const swipeConfidenceThreshold = 10000
+  const swipePower = (offset, velocity) => Math.abs(offset) * velocity
+
+  return (
+    <MotionBox
+      sx={{
+        gridArea: '1 / 1 / -1 / -1',
+        zIndex: primary ? 1 : 0,
+        bg: 'white',
+      }}
+      whileHover={primary ? { opacity: 0 } : null}
+      animate={controls}
+      drag="x"
+      dragConstraints={{ left: 0, right: 0 }}
+      whileDrag={{ opacity: 0 }}
+      onDragEnd={(e, { offset, velocity }) => {
+        const swipe = Math.abs(swipePower(offset.x, velocity.x))
+        if (swipe < swipeConfidenceThreshold) return
+        shuffleImg()
+      }}
+    >
+      {children}
+    </MotionBox>
+  )
+}
+
 const ThumbnailImage = ({ image, fallbackAlt }) => {
   const imageData = useShopifyImage({ image, width: 360 })
-
   return <GatsbyImage image={imageData} alt={image.altText || fallbackAlt} />
 }
 
 export const CollectionThumbnail = ({ title, primary, alternate }) => {
-  if (!primary && !alternate)
-    return <AspectRatio sx={{ bg: 'cream' }} ratio={1 / 1} />
+  const priControls = useAnimation()
+  const altControls = useAnimation()
 
+  const [full, setFull] = useState(false)
+
+  const imageControl = (a, b) => {
+    a.start({ opacity: 0, zIndex: 0 })
+    b.start({ zIndex: 2 })
+    a.start({ opacity: 1 })
+    setFull(!full)
+  }
+
+  if (!primary || !alternate) {
+    return <AspectRatio sx={{ bg: 'cream' }} ratio={1 / 1} />
+  }
   return (
-    <Grid>
-      {primary && (
-        <MotionBox
-          sx={{ gridArea: '1 / 1 / -1 / -1', zIndex: 1, bg: 'white' }}
-          whileHover={{ opacity: alternate ? 0 : 1 }}
-        >
-          <ThumbnailImage
-            fallbackAlt={`${title} lightbox photo`}
-            image={primary}
-          />
-        </MotionBox>
-      )}
-      {alternate && (
-        <Box sx={{ gridArea: '1 / 1 / -1 / -1' }}>
-          <ThumbnailImage fallbackAlt={`${title} on body}`} image={alternate} />
-        </Box>
-      )}
-    </Grid>
+    <>
+      <Grid>
+        <AnimatePresence>
+          <DragBox
+            key={`thumbnail-${title}-1`}
+            primary
+            controls={priControls}
+            shuffleImg={() => imageControl(priControls, altControls)}
+          >
+            <ThumbnailImage
+              fallbackAlt={`${title} lightbox photo`}
+              image={primary}
+            />
+          </DragBox>
+          <DragBox
+            key={`thumbnail-${title}-2`}
+            controls={altControls}
+            shuffleImg={() => imageControl(altControls, priControls)}
+          >
+            <ThumbnailImage
+              fallbackAlt={`${title} on body}`}
+              image={alternate}
+            />
+          </DragBox>
+        </AnimatePresence>
+      </Grid>
+      <Box
+        sx={{
+          display: ['flex', 'flex', 'none'],
+          transform: 'translateY(-20px)',
+          zIndex: 2,
+        }}
+        ml={1}
+      >
+        <Dot full={full} />
+        <Dot full={!full} />
+      </Box>
+    </>
   )
 }
 
@@ -75,7 +147,9 @@ const ProductListItemInner = ({
 }) => (
   <Box as="article" sx={{ position: 'relative', zIndex: 1 }} pb={[5, 6]}>
     <ProductItemLabel tags={tags} soldOut={!availableForSale} />
-    <Flex sx={{ flexDirection: 'column', position: 'relative' }} as="article">
+    <Flex
+      sx={{ flexDirection: 'column', position: 'relative', overflow: 'hidden' }}
+    >
       <CollectionThumbnail
         title={title}
         primary={firstImage}
@@ -124,22 +198,20 @@ const ProductListItemInner = ({
 )
 
 const ProductListItem = ({ to, linkState, ...props }) => {
-  if (to)
-    return (
-      <GatsbyLink
-        to={to}
-        state={linkState}
-        style={{
-          textDecoration: 'none',
-          position: 'relative',
-          zIndex: 1,
-        }}
-      >
-        <ProductListItemInner {...props} />
-      </GatsbyLink>
-    )
-
-  return <ProductListItemInner {...props} />
+  if (!to) return <ProductListItemInner {...props} />
+  return (
+    <GatsbyLink
+      to={to}
+      state={linkState}
+      style={{
+        textDecoration: 'none',
+        position: 'relative',
+        zIndex: 1,
+      }}
+    >
+      <ProductListItemInner {...props} />
+    </GatsbyLink>
+  )
 }
 
 export default ProductListItem
