@@ -36,7 +36,7 @@ const CardWheel = ({ cards, order }) =>
     </Box>
   ))
 
-const PickCardPage = ({ data }) => {
+const ContemplationCardPage = ({ data }) => {
   const cards = data.allSanityCard.nodes
   const wheelRef = useRef(null)
   const pickedCardRef = useRef(null)
@@ -344,7 +344,7 @@ const PickCardPage = ({ data }) => {
   )
 }
 
-export default PickCardPage
+export default ContemplationCardPage
 
 export const query = graphql`
   {
