@@ -14,16 +14,24 @@ const faqs = [
     answer: `A zap bracelet — or, as we like to call it, a linked bracelet —  is a bracelet that has no clasp, and is fused 'permanently' to your body. The chain is connected with a small jump ring, which is fused with a zap machine (aka a tungsten soldering machine).`,
   },
   {
+    question: `what's the cost of the bracelet?`,
+    answer: `We have four 14k solid gold chain designs to choose from:
+    <ul>
+    <li>cable chain- $198</li>
+    <li>figaro  chain- $248</li>
+    <li><a href="/products/14k-infinite-inseparable-bracelet-14k-yellow-gold" target="_blank">inseparable chain</a>- $248</li>
+    <li><a href="/products/kinship-bracelet" target="_blank">kinship chain</a> - $298</li>
+    <li>small diamond chain- $298</li>
+    </ul>
+    `,
+  },
+  {
     question: `When can I get it done?`,
-    answer: `We are currently taking appointments at our yonge street location on Tuesdays, starting June 28, 2022!`,
+    answer: `We are currently taking appointments at our yonge street location every day we are open- walk-ins welcome.`,
   },
   {
     question: `Do I need an appointment?`,
-    answer: `Yes!  We are currently only accepting appointments, which can be made here.  Please note that we do ask for a $50 non-refundable deposit to secure your appointment. This will be applied towards the purchase of your bracelet.`,
-  },
-  {
-    question: `What can I do if you have no appointments available?`,
-    answer: `Unfortunately, appointment bookings are first-come, first-served. Your best bet is to sign up for our mailing list to be amongst the first to know when new appointments open up.`,
+    answer: `We recommend booking an appointment ahead, however, we can accommodate walk-ins. Please note that when making an appointment we do ask for a $50 non-refundable deposit to secure your spot. This will be applied towards the purchase of your bracelet.`,
   },
   {
     question: `What if I have to cancel or miss my appointment?`,
@@ -35,7 +43,7 @@ const faqs = [
   },
   {
     question: `Can I pre-pay or buy in advance? What about a gift card?`,
-    answer: `Each appointment must be confirmed with a deposit fee of $25.  This can either go towards the payment of your zap bracelet, or for a gift card to use at a later date. If you're gifting a zap bracelet to a loved one, we have gift cards available for you to purchase, which can always be used towards your zap bracelet!`,
+    answer: `Each appointment must be confirmed with a deposit fee of $50.  This can either go towards the payment of your zap bracelet, or for a gift card to use at a later date. If you're gifting a zap bracelet to a loved one, we have gift cards available for you to purchase, which can always be used towards your zap bracelet!`,
   },
   {
     question: `Does it hurt?`,
@@ -43,11 +51,7 @@ const faqs = [
   },
   {
     question: `What if I need to take it off or it breaks off?`,
-    answer: `We understand that things happen, and you may need to remove your bracelet for any reason.  You can come in and we will remove the bracelet for you, or you can use nail clippers or scissors to remove the bracelet. If you intend to have your bracelet reattached, make sure that you make the cut at the jump ring, as this will make it easier to reattach again later, and help to preserve the integrity of the chain. <br /><br />If the bracelet has to be removed or breaks off within 90 days of getting it done, we offer a complimentary appointment to have it fixed. after that, your bracelet can be reattached for a fee of $25. You can see more about our warranty <a style="color: black" href="/pages/care-and-wear-disclaimer/" target="_blank">here</a>.`,
-  },
-  {
-    question: `What if it breaks off?`,
-    answer: `If the jump ring breaks within 90 days, we will replace that jump ring at no charge. After that there will be a charge of $25.  We are not responsible for lost chains.`,
+    answer: `We understand that things happen, and you may need to remove your bracelet for any reason.  You can come in and we will remove the bracelet for you, or you can use nail clippers or scissors to remove the bracelet. If you intend to have your bracelet reattached, make sure that you make the cut at the jump ring, as this will make it easier to reattach again later, and help to preserve the integrity of the chain. <br /><br />If the bracelet has to be removed or breaks off within 90 days of getting it done, we offer a complimentary appointment to have it fixed. after that, your bracelet can be reattached for a fee of $25. You can <a style="color: black" href="/pages/how-to-care-for-gold-jewelry" target="_blank">see more about our warranty</a>.`,
   },
   {
     question: `Can you make my existing bracelet into a linked bracelet?`,
@@ -124,6 +128,10 @@ const QuestionAnswer = ({ faq, index, expanded, setExpanded }) => {
                 display: 'block',
                 textAlign: ['center', 'left'],
                 whiteSpace: 'pre-line',
+                a: { color: 'primary' },
+                ul: {
+                  lineHeight: 1,
+                },
               }}
               mx="auto"
               py={5}
