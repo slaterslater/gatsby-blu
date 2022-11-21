@@ -52,7 +52,7 @@ const ContemplationCard = ({ card, buttonVariant = 'outline' }) => {
       <Box
         sx={{
           order: 0,
-          boxShadow: '2px 5px 20px grey',
+          boxShadow: '2px 5px 20px 20px grey',
           borderRadius: 15,
           height: 425,
           maxWidth: 250,
