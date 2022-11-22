@@ -59,8 +59,10 @@ const ContemplationCardPage = ({ data }) => {
   }, [cards])
 
   const scrollToCard = i => {
+    console.log('scroll')
     const y = pickedCardRef.current.offsetTop + 40
     window.scrollTo({ top: y, behavior: 'smooth' })
+    console.log(y, i)
     setPickedCardIndex(i)
   }
 
@@ -324,19 +326,18 @@ const ContemplationCardPage = ({ data }) => {
             maxWidth: 1200,
             gap: [2, 3, 4],
             gridTemplateColumns: ['1fr 1fr', '1fr 1fr 1fr', 'repeat(4, 1fr)'],
-            img: { borderRadius: 15 },
+            img: { borderRadius: 15, cursor: 'pointer' },
           }}
           mx="auto"
         >
           {cards.map((card, i) => (
-            <GatsbyImage
-              key={`card-grid-${i}`}
-              image={card.image.asset.gatsbyImageData}
-              alt=""
-              title={card.title}
-              style={{ cursor: 'pointer' }}
-              onClick={() => scrollToCard(i)}
-            />
+            <Box key={`card-grid-${i}`} onClick={() => scrollToCard(i)}>
+              <GatsbyImage
+                image={card.image.asset.gatsbyImageData}
+                alt=""
+                title={card.title}
+              />
+            </Box>
           ))}
         </Grid>
       </Container>
