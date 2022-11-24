@@ -44,20 +44,27 @@ const CurrencyPicker = props => {
         theme="light"
         visible={visible}
         onClickOutside={() => setVisible(prev => !prev)}
-        content={enabledPresentmentCurrencies.map(currency => (
-          <Box key={`currenct-${currency}`}>
-            <CurrencyCode
-              onClick={() => {
-                setCurrency(currency)
-                setVisible(false)
-              }}
-            >
-              {currency}
-            </CurrencyCode>
-          </Box>
-        ))}
+        content={enabledPresentmentCurrencies
+          // remove the filter once the currencies are updated
+          .filter(c => ['CAD', 'USD', 'GBP'].includes(c))
+          .map(currency => (
+            <Box key={`currenct-${currency}`}>
+              <CurrencyCode
+                onClick={() => {
+                  setCurrency(currency)
+                  setVisible(false)
+                }}
+              >
+                {currency}
+              </CurrencyCode>
+            </Box>
+          ))}
       >
-        <CurrencyCode color="black" onClick={() => setVisible(prev => !prev)}>
+        <CurrencyCode
+          color="black"
+          onClick={() => setVisible(prev => !prev)}
+          py={0}
+        >
           {currencyCode}
         </CurrencyCode>
       </Tippy>

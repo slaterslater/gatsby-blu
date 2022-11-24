@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState, createContext } from 'react'
 import { useQuery } from 'urql'
 import store from 'store'
+import axios from 'axios'
 import { SHOP_CURRENCIES } from '../queries/shop'
 
 const STORAGE_CURRENCY_ID = 'currencyCode'
@@ -17,6 +18,11 @@ const CurrencyProvider = props => {
   const [countryCode, setCountryCode] = useState(initialValues.countryCode)
   const [currencyCode, setCurrencyCode] = useState(initialValues.currencyCode)
   const [{ data }] = useQuery({ query: SHOP_CURRENCIES })
+  // const geo = axios
+  //   .post(process.env.GATSBY_GEOLOCATION_API)
+  //   .then(res => res.data)
+
+  // console.log({ geo })
 
   useEffect(() => {
     const storageCurrency = store.get(STORAGE_CURRENCY_ID)
@@ -43,6 +49,20 @@ const CurrencyProvider = props => {
     },
     [setCurrencyCode]
   )
+
+  // look up guest location and set currency
+  useEffect(() => {
+    ;(async () => {
+      const res = await axios.post(process.env.GATSBY_GEOLOCATION_API)
+      // const code = data.shop.paymentSettings.enabledPresentmentCurrencies.find(
+      // use above once currencies are set...
+      const code = ['CAD', 'USD', 'GBP'].find(currency =>
+        currency.startsWith(res.data.country)
+      )
+      if (!code) return
+      setCurrency(code)
+    })()
+  }, [])
 
   return (
     <CurrencyContext.Provider

@@ -12,6 +12,7 @@ import { DrawerContext } from './drawers'
 import CartBadge from './cart/CartBadge'
 import { AuthContext } from '../contexts/AuthContext'
 import WishlistBadge from './header/WishlistBadge'
+import CurrencyPicker from './CurrencyPicker'
 
 const Header = () => {
   const [searchOpen, setSearchOpen] = useState(false)
@@ -66,6 +67,7 @@ const Header = () => {
               height={50}
             />
           </Link>
+
           <Flex
             sx={{
               alignItems: 'center',
@@ -119,6 +121,7 @@ const Header = () => {
                 <Box as={FiHeart} color="black" size={21} />
               </IconButton>
             </Box>
+            <CurrencyPicker />
             <Box sx={{ position: 'relative' }}>
               <CartBadge />
               <IconButton
