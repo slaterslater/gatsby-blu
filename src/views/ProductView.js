@@ -41,7 +41,6 @@ const ProductView = ({ product, alternates, badges, stack, card }) => {
       stack={stack}
     >
       <Container pt={0}>
-        {/* <Container sx={{ padding: 0 }} px={0}> */}
         <Breadcrumbs
           pt={[3, 5]}
           px={0}

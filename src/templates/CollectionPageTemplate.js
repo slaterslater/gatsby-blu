@@ -20,6 +20,7 @@ const CollectionPageTemplate = ({ data, pageContext, ...props }) => {
       image={image}
       collectionImages={collectionImages}
       products={collectionProducts}
+      card={data.card}
       hasFilters
     />
   )
@@ -72,6 +73,36 @@ export const query = graphql`
             currencyCode
             amount
           }
+        }
+      }
+    }
+    card: sanityCard(collectionHandle: { eq: $handle }) {
+      title
+      subtitle
+      text
+      stones
+      amplify
+      amulets
+      collectionHandle
+      energy
+      image {
+        asset {
+          gatsbyImageData(
+            width: 250
+            height: 425
+            placeholder: BLURRED
+            layout: FIXED
+          )
+        }
+      }
+      icons {
+        asset {
+          gatsbyImageData(
+            width: 285
+            height: 75
+            placeholder: BLURRED
+            layout: FIXED
+          )
         }
       }
     }
