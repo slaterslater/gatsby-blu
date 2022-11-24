@@ -285,10 +285,7 @@ const ContemplationCardPage = ({ data }) => {
         }}
         ref={pickedCardRef}
       />
-      <ContemplationCard
-        card={cards[pickedCardIndex]}
-        buttonVariant="inverted"
-      />
+      <ContemplationCard card={cards[pickedCardIndex]} />
       <Container>
         <Grid
           sx={{
@@ -328,7 +325,7 @@ const ContemplationCardPage = ({ data }) => {
           }}
           mx="auto"
         >
-          {cardOrder.reverse().map(n => (
+          {cardOrder.map(n => (
             <Box key={`card-grid-${n}`} onClick={() => scrollToCard(n)}>
               <GatsbyImage
                 image={cards[n].image.asset.gatsbyImageData}

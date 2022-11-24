@@ -12,7 +12,7 @@ const SubTitle = ({ title, subtitle }) => (
   </Box>
 )
 
-const ContemplationCard = ({ card, buttonVariant = 'outline' }) => {
+const ContemplationCard = ({ card, shouldPick = false }) => {
   if (!card) return null
   const {
     title,
@@ -90,13 +90,17 @@ const ContemplationCard = ({ card, buttonVariant = 'outline' }) => {
         </Text>
         <Button
           as={Link}
-          variant={buttonVariant}
+          variant="inverted"
           sx={{ textAlign: 'center', fontSize: 1, maxWidth: 250 }}
-          to={`/collections/${collectionHandle}`}
+          to={
+            shouldPick
+              ? `/contemplation-cards`
+              : `/collections/${collectionHandle}`
+          }
           mx={['auto', 'auto', 'auto', 0]}
           mt={5}
         >
-          {`shop ${title}`}
+          {shouldPick ? 'pick a card' : `shop ${title}`}
         </Button>
       </Box>
     </Grid>

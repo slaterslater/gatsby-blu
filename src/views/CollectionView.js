@@ -10,6 +10,7 @@ import { getSrcWithSize } from '../components/RemoteShopifyImage'
 import { escapeDoubleQuoteString } from '../lib/escapeDoubleQuoteStrings'
 import { useAnalytics } from '../lib/useAnalytics'
 import CollectionPageHeader from '../components/CollectionPageHeader'
+import ContemplationCard from '../components/product/ContemplationCard'
 
 export const getCollectionProducts = products => {
   if (products)
@@ -34,6 +35,7 @@ const CollectionPage = ({
   hasSidebar,
   image,
   collectionImages,
+  card,
 }) => {
   useAnalytics('viewItemList', products, title, handle)
   const {
@@ -65,6 +67,8 @@ const CollectionPage = ({
     }
   `
 
+  console.log({ card })
+
   return (
     <Layout>
       <SEO
@@ -75,11 +79,15 @@ const CollectionPage = ({
         <link rel="canonical" href={collectionUrl} />
         <script type="application/ld+json">{collectionLdJSON}</script>
       </SEO>
-      <CollectionPageHeader
-        title={title}
-        description={description}
-        image={image}
-      />
+      {card ? (
+        <ContemplationCard card={card} shouldPick />
+      ) : (
+        <CollectionPageHeader
+          title={title}
+          description={description}
+          image={image}
+        />
+      )}
       <Container pt={0}>
         <CollectionFilterAndSort title={title} productCount={products.length} />
         <ProductGrid
