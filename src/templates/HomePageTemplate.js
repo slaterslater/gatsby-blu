@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
-import { graphql } from 'gatsby'
 import { Box, Heading, Text } from 'theme-ui'
+import { graphql, navigate } from 'gatsby'
 import Layout from '../components/layout'
 import OnePercentCallout from '../components/content/OnePercentCallout'
 import SEO from '../components/seo'
@@ -16,13 +16,10 @@ import CollectionRowSlider from '../components/home/CollectionRowSlider'
 import Socials from '../components/home/SocialBlocks'
 import HeroToggle from '../components/home/HeroToggle'
 import NewsletterSignUpModal from '../components/NewsletterSignUpModal'
+import MessageFromUniverse from '../components/MessageFromUniverse'
 
 const IndexPage = ({ data }) => {
-  const {
-    site: {
-      siteMetadata: { siteUrl },
-    },
-  } = data
+  const { siteUrl } = data.site.siteMetadata
 
   const websiteLdJSON = `
     {
@@ -47,6 +44,7 @@ const IndexPage = ({ data }) => {
   const collectionGroupPages = data.allSanityCollectionGroupPage.nodes
   const locations = data.allSanityLocation.nodes
   const products = data.allShopifyProduct.nodes
+  const cards = data.allSanityCard.nodes
   const { headerHero, innerHero, collectionRow, spotlights, reviews, zodiac } =
     data.sanityHomePage
 
@@ -88,6 +86,11 @@ const IndexPage = ({ data }) => {
     [reviews, products]
   )
 
+  const goToCardCollection = n => {
+    const handle = cards[n]?.collectionHandle
+    navigate(`/collections/${handle}`)
+  }
+
   return (
     <Layout>
       <SEO title="shop online jewelry">
@@ -113,7 +116,7 @@ const IndexPage = ({ data }) => {
           },
         }}
         py={7}
-        mb={7}
+        my={4}
       >
         <Heading as="h2" variant="caps" mb={3}>
           HOLIDAY SHIPPING DATES
@@ -132,6 +135,11 @@ const IndexPage = ({ data }) => {
           17th - thursday DEC 22nd
         </Text>
       </Box>
+      <MessageFromUniverse
+        cards={cards}
+        onWheelSpin={goToCardCollection}
+        mb={[3, 8]}
+      />
       <Spotlight spotlights={spotlights} />
       <HomepageReviews reviews={reviewsWithProductData} />
       <OnePercentCallout />
@@ -292,6 +300,17 @@ export const query = graphql`
           current
         }
         storeImage {
+          asset {
+            gatsbyImageData(placeholder: BLURRED)
+          }
+        }
+      }
+    }
+    allSanityCard {
+      nodes {
+        id
+        collectionHandle
+        image {
           asset {
             gatsbyImageData(placeholder: BLURRED)
           }

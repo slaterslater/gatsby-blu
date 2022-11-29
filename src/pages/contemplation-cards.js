@@ -1,44 +1,16 @@
 import { graphql, Link } from 'gatsby'
-import { GatsbyImage, StaticImage } from 'gatsby-plugin-image'
+import { GatsbyImage } from 'gatsby-plugin-image'
 import React, { useMemo, useRef, useState } from 'react'
-import {
-  Box,
-  Button,
-  Container,
-  Divider,
-  Flex,
-  Grid,
-  Heading,
-  Text,
-} from 'theme-ui'
+import { Box, Button, Container, Divider, Grid, Heading } from 'theme-ui'
 import { gql, useQuery } from 'urql'
 import Layout from '../components/layout'
+import MessageFromUniverse from '../components/MessageFromUniverse'
 import ContemplationCard from '../components/product/ContemplationCard'
 import ProductListItem from '../components/product/ListItem'
 import ProductModal from '../components/product/ProductModal'
 
-const CardWheel = ({ cards, order }) =>
-  order.map((n, i) => (
-    <Box
-      key={`card-wheel-${i}`}
-      sx={{
-        // width: [105, 155],
-        width: ['26.5vw', '28vw', '14vw'],
-        minWidth: 105,
-        maxWidth: 155,
-        position: 'absolute',
-        transform: `rotate(${(360 / cards.length) * i}deg)`,
-        transformOrigin: 'bottom center',
-        img: { borderRadius: 15 },
-      }}
-    >
-      <GatsbyImage image={cards[n].image.asset.gatsbyImageData} alt="" />
-    </Box>
-  ))
-
 const ContemplationCardPage = ({ data }) => {
   const cards = data.allSanityCard.nodes
-  const wheelRef = useRef(null)
   const pickedCardRef = useRef(null)
   const [pickedCardIndex, setPickedCardIndex] = useState(null)
   const pickedCard = cards[pickedCardIndex]
@@ -58,29 +30,10 @@ const ContemplationCardPage = ({ data }) => {
     return array
   }, [cards])
 
-  const scrollToCard = i => {
+  const scrollToCard = n => {
     const y = pickedCardRef.current.offsetTop + 40
     window.scrollTo({ top: y, behavior: 'smooth' })
-    setPickedCardIndex(i)
-  }
-
-  const pickRandom = () => {
-    let deg = 18
-    let randomIndex
-
-    do {
-      randomIndex = Math.floor(Math.random() * cards.length)
-    } while (randomIndex === pickedCardIndex) // don't pick same card 2x
-
-    const spin = setInterval(() => {
-      wheelRef.current.style.transform = `rotate(${deg}deg)`
-      deg += 18
-    }, 25)
-
-    setTimeout(() => {
-      scrollToCard(randomIndex)
-      clearInterval(spin)
-    }, 500)
+    setPickedCardIndex(n)
   }
 
   const { collectionHandle } = pickedCard || {}
@@ -126,148 +79,27 @@ const ContemplationCardPage = ({ data }) => {
       title="pick a card for a message from the universe"
       description="close your eyes and ask a question-our card reading will reveal a message from the universe and connect you to the amulets that will guide you on your journey."
     >
-      <Grid
-        sx={{
-          width: '100%',
-          maxWidth: 1200,
-          gridTemplateColumns: ['1fr', '1fr', '50% 50%'],
-          columnGap: 6,
-        }}
-        mt={6}
-        mx="auto"
-      >
-        <Flex
-          ref={wheelRef}
-          sx={{
-            width: '94%',
-            height: ['94vw', '94vw', '47vw'],
-            maxWidth: 540,
-            maxHeight: 540,
-            minWidth: 380,
-            minHeight: 380,
-            // border: '3px solid black',
-            borderRadius: '50%',
-            cursor: 'pointer',
-            justifyContent: 'center',
-            '-webkit-tap-highlight-color': 'transparent',
-          }}
-          mx="auto"
-          onClick={() => pickRandom()}
-        >
-          <CardWheel cards={cards} order={cardOrder} />
-          <Flex
-            sx={{
-              flexDirection: 'column',
-              justifyContent: 'center',
-              zIndex: 2,
-              textAlign: 'center',
-            }}
-          >
-            <Box
+      <MessageFromUniverse cards={cards} onWheelSpin={scrollToCard}>
+        <Box sx={{ minHeight: 40 }}>
+          {pickedCard && (
+            <Button
+              as={Link}
+              variant="inverted"
               sx={{
-                bg: 'bbBeige',
-                borderRadius: '50%',
+                textAlign: 'center',
+                fontSize: 1,
+                maxWidth: 250,
+                display: 'block',
               }}
-              p={1}
+              to={`/collections/${pickedCard.collectionHandle}`}
+              mx={['auto', 7, 6, 6, 2]}
+              mt={5}
             >
-              <Box
-                sx={{
-                  border: '1px solid black',
-                  borderRadius: '50%',
-                  padding: '1px',
-                }}
-              >
-                <Text
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    textTransform: 'uppercase',
-                    borderRadius: '50%',
-                    border: '0.5px solid black',
-                    fontSize: [0, 1],
-                    letterSpacing: 'widest',
-                    lineHeight: 1.8,
-                    strong: {
-                      fontFamily: 'heading',
-                      fontSize: [4, 5],
-                    },
-                  }}
-                  px={[4, 5]}
-                  py={[5, 6]}
-                >
-                  pull a <strong>card</strong>
-                </Text>
-              </Box>
-            </Box>
-          </Flex>
-        </Flex>
-        <Box
-          sx={{
-            textAlign: ['center', 'left'],
-          }}
-        >
-          <Box
-            sx={{
-              width: [335, 500, 335, 500, 500],
-              '.sm': { display: ['block', 'none', 'block', 'none', 'none'] },
-              '.lg': { display: ['none', 'block', 'none', 'block', 'block'] },
-            }}
-            mx={['auto', 'auto', 0]}
-          >
-            <StaticImage
-              className="sm"
-              src="../images/pick-a-card/for-you-sm.png"
-              alt=""
-            />
-            <StaticImage
-              className="lg"
-              src="../images/pick-a-card/for-you-lg.png"
-              alt=""
-            />
-          </Box>
-          <Box
-            sx={{
-              width: ['100%', 500, '100%'],
-              maxWidth: [415, 500, null],
-              p: {
-                fontWeight: 'heading',
-                marginTop: [4, 0],
-                marginLeft: [0, 7, 6, 6, 2],
-              },
-            }}
-            px={[5, 0]}
-            mx="auto"
-          >
-            <Text as="p" variant="copy" sx={{ width: ['100%', 340] }} pb={5}>
-              these contemplation cards invite you to look inward and reflect,
-              leading you to the amulets that will guide you on your journey.
-            </Text>
-            <Text as="p" variant="copy" sx={{ width: ['100%', 300] }} pb={5}>
-              close your eyes, ask a question, or set an intention— then pull a
-              card to receive a message from the universe.
-            </Text>
-            <Box sx={{ minHeight: 40 }}>
-              {pickedCard && (
-                <Button
-                  as={Link}
-                  variant="inverted"
-                  sx={{
-                    textAlign: 'center',
-                    fontSize: 1,
-                    maxWidth: 250,
-                    display: 'block',
-                  }}
-                  to={`/collections/${pickedCard.collectionHandle}`}
-                  mx={['auto', 7, 6, 6, 2]}
-                  mt={5}
-                >
-                  {`shop ${pickedCard.title}`}
-                </Button>
-              )}
-            </Box>
-          </Box>
+              {`shop ${pickedCard.title}`}
+            </Button>
+          )}
         </Box>
-      </Grid>
+      </MessageFromUniverse>
       <Container
         sx={{
           display: 'flex',
