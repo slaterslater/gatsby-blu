@@ -70,19 +70,17 @@ Announcement.propTypes = {
 const Announcements = () => {
   const data = useStaticQuery(graphql`
     {
-      allSanitySiteAnnouncements {
-        nodes {
-          announcements {
-            text
-            subtext
-            path
-            message
-          }
+      sanitySiteAnnouncements {
+        announcements {
+          text
+          subtext
+          path
+          message
         }
       }
     }
   `)
-  const { announcements } = data.allSanitySiteAnnouncements.nodes[0]
+  const { announcements } = data.sanitySiteAnnouncements
   const [delay] = useState(5000)
   const [isPaused, setIsPaused] = useState(false)
   const [current, setCurrent] = useState(0)
