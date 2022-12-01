@@ -8,7 +8,7 @@ import { getShopifyImage } from '../../../lib/get-shopify-image'
 
 const MotionBox = motion(Box)
 
-const MegaMenu = props => {
+const MegaMenu = () => {
   const [menuOpen, setMenuOpen] = useState(false)
   const [currentMenu, setCurrentMenu] = useState('')
 

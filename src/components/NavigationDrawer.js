@@ -7,27 +7,44 @@ import { useQuery } from 'urql'
 import Accordion from './Accordion'
 import { AuthContext } from '../contexts/AuthContext'
 import { CUSTOMER_QUERY } from '../queries/customer'
+import BelovedSignupModal from './header/MegaMenu/BelovedSignupModal'
 
 const NavGroup = ({ menu, closeDrawer, children }) => (
   <Accordion title={children}>
     {menu.subGroup.map(item => (
-      <Box key={`drawer-box-${item.title}`} ml={4}>
-        <Box mt={1} py={4}>
+      <Box
+        key={`drawer-box-${item.title}`}
+        sx={{
+          a: {
+            display: 'block',
+            fontSize: 0,
+            textDecoration: 'none',
+            color: 'inherit',
+            letterSpacing: 'wider',
+            textTransform: 'lowercase',
+            '&:hover': { textDecoration: 'underline' },
+            paddingTop: 2,
+            paddingBottom: 2,
+          },
+        }}
+        ml={4}
+      >
+        <Box mt={1} pt={4} pb={2}>
           <Text sx={{ fontSize: 0, fontWeight: 'heading' }}>{item.title}</Text>
         </Box>
         {item.links.map(link => (
-          <Box key={`drawer-${link.path}-${link.text}`} pb={2}>
-            <Link
-              variant="small"
-              as={GatsbyLink}
-              to={link.path}
-              onClick={closeDrawer}
-              sx={{ textDecoration: 'none', fontSize: 0 }}
-            >
-              {link.text}
-            </Link>
-          </Box>
+          <Link
+            key={`drawer-${link.path}-${link.text}`}
+            as={GatsbyLink}
+            to={link.path}
+            onClick={closeDrawer}
+          >
+            {link.text}
+          </Link>
         ))}
+        {item.title.trim() === 'how to buy an engagement ring' && (
+          <BelovedSignupModal />
+        )}
       </Box>
     ))}
   </Accordion>
