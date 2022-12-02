@@ -3,16 +3,18 @@ import React from 'react'
 import { Box, Flex, Text } from 'theme-ui'
 
 const Countdown = () => {
-  const xmas = new Date('2022-12-25')
-  const today = new Date()
-  const offset = today.getTimezoneOffset() * 60000
-  const diffTime = xmas.getTime() - today.getTime() + offset
+  const end = new Date('2022-12-25')
+  const now = new Date()
+  const offset = now.getTimezoneOffset() * 60000
+  const diffTime = end.getTime() - now.getTime() + offset
   const diffDays = Math.ceil(diffTime / (1000 * 3600 * 24))
+
+  if (diffDays < 1) return null
+
   const text = `only ${diffDays} day${
-    diffDays > 1 ? 's' : null
+    diffDays > 1 ? 's' : ''
   } till DEC 25, hurry!`
 
-  if (!diffDays) return null
   const MotionBox = motion(Flex)
   return (
     <AnimatePresence>
