@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react'
 import { graphql } from 'gatsby'
-import PropTypes from 'prop-types'
 import Layout from '../components/layout'
 import OnePercentCallout from '../components/content/OnePercentCallout'
 import SEO from '../components/seo'
@@ -15,8 +14,7 @@ import HomePageHeader from '../components/home/HomePageHeader'
 import CollectionRowSlider from '../components/home/CollectionRowSlider'
 import Socials from '../components/home/SocialBlocks'
 import HeroToggle from '../components/home/HeroToggle'
-import Countdown from '../components/Countdown'
-// import NewsletterSignUpModal from '../components/NewsletterSignUpModal'
+import NewsletterSignUpModal from '../components/NewsletterSignUpModal'
 
 const IndexPage = ({ data }) => {
   const {
@@ -104,7 +102,6 @@ const IndexPage = ({ data }) => {
         />
         <script type="application/ld+json">{websiteLdJSON}</script>
       </SEO>
-      <Countdown />
       <HomePageHeader data={headerHero[0]} />
       <CollectionRowSlider collections={collectionRowWithData} />
       <Spotlight spotlights={spotlights} />
@@ -116,7 +113,7 @@ const IndexPage = ({ data }) => {
       <HomeLocations locations={locations} />
       <Medallions />
       <Socials />
-      {/* <NewsletterSignUpModal /> */}
+      <NewsletterSignUpModal />
     </Layout>
   )
 }

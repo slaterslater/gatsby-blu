@@ -27,83 +27,85 @@ const ContemplationCard = ({ card, shouldPick = false }) => {
     icons,
   } = card
   return (
-    <Grid
-      sx={{
-        bg: 'bbBackground',
-        rowGap: 8,
-        maxWidth: 1444,
-        gridTemplateColumns: [
-          '1fr',
-          'repeat(2, minmax(250px, 1fr))',
-          'repeat(2, minmax(250px, 1fr))',
-          'repeat(3, minmax(250px, 1fr))',
-        ],
-        textAlign: 'center',
-        span: { display: 'block' },
-        '.flexCol': {
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-        },
-      }}
-      px={[6, 8]}
-      py={[7, 8]}
-    >
-      <Box
+    <Box bg="bbBackground">
+      <Grid
         sx={{
-          order: 0,
-          boxShadow: '2px 2px 10px 5px lightgrey',
-          borderRadius: 15,
-          height: 425,
-          maxWidth: 250,
-          img: { borderRadius: 15 },
+          rowGap: 8,
+          maxWidth: 1444,
+          gridTemplateColumns: [
+            '1fr',
+            'repeat(2, minmax(250px, 1fr))',
+            'repeat(2, minmax(250px, 1fr))',
+            'repeat(3, minmax(250px, 1fr))',
+          ],
+          textAlign: 'center',
+          span: { display: 'block' },
+          '.flexCol': {
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+          },
         }}
+        px={[6, 8]}
+        py={[7, 8]}
         mx="auto"
       >
-        <GatsbyImage image={image.asset.gatsbyImageData} alt={title} />
-      </Box>
-      <Box
-        className="flexCol"
-        sx={{ order: 2, alignItems: 'center', maxHeight: 425 }}
-      >
-        <SubTitle title="how to amplify this energy:" subtitle={amplify} />
-        <SubTitle title="stones:" subtitle={stones} />
-        <SubTitle title="amulets:" subtitle={amulets} />
-        <SubTitle title="energy centre:" subtitle={energy} />
-        <GatsbyImage image={icons.asset.gatsbyImageData} alt="" />
-      </Box>
-      <Box
-        className="flexCol"
-        sx={{
-          order: [1, 3, 3, 1],
-          gridColumn: ['auto', '1 / span 2', '1 / span 2', 'auto'],
-          textAlign: ['center', 'center', 'center', 'left'],
-        }}
-      >
-        <SubTitle title={`the ${title}`} subtitle={subtitle} />
-        <Text
-          as="p"
-          sx={{ lineHeight: 2, maxWidth: 600 }}
-          mx={[null, 'auto', null]}
+        <Box
+          sx={{
+            order: 0,
+            boxShadow: '2px 2px 10px 5px lightgrey',
+            borderRadius: 15,
+            height: 425,
+            maxWidth: 250,
+            img: { borderRadius: 15 },
+          }}
+          mx="auto"
         >
-          {text}
-        </Text>
-        <Button
-          as={Link}
-          variant="inverted"
-          sx={{ textAlign: 'center', fontSize: 1, maxWidth: 250 }}
-          to={
-            shouldPick
-              ? `/contemplation-cards`
-              : `/collections/${collectionHandle}`
-          }
-          mx={['auto', 'auto', 'auto', 0]}
-          mt={5}
+          <GatsbyImage image={image.asset.gatsbyImageData} alt={title} />
+        </Box>
+        <Box
+          className="flexCol"
+          sx={{ order: 2, alignItems: 'center', maxHeight: 425 }}
         >
-          {shouldPick ? 'pick a card' : `shop ${title}`}
-        </Button>
-      </Box>
-    </Grid>
+          <SubTitle title="how to amplify this energy:" subtitle={amplify} />
+          <SubTitle title="stones:" subtitle={stones} />
+          <SubTitle title="amulets:" subtitle={amulets} />
+          <SubTitle title="energy centre:" subtitle={energy} />
+          <GatsbyImage image={icons.asset.gatsbyImageData} alt="" />
+        </Box>
+        <Box
+          className="flexCol"
+          sx={{
+            order: [1, 3, 3, 1],
+            gridColumn: ['auto', '1 / span 2', '1 / span 2', 'auto'],
+            textAlign: ['center', 'center', 'center', 'left'],
+          }}
+        >
+          <SubTitle title={`the ${title}`} subtitle={subtitle} />
+          <Text
+            as="p"
+            sx={{ lineHeight: 2, maxWidth: 600 }}
+            mx={[null, 'auto', null]}
+          >
+            {text}
+          </Text>
+          <Button
+            as={Link}
+            variant="inverted"
+            sx={{ textAlign: 'center', fontSize: 1, maxWidth: 250 }}
+            to={
+              shouldPick
+                ? `/contemplation-cards`
+                : `/collections/${collectionHandle}`
+            }
+            mx={['auto', 'auto', 'auto', 0]}
+            mt={5}
+          >
+            {shouldPick ? 'pick a card' : `shop ${title}`}
+          </Button>
+        </Box>
+      </Grid>
+    </Box>
   )
 }
 
