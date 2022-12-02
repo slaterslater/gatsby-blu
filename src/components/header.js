@@ -108,7 +108,6 @@ const Header = () => {
               <WishlistBadge />
               <IconButton
                 sx={{ cursor: 'pointer' }}
-                mr={2}
                 onClick={() =>
                   shouldRenew || !isLoggedIn
                     ? navigate('/account/login', {
