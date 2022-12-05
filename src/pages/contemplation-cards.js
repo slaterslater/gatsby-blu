@@ -322,11 +322,11 @@ const ContemplationCardPage = ({ data }) => {
             sx={{
               textAlign: 'center',
               fontSize: 1,
-              // maxWidth: 250,
+              maxWidth: 1200,
               display: 'block',
             }}
             to={`/collections/${pickedCard.collectionHandle}`}
-            mx={['auto', 7, 6, 6, 2]}
+            mx="auto"
             mt={5}
           >
             shop more
