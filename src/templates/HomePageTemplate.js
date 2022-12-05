@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react'
 import { graphql } from 'gatsby'
+import { Box, Heading, Text } from 'theme-ui'
 import Layout from '../components/layout'
 import OnePercentCallout from '../components/content/OnePercentCallout'
 import SEO from '../components/seo'
@@ -104,6 +105,39 @@ const IndexPage = ({ data }) => {
       </SEO>
       <HomePageHeader data={headerHero[0]} />
       <CollectionRowSlider collections={collectionRowWithData} />
+      <Box
+        sx={{
+          bg: 'cream',
+          textAlign: 'center',
+          h2: { fontSize: 2, fontWeight: 'bold' },
+          span: {
+            display: 'block',
+            padding: 2,
+            maxWidth: 300,
+            margin: 'auto',
+            fontSize: 0,
+          },
+        }}
+        py={7}
+        mb={7}
+      >
+        <Heading as="h2" variant="caps" mb={3}>
+          HOLIDAY SHIPPING DATES
+        </Heading>
+        <Text>
+          <strong>INTERNATIONAL</strong>: friday, DEC 16th
+        </Text>
+        <Text>
+          <strong>DOMESTIC</strong>: friday, DEC 16th
+        </Text>
+        <Text>
+          <strong>CURBSIDE</strong> PICK UP: friday, DEC 23rd
+        </Text>
+        <Text>
+          <strong>FREE EXPRESS SHIPPING</strong> (order over $500): saturday DEC
+          17th - thursday DEC 22nd
+        </Text>
+      </Box>
       <Spotlight spotlights={spotlights} />
       <HomepageReviews reviews={reviewsWithProductData} />
       <OnePercentCallout />
