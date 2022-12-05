@@ -119,7 +119,7 @@ const ContemplationCardPage = ({ data }) => {
     `,
     variables: { collectionHandle },
   })
-  const products = collectionData?.collection?.products.nodes || []
+  const products = collectionData?.collection?.products.nodes || null
 
   return (
     <Layout
@@ -287,32 +287,51 @@ const ContemplationCardPage = ({ data }) => {
       />
       <ContemplationCard card={cards[pickedCardIndex]} />
       <Container>
-        <Grid
-          sx={{
-            maxWidth: 1200,
-            gridTemplateColumns: ['1fr 1fr', '1fr 1fr', '1fr 1fr 1fr 1fr'],
-            justifyItems: 'center',
-            gap: 3,
-          }}
-          mx="auto"
-        >
-          {products?.map(product => (
-            <ProductModal key={product.id} handle={product.handle}>
-              <ProductListItem
-                firstImage={product.images.nodes[0]}
-                secondImage={product.images.nodes[1]}
-                title={product.title.toLowerCase().split('-')[0]}
-                price={product.priceRange.minVariantPrice}
-                hasRange={
-                  product.priceRange.maxVariantPrice.amount !==
-                  product.priceRange.minVariantPrice.amount
-                }
-                availableForSale={product.availableForSale}
-                tags={product.tags}
-              />
-            </ProductModal>
-          ))}
-        </Grid>
+        {products && (
+          <Grid
+            sx={{
+              maxWidth: 1200,
+              gridTemplateColumns: ['1fr 1fr', '1fr 1fr', '1fr 1fr 1fr 1fr'],
+              justifyItems: 'center',
+              gap: 3,
+            }}
+            mx="auto"
+          >
+            {products.map(product => (
+              <ProductModal key={product.id} handle={product.handle}>
+                <ProductListItem
+                  firstImage={product.images.nodes[0]}
+                  secondImage={product.images.nodes[1]}
+                  title={product.title.toLowerCase().split('-')[0]}
+                  price={product.priceRange.minVariantPrice}
+                  hasRange={
+                    product.priceRange.maxVariantPrice.amount !==
+                    product.priceRange.minVariantPrice.amount
+                  }
+                  availableForSale={product.availableForSale}
+                  tags={product.tags}
+                />
+              </ProductModal>
+            ))}
+          </Grid>
+        )}
+        {pickedCard && (
+          <Button
+            as={Link}
+            variant="inverted"
+            sx={{
+              textAlign: 'center',
+              fontSize: 1,
+              // maxWidth: 250,
+              display: 'block',
+            }}
+            to={`/collections/${pickedCard.collectionHandle}`}
+            mx={['auto', 7, 6, 6, 2]}
+            mt={5}
+          >
+            shop more
+          </Button>
+        )}
         <Heading as="h1" variant="h2" sx={{ textAlign: 'center' }} my={7}>
           contemplation cards
         </Heading>
