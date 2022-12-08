@@ -18,7 +18,7 @@ const ThumbnailImage = ({ image, alt = '' }) => {
 const AddStackButton = () => {
   const { disabled, addStackToCart } = useCart()
   const {
-    product: { availableForSale },
+    product: { availableForSale, byAppointmentOnly },
     stack,
   } = useContext(ProductContext)
 
@@ -31,12 +31,17 @@ const AddStackButton = () => {
     [stack]
   )
 
+  const noStack =
+    !stack?.length || !availableForSale || byAppointmentOnly?.value === 'true'
+
+  if (noStack) return <></>
+
   const scrollToStack = () => {
     const recommendations = document.querySelector('#recommendations')
     const top = recommendations.offsetTop - 50
     window.scrollTo({ top, behavior: 'smooth' })
   }
-  if (!stack?.length || !availableForSale) return <></>
+
   return (
     <>
       <Button

@@ -84,6 +84,10 @@ export const query = graphql`
             id
           }
           tags
+          metafields {
+            key
+            value
+          }
           variants {
             priceV2 {
               amount

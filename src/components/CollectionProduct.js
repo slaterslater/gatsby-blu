@@ -3,6 +3,11 @@ import { useProductTitle } from './ProductTitle'
 import ProductListItem from './product/ListItem'
 
 export const useProductPrice = product => {
+  const byAppointmentOnly = product.metafields?.some(
+    ({ key, value }) => key === 'appt_only' && value === 'true'
+  )
+  if (byAppointmentOnly) return ['', '']
+
   const hasRange =
     product.priceRange.minVariantPrice.amount !==
     product.priceRange.maxVariantPrice.amount
