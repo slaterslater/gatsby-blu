@@ -67,8 +67,13 @@ export const CollectionThumbnail = ({ title, primary, alternate }) => {
     setFull(!full)
   }
 
-  if (!primary || !alternate) {
-    return <AspectRatio sx={{ bg: 'cream' }} ratio={1 / 1} />
+  if (!primary && !alternate) {
+    return <AspectRatio sx={{ bg: 'prodBackground' }} ratio={1 / 1} />
+  }
+  if (!alternate) {
+    return (
+      <ThumbnailImage fallbackAlt={`${title} lightbox photo`} image={primary} />
+    )
   }
   return (
     <>

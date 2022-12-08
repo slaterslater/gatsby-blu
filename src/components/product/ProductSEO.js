@@ -8,6 +8,8 @@ const ProductSEO = ({ product }) => {
   const productUrl = `https://www.bluboho.com/products/${product.handle}`
   const descriptionString = escapeDoubleQuoteString(product.description)
 
+  const { title: seoTitle, description: seoDesc } = product.seo || {}
+
   const productLdJSON = `
     {
       "@context": "https://schema.org",
@@ -16,8 +18,8 @@ const ProductSEO = ({ product }) => {
       "brand": {
         "name": "${product.vendor}"
       },
-      "name": "${product.seo.title || title}",
-      "description": "${product.seo.description || descriptionString}",
+      "name": "${seoTitle || title}",
+      "description": "${seoDesc || descriptionString}",
       "category": "${product.productType}",
       "url": "${productUrl}",
       "sku": "${product.variants[0].sku}",
@@ -49,8 +51,8 @@ const ProductSEO = ({ product }) => {
 
   return (
     <SEO
-      title={product.seo.title || product.title.toLowerCase()}
-      description={product.seo.description || product.description}
+      title={seoTitle || product.title.toLowerCase()}
+      description={seoDesc || product.description}
       shopifyImage={product.images[0]}
       meta={product.tags.includes('hidden') ? noIndex : []}
     >

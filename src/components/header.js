@@ -75,9 +75,13 @@ const Header = () => {
             }}
             p={4}
           >
-            <Flex>
+            <Box
+              sx={{
+                display: ['none', 'flex'],
+                'a, button': { cursor: 'pointer' },
+              }}
+            >
               <IconButton
-                sx={{ cursor: 'pointer', display: ['none', 'flex'] }}
                 as={GatsbyLink}
                 to="/account"
                 mr={2}
@@ -91,7 +95,6 @@ const Header = () => {
                 />
               </IconButton>
               <IconButton
-                sx={{ cursor: 'pointer', display: ['none', 'flex'] }}
                 onClick={() => setSearchOpen(state => !state)}
                 mr={2}
                 aria-label="Search"
@@ -103,22 +106,21 @@ const Header = () => {
                   sx={{ transform: 'translateY(1px)' }}
                 />
               </IconButton>
-            </Flex>
-            <Box sx={{ position: 'relative' }}>
-              <WishlistBadge />
-              <IconButton
-                sx={{ cursor: 'pointer' }}
-                onClick={() =>
-                  shouldRenew || !isLoggedIn
-                    ? navigate('/account/login', {
-                        state: { toOrigin: '/account/wishlist' },
-                      })
-                    : navigate('/account/wishlist')
-                }
-                aria-label="Wishlist"
-              >
-                <Box as={FiHeart} color="black" size={21} />
-              </IconButton>
+              <Box sx={{ position: 'relative' }}>
+                <WishlistBadge />
+                <IconButton
+                  onClick={() =>
+                    shouldRenew || !isLoggedIn
+                      ? navigate('/account/login', {
+                          state: { toOrigin: '/account/wishlist' },
+                        })
+                      : navigate('/account/wishlist')
+                  }
+                  aria-label="Wishlist"
+                >
+                  <Box as={FiHeart} color="black" size={21} />
+                </IconButton>
+              </Box>
             </Box>
             <CurrencyPicker />
             <Box sx={{ position: 'relative' }}>
