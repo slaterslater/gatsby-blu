@@ -1,3 +1,4 @@
+import { navigate } from 'gatsby'
 import { useContext } from 'react'
 import { useMutation } from 'urql'
 import { DrawerContext } from '../components/drawers'
@@ -166,10 +167,20 @@ export function useCart(onAdded = () => {}) {
       disabled: false,
     }
     const productIsNew = product.tags.some(tag => tag.toLowerCase() === 'new')
+    const byAppointmentOnly = product.metafields?.some(
+      ({ key, value }) => key === 'appt_only' && value === 'true'
+    )
+    const gotoBookingsPage = () => navigate('/book-a-consultation')
 
     switch (true) {
       case fetching:
         return { ...defaults, disabled: true }
+      case byAppointmentOnly:
+        return {
+          ...defaults,
+          handleClick: gotoBookingsPage,
+          buttonText: 'Book Consultation',
+        }
       case !selectedVariant:
         return { ...defaults, disabled: true }
       case !selectedVariant.availableForSale && !product.willRestock:

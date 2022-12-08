@@ -10,12 +10,16 @@ export const ProductTitleAndPrice = ({
   priceFontSize = 2,
 }) => {
   const {
-    product: { title, variants, options },
+    product: { title, variants, options, metafields },
     selectedVariant,
   } = useContext(ProductContext)
 
   const productMetalColor = useProductMetalColor(options)
   const variantPrice = useVariantPrice(selectedVariant || variants[0])
+  const byAppointmentOnly = metafields?.some(
+    ({ key, value }) => key === 'appt_only' && value === 'true'
+  )
+  const price = byAppointmentOnly ? '' : variantPrice
 
   return (
     <Grid
@@ -61,7 +65,7 @@ export const ProductTitleAndPrice = ({
           fontSize: priceFontSize,
         }}
       >
-        {variantPrice}
+        {price}
       </Text>
     </Grid>
   )

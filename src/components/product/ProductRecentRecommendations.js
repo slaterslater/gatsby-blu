@@ -29,10 +29,15 @@ const Recent = ({ value }) => {
       priceRange: { maxVariantPrice, minVariantPrice },
       availableForSale,
       tags,
+      byAppointmentOnly,
     },
   } = data
 
   const [formatTitle] = title.toLowerCase().split(' - ')
+  const [price, hasRange] =
+    byAppointmentOnly?.value === 'true'
+      ? [{ amount: '' }, false]
+      : [minVariantPrice, maxVariantPrice.amount !== minVariantPrice.amount]
 
   return (
     <Box sx={{ scrollSnapAlign: 'start' }}>
@@ -41,8 +46,8 @@ const Recent = ({ value }) => {
           firstImage={images.edges[0]?.node}
           secondImage={images.edges[1]?.node}
           title={formatTitle}
-          price={minVariantPrice}
-          hasRange={maxVariantPrice.amount !== minVariantPrice.amount}
+          price={price}
+          hasRange={hasRange}
           availableForSale={availableForSale}
           tags={tags}
         />

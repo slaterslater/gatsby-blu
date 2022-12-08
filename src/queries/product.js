@@ -30,6 +30,9 @@ export const PRODUCT_ITEM_QUERY_FRAGMENT = gql`
       }
     }
     tags
+    byAppointmentOnly: metafield(namespace: "custom", key: "appt_only") {
+      value
+    }
     availableForSale
     images(first: 2) {
       edges {
@@ -148,6 +151,9 @@ export const PRODUCT_QUERY = gql`
         value
       }
       madeToOrder: metafield(namespace: "my_fields", key: "made_to_order") {
+        value
+      }
+      byAppointmentOnly: metafield(namespace: "custom", key: "appt_only") {
         value
       }
       variants(first: 100) {

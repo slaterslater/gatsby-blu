@@ -67,8 +67,6 @@ const CollectionPage = ({
     }
   `
 
-  console.log({ card })
-
   return (
     <Layout>
       <SEO
