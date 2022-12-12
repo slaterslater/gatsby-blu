@@ -78,7 +78,7 @@ const CollectionPage = ({
         <script type="application/ld+json">{collectionLdJSON}</script>
       </SEO>
       {card ? (
-        <ContemplationCard card={card} shouldPick />
+        <ContemplationCard card={card} isPageHeader />
       ) : (
         <CollectionPageHeader
           title={title}

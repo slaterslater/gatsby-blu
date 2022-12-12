@@ -3,16 +3,18 @@ import { GatsbyImage } from 'gatsby-plugin-image'
 import React from 'react'
 import { Box, Button, Grid, Text } from 'theme-ui'
 
-const SubTitle = ({ title, subtitle }) => (
+const SubTitle = ({ title, subtitle, as }) => (
   <Box>
-    <Text sx={{ textTransform: 'uppercase', fontWeight: 'bold' }}>{title}</Text>
+    <Text as={as} sx={{ textTransform: 'uppercase', fontWeight: 'bold' }}>
+      {title}
+    </Text>
     <Text sx={{ textTransform: 'lowercase', letterSpacings: 'wider' }} mb={5}>
       {subtitle}
     </Text>
   </Box>
 )
 
-const ContemplationCard = ({ card, shouldPick = false }) => {
+const ContemplationCard = ({ card, isPageHeader = false }) => {
   if (!card) return null
   const {
     title,
@@ -81,7 +83,11 @@ const ContemplationCard = ({ card, shouldPick = false }) => {
             textAlign: ['center', 'center', 'center', 'left'],
           }}
         >
-          <SubTitle title={`the ${title}`} subtitle={subtitle} />
+          <SubTitle
+            title={`the ${title}`}
+            subtitle={subtitle}
+            as={isPageHeader ? 'h1' : null}
+          />
           <Text
             as="p"
             sx={{ lineHeight: 2, maxWidth: 600 }}
@@ -94,14 +100,14 @@ const ContemplationCard = ({ card, shouldPick = false }) => {
             variant="inverted"
             sx={{ textAlign: 'center', fontSize: 1, maxWidth: 250 }}
             to={
-              shouldPick
+              isPageHeader
                 ? `/contemplation-cards`
                 : `/collections/${collectionHandle}`
             }
             mx={['auto', 'auto', 'auto', 0]}
             mt={5}
           >
-            {shouldPick ? 'pick a card' : `shop ${title}`}
+            {isPageHeader ? 'pick a card' : `shop ${title}`}
           </Button>
         </Box>
       </Grid>
