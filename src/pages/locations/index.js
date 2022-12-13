@@ -2,6 +2,7 @@ import { graphql } from 'gatsby'
 import { StaticImage } from 'gatsby-plugin-image'
 import React from 'react'
 import { Box, Container, Flex, Heading, Text } from 'theme-ui'
+import { Breadcrumbs } from '../../components/Breadcrumbs'
 import Layout from '../../components/layout'
 import PermanentStore from '../../components/location/PermanentStore'
 import PopupStore from '../../components/location/PopupStore'
@@ -32,6 +33,20 @@ const LocationIndexPage = ({ data }) => {
           placeholder="blurred"
         />
       </Flex>
+      <Breadcrumbs
+        sx={{ maxWidth: 1000, width: '100%', alignItems: 'center' }}
+        pt={[3, 5]}
+        pb={[0, 0]}
+        mx="auto"
+        px={4}
+        currentPage={{ path: `/locations`, text: 'locations' }}
+        links={[
+          {
+            path: '/',
+            text: 'Home',
+          },
+        ]}
+      />
       <Container
         as="main"
         sx={{

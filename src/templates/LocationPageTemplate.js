@@ -7,6 +7,7 @@ import ImageSwiper from '../components/ImageSwiper'
 import Layout from '../components/layout'
 import ContactOptions from '../components/location/ContactOptions'
 import StoreHours from '../components/location/StoreHours'
+import { Breadcrumbs } from '../components/Breadcrumbs'
 
 const LocationPageTemplate = ({ data }) => {
   const {
@@ -15,6 +16,7 @@ const LocationPageTemplate = ({ data }) => {
     text,
     daysOpen,
     map,
+    slug,
     storeImage,
     galleryImages,
     isTempClosed,
@@ -43,6 +45,24 @@ const LocationPageTemplate = ({ data }) => {
           {name}
         </Heading>
       </Flex>
+      <Breadcrumbs
+        sx={{ maxWidth: 1000, width: '100%', alignItems: 'center' }}
+        pt={[3, 5]}
+        pb={[0, 0]}
+        mx="auto"
+        px={4}
+        currentPage={{ path: `/locations/${slug.current}`, text: name }}
+        links={[
+          {
+            path: '/',
+            text: 'Home',
+          },
+          {
+            path: '/locations',
+            text: 'locations',
+          },
+        ]}
+      />
       <Heading as="h2" sx={{ zIndex: -100, position: 'absolute' }}>
         {`${name} jewelry store details`}
       </Heading>
@@ -199,6 +219,9 @@ export const query = graphql`
       phone
       description
       text
+      slug {
+        current
+      }
       map
       isTempClosed
       openingDate
