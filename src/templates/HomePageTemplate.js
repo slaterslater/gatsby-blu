@@ -232,20 +232,6 @@ export const query = graphql`
           }
         }
       }
-      collectionSpotlight {
-        title
-        handle
-        image {
-          asset {
-            gatsbyImageData(
-              placeholder: BLURRED
-              layout: CONSTRAINED
-              width: 700
-              aspectRatio: 1
-            )
-          }
-        }
-      }
       reviews {
         author
         content
