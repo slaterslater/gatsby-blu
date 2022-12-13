@@ -44,16 +44,16 @@ const HomeLocations = ({ locations }) => (
     </Heading>
     <MobileSlider
       minCardWidth={320}
-      nodes={locations.map((location, i) => (
+      nodes={locations.map(({ id, name, slug, storeImage }) => (
         <LocationBox
-          key={`location-box-${i}`}
-          to="locations"
-          text={location.name}
-          width={location.imageOrientation === 'portrait' ? '75%' : '100%'}
+          key={id}
+          to={`/locations/${slug.current}`}
+          text={name}
+          // width={location.imageOrientation === 'portrait' ? '75%' : '100%'}
         >
           <GatsbyImage
-            image={location.image.asset.gatsbyImageData}
-            alt={`outline of ${location.name} storefront`}
+            image={storeImage.asset.gatsbyImageData}
+            alt={`outline of ${name} storefront`}
           />
         </LocationBox>
       ))}

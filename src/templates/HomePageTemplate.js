@@ -45,16 +45,10 @@ const IndexPage = ({ data }) => {
 
   const collections = data.allShopifyCollection.nodes
   const collectionGroupPages = data.allSanityCollectionGroupPage.nodes
+  const locations = data.allSanityLocation.nodes
   const products = data.allShopifyProduct.nodes
-  const {
-    headerHero,
-    innerHero,
-    collectionRow,
-    spotlights,
-    reviews,
-    zodiac,
-    locations,
-  } = data.sanityHomePage
+  const { headerHero, innerHero, collectionRow, spotlights, reviews, zodiac } =
+    data.sanityHomePage
 
   const collectionRowWithData = useMemo(
     () =>
@@ -93,6 +87,8 @@ const IndexPage = ({ data }) => {
         .filter(({ product }) => product.handle),
     [reviews, products]
   )
+
+  console.log({ locations })
 
   return (
     <Layout>
@@ -272,15 +268,6 @@ export const query = graphql`
           }
         }
       }
-      locations {
-        name
-        imageOrientation
-        image {
-          asset {
-            gatsbyImageData(placeholder: BLURRED)
-          }
-        }
-      }
     }
     allShopifyCollection(filter: { handle: { in: $collections } }) {
       nodes {
@@ -308,6 +295,22 @@ export const query = graphql`
           height
           width
           id
+        }
+      }
+    }
+    allSanityLocation(
+      filter: { isPopup: { ne: true }, isTempClosed: { ne: true } }
+    ) {
+      nodes {
+        id
+        name
+        slug {
+          current
+        }
+        storeImage {
+          asset {
+            gatsbyImageData(placeholder: BLURRED)
+          }
         }
       }
     }
