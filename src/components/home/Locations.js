@@ -44,19 +44,22 @@ const HomeLocations = ({ locations }) => (
     </Heading>
     <MobileSlider
       minCardWidth={320}
-      nodes={locations.map(({ id, name, slug, storeImage }) => (
-        <LocationBox
-          key={id}
-          to={`/locations/${slug.current}`}
-          text={name}
-          // width={location.imageOrientation === 'portrait' ? '75%' : '100%'}
-        >
-          <GatsbyImage
-            image={storeImage.asset.gatsbyImageData}
-            alt={`outline of ${name} storefront`}
-          />
-        </LocationBox>
-      ))}
+      nodes={locations.map(({ id, name, slug, storeImage }) => {
+        const { height, width } = storeImage.asset.gatsbyImageData
+        return (
+          <LocationBox
+            key={id}
+            to={`/locations/${slug.current}`}
+            text={name}
+            width={width < height ? '75%' : '100%'}
+          >
+            <GatsbyImage
+              image={storeImage.asset.gatsbyImageData}
+              alt={`outline of ${name} storefront`}
+            />
+          </LocationBox>
+        )
+      })}
     />
   </Container>
 )

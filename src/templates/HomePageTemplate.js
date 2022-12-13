@@ -88,8 +88,6 @@ const IndexPage = ({ data }) => {
     [reviews, products]
   )
 
-  console.log({ locations })
-
   return (
     <Layout>
       <SEO title="shop online jewelry">
