@@ -6,6 +6,9 @@ const ContactOptions = ({ location, mapRef = null }) => {
   const { email, street, city, province, postalCode, phone, slug, isPopup } =
     location
   const tel = `+1 ${phone.slice(0, 3)}-${phone.slice(3, 6)}-${phone.slice(6)}`
+
+  console.log({ mapRef })
+
   return (
     <Flex
       sx={{
@@ -23,7 +26,7 @@ const ContactOptions = ({ location, mapRef = null }) => {
         </Heading>
         <Link
           as={isPopup ? Text : GatsbyLink}
-          to={slug ? `${slug.current}#map` : '.'}
+          to={mapRef ? '.' : `${slug.current}#map`}
           onClick={e => {
             if (!mapRef) return
             e.preventDefault()
