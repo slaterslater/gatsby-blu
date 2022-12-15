@@ -1,16 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Container } from 'theme-ui'
-import { graphql, useStaticQuery } from 'gatsby'
+
 import Layout from '../components/layout'
 import ProductGrid from '../components/collection/CollectionProductGrid'
-import SEO from '../components/seo'
+
 import CollectionFilterAndSort from '../components/collection/CollectionFilterAndSort'
-import { getSrcWithSize } from '../components/RemoteShopifyImage'
-import { escapeDoubleQuoteString } from '../lib/escapeDoubleQuoteStrings'
+
 import { useAnalytics } from '../lib/useAnalytics'
 import CollectionPageHeader from '../components/CollectionPageHeader'
 import ContemplationCard from '../components/product/ContemplationCard'
+import CollectionSEO from '../components/collection/CollectionSEO'
 
 export const getCollectionProducts = products => {
   if (products)
@@ -38,45 +38,17 @@ const CollectionPage = ({
   card,
 }) => {
   useAnalytics('viewItemList', products, title, handle)
-  const {
-    site: {
-      siteMetadata: { siteUrl },
-    },
-  } = useStaticQuery(graphql`
-    {
-      site {
-        siteMetadata {
-          siteUrl
-        }
-      }
-    }
-  `)
-
-  const ldJSONSrc = getSrcWithSize(image?.src, '1024x_crop_center')
-  const descriptionString = escapeDoubleQuoteString(description)
-  const collectionUrl = `${siteUrl}/collections/${handle}`
-
-  const collectionLdJSON = `
-    {
-      "@context": "https://schema.org",
-      "@type": "CollectionPage",
-      "name": "${seo.title || title}",
-      "description": "${seo.description || descriptionString}", 
-      "image": "${ldJSONSrc}",
-      "@id": "${collectionUrl}"
-    }
-  `
 
   return (
     <Layout>
-      <SEO
-        title={seo.title || title}
-        description={seo.description || description}
-        shopifyImage={image}
-      >
-        <link rel="canonical" href={collectionUrl} />
-        <script type="application/ld+json">{collectionLdJSON}</script>
-      </SEO>
+      <CollectionSEO
+        seo={seo}
+        title={title}
+        description={description}
+        image={image}
+        products={products}
+        handle={handle}
+      />
       {card ? (
         <ContemplationCard card={card} isPageHeader />
       ) : (

@@ -1,14 +1,30 @@
 import React from 'react'
+import { graphql, useStaticQuery } from 'gatsby'
 import SEO from '../seo'
 import { useProductTitle } from '../ProductTitle'
 import { escapeDoubleQuoteString } from '../../lib/escapeDoubleQuoteStrings'
+import { getSrcWithSize } from '../RemoteShopifyImage'
 
-const ProductSEO = ({ product }) => {
+const ProductSEO = ({ product, rating, reviews }) => {
+  const {
+    site: {
+      siteMetadata: { siteUrl },
+    },
+  } = useStaticQuery(graphql`
+    {
+      site {
+        siteMetadata {
+          siteUrl
+        }
+      }
+    }
+  `)
+
+  const productUrl = `${siteUrl}/products/${product.handle}`
   const title = useProductTitle(product.title)
-  const productUrl = `https://www.bluboho.com/products/${product.handle}`
-  const descriptionString = escapeDoubleQuoteString(product.description)
-
   const { title: seoTitle, description: seoDesc } = product.seo || {}
+  const descriptionString = escapeDoubleQuoteString(product.description)
+  const ldJSONSrc = getSrcWithSize(product.images[0]?.url, '1024x_crop_center')
 
   const productLdJSON = `
     {
@@ -20,6 +36,7 @@ const ProductSEO = ({ product }) => {
       },
       "name": "${seoTitle || title}",
       "description": "${seoDesc || descriptionString}",
+      "image": "${ldJSONSrc}",
       "category": "${product.productType}",
       "url": "${productUrl}",
       "sku": "${product.variants[0].sku}",
@@ -27,19 +44,44 @@ const ProductSEO = ({ product }) => {
         .map(
           variant => `
           {
-          "@type": "Offer",
-          "name": "${variant.title}",
-          "availability": "https://schema.org/${
-            variant.availableForSale ? 'InStock' : 'OutOfStock'
-          }",
-          "price": "${variant.priceNumber}",
-          "priceCurrency": "CAD",
-          "url": "${productUrl}?variant=${variant.sku}",
-          "sku": "${variant.sku}"
-          }
-        `
+            "@type": "Offer",
+            "name": "${variant.title}",
+            "availability": "https://schema.org/${
+              variant.availableForSale ? 'InStock' : 'OutOfStock'
+            }",
+            "price": "${variant.priceNumber}",
+            "priceCurrency": "CAD",
+            "url": "${productUrl}?variant=${variant.sku}",
+            "sku": "${variant.sku}"
+          }`
         )
-        .toString()}]
+        .toString()}],
+      "review": [${reviews
+        .map(
+          review => `{
+            "@type": "Review",
+            "author": "${review.name}",
+            "datePublished": "${review.createdAt}",
+            "reviewBody": "${review.content}",
+            "name": "${review.title}",
+            "reviewRating": {
+              "@type": "Rating",
+              "bestRating": "5",
+              "ratingValue": "${review.score}",
+              "worstRating": "1"
+            }
+          }`
+        )
+        .toString()}],
+      ${
+        rating
+          ? `"aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "${rating.score}",
+            "reviewCount": "${rating.totalReviews}"
+          },`
+          : ''
+      }    
     }
   `
   const noIndex = [

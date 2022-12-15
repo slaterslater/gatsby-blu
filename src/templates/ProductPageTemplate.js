@@ -4,19 +4,15 @@ import Layout from '../components/layout'
 import ProductSEO from '../components/product/ProductSEO'
 import ProductView from '../views/ProductView'
 
-// yotpo_reviews has first page of reviews
-// yotpo review_count
-// yotpo reviews_average
-
-import { useViewProductAnalytics, useLatestProduct } from '../hooks/product'
+import { useViewProductAnalytics } from '../hooks/product'
 
 const ProductPageTemplate = ({ data, ...props }) => {
-  const { product, alternates, badges, stack, card } = data
+  const { product, alternates, badges, stack, card, rating, reviews } = data
   useViewProductAnalytics(product)
 
   return (
     <Layout>
-      <ProductSEO product={product} />
+      <ProductSEO product={product} rating={rating} reviews={reviews.nodes} />
       <ProductView
         product={product}
         alternates={alternates}
@@ -38,6 +34,7 @@ export const query = graphql`
     $badges: [String]!
     $stackWithIds: [String]!
     $cardTitleExp: String!
+    $productIdentifier: String!
   ) {
     site {
       siteMetadata {
@@ -87,6 +84,7 @@ export const query = graphql`
         title
         id
         shopifyId
+        availableForSale
         priceNumber
         priceV2 {
           amount
@@ -192,6 +190,23 @@ export const query = graphql`
           )
         }
       }
+    }
+    reviews: allYotpoProductReview(
+      filter: { productIdentifier: { eq: $productIdentifier } }
+    ) {
+      nodes {
+        name
+        title
+        score
+        content
+        createdAt(formatString: "YYYY-MM-DD")
+      }
+    }
+    rating: yotpoProductBottomline(
+      productIdentifier: { eq: $productIdentifier }
+    ) {
+      totalReviews
+      score
     }
   }
 `

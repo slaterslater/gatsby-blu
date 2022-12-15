@@ -10,6 +10,7 @@ const CollectionPageTemplate = ({ pageContext, path, data }) => {
     collections,
     seoImage,
     headerImage,
+    slug,
   } = data.sanityCollectionGroupPage
 
   const collectionsWithGroupData = data.allShopifyCollection.nodes.map(node => {
@@ -32,6 +33,7 @@ const CollectionPageTemplate = ({ pageContext, path, data }) => {
       pagePath={path}
       seoGatsbyImage={seoImage?.asset.gatsbyImageData}
       headerImage={headerImage?.asset.gatsbyImageData}
+      handle={`/collections/${slug.current}`}
     />
   )
 }
@@ -58,6 +60,9 @@ export const query = graphql`
       title
       description
       consultation
+      slug {
+        current
+      }
     }
     allShopifyCollection(filter: { handle: { in: $collections } }) {
       nodes {

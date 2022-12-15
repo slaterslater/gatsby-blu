@@ -54,6 +54,7 @@
     "gatsby-source-filesystem": "^3.0.0",
     "gatsby-source-sanity": "^7.0.7",
     "gatsby-source-shopify": "^4.0.0",
+    "gatsby-source-yotpo": "^3.0.5",
     "gatsby-theme-style-guide": "^0.9.1",
     "gatsby-transformer-json": "^3.0.0",
     "gatsby-transformer-sharp": "^3.0.0",

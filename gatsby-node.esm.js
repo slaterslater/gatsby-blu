@@ -7,14 +7,6 @@ import {
 } from './src/lib/formatMetalAlternates'
 import { logBadGiftGuideData } from './src/lib/logBadGiftGuideData'
 
-const decodeShopifyId = id => {
-  const buff = Buffer.from(id, 'base64')
-  const gid = buff.toString()
-  const gidParts = gid.split('/')
-  const [decodedId] = gidParts.slice(-1)
-  return decodedId
-}
-
 async function createCollectionGroupPages({ graphql, actions }) {
   const collectionGroupTemplate = path.resolve(
     './src/templates/CollectionGroupPageTemplate.js'
@@ -113,6 +105,8 @@ async function createProductPages({ graphql, actions }) {
     // return card ? regex matching case insensitive title : pattern that always fails
     const cardTitleExp = card ? `/${JSON.parse(card.value)[0]}/i` : '/^\b$/'
 
+    const [productIdentifier] = product.shopifyId.match(/\d+$/)
+
     actions.createPage({
       path: `/products/${product.handle}`,
       component: productTemplate,
@@ -124,6 +118,7 @@ async function createProductPages({ graphql, actions }) {
         badges,
         stackWithIds,
         cardTitleExp,
+        productIdentifier,
       },
     })
   })

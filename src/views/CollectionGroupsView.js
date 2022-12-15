@@ -12,6 +12,7 @@ import CollectionPageHeader from '../components/CollectionPageHeader'
 import SEO from '../components/seo'
 import { useLatestCollection } from '../hooks/collection'
 import { useShopifyImage } from '../hooks/shopifyImage'
+import CollectionSEO from '../components/collection/CollectionSEO'
 
 const sortCollections = (nodes, arr) =>
   nodes.sort((a, b) => arr.indexOf(a.handle) - arr.indexOf(b.handle))
@@ -119,6 +120,7 @@ const CollectionGroupsView = ({
   collections,
   seoGatsbyImage,
   headerImage,
+  handle,
 }) => {
   const location = useLocation()
   const currentParams = parse(location.search.replace('?', ''))
@@ -132,10 +134,12 @@ const CollectionGroupsView = ({
 
   return (
     <Layout>
-      <SEO
+      <CollectionSEO
         title={pageTitle}
         description={pageDescription}
-        gatsbyImage={seoGatsbyImage}
+        image={seoGatsbyImage}
+        products={allProducts}
+        handle={handle}
       />
       <CollectionPageHeader
         title={pageTitle}

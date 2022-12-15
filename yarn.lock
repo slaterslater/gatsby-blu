@@ -4548,7 +4548,7 @@ camel-case@4.1.1:
     pascal-case "^3.1.1"
     tslib "^1.10.0"
 
-camel-case@4.1.2:
+camel-case@4.1.2, camel-case@^4.1.2:
   version "4.1.2"
   resolved "https://registry.npmjs.org/camel-case/-/camel-case-4.1.2.tgz"
   integrity sha512-gxGWBrTT1JuMx6R+o5PTXMmUnhnVzLQ9SNutD4YqKtI6ap897t3tKECYla6gCWEkplXnlNybEkZg9GEGxKFCgw==
@@ -7538,6 +7538,14 @@ gatsby-node-helpers@^0.3.0:
     lodash "^4.17.4"
     p-is-promise "^1.1.0"
 
+gatsby-node-helpers@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/gatsby-node-helpers/-/gatsby-node-helpers-1.2.1.tgz#9d21adcaa2e02baa67d4bdf16a3bb27a3a84d553"
+  integrity sha512-fYNQhp7/3sBUkb9QR31CZm6XChN2A78npow/PNglx5U1Sv8Zmd07Io8Mc2K7UO2hUCCSuAmgkSqlqq71NupdQA==
+  dependencies:
+    camel-case "^4.1.2"
+    pascal-case "^3.1.2"
+
 gatsby-page-utils@^1.14.0:
   version "1.14.0"
   resolved "https://registry.npmjs.org/gatsby-page-utils/-/gatsby-page-utils-1.14.0.tgz"
@@ -7899,6 +7907,14 @@ gatsby-source-shopify@^4.0.0:
     lodash "^4.17.21"
     p-iteration "^1.1.8"
     prettyjson "^1.2.1"
+
+gatsby-source-yotpo@^3.0.5:
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/gatsby-source-yotpo/-/gatsby-source-yotpo-3.0.5.tgz#617e9af83dc326d5d609d48ddbdb7aaf67d5abe8"
+  integrity sha512-Rdu3sQ+w+qRfivNkd8jAbjUU2IMc+JKPwtxzqWqzTL+f/gk0jyNFEkOoS8AyS/UnmZydXKQH9KCxWyDX9dYt3Q==
+  dependencies:
+    gatsby-node-helpers "^1.2.1"
+    request "2.88.2"
 
 gatsby-telemetry@^2.14.0, gatsby-telemetry@^2.3.0:
   version "2.14.0"
@@ -13342,7 +13358,7 @@ replace-ext@^1.0.0:
   resolved "https://registry.npmjs.org/replace-ext/-/replace-ext-1.0.1.tgz"
   integrity sha512-yD5BHCe7quCgBph4rMQ+0KkIRKwWCrHDOX1p1Gp6HwjPM5kVoCdKGNhN7ydqqsX6lJEnQDKZ/tFMiEdQ1dvPEw==
 
-request@^2.67.0:
+request@2.88.2, request@^2.67.0:
   version "2.88.2"
   resolved "https://registry.npmjs.org/request/-/request-2.88.2.tgz"
   integrity sha512-MsvtOrfG9ZcrOwAW+Qi+F6HbD0CWXEh9ou77uOb7FM2WPhwT7smM833PzanhJLsgXjN89Ir6V2PczXNnMpwKhw==
