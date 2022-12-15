@@ -7,7 +7,9 @@ const ForgotPasswordPage = props => {
 
   return (
     <Container as="main" sx={{ maxWidth: 480 }}>
-      <Heading pb={5}>forgot your password</Heading>
+      <Heading as="h1" pb={5} sx={{ fontSize: 5, textAlign: 'left' }}>
+        forgot your password?
+      </Heading>
       {showSuccess && <p>check your email to reset your password</p>}
       {!showSuccess && (
         <RecoverPassword onSuccess={() => setShowSuccess(true)} />
