@@ -55,13 +55,15 @@ const ProductSEO = ({ product, rating, reviews }) => {
             "price": "${variant.priceNumber}",
             "priceCurrency": "CAD",
             "url": "${productUrl}?variant=${variant.sku}",
-            "sku": "${variant.sku}"
+            "sku": "${variant.sku || 'n/a'}"
           }`
         )
         .toString()}],
-      "review": [${reviews
-        .map(
-          review => `{
+      ${
+        reviews.length
+          ? `"review": [${reviews
+              .map(
+                review => `{
             "@type": "Review",
             "author": "${review.name}",
             "datePublished": "${review.createdAt}",
@@ -74,12 +76,14 @@ const ProductSEO = ({ product, rating, reviews }) => {
               "worstRating": "1"
             }
           }`
-        )
-        .toString()}],
+              )
+              .toString()}],
       "aggregateRating": {
         "@type": "AggregateRating",
-        "reviewCount": "${totalReviews}",
-        ${score ? `"ratingValue": "${score}"` : ''}
+        "reviewCount": "${rating.totalReviews}",
+        "ratingValue": "${rating.score}"
+      }`
+          : ''
       }
     }
   `
