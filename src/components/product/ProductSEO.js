@@ -27,7 +27,38 @@ const ProductSEO = ({ product, rating, reviews }) => {
   const descriptionString = escapeDoubleQuoteString(product.description)
   const ldJSONSrc = getSrcWithSize(product.images[0]?.url, '1024x_crop_center')
 
-  const { score = 0, totalReviews = 0 } = rating || {}
+  // const { score = 0, totalReviews = 0 } = rating || {}
+
+  /*
+
+   ${
+        reviews.length
+          ? `"review": [${reviews
+              .map(
+                review => `{
+            "@type": "Review",
+            "author": "${review.name}",
+            "datePublished": "${review.createdAt}",
+            "reviewBody": "${escapeDoubleQuoteString(review.content)}",
+            "name": "${review.title}",
+            "reviewRating": {
+              "@type": "Rating",
+              "bestRating": "5",
+              "ratingValue": "${review.score}",
+              "worstRating": "1"
+            }
+          }`
+              )
+              .toString()}],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "reviewCount": "${rating.totalReviews}",
+        "ratingValue": "${rating.score}"
+      }`
+          : ''
+      }
+
+  */
 
   const productLdJSON = `
     {
@@ -58,33 +89,7 @@ const ProductSEO = ({ product, rating, reviews }) => {
             "sku": "${variant.sku || 'n/a'}"
           }`
         )
-        .toString()}],
-      ${
-        reviews.length
-          ? `"review": [${reviews
-              .map(
-                review => `{
-            "@type": "Review",
-            "author": "${review.name}",
-            "datePublished": "${review.createdAt}",
-            "reviewBody": "${escapeDoubleQuoteString(review.content)}",
-            "name": "${review.title}",
-            "reviewRating": {
-              "@type": "Rating",
-              "bestRating": "5",
-              "ratingValue": "${review.score}",
-              "worstRating": "1"
-            }
-          }`
-              )
-              .toString()}],
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "reviewCount": "${rating.totalReviews}",
-        "ratingValue": "${rating.score}"
-      }`
-          : ''
-      }
+        .toString()}]
     }
   `
   const noIndex = [
