@@ -45,7 +45,7 @@ const ProductSEO = ({ product, rating, reviews }) => {
           variant => `
           {
             "@type": "Offer",
-            "name": "${variant.title}",
+            "name": "${escapeDoubleQuoteString(variant.title)}",
             "availability": "https://schema.org/${
               variant.availableForSale ? 'InStock' : 'OutOfStock'
             }",
@@ -62,7 +62,7 @@ const ProductSEO = ({ product, rating, reviews }) => {
             "@type": "Review",
             "author": "${review.name}",
             "datePublished": "${review.createdAt}",
-            "reviewBody": "${review.content}",
+            "reviewBody": "${escapeDoubleQuoteString(review.content)}",
             "name": "${review.title}",
             "reviewRating": {
               "@type": "Rating",
@@ -79,7 +79,7 @@ const ProductSEO = ({ product, rating, reviews }) => {
             "@type": "AggregateRating",
             "ratingValue": "${rating.score}",
             "reviewCount": "${rating.totalReviews}"
-          },`
+          }`
           : ''
       }    
     }
