@@ -20,11 +20,14 @@ const ProductSEO = ({ product, rating, reviews }) => {
     }
   `)
 
-  const productUrl = `${siteUrl}/products/${product.handle}`
   const title = useProductTitle(product.title)
   const { title: seoTitle, description: seoDesc } = product.seo || {}
+
+  const productUrl = `${siteUrl}/products/${product.handle}`
   const descriptionString = escapeDoubleQuoteString(product.description)
   const ldJSONSrc = getSrcWithSize(product.images[0]?.url, '1024x_crop_center')
+
+  const { score = 0, totalReviews = 0 } = rating || {}
 
   const productLdJSON = `
     {
@@ -73,15 +76,11 @@ const ProductSEO = ({ product, rating, reviews }) => {
           }`
         )
         .toString()}],
-      ${
-        rating
-          ? `"aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "${rating.score}",
-            "reviewCount": "${rating.totalReviews}"
-          }`
-          : ''
-      }    
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "reviewCount": "${totalReviews}",
+        ${score ? `"ratingValue": "${score}"` : ''}
+      }
     }
   `
   const noIndex = [
