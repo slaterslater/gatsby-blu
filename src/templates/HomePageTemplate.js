@@ -113,12 +113,12 @@ const IndexPage = ({ data }) => {
             maxWidth: 330,
             margin: 'auto',
             fontSize: 0,
+            lineHeight: 2,
           },
           strong: { textTransform: 'uppercase' },
           a: {
             color: 'primary',
             fontWeight: 'heading',
-            textDecoration: 'none',
           },
         }}
         py={7}
@@ -127,12 +127,6 @@ const IndexPage = ({ data }) => {
         <Heading as="h2" variant="caps" mb={3}>
           HOLIDAY SHIPPING DATES
         </Heading>
-        {/* <Text>
-          <strong>INTERNATIONAL</strong>: friday, DEC 16th
-        </Text>
-        <Text>
-          <strong>DOMESTIC</strong>: friday, DEC 16th
-        </Text> */}
         <Text>
           <strong>CURBSIDE</strong> PICK UP: friday, DEC 23rd
         </Text>
