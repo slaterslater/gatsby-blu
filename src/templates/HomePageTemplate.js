@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import { Box, Heading, Text } from 'theme-ui'
-import { graphql, navigate } from 'gatsby'
+import { graphql, Link, navigate } from 'gatsby'
 import Layout from '../components/layout'
 import OnePercentCallout from '../components/content/OnePercentCallout'
 import SEO from '../components/seo'
@@ -110,9 +110,15 @@ const IndexPage = ({ data }) => {
           span: {
             display: 'block',
             padding: 2,
-            maxWidth: 300,
+            maxWidth: 330,
             margin: 'auto',
             fontSize: 0,
+          },
+          strong: { textTransform: 'uppercase' },
+          a: {
+            color: 'primary',
+            fontWeight: 'heading',
+            textDecoration: 'none',
           },
         }}
         py={7}
@@ -121,18 +127,26 @@ const IndexPage = ({ data }) => {
         <Heading as="h2" variant="caps" mb={3}>
           HOLIDAY SHIPPING DATES
         </Heading>
-        <Text>
+        {/* <Text>
           <strong>INTERNATIONAL</strong>: friday, DEC 16th
         </Text>
         <Text>
           <strong>DOMESTIC</strong>: friday, DEC 16th
-        </Text>
+        </Text> */}
         <Text>
           <strong>CURBSIDE</strong> PICK UP: friday, DEC 23rd
         </Text>
         <Text>
           <strong>FREE EXPRESS SHIPPING</strong> (order over $500): saturday DEC
           17th - thursday DEC 22nd
+        </Text>
+        <Text>
+          <strong>looking for us on instagram and facebook?</strong> sorry! they
+          were mistakenly deactivated.
+          <br /> we are working to restore them,
+          <br /> but in the meantime let's stay in touch:
+          <br />
+          <Link to="/newsletter">sign up for our emails + sms</Link>
         </Text>
       </Box>
       <MessageFromUniverse
