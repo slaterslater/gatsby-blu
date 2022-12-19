@@ -33,7 +33,7 @@ const CollectionPageTemplate = ({ pageContext, path, data }) => {
       pagePath={path}
       seoGatsbyImage={seoImage?.asset.gatsbyImageData}
       headerImage={headerImage?.asset.gatsbyImageData}
-      handle={`/collections/${slug.current}`}
+      handle={slug.current}
     />
   )
 }
