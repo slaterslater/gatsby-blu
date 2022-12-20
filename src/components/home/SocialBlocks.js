@@ -12,12 +12,14 @@ const socials = [
   {
     title: 'instagram',
     icon: RiInstagramFill,
-    href: 'https://www.instagram.com/bluboho',
+    // href: 'https://www.instagram.com/bluboho',
+    href: '/looking-for-us',
   },
   {
     title: 'facebook',
     icon: FaFacebook,
-    href: 'https://www.facebook.com/blubohojewelry',
+    // href: 'https://www.facebook.com/blubohojewelry',
+    href: '/looking-for-us',
   },
   {
     title: 'pinterest',
