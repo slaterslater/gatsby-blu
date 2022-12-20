@@ -152,6 +152,7 @@ export const SmsSignUp = ({ color = 'gray', onSubscribed = () => {} }) => {
               cursor: 'pointer',
               flex: '0 1 max-content',
             }}
+            p={4}
           >
             <Text
               as={working ? FiClock : CgArrowLongRight}
