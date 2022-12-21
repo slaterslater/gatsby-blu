@@ -43,7 +43,7 @@ const SocialBlocks = () => {
 
   return (
     <>
-      <Box sx={{ display: ['flex', 'none'], color: 'white' }}>
+      <Box sx={{ display: ['flex', 'none'], color: 'white', bg: 'bbBeige' }}>
         <IconButton
           type="button"
           aria-label="previous social link"
@@ -73,17 +73,14 @@ const SocialBlocks = () => {
             dragConstraints={{ left: 0, right: 0 }}
             onDragEnd={(e, { offset, velocity }) => {
               const swipe = swipePower(offset.x, velocity.x)
-
-              if (swipe < -swipeConfidenceThreshold) {
-                paginate(1)
-              } else if (swipe > swipeConfidenceThreshold) {
-                paginate(-1)
-              }
+              const next = swipe > swipeConfidenceThreshold ? -1 : 1
+              paginate(next)
             }}
           >
             <Flex
               sx={{
                 width: '100%',
+                minWidth: 380,
                 height: 75,
                 position: 'absolute',
                 backgroundColor: 'bbBeige',
@@ -112,7 +109,7 @@ const SocialBlocks = () => {
         </IconButton>
       </Box>
       <Box sx={{ display: ['none', 'flex'], height: 165, width: '100%' }}>
-        {socials.map(({ text, href, icon }, i) => (
+        {socials.map(({ title, href, icon }, i) => (
           <Flex
             as={Link}
             key={`social-block-${i}`}
@@ -126,6 +123,7 @@ const SocialBlocks = () => {
               backgroundSize: 'cover',
               color: 'white',
             }}
+            title={title}
             href={href}
           >
             <Box as={icon} size={42} />
