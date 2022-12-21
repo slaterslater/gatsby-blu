@@ -31,6 +31,7 @@ const Layout = ({ title, description, children }) => (
       <Flex
         sx={{
           minHeight: '100vh',
+          minWidth: 380,
           flexDirection: 'column',
           alignItems: 'stretch',
           overflow: 'hidden',
@@ -50,6 +51,8 @@ const Layout = ({ title, description, children }) => (
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
+  title: PropTypes.string,
+  description: PropTypes.string,
 }
 
 export default Layout
