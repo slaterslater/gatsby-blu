@@ -5,21 +5,25 @@ import { ProductContext } from './ProductContext'
 import Modal from '../Modal'
 
 const SizingContent = ({ type }) => (
-  <Box px={4}>
+  <Box
+    px={4}
+    sx={{
+      '.mobile': { display: ['block', 'none'] },
+      '.deskTop': { display: ['none', 'block'] },
+    }}
+  >
     {(type === 'ring' || type === 'band') && (
       <>
-        <Box sx={{ display: ['block', 'none'] }}>
-          <StaticImage
-            alt="ring sizing"
-            src="../../images/sizing-help/ring-mobile.jpg"
-          />
-        </Box>
-        <Box sx={{ display: ['none', 'block'] }}>
-          <StaticImage
-            alt="ring sizing"
-            src="../../images/sizing-help/ring-desktop.jpg"
-          />
-        </Box>
+        <StaticImage
+          className="mobile"
+          alt="ring sizing"
+          src="../../images/sizing-help/ring-mobile.jpg"
+        />
+        <StaticImage
+          className="desktop"
+          alt="ring sizing"
+          src="../../images/sizing-help/ring-desktop.jpg"
+        />
         <Flex pt={4} sx={{ justifyContent: 'center' }}>
           <Link variant="button" href="/bluboho-ring-sizer-guide.pdf" download>
             Download Printout
@@ -29,18 +33,16 @@ const SizingContent = ({ type }) => (
     )}
     {type === 'necklace' && (
       <>
-        <Box sx={{ display: ['block', 'none'] }}>
-          <StaticImage
-            alt="necklace sizing"
-            src="../../images/sizing-help/necklace-mobile.jpg"
-          />
-        </Box>
-        <Box sx={{ display: ['none', 'block'] }}>
-          <StaticImage
-            alt="necklace sizing"
-            src="../../images/sizing-help/necklace-desktop.jpg"
-          />
-        </Box>
+        <StaticImage
+          className="mobile"
+          alt="necklace sizing"
+          src="../../images/sizing-help/necklace-mobile.jpg"
+        />
+        <StaticImage
+          className="desktop"
+          alt="necklace sizing"
+          src="../../images/sizing-help/necklace-desktop.jpg"
+        />
       </>
     )}
   </Box>
@@ -55,23 +57,20 @@ const SizingHelp = () => {
   // match Rings, Necklaces, Bands
   const [sizeType] = productType.match(/(ring|necklace|band)/gi) || []
 
+  if (!sizeType) return null
   return (
     <>
-      {sizeType && (
-        <>
-          <Button
-            type="button"
-            onClick={() => setOpen(true)}
-            variant="link"
-            sx={{ fontWeight: '600', fontSize: 0, letterSpacing: 'widest' }}
-          >
-            sizing help?
-          </Button>
-          <Modal isOpen={open} setOpen={setOpen}>
-            <SizingContent type={sizeType.toLowerCase()} />
-          </Modal>
-        </>
-      )}
+      <Button
+        type="button"
+        onClick={() => setOpen(true)}
+        variant="link"
+        sx={{ fontWeight: '600', fontSize: 0, letterSpacing: 'widest' }}
+      >
+        sizing help?
+      </Button>
+      <Modal isOpen={open} setOpen={setOpen}>
+        <SizingContent type={sizeType.toLowerCase()} />
+      </Modal>
     </>
   )
 }
