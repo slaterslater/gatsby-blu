@@ -6,7 +6,7 @@ import Modal from '../Modal'
 
 const SizingContent = ({ type }) => (
   <Box px={4}>
-    {type === 'Ring' && (
+    {(type === 'ring' || type === 'band') && (
       <>
         <Box sx={{ display: ['block', 'none'] }}>
           <StaticImage
@@ -27,7 +27,7 @@ const SizingContent = ({ type }) => (
         </Flex>
       </>
     )}
-    {type === 'Necklace' && (
+    {type === 'necklace' && (
       <>
         <Box sx={{ display: ['block', 'none'] }}>
           <StaticImage
@@ -53,11 +53,11 @@ const SizingHelp = () => {
   } = useContext(ProductContext)
 
   // match Rings, Necklaces, Bands
-  const hasSizingHelp = productType.match(/(ring|necklace|band)/gi)
+  const [sizeType] = productType.match(/(ring|necklace|band)/gi) || []
 
   return (
     <>
-      {hasSizingHelp && (
+      {sizeType && (
         <>
           <Button
             type="button"
@@ -68,7 +68,7 @@ const SizingHelp = () => {
             sizing help?
           </Button>
           <Modal isOpen={open} setOpen={setOpen}>
-            <SizingContent type={productType} />
+            <SizingContent type={sizeType.toLowerCase()} />
           </Modal>
         </>
       )}
