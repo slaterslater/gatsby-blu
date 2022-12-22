@@ -4,8 +4,6 @@ import { StaticImage } from 'gatsby-plugin-image'
 import { ProductContext } from './ProductContext'
 import Modal from '../Modal'
 
-const productTypesWithSizingHelp = ['Ring', 'Necklace']
-
 const SizingContent = ({ type }) => (
   <Box px={4}>
     {type === 'Ring' && (
@@ -54,7 +52,8 @@ const SizingHelp = () => {
     product: { productType },
   } = useContext(ProductContext)
 
-  const hasSizingHelp = productTypesWithSizingHelp.includes(productType)
+  // match Rings, Necklaces, Bands
+  const hasSizingHelp = productType.match(/(ring|necklace|band)/gi)
 
   return (
     <>
