@@ -1,13 +1,13 @@
 import React from 'react'
 import { Menu, MenuButton, MenuList, MenuLink } from '@reach/menu-button'
 import { VscTriangleDown, VscTriangleUp } from 'react-icons/vsc'
-import { Box, Text } from 'theme-ui'
-import ThemeLink from '../app/ThemeLink'
+import { Box, NavLink, Text } from 'theme-ui'
+import { navigate } from 'gatsby'
 
 const FilterSortDropdown = ({ title, items }) => (
-  <Menu as={Box}>
+  <Menu>
     {({ isExpanded }) => (
-      <>
+      <Box as="nav">
         <MenuButton as={Text} variant="caps" sx={{ cursor: 'pointer' }}>
           {title}
           <span aria-hidden="true">
@@ -27,6 +27,7 @@ const FilterSortDropdown = ({ title, items }) => (
             zIndex: 10,
             transform: 'translateY(28px)',
             boxShadow: '5px 5px 5px grey',
+            borderRadius: 2,
             height: [
               '100%',
               'calc((100vw - 76px)/2)',
@@ -37,12 +38,13 @@ const FilterSortDropdown = ({ title, items }) => (
         >
           {items.map(({ label, param, isSelected, to }) => (
             <MenuLink
-              as={ThemeLink}
+              as={NavLink}
               key={to}
               isSelected={isSelected}
-              to={to}
+              onClick={() => navigate(to)}
               variant="caps"
               sx={{
+                display: 'block',
                 bg: 'white',
                 fontSize: 9,
                 fontWeight: isSelected ? 'bold' : 'normal',
@@ -58,7 +60,7 @@ const FilterSortDropdown = ({ title, items }) => (
             </MenuLink>
           ))}
         </MenuList>
-      </>
+      </Box>
     )}
   </Menu>
 )
