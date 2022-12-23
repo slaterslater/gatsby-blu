@@ -1,14 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import { Button, Link, Flex, Grid, Box, Text, Checkbox } from 'theme-ui'
-import { useLocation, useParams } from '@reach/router'
+import React, { useState } from 'react'
+import { Button, Flex, Grid, Box, Text } from 'theme-ui'
+import { useLocation } from '@reach/router'
 import { parse, stringify } from 'qs'
-import { Link as GatsbyLink } from 'gatsby'
-import {
-  VscTriangleRight,
-  VscTriangleDown,
-  VscTriangleUp,
-} from 'react-icons/vsc'
-import { Menu, MenuButton, MenuList, MenuLink } from '@reach/menu-button'
+import { VscTriangleRight, VscTriangleDown } from 'react-icons/vsc'
 import FilterSortDropdown from './FilterSortDropdown'
 import Modal from '../Modal'
 import ModalCategoryOptionGroup from './ModalCategoryOptionGroup'

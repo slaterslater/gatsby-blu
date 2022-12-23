@@ -54,7 +54,7 @@ export const query = graphql`
       }
       headerImage: image {
         asset {
-          gatsbyImageData(width: 1200)
+          gatsbyImageData(placeholder: BLURRED, width: 1200)
         }
       }
       title

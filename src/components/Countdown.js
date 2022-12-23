@@ -37,7 +37,7 @@ const Countdown = () => {
               x: {
                 repeat: Infinity,
                 repeatType: 'loop',
-                duration: 15,
+                duration: 35,
                 ease: 'linear',
               },
             },
