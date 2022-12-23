@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Link } from 'gatsby'
-import { Box, Container, Grid, Text, Heading } from 'theme-ui'
+import { Box, Grid, Text } from 'theme-ui'
 import { useQuery } from 'urql'
 import { titleize } from 'inflected'
 import { AuthContext } from '../../contexts/AuthContext'
@@ -8,10 +8,10 @@ import { CUSTOMER_QUERY } from '../../queries/customer'
 import FormattedPrice from '../FormattedPrice'
 import AccountPage from './AccountPage'
 
-const OrdersPage = props => {
+const OrdersPage = () => {
   const { accessToken } = useContext(AuthContext)
 
-  const [{ data, fetching, error }] = useQuery({
+  const [{ data }] = useQuery({
     query: CUSTOMER_QUERY,
     variables: { customerAccessToken: accessToken },
   })
@@ -51,12 +51,11 @@ const OrdersPage = props => {
                 orderNumber,
                 financialStatus,
                 totalPriceV2,
-                id,
                 fulfillmentStatus,
               },
             }) => (
               <Grid
-                key={`order-grid-${id}`}
+                key={orderNumber}
                 sx={{
                   gridTemplateColumns: '1fr 2fr 2fr 1fr',
                   '&:nth-child(odd)': { bg: 'border' },
