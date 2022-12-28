@@ -124,16 +124,6 @@ const IndexPage = ({ data }) => {
         py={7}
         my={4}
       >
-        {/* <Heading as="h2" variant="caps" mb={3}>
-          HOLIDAY SHIPPING DATES
-        </Heading>
-        <Text>
-          <strong>CURBSIDE</strong> PICK UP: friday, DEC 23rd
-        </Text>
-        <Text>
-          <strong>FREE EXPRESS SHIPPING</strong> (order over $500): saturday DEC
-          17th - thursday DEC 22nd
-        </Text> */}
         <Text>
           <strong>looking for us on instagram and facebook?</strong> sorry! they
           were mistakenly deactivated.
@@ -145,7 +135,11 @@ const IndexPage = ({ data }) => {
       </Box>
       <MessageFromUniverse
         cards={cards}
-        onWheelSpin={goToCardCollection}
+        // onWheelSpin={goToCardCollection}
+        onWheelSpin={n => {
+          const handle = cards[n]?.collectionHandle
+          navigate(`/collections/${handle}`)
+        }}
         mb={[3, 8]}
       />
       <Spotlight spotlights={spotlights} />
