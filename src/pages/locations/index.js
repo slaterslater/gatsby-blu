@@ -16,6 +16,7 @@ const LocationIndexPage = ({ data }) => {
     },
     [[], []]
   )
+
   return (
     <Layout title="locations" description="step inside and meet the magic">
       <Flex
@@ -164,7 +165,7 @@ export default LocationIndexPage
 
 export const query = graphql`
   {
-    allSanityLocation {
+    allSanityLocation(sort: { fields: isTempClosed }) {
       nodes {
         id
         name

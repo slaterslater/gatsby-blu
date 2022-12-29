@@ -7,8 +7,6 @@ const ContactOptions = ({ location, mapRef = null }) => {
     location
   const tel = `+1 ${phone.slice(0, 3)}-${phone.slice(3, 6)}-${phone.slice(6)}`
 
-  console.log({ mapRef })
-
   return (
     <Flex
       sx={{
