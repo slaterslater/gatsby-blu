@@ -7,12 +7,8 @@ const Banner = ({ height = 400, children, noMobile = false, ...props }) => (
       flexDirection: 'column',
       justifyContent: 'stretch',
       '*': { flex: 1 },
-      '.headerFull': {
-        display: ['none', 'block'],
-      },
-      '.headerMobile': {
-        display: ['block', 'none'],
-      },
+      'div.mobile': { display: ['block', 'none'] },
+      'div.desktop': { display: ['none', 'block'] },
       width: '100%',
       height,
       display: noMobile ? ['none', 'flex'] : 'flex',
