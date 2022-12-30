@@ -1,28 +1,9 @@
 import { StaticImage } from 'gatsby-plugin-image'
 import React from 'react'
-import { Box, Button, Container, Flex, Heading, Text } from 'theme-ui'
-import { Link as GatsbyLink } from 'gatsby'
+import { Box, Container, Flex, Heading, Text } from 'theme-ui'
 import Layout from '../components/layout'
 import Banner from '../components/content/Banner'
-
-const BrownButton = ({ to, text }) => (
-  <Flex
-    sx={{
-      height: 150,
-      // width: ['130%', '130%', '100%'],
-      backgroundImage: 'url("/button_background_brown.webp")',
-      backgroundSize: '100% 150px',
-      justifyContent: 'center',
-      alignItems: 'center',
-      button: { height: 'max-content' },
-    }}
-    my={4}
-  >
-    <Button as={GatsbyLink} variant="outline" to={to}>
-      {text}
-    </Button>
-  </Flex>
-)
+import BrownButton from '../components/BrownButton'
 
 const SapphiresPage = () => (
   <Layout
@@ -287,15 +268,7 @@ const SapphiresPage = () => (
       <Flex
         sx={{
           justifyContent: ['flex-start', 'flex-start', 'flex-end'],
-          // position: 'absolute',
-          // left: [30, null, null],
-          // right: [null, null, 90],
           transform: 'translateY(-60px)',
-          // transform: [
-          //   'translate(60px, -60px)'
-          //   'translate(160px, -60px)'
-          //   'translate(60px, -60px)'
-          // ],
         }}
         px={[7, 10, 9]}
       >
