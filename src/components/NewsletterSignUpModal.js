@@ -1,9 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { DialogOverlay, DialogContent } from '@reach/dialog'
 import React, { useContext, useRef, useState } from 'react'
-import { Box, Button, Flex, IconButton, Image, Text, Link } from 'theme-ui'
-import { IoIosClose } from 'react-icons/io'
-import { StaticImage } from 'gatsby-plugin-image'
+import { Box, Button, Image, Link } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
 import { useTimeout } from '../lib/useTimeout'
 import { NewsletterContext } from '../contexts/NewsletterContext'
@@ -28,6 +26,8 @@ const NewsletterSignUpModal = () => {
     setOn(false)
   }
 
+  const URL = '/bluboho-online-fine-jewelry-signup'
+
   return (
     <AnimatePresence>
       {isOn && shouldPrompt && (
@@ -51,7 +51,6 @@ const NewsletterSignUpModal = () => {
             aria-label="newsletter signup"
             m={[0, '10vh auto']}
             mt={['60px', '10vh']}
-            // p={[4, 5, 6]}
             mx="auto"
             sx={{
               width: 660,
@@ -65,7 +64,7 @@ const NewsletterSignUpModal = () => {
               '.offScreen': { position: 'absolute', left: '-9999em' },
             }}
           >
-            <Link as={GatsbyLink} to="/newsletter" className="offScreen">
+            <Link as={GatsbyLink} to={URL} className="offScreen">
               join our list to get exclusive access
             </Link>
             <Button
@@ -84,24 +83,9 @@ const NewsletterSignUpModal = () => {
             >
               close
             </Button>
-            <Image src="/homepage-pop-up-2022-july-1.png" alt="" />
-            <Link
-              as={GatsbyLink}
-              to="/newsletter"
-              sx={{
-                // bg: 'primary',
-                // opacity: 0.5,
-                width: ['30%', 175],
-                height: ['calc(6vw + 20px)', 75],
-                transform: [
-                  'translateY(calc(-6vw * 4.5))',
-                  'translateY(-190px)',
-                  'translateY(-190px)',
-                ],
-              }}
-            >
-              <Text className="offScreen">sign up</Text>
-            </Link>
+            <GatsbyLink to={URL}>
+              <Image src="/homepage-pop-up-contemplation-cards.webp" alt="" />
+            </GatsbyLink>
           </MotionBox>
         </MotionDialogOverlay>
       )}
