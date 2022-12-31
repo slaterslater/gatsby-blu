@@ -37,8 +37,7 @@ export default async function (req, res) {
     </div>
   `
 
-  // const to = ['guestexperience@bluboho.com']
-  const to = ['anthony@bluboho.com']
+  const to = ['guestexperience@bluboho.com']
   const from = '<noreply@bluboho.com>'
   // eslint-disable-next-line prettier/prettier
   const subject = `${first_name} would like to receive contemplation cards - ${nanoid(6)}`
