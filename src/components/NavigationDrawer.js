@@ -75,7 +75,7 @@ const NavigationDrawer = ({ onClose }) => {
   const accountMenu = {
     subGroup: [
       {
-        title: null,
+        title: '',
         links: [
           {
             text: 'orders',
