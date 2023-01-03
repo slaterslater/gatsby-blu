@@ -2,7 +2,6 @@ import React, { useContext } from 'react'
 import { Link } from 'gatsby'
 import { Box, Grid, Text } from 'theme-ui'
 import { useQuery } from 'urql'
-import { titleize } from 'inflected'
 import { AuthContext } from '../../contexts/AuthContext'
 import { CUSTOMER_QUERY } from '../../queries/customer'
 import FormattedPrice from '../FormattedPrice'
@@ -16,75 +15,61 @@ const OrdersPage = () => {
     variables: { customerAccessToken: accessToken },
   })
 
-  if (data) {
-    return (
-      <AccountPage
-        title="My Orders"
-        subtitle={`Welcome back, ${data.customer.displayName}`}
-        currentPage={{ text: 'Orders', path: '/account' }}
-      >
-        <Box pt={6}>
-          <Grid
-            py={3}
-            sx={{
-              gridTemplateColumns: '1fr 2fr 2fr 1fr',
+  if (!data) return null
+  return (
+    <AccountPage
+      title="My Orders"
+      subtitle={`welcome back, ${data.customer.displayName}`}
+      currentPage={{ text: 'Orders', path: '/account' }}
+    >
+      <Box
+        py={3}
+        sx={{
+          '.orderLine': {
+            gap: 0,
+            paddingLeft: 2,
+            gridTemplateColumns: ['1fr 1fr 1.5fr 1fr', '1fr 2fr 2fr 1fr'],
+            a: { color: 'primary' },
+            '&:nth-child(odd)': { bg: 'border' },
+            '&:nth-child(1)': {
+              fontWeight: 'bold',
+              bg: 'white',
               borderBottom: '1px solid',
               borderColor: 'border',
-            }}
-          >
-            <Text px={2} variant="caps">
-              order
-            </Text>
-            <Text px={2} variant="caps">
-              payment status
-            </Text>
-            <Text px={2} variant="caps">
-              fulfillment status
-            </Text>
-            <Text px={2} variant="caps">
-              total
-            </Text>
-          </Grid>
-          {data.customer.orders.edges.map(
-            ({
-              node: {
-                orderNumber,
-                financialStatus,
-                totalPriceV2,
-                fulfillmentStatus,
-              },
-            }) => (
-              <Grid
-                key={orderNumber}
-                sx={{
-                  gridTemplateColumns: '1fr 2fr 2fr 1fr',
-                  '&:nth-child(odd)': { bg: 'border' },
-                }}
-                py={3}
-              >
-                <Text px={2} sx={{ fontSize: 2 }}>
-                  <Link to={`/account/orders/${orderNumber}`}>
-                    {orderNumber}
-                  </Link>
-                </Text>
-                <Text px={2} sx={{ fontSize: 2 }}>
-                  {titleize(financialStatus)}
-                </Text>
-                <Text px={2} sx={{ fontSize: 2 }}>
-                  {titleize(fulfillmentStatus)}
-                </Text>
-                <Text px={2} sx={{ fontSize: 2 }}>
-                  <FormattedPrice priceV2={totalPriceV2} />
-                </Text>
-              </Grid>
-            )
-          )}
-        </Box>
-      </AccountPage>
-    )
-  }
-
-  return null
+            },
+          },
+        }}
+      >
+        <Grid className="orderLine" py={3}>
+          <Text variant="caps">order</Text>
+          <Text variant="caps">payment</Text>
+          <Text variant="caps">fulfillment</Text>
+          <Text variant="caps">total</Text>
+        </Grid>
+        {data.customer.orders.edges.map(
+          ({
+            node: {
+              orderNumber,
+              financialStatus,
+              totalPriceV2,
+              fulfillmentStatus,
+            },
+          }) => (
+            <Grid key={orderNumber} className="orderLine" py={3}>
+              <Text>
+                <Link to={`/account/orders/${orderNumber}`}>{orderNumber}</Link>
+              </Text>
+              <Text>{financialStatus.toLowerCase()}</Text>
+              <Text>{fulfillmentStatus.toLowerCase()}</Text>
+              <Text>
+                <FormattedPrice priceV2={totalPriceV2} />
+              </Text>
+            </Grid>
+          )
+        )}
+      </Box>
+    </AccountPage>
+  )
 }
 
 export default OrdersPage
