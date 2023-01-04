@@ -20,7 +20,7 @@ const WishlistBadge = props => {
         position: 'absolute',
         top: 0,
         right: 0,
-        transform: 'translateX(-15%) translateY(-10%)',
+        transform: 'translateX(15%) translateY(-10%)',
       }}
     >
       {wishlist.length}

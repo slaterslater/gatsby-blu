@@ -1,4 +1,4 @@
-import { Divider, Box, Text, IconButton, Flex, Link } from 'theme-ui'
+import { Divider, Box, Text, IconButton, Flex } from 'theme-ui'
 import { IoIosClose } from 'react-icons/io'
 import React, { useEffect, useMemo, useState } from 'react'
 import axios from 'axios'
@@ -17,31 +17,27 @@ const AvailableLocations = ({ locations }) => {
       </Text>
     )
   }
-  return locations.map(({ name, slug, shopName, available }, i) => {
-    const to = `/locations/${slug?.current}/`
-    console.log({ to }, typeof slug)
-    return (
-      <Flex key={`store-${i}`} sx={{ alignItems: 'baseline' }}>
-        {slug ? (
-          <Text
-            as={GatsbyLink}
-            to={`/locations/${slug.current}`}
-            variant="caps"
-            sx={{ color: 'primary' }}
-            py={3}
-            pl={5}
-          >
-            {name}
-          </Text>
-        ) : (
-          <Text as="p" variant="caps" py={3} pl={5}>
-            {shopName}
-          </Text>
-        )}
-        {available < 4 && <Box as={FaRegStar} size={12} ml={3} />}
-      </Flex>
-    )
-  })
+  return locations.map(({ name, slug, shopName, available }, i) => (
+    <Flex key={`store-${i}`} sx={{ alignItems: 'baseline' }}>
+      {slug ? (
+        <Text
+          as={GatsbyLink}
+          to={`/locations/${slug.current}`}
+          variant="caps"
+          sx={{ color: 'primary' }}
+          py={3}
+          pl={5}
+        >
+          {name}
+        </Text>
+      ) : (
+        <Text as="p" variant="caps" py={3} pl={5}>
+          {shopName}
+        </Text>
+      )}
+      {available < 4 && <Box as={FaRegStar} size={12} ml={3} />}
+    </Flex>
+  ))
 }
 
 const AvailabilityDrawer = ({ onClose, handle }) => {

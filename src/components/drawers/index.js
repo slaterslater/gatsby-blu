@@ -4,7 +4,8 @@ import { AnimatePresence, motion } from 'framer-motion'
 import useKeyPress from 'react-use-keypress'
 import CartDrawer from './CartDrawer'
 import NavigationDrawer from './NavigationDrawer'
-import AvailabilityDrawer from './product/AvailabilityDrawer'
+import AvailabilityDrawer from './AvailabilityDrawer'
+import ServiceDrawer from './ServiceDrawer'
 
 const MotionBox = motion(Box)
 const MotionFlex = motion(Flex)
@@ -66,6 +67,34 @@ const Drawers = ({ children }) => {
     }
   }, [openDrawer])
 
+  const drawers = [
+    {
+      name: 'cart',
+      component: CartDrawer,
+      origin: 'right',
+    },
+    {
+      name: 'navigation',
+      component: NavigationDrawer,
+      origin: 'left',
+    },
+    {
+      name: 'availability',
+      component: AvailabilityDrawer,
+      origin: 'right',
+      props: {
+        handle: productHandle,
+      },
+    },
+    {
+      name: 'service',
+      component: ServiceDrawer,
+      origin: 'right',
+    },
+  ]
+
+  const drawer = drawers.find(({ name }) => name === openDrawer)
+
   return (
     <DrawerContext.Provider
       value={{ openDrawer, setOpenDrawer, productHandle, setProductHandle }}
@@ -82,7 +111,6 @@ const Drawers = ({ children }) => {
                 boxShadow: 'inset 0 0 70px rgba(0,0,0,.2)',
                 bg: 'backgroundShade',
                 height: '100vh',
-                // height: 'calc(var(--vh, 1vh) * 100)',
                 width: '100vw',
                 position: 'fixed',
                 zIndex: 100,
@@ -90,22 +118,12 @@ const Drawers = ({ children }) => {
               onClick={() => setOpenDrawer('')}
             />
           )}
-          {openDrawer === 'cart' && (
-            <DrawerOuter key="cart-drawer" origin="right">
-              <CartDrawer onClose={() => setOpenDrawer('')} />
-            </DrawerOuter>
-          )}
-          {openDrawer === 'navigation' && (
-            <DrawerOuter key="navigation-drawer" origin="left">
-              <NavigationDrawer onClose={() => setOpenDrawer('')} />
-            </DrawerOuter>
-          )}
-          {openDrawer === 'availablity' && (
-            <DrawerOuter key="availability-drawer" origin="right">
-              <AvailabilityDrawer
-                onClose={() => setOpenDrawer('')}
-                handle={productHandle}
-              />
+          {drawer && (
+            <DrawerOuter key={drawer.name} origin={drawer.origin}>
+              {React.createElement(drawer.component, {
+                onClose: () => setOpenDrawer(''),
+                ...drawer.props,
+              })}
             </DrawerOuter>
           )}
         </AnimatePresence>

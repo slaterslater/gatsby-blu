@@ -4,10 +4,10 @@ import { BiSearchAlt2 } from 'react-icons/bi'
 import { graphql, Link as GatsbyLink, navigate, useStaticQuery } from 'gatsby'
 import React, { useRef, useContext } from 'react'
 import { useQuery } from 'urql'
-import Accordion from './Accordion'
-import { AuthContext } from '../contexts/AuthContext'
-import { CUSTOMER_QUERY } from '../queries/customer'
-import BelovedSignupModal from './header/MegaMenu/BelovedSignupModal'
+import Accordion from '../Accordion'
+import { AuthContext } from '../../contexts/AuthContext'
+import { CUSTOMER_QUERY } from '../../queries/customer'
+import BelovedSignupModal from '../header/MegaMenu/BelovedSignupModal'
 
 const NavGroup = ({ menu, closeDrawer, children }) => (
   <Accordion title={children}>
