@@ -25,7 +25,15 @@ const HomePageHeader = ({ data }) => {
 
   return (
     <HeroOuter data={{ heading, subheading, button }}>
-      <Heading as="h1" sx={{ position: 'absolute', zIndex: -100 }}>
+      <Heading
+        as="h1"
+        sx={{
+          position: 'absolute',
+          zIndex: -100,
+          color: 'white',
+          // left: '-999em'
+        }}
+      >
         Bluboho Refined Jewelry
       </Heading>
       <Grid
