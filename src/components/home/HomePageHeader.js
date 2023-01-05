@@ -31,7 +31,6 @@ const HomePageHeader = ({ data }) => {
           position: 'absolute',
           zIndex: -100,
           color: 'white',
-          // left: '-999em'
         }}
       >
         Bluboho Refined Jewelry
