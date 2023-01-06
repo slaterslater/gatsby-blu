@@ -16,9 +16,9 @@ import loadable from '@loadable/component'
 import Announcements from './Announcements'
 import Header from './header'
 import Footer from './footer'
-import Drawers from './drawers'
 import SEO from './seo'
 import RecentlyViewedProductsProvider from '../contexts/RecentlyViewedProductsContext'
+import Drawers from './drawers'
 // import Countdown from './Countdown'
 
 const ThirdPartyScripts = loadable(() => import('./ThirdPartyScripts'))

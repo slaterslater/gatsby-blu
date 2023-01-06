@@ -13,8 +13,8 @@ export const ProductSpecifications = props => {
     const specs = metafields?.find(
       metafield => metafield.key === 'product_specifications'
     )
-    if (specs) return specs.value.split('\n')
-    return undefined
+    if (!specs) return null
+    return specs.value.split('\n').filter(value => !!value)
   }, [JSON.stringify(metafields)])
 
   return (

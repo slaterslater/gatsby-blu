@@ -40,8 +40,7 @@ const ProductAvailabilityButton = () => {
       <Button
         type="button"
         onClick={() => {
-          setOpenDrawer('availablity')
-          // setViewed(true)
+          setOpenDrawer('availability')
         }}
         variant="link"
         disabled={!!openDrawer}

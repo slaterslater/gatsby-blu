@@ -20,6 +20,7 @@ import { CurrencyContext } from '../../contexts/CurrencyContext'
 import SezzleInfo from './sezzleInfo'
 import { useVariantPrice } from './VariantPrice'
 import ColorOptions from './ColorOptions'
+import ServiceButton from './ServiceButton'
 
 const getMetafieldValues = (metafields = []) => {
   const fields = {
@@ -87,7 +88,7 @@ const ProductDetails = () => {
   }, [handle, data])
 
   return (
-    <Grid sx={{ gridAutoFlow: 'row', gap: 5 }}>
+    <Grid sx={{ gridAutoFlow: 'row', gap: 4 }}>
       <ProductTitleAndPrice />
       <Flex sx={{ height: 35 }}>
         <MetalOptions />
@@ -99,6 +100,7 @@ const ProductDetails = () => {
       <ProductOptions />
       <Engraving />
       <AddToCart />
+      <ServiceButton />
       <ProductShipping />
       <ProductDescription />
       <EngagementConsultationButton />
