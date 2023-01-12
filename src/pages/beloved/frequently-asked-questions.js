@@ -396,7 +396,7 @@ const BelovedFAQpage = () => (
       <Paragraph>
         We want your rings to last a lifetime, becoming a part of your love
         story. Read our{' '}
-        <GatsbyLink to="/wear-and-care">
+        <GatsbyLink to="/beloved/wear-and-care">
           golden rules for wear and care here
         </GatsbyLink>
         .
