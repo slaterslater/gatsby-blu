@@ -4,9 +4,10 @@ import { Box, Text, Flex } from 'theme-ui'
 import { Helmet } from 'react-helmet'
 import { VscTriangleRight } from 'react-icons/vsc'
 import ThemeLink from './app/ThemeLink'
+import useSite from '../lib/useSite'
 
 export const Breadcrumbs = ({ links, currentPage, children, ...props }) => {
-  const siteUrl = `https://www.bluboho.com`
+  const { siteUrl } = useSite()
   const breadcrumbLdJSON = `
   {
     "@context": "https://schema.org",

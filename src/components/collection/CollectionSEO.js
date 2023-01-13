@@ -1,9 +1,8 @@
 import React from 'react'
-import { graphql, useStaticQuery } from 'gatsby'
-
 import SEO from '../seo'
 import { getSrcWithSize } from '../RemoteShopifyImage'
 import { escapeDoubleQuoteString } from '../../lib/escapeDoubleQuoteStrings'
+import useSite from '../../lib/useSite'
 
 const CollectionSEO = ({
   seo,
@@ -13,19 +12,7 @@ const CollectionSEO = ({
   handle,
   image,
 }) => {
-  const {
-    site: {
-      siteMetadata: { siteUrl },
-    },
-  } = useStaticQuery(graphql`
-    {
-      site {
-        siteMetadata {
-          siteUrl
-        }
-      }
-    }
-  `)
+  const { siteUrl } = useSite()
 
   const imageSrc = image ? image.src || image.images.fallback.src : null
   const ldJSONSrc = getSrcWithSize(imageSrc, '1024x_crop_center')

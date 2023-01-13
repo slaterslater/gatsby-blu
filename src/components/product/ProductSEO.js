@@ -1,25 +1,12 @@
 import React from 'react'
-import { graphql, useStaticQuery } from 'gatsby'
 import SEO from '../seo'
 import { useProductTitle } from '../ProductTitle'
 import { escapeDoubleQuoteString } from '../../lib/escapeDoubleQuoteStrings'
 import { getSrcWithSize } from '../RemoteShopifyImage'
+import useSite from '../../lib/useSite'
 
 const ProductSEO = ({ product, rating, reviews }) => {
-  const {
-    site: {
-      siteMetadata: { siteUrl },
-    },
-  } = useStaticQuery(graphql`
-    {
-      site {
-        siteMetadata {
-          siteUrl
-        }
-      }
-    }
-  `)
-
+  const { siteUrl } = useSite()
   const title = useProductTitle(product.title)
   const { title: seoTitle, description: seoDesc } = product.seo || {}
 
