@@ -118,27 +118,25 @@ export const CollectionThumbnail = ({ title, primary, alternate }) => {
 }
 
 const ProductItemLabel = ({ tags, soldOut }) => {
-  if (soldOut)
-    return (
-      <Badge
-        sx={{ bg: 'cream', position: 'absolute', top: 1, left: 1, zIndex: 10 }}
-      >
-        Sold Out
-      </Badge>
-    )
+  // if (soldOut)
+  //   return (
+  //     <Badge
+  //       sx={{ bg: 'cream', position: 'absolute', top: 1, left: 1, zIndex: 10 }}
+  //     >
+  //       Sold Out
+  //     </Badge>
+  //   )
 
-  const label = tags.find(el => el.includes('__label'))
-  const labelText = label ? label.replace('__label:', '') : null
-  if (label)
-    return (
-      <Badge
-        sx={{ bg: 'cream', position: 'absolute', top: 1, left: 1, zIndex: 10 }}
-      >
-        {labelText}
-      </Badge>
-    )
-
-  return null
+  const label = tags.find(tag => tag.includes('__label'))
+  const labelText = label?.replace('__label:', '')
+  if (!label) return null
+  return (
+    <Badge
+      sx={{ bg: 'cream', position: 'absolute', top: 1, left: 1, zIndex: 10 }}
+    >
+      {labelText}
+    </Badge>
+  )
 }
 
 const ProductListItemInner = ({
