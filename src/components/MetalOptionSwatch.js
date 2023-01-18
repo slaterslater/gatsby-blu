@@ -21,7 +21,7 @@ const MetalOptionSwatch = ({ metal, isCurrent }) => {
           height: 20,
           width: 20,
           border: '2px solid',
-          borderColor: 'white',
+          borderColor: 'bbBeige',
           borderRadius: '50%',
         }}
       />

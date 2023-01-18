@@ -24,127 +24,124 @@ const ReleaseDate = () => (
   </Text>
 )
 
-const SampleSalePage = () => {
-  console.log('SampleSalePage')
-  return (
-    <Layout
-      title="sample sale signup"
-      description="sign up because the last time we did this it sold out in 2 weeks"
+const SampleSalePage = () => (
+  <Layout
+    title="sample sale signup"
+    description="sign up because the last time we did this it sold out in 2 weeks"
+  >
+    <Flex
+      mx="auto"
+      sx={{
+        bg: 'bbBeige',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        textAlign: 'center',
+        alignItems: 'center',
+        width: '100%',
+        height: 210,
+      }}
+    >
+      <Heading
+        variant="copy"
+        as="h1"
+        sx={{ textTransform: 'uppercase' }}
+        px={[9, 0]}
+      >
+        psst... our sample sale is coming june 21
+      </Heading>
+      <Text
+        as="p"
+        mx="auto"
+        mt={5}
+        sx={{
+          display: 'block',
+          fontSize: 1,
+          lineHeight: 'body',
+          letterSpacing: 'wider',
+          maxWidth: 375,
+          textAlign: 'center',
+        }}
+      >
+        ... you don’t want to miss out
+      </Text>
+    </Flex>
+    <Container
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}
     >
       <Flex
-        mx="auto"
         sx={{
-          bg: 'bbBeige',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          textAlign: 'center',
-          alignItems: 'center',
+          justifyContent: ['center', 'space-between'],
           width: '100%',
-          height: 210,
+          maxWidth: 1150,
         }}
       >
-        <Heading
-          variant="copy"
-          as="h1"
-          sx={{ textTransform: 'uppercase' }}
-          px={[9, 0]}
-        >
-          psst... our sample sale is coming june 21
-        </Heading>
-        <Text
-          as="p"
-          mx="auto"
-          mt={5}
-          sx={{
-            display: 'block',
-            fontSize: 1,
-            lineHeight: 'body',
-            letterSpacing: 'wider',
-            maxWidth: 375,
-            textAlign: 'center',
-          }}
-        >
-          ... you don’t want to miss out
-        </Text>
-      </Flex>
-      <Container
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        <Flex
-          sx={{
-            justifyContent: ['center', 'space-between'],
-            width: '100%',
-            maxWidth: 1150,
-          }}
-        >
-          <Box
-            sx={{
-              display: ['none', 'flex'],
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-            pr={[2]}
-          >
-            <StaticImage
-              src="../images/sample-sale/samplesale-2022-june-04.jpg"
-              alt=""
-              width={335}
-              aspectRatio={1}
-            />
-            <ReleaseDate />
-          </Box>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-            pl={[0, 2]}
-            pr={[0, 0, 2]}
-          >
-            <StaticImage
-              src="../images/sample-sale/samplesale-2022-june-02.jpg"
-              alt=""
-              width={335}
-              aspectRatio={1}
-            />
-            <ReleaseDate />
-          </Box>
-          <Box
-            sx={{
-              display: ['none', 'none', 'flex'],
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-            pl={[2]}
-          >
-            <StaticImage
-              src="../images/sample-sale/samplesale-2022-june-03.jpg"
-              alt=""
-              width={335}
-              aspectRatio={1}
-            />
-            <ReleaseDate />
-          </Box>
-        </Flex>
-        <Heading as="h2" variant="copy" sx={{ fontSize: 1 }}>
-          sign up to get access to the sample sale
-        </Heading>
         <Box
-          as="section"
-          sx={{ width: '100%', maxWidth: 480 }}
-          variant="sectionWrap"
+          sx={{
+            display: ['none', 'flex'],
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+          pr={[2]}
         >
-          <SmsSubscribe color="primary" />
-          <NewsletterSubscribe color="primary" />
+          <StaticImage
+            src="../images/sample-sale/samplesale-2022-june-04.jpg"
+            alt=""
+            width={335}
+            aspectRatio={1}
+          />
+          <ReleaseDate />
         </Box>
-      </Container>
-    </Layout>
-  )
-}
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+          pl={[0, 2]}
+          pr={[0, 0, 2]}
+        >
+          <StaticImage
+            src="../images/sample-sale/samplesale-2022-june-02.jpg"
+            alt=""
+            width={335}
+            aspectRatio={1}
+          />
+          <ReleaseDate />
+        </Box>
+        <Box
+          sx={{
+            display: ['none', 'none', 'flex'],
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+          pl={[2]}
+        >
+          <StaticImage
+            src="../images/sample-sale/samplesale-2022-june-03.jpg"
+            alt=""
+            width={335}
+            aspectRatio={1}
+          />
+          <ReleaseDate />
+        </Box>
+      </Flex>
+      <Heading as="h2" variant="copy" sx={{ fontSize: 1 }}>
+        sign up to get access to the sample sale
+      </Heading>
+      <Box
+        as="section"
+        sx={{ width: '100%', maxWidth: 480 }}
+        variant="sectionWrap"
+      >
+        <SmsSubscribe color="primary" />
+        <NewsletterSubscribe color="primary" />
+      </Box>
+    </Container>
+  </Layout>
+)
 
 export default SampleSalePage

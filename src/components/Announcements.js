@@ -67,7 +67,7 @@ Announcement.propTypes = {
   isVisible: PropTypes.bool.isRequired,
 }
 
-const Announcements = () => {
+const Announcements = ({ invertColors = false }) => {
   const data = useStaticQuery(graphql`
     {
       sanitySiteAnnouncements {
@@ -100,8 +100,8 @@ const Announcements = () => {
     <Flex
       p={[3]}
       sx={{ justifyContent: 'center', alignItems: 'center' }}
-      bg="primary"
-      color="white"
+      bg={invertColors ? 'cream' : 'primary'}
+      color={invertColors ? 'primary' : 'white'}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >

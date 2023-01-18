@@ -7,7 +7,7 @@ dotenv.config({
 })
 
 const siteUrl = process.env.SITE_URL || 'https://www.bluboho.com'
-const overlayDrafts = process.env.SANITY_OVERLAY_DRAFTS === 'true'
+// const overlayDrafts = process.env.SANITY_OVERLAY_DRAFTS === 'true'
 const watchMode = process.env.SANITY_WATCH_MODE === 'true'
 
 module.exports = {
@@ -17,7 +17,15 @@ module.exports = {
     author: `@bluboho`,
     siteUrl,
   },
+<<<<<<< HEAD
   flags: { PARALLEL_SOURCING: true },
+=======
+  flags: {
+    PARALLEL_SOURCING: true,
+    // FAST_DEV: true,
+    // DEV_SSR: true,
+  },
+>>>>>>> cc70d72 (wip)
   plugins: [
     `gatsby-plugin-netlify`,
     // {

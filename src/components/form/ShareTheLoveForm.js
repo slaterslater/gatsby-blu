@@ -60,7 +60,7 @@ const TextFeild = ({ name, label, placeholder = null, maxLength = 300 }) => {
       <Text
         as="p"
         ml="auto"
-        sx={{ color: 'navy', opacity: '50%', fontSize: 0 }}
+        sx={{ color: 'primary', opacity: '50%', fontSize: 0 }}
       >{`${meta.value?.length || 0} / ${maxLength}`}</Text>
     </Flex>
   )

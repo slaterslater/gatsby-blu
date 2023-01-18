@@ -66,7 +66,7 @@ const ProductView = ({ product, alternates, badges, stack, card }) => {
             gridTemplateColumns: ['1fr', '2fr minmax(280px, 1fr)'],
             columnGap: 6,
           }}
-          pt={[1, 6]}
+          // pt={[1, 6]}
         >
           <ProductImageGallery />
           <Box sx={{ position: 'relative' }}>

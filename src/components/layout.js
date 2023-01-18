@@ -19,12 +19,17 @@ import Footer from './footer'
 import SEO from './seo'
 import RecentlyViewedProductsProvider from '../contexts/RecentlyViewedProductsContext'
 import Drawers from './drawers'
+<<<<<<< HEAD
 import Countdown from './Countdown'
+=======
+import BelovedHeader from './BelovedHeader'
+// import Countdown from './Countdown'
+>>>>>>> 0c3d11e (adds beloved product template and refactors reusable components)
 
 const ThirdPartyScripts = loadable(() => import('./ThirdPartyScripts'))
 const TidioLink = loadable(() => import('./TidioLink'))
 
-const Layout = ({ title, description, children }) => (
+const Layout = ({ title, description, children, isBeloved = false }) => (
   <RecentlyViewedProductsProvider>
     <Drawers>
       <SEO title={title} description={description} />
@@ -35,6 +40,7 @@ const Layout = ({ title, description, children }) => (
           flexDirection: 'column',
           alignItems: 'stretch',
           overflow: 'hidden',
+          background: isBeloved ? 'url("/background_beige.webp")' : null,
         }}
       >
         <Announcements />
@@ -53,6 +59,7 @@ Layout.propTypes = {
   children: PropTypes.node.isRequired,
   title: PropTypes.string,
   description: PropTypes.string,
+  isBeloved: PropTypes.bool,
 }
 
 export default Layout

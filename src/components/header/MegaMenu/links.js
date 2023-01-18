@@ -16,13 +16,19 @@ export const HeaderLink = props => (
   />
 )
 
-export const MegaMenuLink = ({ children, path, isCurrent, ...props }) => (
+export const MegaMenuLink = ({
+  children,
+  path,
+  isCurrent,
+  color = 'black',
+  ...props
+}) => (
   <HeaderLink to={path} sx={{ position: 'relative' }} {...props}>
     <Text
       as="span"
       variant="caps"
       sx={{
-        color: 'black',
+        color,
         display: 'inline-flex',
         alignItems: 'center',
         height: '100%',
