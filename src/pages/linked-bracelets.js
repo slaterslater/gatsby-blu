@@ -10,56 +10,60 @@ import CalendlyLink from '../components/consultation/CalendlyLink'
 
 const faqs = [
   {
-    question: `What is a zap bracelet?`,
-    answer: `A zap bracelet — or, as we like to call it, a linked bracelet —  is a bracelet that has no clasp, and is fused 'permanently' to your body. The chain is connected with a small jump ring, which is fused with a zap machine (aka a tungsten soldering machine).`,
+    question: `what is a permanent bracelet?`,
+    answer: `a permanent bracelet— or, as we like to call it, a linked bracelet —  is a bracelet that has no clasp, forming an unbroken chain. the chain is connected with a small jump ring, which is fused together with a tungsten soldering machine.`,
   },
   {
-    question: `what's the cost of the bracelet?`,
-    answer: `We have four 14k solid gold chain designs to choose from:
+    question: `what is the cost of a permanent bracelet?`,
+    answer: `we have five 14k solid gold chain designs to choose from:
     <ul>
-    <li>cable chain- $198</li>
-    <li>figaro  chain- $248</li>
-    <li><a href="/products/14k-infinite-inseparable-bracelet-14k-yellow-gold" target="_blank">inseparable chain</a>- $248</li>
-    <li><a href="/products/kinship-bracelet" target="_blank">kinship chain</a> - $298</li>
-    <li>small diamond chain- $298</li>
+    <li>cable chain: $198</li>
+    <li>figaro chain: $248</li>
+    <li>inseparable chain: $248</li>
+    <li>kinship chain: $298</li>
+    <li>small diamond-cut chain: $298</li>
     </ul>
     `,
   },
   {
-    question: `When can I get it done?`,
-    answer: `We are currently taking appointments at our yonge street location every day we are open- walk-ins welcome.`,
+    question: `when can i get it done?`,
+    answer: `we are currently taking appointments at our yonge street location every day that we are open— walk-ins are welcome, or you can <a href="https://calendly.com/ringconsultation/link-bracelets?month=2022-06">book an appointment</a>.`,
   },
   {
-    question: `Do I need an appointment?`,
-    answer: `We recommend booking an appointment ahead, however, we can accommodate walk-ins. Please note that when making an appointment we do ask for a $50 non-refundable deposit to secure your spot. This will be applied towards the purchase of your bracelet.`,
+    question: `do i need an appointment?`,
+    answer: `we recommend booking an appointment ahead, however, we can also accommodate walk-ins. please note that when making an appointment we ask for a $50 non-refundable deposit to secure your spot. this will be applied towards the purchase of your bracelet.`,
   },
   {
-    question: `What if I have to cancel or miss my appointment?`,
-    answer: `Appointments can be canceled up to 12 hours before the scheduled appointment.  We offer a 10 minute grace period if you are running late, however, if you miss your appointment, your slot and your deposit will be lost.`,
+    question: `what if i have to cancel or miss my appointment?`,
+    answer: `appointments can be cancelled up to 12 hours before the scheduled appointment.  we offer a ten-minute grace period if you are running late— however, if you miss your appointment, your slot and your deposit will be lost.`,
   },
   {
-    question: `Can I bring my friend(s)?`,
-    answer: `zap bracelets are a wonderful way to mark and celebrate a bond, so if you wish to bring a friend or family member with you, we'd love to help you mark this moment together! <br /><br />However, please note that each appointment is for only one person. For pairs, we recommend booking back-to-back appointments, one slot per person.`,
+    question: `can i bring my friend(s)?`,
+    answer: `permanent bracelets are a wonderful way to mark and celebrate a bond, so if you wish to bring a friend or family member with you, we'd love to help you mark this moment together! <strong>please note that each appointment is for only one person</strong>. for pairs, we recommend booking back-to-back appointments, one slot per person.`,
   },
   {
-    question: `Can I pre-pay or buy in advance? What about a gift card?`,
-    answer: `Each appointment must be confirmed with a deposit fee of $50.  This can either go towards the payment of your zap bracelet, or for a gift card to use at a later date. If you're gifting a zap bracelet to a loved one, we have gift cards available for you to purchase, which can always be used towards your zap bracelet!`,
+    question: `can i pre-pay or buy in advance? what about a gift card?`,
+    answer: `each appointment must be confirmed with a deposit fee of $50.  this can either go towards the payment of your permanent bracelet or for a gift card to use at a later date. if you're gifting a permanent bracelet to a loved one, we have gift cards available for you to purchase, which can always be used towards your permanent bracelet!`,
   },
   {
-    question: `Does it hurt?`,
-    answer: `Not at all!  Despite the flash, the machine doesn't actually touch your skin.  We will put a protective cloth on your wrist just in case, as well as giving you safety glasses to protect your eyes from the flash. Both are simply precautionary— better safe than sorry!`,
+    question: `does it hurt?`,
+    answer: `not at all!  despite the flash, the machine doesn't actually touch your skin.  we will put a protective cloth on your wrist just in case, as well as provide you with safety glasses to protect your eyes from the flash. both are simply precautionary— better safe than sorry!`,
   },
   {
-    question: `What if I need to take it off or it breaks off?`,
-    answer: `We understand that things happen, and you may need to remove your bracelet for any reason.  You can come in and we will remove the bracelet for you, or you can use nail clippers or scissors to remove the bracelet. If you intend to have your bracelet reattached, make sure that you make the cut at the jump ring, as this will make it easier to reattach again later, and help to preserve the integrity of the chain. <br /><br />If the bracelet has to be removed or breaks off within 90 days of getting it done, we offer a complimentary appointment to have it fixed. after that, your bracelet can be reattached for a fee of $25. You can <a style="color: black" href="/pages/how-to-care-for-gold-jewelry" target="_blank">see more about our warranty</a>.`,
+    question: `what if i need to remove my permanent bracelet, or it breaks off?`,
+    answer: `we understand that things happen, and you may need to remove your bracelet.  you can come in and we will remove the bracelet for you, or you can use nail clippers or scissors to remove the bracelet. if you intend to have your bracelet reattached, make sure that you make the cut at the jump ring, as this will make it easier to reattach again later, and help to preserve the integrity of the chain.\n\nif the bracelet has to be removed or breaks off within 90 days of getting it done, we offer a complimentary appointment to have it fixed. after that, your bracelet can be reattached for a fee of $25.`,
   },
   {
-    question: `Can you make my existing bracelet into a linked bracelet?`,
-    answer: `currently we are offering select types of chains for zap bracelets, and in order to ensure longevity we cannot alter existing pieces at this time.`,
+    question: `what if it breaks off?`,
+    answer: `if the jump ring breaks within 90 days, we will replace that jump ring at no charge. after that, there will be a charge of $25.  we are not responsible for lost chains.`,
   },
   {
-    question: `Can I bring my child to get zapped?`,
-    answer: `Yes — our minimum age is 12 years old to get zapped. Anyone under the age of 16 must be accompanied by an adult.`,
+    question: `can you make my existing bracelet into a permanent bracelet?`,
+    answer: `currently, we are offering select types of chains for linked permanent bracelets. in order to ensure longevity, we cannot alter existing pieces at this time.`,
+  },
+  {
+    question: `can i bring my child to get a permanent bracelet?`,
+    answer: `yes— our minimum age is 12 years old to get a linked permanent bracelet. anyone under the age of 16 must be accompanied by an adult.`,
   },
 ]
 
@@ -214,9 +218,14 @@ const LinkedBraceletsPage = () => {
                 textAlign: ['center', 'left'],
               }}
             >
-              the linked bracelet is a poignant way to mark the most meaningful
-              and long-lasting of connections — the ones that outlast the test
-              of time, remaining strong and true.
+              the linked permanent bracelet is a poignant way to mark the most
+              meaningful and long-lasting of connections — the ones that outlast
+              the test of time, remaining strong and true.
+              <br />
+              <br />
+              book your appointment for a permanent piece to honour the forever
+              bonds in your life. all linked permanent bracelets are made in
+              solid 14k yellow gold.
             </Text>
           </Box>
           <Box mx={3} sx={{ height: 500 }}>
