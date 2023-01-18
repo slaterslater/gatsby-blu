@@ -181,7 +181,7 @@ const LinkedBraceletsPage = () => {
       </Flex>
       <Container>
         <Heading as="h1" variant="h2" mt={[3, 6]} sx={{ textAlign: 'center' }}>
-          linked bracelets
+          linked permanent bracelets
         </Heading>
         <Grid
           sx={{
