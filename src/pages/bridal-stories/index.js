@@ -186,7 +186,7 @@ export default StoriesPage
 
 export const query = graphql`
   {
-    stories: allSanityStory(sort: { fields: _updatedAt, order: DESC }) {
+    stories: allSanityStory(sort: { fields: _createdAt, order: DESC }) {
       nodes {
         id
         title
