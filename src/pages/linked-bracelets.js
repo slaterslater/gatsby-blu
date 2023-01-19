@@ -1,5 +1,5 @@
 import { StaticImage } from 'gatsby-plugin-image'
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Box, Container, Flex, Grid, Heading, Image, Text } from 'theme-ui'
 import { CgArrowLongRight, CgClose } from 'react-icons/cg'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -148,8 +148,54 @@ const QuestionAnswer = ({ faq, index, expanded, setExpanded }) => {
   )
 }
 
+const calendars = [
+  {
+    title: '2616 yonge st, toronto | 20 min',
+    path: 'ringconsultation/link-bracelets',
+  },
+  {
+    title: '293 Lakeshore Rd E, Oakville | 15 min',
+    path: 'bluboho-oakville/linked-permanent-bracelets',
+  },
+  {
+    title: '2207 4 St SW, Calgary, | 20 min',
+    path: 'calgary-4/getlinked',
+  },
+]
+
 const LinkedBraceletsPage = () => {
   const [expanded, setExpanded] = useState(false)
+
+  const [fixedHeight, setFixedHeight] = useState('auto')
+  const [current, setCurrent] = useState({ index: 0, ...calendars[0] })
+  const calendlyPicker = useRef(null)
+
+  useEffect(() => {
+    // calculate height
+    const max = calendlyPicker.current.offsetHeight - 160 // calendars - (heading + text)
+    setFixedHeight(max > 630 ? max : 630) // 630 = iframe + heading
+
+    // set inital calendar
+    // const initialSlug = location.state?.consultation
+    // if (initialSlug) {
+    //   const calendar = calendars.find(({ slug }) => initialSlug === slug)
+    //   calendar.index = calendars.indexOf(calendar)
+    //   setCurrent(calendar)
+    // }
+
+    // send gtag if event booked
+    const isCalendlyEventBooked = e =>
+      e.origin === 'https://calendly.com' &&
+      e.data.event === 'calendly.event_scheduled'
+
+    window.addEventListener('message', e => {
+      if (!isCalendlyEventBooked(e) || !window.gtag) return
+      window.gtag('event', 'conversion', {
+        send_to: `${process.env.GATSBY_AW_CONVERSION_ID}/nweJCJmXtoYDEIu39dgD`,
+      })
+    })
+  }, [])
+
   const images = Array.from({ length: 3 }).map((_, i) => (
     <Image
       key={`linked-bracelet-image-${i}`}
@@ -179,58 +225,99 @@ const LinkedBraceletsPage = () => {
           placeholder="blurred"
         />
       </Flex>
-      <Container>
-        <Heading as="h1" variant="h2" mt={[3, 6]} sx={{ textAlign: 'center' }}>
-          linked permanent bracelets
-        </Heading>
-        <Grid
-          sx={{
-            gridTemplateColumns: ['1fr', '1fr 1fr'],
-            width: '100%',
-            maxWidth: 850,
-          }}
+      <Container as="main" sx={{ maxWidth: 1400 }} p={0} mb={8}>
+        <Box py={[6, 8]} sx={{ width: '100%', textAlign: 'center' }}>
+          <Heading as="h1" variant="h2">
+            linked permanent bracelets
+          </Heading>
+        </Box>
+        <Flex
+          ref={calendlyPicker}
           mx="auto"
+          px={5}
+          sx={{
+            flexDirection: 'column',
+            flexWrap: 'wrap',
+            height: ['auto', fixedHeight],
+            maxWidth: 825,
+            alignContent: 'center',
+            '.active': {
+              borderColor: 'black',
+            },
+          }}
         >
-          <Box>
+          <Text
+            as="h3"
+            variant="caps"
+            pt={1}
+            pb={6}
+            mx={['auto', 3]}
+            sx={{ fontSize: 1, display: 'block' }}
+          >
+            choose your appointment
+          </Text>
+          {calendars.map((calendar, i) => (
+            <CalendlyLink
+              key={`calendly-${i}`}
+              calendar={calendar}
+              order={i}
+              isActive={current.index === i}
+              handleChange={() => {
+                setCurrent({
+                  index: i,
+                  ...calendar,
+                })
+              }}
+            >
+              {calendar.title.toLowerCase()}
+            </CalendlyLink>
+          ))}
+          <Text
+            as="p"
+            my={6}
+            mx={[0, 3]}
+            sx={{
+              fontSize: 1,
+              lineHeight: 'body',
+              letterSpacing: 'wider',
+              width: ['100%', '50%'],
+              textAlign: ['center', 'left'],
+              order: calendars.length + 1,
+            }}
+          >
+            the linked permanent bracelet is a poignant way to mark the most
+            meaningful and long-lasting of connections — the ones that outlast
+            the test of time, remaining strong and true.
+            <br />
+            <br />
+            book your appointment for a permanent piece to honour the forever
+            bonds in your life. all linked permanent bracelets are made in solid
+            14k yellow gold.
+          </Text>
+          <Box
+            mx={3}
+            sx={{
+              height: [500, `calc(100% - 30px)`], // 30 = heading
+              width: ['auto', '50%'],
+              order: [current.index, calendars.length + 2],
+              borderBottom: ['1px solid', 'none'],
+              borderColor: 'border',
+            }}
+          >
             <Text
               variant="caps"
-              pt={[6, 8, 9]}
-              pb={6}
-              mx={['auto', 3]}
+              pb={3}
               sx={{
+                display: ['none', 'block'],
+                width: '100%',
+                textAlign: 'center',
                 fontSize: 1,
-                textAlign: ['center', 'center', 'left'],
-                display: 'block',
               }}
             >
-              choose your appointment
+              {current.title}
             </Text>
-            <CalendlyLink>yonge st. location | 20 min </CalendlyLink>
-            <Text
-              as="p"
-              mt={6}
-              mb={[0, 0, 6]}
-              mx={[0, 4]}
-              sx={{
-                fontSize: 1,
-                lineHeight: 'body',
-                letterSpacing: 'wider',
-                textAlign: ['center', 'left'],
-              }}
-            >
-              the linked permanent bracelet is a poignant way to mark the most
-              meaningful and long-lasting of connections — the ones that outlast
-              the test of time, remaining strong and true.
-              <br />
-              <br />
-              book your appointment for a permanent piece to honour the forever
-              bonds in your life. all linked permanent bracelets are made in
-              solid 14k yellow gold.
-            </Text>
-          </Box>
-          <Box mx={3} sx={{ height: 500 }}>
             <InlineWidget
-              url="https://calendly.com/ringconsultation/link-bracelets"
+              url={`https://calendly.com/${current.path}`}
               styles={{
                 height: '100%',
               }}
@@ -242,7 +329,7 @@ const LinkedBraceletsPage = () => {
               }}
             />
           </Box>
-        </Grid>
+        </Flex>
         <Box
           my={7}
           mx="auto"
