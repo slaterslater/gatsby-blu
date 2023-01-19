@@ -19,7 +19,7 @@ import Footer from './footer'
 import SEO from './seo'
 import RecentlyViewedProductsProvider from '../contexts/RecentlyViewedProductsContext'
 import Drawers from './drawers'
-// import Countdown from './Countdown'
+import Countdown from './Countdown'
 
 const ThirdPartyScripts = loadable(() => import('./ThirdPartyScripts'))
 const TidioLink = loadable(() => import('./TidioLink'))
@@ -39,7 +39,7 @@ const Layout = ({ title, description, children }) => (
       >
         <Announcements />
         <Header />
-        {/* <Countdown /> */}
+        <Countdown />
         {children}
         <Footer />
       </Flex>

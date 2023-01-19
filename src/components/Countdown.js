@@ -3,7 +3,7 @@ import React from 'react'
 import { Box, Flex, Text } from 'theme-ui'
 
 const Countdown = () => {
-  const end = new Date('2022-12-25')
+  const end = new Date('2023-02-06')
   const now = new Date()
   const offset = now.getTimezoneOffset() * 60000
   const diffTime = end.getTime() - now.getTime() + offset
@@ -11,9 +11,12 @@ const Countdown = () => {
 
   if (diffDays < 1) return null
 
-  const text = `only ${diffDays} day${
-    diffDays > 1 ? 's' : ''
-  } till DEC 25, hurry!`
+  // const text = `only ${diffDays} day${
+  //   diffDays > 1 ? 's' : ''
+  // } till DEC 25, hurry!`
+
+  const text =
+    "order by February 6th to receive engraving on us - just in time for valentine's day"
 
   const MotionBox = motion(Flex)
   return (
@@ -37,7 +40,7 @@ const Countdown = () => {
               x: {
                 repeat: Infinity,
                 repeatType: 'loop',
-                duration: 35,
+                duration: 50,
                 ease: 'linear',
               },
             },
@@ -51,6 +54,7 @@ const Countdown = () => {
                 fontSize: 1,
                 fontWeight: 'bold',
                 letterSpacing: 'wider',
+                // span: { textTransform: 'uppercase' },
               }}
               py={2}
             >
