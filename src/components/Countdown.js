@@ -54,7 +54,7 @@ const Countdown = () => {
                 fontSize: 1,
                 fontWeight: 'bold',
                 letterSpacing: 'wider',
-                // span: { textTransform: 'uppercase' },
+                span: { textTransform: 'uppercase' },
               }}
               py={2}
             >
