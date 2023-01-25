@@ -178,19 +178,9 @@ export const query = graphql`
             gatsbyImageData(placeholder: BLURRED)
           }
         }
-        image2 {
-          asset {
-            gatsbyImageData(placeholder: BLURRED)
-          }
-        }
         imageMobile {
           asset {
             gatsbyImageData(placeholder: BLURRED, width: 500)
-          }
-        }
-        icon {
-          asset {
-            gatsbyImageData(placeholder: BLURRED)
           }
         }
       }
@@ -206,17 +196,7 @@ export const query = graphql`
             gatsbyImageData(placeholder: BLURRED)
           }
         }
-        image2 {
-          asset {
-            gatsbyImageData(placeholder: BLURRED)
-          }
-        }
         imageMobile {
-          asset {
-            gatsbyImageData(placeholder: BLURRED)
-          }
-        }
-        icon {
           asset {
             gatsbyImageData(placeholder: BLURRED)
           }
