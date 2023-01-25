@@ -66,7 +66,7 @@ const Footer = props => (
           >
             <FooterLink to="/pages/faq">faq &amp; help</FooterLink>
             <FooterLink to="/pages/exchange-policy">
-              orders &amp; exchanges
+              return &amp; exchange policy
             </FooterLink>
             <FooterLink to="/pages/shipping">
               shipping &amp; special info
