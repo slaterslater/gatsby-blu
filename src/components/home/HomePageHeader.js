@@ -24,7 +24,7 @@ const HomePageHeader = ({ data, videoSrc }) => {
   const video = useRef()
 
   useEffect(() => {
-    if (!video) return
+    if (!video.current) return
     video.current.play()
   }, [video])
 
