@@ -30,7 +30,7 @@ const HomePageHeader = ({ data, videoSrc }) => {
 
   return (
     <HeroOuter data={{ heading, subheading, button }}>
-      {videoSrc && (
+      {/* {videoSrc && (
         <Box
           as="video"
           ref={video}
@@ -47,7 +47,7 @@ const HomePageHeader = ({ data, videoSrc }) => {
         >
           <source src={videoSrc} type="video/mp4" />
         </Box>
-      )}
+      )} */}
       <Heading
         as="h1"
         sx={{
