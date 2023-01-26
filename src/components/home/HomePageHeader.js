@@ -1,10 +1,10 @@
 import { Box, Grid, Heading } from 'theme-ui'
 import { GatsbyImage, withArtDirection } from 'gatsby-plugin-image'
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { HeroOuter } from '../content/Hero'
 
-const HomePageHeader = ({ data }) => {
+const HomePageHeader = ({ data, videoSrc }) => {
   const { heading, subheading, button, image1, imageMobile } = data
 
   const [image1Data, mobileImageData] = [image1, imageMobile].map(
@@ -21,14 +21,39 @@ const HomePageHeader = ({ data }) => {
     ])
   }, [image1Data, mobileImageData])
 
+  const video = useRef()
+
+  useEffect(() => {
+    if (!video) return
+    video.current.play()
+  }, [video])
+
   return (
     <HeroOuter data={{ heading, subheading, button }}>
+      {videoSrc && (
+        <Box
+          as="video"
+          ref={video}
+          sx={{
+            display: ['block', 'none'],
+            position: 'absolute',
+            zIndex: 10,
+            height: 450,
+            width: '100%',
+            objectFit: 'cover',
+          }}
+          loop
+          muted
+        >
+          <source src={videoSrc} type="video/mp4" />
+        </Box>
+      )}
       <Heading
         as="h1"
         sx={{
           position: 'absolute',
           zIndex: -100,
-          color: 'white',
+          color: 'cream',
         }}
       >
         Bluboho Refined Jewelry
@@ -50,4 +75,5 @@ export default HomePageHeader
 
 HomePageHeader.propTypes = {
   data: PropTypes.object,
+  videoSrc: PropTypes.string,
 }

@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { Box, Heading, Text } from 'theme-ui'
+import { Box, Text } from 'theme-ui'
 import { graphql, Link, navigate } from 'gatsby'
 import Layout from '../components/layout'
 import OnePercentCallout from '../components/content/OnePercentCallout'
@@ -45,8 +45,15 @@ const IndexPage = ({ data }) => {
   const locations = data.allSanityLocation.nodes
   const products = data.allShopifyProduct.nodes
   const cards = data.allSanityCard.nodes
-  const { headerHero, innerHero, collectionRow, spotlights, reviews, zodiac } =
-    data.sanityHomePage
+  const {
+    headerHero,
+    video,
+    innerHero,
+    collectionRow,
+    spotlights,
+    reviews,
+    zodiac,
+  } = data.sanityHomePage
 
   const collectionRowWithData = useMemo(
     () =>
@@ -86,11 +93,6 @@ const IndexPage = ({ data }) => {
     [reviews, products]
   )
 
-  const goToCardCollection = n => {
-    const handle = cards[n]?.collectionHandle
-    navigate(`/collections/${handle}`)
-  }
-
   return (
     <Layout>
       <SEO title="shop online jewelry">
@@ -100,7 +102,7 @@ const IndexPage = ({ data }) => {
         />
         <script type="application/ld+json">{websiteLdJSON}</script>
       </SEO>
-      <HomePageHeader data={headerHero[0]} />
+      <HomePageHeader data={headerHero[0]} videoSrc={video[0]?.asset.url} />
       <CollectionRowSlider collections={collectionRowWithData} />
       <Box
         sx={{
@@ -135,7 +137,6 @@ const IndexPage = ({ data }) => {
       </Box>
       <MessageFromUniverse
         cards={cards}
-        // onWheelSpin={goToCardCollection}
         onWheelSpin={n => {
           const handle = cards[n]?.collectionHandle
           navigate(`/collections/${handle}`)
@@ -182,6 +183,11 @@ export const query = graphql`
           asset {
             gatsbyImageData(placeholder: BLURRED, width: 500)
           }
+        }
+      }
+      video {
+        asset {
+          url
         }
       }
       innerHero {
