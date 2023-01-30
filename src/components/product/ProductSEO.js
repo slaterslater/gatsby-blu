@@ -14,7 +14,7 @@ const ProductSEO = ({ product, rating, reviews }) => {
   const descriptionString = escapeDoubleQuoteString(product.description)
   const ldJSONSrc = getSrcWithSize(product.images[0]?.url, '1024x_crop_center')
 
-  // const { score = 0, totalReviews = 0 } = rating || {}
+  const { score = 0, totalReviews = 0 } = rating || {}
 
   /*
 
@@ -76,7 +76,12 @@ const ProductSEO = ({ product, rating, reviews }) => {
             "sku": "${variant.sku || 'n/a'}"
           }`
         )
-        .toString()}]
+        .toString()}],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "reviewCount": "${totalReviews}",
+        "ratingValue": "${score}"
+      }
     }
   `
   const noIndex = [
