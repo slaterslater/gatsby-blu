@@ -41,6 +41,7 @@ const CollectionSEO = ({
               }`
           )
           .toString()}]
+      }
     }
   `
   return (
