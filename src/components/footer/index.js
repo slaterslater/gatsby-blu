@@ -98,10 +98,12 @@ const Footer = props => (
             </FooterLink>
           </CollapsibleFooterSection>
           <CollapsibleFooterSection title="Social">
-            {/* <FooterA href="https://www.instagram.com/bluboho"> */}
-            <FooterA href="/looking-for-us">instagram</FooterA>
-            {/* <FooterA href="https://www.facebook.com/blubohojewelry"> */}
-            <FooterA href="/looking-for-us">facebook</FooterA>
+            <FooterA href="https://www.instagram.com/bluboho">
+              instagram
+            </FooterA>
+            <FooterA href="https://www.facebook.com/blubohojewelry">
+              facebook
+            </FooterA>
             <FooterA href="https://www.pinterest.ca/bluboho" pb={0}>
               pinterest
             </FooterA>

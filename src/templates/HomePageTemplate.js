@@ -104,37 +104,6 @@ const IndexPage = ({ data }) => {
       </SEO>
       <HomePageHeader data={headerHero[0]} videoSrc={video[0]?.asset.url} />
       <CollectionRowSlider collections={collectionRowWithData} />
-      <Box
-        sx={{
-          bg: 'cream',
-          textAlign: 'center',
-          h2: { fontSize: 2, fontWeight: 'bold' },
-          span: {
-            display: 'block',
-            padding: 2,
-            maxWidth: 330,
-            margin: 'auto',
-            fontSize: 0,
-            lineHeight: 2,
-          },
-          strong: { textTransform: 'uppercase' },
-          a: {
-            color: 'primary',
-            fontWeight: 'heading',
-          },
-        }}
-        py={7}
-        my={4}
-      >
-        <Text>
-          <strong>looking for us on instagram and facebook?</strong> sorry! they
-          were mistakenly deactivated.
-          <br /> we are working to restore them,
-          <br /> but in the meantime let's stay in touch:
-          <br />
-          <Link to="/newsletter">sign up for our emails + sms</Link>
-        </Text>
-      </Box>
       <MessageFromUniverse
         cards={cards}
         onWheelSpin={n => {
