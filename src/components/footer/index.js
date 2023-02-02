@@ -119,63 +119,49 @@ const Footer = props => (
         </FooterSection>
       </Container>
     </Box>
-    <Box sx={{ bg: 'white' }} px={[5, 5, 6, 7]}>
-      <Flex
+    <Flex
+      sx={{
+        bg: 'white',
+        flexDirection: ['column', 'column', 'row'],
+        justifyContent: ['center', 'center', 'left'],
+        'a, span': { display: 'block' },
+      }}
+      px={[5, 5, 6, 7]}
+      py={4}
+    >
+      <StaticImage
+        objectFit="contain"
+        src="../../images/globe-logo.png"
+        height={65}
+        width={179}
+        alt="2021 report on business canada's top growing companies"
+      />
+      <Grid
         sx={{
-          height: [170, 90],
+          gridTemplateColumns: ['1fr 1fr', '1fr 1fr', 'repeat(4, max-content)'],
           alignItems: 'center',
+          columnGap: 6,
         }}
+        pt={[5, 5, 0]}
+        pl={[0, 5]}
       >
-        <Flex
-          sx={{
-            flex: 1,
-            rowGap: 5,
-            columnGap: 6,
-            flexWrap: 'wrap',
-            flexDirection: ['column', 'row'],
-          }}
+        <Text variant="caps" sx={{ justifySelf: 'right' }} py={3}>
+          Bluboho &copy; {new Date().getFullYear()}
+        </Text>
+        <ThemeLink to="/pages/terms-of-service" variant="small" py={3}>
+          Terms of Service
+        </ThemeLink>
+        <ThemeLink
+          to="/pages/privacy-policy"
+          variant="small"
+          sx={{ justifySelf: 'right' }}
+          py={3}
         >
-          <Flex
-            mx={['auto', 0]}
-            sx={{ height: [60, 45], width: [179, 124], order: [2, 0] }}
-          >
-            <StaticImage
-              objectFit="contain"
-              src="../../images/globe-logo.png"
-              height={65}
-              width={179}
-              alt="2021 report on business canada's top growing companies"
-            />
-          </Flex>
-          <Grid
-            sx={{
-              gridTemplateColumns: ['repeat(2, 1fr)', 'repeat(4, max-content)'],
-              alignItems: 'center',
-              rowGap: 1,
-              columnGap: 6,
-              justifyContent: 'center',
-            }}
-            pt={[5, 0]}
-          >
-            <Text variant="caps" sx={{ justifySelf: 'right' }} py={3}>
-              Bluboho &copy; {new Date().getFullYear()}
-            </Text>
-            <ThemeLink to="/pages/terms-of-service" variant="small" py={3}>
-              Terms of Service
-            </ThemeLink>
-            <ThemeLink
-              to="/pages/privacy-policy"
-              variant="small"
-              sx={{ justifySelf: 'right' }}
-              py={3}
-            >
-              Privacy Policy
-            </ThemeLink>
-            <CurrencyPicker />
-          </Grid>
-        </Flex>
-      </Flex>
-    </Box>
+          Privacy Policy
+        </ThemeLink>
+        <CurrencyPicker />
+      </Grid>
+    </Flex>
   </>
 )
 
