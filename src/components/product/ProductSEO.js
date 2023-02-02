@@ -79,8 +79,8 @@ const ProductSEO = ({ product, rating, reviews }) => {
         .toString()}],
       "aggregateRating": {
         "@type": "AggregateRating",
-        "ratingValue": "${score}"
-        "reviewCount": "${totalReviews}",
+        "ratingValue": "${score}",
+        "reviewCount": "${totalReviews}"
       }
     }
   `
