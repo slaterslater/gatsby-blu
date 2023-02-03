@@ -56,7 +56,7 @@ const ProductSEO = ({ product, rating, reviews }) => {
         "name": "${product.vendor}"
       },
       "name": "${escapeDoubleQuoteString(seoTitle || title)}",
-      "description": "${seoDesc || descriptionString}",
+      "description": "${escapeDoubleQuoteString(seoDesc || descriptionString)}",
       "image": "${ldJSONSrc}",
       "category": "${product.productType}",
       "url": "${productUrl}",
