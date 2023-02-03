@@ -7,7 +7,7 @@ import { ProductContext } from './ProductContext'
 export const DescriptionHtml = styled.div`
   padding: 0 8px;
   color: var(--theme-ui-colors-black);
-  font-size: 12px;
+  font-size: 10px;
   font-weight: medium;
   line-height: 1.5;
   text-align: left;
@@ -36,7 +36,9 @@ export const DescriptionHtml = styled.div`
     margin: 0 0 1em;
     letter-spacing: 0.1em;
   }
-
+  a {
+    color: var(--theme-ui-colors-black);
+  }
   img {
     object-fit: contain;
     max-width: 100%;
@@ -46,46 +48,45 @@ export const DescriptionHtml = styled.div`
   }
 `
 
-// const stripHtml = (str = '') => str.replace(/(<([^>]+)>)/gi, '')
+const stripHtml = (str = '') => str.replace(/(<([^>]+)>)/gi, '')
 
 export const ProductDescription = props => {
-  // const [open, setOpen] = useState(false)
   const {
     product: { descriptionHtml },
   } = useContext(ProductContext)
+  const previewText = stripHtml(descriptionHtml)
 
-  // const previewText = stripHtml(descriptionHtml)
+  // hide text if length greater than 500
+  const [open, setOpen] = useState(previewText.length < 500)
 
   return (
     <Box>
       <Heading as="h2" variant="caps" pb={4} px={2}>
         The Story
       </Heading>
-      <DescriptionHtml dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
-      {/* {open ? (
+      {open && (
         <DescriptionHtml
           dangerouslySetInnerHTML={{ __html: descriptionHtml }}
         />
-      ) : (
-        <>
-          <Text as="p" variant="copy" sx={{ textAlign: 'center' }}>
-            {truncate(previewText, { length: 220 })}
-            <Button
-              variant="link"
-              type="button"
-              sx={{
-                textTransform: 'uppercase',
-                fontWeight: 'bold',
-                fontSize: 0,
-              }}
-              pl={2}
-              onClick={() => setOpen(true)}
-            >
-              Read More
-            </Button>
-          </Text>
-        </>
-      )} */}
+      )}
+      {!open && (
+        <Text as="p" variant="copy" sx={{ fontSize: 0 }} px={2}>
+          {truncate(previewText, { length: 310 })}
+          <Button
+            variant="link"
+            type="button"
+            sx={{
+              textTransform: 'uppercase',
+              fontWeight: 'bold',
+              fontSize: 0,
+            }}
+            pl={2}
+            onClick={() => setOpen(true)}
+          >
+            Read More
+          </Button>
+        </Text>
+      )}
     </Box>
   )
 }
