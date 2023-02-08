@@ -1,6 +1,6 @@
 import { graphql, Link } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
-import React, { useMemo, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { Box, Button, Container, Divider, Grid, Heading } from 'theme-ui'
 import { gql, useQuery } from 'urql'
 import Layout from '../components/layout'
@@ -13,10 +13,11 @@ const ContemplationCardPage = ({ data }) => {
   const cards = data.allSanityCard.nodes
   const pickedCardRef = useRef(null)
   const [pickedCardIndex, setPickedCardIndex] = useState(null)
+  const [cardOrder, setCardOrder] = useState([])
   const pickedCard = cards[pickedCardIndex]
 
   // random shuffle
-  const cardOrder = useMemo(() => {
+  useEffect(() => {
     const array = [...Array(cards.length).keys()]
     let ci = array.length
     let ri // currentIndex , randomIndex
@@ -27,8 +28,9 @@ const ContemplationCardPage = ({ data }) => {
       ;[array[ci], array[ri]] = [array[ri], array[ci]]
     }
 
-    return array
-  }, [])
+    // return array
+    setCardOrder(array)
+  }, [cards])
 
   const scrollToCard = n => {
     const top = pickedCardRef.current.offsetTop + 40
@@ -176,12 +178,16 @@ const ContemplationCardPage = ({ data }) => {
           }}
           mx="auto"
         >
-          {cardOrder.map(n => (
-            <Box key={`card-grid-${n}`} onClick={() => scrollToCard(n)}>
+          {cards.map(({ image, title }, i) => (
+            <Box
+              key={`card-grid-${i}`}
+              onClick={() => scrollToCard(i)}
+              sx={{ order: cardOrder[i] }}
+            >
               <GatsbyImage
-                image={cards[n].image.asset.gatsbyImageData}
+                image={image.asset.gatsbyImageData}
                 alt=""
-                title={cards[n].title}
+                title={title}
               />
             </Box>
           ))}
