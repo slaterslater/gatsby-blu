@@ -28,11 +28,11 @@ const ContemplationCardPage = ({ data }) => {
     }
 
     return array
-  }, [cards])
+  }, [])
 
   const scrollToCard = n => {
-    const y = pickedCardRef.current.offsetTop + 40
-    window.scrollTo({ top: y, behavior: 'smooth' })
+    const top = pickedCardRef.current.offsetTop + 40
+    window.scrollTo({ top, behavior: 'smooth' })
     setPickedCardIndex(n)
   }
 
