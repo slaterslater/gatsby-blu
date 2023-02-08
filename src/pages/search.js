@@ -45,7 +45,7 @@ const SearchHits = connectInfiniteHits(
 
 const SearchPage = ({ location }) => {
   const searchQuery =
-    location.state.value || parse(location.search?.replace('?', '')).q
+    location.state?.value || parse(location.search?.replace('?', '')).q
 
   const [query, setQuery] = useState(searchQuery)
   const [usedInput, setUsedInput] = useState(!!query)
