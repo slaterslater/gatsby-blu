@@ -108,6 +108,14 @@ const NavigationDrawer = ({ onClose }) => {
     }
   }
 
+  const goToSearchResults = () => {
+    onClose()
+    const { value } = searchInput.current
+    navigate(`/search/?q=${value}`, {
+      state: { value },
+    })
+  }
+
   return (
     <Flex
       sx={{
@@ -127,10 +135,13 @@ const NavigationDrawer = ({ onClose }) => {
         <Flex
           as="form"
           py={4}
+          onKeyPress={e => {
+            if (e.code !== 13) return
+            goToSearchResults()
+          }}
           onSubmit={e => {
             e.preventDefault()
-            onClose()
-            navigate(`/search/?q=${searchInput.current.value}`)
+            goToSearchResults()
           }}
         >
           <Text as={BiSearchAlt2} size={18} ml={4} />

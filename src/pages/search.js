@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { parse } from 'qs'
 import { Button, Grid, Box, Container } from 'theme-ui'
 import { IoIosSearch } from 'react-icons/io'
@@ -43,9 +43,16 @@ const SearchHits = connectInfiniteHits(
   )
 )
 
-const SearchPage = ({ location: { search } }) => {
-  const [query] = useState(parse(search?.replace('?', '')).q)
+const SearchPage = ({ location }) => {
+  const searchQuery =
+    location.state.value || parse(location.search?.replace('?', '')).q
+
+  const [query, setQuery] = useState(searchQuery)
   const [usedInput, setUsedInput] = useState(!!query)
+
+  useEffect(() => {
+    setQuery(searchQuery)
+  }, [searchQuery])
 
   useAnalytics('viewSearch')
 
@@ -71,6 +78,7 @@ const SearchPage = ({ location: { search } }) => {
               sx={{ transform: 'translateY(-1px)' }}
             />
             <InstantSearchInput
+              key={query}
               initialValue={query}
               onChange={() => {
                 if (!usedInput) {
