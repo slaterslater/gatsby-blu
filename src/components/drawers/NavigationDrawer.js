@@ -139,6 +139,11 @@ const NavigationDrawer = ({ onClose }) => {
             if (e.code !== 13) return
             goToSearchResults()
           }}
+          onBlur={e => {
+            const { value } = e.target
+            if (!value.trim()) return
+            goToSearchResults()
+          }}
           onSubmit={e => {
             e.preventDefault()
             goToSearchResults()
