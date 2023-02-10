@@ -19,13 +19,13 @@ module.exports = {
   },
   flags: { PRESERVE_WEBPACK_CACHE: true, PARALLEL_SOURCING: true },
   plugins: [
-    {
-      resolve: `gatsby-plugin-netlify`,
-      options: {
-        mergeLinkHeaders: false,
-        mergeCachingHeaders: false,
-      },
-    },
+    // {
+    //   resolve: `gatsby-plugin-netlify`,
+    //   options: {
+    //     mergeLinkHeaders: false,
+    //     mergeCachingHeaders: false,
+    //   },
+    // },
     {
       resolve: 'gatsby-plugin-robots-txt',
       options: {
