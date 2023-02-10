@@ -197,13 +197,13 @@ module.exports = {
       },
     },
     `gatsby-plugin-loadable-components-ssr`,
-    {
-      resolve: 'gatsby-source-yotpo',
-      options: {
-        appKey: process.env.YOTPO_APP_KEY,
-        appSecret: process.env.YOTPO_APP_SECRET,
-      },
-    },
+    // {
+    //   resolve: 'gatsby-source-yotpo',
+    //   options: {
+    //     appKey: process.env.YOTPO_APP_KEY,
+    //     appSecret: process.env.YOTPO_APP_SECRET,
+    //   },
+    // },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,

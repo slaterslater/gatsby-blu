@@ -7,12 +7,14 @@ import ProductView from '../views/ProductView'
 import { useViewProductAnalytics } from '../hooks/product'
 
 const ProductPageTemplate = ({ data, ...props }) => {
-  const { product, alternates, badges, stack, card, rating, reviews } = data
+  const { product, alternates, badges, stack, card, reviews } = data
+  // const { product, alternates, badges, stack, card, rating, reviews } = data
   useViewProductAnalytics(product)
 
   return (
     <Layout>
-      <ProductSEO product={product} rating={rating} reviews={reviews.nodes} />
+      <ProductSEO product={product} rating={{}} reviews={[]} />
+      {/* <ProductSEO product={product} rating={rating} reviews={reviews.nodes} /> */}
       <ProductView
         product={product}
         alternates={alternates}
@@ -33,8 +35,7 @@ export const query = graphql`
     $alternates: [String]!
     $badges: [String]!
     $stackWithIds: [String]!
-    $cardTitleExp: String!
-    $productIdentifier: String!
+    $cardTitleExp: String! # $productIdentifier: String!
   ) {
     site {
       siteMetadata {
@@ -191,22 +192,22 @@ export const query = graphql`
         }
       }
     }
-    reviews: allYotpoProductReview(
-      filter: { productIdentifier: { eq: $productIdentifier } }
-    ) {
-      nodes {
-        name
-        title
-        score
-        content
-        createdAt(formatString: "YYYY-MM-DD")
-      }
-    }
-    rating: yotpoProductBottomline(
-      productIdentifier: { eq: $productIdentifier }
-    ) {
-      totalReviews
-      score
-    }
   }
 `
+// reviews: allYotpoProductReview(
+//   filter: { productIdentifier: { eq: $productIdentifier } }
+// ) {
+//   nodes {
+//     name
+//     title
+//     score
+//     content
+//     createdAt(formatString: "YYYY-MM-DD")
+//   }
+// }
+// rating: yotpoProductBottomline(
+//   productIdentifier: { eq: $productIdentifier }
+// ) {
+//   totalReviews
+//   score
+// }
