@@ -461,11 +461,13 @@ async function createPodcastNodes({ actions, createContentDigest }) {
   }
   res.data.forEach(podcast => {
     // eslint-disable-next-line camelcase
-    const { id, title, published_at } = podcast
+    const { id, title, published_at, artwork_url } = podcast
     const slug = `${published_at.split('T')[0]}-${slugify(title)}` // ie 2021-10-04-shantel-clarke
+    const [http, _, domain, v, imgId, jpg] = artwork_url.split('/')
     const nodeMeta = {
       id: String(id),
       slug,
+      artwork_url: `${http}//${domain}/${imgId}`, // 403 workaround
       internal: {
         type: 'Podcast',
         contentDigest: createContentDigest(podcast),
