@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react'
-import { Box, Text } from 'theme-ui'
-import { graphql, Link, navigate } from 'gatsby'
+import { graphql, navigate } from 'gatsby'
 import Layout from '../components/layout'
 import OnePercentCallout from '../components/content/OnePercentCallout'
 import SEO from '../components/seo'
@@ -17,6 +16,7 @@ import Socials from '../components/home/SocialBlocks'
 import HeroToggle from '../components/home/HeroToggle'
 import NewsletterSignUpModal from '../components/NewsletterSignUpModal'
 import MessageFromUniverse from '../components/MessageFromUniverse'
+import UserGeneratedContent from '../components/yotpo/UserGeneratedContent'
 
 const IndexPage = ({ data }) => {
   const { siteUrl } = data.site.siteMetadata
@@ -114,6 +114,7 @@ const IndexPage = ({ data }) => {
       />
       <Spotlight spotlights={spotlights} />
       <HomepageReviews reviews={reviewsWithProductData} />
+      <UserGeneratedContent />
       <OnePercentCallout />
       <BrandStatement />
       <HeroToggle heros={innerHero} />

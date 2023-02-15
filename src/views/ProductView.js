@@ -1,11 +1,10 @@
 import { Box, Container, Grid } from 'theme-ui'
 import React from 'react'
 import { pluralize } from 'inflected'
-// import { GatsbyImage } from 'gatsby-plugin-image'
 import { useLocation } from '@reach/router'
 import { useProductTitle } from '../components/ProductTitle'
 import ProductDetails from '../components/product/ProductDetails'
-import ProductSocial from '../components/product/ProductSocial'
+// import ProductSocial from '../components/product/ProductSocial'
 import { Breadcrumbs } from '../components/Breadcrumbs'
 import ProductReviews from '../components/product/ProductReviews'
 import ProductImageGallery from '../components/product/ProductImageGallery'
@@ -13,8 +12,7 @@ import ProductRecentRecommendations from '../components/product/ProductRecentRec
 import ProductProvider from '../components/product/ProductContext'
 import ContemplationCard from '../components/product/ContemplationCard'
 import ProductTestimonials from '../components/product/ProductTestimonials'
-
-// const getCollectionTypePath =
+import UserGeneratedContent from '../components/yotpo/UserGeneratedContent'
 
 const ProductView = ({ product, alternates, badges, stack, card }) => {
   const location = useLocation()
@@ -32,7 +30,6 @@ const ProductView = ({ product, alternates, badges, stack, card }) => {
   } = product
 
   const productTitle = useProductTitle(title)
-  // const isOOAK = tags.some(tag => tag.toLowerCase() === 'one of a kind')
   const isOOAK = tags.some(tag => tag.match(/one.*of.*a.*kind/i))
 
   return (
@@ -83,16 +80,19 @@ const ProductView = ({ product, alternates, badges, stack, card }) => {
       <Container>
         <ProductRecentRecommendations tags={tags} />
         {!isOOAK && (
-          <ProductReviews
-            yotpoProductDetails={{
-              appkey: process.env.GATSBY_YOTPO_APP_KEY,
-              product_title: title,
-              sku: variants[0]?.sku,
-              product_description: description,
-              product_url: location?.href,
-              product_image_url: images[0]?.url,
-            }}
-          />
+          <>
+            <ProductReviews
+              yotpoProductDetails={{
+                appkey: process.env.GATSBY_YOTPO_APP_KEY,
+                product_title: title,
+                sku: variants[0]?.sku,
+                product_description: description,
+                product_url: location?.href,
+                product_image_url: images[0]?.url,
+              }}
+            />
+            <UserGeneratedContent />
+          </>
         )}
       </Container>
       {isOOAK && <ProductTestimonials />}
