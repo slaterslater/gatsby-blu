@@ -8,7 +8,11 @@ import ConsultationForm from '../components/BookConsultationForm'
 
 const PageView = ({ title, summary, body, currentPath }) => (
   <Layout title={title} description={summary}>
-    <Container as="main" pb={8} sx={{ maxWidth: 680 }}>
+    <Container
+      as="main"
+      pb={8}
+      sx={{ maxWidth: 680, h1: { textAlign: 'center' } }}
+    >
       <Box pt={7} pb={2}>
         <Heading as="h1">{title}</Heading>
       </Box>
