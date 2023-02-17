@@ -1,7 +1,7 @@
 import { graphql, Link } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
-import { Box, Button, Container, Divider, Grid, Heading } from 'theme-ui'
+import { Box, Button, Container, Divider, Grid, Heading, Text } from 'theme-ui'
 import { gql, useQuery } from 'urql'
 import Layout from '../components/layout'
 import MessageFromUniverse from '../components/MessageFromUniverse'
@@ -136,7 +136,7 @@ const ContemplationCardPage = ({ data }) => {
                 <ProductListItem
                   firstImage={product.images.nodes[0]}
                   secondImage={product.images.nodes[1]}
-                  title={product.title.toLowerCase().split('-')[0]}
+                  title={product.title.toLowerCase().split(' - ')[0]}
                   price={product.priceRange.minVariantPrice}
                   hasRange={
                     product.priceRange.maxVariantPrice.amount !==
@@ -169,6 +169,21 @@ const ContemplationCardPage = ({ data }) => {
         <Heading as="h1" variant="h2" sx={{ textAlign: 'center' }} my={7}>
           contemplation cards
         </Heading>
+        <Text
+          as="p"
+          variant="copy"
+          sx={{
+            width: ['100%', '100%', 435],
+            textAlign: ['center', 'center', 'justify'],
+          }}
+          mx="auto"
+          mb={7}
+        >
+          we made these cards to create moments of deep reflection. building on
+          the symbolism and storytelling that imbues our jewelry with meaning,
+          each of these cards will invite you to tune into the subtle nuances of
+          your inner and outer worlds.
+        </Text>
         <Grid
           sx={{
             maxWidth: 1200,
