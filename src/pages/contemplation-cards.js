@@ -120,7 +120,7 @@ const ContemplationCardPage = ({ data }) => {
         ref={pickedCardRef}
       />
       <ContemplationCard card={cards[pickedCardIndex]} />
-      <Container>
+      <Container pt={0}>
         {products && (
           <Grid
             sx={{
@@ -129,6 +129,7 @@ const ContemplationCardPage = ({ data }) => {
               justifyItems: 'center',
               gap: 3,
             }}
+            pt={6}
             mx="auto"
           >
             {products.map(product => (
@@ -162,17 +163,12 @@ const ContemplationCardPage = ({ data }) => {
             to={`/collections/${pickedCard.collectionHandle}`}
             mx="auto"
             mt={5}
+            mb={8}
           >
             shop more
           </Button>
         )}
-        <Heading
-          as="h1"
-          variant="h2"
-          sx={{ textAlign: 'center' }}
-          my={6}
-          pt={7}
-        >
+        <Heading as="h1" variant="h2" sx={{ textAlign: 'center' }} pb={7}>
           card meaning
         </Heading>
         <Text
