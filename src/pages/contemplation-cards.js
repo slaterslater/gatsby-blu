@@ -166,8 +166,14 @@ const ContemplationCardPage = ({ data }) => {
             shop more
           </Button>
         )}
-        <Heading as="h1" variant="h2" sx={{ textAlign: 'center' }} my={7}>
-          contemplation cards
+        <Heading
+          as="h1"
+          variant="h2"
+          sx={{ textAlign: 'center' }}
+          my={6}
+          pt={7}
+        >
+          card meaning
         </Heading>
         <Text
           as="p"
