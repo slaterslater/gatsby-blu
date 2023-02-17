@@ -35,7 +35,35 @@ export const ReviewStars = ({ starPercentage }) => (
   </Grid>
 )
 
-const ProductReviewsTopline = ({ score, possibleScore, totalReviews }) => {
+const ProductReviewsTopline = ({
+  score,
+  possibleScore,
+  totalReviews,
+  isOOAK = false,
+}) => {
+  const scrollToReviews = () => {
+    const top = document.getElementById('reviews').offsetTop
+    window.scrollTo({ top, behavior: 'smooth' })
+  }
+
+  // 2DO make scroll function and use everywhere
+  if (isOOAK)
+    return (
+      <Link
+        as="a"
+        onClick={scrollToReviews}
+        sx={{
+          fontSize: 0,
+          fontWeight: 'heading',
+          letterSpacing: 'widest',
+          textTransform: 'uppercase',
+          cursor: 'pointer',
+        }}
+        py={4}
+      >
+        read reviews
+      </Link>
+    )
   const starPercentage = (score / possibleScore) * 100
   const starPercentageRounded = Math.round(starPercentage / 10) * 10
   const numericalAverage = Number.parseFloat(
@@ -50,12 +78,13 @@ const ProductReviewsTopline = ({ score, possibleScore, totalReviews }) => {
           sx={{
             fontSize: 0,
             letterSpacing: 'widest',
-            textTransform: 'lowercase',
+            textTransform: 'uppercase',
             lineHeight: '1.5em',
+            fontWeight: 'heading',
+            a: { cursor: 'pointer' },
           }}
         >
-          be the first to{' '}
-          <Link as="a" href="#reviews">
+          <Link as="a" onClick={scrollToReviews}>
             write a review
           </Link>
         </Text>
@@ -67,13 +96,14 @@ const ProductReviewsTopline = ({ score, possibleScore, totalReviews }) => {
       pl={2}
       sx={{
         alignItems: 'flex-end',
+        cursor: 'pointer',
       }}
+      onClick={scrollToReviews}
     >
       <Text as="p">
         <Link
           as="a"
           variant="caps"
-          href="#reviews"
           mr={2}
           sx={{
             fontSize: 0,

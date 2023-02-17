@@ -12,6 +12,7 @@ import ProductImageGallery from '../components/product/ProductImageGallery'
 import ProductRecentRecommendations from '../components/product/ProductRecentRecommendations'
 import ProductProvider from '../components/product/ProductContext'
 import ContemplationCard from '../components/product/ContemplationCard'
+import ProductTestimonials from '../components/product/ProductTestimonials'
 
 // const getCollectionTypePath =
 
@@ -31,6 +32,8 @@ const ProductView = ({ product, alternates, badges, stack, card }) => {
   } = product
 
   const productTitle = useProductTitle(title)
+  // const isOOAK = tags.some(tag => tag.toLowerCase() === 'one of a kind')
+  const isOOAK = tags.some(tag => tag.match(/one.*of.*a.*kind/i))
 
   return (
     <ProductProvider
@@ -79,17 +82,20 @@ const ProductView = ({ product, alternates, badges, stack, card }) => {
       <ContemplationCard card={card} />
       <Container>
         <ProductRecentRecommendations tags={tags} />
-        <ProductReviews
-          yotpoProductDetails={{
-            appkey: process.env.GATSBY_YOTPO_APP_KEY,
-            product_title: title,
-            sku: variants[0]?.sku,
-            product_description: description,
-            product_url: location?.href,
-            product_image_url: images[0]?.url,
-          }}
-        />
+        {!isOOAK && (
+          <ProductReviews
+            yotpoProductDetails={{
+              appkey: process.env.GATSBY_YOTPO_APP_KEY,
+              product_title: title,
+              sku: variants[0]?.sku,
+              product_description: description,
+              product_url: location?.href,
+              product_image_url: images[0]?.url,
+            }}
+          />
+        )}
       </Container>
+      {isOOAK && <ProductTestimonials />}
     </ProductProvider>
   )
 }

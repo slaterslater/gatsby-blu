@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useContext, useEffect, useMemo } from 'react'
-import { Box, Flex, Grid } from 'theme-ui'
+import { Box, Flex, Grid, Link } from 'theme-ui'
 import { wrap } from '@popmotion/popcorn'
 import { useQuery, gql } from 'urql'
 import ProductReviewsTopline from './ProductReviewsTopline'
@@ -43,6 +43,7 @@ const ProductDetails = () => {
   const { currencyCode, setCurrency } = useContext(CurrencyContext)
   const { handle, metafields, tags } = product
   const { total, average, collectionHandle } = getMetafieldValues(metafields)
+  const isOOAK = tags.some(tag => tag.toLowerCase() === 'one of a kind')
 
   const [{ data }] = useQuery({
     query: gql`
@@ -107,6 +108,7 @@ const ProductDetails = () => {
       <ProductBadges />
       <ProductSpecifications />
       <ProductReviewsTopline
+        isOOAK={isOOAK}
         score={average}
         possibleScore={5}
         totalReviews={total}
