@@ -35,8 +35,8 @@ const ShoppingCartPage = props => {
   }, [accessToken, checkoutId, associateCustomerWithCheckout])
 
   return (
-    <Layout>
-      <Container>
+    <Layout title="cart">
+      {/* <Container>
         {data && (
           <Grid sx={{ gridTemplateColumns: ['1fr', '2fr 1fr'], gap: 7 }}>
             <Grid sx={{ gridAutoFlow: 'row', gap: 4 }}>
@@ -65,7 +65,7 @@ const ShoppingCartPage = props => {
             </Box>
           </Grid>
         )}
-      </Container>
+      </Container> */}
     </Layout>
   )
 }

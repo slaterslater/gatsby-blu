@@ -50,7 +50,7 @@ const AllProductsPage = props => {
   const [pageParams, setPageParams] = useState([{ cursor: null }])
 
   return (
-    <Layout>
+    <Layout title="all pieces">
       <Container>
         <Heading as="h1">All</Heading>
         <Divider />
