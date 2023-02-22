@@ -178,7 +178,7 @@ async function createBlogPages({ graphql, actions }) {
     }
   `)
 
-  const perPage = 13
+  const perPage = 12
   const { totalCount } = data.allShopifyArticle
   const totalPages = Math.ceil(totalCount / perPage)
 
