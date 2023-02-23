@@ -15,6 +15,7 @@ import {
 import { CgArrowLongRight, CgClose } from 'react-icons/cg'
 import PropTypes from 'prop-types'
 import Layout from '../components/layout'
+import Banner from '../components/content/Banner'
 
 const MotionBox = motion(Box)
 
@@ -169,38 +170,14 @@ const CareersPage = () => {
       title="careers"
       description="Come work for a high-growth company where you get to have a voice, make decisions, set goals and achieve them. We can't wait to meet you"
     >
-      <Box
-        sx={{
-          display: ['none', 'flex'],
-          flexDirection: 'column',
-          width: '100%',
-          height: 'auto',
-          // maxHeight: 450,
-        }}
-      >
+      <Banner>
         <StaticImage
-          src="../images/careers-header-desktop.jpg"
+          src="../images/careers-header.webp"
           alt=""
           layout="fullWidth"
           placeholder="blurred"
         />
-      </Box>
-      <Box
-        sx={{
-          display: ['flex', 'none', 'none'],
-          flexDirection: 'column',
-          width: '100%',
-          height: 'auto',
-          // maxHeight: 315,
-        }}
-      >
-        <StaticImage
-          src="../images/careers-header-mobile.jpg"
-          alt=""
-          layout="fullWidth"
-          placeholder="blurred"
-        />
-      </Box>
+      </Banner>
       <Container sx={{ textAlign: 'center' }}>
         <Heading as="h1" variant="h2">
           Careers
