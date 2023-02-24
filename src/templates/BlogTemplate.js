@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { graphql, Link as GatsbyLink } from 'gatsby'
-import { Heading, Grid, Box, Container, Link } from 'theme-ui'
+import { Heading, Grid, Box, Container, Link, Text } from 'theme-ui'
 
 import Layout from '../components/layout'
 import Pagination from '../components/Pagination'
@@ -12,7 +12,7 @@ import SEO from '../components/seo'
 
 const BlogTemplate = ({ data, pageContext }) => {
   const { limit, currentPage } = pageContext
-  const topStory = data.allShopifyArticle.nodes[0]
+  // const topStory = data.allShopifyArticle.nodes[0]
 
   const totalPages = Math.ceil(data.allShopifyArticle.totalCount / limit)
 
@@ -24,17 +24,28 @@ const BlogTemplate = ({ data, pageContext }) => {
       />
       <Container>
         <Heading as="h1" variant="h2" sx={{ textAlign: 'center' }} pb={4}>
-          Blog
+          stories
         </Heading>
-        {topStory && <TopStory article={topStory} mb={[4, 5, 6]} />}
+        <Text
+          as="p"
+          variant="copy"
+          sx={{ textAlign: 'center', lineHeight: 2, maxWidth: 600 }}
+          mx="auto"
+          mb={6}
+        >
+          birthstone jewelry has been a popular and meaningful gifting option
+          for generations. whether you choose to wear your own birthstone, or
+          the birthstone...
+        </Text>
         <Grid
           sx={{
-            gridTemplateColumns: ['1fr 1fr', 'repeat(3, 1fr)'],
+            gridTemplateColumns: ['1fr', '1fr 1fr', '1fr 1fr 1fr'],
             gap: [4, 5, 6],
           }}
+          mb={4}
         >
-          {data.allShopifyArticle.nodes.slice(1).map(article => (
-            <ArticleListItem article={article} key={article.id} />
+          {data.allShopifyArticle.nodes.map((article, i) => (
+            <ArticleListItem article={article} key={article.id} index={i} />
           ))}
         </Grid>
         <ReviewPagination
@@ -80,9 +91,9 @@ export const query = graphql`
     ) {
       totalCount
       nodes {
+        id
         title
         handle
-        content
         image {
           url
           altText
