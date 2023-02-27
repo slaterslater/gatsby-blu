@@ -4,7 +4,6 @@ import { sendMail } from '../lib/sendMail'
 import createRecipientList from '../lib/createRecipientList'
 
 export default async function (req, res) {
-  // res.setHeader('Access-Control-Allow-Origin', '*')
   const { body } = req
 
   if (body.decepticons) {
