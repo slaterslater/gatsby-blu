@@ -38,7 +38,8 @@ const CalendlyConsultationPage = ({ data, location }) => {
   useEffect(() => {
     // calculate height
     const max = calendlyPicker.current.offsetHeight - 160 // calendars - (heading + text)
-    setFixedHeight(max > 630 ? max : 630) // 630 = iframe + heading
+    // setFixedHeight(max > 630 ? max : 630) // 630 = iframe + heading
+    setFixedHeight(max > 740 ? max : 740) // 630 = iframe + heading
 
     // set inital calendar
     const initialSlug = location.state?.consultation
