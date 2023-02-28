@@ -80,7 +80,7 @@ const DesktopReviews = ({ reviews }) => {
 }
 
 const ReviewsSlider = ({ reviews }) => (
-  <Container variant="medium">
+  <Container variant="medium" pb={[0, 0, 0, 0]}>
     <Box sx={{ display: ['none', 'block'] }}>
       <DesktopReviews reviews={reviews} />
     </Box>

@@ -3,15 +3,15 @@ import { Helmet } from 'react-helmet'
 
 const ThirdPartScripts = () => {
   const [loaded, setLoaded] = useState(false)
-  const pageFullyLoaded = () => {
-    setLoaded(true)
-  }
+  // const pageFullyLoaded = () => {
+  //   setLoaded(true)
+  // }
 
-  useEffect(() => {
-    window.addEventListener('load', pageFullyLoaded, false)
-  }, [])
+  // useEffect(() => {
+  //   window.addEventListener('load', pageFullyLoaded, false)
+  // }, [])
 
-  if (!loaded) return <></>
+  // if (!loaded) return <></>
   return (
     <Helmet>
       {process.env.GATSBY_TIDIO_KEY && (
@@ -67,6 +67,13 @@ const ThirdPartScripts = () => {
               r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
               a.appendChild(r);
             })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+          `}
+        </script>
+      )}
+      {process.env.GATSBY_YOTPO_APP_KEY && (
+        <script type="text/javascript">
+          {`
+            (function e(){var e=document.createElement("script");e.type="text/javascript",e.async=true,e.src="//staticw2.yotpo.com/${process.env.GATSBY_YOTPO_APP_KEY}/widget.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)})();
           `}
         </script>
       )}
