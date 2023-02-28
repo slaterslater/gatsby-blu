@@ -11,26 +11,26 @@ import FAQ from '../components/consultation/FAQ'
 
 const CalendlyConsultationPage = ({ data, location }) => {
   const { calendars } = data.sanityConsultation
-  const images = [
-    <StaticImage
-      src="../images/consultation/offering1.jpg"
-      alt=""
-      key="consultation-image-1"
-      placeholder="blurred"
-    />,
-    <StaticImage
-      src="../images/consultation/offering2.jpg"
-      alt=""
-      key="consultation-image-2"
-      placeholder="blurred"
-    />,
-    <StaticImage
-      src="../images/consultation/offering3.jpg"
-      alt=""
-      key="consultation-image-3"
-      placeholder="blurred"
-    />,
-  ]
+  // const images = [
+  //   <StaticImage
+  //     src="../images/consultation/offering1.jpg"
+  //     alt=""
+  //     key="consultation-image-1"
+  //     placeholder="blurred"
+  //   />,
+  //   <StaticImage
+  //     src="../images/consultation/offering2.jpg"
+  //     alt=""
+  //     key="consultation-image-2"
+  //     placeholder="blurred"
+  //   />,
+  //   <StaticImage
+  //     src="../images/consultation/offering3.jpg"
+  //     alt=""
+  //     key="consultation-image-3"
+  //     placeholder="blurred"
+  //   />,
+  // ]
   const [fixedHeight, setFixedHeight] = useState('auto')
   const [current, setCurrent] = useState({ index: 0, ...calendars[0] })
   const calendlyPicker = useRef(null)
@@ -173,7 +173,7 @@ const CalendlyConsultationPage = ({ data, location }) => {
             />
           </Box>
         </Flex>
-        <Box
+        {/* <Box
           my={7}
           mx="auto"
           sx={{
@@ -186,7 +186,7 @@ const CalendlyConsultationPage = ({ data, location }) => {
         </Box>
         <Box sx={{ display: ['block', 'none'] }}>
           <ElementSlider elements={images} />
-        </Box>
+        </Box> */}
         <Box pt={[6, 2]} mx="auto" sx={{ maxWidth: 830, textAlign: 'center' }}>
           <Heading variant="h2" pb={6} sx={{ textIndent: '1em' }}>
             F.A.Q.
