@@ -122,7 +122,7 @@ const IndexPage = ({ data }) => {
       <HomeLocations locations={locations} />
       <Medallions />
       <Socials />
-      {/* <NewsletterSignUpModal /> */}
+      <NewsletterSignUpModal />
     </Layout>
   )
 }
