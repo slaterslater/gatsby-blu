@@ -8,6 +8,7 @@
     "@emotion/react": "^11.1.4",
     "@emotion/styled": "^11.0.0",
     "@loadable/component": "^5.15.2",
+    "@netlify/plugin-gatsby": "^3.5.2",
     "@popmotion/popcorn": "^0.4.4",
     "@reach/dialog": "^0.15.0",
     "@reach/menu-button": "^0.16.2",
@@ -98,7 +99,6 @@
     "yup": "^0.32.9"
   },
   "devDependencies": {
-    "@netlify/plugin-gatsby": "^1.0.3",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.18.0",
     "eslint-config-airbnb": "^18.2.1",
