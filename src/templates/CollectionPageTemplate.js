@@ -78,6 +78,11 @@ export const query = graphql`
           value
           updatedAt
         }
+        # remove options if no filters for collection pages
+        options {
+          name
+          values
+        }
         variants {
           availableForSale
           price

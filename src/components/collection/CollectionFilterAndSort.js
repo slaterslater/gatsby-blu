@@ -1,12 +1,16 @@
-import React, { useState } from 'react'
-import { Button, Flex, Grid, Box, Text } from 'theme-ui'
+import React, { useMemo, useState } from 'react'
+import { Grid, Box, Text } from 'theme-ui'
 import { useLocation } from '@reach/router'
 import { parse, stringify } from 'qs'
-import { VscTriangleRight, VscTriangleDown } from 'react-icons/vsc'
-import FilterSortDropdown from './FilterSortDropdown'
-import Modal from '../Modal'
-import ModalCategoryOptionGroup from './ModalCategoryOptionGroup'
-import ThemeLink from '../app/ThemeLink'
+import { VscTriangleRight } from 'react-icons/vsc'
+import { graphql, useStaticQuery } from 'gatsby'
+import { omit } from 'lodash'
+import {
+  DropdownSort,
+  DropdownFilter,
+  ModalSortAndFilter,
+} from './CollectionDropdowns'
+// import { metals } from '../../data/metals'
 
 const sortOptions = [
   {
@@ -23,101 +27,113 @@ const sortOptions = [
   },
 ]
 
-const CollectionFilterAndSort = ({ title, productCount }) => {
-  const location = useLocation()
-  const currentParams = parse(location.search.replace('?', ''))
-  const [modalOpen, setOpen] = useState(false)
+const Triangle = () => (
+  <Text as={VscTriangleRight} size={10} sx={{ color: 'sterlingSilver' }} />
+)
 
-  const currentOptions = sortOptions.map(option => {
+const CollectionFilterAndSort = ({ title, products }) => {
+  const location = useLocation()
+  const data = useStaticQuery(graphql`
+    {
+      allShopifyProductMetafield(filter: { key: { eq: "filters" } }) {
+        nodes {
+          value
+        }
+      }
+    }
+  `)
+
+  const pathWithParams = params => `${location.pathname}?${stringify(params)}`
+  const currentParams = parse(location.search.replace('?', ''))
+  const currentPath = pathWithParams({ sort: currentParams.sort })
+  const selectedFilters = omit(currentParams, ['sort'])
+
+  const currentSortOptions = sortOptions.map(option => {
     const nextParams = {
       ...currentParams,
       sort: option.param,
     }
-    const searchString = stringify(nextParams)
-
-    const pathWithSortParam = `${location.pathname}?${searchString}`
-
     return {
       ...option,
       isSelected: currentParams.sort === option.param,
-      to: pathWithSortParam,
+      to: pathWithParams(nextParams).replaceAll('%20', '+'),
     }
   })
+
+  const filterOptions = useMemo(() => {
+    const filtersFromProducts = data.allShopifyProductMetafield.nodes.reduce(
+      (filters, metafield) => {
+        const values = JSON.parse(metafield.value)
+        values.forEach(value => {
+          // find at least one product with this value other skip it
+          const isProductWithFilterValue = products.some(({ metafields }) =>
+            metafields.some(
+              field => field.key === 'filters' && field.value.includes(value)
+            )
+          )
+          if (!isProductWithFilterValue) return
+          const [label, option] = value.split(': ')
+          const currentFilter = filters.find(filter => filter.label === label)
+          if (currentFilter) {
+            const { options } = currentFilter
+            const isOption = options.includes(option)
+            if (!isOption) options.push(option)
+          } else {
+            filters.push({ label, options: [option] })
+          }
+        })
+        return filters
+      },
+      []
+    )
+
+    return [
+      // {
+      //   label: 'metal',
+      //   options: metals.map(metal => metal.replaceAll(' ', '-')),
+      // },
+      ...filtersFromProducts,
+    ]
+  }, [data])
 
   return (
     <>
       <Box
         pt={5}
-        sx={{ display: ['none', 'flex'], justifyContent: 'space-between' }}
+        sx={{
+          display: ['none', 'flex'],
+          justifyContent: 'space-between',
+        }}
       >
         <Grid
           sx={{
             gridTemplateColumns: 'repeat(5, max-content)',
             gap: 2,
             alignItems: 'center',
+            span: { cursor: 'pointer' },
           }}
         >
-          <Text variant="caps" sx={{ cursor: 'pointer' }}>
-            Collection
-          </Text>
-          <Box sx={{ flexShrink: 0 }}>
-            <Text as={VscTriangleRight} size={10} sx={{ color: '#C4C4C4' }} />
-          </Box>
-          <Text variant="caps" sx={{ cursor: 'pointer' }}>
-            {title}
-          </Text>
-          <Box sx={{ flexShrink: 0 }}>
-            <Text as={VscTriangleDown} size={10} sx={{ color: 'primary' }} />
-          </Box>
-          <Text variant="caps">{productCount} products</Text>
+          <Text variant="caps">collection</Text>
+          <Triangle />
+          <Text variant="caps">{title}</Text>
+          <Triangle />
+          <Text variant="caps">{products.length} products</Text>
         </Grid>
-
-        <Box>
-          <FilterSortDropdown title="sort by" items={currentOptions} />
-        </Box>
+        {!!filterOptions.length && (
+          <DropdownFilter
+            filterOptions={filterOptions}
+            currentPath={currentPath}
+            selectedFilters={selectedFilters}
+          />
+        )}
+        <DropdownSort sortOptions={currentSortOptions} />
       </Box>
-      <Box pt={5} sx={{ display: ['flex', 'none'], justifyContent: 'center' }}>
-        <Button
-          type="button"
-          variant="unset"
-          sx={{ display: 'flex', alignItems: 'center' }}
-          onClick={() => setOpen(true)}
-        >
-          <Text variant="caps">sort</Text>
-          <Box ml={1} sx={{ flexShrink: 0 }}>
-            <Text as={VscTriangleDown} size={10} sx={{ color: 'primary' }} />
-          </Box>
-        </Button>
-      </Box>
-      <Modal isOpen={modalOpen} setOpen={setOpen}>
-        <Box p={4}>
-          <ModalCategoryOptionGroup title="filters" items={currentOptions} />
-          <Flex
-            pt={4}
-            sx={{
-              justifyContent: 'center',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          >
-            <Button type="button" mb={4} onClick={() => setOpen(false)}>
-              Apply Filters
-            </Button>
-            <ThemeLink
-              to={location.pathname}
-              onClick={() => setOpen(false)}
-              variant="caps"
-              sx={{
-                textDecoration: 'underline',
-                fontWeight: 'medium',
-                fontSize: 9,
-              }}
-            >
-              Clear All
-            </ThemeLink>
-          </Flex>
-        </Box>
-      </Modal>
+      <ModalSortAndFilter
+        sortOptions={currentSortOptions}
+        filterOptions={filterOptions}
+        currentPath={currentPath}
+        selectedFilters={selectedFilters}
+      />
     </>
   )
 }

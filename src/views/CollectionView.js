@@ -59,7 +59,13 @@ const CollectionPage = ({
         />
       )}
       <Container pt={0}>
-        <CollectionFilterAndSort title={title} productCount={products.length} />
+        <CollectionFilterAndSort
+          title={title}
+          products={products}
+          // productCount={products.length}
+          showFilters
+          // showFilters={false}
+        />
         <ProductGrid
           products={products}
           collectionTitle={title}

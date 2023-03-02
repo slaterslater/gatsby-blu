@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Divider, Link, Box, Text, IconButton, Flex } from 'theme-ui'
+import { Divider, Link, Box, Text } from 'theme-ui'
 // import { IoIosAdd } from 'react-icons/io'
 import { BsChevronDown } from 'react-icons/bs'
 
