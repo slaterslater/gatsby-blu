@@ -70,13 +70,13 @@ const ThirdPartScripts = () => {
           `}
         </script>
       )}
-      {process.env.GATSBY_YOTPO_APP_KEY && (
+      {/* {process.env.GATSBY_YOTPO_APP_KEY && (
         <script type="text/javascript">
           {`
             (function e(){var e=document.createElement("script");e.type="text/javascript",e.async=true,e.src="//staticw2.yotpo.com/${process.env.GATSBY_YOTPO_APP_KEY}/widget.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)})();
           `}
         </script>
-      )}
+      )} */}
       {process.env.GATSBY_BING_TAG_ID && (
         <script>{`(function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:"${process.env.GATSBY_BING_TAG_ID}", tm:"shpfy_ui"};o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)})(window,document,"script","//bat.bing.com/bat.js","uetq");`}</script>
       )}
