@@ -69,7 +69,7 @@ const CalendlyConsultationPage = ({ data, location }) => {
     >
       <Flex sx={{ justifyContent: 'stretch', maxHeight: 400 }}>
         <StaticImage
-          src="../images/consultation/consultation-booking-header.jpg"
+          src="../images/consultation/consultation-booking-header.webp"
           alt="Book a Consultation Appointment"
           placeholder="blurred"
         />
