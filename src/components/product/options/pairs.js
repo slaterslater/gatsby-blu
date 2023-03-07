@@ -23,7 +23,7 @@ const PairsOptions = props => {
 
   // when we get variant quantity available, select pair if available
   useEffect(() => {
-    if (quantityAvailable || 0 >= 2) {
+    if (quantityAvailable >= 2) {
       selectOption(name, value, 2)
     }
   }, [quantityAvailable])
@@ -45,7 +45,7 @@ const PairsOptions = props => {
       <VariantOption
         isSelected={quantity === 2}
         onClick={() => selectOption(name, value, 2)}
-        disabled={variant.quantityAvailable < 2}
+        // disabled={variant.quantityAvailable < 2}
         m={1}
       >
         pair
