@@ -326,6 +326,8 @@ export default {
       borderRadius: 0,
       fontSize: 2,
       fontFamily: 'heading',
+      letterSpacing: 'widest',
+      cursor: 'pointer',
     },
   },
   forms: {

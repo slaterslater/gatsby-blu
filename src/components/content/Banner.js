@@ -3,6 +3,7 @@ import { Box } from 'theme-ui'
 
 const Banner = ({ height = 400, children, noMobile = false, ...props }) => (
   <Box
+    {...props}
     sx={{
       flexDirection: 'column',
       justifyContent: 'stretch',
@@ -12,8 +13,8 @@ const Banner = ({ height = 400, children, noMobile = false, ...props }) => (
       width: '100%',
       height,
       display: noMobile ? ['none', 'flex'] : 'flex',
+      ...(props.sx || {}),
     }}
-    {...props}
   >
     {children}
   </Box>
