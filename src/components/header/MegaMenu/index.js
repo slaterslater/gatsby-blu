@@ -32,7 +32,7 @@ const MegaMenu = () => {
               }
               image {
                 asset {
-                  gatsbyImageData
+                  gatsbyImageData(placeholder: BLURRED, height: 280)
                 }
               }
             }
@@ -43,7 +43,7 @@ const MegaMenu = () => {
               }
               image {
                 asset {
-                  gatsbyImageData
+                  gatsbyImageData(placeholder: BLURRED, height: 280)
                 }
               }
             }
@@ -60,10 +60,34 @@ const MegaMenu = () => {
           }
         }
       }
+      allSanityCard {
+        nodes {
+          collectionHandle
+          image {
+            asset {
+              gatsbyImageData(placeholder: BLURRED, height: 280)
+            }
+          }
+        }
+      }
+      allSanityCollectionGroupPage {
+        nodes {
+          slug {
+            current
+          }
+          image {
+            asset {
+              gatsbyImageData(placeholder: BLURRED, height: 280)
+            }
+          }
+        }
+      }
     }
   `)
   const megaMenu = data.allSanityMegaMenu.nodes[0].groups
   const collections = data.allShopifyCollection.nodes
+  const cards = data.allSanityCard.nodes
+  const groupPages = data.allSanityCollectionGroupPage.nodes
 
   const megaMenuWithImages = useMemo(
     () =>
@@ -73,11 +97,16 @@ const MegaMenu = () => {
           ...group,
           links: group.links.map(link => {
             const nextLink = link
-            const found = collections.find(
-              ({ handle }) => handle === link.path?.split('/').pop()
+            const handle = link.path?.replace(/\/|collections/g, '')
+            const shopifyCollection = collections.find(
+              collection => collection.handle === handle
             )
-            if (found) {
-              const { image } = found
+            const groupPage = groupPages.find(
+              page => page.slug.current === handle
+            )
+            const card = cards.find(card => card.collectionHandle === handle)
+            if (shopifyCollection) {
+              const { image } = shopifyCollection
               const gatsbyImageData = getShopifyImage({
                 image: {
                   ...image,
@@ -86,11 +115,17 @@ const MegaMenu = () => {
               })
               nextLink.image = gatsbyImageData
             }
+            if (groupPage) {
+              nextLink.image = groupPage.image?.asset.gatsbyImageData
+            }
+            if (card) {
+              nextLink.image = card.image.asset.gatsbyImageData
+            }
             return nextLink
           }),
         })),
       })),
-    [megaMenu, collections]
+    [megaMenu, collections, cards, groupPages]
   )
 
   return (
