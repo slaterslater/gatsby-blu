@@ -65,7 +65,7 @@ const FeatureBox = ({ title, feature1, feature2, hoverImage }) => {
       sx={{
         flex: 1,
         alignItems: 'stretch',
-        justifyContent: 'flex-end',
+        justifyContent: 'center',
         height: '280px',
       }}
     >
