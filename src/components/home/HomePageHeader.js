@@ -4,7 +4,39 @@ import React, { useEffect, useMemo, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { HeroOuter } from '../content/Hero'
 
-const HomePageHeader = ({ data, videoSrc }) => {
+const Video = ({ video, ...props }) => {
+  const videoRef = useRef()
+
+  useEffect(() => {
+    if (!videoRef.current) return
+    videoRef.current.playbackRate = 0.5
+    videoRef.current.play()
+  }, [videoRef])
+
+  return (
+    <Box
+      as="video"
+      ref={videoRef}
+      sx={{
+        position: 'absolute',
+        zIndex: 10,
+        width: '100%',
+        objectFit: 'cover',
+        ...(props.sx || {}),
+      }}
+      loop
+      muted
+      playsInline
+      autoPlay={false}
+      controls={false}
+      preload="auto"
+    >
+      <Box as="source" src={video.asset.url} type="video/mp4" />
+    </Box>
+  )
+}
+
+const HomePageHeader = ({ data, video }) => {
   const { heading, subheading, button, image1, imageMobile } = data
 
   const [image1Data, mobileImageData] = [image1, imageMobile].map(
@@ -21,36 +53,19 @@ const HomePageHeader = ({ data, videoSrc }) => {
     ])
   }, [image1Data, mobileImageData])
 
-  const video = useRef()
-
-  useEffect(() => {
-    if (!video.current) return
-    video.current.play()
-  }, [video])
-
   return (
     <HeroOuter data={{ heading, subheading, button }}>
-      {videoSrc && (
-        <Box
-          as="video"
-          ref={video}
-          sx={{
-            display: ['block', 'none'],
-            position: 'absolute',
-            zIndex: 10,
-            height: 450,
-            width: '100%',
-            objectFit: 'cover',
-          }}
-          loop
-          muted
-          playsInline
-          autoPlay={false}
-          controls={false}
-          preload="auto"
-        >
-          <source src={videoSrc} type="video/mp4" />
-        </Box>
+      {video.mobileVideo && (
+        <Video
+          video={video.mobileVideo}
+          sx={{ display: ['block', 'none'], height: 450 }}
+        />
+      )}
+      {video.desktopVideo && (
+        <Video
+          video={video.desktopVideo}
+          sx={{ display: ['none', 'block'], height: 600 }}
+        />
       )}
       <Heading
         as="h1"
@@ -79,5 +94,8 @@ export default HomePageHeader
 
 HomePageHeader.propTypes = {
   data: PropTypes.object,
-  videoSrc: PropTypes.string,
+  video: PropTypes.object,
+}
+Video.propTypes = {
+  video: PropTypes.object,
 }
