@@ -102,7 +102,7 @@ const IndexPage = ({ data }) => {
         />
         <script type="application/ld+json">{websiteLdJSON}</script>
       </SEO>
-      <HomePageHeader data={headerHero[0]} videoSrc={null} />
+      <HomePageHeader data={headerHero[0]} video={video[0]} />
       <CollectionRowSlider collections={collectionRowWithData} />
       <MessageFromUniverse
         cards={cards}
@@ -155,11 +155,18 @@ export const query = graphql`
           }
         }
       }
-      #video {
-      #  asset {
-      #    url
-      #  }
-      #}
+      video {
+        mobileVideo {
+          asset {
+            url
+          }
+        }
+        desktopVideo {
+          asset {
+            url
+          }
+        }
+      }
       innerHero {
         heading
         subheading
