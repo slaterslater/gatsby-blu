@@ -51,7 +51,7 @@ const DragBox = ({ children, primary = false, controls, shuffleImg }) => {
 
 const ThumbnailImage = ({ image, fallbackAlt }) => {
   const imageData =
-    useShopifyImage({ image, width: 360 }) || image.gatsbyImageData
+    useShopifyImage({ image, width: 360, height: 360 }) || image.gatsbyImageData
   return <GatsbyImage image={imageData} alt={image.altText || fallbackAlt} />
 }
 
@@ -78,7 +78,7 @@ export const CollectionThumbnail = ({ title, primary, alternate }) => {
   }
   return (
     <>
-      <Grid>
+      <Grid sx={{ aspectRatio: 1 }}>
         <AnimatePresence>
           <DragBox
             key={`thumbnail-${title}-1`}

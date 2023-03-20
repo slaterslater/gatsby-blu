@@ -11,6 +11,7 @@ import { useAnalytics } from '../lib/useAnalytics'
 import CollectionPageHeader from '../components/CollectionPageHeader'
 import ContemplationCard from '../components/product/ContemplationCard'
 import CollectionSEO from '../components/collection/CollectionSEO'
+import CollectionExtraContent from '../components/collection/CollectionExtraContent'
 
 export const getCollectionProducts = products => {
   if (!products) return undefined
@@ -35,6 +36,7 @@ const CollectionPage = ({
   image,
   collectionImages,
   card,
+  content,
 }) => {
   useAnalytics('viewItemList', products, title, handle)
 
@@ -65,6 +67,7 @@ const CollectionPage = ({
           collectionPath={`/collections/${handle}`}
           collectionImages={collectionImages}
         />
+        {content && <CollectionExtraContent title={title} content={content} />}
       </Container>
     </Layout>
   )
