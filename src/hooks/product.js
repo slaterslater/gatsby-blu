@@ -178,7 +178,7 @@ export const useMadeToOrder = () => {
   } = useContext(ProductContext)
 
   const weeks = {
-    'made-to-order': process.env.GATSBY_MADE_TO_ORDER,
+    'made-to-order-1': process.env.GATSBY_MADE_TO_ORDER_1,
     'made-to-order-2': process.env.GATSBY_MADE_TO_ORDER_2,
   }
 
