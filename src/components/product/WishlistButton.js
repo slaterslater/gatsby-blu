@@ -8,6 +8,7 @@ import { AuthContext } from '../../contexts/AuthContext'
 
 const WishlistButton = () => {
   const {
+    isBeloved,
     product: { handle },
   } = useContext(ProductContext)
   const { isLoggedIn } = useContext(AuthContext)
@@ -44,7 +45,7 @@ const WishlistButton = () => {
       sx={{
         opacity: loading ? 0.8 : 1,
         transition: 'opacity .3s ease',
-        bg: 'primary',
+        bg: isBeloved ? 'navy' : 'primary',
         borderRadius: 0,
         width: 48,
         // height: 47,

@@ -11,7 +11,7 @@ import AddStackButton from '../AddStackButton'
 
 const AddToCart = ({ onAdded = () => {} }) => {
   const { handleClick, disabled, buttonText, isOn, toggleOn } = useCart(onAdded)
-  const { product } = useContext(ProductContext)
+  const { product, isBeloved } = useContext(ProductContext)
   const preorderMessage = useProductPreorderMessage(product.metafields)
 
   return (
@@ -24,6 +24,7 @@ const AddToCart = ({ onAdded = () => {} }) => {
             type="button"
             onClick={handleClick}
             sx={{ flex: 1, fontSize: 1, py: 4, letterSpacing: 'widest' }}
+            bg={isBeloved ? 'navy' : 'primary'}
           >
             {buttonText}
           </Button>

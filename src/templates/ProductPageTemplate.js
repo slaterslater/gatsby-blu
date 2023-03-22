@@ -10,8 +10,15 @@ const ProductPageTemplate = ({ data, ...props }) => {
   const { product, alternates, badges, stack, card, rating, reviews } = data
   useViewProductAnalytics(product)
 
+  // replace this with tags.some(tag => tag.toLowerCase().includes('beloved'))
+  const isBeloved = [
+    'moonlight-crescent-dome-ring',
+    'moonlight-crescent-dome-ring-white-gold',
+    'moonlight-crescent-dome-ring-rose-gold',
+  ].includes(product.handle)
+
   return (
-    <Layout>
+    <Layout isBeloved={isBeloved}>
       <ProductSEO product={product} rating={rating} reviews={reviews.nodes} />
       <ProductView
         product={product}
@@ -19,6 +26,7 @@ const ProductPageTemplate = ({ data, ...props }) => {
         badges={badges.nodes}
         stack={stack.nodes}
         card={card}
+        isBeloved={isBeloved}
       />
     </Layout>
   )

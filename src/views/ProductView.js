@@ -14,7 +14,14 @@ import ContemplationCard from '../components/product/ContemplationCard'
 import ProductTestimonials from '../components/product/ProductTestimonials'
 import UserGeneratedContent from '../components/yotpo/UserGeneratedContent'
 
-const ProductView = ({ product, alternates, badges, stack, card }) => {
+const ProductView = ({
+  product,
+  alternates,
+  badges,
+  stack,
+  card,
+  isBeloved,
+}) => {
   const location = useLocation()
 
   const {
@@ -39,6 +46,7 @@ const ProductView = ({ product, alternates, badges, stack, card }) => {
       alternates={alternates}
       badges={badges}
       stack={stack}
+      isBeloved={isBeloved}
     >
       <Container pt={0}>
         <Breadcrumbs
