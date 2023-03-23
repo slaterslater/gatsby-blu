@@ -1,7 +1,10 @@
 import gql from 'graphql-tag'
 
 import { SEARCH_PRODUCT_FRAGMENT } from './search'
-import { PRODUCT_PRICE_RANGE_FRAGMENT } from './product'
+import {
+  PRODUCT_METAFIELDS_FRAGMENT,
+  PRODUCT_PRICE_RANGE_FRAGMENT,
+} from './product'
 
 export const PAGINATED_COLLECTION_PRODUCTS_QUERY = gql`
   ${SEARCH_PRODUCT_FRAGMENT}
@@ -31,24 +34,30 @@ export const PAGINATED_COLLECTION_PRODUCTS_QUERY = gql`
 export const COLLECTION_PAGE_QUERY = gql`
   ${SEARCH_PRODUCT_FRAGMENT}
   ${PRODUCT_PRICE_RANGE_FRAGMENT}
+  ${PRODUCT_METAFIELDS_FRAGMENT}
   query CollectionPageQuery($handle: String!, $countryCode: CountryCode)
   @inContext(country: $countryCode) {
     collection(handle: $handle) {
       title
       description
-      metafields(first: 5) {
-        edges {
-          node {
-            key
-            value
-            reference {
-              ... on MediaImage {
-                image {
-                  url
-                  height
-                  width
-                }
-              }
+      metafields(
+        identifiers: [
+          { namespace: "my_fields", key: "collection_image_1" }
+          { namespace: "my_fields", key: "collection_image_2" }
+          { namespace: "my_fields", key: "collection_image_3" }
+          { namespace: "my_fields", key: "collection_image_4" }
+          { namespace: "my_fields", key: "collection_image_5" }
+          { namespace: "my_fields", key: "collection_image_6" }
+        ]
+      ) {
+        key
+        value
+        reference {
+          ... on MediaImage {
+            image {
+              url
+              height
+              width
             }
           }
         }
@@ -68,14 +77,7 @@ export const COLLECTION_PAGE_QUERY = gql`
               }
             }
             ... on Product {
-              metafields(first: 250) {
-                edges {
-                  node {
-                    key
-                    value
-                  }
-                }
-              }
+              ...ProductMetafields
               ...ProductSearchFields
               ...ProductPriceRangeFields
             }

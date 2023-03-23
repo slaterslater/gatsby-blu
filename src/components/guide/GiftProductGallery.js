@@ -5,6 +5,7 @@ import React from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { wrap } from '@popmotion/popcorn'
 import { HiChevronLeft, HiChevronRight } from 'react-icons/hi'
+import { GatsbyImage } from 'gatsby-plugin-image'
 
 const MotionBox = motion(Box)
 const Dot = ({ full, ...props }) => (
@@ -63,7 +64,7 @@ const GiftProductGallery = ({
               }
             }}
           >
-            <Image src={image} alt={alt} />
+            <GatsbyImage image={image} alt={alt} />
           </MotionBox>
         </AnimatePresence>
       </AspectRatio>

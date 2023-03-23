@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
-import { useMemo } from 'react'
+import { useContext, useMemo } from 'react'
+import { CurrencyContext } from '../contexts/CurrencyContext'
 
 export const useFormattedPrice = ({ amount, currencyCode = 'CAD' }) => {
   const formatter = Intl.NumberFormat('en-US', {
@@ -17,8 +18,11 @@ export const useFormattedPrice = ({ amount, currencyCode = 'CAD' }) => {
   }, [amount, currencyCode, formatter])
 }
 
-const FormattedPrice = ({ priceV2: { amount, currencyCode } }) =>
-  useFormattedPrice({ amount, currencyCode })
+const FormattedPrice = ({ priceV2 }) => {
+  const { currencyCode } = useContext(CurrencyContext)
+  const amount = priceV2.amount || priceV2
+  return useFormattedPrice({ amount, currencyCode })
+}
 
 FormattedPrice.propTypes = {
   priceV2: PropTypes.shape({

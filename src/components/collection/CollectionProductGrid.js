@@ -16,13 +16,13 @@ export const sortProducts = ({ products, sort }) =>
         return DateTime.fromISO(b.updatedAt) - DateTime.fromISO(a.updatedAt)
       case 'price-asc':
         return (
-          a.priceRange.minVariantPrice.amount -
-          b.priceRange.minVariantPrice.amount
+          a.priceRangeV2.minVariantPrice.amount -
+          b.priceRangeV2.minVariantPrice.amount
         )
       case 'price-desc':
         return (
-          b.priceRange.minVariantPrice.amount -
-          a.priceRange.minVariantPrice.amount
+          b.priceRangeV2.minVariantPrice.amount -
+          a.priceRangeV2.minVariantPrice.amount
         )
       default:
         return 0

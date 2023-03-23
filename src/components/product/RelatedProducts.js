@@ -20,8 +20,8 @@ const Product = ({ handle }) => {
 
   const [title] = data.product.title.split(' - ')
   const hasRange =
-    data.product.priceRange.maxVariantPrice.amount !==
-    data.product.priceRange.minVariantPrice.amount
+    data.product.priceRangeV2.maxVariantPrice.amount !==
+    data.product.priceRangeV2.minVariantPrice.amount
 
   return (
     <Box sx={{ scrollSnapAlign: 'start' }}>
@@ -30,7 +30,7 @@ const Product = ({ handle }) => {
           firstImage={data.product.images.edges[0]?.node}
           secondImage={data.product.images.edges[1]?.node}
           title={title}
-          price={data.product.priceRange.minVariantPrice}
+          price={data.product.priceRangeV2.minVariantPrice}
           hasRange={hasRange}
           availableForSale={data.product.availableForSale}
           tags={data.product.tags}

@@ -4,10 +4,10 @@ import ProductListItem from './product/ListItem'
 
 const SearchProduct = ({ product, images }) => {
   const [firstImage, secondImage] = images
-  const { handle, priceRange, tags, availableForSale } = product
+  const { handle, priceRangeV2, tags, availableForSale } = product
   const title = useProductTitle(product.title)
   const hasRange =
-    priceRange.maxVariantPrice.amount !== priceRange.minVariantPrice.amount
+    priceRangeV2.maxVariantPrice.amount !== priceRangeV2.minVariantPrice.amount
 
   return (
     <ProductListItem
@@ -15,7 +15,7 @@ const SearchProduct = ({ product, images }) => {
       to={`/products/${handle}`}
       firstImage={firstImage}
       secondImage={secondImage}
-      price={priceRange.minVariantPrice}
+      price={priceRangeV2.minVariantPrice}
       hasRange={hasRange}
       tags={tags}
       availableForSale={availableForSale}

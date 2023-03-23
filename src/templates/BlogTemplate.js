@@ -1,19 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { graphql, Link as GatsbyLink } from 'gatsby'
-import { Heading, Grid, Box, Container, Link, Text } from 'theme-ui'
+import { graphql } from 'gatsby'
+import { Heading, Grid, Container, Text } from 'theme-ui'
 
 import Layout from '../components/layout'
-import Pagination from '../components/Pagination'
-import TopStory from '../components/blog/TopStory'
+// import Pagination from '../components/Pagination'
+// import TopStory from '../components/blog/TopStory'
 import ArticleListItem from '../components/blog/ArticleListItem'
 import ReviewPagination from '../components/reviews/ReviewPagination'
 import SEO from '../components/seo'
 
 const BlogTemplate = ({ data, pageContext }) => {
+  if (!data) return null
   const { limit, currentPage } = pageContext
-  // const topStory = data.allShopifyArticle.nodes[0]
-
   const totalPages = Math.ceil(data.allShopifyArticle.totalCount / limit)
 
   return (
@@ -86,7 +85,7 @@ export const query = graphql`
     allShopifyArticle(
       limit: $limit
       skip: $skip
-      filter: { blog: { title: { eq: "blog" } } }
+      # filter: { blog: { title: { eq: "blog" } } }
       sort: { fields: [publishedAt], order: DESC }
     ) {
       totalCount
@@ -101,9 +100,9 @@ export const query = graphql`
           width
           id
         }
-        blog {
-          title
-        }
+        #blog {
+        #  title
+        #}
       }
     }
   }

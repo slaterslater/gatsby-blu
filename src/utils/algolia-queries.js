@@ -15,17 +15,17 @@ const productQuery = `
         title
         productType
         handle
-        availableForSale
+        # availableForSale MOVED TO VARIANT
         vendor
         images {
           id
-          url
+          src
           altText
           height
           width
         }
         tags
-        priceRange {
+        priceRangeV2 {
           minVariantPrice {
             currencyCode
             amount
@@ -36,10 +36,8 @@ const productQuery = `
           }
         }
         variants {
-          priceV2 {
-            amount
-            currencyCode
-          }
+          availableForSale
+          price
         }
       }
     }

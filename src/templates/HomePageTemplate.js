@@ -247,11 +247,7 @@ export const query = graphql`
         title
         handle
         images {
-          url
-          altText
-          height
-          width
-          id
+          gatsbyImageData(placeholder: BLURRED)
         }
       }
     }

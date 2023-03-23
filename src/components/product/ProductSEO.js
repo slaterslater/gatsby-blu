@@ -11,7 +11,7 @@ const ProductSEO = ({ product, rating, reviews }) => {
   const { title: seoTitle, description: seoDesc } = product.seo || {}
   const productUrl = `${siteUrl}/products/${product.handle}`
   const descriptionString = escapeDoubleQuoteString(product.description)
-  const ldJSONSrc = getSrcWithSize(product.images[0]?.url, '1024x_crop_center')
+  const ldJSONSrc = getSrcWithSize(product.images[0]?.src, '1024x_crop_center')
   const { score = null, totalReviews = 0 } = rating || {}
   const productLdJSON = `
     {
@@ -36,7 +36,7 @@ const ProductSEO = ({ product, rating, reviews }) => {
             "availability": "https://schema.org/${
               variant.availableForSale ? 'InStock' : 'OutOfStock'
             }",
-            "price": "${variant.priceNumber}",
+            "price": "${variant.price}",
             "priceCurrency": "CAD",
             "url": "${productUrl}?variant=${variant.sku}",
             "sku": "${variant.sku || 'n/a'}"

@@ -167,7 +167,7 @@ const events = {
         item_name: product.title,
         item_id: product.id,
         item_brand: product.vendor,
-        price: product.priceRange?.minVariantPrice.amount,
+        price: product.priceRangeV2?.minVariantPrice.amount,
         item_list_name: title,
         item_list_id: handle,
         index: i,

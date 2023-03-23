@@ -14,7 +14,8 @@ const CollectionSEO = ({
 }) => {
   const { siteUrl } = useSite()
 
-  const imageSrc = image ? image.src || image.images.fallback.src : null
+  const imageSrc = image ? image.originalSrc : null
+  // const imageSrc = image ? image.originalSrc || image.images.fallback.src : null
   const ldJSONSrc = getSrcWithSize(imageSrc, '1024x_crop_center')
 
   const { title: seoTitle, description: seoDesc } = seo || {}

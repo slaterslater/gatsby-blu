@@ -5,15 +5,11 @@ import { useCart } from '../../hooks/cart'
 import { useShopifyImage } from '../../hooks/shopifyImage'
 import { ProductContext } from './ProductContext'
 
-const ThumbnailImage = ({ image, alt = '' }) => {
-  const imageData = useShopifyImage({ image, width: 80 })
-
-  return (
-    <Box mx={2}>
-      <GatsbyImage image={imageData} alt={alt} />
-    </Box>
-  )
-}
+const ThumbnailImage = ({ image, alt = '' }) => (
+  <Box mx={2}>
+    <GatsbyImage image={image.gatsbyImageData} alt={alt} />
+  </Box>
+)
 
 const AddStackButton = () => {
   const { disabled, addStackToCart } = useCart()

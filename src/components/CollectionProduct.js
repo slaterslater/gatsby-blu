@@ -8,18 +8,24 @@ export const useProductPrice = product => {
   )
   if (byAppointmentOnly) return ['', '']
 
+  const minVariantPrice = product.priceRangeV2.minVariantPrice.amount
+
   const hasRange =
-    product.priceRange.minVariantPrice.amount !==
-    product.priceRange.maxVariantPrice.amount
+    minVariantPrice !== product.priceRangeV2.maxVariantPrice.amount
 
-  const minVariant = product.variants.find(
-    variant =>
-      variant.priceV2.currencyCode ===
-        product.priceRange.minVariantPrice.currencyCode &&
-      variant.priceV2.amount === product.priceRange.minVariantPrice.amount
-  )
+  // const minVariant = product.variants.find(
+  //   variant => variant.price === product.priceRangeV2.minVariantPrice.amount
+  // )
+  // const minVariant = product.variants.find(
+  //   variant =>
+  //     variant.priceV2.currencyCode ===
+  //       product.priceRange.minVariantPrice.currencyCode &&
+  //     variant.priceV2.amount === product.priceRange.minVariantPrice.amount
+  // )
 
-  return [minVariant.priceV2, hasRange]
+  // console.log({ minVariant, product })
+
+  return [minVariantPrice, hasRange]
 }
 
 const CollectionProduct = ({

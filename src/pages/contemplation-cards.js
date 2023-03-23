@@ -57,7 +57,7 @@ const ContemplationCardPage = ({ data }) => {
                   height
                 }
               }
-              priceRange {
+              priceRangeV2: priceRange {
                 minVariantPrice {
                   amount
                   currencyCode
@@ -138,10 +138,10 @@ const ContemplationCardPage = ({ data }) => {
                   firstImage={product.images.nodes[0]}
                   secondImage={product.images.nodes[1]}
                   title={product.title.toLowerCase().split(' - ')[0]}
-                  price={product.priceRange.minVariantPrice}
+                  price={product.priceRangeV2.minVariantPrice}
                   hasRange={
-                    product.priceRange.maxVariantPrice.amount !==
-                    product.priceRange.minVariantPrice.amount
+                    product.priceRangeV2.maxVariantPrice.amount !==
+                    product.priceRangeV2.minVariantPrice.amount
                   }
                   availableForSale={product.availableForSale}
                   tags={product.tags}
