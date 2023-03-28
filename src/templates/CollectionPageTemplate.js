@@ -39,23 +39,17 @@ export const query = graphql`
       }
       handle
       image {
-        src
-        #altText
-        height
-        width
+        gatsbyImageData(placeholder: BLURRED)
+        originalSrc
       }
       products {
-        availableForSale
+        # availableForSale ADDED TO VARIANTS
         id
         handle
         title
         vendor
         images {
-          url
-          #altText
-          height
-          width
-          id
+          gatsbyImageData(placeholder: BLURRED, width: 360)
         }
         tags
         metafields {
@@ -63,12 +57,10 @@ export const query = graphql`
           value
         }
         variants {
-          priceV2 {
-            amount
-            currencyCode
-          }
+          availableForSale
+          price
         }
-        priceRange {
+        priceRangeV2 {
           minVariantPrice {
             currencyCode
             amount

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { gql, GraphQLClient } from 'graphql-request'
 import path from 'path'
 import slugify from 'slugify'
 import {
@@ -170,8 +171,7 @@ async function createBlogPages({ graphql, actions }) {
   const { data } = await graphql(`
     {
       allShopifyArticle(
-        sort: { fields: [publishedAt], order: DESC }
-        filter: { blog: { title: { eq: "blog" } } }
+        sort: { fields: [publishedAt], order: DESC } # filter: { blog: { title: { eq: "blog" } } }
       ) {
         totalCount
       }
@@ -480,8 +480,91 @@ async function createPodcastNodes({ actions, createContentDigest }) {
   })
 }
 
+async function createBlogNodes({ actions, createContentDigest }) {
+  const API_VERSION = process.env.GATSBY_SHOPIFY_API_VERSION
+  const SHOPIFY_GRAPHQL_URL = `${process.env.GATSBY_SHOPIFY_CHECKOUT_BASE}/api/${API_VERSION}/graphql.json`
+  const SHOPIFY_STOREFRONT_ACCESS_TOKEN =
+    process.env.GATSBY_SHOPIFY_STOREFRONT_KEY
+
+  const getClient = () =>
+    new GraphQLClient(SHOPIFY_GRAPHQL_URL, {
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Shopify-Storefront-Access-Token': SHOPIFY_STOREFRONT_ACCESS_TOKEN,
+      },
+    })
+
+  const BLOG_QUERY = gql`
+    query {
+      blog(handle: "news") {
+        articles(first: 250) {
+          nodes {
+            id
+            handle
+            title
+            onlineStoreUrl
+            excerpt
+            contentHtml
+            publishedAt
+            image {
+              altText
+              url
+              id
+              height
+              width
+            }
+            authorV2 {
+              name
+            }
+          }
+        }
+      }
+    }
+  `
+
+  const data = await getClient().request(BLOG_QUERY)
+  const type = 'ShopifyArticle'
+  if (data.blog === null) {
+    const defaultValues = {
+      id: 'SHOPIFY-BLOG-DEFAULT',
+      handle: '',
+      title: '',
+      onlineStoreUrl: '',
+      excerpt: '',
+      contentHtml: '',
+      image: null,
+      authorV2: { name: '' },
+      publishedAt: new Date().toISOString(),
+    }
+    actions.createNode({
+      ...defaultValues,
+      internal: {
+        type,
+        contentDigest: createContentDigest(defaultValues),
+      },
+    })
+    return
+  }
+  data.blog.articles.nodes.forEach(blog => {
+    const nodeMeta = {
+      internal: {
+        type,
+        contentDigest: createContentDigest(blog),
+      },
+    }
+    actions.createNode({
+      ...blog,
+      ...nodeMeta,
+    })
+  })
+}
+
 export async function sourceNodes(params) {
-  await Promise.all([createPodcastNodes(params)])
+  await Promise.all([
+    createPodcastNodes(params),
+    //
+    createBlogNodes(params),
+  ])
 }
 
 export async function createPages(params) {

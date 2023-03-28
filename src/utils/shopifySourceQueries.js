@@ -1,5 +1,3 @@
-// extends the default query to grab image height and width for gatsby image
-
 export default {
   articles: `
     query GetArticles($first: Int!, $after: String) {
@@ -145,24 +143,13 @@ export default {
                 }
               }
             }
-            metafields(first: 250) {
-              edges {
-                node {
-                  description
-                  id
-                  key
-                  namespace
-                  value
-                }
-              }
-            }
             onlineStoreUrl
             options {
               id
               name
               values
             }
-            priceRange {
+            priceRangeV2: priceRange {
               minVariantPrice {
                 amount
                 currencyCode
@@ -193,17 +180,6 @@ export default {
                     url
                     height
                     width
-                  }
-                  metafields(first: 250) {
-                    edges {
-                      node {
-                        description
-                        id
-                        key
-                        namespace
-                        value
-                      }
-                    }
                   }
                   price
                   priceV2 {

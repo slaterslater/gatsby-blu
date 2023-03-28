@@ -13,16 +13,15 @@ import ContemplationCard from '../components/product/ContemplationCard'
 import CollectionSEO from '../components/collection/CollectionSEO'
 
 export const getCollectionProducts = products => {
-  if (products)
-    return products.edges.map(({ node }) => ({
-      ...node,
-      id: `Shopify__Product__${node.id}`,
-      variants: node.variants.edges.map(({ node: n }) => n),
-      images: node.images.edges.map(({ node: n }) => n),
-      metafields: node.metafields.edges.map(({ node: n }) => n),
-    }))
-
-  return undefined
+  if (!products) return undefined
+  return products.edges.map(({ node }) => ({
+    ...node,
+    id: `Shopify__Product__${node.id}`,
+    variants: node.variants.edges.map(({ node: n }) => n),
+    images: node.images.edges.map(({ node: n }) => n),
+    // metafields: node.metafields.edges.map(({ node: n }) => n),
+    metafields: node.metafields.filter(metafield => !!metafield),
+  }))
 }
 
 const CollectionPage = ({

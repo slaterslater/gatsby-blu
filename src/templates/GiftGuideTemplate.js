@@ -145,17 +145,13 @@ export const query = graphql`
           values
         }
         images {
-          id
-          url
-          altText
-          height
-          width
+          gatsbyImageData(placeholder: BLURRED)
         }
         metafields {
           key
           value
         }
-        priceRange {
+        priceRangeV2 {
           minVariantPrice {
             currencyCode
             amount
@@ -169,11 +165,7 @@ export const query = graphql`
           title
           id
           shopifyId
-          priceNumber
-          priceV2 {
-            amount
-            currencyCode
-          }
+          price
           sku
           selectedOptions {
             name

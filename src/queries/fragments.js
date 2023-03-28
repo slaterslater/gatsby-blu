@@ -7,7 +7,7 @@ import gql from 'graphql-tag'
 
 export const PRODUCT_PRICE_RANGE_FRAGMENT = gql`
   fragment ProductPriceRangeFields on Product {
-    priceRange {
+    priceRangeV2: priceRange {
       minVariantPrice {
         amount
         currencyCode

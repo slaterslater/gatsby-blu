@@ -11,6 +11,7 @@ import {
 } from '../../queries/product'
 import ProductListItem from './ListItem'
 import ProductModal from './ProductModal'
+import { useShopifyImage } from '../../hooks/shopifyImage'
 
 const Recent = ({ value }) => {
   const { countryCode } = useContext(CurrencyContext)
@@ -26,7 +27,7 @@ const Recent = ({ value }) => {
     product: {
       title,
       images,
-      priceRange: { maxVariantPrice, minVariantPrice },
+      priceRangeV2: { maxVariantPrice, minVariantPrice },
       availableForSale,
       tags,
       byAppointmentOnly,
@@ -39,6 +40,16 @@ const Recent = ({ value }) => {
       ? [{ amount: '' }, false]
       : [minVariantPrice, maxVariantPrice.amount !== minVariantPrice.amount]
 
+  // const firstImage = useShopifyImage({
+  //   image: images.edges[0]?.node,
+  //   width: 360,
+  // })
+
+  // console.log({ firstImage })
+  // const image1 = images.edges[0]?.node
+  // const [firstImage, secondImage] = [0,1].map(n => {
+  //   const image = images.edges[n]?.node
+  //   return useShopifyImage({ image, width: 360 })})
   return (
     <Box sx={{ scrollSnapAlign: 'start' }}>
       <ProductModal handle={data.product.handle}>

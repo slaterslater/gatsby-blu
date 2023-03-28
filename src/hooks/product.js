@@ -17,7 +17,8 @@ export const getProduct = product => ({
     ...node,
     shopifyId: node.id,
   })),
-  metafields: product.metafields.edges.map(({ node }) => node),
+  // metafields: product.metafields.edges.map(({ node }) => node),
+  metafields: product.metafields.filter(metafield => !!metafield),
 })
 
 export const useLatestProduct = ({ handle, initial }) => {

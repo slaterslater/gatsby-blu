@@ -3,6 +3,7 @@ import { IconButton, Flex, Heading, Text, Box, Container } from 'theme-ui'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import { motion, AnimatePresence } from 'framer-motion'
 import { wrap } from '@popmotion/popcorn'
+import { GatsbyImage } from 'gatsby-plugin-image'
 import { ReviewStars } from '../product/ProductReviewsTopline'
 import ThemeLink from '../app/ThemeLink'
 import { MobileSlider } from '../content/CollectionRow'
@@ -43,7 +44,7 @@ const Review = ({ starPercentage, excerpt, author, product }) => (
           transition={{ duration: 0.5 }}
           sx={{ maxWidth: ['75%', '100%'] }}
         >
-          <ShopifyGatsbyImage image={product.images[0] || {}} />
+          <GatsbyImage image={product.images[0].gatsbyImageData || {}} alt="" />
         </MotionBox>
       </Flex>
     </Flex>

@@ -13,20 +13,16 @@ export const useLatestCollection = (handle, initialProducts) => {
   const { products, metafields } = latestData?.collection || {}
   const latestProducts = getCollectionProducts(products)
 
-  const collectionImages = useMemo(
-    () =>
-      metafields?.edges
-        .filter(({ node }) => node.key.startsWith('collection_image'))
-        .map(({ node }) => {
-          const imageData = node.reference.image
-          return {
-            key: node.key,
-            ...imageData,
-          }
-        })
-        .sort((a, b) => a.key.localeCompare(b.key)),
-    [metafields]
-  )
+  const collectionImages = useMemo(() => {
+    if (!metafields) return []
+    return metafields
+      .filter(metafield => metafield?.key.startsWith('collection_image'))
+      .map(({ key, reference: { image } }) => ({
+        key,
+        ...image,
+      }))
+      .sort((a, b) => a.key.localeCompare(b.key))
+  }, [metafields])
 
   const collectionProducts = useMemo(
     () =>

@@ -17,7 +17,7 @@ module.exports = {
     author: `@bluboho`,
     siteUrl,
   },
-  flags: { PARALLEL_SOURCING: true, FAST_DEV: true, DEV_SSR: true },
+  flags: { PARALLEL_SOURCING: true },
   plugins: [
     `gatsby-plugin-netlify`,
     // {
@@ -150,14 +150,16 @@ module.exports = {
       resolve: `gatsby-source-shopify`,
       options: {
         // The domain name of your Shopify shop.
-        shopName: process.env.SHOPIFY_SHOP_NAME,
+        storeUrl: process.env.SHOPIFY_SHOP_NAME,
         // The storefront access token
-        accessToken: process.env.SHOPIFY_STOREFRONT_KEY,
-        apiVersion: process.env.GATSBY_SHOPIFY_API_VERSION,
-        paginationSize: 80,
-        collections: ['shop'],
+        // password: process.env.SHOPIFY_STOREFRONT_KEY,
+        password: process.env.SHOPIFY_STOREFRONT_PASSWORD,
+        shopifyConnections: ['collections'],
+        // apiVersion: process.env.GATSBY_SHOPIFY_API_VERSION,
+        // paginationSize: 80,
+        // collections: ['shop'],
         downloadImages: false,
-        shopifyQueries: shopifySourceQueries,
+        // shopifyQueries: shopifySourceQueries,
       },
     },
     {

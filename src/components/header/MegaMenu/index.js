@@ -50,13 +50,11 @@ const MegaMenu = () => {
           }
         }
       }
-      allShopifyCollection(filter: { image: { src: { ne: null } } }) {
+      allShopifyCollection(filter: { image: { originalSrc: { ne: null } } }) {
         nodes {
           handle
           image {
-            src
-            height
-            width
+            gatsbyImageData(placeholder: BLURRED)
           }
         }
       }
@@ -106,14 +104,14 @@ const MegaMenu = () => {
             )
             const card = cards.find(card => card.collectionHandle === handle)
             if (shopifyCollection) {
-              const { image } = shopifyCollection
-              const gatsbyImageData = getShopifyImage({
-                image: {
-                  ...image,
-                  url: image.src,
-                },
-              })
-              nextLink.image = gatsbyImageData
+              // const { image } = shopifyCollection
+              // const gatsbyImageData = getShopifyImage({
+              //   image: {
+              //     ...image,
+              //     url: image.src,
+              //   },
+              // })
+              nextLink.image = shopifyCollection.image.gatsbyImageData
             }
             if (groupPage) {
               nextLink.image = groupPage.image?.asset.gatsbyImageData

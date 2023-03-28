@@ -23,7 +23,7 @@ const WishlistItem = ({ handle }) => {
   if (data?.product == null) return <></>
 
   const {
-    product: { title, images, priceRange },
+    product: { title, images, priceRangeV2 },
   } = data
 
   return (
@@ -79,8 +79,8 @@ const WishlistItem = ({ handle }) => {
         <ProductTitle title={title} />
       </Link>
       <Text mt="auto" py={1}>
-        {`from ${priceRange.minVariantPrice.currencyCode} $${Math.ceil(
-          priceRange.minVariantPrice.amount
+        {`from ${priceRangeV2.minVariantPrice.currencyCode} $${Math.ceil(
+          priceRangeV2.minVariantPrice.amount
         )} `}
       </Text>
       <ProductModal handle={handle}>

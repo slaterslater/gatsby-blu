@@ -50,7 +50,8 @@ const DragBox = ({ children, primary = false, controls, shuffleImg }) => {
 }
 
 const ThumbnailImage = ({ image, fallbackAlt }) => {
-  const imageData = useShopifyImage({ image, width: 360 })
+  const imageData =
+    useShopifyImage({ image, width: 360 }) || image.gatsbyImageData
   return <GatsbyImage image={imageData} alt={image.altText || fallbackAlt} />
 }
 

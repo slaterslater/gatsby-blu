@@ -42,7 +42,7 @@ export const query = graphql`
       }
     }
     product: shopifyProduct(handle: { eq: $handle }) {
-      id
+      id: shopifyId
       title
       handle
       descriptionHtml
@@ -60,17 +60,14 @@ export const query = graphql`
         values
       }
       images {
-        id
-        url
-        altText
-        height
-        width
+        src
+        gatsbyImageData(placeholder: BLURRED)
       }
       metafields {
         key
         value
       }
-      priceRange {
+      priceRangeV2 {
         minVariantPrice {
           currencyCode
           amount
@@ -85,11 +82,7 @@ export const query = graphql`
         id
         shopifyId
         availableForSale
-        priceNumber
-        priceV2 {
-          amount
-          currencyCode
-        }
+        price
         sku
         selectedOptions {
           name
@@ -142,10 +135,7 @@ export const query = graphql`
           value
         }
         images {
-          altText
-          height
-          url
-          width
+          gatsbyImageData(placeholder: BLURRED, width: 80)
         }
         variants {
           shopifyId
@@ -154,10 +144,7 @@ export const query = graphql`
             name
             value
           }
-          priceV2 {
-            amount
-            currencyCode
-          }
+          price
         }
       }
     }
@@ -210,4 +197,3 @@ export const query = graphql`
     }
   }
 `
-

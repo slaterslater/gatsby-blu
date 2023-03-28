@@ -7,7 +7,7 @@ export const SEARCH_PRODUCT_FRAGMENT = gql`
     title
     availableForSale
     tags
-    priceRange {
+    priceRangeV2: priceRange {
       minVariantPrice {
         amount
         currencyCode
