@@ -1,14 +1,12 @@
 import { graphql, navigate } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import React from 'react'
-import { alignSelf } from 'styled-system'
 import {
   AspectRatio,
   Box,
   Button,
   Container,
   Grid,
-  Text,
   Flex,
   Heading,
 } from 'theme-ui'
@@ -20,7 +18,6 @@ import Banner from '../../components/content/Banner'
 
 const lastWordUpperCase = text => {
   const words = text.split(' ')
-  console.log({ text, words })
   if (words.length === 1) return text
   const last = words.pop()
   return `${words.join(' ')} ${last.toUpperCase()}`
@@ -38,10 +35,11 @@ const BannerButton = ({ children, text, to, height = 495 }) => (
       variant="belovedBlue"
       onClick={() => navigate(to)}
       sx={{
-        width: '100%',
+        width: ['95%', '100%'],
         maxWidth: 615,
         display: 'block',
         transform: 'translateY(-80px)',
+        marginBottom: '-45px',
       }}
       mx="auto"
       py={4}
@@ -51,14 +49,65 @@ const BannerButton = ({ children, text, to, height = 495 }) => (
   </>
 )
 
+const Spotlights = ({ spotlights }) => (
+  <Grid
+    sx={{
+      gridTemplateColumns: ['1fr', '1fr 1fr'],
+      gap: [3, 6, 7],
+      maxWidth: 1250,
+    }}
+    mx="auto"
+  >
+    {spotlights.map(({ image, button }) => (
+      <Box
+        sx={{
+          backgroundImage: `url('/blog-bg-1.webp')`,
+          backgroundSize: '100% 100%',
+          div: {
+            aspectRatio: ['3/4', '4/3'],
+            maxWidth: 550,
+          },
+        }}
+        p={5}
+      >
+        <GatsbyImage image={image.asset.gatsbyImageData} alt="" />
+        <Button
+          variant="belovedBlue"
+          onClick={() => navigate(button.path)}
+          sx={{
+            display: 'block',
+            transform: 'translateY(-75px)',
+            minWidth: 250,
+            marginBottom: '-45px',
+          }}
+          py={3}
+          mx="auto"
+        >
+          {lastWordUpperCase(button.text)}
+        </Button>
+      </Box>
+    ))}
+  </Grid>
+)
+
 const BelovedHomePage = ({ data }) => {
-  const { headerHero, collectionRow, spotlights, feature1, feature2 } =
+  const { headerHero, collectionRow, spotlights, features } =
     data.sanityBelovedHomePage
   const locations = data.allSanityLocation.nodes
 
+  const [f1, f2] = features
+  const [s1, s2, s3, s4] = spotlights
+
   return (
-    <Layout isBeloved>
+    <Layout
+      title="beloved by bluboho - unique sapphire engagement rings & ethical diamond wedding rings | handmade in canada"
+      description="we believe that your engagement ring is more than simply a piece of jewelry: it is a future heirloom that will represent this moment in your life— so we want you to find exactly what you want, and to love it forever"
+      isBeloved
+    >
       <Container p={[0, 0, 0, 0]}>
+        <Heading as="h1" sx={{ position: 'absolute', left: '-9999em' }}>
+          beloved by bluboho
+        </Heading>
         <Box
           sx={{
             maxWidth: 1350,
@@ -108,6 +157,7 @@ const BelovedHomePage = ({ data }) => {
               variant="belovedBlue"
               key={button.path}
               onClick={() => navigate(button.path)}
+              py={5}
             >
               {lastWordUpperCase(button.text)}
             </Button>
@@ -150,97 +200,17 @@ const BelovedHomePage = ({ data }) => {
           ))}
         />
       </Container>
-      <BannerButton text={feature1[0].button.text} to={feature1[0].button.path}>
-        <GatsbyImage image={feature1[0].image1.asset.gatsbyImageData} alt="" />
+      <BannerButton text={f1.button.text} to={features[0].button.path}>
+        <GatsbyImage image={features[0].image1.asset.gatsbyImageData} alt="" />
       </BannerButton>
       <Container>
-        <Grid
-          sx={{
-            gridTemplateColumns: ['1fr', '1fr 1fr'],
-            gap: [0, 6, 7],
-            maxWidth: 1250,
-          }}
-          mx="auto"
-        >
-          {spotlights.map(({ image, button }) => (
-            <Box
-              sx={{
-                backgroundImage: `url('/blog-bg-1.webp')`,
-                backgroundSize: '100% 100%',
-                height: 'calc(100% - 45px)',
-                div: {
-                  aspectRatio: ['3/4', '4/3'],
-                  maxWidth: 550,
-                },
-              }}
-              p={5}
-            >
-              <GatsbyImage image={image.asset.gatsbyImageData} alt="" />
-              <Button
-                variant="belovedBlue"
-                onClick={() => navigate(button.path)}
-                sx={{
-                  display: 'block',
-                  // height: 0,
-                  // display: 'absolute',
-                  // lineHeight: 0,
-                  transform: 'translateY(-75px)',
-                  minWidth: 250,
-                }}
-                py={3}
-                mx="auto"
-              >
-                {lastWordUpperCase(button.text)}
-              </Button>
-            </Box>
-          ))}
-        </Grid>
+        <Spotlights spotlights={[s1, s2]} />
       </Container>
-      <BannerButton text={feature2[0].button.text} to={feature2[0].button.path}>
-        <GatsbyImage image={feature2[0].image1.asset.gatsbyImageData} alt="" />
+      <BannerButton text={f2.button.text} to={f2.button.path}>
+        <GatsbyImage image={f2.image1.asset.gatsbyImageData} alt="" />
       </BannerButton>
       <Container pb={[0, 0, 0, 0]}>
-        <Grid
-          sx={{
-            gridTemplateColumns: ['1fr', '1fr 1fr'],
-            gap: [0, 6, 7],
-            maxWidth: 1250,
-          }}
-          mx="auto"
-        >
-          {spotlights.map(({ image, button }) => (
-            <Box
-              sx={{
-                backgroundImage: `url('/blog-bg-1.webp')`,
-                backgroundSize: '100% 100%',
-                height: 'calc(100% - 45px)',
-                div: {
-                  aspectRatio: ['3/4', '4/3'],
-                  maxWidth: 550,
-                },
-              }}
-              p={5}
-            >
-              <GatsbyImage image={image.asset.gatsbyImageData} alt="" />
-              <Button
-                variant="belovedBlue"
-                onClick={() => navigate(button.path)}
-                sx={{
-                  display: 'block',
-                  // height: 0,
-                  // display: 'absolute',
-                  // lineHeight: 0,
-                  transform: 'translateY(-75px)',
-                  minWidth: 250,
-                }}
-                py={3}
-                mx="auto"
-              >
-                {lastWordUpperCase(button.text)}
-              </Button>
-            </Box>
-          ))}
-        </Grid>
+        <Spotlights spotlights={[s3, s4]} />
       </Container>
       <HomeLocations locations={locations} showButtons={false} />
       <Button
@@ -255,7 +225,7 @@ const BelovedHomePage = ({ data }) => {
           fontFamily: 'heading',
           textTransform: 'none',
           display: 'block',
-          width: '100%',
+          width: ['95%', '100%'],
           maxWidth: 450,
         }}
         onClick={() => navigate('/book-a-consultation')}
@@ -308,23 +278,7 @@ export const query = graphql`
           path
         }
       }
-      feature1 {
-        button {
-          text
-          path
-        }
-        image1 {
-          asset {
-            gatsbyImageData(placeholder: BLURRED)
-          }
-        }
-        imageMobile {
-          asset {
-            gatsbyImageData(placeholder: BLURRED)
-          }
-        }
-      }
-      feature2 {
+      features {
         button {
           text
           path

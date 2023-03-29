@@ -17,15 +17,7 @@ module.exports = {
     author: `@bluboho`,
     siteUrl,
   },
-<<<<<<< HEAD
   flags: { PARALLEL_SOURCING: true },
-=======
-  flags: {
-    PARALLEL_SOURCING: true,
-    // FAST_DEV: true,
-    // DEV_SSR: true,
-  },
->>>>>>> cc70d72 (wip)
   plugins: [
     `gatsby-plugin-netlify`,
     // {
