@@ -1,17 +1,18 @@
 import React from 'react'
 import { useProductTitle } from './ProductTitle'
 import ProductListItem from './product/ListItem'
+import { useMetafieldValue } from '../hooks/useMetafield'
 
 export const useProductPrice = product => {
-  const byAppointmentOnly = product.metafields?.some(
-    ({ key, value }) => key === 'appt_only' && value === 'true'
-  )
-  if (byAppointmentOnly) return ['', '']
+  const { metafields, priceRangeV2 } = product
+  const minVariantPrice = priceRangeV2.minVariantPrice.amount
+  const hasRange = minVariantPrice !== priceRangeV2.maxVariantPrice.amount
 
-  const minVariantPrice = product.priceRangeV2.minVariantPrice.amount
+  const byAppointmentOnly = useMetafieldValue('appt_only', metafields)
+  const offersPairs = useMetafieldValue('offers_pairs', metafields)
 
-  const hasRange =
-    minVariantPrice !== product.priceRangeV2.maxVariantPrice.amount
+  if (byAppointmentOnly === 'true') return ['', false]
+  if (offersPairs === 'true') return [minVariantPrice * 2, false]
 
   // const minVariant = product.variants.find(
   //   variant => variant.price === product.priceRangeV2.minVariantPrice.amount
