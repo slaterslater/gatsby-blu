@@ -38,7 +38,7 @@ const CollectionProduct = ({
   const [price, hasRange] = useProductPrice(product)
   const title = useProductTitle(product.title)
   const [firstImage, secondImage] = images
-  const { handle, tags, availableForSale } = product
+  const { handle, tags, availableForSale, metafields } = product
 
   return (
     <ProductListItem
@@ -51,6 +51,7 @@ const CollectionProduct = ({
       secondImage={secondImage}
       tags={tags}
       availableForSale={availableForSale}
+      metafields={metafields}
     />
   )
 }

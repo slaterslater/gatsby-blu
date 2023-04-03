@@ -81,9 +81,8 @@ const SearchPage = ({ location }) => {
               key={query}
               initialValue={query}
               onChange={() => {
-                if (!usedInput) {
-                  setUsedInput(true)
-                }
+                if (usedInput) return
+                setUsedInput(true)
               }}
             />
             <HitsCount />
