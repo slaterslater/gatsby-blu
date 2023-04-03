@@ -6,6 +6,7 @@ import { useLatestCollection } from '../hooks/collection'
 const CollectionPageTemplate = ({ data, pageContext, ...props }) => {
   const { products, handle, image, title, description, seo } =
     data.shopifyCollection
+  const { content } = data.sanityCollectionSeo || {}
   const { collectionProducts, collectionImages } = useLatestCollection(
     handle,
     products
@@ -21,6 +22,7 @@ const CollectionPageTemplate = ({ data, pageContext, ...props }) => {
       collectionImages={collectionImages}
       products={collectionProducts}
       card={data.card}
+      content={content}
       hasFilters
     />
   )
@@ -99,6 +101,26 @@ export const query = graphql`
             placeholder: BLURRED
             layout: FIXED
           )
+        }
+      }
+    }
+    sanityCollectionSeo(handle: { eq: $handle }) {
+      content {
+        ... on SanityCollectionSEOheading {
+          heading
+        }
+        ... on SanityCollectionSEOtext {
+          quote
+        }
+        ... on SanityCollectionSEOblock {
+          blocks: _rawBlock
+        }
+        ... on SanityCollectionSEOimage {
+          image {
+            asset {
+              gatsbyImageData(placeholder: BLURRED)
+            }
+          }
         }
       }
     }

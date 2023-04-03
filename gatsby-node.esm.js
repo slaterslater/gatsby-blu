@@ -30,12 +30,13 @@ async function createCollectionGroupPages({ graphql, actions }) {
   `)
 
   data.allSanityCollectionGroupPage.nodes.forEach(node => {
+    const handle = node.slug.current
     actions.createPage({
-      path: `/collections/${node.slug.current}`,
+      path: `/collections/${handle}`,
       component: collectionGroupTemplate,
       context: {
         collections: node.collections.map(col => col.handle),
-        id: node.id,
+        handle,
       },
     })
   })
@@ -151,14 +152,13 @@ async function createCollectionPages({ graphql, actions }) {
     node => node.slug.current
   )
 
-  data.allShopifyCollection.nodes.forEach(collection => {
-    if (!collectionGroupSlugs.includes(collection.handle)) {
+  data.allShopifyCollection.nodes.forEach(({ handle }) => {
+    if (!collectionGroupSlugs.includes(handle)) {
       actions.createPage({
-        // What is the URL for this new page??
-        path: `/collections/${collection.handle}`,
+        path: `/collections/${handle}`,
         component: collectionTemplate,
         context: {
-          handle: collection.handle,
+          handle,
         },
       })
     }

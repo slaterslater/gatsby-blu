@@ -12,7 +12,7 @@ const CollectionPageTemplate = ({ pageContext, path, data }) => {
     headerImage,
     slug,
   } = data.sanityCollectionGroupPage
-
+  const { content } = data.sanityCollectionSeo || {}
   const collectionsWithGroupData = data.allShopifyCollection.nodes.map(node => {
     const group = collections.find(
       groupNode => groupNode.handle === node.handle
@@ -34,6 +34,7 @@ const CollectionPageTemplate = ({ pageContext, path, data }) => {
       seoGatsbyImage={seoImage?.asset.gatsbyImageData}
       headerImage={headerImage?.asset.gatsbyImageData}
       handle={slug.current}
+      content={content}
     />
   )
 }
@@ -41,8 +42,8 @@ const CollectionPageTemplate = ({ pageContext, path, data }) => {
 export default CollectionPageTemplate
 
 export const query = graphql`
-  query CollectionGroupPageQuery($id: String!, $collections: [String]!) {
-    sanityCollectionGroupPage(id: { eq: $id }) {
+  query CollectionGroupPageQuery($handle: String!, $collections: [String]!) {
+    sanityCollectionGroupPage(slug: { current: { eq: $handle } }) {
       collections {
         handle
         title
@@ -97,6 +98,26 @@ export const query = graphql`
             maxVariantPrice {
               currencyCode
               amount
+            }
+          }
+        }
+      }
+    }
+    sanityCollectionSeo(handle: { eq: $handle }) {
+      content {
+        ... on SanityCollectionSEOheading {
+          heading
+        }
+        ... on SanityCollectionSEOtext {
+          quote
+        }
+        ... on SanityCollectionSEOblock {
+          blocks: _rawBlock
+        }
+        ... on SanityCollectionSEOimage {
+          image {
+            asset {
+              gatsbyImageData(placeholder: BLURRED)
             }
           }
         }
