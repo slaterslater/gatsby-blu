@@ -45,8 +45,8 @@ const BelovedHeader = () => {
             gap: 0,
             // height: [64, 96],
             height: 95,
-            // gridTemplateColumns: 'repeat(3, 1fr)',
-            gridTemplateColumns: '1fr 180px 1fr',
+            gridTemplateColumns: 'repeat(2, 1fr)',
+            // gridTemplateColumns: '1fr 180px 1fr',
             // gridTemplateColumns: [
             //   '1fr 100px 1fr',
             //   '1fr 100px 1fr',
@@ -70,7 +70,7 @@ const BelovedHeader = () => {
           >
             <Box as={IoIosMenu} color="cream" size={24} />
           </IconButton>
-          <Link
+          {/* <Link
             as={GatsbyLink}
             to="/"
             sx={{
@@ -88,7 +88,7 @@ const BelovedHeader = () => {
               // width={[150, 180]}
               // height={[150, 180]}
             />
-          </Link>
+          </Link> */}
           <Flex
             sx={{
               width: '100%',

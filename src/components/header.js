@@ -41,7 +41,7 @@ const Header = () => {
         <Grid
           sx={{
             height: [64, 96],
-            gridTemplateColumns: 'repeat(3, 1fr)',
+            gridTemplateColumns: 'repeat(2, 1fr)',
             alignItems: 'center',
             gap: 4,
             position: 'relative',
@@ -59,14 +59,14 @@ const Header = () => {
           >
             <Box as={IoIosMenu} color="black" size={24} />
           </IconButton>
-          <Link as={GatsbyLink} to="/" sx={{ justifySelf: 'center' }} py={2}>
+          {/* <Link as={GatsbyLink} to="/" sx={{ justifySelf: 'center' }} py={2}>
             <Image
               src="/bluboho-logo-01.svg"
               alt="bluboho logo"
               width={180}
               height={50}
             />
-          </Link>
+          </Link> */}
 
           <Flex
             sx={{

@@ -19,12 +19,7 @@ import Footer from './footer'
 import SEO from './seo'
 import RecentlyViewedProductsProvider from '../contexts/RecentlyViewedProductsContext'
 import Drawers from './drawers'
-<<<<<<< HEAD
 import Countdown from './Countdown'
-=======
-import BelovedHeader from './BelovedHeader'
-// import Countdown from './Countdown'
->>>>>>> 0c3d11e (adds beloved product template and refactors reusable components)
 
 const ThirdPartyScripts = loadable(() => import('./ThirdPartyScripts'))
 const TidioLink = loadable(() => import('./TidioLink'))
