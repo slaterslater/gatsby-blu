@@ -1,24 +1,17 @@
+import dayjs from 'dayjs'
 import { motion, AnimatePresence } from 'framer-motion'
 import React from 'react'
 import { Box, Flex, Text } from 'theme-ui'
 
 const Countdown = () => {
-  const end = new Date('2023-02-10')
-  const now = new Date()
-  const offset = now.getTimezoneOffset() * 60000
-  const diffTime = end.getTime() - now.getTime() + offset
-  const diffDays = Math.ceil(diffTime / (1000 * 3600 * 24))
+  const deadline = dayjs('2023-05-14')
+  const days = deadline.diff(dayjs(), 'day')
 
-  if (diffDays < 1) return null
+  if (days < 1) return null
 
-  // const text = `only ${diffDays} day${
-  //   diffDays > 1 ? 's' : ''
-  // } till DEC 25, hurry!`
-
-  const text =
-    "order by February 10th to receive engraving on us - just in time for valentine's day"
-
+  const text = `only ${days} day${days > 1 ? 's' : ''} until mother's day!`
   const MotionBox = motion(Flex)
+
   return (
     <AnimatePresence>
       <Box
