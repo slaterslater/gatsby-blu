@@ -18,8 +18,9 @@ const TidioLink = () => {
 
     if (window.tidioChatApi) {
       window.tidioChatApi.on('ready', onTidioChatApiReady)
+      window.removeEventListener('tidioChat-ready', onTidioChatApiReady)
     } else {
-      document.addEventListener('tidioChat-ready', onTidioChatApiReady)
+      window.addEventListener('tidioChat-ready', onTidioChatApiReady)
     }
   }, [])
 

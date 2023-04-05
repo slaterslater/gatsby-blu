@@ -43,18 +43,11 @@ const BelovedHeader = () => {
         <Grid
           sx={{
             gap: 0,
-            // height: [64, 96],
-            height: 95,
-            gridTemplateColumns: 'repeat(2, 1fr)',
-            // gridTemplateColumns: '1fr 180px 1fr',
-            // gridTemplateColumns: [
-            //   '1fr 100px 1fr',
-            //   '1fr 100px 1fr',
-            //   '1fr 180px 1fr',
-            // ],
-            alignItems: 'center',
-            // gap: 4,
+            height: [64, 96],
+            gridTemplateColumns: '1fr 150px',
             // position: 'relative',
+            // gridTemplateColumns: 'repeat(2, 1fr)',
+            alignItems: 'center',
             zIndex: 3,
           }}
         >
@@ -63,32 +56,12 @@ const BelovedHeader = () => {
             p={0}
             ml={4}
             type="button"
-            // sx={{ display: ['block', 'block', 'none'] }}
             sx={{ display: ['block', 'none'] }}
             onClick={() => setOpenDrawer('navigation')}
             aria-label="Menu"
           >
             <Box as={IoIosMenu} color="cream" size={24} />
           </IconButton>
-          {/* <Link
-            as={GatsbyLink}
-            to="/"
-            sx={{
-              // justifySelf: 'center',
-              height: 95,
-            }}
-            // py={2}
-          >
-            <Image
-              src="/beloved-logo-TEMP.png"
-              alt="bluboho logo"
-              sx={{ position: 'abosolute' }}
-              width={180}
-              height={180}
-              // width={[150, 180]}
-              // height={[150, 180]}
-            />
-          </Link> */}
           <Flex
             sx={{
               width: '100%',
@@ -98,20 +71,11 @@ const BelovedHeader = () => {
             }}
             p={4}
           >
-            <MegaMenuLink
-              color="white"
-              sx={{ display: ['none', 'block', 'block', 'none'] }}
-              mr={[0, 5]}
-              mr="auto"
-            >
-              bridal jewelry
-            </MegaMenuLink>
             <Box
               sx={{
                 display: ['none', 'flex'],
                 'a, button': { cursor: 'pointer' },
               }}
-              // ml="auto"
             >
               <IconButton
                 as={GatsbyLink}
@@ -138,27 +102,8 @@ const BelovedHeader = () => {
                   sx={{ transform: 'translateY(1px)' }}
                 />
               </IconButton>
-              {/* <Box sx={{ position: 'relative' }}>
-                <WishlistBadge />
-                <IconButton
-                  onClick={() =>
-                    shouldRenew || !isLoggedIn
-                      ? navigate('/account/login', {
-                          state: { toOrigin: '/account/wishlist' },
-                        })
-                      : navigate('/account/wishlist')
-                  }
-                  aria-label="Wishlist"
-                >
-                  <Box as={FiHeart} color="black" size={21} />
-                </IconButton>
-              </Box> */}
             </Box>
             {/* <CurrencyPicker /> */}
-            <HeaderSearch
-              isOpen={searchOpen}
-              onClose={() => setSearchOpen(state => !state)}
-            />
             <Box sx={{ position: 'relative' }}>
               <CartBadge />
               <IconButton
@@ -171,6 +116,10 @@ const BelovedHeader = () => {
             </Box>
           </Flex>
         </Grid>
+        <HeaderSearch
+          isOpen={searchOpen}
+          onClose={() => setSearchOpen(state => !state)}
+        />
       </Box>
     </Box>
   )

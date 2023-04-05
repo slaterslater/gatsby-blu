@@ -104,8 +104,10 @@ const Announcements = ({ isBeloved = false }) => {
         alignItems: 'center',
         marginBottom: '-1px',
       }}
-      bg={isBeloved ? 'cream' : 'primary'}
-      color={isBeloved ? 'primary' : 'white'}
+      // bg={isBeloved ? 'cream' : 'primary'}
+      // color={isBeloved ? 'primary' : 'white'}
+      bg="cream"
+      color="primary"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >

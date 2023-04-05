@@ -3,15 +3,16 @@ import { Link as GatsbyLink } from 'gatsby'
 import { Box, Grid, Image } from 'theme-ui'
 
 const SiteSwitch = ({ isBeloved = false }) => (
-  <Box sx={{ bg: isBeloved ? 'cream' : 'black' }}>
+  <Box bg="cream">
+    {/* <Box sx={{ bg: isBeloved ? 'cream' : 'black' }}> */}
     <Grid
       sx={{
         // position: ['relative', 'relative', 'absolute'],
         // transform: 'translateY(-35px)',
         margin: '-1px',
         gap: 0,
-        gridTemplateColumns: ['1fr 1fr', '190px 190px'],
-        gridTemplateRows: 65,
+        gridTemplateColumns: ['1fr 1fr', '210px 210px'],
+        gridTemplateRows: 55,
         a: {
           display: 'flex',
           color: 'white',
@@ -26,14 +27,21 @@ const SiteSwitch = ({ isBeloved = false }) => (
         <Image
           src="/bluboho-logo-01.svg"
           alt=""
-          width={180}
-          height={50}
+          width={150}
+          // height={50}
           px={4}
           py={3}
         />
       </GatsbyLink>
       <GatsbyLink id="beloved" to="/beloved" title="beloved by bluboho">
-        beloved logo
+        <Image
+          src="/beloved-logo.webp"
+          alt=""
+          width={180}
+          height={50}
+          // px={3}
+          // py={2}
+        />
       </GatsbyLink>
     </Grid>
   </Box>

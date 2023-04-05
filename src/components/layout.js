@@ -35,7 +35,7 @@ const Layout = ({ title, description, children, isBeloved = false }) => (
           flexDirection: 'column',
           alignItems: 'stretch',
           overflow: 'hidden',
-          background: isBeloved ? 'url("/background_beige.webp")' : null,
+          background: isBeloved ? 'url("/beloved-bg.webp")' : null,
         }}
       >
         <Announcements />
