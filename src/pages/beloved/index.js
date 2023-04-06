@@ -1,4 +1,4 @@
-import { graphql, navigate } from 'gatsby'
+import { graphql, navigate, Link as GatsbyLink } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import React from 'react'
 import {
@@ -60,6 +60,7 @@ const Spotlights = ({ spotlights }) => (
   >
     {spotlights.map(({ image, button }) => (
       <Box
+        key={image.asset.id}
         sx={{
           backgroundImage: `url('/blog-bg-1.webp')`,
           backgroundSize: '100% 100%',
@@ -125,6 +126,8 @@ const BelovedHomePage = ({ data }) => {
           mx="auto"
         >
           <Flex
+            as={GatsbyLink}
+            to={headerHero[0].button.path}
             sx={{
               height: '100%',
               maxWidth: 1250,
@@ -167,6 +170,7 @@ const BelovedHomePage = ({ data }) => {
           minCardWidth={185}
           sx={{ maxWidth: 1250 }}
           mx="auto"
+          px={2}
           nodes={collectionRow.map(({ handle, image, title }) => (
             <Box sx={{ textAlign: 'center' }} key={`collection-${handle}`}>
               <ThemeLink
@@ -246,6 +250,9 @@ export const query = graphql`
   {
     sanityBelovedHomePage {
       headerHero {
+        button {
+          path
+        }
         image1 {
           asset {
             url
@@ -270,6 +277,7 @@ export const query = graphql`
       spotlights {
         image {
           asset {
+            id
             gatsbyImageData(placeholder: BLURRED)
           }
         }

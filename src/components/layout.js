@@ -11,7 +11,7 @@ import '@reach/menu-button/styles.css'
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Flex } from 'theme-ui'
+import { Box, Flex } from 'theme-ui'
 import loadable from '@loadable/component'
 import Announcements from './Announcements'
 import Header from './header'
@@ -36,6 +36,7 @@ const Layout = ({ title, description, children, isBeloved = false }) => (
           alignItems: 'stretch',
           overflow: 'hidden',
           background: isBeloved ? 'url("/beloved-bg.webp")' : null,
+          backgroundSize: '100%',
         }}
       >
         <Announcements />

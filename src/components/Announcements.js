@@ -7,7 +7,7 @@ import useInterval from '../lib/useInterval'
 import Modal from './Modal'
 
 const AnnouncementText = ({ text, subtext }) => (
-  <Flex sx={{ alignItems: 'baseline' }}>
+  <Flex sx={{ alignItems: 'baseline', overflow: 'hidden' }}>
     <Box>{text}</Box>
     <Box sx={{ fontSize: '5px' }} pl={1}>
       {subtext}
@@ -67,7 +67,7 @@ Announcement.propTypes = {
   isVisible: PropTypes.bool.isRequired,
 }
 
-const Announcements = ({ isBeloved = false }) => {
+const Announcements = () => {
   const data = useStaticQuery(graphql`
     {
       sanitySiteAnnouncements {
@@ -104,8 +104,6 @@ const Announcements = ({ isBeloved = false }) => {
         alignItems: 'center',
         marginBottom: '-1px',
       }}
-      // bg={isBeloved ? 'cream' : 'primary'}
-      // color={isBeloved ? 'primary' : 'white'}
       bg="cream"
       color="primary"
       onMouseEnter={() => setIsPaused(true)}
