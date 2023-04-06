@@ -6,16 +6,11 @@ import ProductView from '../views/ProductView'
 
 import { useViewProductAnalytics } from '../hooks/product'
 
-const ProductPageTemplate = ({ data, ...props }) => {
+const ProductPageTemplate = ({ data, pageContext, ...props }) => {
   const { product, alternates, badges, stack, card, rating, reviews } = data
-  useViewProductAnalytics(product)
+  const { isBeloved } = pageContext
 
-  // replace this with tags.some(tag => tag.toLowerCase().includes('beloved'))
-  const isBeloved = [
-    'moonlight-crescent-dome-ring',
-    'moonlight-crescent-dome-ring-white-gold',
-    'moonlight-crescent-dome-ring-rose-gold',
-  ].includes(product.handle)
+  useViewProductAnalytics(product)
 
   return (
     <Layout isBeloved={isBeloved}>
