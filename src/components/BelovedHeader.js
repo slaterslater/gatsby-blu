@@ -37,7 +37,7 @@ const BelovedHeader = () => {
           position: 'relative',
           zIndex: 2,
           borderBottom: '1px solid',
-          borderColor: 'border',
+          borderColor: 'black',
         }}
       >
         <Grid
@@ -52,12 +52,12 @@ const BelovedHeader = () => {
           }}
         >
           {/* <BelovedMenu /> */}
-          <MegaMenu />
+          <MegaMenu isBeloved />
           <IconButton
             p={0}
             ml={4}
             type="button"
-            sx={{ display: ['block', 'none'] }}
+            sx={{ display: ['block', 'block', 'none'] }}
             onClick={() => setOpenDrawer('navigation')}
             aria-label="Menu"
           >
@@ -71,7 +71,7 @@ const BelovedHeader = () => {
               justifyContent: 'flex-end',
             }}
             p={4}
-            mr={[0, 5]}
+            mr={[0, 0, 5]}
           >
             <Box
               sx={{

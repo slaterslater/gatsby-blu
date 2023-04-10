@@ -4,11 +4,10 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { useStaticQuery, graphql } from 'gatsby'
 import { MegaMenuLink } from './links'
 import { SubMenu } from './sub-menu'
-import { MEGAMENU_QUERY } from '../../../queries/megamenu'
 
 const MotionBox = motion(Box)
 
-const MegaMenu = () => {
+const MegaMenu = ({ isBeloved = false }) => {
   const [menuOpen, setMenuOpen] = useState(false)
   const [currentMenu, setCurrentMenu] = useState('')
 
@@ -83,7 +82,9 @@ const MegaMenu = () => {
     }
   `)
 
-  const megaMenu = data.allSanityMegaMenu.nodes[0].groups
+  const menuOption = isBeloved ? 1 : 0 // based on date created...
+
+  const megaMenu = data.allSanityMegaMenu.nodes[menuOption].groups
   const collections = data.allShopifyCollection.nodes
   const cards = data.allSanityCard.nodes
   const groupPages = data.allSanityCollectionGroupPage.nodes
@@ -143,6 +144,7 @@ const MegaMenu = () => {
       >
         {megaMenuWithImages.map(menu => (
           <MegaMenuLink
+            color={isBeloved ? 'white' : 'black'}
             aria-haspopup
             key={`${menu.title}-top-link`}
             isCurrent={menu.title === currentMenu}
@@ -170,6 +172,7 @@ const MegaMenu = () => {
               width: '100vw',
               borderBottom: '1px solid',
               borderTop: '1px solid',
+              // borderColor: 'black',
               borderColor: 'border',
             }}
           >

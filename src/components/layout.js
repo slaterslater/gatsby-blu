@@ -20,6 +20,8 @@ import SEO from './seo'
 import RecentlyViewedProductsProvider from '../contexts/RecentlyViewedProductsContext'
 import Drawers from './drawers'
 import Countdown from './Countdown'
+import BelovedHeader from './BelovedHeader'
+import SiteSwitch from './SiteSwitch'
 
 const ThirdPartyScripts = loadable(() => import('./ThirdPartyScripts'))
 const TidioLink = loadable(() => import('./TidioLink'))
@@ -39,8 +41,11 @@ const Layout = ({ title, description, children, isBeloved = false }) => (
           backgroundSize: '100%',
         }}
       >
-        <Announcements />
-        <Header />
+        <Box sx={{ display: ['block', 'block', 'none'] }}>
+          <Announcements />
+        </Box>
+        <SiteSwitch />
+        {isBeloved ? <BelovedHeader /> : <Header />}
         <Countdown />
         {children}
         <Footer />
