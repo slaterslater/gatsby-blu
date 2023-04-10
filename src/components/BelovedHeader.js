@@ -51,7 +51,8 @@ const BelovedHeader = () => {
             zIndex: 3,
           }}
         >
-          <BelovedMenu />
+          {/* <BelovedMenu /> */}
+          <MegaMenu />
           <IconButton
             p={0}
             ml={4}
@@ -70,6 +71,7 @@ const BelovedHeader = () => {
               justifyContent: 'flex-end',
             }}
             p={4}
+            mr={[0, 5]}
           >
             <Box
               sx={{

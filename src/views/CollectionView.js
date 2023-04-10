@@ -37,11 +37,12 @@ const CollectionPage = ({
   collectionImages,
   card,
   content,
+  isBeloved,
 }) => {
   useAnalytics('viewItemList', products, title, handle)
 
   return (
-    <Layout>
+    <Layout isBeloved={isBeloved}>
       <CollectionSEO
         seo={seo}
         title={title}

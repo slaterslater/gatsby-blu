@@ -113,7 +113,7 @@ const BelovedHomePage = ({ data }) => {
           sx={{
             maxWidth: 1350,
             height: [600, 700, 700],
-            backgroundImage: 'url(/beloved-header-bg-TEMP.png)',
+            backgroundImage: 'url(/bg-beloved-ripped-paper.webp)',
             backgroundSize: [
               '150% 100%',
               '150% 100%',

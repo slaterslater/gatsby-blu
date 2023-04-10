@@ -1,10 +1,10 @@
 import React, { useMemo, useState } from 'react'
 import { Box, Grid } from 'theme-ui'
 import { AnimatePresence, motion } from 'framer-motion'
-import { graphql, useStaticQuery } from 'gatsby'
+import { useStaticQuery, graphql } from 'gatsby'
 import { MegaMenuLink } from './links'
 import { SubMenu } from './sub-menu'
-import { getShopifyImage } from '../../../lib/get-shopify-image'
+import { MEGAMENU_QUERY } from '../../../queries/megamenu'
 
 const MotionBox = motion(Box)
 
@@ -82,6 +82,7 @@ const MegaMenu = () => {
       }
     }
   `)
+
   const megaMenu = data.allSanityMegaMenu.nodes[0].groups
   const collections = data.allShopifyCollection.nodes
   const cards = data.allSanityCard.nodes
@@ -103,14 +104,8 @@ const MegaMenu = () => {
               page => page.slug.current === handle
             )
             const card = cards.find(card => card.collectionHandle === handle)
+            // switch?
             if (shopifyCollection) {
-              // const { image } = shopifyCollection
-              // const gatsbyImageData = getShopifyImage({
-              //   image: {
-              //     ...image,
-              //     url: image.src,
-              //   },
-              // })
               nextLink.image = shopifyCollection.image.gatsbyImageData
             }
             if (groupPage) {

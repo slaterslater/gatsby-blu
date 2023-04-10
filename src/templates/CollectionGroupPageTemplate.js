@@ -11,6 +11,7 @@ const CollectionPageTemplate = ({ pageContext, path, data }) => {
     seoImage,
     headerImage,
     slug,
+    isBeloved,
   } = data.sanityCollectionGroupPage
   const { content } = data.sanityCollectionSeo || {}
   const collectionsWithGroupData = data.allShopifyCollection.nodes.map(node => {
@@ -35,6 +36,7 @@ const CollectionPageTemplate = ({ pageContext, path, data }) => {
       headerImage={headerImage?.asset.gatsbyImageData}
       handle={slug.current}
       content={content}
+      isBeloved={isBeloved}
     />
   )
 }
@@ -44,6 +46,7 @@ export default CollectionPageTemplate
 export const query = graphql`
   query CollectionGroupPageQuery($handle: String!, $collections: [String]!) {
     sanityCollectionGroupPage(slug: { current: { eq: $handle } }) {
+      isBeloved
       collections {
         handle
         title

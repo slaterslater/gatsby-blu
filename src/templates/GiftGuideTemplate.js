@@ -1,17 +1,16 @@
 // src/templates/GiftGuideTemplate.js
 
 import { graphql } from 'gatsby'
-import React, { useEffect, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { Container } from 'theme-ui'
 import Layout from '../components/layout'
-import SEO from '../components/seo'
 import GiftGuideHeader from '../components/guide/GiftGuideHeader'
 import GiftGuideCollection from '../components/guide/GiftGuideCollection'
 import GiftProvider from '../components/guide/GiftContext'
 
 const GiftGuidePage = ({ data }) => {
-  const { title, description, headerImage, giftCollections } =
+  const { title, description, headerImage, giftCollections, isBeloved } =
     data.sanityGiftGuide
   const collections = data.allShopifyCollection.nodes
   const allShopifyProduct = data.allShopifyProduct.nodes
@@ -51,8 +50,7 @@ const GiftGuidePage = ({ data }) => {
   )
 
   return (
-    <Layout>
-      <SEO title={title} description={description} />
+    <Layout isBeloved={isBeloved} title={title} description={description}>
       <GiftGuideHeader
         title={title}
         description={description}
@@ -93,6 +91,7 @@ export const query = graphql`
     sanityGiftGuide(handle: { current: { eq: $guideHandle } }) {
       title
       description
+      isBeloved
       headerImage {
         image {
           asset {

@@ -123,6 +123,7 @@ const CollectionGroupsView = ({
   headerImage,
   handle,
   content,
+  isBeloved,
 }) => {
   const location = useLocation()
   const currentParams = parse(location.search.replace('?', ''))
@@ -135,7 +136,7 @@ const CollectionGroupsView = ({
     : null
 
   return (
-    <Layout>
+    <Layout isBeloved={isBeloved}>
       <CollectionSEO
         title={pageTitle}
         description={pageDescription}
