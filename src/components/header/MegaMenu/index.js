@@ -14,7 +14,7 @@ const MegaMenu = () => {
 
   const data = useStaticQuery(graphql`
     {
-      allSanityMegaMenu {
+      allSanityMegaMenu(sort: { fields: _createdAt, order: ASC }) {
         nodes {
           groups {
             title
