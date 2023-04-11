@@ -55,7 +55,7 @@ const NavigationDrawer = ({ onClose }) => {
   const searchInput = useRef(null)
   const query = useStaticQuery(graphql`
     {
-      allSanityMegaMenu {
+      allSanityMegaMenu(sort: { fields: _createdAt, order: ASC }) {
         nodes {
           groups {
             title
