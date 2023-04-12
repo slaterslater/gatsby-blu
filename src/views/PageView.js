@@ -16,15 +16,12 @@ const PageView = ({ title, summary, body, currentPath = '' }) => (
       <Box pt={7} pb={2}>
         <Heading as="h1">{title}</Heading>
       </Box>
-      {currentPath.includes('exchange-form') && <Exchange variant="primary" />}
       <ShopifyHtml
         dangerouslySetInnerHTML={{
           __html: body,
         }}
       />
-      {/* {currentPath?.includes('/pages/sign-up') && (
-          <NewsletterForm variant="primary" />
-        )} */}
+      {currentPath.includes('exchange-form') && <Exchange variant="primary" />}
     </Container>
   </Layout>
 )
