@@ -48,8 +48,13 @@ const Layout = ({ title, description, children, isBeloved = false }) => (
           </Box>
           <SiteNav />
           {/* maybe just one header and use context? */}
-          {isBeloved ? <BelovedHeader /> : <Header />}
-          <Countdown />
+          {isBeloved && <BelovedHeader />}
+          {!isBeloved && (
+            <>
+              <Header />
+              <Countdown />
+            </>
+          )}
           {children}
           <Footer />
         </Flex>

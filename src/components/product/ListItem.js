@@ -69,7 +69,7 @@ export const CollectionThumbnail = ({ title, primary, alternate }) => {
   }
 
   if (!primary && !alternate) {
-    return <AspectRatio sx={{ bg: 'prodBackground' }} ratio={1 / 1} />
+    return <AspectRatio sx={{ bg: 'prodBackground' }} ratio={1} />
   }
   if (!alternate) {
     return (
@@ -78,7 +78,7 @@ export const CollectionThumbnail = ({ title, primary, alternate }) => {
   }
   return (
     <>
-      <Grid sx={{ aspectRatio: 1 }}>
+      <Grid sx={{ aspectRatio: '1', margin: '-1px' }}>
         <AnimatePresence>
           <DragBox
             key={`thumbnail-${title}-1`}

@@ -7,7 +7,12 @@ import ThemeLink from './app/ThemeLink'
 import useSite from '../lib/useSite'
 import { usePageContext } from '../contexts/PageContext'
 
-export const Breadcrumbs = ({ links, currentPage, children, ...props }) => {
+export const Breadcrumbs = ({
+  links = [],
+  currentPage,
+  children,
+  ...props
+}) => {
   const { siteUrl } = useSite()
   const { isBeloved } = usePageContext()
 
@@ -15,14 +20,13 @@ export const Breadcrumbs = ({ links, currentPage, children, ...props }) => {
     ? { path: '/beloved', text: 'beloved by bluboho' }
     : { path: '/', text: 'home' }
 
-  // make new array from home and links
-  // refactor any component that calls Breadcrumbs to remove the home obj
+  const crumbs = [home, ...links]
 
   const breadcrumbLdJSON = `
   {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "itemListElement": [${links
+    "itemListElement": [${crumbs
       .map(
         (link, i) => `
     {
@@ -67,7 +71,7 @@ export const Breadcrumbs = ({ links, currentPage, children, ...props }) => {
         }}
         {...props}
       >
-        {links?.map(({ path, text }) => (
+        {crumbs?.map(({ path, text }) => (
           <React.Fragment key={`breadcrumb-${path}-${text}`}>
             <Text
               variant="caps"

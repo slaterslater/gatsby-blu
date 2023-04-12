@@ -13,12 +13,9 @@ import ProductProvider from '../components/product/ProductContext'
 import ContemplationCard from '../components/product/ContemplationCard'
 import ProductTestimonials from '../components/product/ProductTestimonials'
 import UserGeneratedContent from '../components/yotpo/UserGeneratedContent'
-import { usePageContext } from '../contexts/PageContext'
 
 const ProductView = ({ product, alternates, badges, stack, card }) => {
   const location = useLocation()
-  const { isBeloved } = usePageContext()
-
   const {
     handle,
     title,
@@ -33,11 +30,8 @@ const ProductView = ({ product, alternates, badges, stack, card }) => {
 
   const productTitle = useProductTitle(title)
   const isOOAK = tags.some(tag => tag.match(/one.*of.*a.*kind/i))
-  const home = isBeloved
-    ? { path: '/beloved', text: 'beloved by bluboho' }
-    : { path: '/', text: 'home' }
+
   const links = [
-    home,
     {
       path:
         location?.state?.collectionPath ||
