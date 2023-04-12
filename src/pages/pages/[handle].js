@@ -8,7 +8,7 @@ import { PAGE_QUERY } from '../../queries/page'
 import Layout from '../../components/layout'
 
 const PageTemplate = ({ path }) => {
-  const { handle } = useMatch('/pages/:handle')
+  const { handle } = useMatch(path)
   const [{ data }] = useQuery({
     query: PAGE_QUERY,
     variables: { handle },
@@ -23,7 +23,7 @@ const PageTemplate = ({ path }) => {
       title={page.title}
       summary={page.bodySummary}
       body={page.body}
-      currentPath={path}
+      currentPath={handle}
     />
   )
 }

@@ -2,11 +2,11 @@ import React from 'react'
 import { Heading, Box, Container } from 'theme-ui'
 import Layout from '../components/layout'
 import { ShopifyHtml } from '../components/ShopifyHtml'
-import NewsletterForm from '../components/NewsletterForm'
+// import NewsletterForm from '../components/NewsletterForm'
 import Exchange from '../components/Exchange'
-import ConsultationForm from '../components/BookConsultationForm'
+// import ConsultationForm from '../components/BookConsultationForm'
 
-const PageView = ({ title, summary, body, currentPath }) => (
+const PageView = ({ title, summary, body, currentPath = '' }) => (
   <Layout title={title} description={summary}>
     <Container
       as="main"
@@ -16,20 +16,15 @@ const PageView = ({ title, summary, body, currentPath }) => (
       <Box pt={7} pb={2}>
         <Heading as="h1">{title}</Heading>
       </Box>
-      {currentPath?.includes('/pages/exchange-form') && (
-        <Exchange variant="primary" />
-      )}
-      {currentPath?.includes('/pages/book-a-consultation') && (
-        <ConsultationForm variant="primary" />
-      )}
+      {currentPath.includes('exchange-form') && <Exchange variant="primary" />}
       <ShopifyHtml
         dangerouslySetInnerHTML={{
           __html: body,
         }}
       />
-      {currentPath?.includes('/pages/sign-up') && (
-        <NewsletterForm variant="primary" />
-      )}
+      {/* {currentPath?.includes('/pages/sign-up') && (
+          <NewsletterForm variant="primary" />
+        )} */}
     </Container>
   </Layout>
 )
