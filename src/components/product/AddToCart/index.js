@@ -8,10 +8,12 @@ import { useCart } from '../../../hooks/cart'
 import { useProductPreorderMessage } from './util'
 import WishlistButton from '../WishlistButton'
 import AddStackButton from '../AddStackButton'
+import { usePageContext } from '../../../contexts/PageContext'
 
 const AddToCart = ({ onAdded = () => {} }) => {
   const { handleClick, disabled, buttonText, isOn, toggleOn } = useCart(onAdded)
-  const { product, isBeloved } = useContext(ProductContext)
+  const { product } = useContext(ProductContext)
+  const { isBeloved } = usePageContext()
   const preorderMessage = useProductPreorderMessage(product.metafields)
 
   return (

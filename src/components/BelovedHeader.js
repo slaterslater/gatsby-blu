@@ -71,7 +71,7 @@ const BelovedHeader = () => {
               justifyContent: 'flex-end',
             }}
             p={4}
-            mr={[0, 0, 5]}
+            mr={[0, 0, 4]}
           >
             <Box
               sx={{

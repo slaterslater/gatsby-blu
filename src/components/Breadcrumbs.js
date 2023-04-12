@@ -5,9 +5,19 @@ import { Helmet } from 'react-helmet'
 import { VscTriangleRight } from 'react-icons/vsc'
 import ThemeLink from './app/ThemeLink'
 import useSite from '../lib/useSite'
+import { usePageContext } from '../contexts/PageContext'
 
 export const Breadcrumbs = ({ links, currentPage, children, ...props }) => {
   const { siteUrl } = useSite()
+  const { isBeloved } = usePageContext()
+
+  const home = isBeloved
+    ? { path: '/beloved', text: 'beloved by bluboho' }
+    : { path: '/', text: 'home' }
+
+  // make new array from home and links
+  // refactor any component that calls Breadcrumbs to remove the home obj
+
   const breadcrumbLdJSON = `
   {
     "@context": "https://schema.org",
@@ -23,14 +33,18 @@ export const Breadcrumbs = ({ links, currentPage, children, ...props }) => {
     }
     `
       )
-      .toString()},{
+      .toString()}]
+    }
+`
+  /*
+,{
             "@type": "ListItem",
             "position": "${links.length + 1}",
             "name": "Necklaces",
             "item": "${siteUrl}${currentPage.path}"
-          }]
-    }
-`
+          }
+*/
+
   return (
     <>
       <Helmet>

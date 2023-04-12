@@ -4,12 +4,14 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { useStaticQuery, graphql } from 'gatsby'
 import { MegaMenuLink } from './links'
 import { SubMenu } from './sub-menu'
+import { usePageContext } from '../../../contexts/PageContext'
 
 const MotionBox = motion(Box)
 
-const MegaMenu = ({ isBeloved = false }) => {
+const MegaMenu = () => {
   const [menuOpen, setMenuOpen] = useState(false)
   const [currentMenu, setCurrentMenu] = useState('')
+  const { isBeloved } = usePageContext()
 
   const data = useStaticQuery(graphql`
     {
@@ -165,7 +167,7 @@ const MegaMenu = ({ isBeloved = false }) => {
             exit={{ opacity: 0, x: -2 }}
             p={6}
             sx={{
-              bg: 'white',
+              bg: isBeloved ? 'bbBackground' : 'white',
               position: 'absolute',
               left: 0,
               top: '100%',

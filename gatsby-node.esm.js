@@ -86,9 +86,9 @@ async function createProductPages({ graphql, actions }) {
     const hidden = hasTag('hidden')
 
     // beloved
-    // const isOOAK = product.tags.some(tag => tag.match(/one.*of.*a.*kind/i))
-    // const isBeloved = hasTag('beloved') || isOOAK
-    const isBeloved = hasTag('beloved')
+    const isOOAK = product.tags.some(tag => tag.match(/one.*of.*a.*kind/i))
+    const isBeloved = hasTag('beloved') || isOOAK
+    // const isBeloved = hasTag('beloved')
 
     // get badges
     const badges = badgeNames.filter(name =>

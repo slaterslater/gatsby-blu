@@ -21,39 +21,43 @@ import RecentlyViewedProductsProvider from '../contexts/RecentlyViewedProductsCo
 import Drawers from './drawers'
 import Countdown from './Countdown'
 import BelovedHeader from './BelovedHeader'
-import SiteSwitch from './SiteSwitch'
+import { PageProvider } from '../contexts/PageContext'
+import SiteNav from './SiteNav'
 
 const ThirdPartyScripts = loadable(() => import('./ThirdPartyScripts'))
 const TidioLink = loadable(() => import('./TidioLink'))
 
 const Layout = ({ title, description, children, isBeloved = false }) => (
-  <RecentlyViewedProductsProvider>
-    <Drawers>
-      <SEO title={title} description={description} />
-      <Flex
-        sx={{
-          minHeight: '100vh',
-          minWidth: 380,
-          flexDirection: 'column',
-          alignItems: 'stretch',
-          overflow: 'hidden',
-          background: isBeloved ? 'url("/beloved-bg.webp")' : null,
-          backgroundSize: '100%',
-        }}
-      >
-        <Box sx={{ display: ['block', 'block', 'none'] }}>
-          <Announcements />
-        </Box>
-        <SiteSwitch />
-        {isBeloved ? <BelovedHeader /> : <Header />}
-        <Countdown />
-        {children}
-        <Footer />
-      </Flex>
-      <TidioLink />
-    </Drawers>
-    <ThirdPartyScripts />
-  </RecentlyViewedProductsProvider>
+  <PageProvider isBeloved={isBeloved}>
+    <RecentlyViewedProductsProvider>
+      <Drawers>
+        <SEO title={title} description={description} />
+        <Flex
+          sx={{
+            minHeight: '100vh',
+            minWidth: 380,
+            flexDirection: 'column',
+            alignItems: 'stretch',
+            overflow: 'hidden',
+            background: isBeloved ? 'url("/beloved-bg.webp")' : null,
+            backgroundSize: '100%',
+          }}
+        >
+          <Box sx={{ display: ['block', 'block', 'none'] }}>
+            <Announcements />
+          </Box>
+          <SiteNav />
+          {/* maybe just one header and use context? */}
+          {isBeloved ? <BelovedHeader /> : <Header />}
+          <Countdown />
+          {children}
+          <Footer />
+        </Flex>
+        <TidioLink />
+      </Drawers>
+      <ThirdPartyScripts />
+    </RecentlyViewedProductsProvider>
+  </PageProvider>
 )
 
 Layout.propTypes = {

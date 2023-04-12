@@ -59,15 +59,6 @@ const Header = () => {
           >
             <Box as={IoIosMenu} color="black" size={24} />
           </IconButton>
-          {/* <Link as={GatsbyLink} to="/" sx={{ justifySelf: 'center' }} py={2}>
-            <Image
-              src="/bluboho-logo-01.svg"
-              alt="bluboho logo"
-              width={180}
-              height={50}
-            />
-          </Link> */}
-
           <Flex
             sx={{
               alignItems: 'center',

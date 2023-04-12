@@ -14,8 +14,6 @@ const CollectionPageTemplate = ({ data, pageContext, ...props }) => {
     products
   )
 
-  console.log({ isBeloved })
-
   return (
     <CollectionView
       seo={seo}

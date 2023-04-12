@@ -13,16 +13,11 @@ import ProductProvider from '../components/product/ProductContext'
 import ContemplationCard from '../components/product/ContemplationCard'
 import ProductTestimonials from '../components/product/ProductTestimonials'
 import UserGeneratedContent from '../components/yotpo/UserGeneratedContent'
+import { usePageContext } from '../contexts/PageContext'
 
-const ProductView = ({
-  product,
-  alternates,
-  badges,
-  stack,
-  card,
-  isBeloved,
-}) => {
+const ProductView = ({ product, alternates, badges, stack, card }) => {
   const location = useLocation()
+  const { isBeloved } = usePageContext()
 
   const {
     handle,
@@ -38,6 +33,20 @@ const ProductView = ({
 
   const productTitle = useProductTitle(title)
   const isOOAK = tags.some(tag => tag.match(/one.*of.*a.*kind/i))
+  const home = isBeloved
+    ? { path: '/beloved', text: 'beloved by bluboho' }
+    : { path: '/', text: 'home' }
+  const links = [
+    home,
+    {
+      path:
+        location?.state?.collectionPath ||
+        `/collections/${pluralize(
+          productType.toLowerCase().replace(/\s/g, '-')
+        )}`,
+      text: location?.state?.collectionTitle || pluralize(productType),
+    },
+  ]
 
   return (
     <ProductProvider
@@ -46,7 +55,6 @@ const ProductView = ({
       alternates={alternates}
       badges={badges}
       stack={stack}
-      isBeloved={isBeloved}
     >
       <Container pt={0}>
         <Breadcrumbs
@@ -54,27 +62,13 @@ const ProductView = ({
           px={0}
           ml={[-2, 0]}
           currentPage={{ path: `/products/${handle}`, text: productTitle }}
-          links={[
-            {
-              path: '/',
-              text: 'Home',
-            },
-            {
-              path:
-                location?.state?.collectionPath ||
-                `/collections/${pluralize(
-                  productType.toLowerCase().replace(/\s/g, '-')
-                )}`,
-              text: location?.state?.collectionTitle || pluralize(productType),
-            },
-          ]}
+          links={links}
         />
         <Grid
           sx={{
             gridTemplateColumns: ['1fr', '2fr minmax(280px, 1fr)'],
             columnGap: 6,
           }}
-          // pt={[1, 6]}
         >
           <ProductImageGallery />
           <Box sx={{ position: 'relative' }}>

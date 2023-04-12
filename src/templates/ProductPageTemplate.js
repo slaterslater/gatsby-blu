@@ -21,7 +21,6 @@ const ProductPageTemplate = ({ data, pageContext, ...props }) => {
         badges={badges.nodes}
         stack={stack.nodes}
         card={card}
-        isBeloved={isBeloved}
       />
     </Layout>
   )

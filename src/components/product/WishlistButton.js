@@ -5,13 +5,14 @@ import { navigate } from 'gatsby'
 import { ProductContext } from './ProductContext'
 import { useWishlist } from '../../hooks/wishlist'
 import { AuthContext } from '../../contexts/AuthContext'
+import { usePageContext } from '../../contexts/PageContext'
 
 const WishlistButton = () => {
   const {
-    isBeloved,
     product: { handle },
   } = useContext(ProductContext)
   const { isLoggedIn } = useContext(AuthContext)
+  const { isBeloved } = usePageContext()
   const { wishlist, addToWishlist, removeFromWishlist } = useWishlist()
   const isListed = wishlist.includes(handle)
   const [isHeartFull, setIsHeartFull] = useState(isListed)
