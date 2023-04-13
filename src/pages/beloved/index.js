@@ -62,7 +62,7 @@ const Spotlights = ({ spotlights }) => (
       <Box
         key={image.asset.id}
         sx={{
-          backgroundImage: `url('/blog-bg-1.webp')`,
+          backgroundImage: `url('/beloved-frame.webp')`,
           backgroundSize: '100% 100%',
           div: {
             aspectRatio: ['3/4', '4/3'],
