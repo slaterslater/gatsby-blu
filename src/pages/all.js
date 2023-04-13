@@ -5,6 +5,7 @@ import Layout from '../components/layout'
 import { PAGINATED_COLLECTION_PRODUCTS_QUERY } from '../queries/collection'
 import SearchProduct from '../components/SearchProduct'
 import { CurrencyContext } from '../contexts/CurrencyContext'
+import CollectionPageHeader from '../components/CollectionPageHeader'
 
 const Page = ({ cursor, isLastPage, onLoadMore }) => {
   const { countryCode } = useContext(CurrencyContext)
@@ -51,9 +52,14 @@ const AllProductsPage = props => {
 
   return (
     <Layout title="all pieces">
+      <CollectionPageHeader
+        title="all"
+        description="description & image go here"
+        image={{}}
+      />
       <Container>
-        <Heading as="h1">All</Heading>
-        <Divider />
+        {/* <Heading as="h1">All</Heading> */}
+        {/* <Divider /> */}
         <Grid
           py={[3, 4, 5]}
           sx={{
