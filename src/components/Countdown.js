@@ -9,7 +9,9 @@ const Countdown = () => {
 
   if (days < 1) return null
 
-  const text = `only ${days} day${days > 1 ? 's' : ''} until mother's day!`
+  const text = `celebrate a mama with a heart of gold - ${days} day${
+    days > 1 ? 's' : ''
+  } to go!`
   const MotionBox = motion(Flex)
 
   return (
