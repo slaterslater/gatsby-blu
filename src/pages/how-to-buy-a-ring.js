@@ -7,12 +7,13 @@ import Banner from '../components/content/Banner'
 
 import imageLocationsDesktop from '../images/how-to-buy-a-ring/Desktop-600px-11.webp'
 import imageLocationsMobile from '../images/how-to-buy-a-ring/mobile-600px-18.webp'
+import { Breadcrumbs } from '../components/Breadcrumbs'
 
 const BackgroundImage = ({ src, minHeight = 0, className = '' }) => (
   <Box
     className={className}
     sx={{
-      bg: '#f9f1e8',
+      bg: '#eeece1',
       minHeight,
       backgroundImage: `url(${src})`,
       backgroundPosition: 'center',
@@ -29,11 +30,10 @@ const HowToBuyPage = () => (
   <Layout
     title="How to choose an engagement ring?"
     description="We're here to answer all of your most asked questions about finding an unique and ethically-made sapphire or diamond engagement ring you can cherish forever"
+    isBeloved
   >
     <Container
       sx={{
-        maxWidth: '100vw',
-        background: 'url("/background_beige.webp")',
         '.h1': { fontFamily: 'heading', fontSize: 4 },
         'h2, h3': {
           textTransform: 'uppercase',
@@ -118,6 +118,18 @@ const HowToBuyPage = () => (
           alt=""
         />
       </Banner>
+      <Breadcrumbs
+        sx={{ maxWidth: 1000, width: '100%', alignItems: 'center' }}
+        pt={[3, 5]}
+        pb={[0, 0]}
+        mx="auto"
+        px={4}
+        mb={7}
+        currentPage={{
+          path: `/how-to-buy-a-ring`,
+          text: 'how to buy an engagement ring',
+        }}
+      />
       <Box className="center">
         <Heading as="h1" variant="h2" pb={5}>
           how to buy an engagement ring

@@ -1,25 +1,20 @@
-import { Flex, Box, Image, Link, Grid, IconButton, Heading } from 'theme-ui'
-import { Link as GatsbyLink, navigate } from 'gatsby'
+import { Flex, Box, Grid, IconButton } from 'theme-ui'
+import { Link as GatsbyLink } from 'gatsby'
 import { IoIosMenu } from 'react-icons/io'
 import { AiOutlineUser } from 'react-icons/ai'
 import { RiShoppingBagLine } from 'react-icons/ri'
 import { BiSearchAlt2 } from 'react-icons/bi'
-import { FiHeart } from 'react-icons/fi'
 import React, { useContext, useState } from 'react'
 import HeaderSearch from './HeaderSearch'
 import MegaMenu from './header/MegaMenu'
 import { DrawerContext } from './drawers'
 import CartBadge from './cart/CartBadge'
-import { AuthContext } from '../contexts/AuthContext'
-import WishlistBadge from './header/WishlistBadge'
-import CurrencyPicker from './CurrencyPicker'
-import BelovedMenu from './header/BelovedMenu'
-import { MegaMenuLink } from './header/MegaMenu/links'
+// import { AuthContext } from '../contexts/AuthContext'
 
 const BelovedHeader = () => {
   const [searchOpen, setSearchOpen] = useState(false)
   const { setOpenDrawer } = useContext(DrawerContext)
-  const { isLoggedIn, shouldRenew } = useContext(AuthContext)
+  // const { isLoggedIn, shouldRenew } = useContext(AuthContext)
 
   return (
     <Box
@@ -45,13 +40,10 @@ const BelovedHeader = () => {
             gap: 0,
             height: [64, 96],
             gridTemplateColumns: '1fr 150px',
-            // position: 'relative',
-            // gridTemplateColumns: 'repeat(2, 1fr)',
             alignItems: 'center',
             zIndex: 3,
           }}
         >
-          {/* <BelovedMenu /> */}
           <MegaMenu isBeloved />
           <IconButton
             p={0}

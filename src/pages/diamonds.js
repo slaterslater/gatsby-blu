@@ -4,19 +4,21 @@ import { Box, Container, Flex, Grid, Heading, Text } from 'theme-ui'
 import BrownButton from '../components/BrownButton'
 import Banner from '../components/content/Banner'
 import Layout from '../components/layout'
+import { Breadcrumbs } from '../components/Breadcrumbs'
 
 const DiamondsPage = () => (
   <Layout
     title=" Ethical Engagement Rings: Choosing Sustainable Diamonds"
     description="How to choose ethical diamonds for the engagement rings? Our guide to diamonds is here to help to navigate the world of shopping for conflict-free rings- 4C's, Kimberley Process and beyond."
+    isBeloved
   >
     <Container
       sx={{
-        maxWidth: '100vw',
-        background: 'url("/background_beige.webp")',
+        // maxWidth: '100vw',
+        // background: 'url("/background_beige.webp")',
         textAlign: 'center',
         h3: {
-          bg: '#f9f1e8',
+          // bg: '#f9f1e8',
           textTransform: 'uppercase',
           fontFamily: 'body',
           fontSize: 4,
@@ -32,7 +34,7 @@ const DiamondsPage = () => (
           paddingTop: 4,
         },
         p: {
-          bg: '#f9f1e8',
+          // bg: '#f9f1e8',
           fontSize: 1,
           fontFamily: 'body',
           letterSpacing: 'wider',
@@ -45,7 +47,7 @@ const DiamondsPage = () => (
         },
         ul: { padding: 0, listStyleType: 'none' },
         li: {
-          bg: '#f9f1e8',
+          // bg: '#f9f1e8',
           width: 'fit-content',
           fontSize: 1,
           letterSpacing: 'wider',
@@ -71,6 +73,17 @@ const DiamondsPage = () => (
           placeholder="blurred"
         />
       </Banner>
+      <Breadcrumbs
+        sx={{ maxWidth: 1000, width: '100%', alignItems: 'center' }}
+        pt={[3, 5]}
+        pb={[0, 0]}
+        mx="auto"
+        px={4}
+        currentPage={{
+          path: `/diamonds`,
+          text: 'our diamonds',
+        }}
+      />
       <Flex
         sx={{
           flexDirection: ['column', 'column', 'row'],

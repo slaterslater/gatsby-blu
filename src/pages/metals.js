@@ -8,6 +8,7 @@ import BrownButton from '../components/BrownButton'
 import gold14k from '../images/metals-page/gold14k.png'
 import gold18k from '../images/metals-page/gold18k.png'
 import gold22k from '../images/metals-page/gold22k.png'
+import { Breadcrumbs } from '../components/Breadcrumbs'
 
 const Paragraph = ({ maxWidth = '100%', children }) => (
   <Text as="p" variant="copy" sx={{ maxWidth }} mx="auto" px={5} pb={6}>
@@ -19,7 +20,7 @@ const BackgroundImage = ({ src, minHeight = 0, className = '' }) => (
   <Box
     className={className}
     sx={{
-      bg: '#f9f1e8',
+      bg: '#eeece1',
       minHeight,
       backgroundImage: `url(${src})`,
       backgroundPosition: 'center',
@@ -36,11 +37,10 @@ const MetalsPage = () => (
   <Layout
     title="beyond yellow gold- best metal options for engagement rings"
     description="What is the difference between 14 karat and 18 karat gold?  What is white gold? This guide will help you choose the perfect precious metal to create the engagement ring and a wedding band of your dreams"
+    isBeloved
   >
     <Container
       sx={{
-        maxWidth: '100vw',
-        background: 'url("/background_beige.webp")',
         textAlign: 'center',
         h3: {
           textTransform: 'uppercase',
@@ -67,6 +67,17 @@ const MetalsPage = () => (
           placeholder="blurred"
         />
       </Banner>
+      <Breadcrumbs
+        sx={{ maxWidth: 1000, width: '100%', alignItems: 'center' }}
+        pt={[3, 5]}
+        pb={[0, 0]}
+        mx="auto"
+        px={4}
+        currentPage={{
+          path: `/metals`,
+          text: 'our metals',
+        }}
+      />
       <Flex
         sx={{
           flexDirection: ['column', 'column', 'row'],
@@ -125,7 +136,7 @@ const MetalsPage = () => (
         sx={{
           padding: 0,
           listStyleType: 'none',
-          li: { textTransform: 'uppercase', bg: '#f9f1e8', paddingBottom: 2 },
+          li: { textTransform: 'uppercase', bg: '#eeece1', paddingBottom: 2 },
           span: { display: 'block', paddingTop: 3 },
         }}
         mb={6}

@@ -5,17 +5,17 @@ import { Link as GatsbyLink } from 'gatsby'
 import BrownButton from '../../components/BrownButton'
 import Banner from '../../components/content/Banner'
 import Layout from '../../components/layout'
+import { Breadcrumbs } from '../../components/Breadcrumbs'
 
 const WearAndCarePage = () => (
   <Layout
     title="Making it last- how to care for your engagement ring?"
     description="How to keep your wedding and engagement jewelry in the best shape for many years to come? This guide will teach you how to care for your diamond and sapphire gold engagement rings. beloved by bluboho. Book a complimentary engagement ring appointment today"
+    isBeloved
   >
     <Container
       sx={{
-        maxWidth: '100vw',
         minWidth: 380,
-        background: 'url("/background_beige.webp")',
         textAlign: 'center',
         h2: {
           fontFamily: 'body',
@@ -51,7 +51,7 @@ const WearAndCarePage = () => (
           paddingRight: 6,
         },
         li: {
-          bg: '#f9f1e8',
+          bg: '#eeece1',
           fontSize: 1,
           letterSpacing: 'wider',
           lineHeight: 1.8,
@@ -88,6 +88,17 @@ const WearAndCarePage = () => (
           placeholder="blurred"
         />
       </Banner>
+      <Breadcrumbs
+        sx={{ maxWidth: 1000, width: '100%', alignItems: 'center' }}
+        pt={[3, 5]}
+        pb={[0, 0]}
+        mx="auto"
+        px={4}
+        currentPage={{
+          path: `/beloved/wear-and-care`,
+          text: 'wear & care',
+        }}
+      />
       <Box
         sx={{
           h1: { position: 'absolute', left: '-999em' },

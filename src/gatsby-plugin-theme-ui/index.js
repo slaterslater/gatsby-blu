@@ -38,7 +38,7 @@ const sketchButton = {
 
 const colors = {
   black: '#14191F',
-  navy: '#33374C',
+  navy: '#3A4556',
   darkGray: '#7D7D7D',
   darkerGray: '#454545',
   gray: '#BDC2BF',

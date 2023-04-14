@@ -29,11 +29,11 @@ const buttons = [
 ]
 
 const BannerButton = ({ children, text, to, height = 495 }) => (
-  <>
+  <Box as={GatsbyLink} to={to} sx={{ textDecoration: 'none' }}>
     <Banner height={height}>{children}</Banner>
     <Button
       variant="belovedBlue"
-      onClick={() => navigate(to)}
+      // onClick={() => navigate(to)}
       sx={{
         width: ['95%', '100%'],
         maxWidth: 615,
@@ -46,7 +46,7 @@ const BannerButton = ({ children, text, to, height = 495 }) => (
     >
       {lastWordUpperCase(text)}
     </Button>
-  </>
+  </Box>
 )
 
 const Spotlights = ({ spotlights }) => (
@@ -148,6 +148,22 @@ const BelovedHomePage = ({ data }) => {
               alt=""
             />
           </Flex>
+          <Button
+            variant="belovedBlue"
+            sx={{
+              width: ['calc(100% - 32px)', 530],
+              // maxWidth: ['100%', 530],
+              display: 'block',
+              transform: ['translateY(-35px)', 'translateY(-180px)'],
+              // marginBottom: '-35px',
+            }}
+            mx="auto"
+            mb={4}
+            px={4}
+            py={5}
+          >
+            {headerHero[0].button.text}
+          </Button>
         </Box>
         <Grid
           sx={{ gridTemplateColumns: ['1fr', '1fr 1fr'], maxWidth: 1250 }}
@@ -251,6 +267,7 @@ export const query = graphql`
     sanityBelovedHomePage {
       headerHero {
         button {
+          text
           path
         }
         image1 {

@@ -137,102 +137,6 @@ async function createProductPages({ graphql, actions }) {
   })
 }
 
-// async function createBelovedProductPages({ graphql, actions }) {
-//   const productTemplate = path.resolve(
-//     './src/templates/BelovedProductPageTemplate.js'
-//   )
-
-//   // 2DO change filter to something appropriate
-//   const { data } = await graphql(`
-//     {
-//       allShopifyProduct(
-//         filter: {
-//           handle: {
-//             in: [
-//               "moonlight-crescent-dome-ring"
-//               "moonlight-crescent-dome-ring-white-gold"
-//               "moonlight-crescent-dome-ring-rose-gold"
-//             ]
-//           }
-//         }
-//       ) {
-//         nodes {
-//           handle
-//           shopifyId
-//           tags
-//           metafields {
-//             key
-//             value
-//           }
-//         }
-//       }
-//       allSanityProductBadge {
-//         nodes {
-//           name
-//         }
-//       }
-//     }
-//   `)
-//   const badgeNames = data.allSanityProductBadge.nodes.map(badge => badge.name)
-//   const products = data.allShopifyProduct.nodes
-//   products.forEach(product => {
-//     const alternatesFromTags = formatMetalAlternatesFromTags(product.tags || [])
-//     const alternatesFromMetafields = formatMetalAlternatesFromMetafields(
-//       product.metafields || []
-//     )
-//     const alternates =
-//       alternatesFromMetafields.length > 0
-//         ? alternatesFromMetafields
-//         : alternatesFromTags
-//     // pass hidden context to hide product page from google...
-//     const hidden = product.tags.includes('hidden')
-
-//     // get badges
-//     const badges = badgeNames.filter(name =>
-//       product.tags.some(tag => {
-//         const stripped = s => s.toLowerCase().replace(/[\s-]/g, '')
-//         return stripped(name) === stripped(tag)
-//       })
-//     )
-
-//     // get stackWith Ids
-//     const [stackWithField] = product.metafields.filter(
-//       field => field.key === 'stack_with'
-//     )
-//     const stackWithIds = stackWithField
-//       ? JSON.parse(stackWithField.value)
-//       : product.tags
-//           .filter(tag => tag.includes('__with'))
-//           .map(tag => {
-//             const handle = tag.split(':')[1]
-//             const stackProduct = products.find(p => p.handle === handle)
-//             return stackProduct ? stackProduct.shopifyId : ''
-//           })
-
-//     // get contemplation card
-//     const card = product.metafields.find(({ key }) => key === 'card')
-//     // return card ? regex matching case insensitive title : pattern that always fails
-//     const cardTitleExp = card ? `/${JSON.parse(card.value)[0]}/i` : '/^\b$/'
-
-//     const [productIdentifier] = product.shopifyId.match(/\d+$/)
-
-//     actions.createPage({
-//       path: `beloved/products/${product.handle}`,
-//       component: productTemplate,
-//       context: {
-//         handle: product.handle,
-//         shopifyId: product.shopifyId,
-//         alternates,
-//         hidden,
-//         badges,
-//         stackWithIds,
-//         cardTitleExp,
-//         productIdentifier,
-//       },
-//     })
-//   })
-// }
-
 async function createCollectionPages({ graphql, actions }) {
   const collectionTemplate = path.resolve(
     './src/templates/CollectionPageTemplate.js'
@@ -679,9 +583,6 @@ export async function createPages(params) {
   // Wait for all promises to be resolved before finishing this function
   await Promise.all([
     createProductPages(params),
-    // maybe just create beloved pages with core product too?
-    // createBelovedProductPages(params),
-    //
     createCollectionPages(params),
     createBlogPages(params),
     createCollectionGroupPages(params),

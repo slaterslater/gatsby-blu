@@ -4,16 +4,16 @@ import { Box, Container, Flex, Heading, Text } from 'theme-ui'
 import Layout from '../components/layout'
 import Banner from '../components/content/Banner'
 import BrownButton from '../components/BrownButton'
+import { Breadcrumbs } from '../components/Breadcrumbs'
 
 const SapphiresPage = () => (
   <Layout
     title="sapphire engagement rings: the complete guide"
     description="at bluboho, we specialize at creating ethically-made unique engagement rings. this guide will show you why sapphires are the best alternative to diamond rings and how to choose the perfect one for you"
+    isBeloved
   >
     <Container
       sx={{
-        maxWidth: '100vw',
-        background: 'url("/background_beige.webp")',
         '.section': {
           textAlign: 'center',
           maxWidth: 900,
@@ -50,6 +50,17 @@ const SapphiresPage = () => (
           placeholder="blurred"
         />
       </Banner>
+      <Breadcrumbs
+        sx={{ maxWidth: 1000, width: '100%', alignItems: 'center' }}
+        pt={[3, 5]}
+        pb={[0, 0]}
+        mx="auto"
+        px={4}
+        currentPage={{
+          path: `/sapphires`,
+          text: 'our sapphires',
+        }}
+      />
       <Box className="section">
         <Heading as="h1" variant="h2" mt={[6, 8]} mb={5}>
           we are best in the world at crafting unique engagement rings using
