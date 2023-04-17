@@ -33,7 +33,7 @@ const BannerButton = ({ children, text, to, height = 495 }) => (
     <Banner height={height}>{children}</Banner>
     <Button
       variant="belovedBlue"
-      // onClick={() => navigate(to)}
+      onClick={() => navigate(to)}
       sx={{
         width: ['95%', '100%'],
         maxWidth: 615,
