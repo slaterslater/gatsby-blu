@@ -201,7 +201,7 @@ export const query = graphql`
         }
         image {
           asset {
-            gatsbyImageData(placeholder: BLURRED)
+            gatsbyImageData(placeholder: BLURRED, width: 500)
           }
         }
       }
@@ -247,7 +247,7 @@ export const query = graphql`
         title
         handle
         images {
-          gatsbyImageData(placeholder: BLURRED)
+          gatsbyImageData(placeholder: BLURRED, width: 300)
         }
       }
     }
@@ -262,7 +262,7 @@ export const query = graphql`
         }
         storeImage {
           asset {
-            gatsbyImageData(placeholder: BLURRED)
+            gatsbyImageData(placeholder: BLURRED, width: 200)
           }
         }
       }
@@ -273,7 +273,7 @@ export const query = graphql`
         collectionHandle
         image {
           asset {
-            gatsbyImageData(placeholder: BLURRED)
+            gatsbyImageData(placeholder: BLURRED, width: 155)
           }
         }
       }
