@@ -5,14 +5,28 @@ import { Helmet } from 'react-helmet'
 import { VscTriangleRight } from 'react-icons/vsc'
 import ThemeLink from './app/ThemeLink'
 import useSite from '../lib/useSite'
+import { usePageContext } from '../contexts/PageContext'
 
-export const Breadcrumbs = ({ links, currentPage, children, ...props }) => {
+export const Breadcrumbs = ({
+  links = [],
+  currentPage,
+  children,
+  ...props
+}) => {
   const { siteUrl } = useSite()
+  const { isBeloved } = usePageContext()
+
+  const home = isBeloved
+    ? { path: '/beloved', text: 'beloved by bluboho' }
+    : { path: '/', text: 'home' }
+
+  const crumbs = [home, ...links]
+
   const breadcrumbLdJSON = `
   {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "itemListElement": [${links
+    "itemListElement": [${crumbs
       .map(
         (link, i) => `
     {
@@ -23,14 +37,18 @@ export const Breadcrumbs = ({ links, currentPage, children, ...props }) => {
     }
     `
       )
-      .toString()},{
+      .toString()}]
+    }
+`
+  /*
+,{
             "@type": "ListItem",
             "position": "${links.length + 1}",
             "name": "Necklaces",
             "item": "${siteUrl}${currentPage.path}"
-          }]
-    }
-`
+          }
+*/
+
   return (
     <>
       <Helmet>
@@ -53,7 +71,7 @@ export const Breadcrumbs = ({ links, currentPage, children, ...props }) => {
         }}
         {...props}
       >
-        {links?.map(({ path, text }) => (
+        {crumbs?.map(({ path, text }) => (
           <React.Fragment key={`breadcrumb-${path}-${text}`}>
             <Text
               variant="caps"

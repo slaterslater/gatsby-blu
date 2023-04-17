@@ -69,7 +69,7 @@ const Recent = ({ value }) => {
 
 const useRecentlyViewedHandles = () => {
   const recentlyViewed = useContext(RecentlyViewedProductsContext)
-  const { handle } = useMatch('/products/:handle')
+  const { handle } = useMatch('/products/:handle') || {}
 
   return recentlyViewed?.filter(recent => recent !== handle).slice(0, 3) || []
 }

@@ -54,10 +54,6 @@ const LocationPageTemplate = ({ data }) => {
         currentPage={{ path: `/locations/${slug.current}`, text: name }}
         links={[
           {
-            path: '/',
-            text: 'Home',
-          },
-          {
             path: '/locations',
             text: 'locations',
           },

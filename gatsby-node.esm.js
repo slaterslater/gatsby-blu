@@ -77,8 +77,18 @@ async function createProductPages({ graphql, actions }) {
       alternatesFromMetafields.length > 0
         ? alternatesFromMetafields
         : alternatesFromTags
+
+    const hasTag = value =>
+      product.tags.some(tag => tag.toLowerCase() === value)
+
     // pass hidden context to hide product page from google...
-    const hidden = product.tags.includes('hidden')
+    // const hidden = product.tags.includes('hidden')
+    const hidden = hasTag('hidden')
+
+    // beloved
+    const isOOAK = product.tags.some(tag => tag.match(/one.*of.*a.*kind/i))
+    const isBeloved = hasTag('beloved') || isOOAK
+    // const isBeloved = hasTag('beloved')
 
     // get badges
     const badges = badgeNames.filter(name =>
@@ -121,6 +131,7 @@ async function createProductPages({ graphql, actions }) {
         stackWithIds,
         cardTitleExp,
         productIdentifier,
+        isBeloved,
       },
     })
   })

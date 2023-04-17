@@ -7,7 +7,7 @@ import useInterval from '../lib/useInterval'
 import Modal from './Modal'
 
 const AnnouncementText = ({ text, subtext }) => (
-  <Flex sx={{ alignItems: 'baseline' }}>
+  <Flex sx={{ alignItems: 'baseline', overflow: 'hidden' }}>
     <Box>{text}</Box>
     <Box sx={{ fontSize: '5px' }} pl={1}>
       {subtext}
@@ -99,9 +99,13 @@ const Announcements = () => {
   return (
     <Flex
       p={[3]}
-      sx={{ justifyContent: 'center', alignItems: 'center' }}
-      bg="primary"
-      color="white"
+      sx={{
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: '-1px',
+      }}
+      bg="cream"
+      color="primary"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >

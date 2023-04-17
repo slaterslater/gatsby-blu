@@ -8,6 +8,7 @@ import Accordion from '../Accordion'
 import { AuthContext } from '../../contexts/AuthContext'
 import { CUSTOMER_QUERY } from '../../queries/customer'
 import BelovedSignupModal from '../header/MegaMenu/BelovedSignupModal'
+import { usePageContext } from '../../contexts/PageContext'
 
 const NavGroup = ({ menu, closeDrawer, children }) => (
   <Accordion title={children}>
@@ -71,7 +72,10 @@ const NavigationDrawer = ({ onClose }) => {
       }
     }
   `)
-  const megaMenu = query.allSanityMegaMenu.nodes[0].groups
+  const { isBeloved } = usePageContext()
+  const menu = isBeloved ? 1 : 0
+
+  const megaMenu = query.allSanityMegaMenu.nodes[menu].groups
   const accountMenu = {
     subGroup: [
       {

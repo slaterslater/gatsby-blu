@@ -7,7 +7,7 @@ dotenv.config({
 })
 
 const siteUrl = process.env.SITE_URL || 'https://www.bluboho.com'
-const overlayDrafts = process.env.SANITY_OVERLAY_DRAFTS === 'true'
+// const overlayDrafts = process.env.SANITY_OVERLAY_DRAFTS === 'true'
 const watchMode = process.env.SANITY_WATCH_MODE === 'true'
 
 module.exports = {

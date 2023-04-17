@@ -11,7 +11,7 @@ import '@reach/menu-button/styles.css'
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Flex } from 'theme-ui'
+import { Box, Flex } from 'theme-ui'
 import loadable from '@loadable/component'
 import Announcements from './Announcements'
 import Header from './header'
@@ -20,39 +20,56 @@ import SEO from './seo'
 import RecentlyViewedProductsProvider from '../contexts/RecentlyViewedProductsContext'
 import Drawers from './drawers'
 import Countdown from './Countdown'
+import BelovedHeader from './BelovedHeader'
+import { PageProvider } from '../contexts/PageContext'
+import SiteNav from './SiteNav'
 
 const ThirdPartyScripts = loadable(() => import('./ThirdPartyScripts'))
 const TidioLink = loadable(() => import('./TidioLink'))
 
-const Layout = ({ title, description, children }) => (
-  <RecentlyViewedProductsProvider>
-    <Drawers>
-      <SEO title={title} description={description} />
-      <Flex
-        sx={{
-          minHeight: '100vh',
-          minWidth: 380,
-          flexDirection: 'column',
-          alignItems: 'stretch',
-          overflow: 'hidden',
-        }}
-      >
-        <Announcements />
-        <Header />
-        <Countdown />
-        {children}
-        <Footer />
-      </Flex>
-      <TidioLink />
-    </Drawers>
-    <ThirdPartyScripts />
-  </RecentlyViewedProductsProvider>
+const Layout = ({ title, description, children, isBeloved = false }) => (
+  <PageProvider isBeloved={isBeloved}>
+    <RecentlyViewedProductsProvider>
+      <Drawers>
+        <SEO title={title} description={description} />
+        <Flex
+          sx={{
+            minHeight: '100vh',
+            minWidth: 380,
+            flexDirection: 'column',
+            alignItems: 'stretch',
+            overflow: 'hidden',
+            background: isBeloved ? 'url("/beloved-bg.webp")' : null,
+            backgroundSize: '100%',
+          }}
+        >
+          <Box sx={{ display: ['block', 'block', 'none'] }}>
+            <Announcements />
+          </Box>
+          <SiteNav />
+          {/* maybe just one header and use context? */}
+          {isBeloved && <BelovedHeader />}
+          {!isBeloved && (
+            <>
+              <Header />
+              <Countdown />
+            </>
+          )}
+          {children}
+          <Footer />
+        </Flex>
+        <TidioLink />
+      </Drawers>
+      <ThirdPartyScripts />
+    </RecentlyViewedProductsProvider>
+  </PageProvider>
 )
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
   title: PropTypes.string,
   description: PropTypes.string,
+  isBeloved: PropTypes.bool,
 }
 
 export default Layout

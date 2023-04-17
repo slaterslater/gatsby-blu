@@ -32,7 +32,11 @@ const SanityHeroBackground = ({ image1, imageMobile }) => {
 export const HeroOuter = ({ children, data, align = 'right' }) => {
   const { heading, subheading, button } = data
   return (
-    <Box sx={{ position: 'relative' }}>
+    <Box
+      as={GatsbyLink}
+      to={button.path}
+      sx={{ position: 'relative', textDecoration: 'none', color: 'primary' }}
+    >
       <Grid
         sx={{
           height: [450, 600],
@@ -43,7 +47,7 @@ export const HeroOuter = ({ children, data, align = 'right' }) => {
       >
         {children}
       </Grid>
-      <Container
+      {/* <Container
         variant="wide"
         py={6}
         pt={7}
@@ -92,7 +96,30 @@ export const HeroOuter = ({ children, data, align = 'right' }) => {
         <Button variant="sketchWhite" as={GatsbyLink} to={button.path}>
           {button.text}
         </Button>
-      </Container>
+      </Container> */}
+      <Text
+        bg="bbBackground"
+        sx={{
+          width: ['calc(100% - 32px)', 530],
+          display: 'block',
+          position: 'relative',
+          transform: ['translateY(-35px)', 'translateY(-160px)'],
+          textAlign: 'center',
+          zIndex: 2,
+          fontFamily: 'heading',
+          textTransform: 'lowercase',
+          border: '1px solid',
+          borderColor: 'cream',
+          borderRadius: 2,
+          marginBottom: ['-20px', '-60px'],
+        }}
+        mx="auto"
+        mb={4}
+        px={4}
+        py={5}
+      >
+        {button.text}
+      </Text>
     </Box>
   )
 }

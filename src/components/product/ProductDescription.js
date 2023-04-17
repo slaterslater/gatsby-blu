@@ -46,6 +46,9 @@ export const DescriptionHtml = styled.div`
     width: auto;
     height: auto;
   }
+  a {
+    color: #14191f;
+  }
 `
 
 const stripHtml = (str = '') => str.replace(/(<([^>]+)>)/gi, '')

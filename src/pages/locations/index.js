@@ -41,12 +41,6 @@ const LocationIndexPage = ({ data }) => {
         mx="auto"
         px={4}
         currentPage={{ path: `/locations`, text: 'locations' }}
-        links={[
-          {
-            path: '/',
-            text: 'Home',
-          },
-        ]}
       />
       <Container
         as="main"

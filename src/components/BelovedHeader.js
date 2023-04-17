@@ -1,23 +1,20 @@
-import { Flex, Box, Image, Link, Grid, IconButton, Heading } from 'theme-ui'
-import { Link as GatsbyLink, navigate } from 'gatsby'
+import { Flex, Box, Grid, IconButton } from 'theme-ui'
+import { Link as GatsbyLink } from 'gatsby'
 import { IoIosMenu } from 'react-icons/io'
 import { AiOutlineUser } from 'react-icons/ai'
 import { RiShoppingBagLine } from 'react-icons/ri'
 import { BiSearchAlt2 } from 'react-icons/bi'
-import { FiHeart } from 'react-icons/fi'
 import React, { useContext, useState } from 'react'
 import HeaderSearch from './HeaderSearch'
 import MegaMenu from './header/MegaMenu'
 import { DrawerContext } from './drawers'
 import CartBadge from './cart/CartBadge'
-import { AuthContext } from '../contexts/AuthContext'
-import WishlistBadge from './header/WishlistBadge'
-import CurrencyPicker from './CurrencyPicker'
+// import { AuthContext } from '../contexts/AuthContext'
 
-const Header = () => {
+const BelovedHeader = () => {
   const [searchOpen, setSearchOpen] = useState(false)
   const { setOpenDrawer } = useContext(DrawerContext)
-  const { isLoggedIn, shouldRenew } = useContext(AuthContext)
+  // const { isLoggedIn, shouldRenew } = useContext(AuthContext)
 
   return (
     <Box
@@ -30,25 +27,24 @@ const Header = () => {
     >
       <Box
         as="header"
-        bg="white"
+        bg="navy"
         sx={{
           position: 'relative',
           zIndex: 2,
           borderBottom: '1px solid',
-          borderColor: 'border',
+          borderColor: 'black',
         }}
       >
         <Grid
           sx={{
+            gap: 0,
             height: [64, 96],
-            gridTemplateColumns: 'repeat(2, 1fr)',
+            gridTemplateColumns: '1fr 150px',
             alignItems: 'center',
-            gap: 4,
-            position: 'relative',
             zIndex: 3,
           }}
         >
-          <MegaMenu />
+          <MegaMenu isBeloved />
           <IconButton
             p={0}
             ml={4}
@@ -57,14 +53,17 @@ const Header = () => {
             onClick={() => setOpenDrawer('navigation')}
             aria-label="Menu"
           >
-            <Box as={IoIosMenu} color="black" size={24} />
+            <Box as={IoIosMenu} color="cream" size={24} />
           </IconButton>
           <Flex
             sx={{
+              width: '100%',
               alignItems: 'center',
               justifySelf: 'end',
+              justifyContent: 'flex-end',
             }}
             p={4}
+            mr={[0, 0, 4]}
           >
             <Box
               sx={{
@@ -80,7 +79,7 @@ const Header = () => {
               >
                 <Box
                   as={AiOutlineUser}
-                  color="black"
+                  color="cream"
                   size={24}
                   sx={{ transform: 'translateY(1px)' }}
                 />
@@ -92,28 +91,13 @@ const Header = () => {
               >
                 <Box
                   as={BiSearchAlt2}
-                  color="black"
+                  color="cream"
                   size={24}
                   sx={{ transform: 'translateY(1px)' }}
                 />
               </IconButton>
-              <Box sx={{ position: 'relative' }}>
-                <WishlistBadge />
-                <IconButton
-                  onClick={() =>
-                    shouldRenew || !isLoggedIn
-                      ? navigate('/account/login', {
-                          state: { toOrigin: '/account/wishlist' },
-                        })
-                      : navigate('/account/wishlist')
-                  }
-                  aria-label="Wishlist"
-                >
-                  <Box as={FiHeart} color="black" size={21} />
-                </IconButton>
-              </Box>
             </Box>
-            <CurrencyPicker />
+            {/* <CurrencyPicker /> */}
             <Box sx={{ position: 'relative' }}>
               <CartBadge />
               <IconButton
@@ -121,7 +105,7 @@ const Header = () => {
                 onClick={() => setOpenDrawer('cart')}
                 aria-label="Cart"
               >
-                <Box as={RiShoppingBagLine} color="black" size={24} />
+                <Box as={RiShoppingBagLine} color="cream" size={24} />
               </IconButton>
             </Box>
           </Flex>
@@ -135,4 +119,4 @@ const Header = () => {
   )
 }
 
-export default Header
+export default BelovedHeader

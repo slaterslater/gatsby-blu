@@ -38,7 +38,7 @@ const sketchButton = {
 
 const colors = {
   black: '#14191F',
-  navy: '#14191F',
+  navy: '#3A4556',
   darkGray: '#7D7D7D',
   darkerGray: '#454545',
   gray: '#BDC2BF',
@@ -60,7 +60,7 @@ const colors = {
   prodBackground: '#fbf9f7',
 }
 colors.text = colors.black
-colors.primary = colors.navy
+colors.primary = colors.black
 colors.background = colors.white
 
 export default {
@@ -319,6 +319,14 @@ export default {
       fontFamily: 'body',
       letterSpacing: 'inherit',
       fontSize: 'inherit',
+      cursor: 'pointer',
+    },
+    belovedBlue: {
+      bg: 'navy',
+      borderRadius: 0,
+      fontSize: 2,
+      fontFamily: 'heading',
+      letterSpacing: 'widest',
       cursor: 'pointer',
     },
   },

@@ -5,6 +5,7 @@ import { Link as GatsbyLink } from 'gatsby'
 import Banner from '../../components/content/Banner'
 import Layout from '../../components/layout'
 import BrownButton from '../../components/BrownButton'
+import { Breadcrumbs } from '../../components/Breadcrumbs'
 
 const faqs = [
   `what is the best stone for an engagement ring`,
@@ -41,11 +42,10 @@ const BelovedFAQpage = () => (
   <Layout
     title="FAQ - Frequently Asked Questions"
     description="what is the best stone for an engagement ring? what is the average price range for an engagement ring? do you offer payment plans? do i have to pay a deposit/pay upfront? what is bluboho return policy?"
+    isBeloved
   >
     <Container
       sx={{
-        maxWidth: '100vw',
-        background: 'url("/background_beige.webp")',
         h2: {
           textAlign: 'center',
           fontWeight: 'body',
@@ -67,7 +67,7 @@ const BelovedFAQpage = () => (
           paddingTop: 5,
           paddingBottom: 3,
         },
-        p: { textAlign: 'center', lineHeight: 2, bg: '#f9f1e8' },
+        p: { textAlign: 'center', lineHeight: 2, bg: '#eeece1' },
         'p a': { color: 'primary', fontWeight: 'heading' },
         ul: {
           padding: 0,
@@ -80,7 +80,7 @@ const BelovedFAQpage = () => (
           listStyleType: ['disc', 'none'],
         },
         li: {
-          bg: '#f9f1e8',
+          bg: '#eeece1',
           fontSize: 1,
           letterSpacing: 'wider',
           lineHeight: 'body',
@@ -106,6 +106,17 @@ const BelovedFAQpage = () => (
           placeholder="blurred"
         />
       </Banner>
+      <Breadcrumbs
+        sx={{ maxWidth: 1000, width: '100%', alignItems: 'center' }}
+        pt={[3, 5]}
+        pb={[0, 0]}
+        mx="auto"
+        px={4}
+        currentPage={{
+          path: `/beloved/frequently-asked-questions`,
+          text: 'FAQ',
+        }}
+      />
       <Flex
         sx={{
           alignItems: 'center',

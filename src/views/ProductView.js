@@ -16,7 +16,6 @@ import UserGeneratedContent from '../components/yotpo/UserGeneratedContent'
 
 const ProductView = ({ product, alternates, badges, stack, card }) => {
   const location = useLocation()
-
   const {
     handle,
     title,
@@ -32,6 +31,17 @@ const ProductView = ({ product, alternates, badges, stack, card }) => {
   const productTitle = useProductTitle(title)
   const isOOAK = tags.some(tag => tag.match(/one.*of.*a.*kind/i))
 
+  const links = [
+    {
+      path:
+        location?.state?.collectionPath ||
+        `/collections/${pluralize(
+          productType.toLowerCase().replace(/\s/g, '-')
+        )}`,
+      text: location?.state?.collectionTitle || pluralize(productType),
+    },
+  ]
+
   return (
     <ProductProvider
       initial={product}
@@ -46,27 +56,13 @@ const ProductView = ({ product, alternates, badges, stack, card }) => {
           px={0}
           ml={[-2, 0]}
           currentPage={{ path: `/products/${handle}`, text: productTitle }}
-          links={[
-            {
-              path: '/',
-              text: 'Home',
-            },
-            {
-              path:
-                location?.state?.collectionPath ||
-                `/collections/${pluralize(
-                  productType.toLowerCase().replace(/\s/g, '-')
-                )}`,
-              text: location?.state?.collectionTitle || pluralize(productType),
-            },
-          ]}
+          links={links}
         />
         <Grid
           sx={{
             gridTemplateColumns: ['1fr', '2fr minmax(280px, 1fr)'],
             columnGap: 6,
           }}
-          pt={[1, 6]}
         >
           <ProductImageGallery />
           <Box sx={{ position: 'relative' }}>

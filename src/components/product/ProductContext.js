@@ -39,6 +39,7 @@ const ProductProvider = ({
   alternates,
   badges,
   stack,
+  isBeloved,
   ...props
 }) => {
   const { countryCode } = useContext(CurrencyContext)
@@ -58,6 +59,7 @@ const ProductProvider = ({
     alternates,
     badges,
     stack,
+    isBeloved,
   })
 
   // update product from async request

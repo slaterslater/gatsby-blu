@@ -6,12 +6,14 @@ import ProductView from '../views/ProductView'
 
 import { useViewProductAnalytics } from '../hooks/product'
 
-const ProductPageTemplate = ({ data, ...props }) => {
+const ProductPageTemplate = ({ data, pageContext, ...props }) => {
   const { product, alternates, badges, stack, card, rating, reviews } = data
+  const { isBeloved } = pageContext
+
   useViewProductAnalytics(product)
 
   return (
-    <Layout>
+    <Layout isBeloved={isBeloved}>
       <ProductSEO product={product} rating={rating} reviews={reviews.nodes} />
       <ProductView
         product={product}

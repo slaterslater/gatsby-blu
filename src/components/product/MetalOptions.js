@@ -13,7 +13,8 @@ const MetalOption = ({ title, handle, metal, isCurrent, ...props }) => {
     return <MetalOptionSwatch isCurrent={isCurrent} metal={metal} {...props} />
 
   return (
-    <ThemeLink aria-label={title} to={`/products/${handle}`} {...props}>
+    <ThemeLink aria-label={title} to={`../${handle}`} {...props}>
+      {/* <ThemeLink aria-label={title} to={`/products/${handle}`} {...props}> */}
       <MetalOptionSwatch metal={metal} />
     </ThemeLink>
   )

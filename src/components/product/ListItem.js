@@ -31,7 +31,7 @@ const DragBox = ({ children, primary = false, controls, shuffleImg }) => {
       sx={{
         gridArea: '1 / 1 / -1 / -1',
         zIndex: primary ? 1 : 0,
-        bg: 'white',
+        bg: 'transparent',
       }}
       whileHover={primary ? { opacity: 0 } : null}
       animate={controls}
@@ -69,7 +69,7 @@ export const CollectionThumbnail = ({ title, primary, alternate }) => {
   }
 
   if (!primary && !alternate) {
-    return <AspectRatio sx={{ bg: 'prodBackground' }} ratio={1 / 1} />
+    return <AspectRatio sx={{ bg: 'prodBackground' }} ratio={1} />
   }
   if (!alternate) {
     return (
@@ -78,7 +78,7 @@ export const CollectionThumbnail = ({ title, primary, alternate }) => {
   }
   return (
     <>
-      <Grid sx={{ aspectRatio: 1 }}>
+      <Grid sx={{ aspectRatio: '1', margin: '-1px' }}>
         <AnimatePresence>
           <DragBox
             key={`thumbnail-${title}-1`}

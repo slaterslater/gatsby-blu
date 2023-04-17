@@ -2,11 +2,13 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import CollectionView from '../views/CollectionView'
 import { useLatestCollection } from '../hooks/collection'
+import { useMetafieldValue } from '../hooks/useMetafield'
 
 const CollectionPageTemplate = ({ data, pageContext, ...props }) => {
-  const { products, handle, image, title, description, seo } =
+  const { products, handle, image, title, description, seo, metafields } =
     data.shopifyCollection
   const { content } = data.sanityCollectionSeo || {}
+  const isBeloved = useMetafieldValue('isBeloved', metafields)
   const { collectionProducts, collectionImages } = useLatestCollection(
     handle,
     products
@@ -23,6 +25,7 @@ const CollectionPageTemplate = ({ data, pageContext, ...props }) => {
       products={collectionProducts}
       card={data.card}
       content={content}
+      isBeloved={isBeloved === 'true'}
       hasFilters
     />
   )
@@ -35,11 +38,15 @@ export const query = graphql`
     shopifyCollection(handle: { eq: $handle }) {
       title
       description
+      handle
+      metafields {
+        key
+        value
+      }
       seo {
         title
         description
       }
-      handle
       image {
         gatsbyImageData(placeholder: BLURRED)
         originalSrc

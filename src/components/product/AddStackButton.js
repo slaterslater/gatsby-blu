@@ -4,6 +4,7 @@ import { Button, Flex, Box } from 'theme-ui'
 import { useCart } from '../../hooks/cart'
 import { useShopifyImage } from '../../hooks/shopifyImage'
 import { ProductContext } from './ProductContext'
+import { usePageContext } from '../../contexts/PageContext'
 
 const ThumbnailImage = ({ image, alt = '' }) => (
   <Box mx={2}>
@@ -17,6 +18,7 @@ const AddStackButton = () => {
     product: { availableForSale, byAppointmentOnly },
     stack,
   } = useContext(ProductContext)
+  const { isBeloved } = usePageContext()
 
   const stackImages = useMemo(
     () =>
@@ -44,6 +46,7 @@ const AddStackButton = () => {
         disabled={disabled}
         type="button"
         onClick={addStackToCart}
+        bg={isBeloved ? 'navy' : 'primary'}
         sx={{
           flex: 1,
           fontSize: 1,
