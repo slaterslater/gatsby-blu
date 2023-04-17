@@ -150,6 +150,7 @@ const BelovedHomePage = ({ data }) => {
           </Flex>
           <Button
             variant="belovedBlue"
+            onClick={() => navigate(headerHero[0].button.path)}
             sx={{
               width: ['calc(100% - 32px)', 530],
               // maxWidth: ['100%', 530],
