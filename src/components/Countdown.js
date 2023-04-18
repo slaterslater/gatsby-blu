@@ -1,17 +1,32 @@
 import dayjs from 'dayjs'
 import { motion, AnimatePresence } from 'framer-motion'
+import { graphql, useStaticQuery } from 'gatsby'
 import React from 'react'
 import { Box, Flex, Text } from 'theme-ui'
 
 const Countdown = () => {
-  const deadline = dayjs('2023-05-14')
+  const data = useStaticQuery(graphql`
+    {
+      sanitySiteAnnouncements {
+        countdown {
+          text
+          startDate
+          stopDate
+        }
+      }
+    }
+  `)
+
+  const { text, startDate, stopDate } = data.sanitySiteAnnouncements.countdown
+  if (!(text && startDate && stopDate)) return null
+
+  const deadline = dayjs(stopDate)
   const days = deadline.diff(dayjs(), 'day')
+  const tooEarly = dayjs().isBefore(startDate, 'day')
 
-  if (days < 1) return null
+  if (days < 1 || tooEarly) return null
 
-  const text = `celebrate a mama with a heart of gold - ${days} day${
-    days > 1 ? 's' : ''
-  } to go!`
+  const message = text.replace('#days', `${days} day${days > 1 ? 's' : ''}`)
   const MotionBox = motion(Flex)
 
   return (
@@ -49,11 +64,11 @@ const Countdown = () => {
                 fontSize: 1,
                 fontWeight: 'bold',
                 letterSpacing: 'wider',
-                span: { textTransform: 'uppercase' },
+                // span: { textTransform: 'uppercase' },
               }}
               py={2}
             >
-              •<Text px={4}>{text}</Text>
+              •<Text px={4}>{message}</Text>
             </Box>
           ))}
         </MotionBox>
