@@ -1,19 +1,19 @@
 import { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { navigate } from '@reach/router'
+import { navigate } from 'gatsby'
 
-// nested product pages were a feature of shopify
-// redirect to the root product page
-const CollectionProductPage = ({ to }) => {
+const PageRedirect = ({ to, pageContext }) => {
+  const path = to || pageContext.to || '/'
+
   useEffect(() => {
-    navigate(to)
-  }, [])
+    navigate(path)
+  }, [path])
 
   return false
 }
 
-CollectionProductPage.propTypes = {
+PageRedirect.propTypes = {
   to: PropTypes.string.isRequired,
 }
 
-export default CollectionProductPage
+export default PageRedirect

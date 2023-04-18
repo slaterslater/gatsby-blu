@@ -442,6 +442,29 @@ async function createLocationPages({ graphql, actions }) {
   })
 }
 
+// build pages that redirect to another
+async function createRedirectPages({ graphql, actions }) {
+  const { data } = await graphql(`
+    {
+      allSanityRedirect {
+        nodes {
+          from
+          to
+        }
+      }
+    }
+  `)
+
+  data.allSanityRedirect.nodes.forEach(node => {
+    const { from, to } = node
+    actions.createPage({
+      path: from,
+      component: path.resolve('./src/components/PageRedirect.js'),
+      context: { to },
+    })
+  })
+}
+
 // fetch data from podcast api and create nodes from returned array
 async function createPodcastNodes({ actions, createContentDigest }) {
   const url = `https://www.buzzsprout.com/api/${process.env.BUZZSPROUT_PODCAST_ID}/episodes.json`
@@ -591,5 +614,6 @@ export async function createPages(params) {
     createGiftGuidePages(params),
     createHomePage(params),
     createLocationPages(params),
+    createRedirectPages(params),
   ])
 }
