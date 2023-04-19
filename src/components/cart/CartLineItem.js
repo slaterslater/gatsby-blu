@@ -83,7 +83,8 @@ const CartLineItem = ({ onRemoveItem, item, imgSize }) => {
           type="button"
           onClick={() => {
             sendAnalytics(item)
-            removeLineItem({ checkoutId, lineItemIds: [item.id] })
+            // removeLineItem({ checkoutId, lineItemIds: [item.id] })
+            updateQuantity(-1 * item.quantity)
           }}
           sx={{ cursor: 'pointer' }}
         >
