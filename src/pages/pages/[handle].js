@@ -1,11 +1,11 @@
 import React from 'react'
 import { useQuery } from 'urql'
-import { graphql } from 'gatsby'
+// import { graphql } from 'gatsby'
 import { useMatch } from '@reach/router'
 import { useAnalytics } from '../../lib/useAnalytics'
 import PageView from '../../views/PageView'
 import { PAGE_QUERY } from '../../queries/page'
-import Layout from '../../components/layout'
+// import Layout from '../../components/layout'
 
 const PageTemplate = ({ path }) => {
   const { handle } = useMatch(path)
@@ -17,7 +17,7 @@ const PageTemplate = ({ path }) => {
   const { page } = data || {}
 
   useAnalytics('viewPage')
-  if (!page) return <Layout />
+  if (!page) return null
   return (
     <PageView
       title={page.title}
