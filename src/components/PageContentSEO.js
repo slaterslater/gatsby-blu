@@ -3,10 +3,10 @@ import { GatsbyImage } from 'gatsby-plugin-image'
 import React from 'react'
 import { Grid, Heading, Text } from 'theme-ui'
 
-const CollectionExtraContent = ({ title, content }) => (
+const PageContentSEO = ({ title, type, content }) => (
   <>
     <Heading as="h2" variant="h2" sx={{ textAlign: 'center' }} py={6}>
-      {`${title} jewelry collection`}
+      {`${title}${type === 'collection' ? ' jewelry collection' : ''}`}
     </Heading>
     <Grid
       sx={{
@@ -62,4 +62,4 @@ const CollectionExtraContent = ({ title, content }) => (
   </>
 )
 
-export default CollectionExtraContent
+export default PageContentSEO
