@@ -96,7 +96,13 @@ const ProductView = ({ product, alternates, badges, stack, card, content }) => {
       </Container>
       {isOOAK && <ProductTestimonials />}
       <Container>
-        {content && <PageContentSEO title={title} content={content} />}
+        {content && (
+          <PageContentSEO
+            title={title}
+            content={content}
+            isCollection={false}
+          />
+        )}
       </Container>
     </ProductProvider>
   )

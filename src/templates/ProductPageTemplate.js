@@ -200,7 +200,6 @@ export const query = graphql`
       score
     }
     sanityCollectionSeo(type: { eq: "product" }, handle: { eq: $handle }) {
-      type
       content {
         ... on SanityCollectionSEOheading {
           heading
