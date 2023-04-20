@@ -9,11 +9,10 @@ import { sortProducts } from '../components/collection/CollectionProductGrid'
 import CollectionProduct from '../components/CollectionProduct'
 import CollectionFilterAndSort from '../components/collection/CollectionFilterAndSort'
 import CollectionPageHeader from '../components/CollectionPageHeader'
-import SEO from '../components/seo'
 import { useLatestCollection } from '../hooks/collection'
 import { useShopifyImage } from '../hooks/shopifyImage'
 import CollectionSEO from '../components/collection/CollectionSEO'
-import CollectionExtraContent from '../components/collection/CollectionExtraContent'
+import PageContentSEO from '../components/PageContentSEO'
 
 const sortCollections = (nodes, arr) =>
   nodes.sort((a, b) => arr.indexOf(a.handle) - arr.indexOf(b.handle))
@@ -176,9 +175,7 @@ const CollectionGroupsView = ({
             />
           )}
         </Grid>
-        {content && (
-          <CollectionExtraContent title={pageTitle} content={content} />
-        )}
+        {content && <PageContentSEO title={pageTitle} content={content} />}
       </Container>
     </Layout>
   )

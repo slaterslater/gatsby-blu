@@ -13,8 +13,9 @@ import ProductProvider from '../components/product/ProductContext'
 import ContemplationCard from '../components/product/ContemplationCard'
 import ProductTestimonials from '../components/product/ProductTestimonials'
 import UserGeneratedContent from '../components/yotpo/UserGeneratedContent'
+import PageContentSEO from '../components/PageContentSEO'
 
-const ProductView = ({ product, alternates, badges, stack, card }) => {
+const ProductView = ({ product, alternates, badges, stack, card, content }) => {
   const location = useLocation()
   const {
     handle,
@@ -30,6 +31,8 @@ const ProductView = ({ product, alternates, badges, stack, card }) => {
 
   const productTitle = useProductTitle(title)
   const isOOAK = tags.some(tag => tag.match(/one.*of.*a.*kind/i))
+
+  console.log({ content })
 
   const links = [
     {
@@ -92,6 +95,9 @@ const ProductView = ({ product, alternates, badges, stack, card }) => {
         )}
       </Container>
       {isOOAK && <ProductTestimonials />}
+      <Container>
+        {content && <PageContentSEO title={title} content={content} />}
+      </Container>
     </ProductProvider>
   )
 }

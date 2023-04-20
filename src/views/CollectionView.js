@@ -1,17 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Container } from 'theme-ui'
-
 import Layout from '../components/layout'
 import ProductGrid from '../components/collection/CollectionProductGrid'
-
 import CollectionFilterAndSort from '../components/collection/CollectionFilterAndSort'
-
 import { useAnalytics } from '../lib/useAnalytics'
 import CollectionPageHeader from '../components/CollectionPageHeader'
 import ContemplationCard from '../components/product/ContemplationCard'
 import CollectionSEO from '../components/collection/CollectionSEO'
-import CollectionExtraContent from '../components/collection/CollectionExtraContent'
+import PageContentSEO from '../components/PageContentSEO'
 
 export const getCollectionProducts = products => {
   if (!products) return undefined
@@ -68,7 +65,7 @@ const CollectionPage = ({
           collectionPath={`/collections/${handle}`}
           collectionImages={collectionImages}
         />
-        {content && <CollectionExtraContent title={title} content={content} />}
+        {content && <PageContentSEO title={title} content={content} />}
       </Container>
     </Layout>
   )

@@ -106,7 +106,7 @@ export const query = graphql`
         }
       }
     }
-    sanityCollectionSeo(handle: { eq: $handle }) {
+    sanityCollectionSeo(type: { eq: "collection" }, handle: { eq: $handle }) {
       content {
         ... on SanityCollectionSEOheading {
           heading

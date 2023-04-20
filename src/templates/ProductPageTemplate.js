@@ -8,6 +8,7 @@ import { useViewProductAnalytics } from '../hooks/product'
 
 const ProductPageTemplate = ({ data, pageContext, ...props }) => {
   const { product, alternates, badges, stack, card, rating, reviews } = data
+  const { content } = data.sanityCollectionSeo || {}
   const { isBeloved } = pageContext
 
   useViewProductAnalytics(product)
@@ -21,6 +22,7 @@ const ProductPageTemplate = ({ data, pageContext, ...props }) => {
         badges={badges.nodes}
         stack={stack.nodes}
         card={card}
+        content={content}
       />
     </Layout>
   )
@@ -196,6 +198,27 @@ export const query = graphql`
     ) {
       totalReviews
       score
+    }
+    sanityCollectionSeo(type: { eq: "product" }, handle: { eq: $handle }) {
+      type
+      content {
+        ... on SanityCollectionSEOheading {
+          heading
+        }
+        ... on SanityCollectionSEOtext {
+          quote
+        }
+        ... on SanityCollectionSEOblock {
+          blocks: _rawBlock
+        }
+        ... on SanityCollectionSEOimage {
+          image {
+            asset {
+              gatsbyImageData(placeholder: BLURRED)
+            }
+          }
+        }
+      }
     }
   }
 `
