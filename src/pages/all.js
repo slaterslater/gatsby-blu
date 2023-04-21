@@ -1,10 +1,12 @@
 import { Button, Container, Grid, Divider, Heading } from 'theme-ui'
 import { useQuery } from 'urql'
 import React, { useContext, useState } from 'react'
+import { StaticImage } from 'gatsby-plugin-image'
 import Layout from '../components/layout'
 import { PAGINATED_COLLECTION_PRODUCTS_QUERY } from '../queries/collection'
 import SearchProduct from '../components/SearchProduct'
 import { CurrencyContext } from '../contexts/CurrencyContext'
+import CollectionPageHeader from '../components/CollectionPageHeader'
 
 const Page = ({ cursor, isLastPage, onLoadMore }) => {
   const { countryCode } = useContext(CurrencyContext)
@@ -48,12 +50,16 @@ const Page = ({ cursor, isLastPage, onLoadMore }) => {
 
 const AllProductsPage = props => {
   const [pageParams, setPageParams] = useState([{ cursor: null }])
+  const title = 'all fine jewelry'
+  const description =
+    'explore our array of sustainable, handmade fine jewelry— from dainty stacking rings to statement earrings, delicate silver bracelets to solid gold everyday jewelry and beyond, we have unique jewelry options for every occasion'
 
   return (
-    <Layout title="all pieces">
+    <Layout title={title} description={description}>
+      <CollectionPageHeader title={title} description={description}>
+        <StaticImage src="../images/all-product-page-header.webp" />
+      </CollectionPageHeader>
       <Container>
-        <Heading as="h1">All</Heading>
-        <Divider />
         <Grid
           py={[3, 4, 5]}
           sx={{

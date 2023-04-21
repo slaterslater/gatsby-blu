@@ -55,7 +55,7 @@ const MegaMenu = () => {
         nodes {
           handle
           image {
-            gatsbyImageData(placeholder: BLURRED)
+            gatsbyImageData(placeholder: BLURRED, height: 500)
           }
         }
       }
@@ -116,6 +116,9 @@ const MegaMenu = () => {
             }
             if (card) {
               nextLink.image = card.image.asset.gatsbyImageData
+            }
+            if (handle == 'hoops' || handle == 'earrings') {
+              console.log({ nextLink })
             }
             return nextLink
           }),
