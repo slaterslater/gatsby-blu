@@ -1,6 +1,6 @@
 import { Link, Flex, Box, Text, Heading } from 'theme-ui'
 import React, { useMemo, useState } from 'react'
-import { GatsbyImage } from 'gatsby-plugin-image'
+import { GatsbyImage, StaticImage } from 'gatsby-plugin-image'
 import { useShopifyImage } from '../hooks/shopifyImage'
 
 const ShopifyHeaderImage = ({ image, altText }) => {
@@ -16,10 +16,51 @@ const ShopifyHeaderImage = ({ image, altText }) => {
 
 const HeaderImage = ({ image, altText }) => {
   // gatsby image data returns images, shopify images do not
-  if (image?.images) {
-    return <GatsbyImage image={image} alt={altText || ''} objectFit="cover" />
+
+  // switch statement
+  // add string for staticimage
+  if (image.images) console.log('yep')
+
+  console.log(typeof image)
+
+  switch (true) {
+    case !!image.images:
+      return <GatsbyImage image={image} alt={altText || ''} objectFit="cover" />
+    case !!image.gatsbyImageData:
+      return (
+        <GatsbyImage
+          image={image.gatsbyImageData}
+          alt={altText || ''}
+          objectFit="cover"
+        />
+      )
+    case typeof image === 'string':
+      return <StaticImage src={image} alt="" />
+    default:
+      return null
   }
-  return <ShopifyHeaderImage image={image} altText={image.altText} />
+
+  // switch (true) {
+  //   case image:
+  //     console.log('no')
+  //     // return <GatsbyImage image={image} alt={altText || ''} objectFit="cover" />
+  //     return null
+  //   case image.gatsbyImageData:
+  //     return (
+  //       <GatsbyImage
+  //         image={image.gatsbyImageData}
+  //         alt={altText || ''}
+  //         objectFit="cover"
+  //       />
+  //     )
+  //   default:
+  //     return null
+  // }
+
+  // if (image?.images) {
+  //   return <GatsbyImage image={image} alt={altText || ''} objectFit="cover" />
+  // }
+  // return <ShopifyHeaderImage image={image} altText={image.altText} />
 }
 
 const RevealText = ({ children, chars = 250, ...props }) => {
@@ -56,7 +97,7 @@ const RevealText = ({ children, chars = 250, ...props }) => {
   )
 }
 
-const CollectionPageHeader = ({ title, description, image }) => (
+const CollectionPageHeader = ({ title, description, image, children }) => (
   <Flex
     mx="auto"
     sx={{
@@ -102,6 +143,11 @@ const CollectionPageHeader = ({ title, description, image }) => (
     {image && (
       <Flex sx={{ alignItems: 'stretch', flex: 1, maxHeight: 400 }}>
         <HeaderImage image={image} />
+      </Flex>
+    )}
+    {children && (
+      <Flex sx={{ alignItems: 'stretch', flex: 1, maxHeight: 400 }}>
+        {children}
       </Flex>
     )}
   </Flex>

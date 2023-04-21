@@ -1,22 +1,23 @@
 import React, { useState } from 'react'
 import { Image, Grid, Box, Flex, Heading } from 'theme-ui'
+import { GatsbyImage } from 'gatsby-plugin-image'
 import ThemeLink from '../../app/ThemeLink'
 import BelovedSignupModal from './BelovedSignupModal'
 
 const FeatureImage = ({ gatsbyImageData, alt, path = null, min = 0 }) => {
   if (!gatsbyImageData) return <></>
-  const Img = (
-    <Image
-      {...gatsbyImageData.images.fallback}
-      sx={{
-        objectFit: 'cover',
-        flex: 1,
-        height: '100%',
-        maxHeight: '280px',
-        minWidth: min,
-      }}
-      alt={alt}
-    />
+  const style = {
+    objectFit: 'cover',
+    flex: 1,
+    height: '100%',
+    maxHeight: '280px',
+    minWidth: min,
+  }
+  const imgFallbackData = gatsbyImageData.images.fallback
+  const Img = imgFallbackData ? (
+    <Image {...imgFallbackData} sx={style} alt={alt} />
+  ) : (
+    <GatsbyImage image={gatsbyImageData} alt={alt} style={style} />
   )
   if (!path)
     return <Box sx={{ display: 'flex', alignItems: 'stretch' }}>{Img}</Box>
