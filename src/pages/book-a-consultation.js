@@ -66,6 +66,7 @@ const CalendlyConsultationPage = ({ data, location }) => {
     <Layout
       title="Book a Consultation Appointment"
       description="Let us work with you throughout your engagement ring consultation on finding your beloved by bluboho engagement ring or wedding band"
+      isBeloved
     >
       <Flex sx={{ justifyContent: 'stretch', maxHeight: 400 }}>
         <StaticImage
