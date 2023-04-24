@@ -5,7 +5,7 @@ import { escapeDoubleQuoteString } from '../../lib/escapeDoubleQuoteStrings'
 import { getSrcWithSize } from '../RemoteShopifyImage'
 import useSite from '../../lib/useSite'
 
-const ProductSEO = ({ product, rating, reviews }) => {
+const ProductSEO = ({ product, rating, reviews = [] }) => {
   const { siteUrl } = useSite()
   const title = useProductTitle(product.title)
   const { title: seoTitle, description: seoDesc } = product.seo || {}
