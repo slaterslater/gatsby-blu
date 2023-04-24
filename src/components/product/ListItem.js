@@ -3,8 +3,10 @@ import { AspectRatio, Grid, Flex, Box, Text, Badge } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
 import { AnimatePresence, motion, useAnimation } from 'framer-motion'
 import { GatsbyImage } from 'gatsby-plugin-image'
+import dayjs from 'dayjs'
 import FormattedPrice from '../FormattedPrice'
 import { useShopifyImage } from '../../hooks/shopifyImage'
+import { useMetafieldValue } from '../../hooks/useMetafield'
 
 const MotionBox = motion(Box)
 
@@ -31,7 +33,7 @@ const DragBox = ({ children, primary = false, controls, shuffleImg }) => {
       sx={{
         gridArea: '1 / 1 / -1 / -1',
         zIndex: primary ? 1 : 0,
-        bg: 'transparent',
+        bg: 'white',
       }}
       whileHover={primary ? { opacity: 0 } : null}
       animate={controls}
@@ -51,7 +53,7 @@ const DragBox = ({ children, primary = false, controls, shuffleImg }) => {
 
 const ThumbnailImage = ({ image, fallbackAlt }) => {
   const imageData =
-    useShopifyImage({ image, width: 360, height: 360 }) || image.gatsbyImageData
+    useShopifyImage({ image, width: 360 }) || image.gatsbyImageData
   return <GatsbyImage image={imageData} alt={image.altText || fallbackAlt} />
 }
 
@@ -69,7 +71,7 @@ export const CollectionThumbnail = ({ title, primary, alternate }) => {
   }
 
   if (!primary && !alternate) {
-    return <AspectRatio sx={{ bg: 'prodBackground' }} ratio={1} />
+    return <AspectRatio sx={{ bg: 'prodBackground' }} ratio={1 / 1} />
   }
   if (!alternate) {
     return (
@@ -78,7 +80,7 @@ export const CollectionThumbnail = ({ title, primary, alternate }) => {
   }
   return (
     <>
-      <Grid sx={{ aspectRatio: '1', margin: '-1px' }}>
+      <Grid>
         <AnimatePresence>
           <DragBox
             key={`thumbnail-${title}-1`}
@@ -118,7 +120,7 @@ export const CollectionThumbnail = ({ title, primary, alternate }) => {
   )
 }
 
-const ProductItemLabel = ({ tags, soldOut }) => {
+const ProductItemLabel = ({ tags, metafields, soldOut }) => {
   // if (soldOut)
   //   return (
   //     <Badge
@@ -128,9 +130,15 @@ const ProductItemLabel = ({ tags, soldOut }) => {
   //     </Badge>
   //   )
 
-  const label = tags.find(tag => tag.includes('__label'))
-  const labelText = label?.replace('__label:', '')
-  if (!label) return null
+  const labelTag = tags.find(tag => tag.includes('__label'))
+  const labelMetaField = metafields.find(({ key }) => key === 'label')
+  const { value, updatedAt } = labelMetaField || {}
+  const labelText = value || labelTag?.replace('__label:', '')
+
+  const numWeeksOld = dayjs().diff(updatedAt, 'week')
+  const restockedWeeksAgo = value === 'restocked' && numWeeksOld > 2
+
+  if (!labelText || restockedWeeksAgo) return null
   return (
     <Badge
       sx={{ bg: 'cream', position: 'absolute', top: 1, left: 1, zIndex: 10 }}
@@ -148,9 +156,14 @@ const ProductListItemInner = ({
   price,
   tags,
   availableForSale,
+  metafields = [],
 }) => (
   <Box as="article" sx={{ position: 'relative', zIndex: 1 }} pb={[5, 6]}>
-    <ProductItemLabel tags={tags} soldOut={!availableForSale} />
+    <ProductItemLabel
+      tags={tags}
+      metafields={metafields}
+      soldOut={!availableForSale}
+    />
     <Flex
       sx={{ flexDirection: 'column', position: 'relative', overflow: 'hidden' }}
     >

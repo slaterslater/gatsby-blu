@@ -64,6 +64,7 @@ export const InstantSearchProduct = ({ hit }) => {
       price={price}
       hasRange={hasRange}
       tags={hit.tags}
+      metafields={hit.metafields}
       availableForSale={hit.availableForSale}
     />
   )

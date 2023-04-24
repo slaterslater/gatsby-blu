@@ -64,6 +64,7 @@ export const query = graphql`
         metafields {
           key
           value
+          updatedAt
         }
         variants {
           availableForSale
