@@ -5,7 +5,7 @@ import { escapeDoubleQuoteString } from '../../lib/escapeDoubleQuoteStrings'
 import useSite from '../../lib/useSite'
 
 const CollectionSEO = ({
-  seo,
+  seo = {},
   title,
   description,
   products,
@@ -18,16 +18,19 @@ const CollectionSEO = ({
   // const imageSrc = image ? image.originalSrc || image.images.fallback.src : null
   const ldJSONSrc = getSrcWithSize(imageSrc, '1024x_crop_center')
 
-  const { title: seoTitle, description: seoDesc } = seo || {}
-  const descriptionString = escapeDoubleQuoteString(description)
+  // const { title: seoTitle, description: seoDesc } = seo || {}
+  const seoTitle = escapeDoubleQuoteString(seo.title || title)
+  const seoDesc =
+    escapeDoubleQuoteString(seo.description || description) || seoTitle
+  // const descriptionString = escapeDoubleQuoteString(description)
   const collectionUrl = `${siteUrl}/collections/${handle}`
 
   const collectionLdJSON = `
     {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
-      "name": "${seoTitle || title}",
-      "description": "${seoDesc || descriptionString}", 
+      "name": "${seoTitle}",
+      "description": "${seoDesc}", 
       "image": "${ldJSONSrc}",
       "url": "${collectionUrl}",
       "mainEntity": {
@@ -46,11 +49,7 @@ const CollectionSEO = ({
     }
   `
   return (
-    <SEO
-      title={seoTitle || title}
-      description={seoDesc || description}
-      shopifyImage={image}
-    >
+    <SEO title={seoTitle} description={seoDesc} shopifyImage={image}>
       <link rel="canonical" href={collectionUrl} />
       <script type="application/ld+json">{collectionLdJSON}</script>
     </SEO>
