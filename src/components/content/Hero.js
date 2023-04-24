@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Box, Text, Button, Grid, Divider } from 'theme-ui'
+import { Container, Box, Text, Grid } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
 import { GatsbyImage, withArtDirection } from 'gatsby-plugin-image'
 import useGatsbySanityImageData from '../../lib/useGatsbySanityImageData'
@@ -47,56 +47,6 @@ export const HeroOuter = ({ children, data, align = 'right' }) => {
       >
         {children}
       </Grid>
-      {/* <Container
-        variant="wide"
-        py={6}
-        pt={7}
-        sx={{
-          bg: ['primary', 'transparent'],
-          textAlign: ['center', align || 'right'],
-          position: ['relative', 'absolute'],
-          bottom: 0,
-          right: align === 'right' ? 0 : 'auto',
-          zIndex: 1,
-          marginTop: '-1px',
-        }}
-      >
-        <Box
-          sx={{
-            display: 'inline-flex',
-            position: 'relative',
-            flexDirection: ['column', 'row'],
-            alignItems: ['middle', 'flex-end'],
-          }}
-        >
-          {heading && (
-            <Text
-              variant="h1"
-              sx={{
-                color: 'white',
-                fontSize: 5,
-              }}
-            >
-              {heading}
-            </Text>
-          )}
-        </Box>
-        {subheading ? (
-          <Text
-            as="h2"
-            variant="looseSans"
-            pb={5}
-            sx={{ color: 'white', fontSize: 1, lineHeight: '1.5em' }}
-          >
-            {subheading}
-          </Text>
-        ) : (
-          <Divider sx={{ borderColor: 'transparent' }} m={0} pb={4} />
-        )}
-        <Button variant="sketchWhite" as={GatsbyLink} to={button.path}>
-          {button.text}
-        </Button>
-      </Container> */}
       <Text
         bg="bbBackground"
         sx={{

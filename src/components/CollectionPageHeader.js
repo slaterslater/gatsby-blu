@@ -1,28 +1,20 @@
 import { Link, Flex, Box, Text, Heading } from 'theme-ui'
 import React, { useMemo, useState } from 'react'
-import { GatsbyImage, StaticImage } from 'gatsby-plugin-image'
-import { useShopifyImage } from '../hooks/shopifyImage'
+import { GatsbyImage } from 'gatsby-plugin-image'
 
-const ShopifyHeaderImage = ({ image, altText }) => {
-  const imageData = useShopifyImage({ image })
-  return (
-    <GatsbyImage
-      image={imageData}
-      alt={image.altText || ''}
-      objectFit="cover"
-    />
-  )
-}
+// const ShopifyHeaderImage = ({ image, altText }) => {
+//   const imageData = useShopifyImage({ image })
+//   return (
+//     <GatsbyImage
+//       image={imageData}
+//       alt={image.altText || ''}
+//       objectFit="cover"
+//     />
+//   )
+// }
 
 const HeaderImage = ({ image, altText }) => {
   // gatsby image data returns images, shopify images do not
-
-  // switch statement
-  // add string for staticimage
-  if (image.images) console.log('yep')
-
-  console.log(typeof image)
-
   switch (true) {
     case !!image.images:
       return <GatsbyImage image={image} alt={altText || ''} objectFit="cover" />
@@ -34,33 +26,9 @@ const HeaderImage = ({ image, altText }) => {
           objectFit="cover"
         />
       )
-    case typeof image === 'string':
-      return <StaticImage src={image} alt="" />
     default:
       return null
   }
-
-  // switch (true) {
-  //   case image:
-  //     console.log('no')
-  //     // return <GatsbyImage image={image} alt={altText || ''} objectFit="cover" />
-  //     return null
-  //   case image.gatsbyImageData:
-  //     return (
-  //       <GatsbyImage
-  //         image={image.gatsbyImageData}
-  //         alt={altText || ''}
-  //         objectFit="cover"
-  //       />
-  //     )
-  //   default:
-  //     return null
-  // }
-
-  // if (image?.images) {
-  //   return <GatsbyImage image={image} alt={altText || ''} objectFit="cover" />
-  // }
-  // return <ShopifyHeaderImage image={image} altText={image.altText} />
 }
 
 const RevealText = ({ children, chars = 250, ...props }) => {

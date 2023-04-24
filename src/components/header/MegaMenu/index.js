@@ -117,9 +117,6 @@ const MegaMenu = () => {
             if (card) {
               nextLink.image = card.image.asset.gatsbyImageData
             }
-            if (handle == 'hoops' || handle == 'earrings') {
-              console.log({ nextLink })
-            }
             return nextLink
           }),
         })),

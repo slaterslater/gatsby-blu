@@ -6,7 +6,6 @@ import { GatsbyImage } from 'gatsby-plugin-image'
 import dayjs from 'dayjs'
 import FormattedPrice from '../FormattedPrice'
 import { useShopifyImage } from '../../hooks/shopifyImage'
-import { useMetafieldValue } from '../../hooks/useMetafield'
 
 const MotionBox = motion(Box)
 
