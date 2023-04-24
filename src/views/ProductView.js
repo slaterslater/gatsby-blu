@@ -32,8 +32,6 @@ const ProductView = ({ product, alternates, badges, stack, card, content }) => {
   const productTitle = useProductTitle(title)
   const isOOAK = tags.some(tag => tag.match(/one.*of.*a.*kind/i))
 
-  console.log({ content })
-
   const links = [
     {
       path:

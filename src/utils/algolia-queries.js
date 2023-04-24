@@ -25,11 +25,11 @@ const productQuery = `
           width
         }
         tags
-        metafields {
-          key
-          value
-          updatedAt
-        }
+        # metafields {
+        #   key
+        #   value
+        #   updatedAt
+        # }
         priceRangeV2 {
           minVariantPrice {
             currencyCode
