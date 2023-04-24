@@ -279,6 +279,7 @@ const DiamondsPage = () => (
         }}
         pt={3}
         mx="auto"
+        mb={8}
       >
         <StaticImage
           src="../images/diamonds/artwork-1.webp"
@@ -293,7 +294,7 @@ const DiamondsPage = () => (
         />
       </Grid>
       <StaticImage
-        src="../images/diamonds/metals.png"
+        src="../images/diamonds/text-clarity.webp"
         placeholder="blurred"
         alt=""
       />
