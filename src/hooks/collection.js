@@ -11,7 +11,6 @@ export const useLatestCollection = (handle, initialProducts) => {
     variables: { handle, countryCode },
   })
   const { products, metafields } = latestData?.collection || {}
-  const latestProducts = getCollectionProducts(products)
 
   const collectionImages = useMemo(() => {
     if (!metafields) return []
@@ -24,13 +23,12 @@ export const useLatestCollection = (handle, initialProducts) => {
       .sort((a, b) => a.key.localeCompare(b.key))
   }, [metafields])
 
-  const collectionProducts = useMemo(
-    () =>
-      (latestProducts || initialProducts).filter(
-        ({ tags }) => !tags.includes('hidden')
-      ),
-    [latestProducts, initialProducts]
-  )
+  const collectionProducts = useMemo(() => {
+    const latestProducts = getCollectionProducts(products)
+    return (latestProducts || initialProducts).filter(
+      ({ tags }) => !tags.includes('hidden')
+    )
+  }, [products, initialProducts])
 
   return {
     collectionProducts,

@@ -6,6 +6,7 @@ import { GatsbyImage } from 'gatsby-plugin-image'
 import dayjs from 'dayjs'
 import FormattedPrice from '../FormattedPrice'
 import { useShopifyImage } from '../../hooks/shopifyImage'
+import { usePageContext } from '../../contexts/PageContext'
 
 const MotionBox = motion(Box)
 
@@ -23,7 +24,7 @@ const Dot = ({ full }) => (
   />
 )
 
-const DragBox = ({ children, primary = false, controls, shuffleImg }) => {
+const DragBox = ({ children, primary = false, controls, shuffleImg, bg }) => {
   const swipeConfidenceThreshold = 10000
   const swipePower = (offset, velocity) => Math.abs(offset) * velocity
 
@@ -32,7 +33,7 @@ const DragBox = ({ children, primary = false, controls, shuffleImg }) => {
       sx={{
         gridArea: '1 / 1 / -1 / -1',
         zIndex: primary ? 1 : 0,
-        // bg: 'white',
+        bg,
       }}
       whileHover={primary ? { opacity: 0 } : null}
       animate={controls}
@@ -62,6 +63,9 @@ export const CollectionThumbnail = ({ title, primary, alternate }) => {
 
   const [full, setFull] = useState(false)
 
+  const { isBeloved } = usePageContext()
+  const bg = isBeloved ? 'bbBackground' : 'white'
+
   const imageControl = (a, b) => {
     a.start({ opacity: 0, zIndex: 0 })
     b.start({ zIndex: 2 })
@@ -86,6 +90,7 @@ export const CollectionThumbnail = ({ title, primary, alternate }) => {
             primary
             controls={priControls}
             shuffleImg={() => imageControl(priControls, altControls)}
+            bg={bg}
           >
             <ThumbnailImage
               fallbackAlt={`${title} lightbox photo`}
@@ -96,6 +101,7 @@ export const CollectionThumbnail = ({ title, primary, alternate }) => {
             key={`thumbnail-${title}-2`}
             controls={altControls}
             shuffleImg={() => imageControl(altControls, priControls)}
+            bg={bg}
           >
             <ThumbnailImage
               fallbackAlt={`${title} on body}`}
@@ -131,11 +137,12 @@ const ProductItemLabel = ({ tags, metafields, soldOut }) => {
 
   const labelTag = tags.find(tag => tag.includes('__label'))
   const labelMetaField = metafields.find(({ key }) => key === 'label')
-  const { value, updatedAt } = labelMetaField || {}
-  const labelText = value || labelTag?.replace('__label:', '')
+  const labelText = labelMetaField.value
+    ? JSON.parse(labelMetaField.value)[0]
+    : labelTag?.replace('__label:', '')
 
-  const numWeeksOld = dayjs().diff(updatedAt, 'week')
-  const restockedWeeksAgo = value === 'restocked' && numWeeksOld > 2
+  const numWeeksOld = dayjs().diff(labelMetaField.updatedAt, 'week')
+  const restockedWeeksAgo = labelText === 'restocked' && numWeeksOld > 2
 
   if (!labelText || restockedWeeksAgo) return null
   return (
