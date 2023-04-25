@@ -32,7 +32,7 @@ const DragBox = ({ children, primary = false, controls, shuffleImg }) => {
       sx={{
         gridArea: '1 / 1 / -1 / -1',
         zIndex: primary ? 1 : 0,
-        bg: 'white',
+        // bg: 'white',
       }}
       whileHover={primary ? { opacity: 0 } : null}
       animate={controls}
