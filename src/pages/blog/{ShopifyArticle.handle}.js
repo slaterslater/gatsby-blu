@@ -8,32 +8,29 @@ import SEO from '../../components/seo'
 
 const BlogTemplate = ({ data }) => {
   if (!data) return null
+  const { title, excerpt, image, publishedAt, contentHtml, authorV2, seo } =
+    data.shopifyArticle
   return (
     <Layout>
       <SEO
-        title={data.shopifyArticle.title}
-        description={data.shopifyArticle.excerpt}
-        shopifyImage={data.shopifyArticle.image}
+        title={seo.title || title}
+        description={seo.description || excerpt}
+        shopifyImage={image}
       />
       <Container sx={{ maxWidth: 800 }}>
         <Box pb={4}>
           <Text variant="caps">
-            <FormattedDate
-              iso={data.shopifyArticle.publishedAt}
-              format="DATE_FULL"
-            />
+            <FormattedDate iso={publishedAt} format="DATE_FULL" />
           </Text>
         </Box>
-        <Heading>{data.shopifyArticle.title}</Heading>
+        <Heading>{title}</Heading>
         <ShopifyHtml
           dangerouslySetInnerHTML={{
-            __html: data.shopifyArticle.contentHtml,
+            __html: contentHtml,
           }}
         />
         <Box pt={4}>
-          <Text variant="caps">
-            Written By {data.shopifyArticle.authorV2.name}
-          </Text>
+          <Text variant="caps">Written By {authorV2.name}</Text>
         </Box>
       </Container>
     </Layout>
@@ -58,6 +55,10 @@ export const query = graphql`
       }
       authorV2 {
         name
+      }
+      seo {
+        title
+        description
       }
     }
   }

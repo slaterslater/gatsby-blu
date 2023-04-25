@@ -550,6 +550,10 @@ async function createBlogNodes({ actions, createContentDigest }) {
             authorV2 {
               name
             }
+            seo {
+              title
+              description
+            }
           }
         }
       }
@@ -568,6 +572,7 @@ async function createBlogNodes({ actions, createContentDigest }) {
       contentHtml: '',
       image: null,
       authorV2: { name: '' },
+      seo: { title: '', description: '' },
       publishedAt: new Date().toISOString(),
     }
     actions.createNode({

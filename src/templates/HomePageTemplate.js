@@ -100,7 +100,6 @@ const IndexPage = ({ data }) => {
           name="google-site-verification"
           content={process.env.GATSBY_GOOGLE_SITE_VERIFICATION}
         />
-        <link rel="canonical" href={siteUrl} />
         <script type="application/ld+json">{websiteLdJSON}</script>
       </SEO>
       <HomePageHeader data={headerHero[0]} video={video[0]} />
