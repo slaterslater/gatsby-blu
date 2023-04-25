@@ -10,7 +10,7 @@ const PageRedirect = ({ to, pageContext }) => {
     navigate(path)
   }, [path])
 
-  return <SEO title={pageContext.from || ''} />
+  return <SEO title={pageContext?.from || ''} />
 }
 
 PageRedirect.propTypes = {
