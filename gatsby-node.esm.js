@@ -460,7 +460,7 @@ async function createRedirectPages({ graphql, actions }) {
     actions.createPage({
       path: from,
       component: path.resolve('./src/components/PageRedirect.js'),
-      context: { to },
+      context: { from, to },
     })
   })
 }

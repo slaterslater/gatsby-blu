@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { navigate } from 'gatsby'
+import SEO from './seo'
 
 const PageRedirect = ({ to, pageContext }) => {
   const path = to || pageContext.to || '/'
@@ -9,7 +10,7 @@ const PageRedirect = ({ to, pageContext }) => {
     navigate(path)
   }, [path])
 
-  return false
+  return <SEO title={pageContext.from || ''} />
 }
 
 PageRedirect.propTypes = {
