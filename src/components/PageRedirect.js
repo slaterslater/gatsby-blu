@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { navigate } from 'gatsby'
-import SEO from './seo'
+import { Helmet } from 'react-helmet'
 
 const PageRedirect = ({ to, pageContext }) => {
   const path = to || pageContext.to || '/'
@@ -10,7 +10,7 @@ const PageRedirect = ({ to, pageContext }) => {
     navigate(path)
   }, [path])
 
-  return <SEO title={pageContext?.from || ''} />
+  return <Helmet title={pageContext?.from} />
 }
 
 PageRedirect.propTypes = {

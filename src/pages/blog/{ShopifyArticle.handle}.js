@@ -7,7 +7,7 @@ import { ShopifyHtml } from '../../components/ShopifyHtml'
 import SEO from '../../components/seo'
 
 const BlogTemplate = ({ data }) => {
-  if (!data) return null
+  // if (!data) return null
   const { title, excerpt, image, publishedAt, contentHtml, authorV2, seo } =
     data.shopifyArticle
   return (
