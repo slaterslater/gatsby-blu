@@ -3,6 +3,17 @@ import { GatsbyImage } from 'gatsby-plugin-image'
 import React from 'react'
 import { Grid, Heading, Text } from 'theme-ui'
 
+// const serializers = {
+//   types: {
+//     block: props => {
+//       console.log({ props })
+//       const block = BlockContent.defaultSerializers.types.block(props)
+//       if (props.children.length === 1) return block
+//       return block
+//     },
+//   },
+// }
+
 const PageContentSEO = ({ title, content, isCollection = true }) => (
   <>
     <Heading as="h2" variant="h2" sx={{ textAlign: 'center' }} py={6}>
@@ -12,7 +23,7 @@ const PageContentSEO = ({ title, content, isCollection = true }) => (
       sx={{
         gap: 6,
         gridTemplateColumns: ['1fr', '1fr', '1fr 1fr'],
-        div: {
+        'div, p': {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
@@ -22,6 +33,13 @@ const PageContentSEO = ({ title, content, isCollection = true }) => (
           paddingTop: 4,
           paddingBottom: 4,
           minHeight: 445,
+          p: {
+            minHeight: 0,
+            padding: 0,
+            marginTop: '1em',
+            marginBottom: '1em',
+            display: 'block',
+          },
         },
         h3: {
           gridColumn: '1/-1',
@@ -44,6 +62,8 @@ const PageContentSEO = ({ title, content, isCollection = true }) => (
           lineHeight: 'body',
           letterSpacing: 'wider',
           textAlign: 'center',
+          marginTop: 0,
+          marginBottom: 0,
         },
         a: { color: 'primary', fontWeight: 'bold' },
       }}
