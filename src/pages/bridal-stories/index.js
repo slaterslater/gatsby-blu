@@ -12,6 +12,7 @@ const StoriesPage = ({ data }) => {
     <Layout
       title={pageTitle}
       description="calling all beloved couples: we want to celebrate your love story! click here to share your story and show us your rings"
+      isBeloved
     >
       <StoriesHeader
         title={pageTitle}

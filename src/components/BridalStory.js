@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Button, Flex, Heading, Text } from 'theme-ui'
+import { Box, Button, Container, Flex, Heading, Text } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
 
@@ -69,7 +69,7 @@ const BridalStory = ({ details, index = 0 }) => {
   ]
 
   return (
-    <>
+    <Container sx={{ maxWidth: '100vw', bg: 'white' }} p={[0, 0, 0, 0]}>
       {!!index && (
         <Flex
           sx={{
@@ -149,7 +149,7 @@ const BridalStory = ({ details, index = 0 }) => {
           <WhoWearsWhat people={people} />
         </Box>
       </Flex>
-    </>
+    </Container>
   )
 }
 
