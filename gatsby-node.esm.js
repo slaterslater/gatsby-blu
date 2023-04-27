@@ -2,6 +2,7 @@ import axios from 'axios'
 import { gql, GraphQLClient } from 'graphql-request'
 import path from 'path'
 import slugify from 'slugify'
+import dayjs from 'dayjs'
 import {
   formatMetalAlternatesFromTags,
   formatMetalAlternatesFromMetafields,
@@ -465,6 +466,16 @@ async function createRedirectPages({ graphql, actions }) {
   })
 }
 
+// need to pass today's date to events page
+async function createCommunityEventsPage({ actions }) {
+  const today = dayjs().format('YYYY-MM-DD')
+  actions.createPage({
+    path: '/community-events',
+    component: path.resolve('./src/templates/CommunityEvents.js'),
+    context: { today },
+  })
+}
+
 // fetch data from podcast api and create nodes from returned array
 async function createPodcastNodes({ actions, createContentDigest }) {
   const url = `https://www.buzzsprout.com/api/${process.env.BUZZSPROUT_PODCAST_ID}/episodes.json`
@@ -620,5 +631,6 @@ export async function createPages(params) {
     createHomePage(params),
     createLocationPages(params),
     createRedirectPages(params),
+    createCommunityEventsPage(params),
   ])
 }
