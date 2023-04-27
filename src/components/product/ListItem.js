@@ -64,7 +64,7 @@ export const CollectionThumbnail = ({ title, primary, alternate }) => {
   const [full, setFull] = useState(false)
 
   const { isBeloved } = usePageContext()
-  const bg = isBeloved ? 'bbBackground' : 'white'
+  const bg = isBeloved ? '#eeece1' : 'white'
 
   const imageControl = (a, b) => {
     a.start({ opacity: 0, zIndex: 0 })
