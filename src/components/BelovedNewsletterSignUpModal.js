@@ -1,8 +1,9 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { DialogOverlay, DialogContent } from '@reach/dialog'
 import React, { useContext, useRef, useState } from 'react'
-import { Box, Button, Image, Link } from 'theme-ui'
+import { Box, Button, Link } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
+import { StaticImage } from 'gatsby-plugin-image'
 import { useTimeout } from '../lib/useTimeout'
 import { NewsletterContext } from '../contexts/NewsletterContext'
 
@@ -10,26 +11,27 @@ const MotionDialogOverlay = motion(DialogOverlay)
 const MotionDialogContent = motion(DialogContent)
 const MotionBox = motion(Box)
 
-const NewsletterSignUpModal = () => {
+const BelovedNewsletterSignUpModal = () => {
   const [isOn, setOn] = useState(false)
-  const { dismissPrompt, shouldPrompt } = useContext(NewsletterContext)
+  const { dismissBelovedPrompt, shouldPromptBeloved } =
+    useContext(NewsletterContext)
   const text = useRef(null)
 
   useTimeout(() => {
-    if (!shouldPrompt) return
+    if (!shouldPromptBeloved) return
     setOn(true)
-  }, 8000)
+  }, 4500)
 
   const handleDismiss = () => {
-    dismissPrompt()
+    dismissBelovedPrompt()
     setOn(false)
   }
 
-  const URL = '/bluboho-online-fine-jewelry-signup'
+  const URL = '/beloved/newsletter-signup'
 
   return (
     <AnimatePresence>
-      {isOn && shouldPrompt && (
+      {isOn && shouldPromptBeloved && (
         <MotionDialogOverlay
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -71,19 +73,23 @@ const NewsletterSignUpModal = () => {
               variant="link"
               onClick={handleDismiss}
               sx={{
+                color: 'cream',
                 alignSelf: 'flex-end',
                 textTransform: 'uppercase',
                 fontSize: 0,
                 fontWeight: 600,
                 letterSpacing: 'wider',
-                transform: ['translateY(20px)', 'translateY(25px)'],
+                // transform: ['translateY(20px)', 'translateY(25px)'],
               }}
               mr={[6, 8]}
             >
               close
             </Button>
             <GatsbyLink to={URL}>
-              <Image src="/homepage-pop-up-contemplation-cards.webp" alt="" />
+              <StaticImage
+                src="../images/popup/beloved-homepage-pop-up.webp"
+                alt=""
+              />
             </GatsbyLink>
           </MotionBox>
         </MotionDialogOverlay>
@@ -92,4 +98,4 @@ const NewsletterSignUpModal = () => {
   )
 }
 
-export default NewsletterSignUpModal
+export default BelovedNewsletterSignUpModal

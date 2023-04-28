@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Flex, Text, Heading } from 'theme-ui'
+import { Box, Flex, Text } from 'theme-ui'
 import { Form, Formik, useField } from 'formik'
 import { object, string } from 'yup'
 import axios from 'axios'
@@ -46,7 +46,7 @@ const TextField = ({ name, label, placeholder = null, maxLength = 300 }) => {
   )
 }
 
-const BelovedSignupForm = ({ onSuccess }) => (
+const BelovedSignupForm = ({ onSuccess, withMessage = false }) => (
   <Formik
     initialValues={initialValues}
     validationSchema={validationSchema}
@@ -78,6 +78,7 @@ const BelovedSignupForm = ({ onSuccess }) => (
         div: { paddingBottom: 0 },
         fieldset: { border: 'none' },
         'input, textarea': {
+          bg: 'white',
           fontFamily: 'body',
           color: 'text',
           fontSize: 0,
@@ -104,31 +105,20 @@ const BelovedSignupForm = ({ onSuccess }) => (
       }}
       mx="auto"
     >
-      <Heading as="h2" variant="h2" sx={{ textAlign: 'center' }} pt={[5, 1]}>
-        get in touch
-      </Heading>
-      <Text
-        as="p"
-        variant="copy"
-        sx={{ textAlign: 'center', maxWidth: 420 }}
-        pt={6}
-        mx="auto"
-      >
-        request assistance from our beloved by bluboho experts— let us know how
-        we can help, and we'll follow up with the answers to your questions.
-      </Text>
       <Box as="fieldset">
         <HoneypotControl name="decepticons" />
         <InputField name="email" label="email" />
-        <TextField
-          name="message"
-          label="message"
-          placeholder="let us know what you're looking for— a particular stone colour, ring recommendations, sizing advice, suggestions on where to start, etc."
-          maxLength={500}
-        />
+        {withMessage && (
+          <TextField
+            name="message"
+            label="message"
+            placeholder="let us know what you're looking for— a particular stone colour, ring recommendations, sizing advice, suggestions on where to start, etc."
+            maxLength={500}
+          />
+        )}
       </Box>
       <Flex sx={{ justifyContent: 'center' }}>
-        <SubmitButton sx={{ width: '100%', maxWidth: 360 }} mt={6}>
+        <SubmitButton sx={{ width: '100%', maxWidth: 360, bg: 'navy' }} mt={6}>
           send
         </SubmitButton>
       </Flex>
