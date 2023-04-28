@@ -15,6 +15,7 @@ import { MobileSlider } from '../../components/content/CollectionRow'
 import HomeLocations from '../../components/home/Locations'
 import Layout from '../../components/layout'
 import Banner from '../../components/content/Banner'
+import BelovedNewsletterSignUpModal from '../../components/BelovedNewsletterSignUpModal'
 
 const lastWordUpperCase = text => {
   const words = text.split(' ')
@@ -257,6 +258,7 @@ const BelovedHomePage = ({ data }) => {
       >
         {lastWordUpperCase(`book an appointment`)}
       </Button>
+      <BelovedNewsletterSignUpModal />
     </Layout>
   )
 }

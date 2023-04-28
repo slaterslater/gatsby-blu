@@ -12,12 +12,15 @@ import { AuthContext } from './AuthContext'
 
 const STORAGE_IS_SUBSCRIBED = 'isSubscribed'
 const STORAGE_DISMISSED_NEWSLETTER_PROMPT = 'dismissedPrompt'
+const STORAGE_DISMISSED_BELOVED_NEWSLETTER_PROMPT = 'dismissedBelovedPrompt'
 
 const initialValues = {
   isSubscribed: false,
   subscribe: () => {},
   shouldPrompt: undefined,
   dismissPrompt: () => {},
+  dismissBelovedPrompt: () => {},
+  shouldPromptBeloved: undefined,
 }
 
 export const NewsletterContext = createContext(initialValues)
@@ -26,6 +29,7 @@ const NewsletterProvider = props => {
   const { accessToken } = useContext(AuthContext)
   const [isSubscribed, setIsSubscribed] = useState(false)
   const [hasDismissed, setHasDismissed] = useState()
+  const [hasDismissedBeloved, setHasDismissedBeloved] = useState()
 
   const [{ data }] = useQuery({
     query: CUSTOMER_QUERY,
@@ -52,8 +56,16 @@ const NewsletterProvider = props => {
     setHasDismissed(true)
   }, [setHasDismissed])
 
+  const dismissBelovedPrompt = useCallback(() => {
+    store.set(STORAGE_DISMISSED_BELOVED_NEWSLETTER_PROMPT, true)
+    setHasDismissedBeloved(true)
+  }, [setHasDismissedBeloved])
+
   useEffect(() => {
     setHasDismissed(!!store.get(STORAGE_DISMISSED_NEWSLETTER_PROMPT))
+    setHasDismissedBeloved(
+      !!store.get(STORAGE_DISMISSED_BELOVED_NEWSLETTER_PROMPT)
+    )
   }, [])
 
   return (
@@ -63,6 +75,8 @@ const NewsletterProvider = props => {
         subscribe,
         shouldPrompt: isSubscribed ? false : !hasDismissed,
         dismissPrompt,
+        dismissBelovedPrompt,
+        shouldPromptBeloved: isSubscribed ? false : !hasDismissedBeloved,
       }}
       {...props}
     />

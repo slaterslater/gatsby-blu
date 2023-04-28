@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'theme-ui'
+import { Heading, Link, Text } from 'theme-ui'
 import { GiBigDiamondRing } from 'react-icons/gi'
 import BelovedSignupForm from '../../form/BelovedSignupForm'
 import Modal from '../../Modal'
@@ -14,8 +14,7 @@ const BelovedSignupModal = () => {
     setTimeout(() => {
       setSuccess(false)
       setIsOpen(false)
-      // }, 5000)
-    }, 2800)
+    }, 5000)
   }, [success])
 
   return (
@@ -36,7 +35,30 @@ const BelovedSignupModal = () => {
             sx={{ maxWidth: 380, margin: '0 auto' }}
           />
         )}
-        {!success && <BelovedSignupForm onSuccess={() => setSuccess(true)} />}
+        {!success && (
+          <>
+            <Heading
+              as="h2"
+              variant="h2"
+              sx={{ textAlign: 'center' }}
+              pt={[5, 1]}
+            >
+              get in touch
+            </Heading>
+            <Text
+              as="p"
+              variant="copy"
+              sx={{ textAlign: 'center', maxWidth: 420 }}
+              pt={6}
+              mx="auto"
+            >
+              request assistance from our beloved by bluboho experts— let us
+              know how we can help, and we'll follow up with the answers to your
+              questions.
+            </Text>
+            <BelovedSignupForm onSuccess={() => setSuccess(true)} withMessage />
+          </>
+        )}
       </Modal>
     </>
   )
