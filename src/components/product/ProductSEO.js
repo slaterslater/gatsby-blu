@@ -51,7 +51,7 @@ const ProductSEO = ({ product, rating, reviews = [] }) => {
         "ratingValue": "${score.toPrecision(3)}",
         "reviewCount": "${totalReviews}"
       },`
-          : null
+          : ''
       }
       "review": [${reviews
         .map(
