@@ -9,8 +9,8 @@ const ProductSEO = ({ product, rating, reviews = [] }) => {
   const { siteUrl } = useSite()
   const title = useProductTitle(product.title)
   const { title: seoTitle, description: seoDesc } = product.seo || {}
+  const description = seoDesc || product.description
   const productUrl = `${siteUrl}/products/${product.handle}`
-  const descriptionString = escapeDoubleQuoteString(product.description)
   const ldJSONSrc = getSrcWithSize(product.images[0]?.src, '1024x_crop_center')
   const { score = 0, totalReviews = 0 } = rating || {}
   console.log({ totalReviews })
@@ -23,7 +23,7 @@ const ProductSEO = ({ product, rating, reviews = [] }) => {
         "name": "${product.vendor}"
       },
       "name": "${escapeDoubleQuoteString(seoTitle || title)}",
-      "description": "${escapeDoubleQuoteString(seoDesc || descriptionString)}",
+      "description": "${escapeDoubleQuoteString(description)}",
       "image": "${ldJSONSrc}",
       "category": "${product.productType}",
       "url": "${productUrl}",
@@ -83,7 +83,7 @@ const ProductSEO = ({ product, rating, reviews = [] }) => {
   return (
     <SEO
       title={seoTitle || product.title.toLowerCase()}
-      description={seoDesc || product.description}
+      description={description}
       shopifyImage={product.images[0]}
       meta={product.tags.includes('hidden') ? noIndex : []}
     >
