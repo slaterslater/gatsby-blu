@@ -7,7 +7,7 @@ export default async function (req, res) {
   const { body } = req
 
   if (body.decepticons) {
-    return res.status(400).text('oops! something went wrong')
+    return res.status(400).json({ error: 'oops! something went wrong' })
   }
 
   const html = `

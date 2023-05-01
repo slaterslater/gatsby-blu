@@ -41,7 +41,7 @@ export const NewsletterForm = ({
   </Formik>
 )
 
-const EmailField = ({ color, disabled }) => {
+export const EmailField = ({ color, disabled }) => {
   const [field, meta, helpers] = useField({ name: 'email' })
   return (
     <Input

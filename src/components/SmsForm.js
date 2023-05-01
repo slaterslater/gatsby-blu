@@ -6,6 +6,7 @@ import * as yup from 'yup'
 import { FiClock } from 'react-icons/fi'
 import { CgArrowLongRight } from 'react-icons/cg'
 import CallingCodePicker from './CallingCodePicker'
+import { countries } from '../data/smsCountries'
 
 export const SmsForm = ({ setWorking, onSuccess, onError, children }) => (
   <Formik
@@ -38,7 +39,7 @@ export const SmsForm = ({ setWorking, onSuccess, onError, children }) => (
   </Formik>
 )
 
-const PhoneNumberField = ({ color, disabled }) => {
+export const PhoneNumberField = ({ color, disabled }) => {
   const [field, meta, helpers] = useField({ name: 'phoneNumber' })
   const { value } = meta
   const { setValue } = helpers
@@ -97,7 +98,7 @@ const PhoneNumberField = ({ color, disabled }) => {
   )
 }
 
-const CallingCodeField = ({ callingCode = 1 }) => {
+export const CallingCodeField = ({ callingCode = 1 }) => {
   const [field, meta, helpers] = useField({ name: 'callingCode' })
   const { value } = meta
   const { setValue } = helpers
@@ -111,11 +112,6 @@ const CallingCodeField = ({ callingCode = 1 }) => {
 
 export const SmsSignUp = ({ color = 'gray', onSubscribed = () => {} }) => {
   const [working, setWorking] = useState(false)
-  const countries = [
-    { abbr: 'CA', callingCode: 1 },
-    { abbr: 'UK', callingCode: 44 },
-    { abbr: 'US', callingCode: 1 },
-  ]
   const [currentCountry, setCurrentCountry] = useState(countries[0])
 
   return (
