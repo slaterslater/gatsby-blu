@@ -12,17 +12,13 @@ const ReviewsList = props => {
   const [page, setPage] = useState(1)
   const fallback = useProductReviewsFallback()
 
-  const {
-    product: { id },
-  } = useContext(ProductContext)
+  const { product } = useContext(ProductContext)
+  const [productId] = product.id.match(/\d+$/)
+  const reviewUrl = `https://api-cdn.yotpo.com/v1/widget/${process.env.GATSBY_YOTPO_APP_KEY}/products/${productId}/reviews.json?page=1&per_page=100`
 
-  const [productId] = id.match(/\d+$/)
-
-  const { data, fetching } = useSWR(
-    `https://api-cdn.yotpo.com/v1/widget/${process.env.GATSBY_YOTPO_APP_KEY}/products/${productId}/reviews.json?page=1&per_page=100`,
-    yotpoFetcher,
-    { fallbackData: fallback }
-  )
+  const { data, fetching } = useSWR(reviewUrl, yotpoFetcher, {
+    fallbackData: fallback,
+  })
 
   if (!data?.data?.response?.reviews?.length && !fetching)
     return (

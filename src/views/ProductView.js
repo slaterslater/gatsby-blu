@@ -85,7 +85,7 @@ const ProductView = ({ product, alternates, badges, stack, card, content }) => {
                 sku: variants[0]?.sku,
                 product_description: description,
                 product_url: location?.href,
-                product_image_url: images[0]?.url,
+                product_image_url: images[0]?.src,
               }}
             />
             <UserGeneratedContent />
