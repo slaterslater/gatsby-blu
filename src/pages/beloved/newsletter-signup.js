@@ -21,7 +21,7 @@ const BelovedNewsletterSignupPage = () => {
 
   return (
     <Layout title={title} description={description} isBeloved>
-      <Container>
+      <Container my={4} sx={{ minHeight: '100vh' }}>
         <Heading as="h1" variant="h2" sx={{ textAlign: 'center' }} pt={[5, 1]}>
           {title}
         </Heading>
@@ -46,7 +46,7 @@ const BelovedNewsletterSignupPage = () => {
             >
               {description}
             </Text>
-            <BelovedSignupForm onSuccess={() => setSuccess(true)} />
+            <BelovedSignupForm onSuccess={() => setSuccess(true)} withPhone />
           </>
         )}
       </Container>
