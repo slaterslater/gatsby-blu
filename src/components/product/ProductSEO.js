@@ -13,6 +13,7 @@ const ProductSEO = ({ product, rating, reviews = [] }) => {
   const descriptionString = escapeDoubleQuoteString(product.description)
   const ldJSONSrc = getSrcWithSize(product.images[0]?.src, '1024x_crop_center')
   const { score = 0, totalReviews = 0 } = rating || {}
+  console.log({ totalReviews })
   const productLdJSON = `
     {
       "@context": "https://schema.org",
@@ -43,11 +44,15 @@ const ProductSEO = ({ product, rating, reviews = [] }) => {
           }`
         )
         .toString()}],
-      "aggregateRating": {
+      ${
+        totalReviews
+          ? `"aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": "${score.toPrecision(3)}",
         "reviewCount": "${totalReviews}"
-      },
+      },`
+          : null
+      }
       "review": [${reviews
         .map(
           review => `
