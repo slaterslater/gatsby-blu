@@ -12,7 +12,7 @@ const ProductSEO = ({ product, rating, reviews = [] }) => {
   const productUrl = `${siteUrl}/products/${product.handle}`
   const descriptionString = escapeDoubleQuoteString(product.description)
   const ldJSONSrc = getSrcWithSize(product.images[0]?.src, '1024x_crop_center')
-  const { score = null, totalReviews = 0 } = rating || {}
+  const { score = 0, totalReviews = 0 } = rating || {}
   const productLdJSON = `
     {
       "@context": "https://schema.org",
@@ -45,7 +45,7 @@ const ProductSEO = ({ product, rating, reviews = [] }) => {
         .toString()}],
       "aggregateRating": {
         "@type": "AggregateRating",
-        "ratingValue": "${score ? score.toPrecision(3) : '0/0'}",
+        "ratingValue": "${score.toPrecision(3)}",
         "reviewCount": "${totalReviews}"
       },
       "review": [${reviews
