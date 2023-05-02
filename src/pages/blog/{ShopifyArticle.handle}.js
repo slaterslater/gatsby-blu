@@ -10,11 +10,12 @@ const BlogTemplate = ({ data }) => {
   // if (!data) return null
   const { title, excerpt, image, publishedAt, contentHtml, authorV2, seo } =
     data.shopifyArticle
+
   return (
     <Layout>
       <SEO
         title={seo.title || title}
-        description={seo.description || excerpt}
+        description={seo.description || excerpt || seo.title || title}
         shopifyImage={image}
       />
       <Container sx={{ maxWidth: 800 }}>
