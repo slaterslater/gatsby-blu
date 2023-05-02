@@ -64,16 +64,21 @@ const ProductProvider = ({
 
   // update product from async request
   useEffect(() => {
-    if (data) {
-      const latestProduct = getProduct(data.product)
-      updateValue(draft => {
-        draft.product = latestProduct
-        draft.selectedVariant = getSelectedVariant(
-          draft.selectedOptions,
-          latestProduct.variants
-        )
-      })
+    if (!data) return
+    const newData = getProduct(data.product)
+    // latestProduct has fewer metafields than initial...
+    const latestProduct = {
+      ...initial,
+      ...newData,
+      metafields: initial.metafields,
     }
+    updateValue(draft => {
+      draft.product = latestProduct
+      draft.selectedVariant = getSelectedVariant(
+        draft.selectedOptions,
+        latestProduct.variants
+      )
+    })
   }, [data, updateValue])
 
   const selectOption = (name, value, quantity = 1) => {

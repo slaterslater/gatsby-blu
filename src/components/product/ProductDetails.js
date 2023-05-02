@@ -22,7 +22,7 @@ import { useVariantPrice } from './VariantPrice'
 import ColorOptions from './ColorOptions'
 import ServiceButton from './ServiceButton'
 
-const getMetafieldValues = (metafields = []) => {
+const getReviewMetafields = (metafields = []) => {
   const fields = {
     average: 'reviews_average',
     total: 'reviews_count',
@@ -42,7 +42,7 @@ const ProductDetails = () => {
   const variantPrice = useVariantPrice(variant)
   const { currencyCode, setCurrency } = useContext(CurrencyContext)
   const { handle, metafields, tags } = product
-  const { total, average, collectionHandle } = getMetafieldValues(metafields)
+  const { total, average, collectionHandle } = getReviewMetafields(metafields)
   const isOOAK = tags.some(tag => tag.toLowerCase() === 'one of a kind')
 
   const [{ data }] = useQuery({

@@ -29,10 +29,8 @@ export const useLatestProduct = ({ handle, initial }) => {
   })
 
   return useMemo(() => {
-    if (data) {
-      return getProduct(data.product)
-    }
-    return initial
+    if (!data) return initial
+    return getProduct(data.product)
   }, [data, initial])
 }
 
@@ -55,10 +53,8 @@ export const useInitialProduct = ({ handle }) => {
   })
 
   return useMemo(() => {
-    if (data) {
-      return getProduct(data.product)
-    }
-    return undefined
+    if (!data) return undefined
+    return getProduct(data.product)
   }, [data])
 }
 
