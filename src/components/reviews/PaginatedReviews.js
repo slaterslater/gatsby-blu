@@ -13,8 +13,8 @@ const ReviewsList = props => {
   const fallback = useProductReviewsFallback()
 
   const { product } = useContext(ProductContext)
-  const [productId] = product.id.match(/\d+$/)
-  const reviewUrl = `https://api-cdn.yotpo.com/v1/widget/${process.env.GATSBY_YOTPO_APP_KEY}/products/${productId}/reviews.json?page=1&per_page=100`
+  // const [productId] = product.id.match(/\d+$/)
+  const reviewUrl = `https://api-cdn.yotpo.com/v1/widget/${process.env.GATSBY_YOTPO_APP_KEY}/products/${product.legacyResourceId}/reviews.json?page=1&per_page=100`
 
   const { data, fetching } = useSWR(reviewUrl, yotpoFetcher, {
     fallbackData: fallback,

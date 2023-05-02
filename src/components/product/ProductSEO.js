@@ -13,7 +13,6 @@ const ProductSEO = ({ product, rating, reviews = [] }) => {
   const productUrl = `${siteUrl}/products/${product.handle}`
   const ldJSONSrc = getSrcWithSize(product.images[0]?.src, '1024x_crop_center')
   const { score = 0, totalReviews = 0 } = rating || {}
-  console.log({ totalReviews })
   const productLdJSON = `
     {
       "@context": "https://schema.org",

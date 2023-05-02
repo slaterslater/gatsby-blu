@@ -23,7 +23,7 @@ const ProductView = ({ product, alternates, badges, stack, card, content }) => {
     descriptionHtml,
     description,
     productType,
-    variants,
+    legacyResourceId,
     vendor,
     images,
     tags,
@@ -82,10 +82,10 @@ const ProductView = ({ product, alternates, badges, stack, card, content }) => {
               yotpoProductDetails={{
                 appkey: process.env.GATSBY_YOTPO_APP_KEY,
                 product_title: title,
-                sku: variants[0]?.sku,
+                sku: legacyResourceId,
                 product_description: description,
                 product_url: location?.href,
-                product_image_url: images[0]?.src,
+                product_image_url: images[0]?.url,
               }}
             />
             <UserGeneratedContent />

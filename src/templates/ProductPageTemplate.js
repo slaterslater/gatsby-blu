@@ -47,6 +47,7 @@ export const query = graphql`
     }
     product: shopifyProduct(handle: { eq: $handle }) {
       id: shopifyId
+      legacyResourceId
       title
       handle
       descriptionHtml
