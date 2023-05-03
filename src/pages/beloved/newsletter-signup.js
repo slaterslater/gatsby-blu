@@ -17,7 +17,7 @@ const BelovedNewsletterSignupPage = () => {
 
   const title = 'sign up for the beloved newsletter'
   const description =
-    'handcrafted in toronto. ethically sourced. sign up today for the latest ooak sapphire ring launches, updates, and collection launches.'
+    'designed in toronto. ethically sourced. sign up today for the latest ooak sapphire ring launches, updates, and collection launches.'
 
   return (
     <Layout title={title} description={description} isBeloved>

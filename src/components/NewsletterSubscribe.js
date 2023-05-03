@@ -14,19 +14,6 @@ const NewsletterSubscribe = ({ color = 'white' }) => {
   }, [success])
   return (
     <AnimatePresence>
-      {/* <Text
-        variant="copy"
-        sx={{
-          fontSize: 0,
-          color,
-          transform: 'translateY(-5px)',
-          display: 'block',
-        }}
-        pb={4}
-      >
-        handcrafted in toronto. ethically sourced. sign up today for the latest
-        news, updates, and collection launches.
-      </Text> */}
       <Motion
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

@@ -27,7 +27,7 @@ const NewsletterPage = props => (
         }}
         pb={4}
       >
-        handcrafted in toronto. ethically sourced. sign up today for the latest
+        designed in toronto. ethically sourced. sign up today for the latest
         news, updates, and collection launches.
       </Text>
       <NewsletterSubscribe color="primary" />
