@@ -17,6 +17,7 @@ import HeroToggle from '../components/home/HeroToggle'
 import NewsletterSignUpModal from '../components/NewsletterSignUpModal'
 import MessageFromUniverse from '../components/MessageFromUniverse'
 import UserGeneratedContent from '../components/yotpo/UserGeneratedContent'
+import SiteVerification from '../components/home/SiteVerification'
 
 const IndexPage = ({ data }) => {
   const { siteUrl } = data.site.siteMetadata
@@ -96,12 +97,9 @@ const IndexPage = ({ data }) => {
   return (
     <Layout>
       <SEO title="shop online jewelry">
-        <meta
-          name="google-site-verification"
-          content={process.env.GATSBY_GOOGLE_SITE_VERIFICATION}
-        />
         <script type="application/ld+json">{websiteLdJSON}</script>
       </SEO>
+      <SiteVerification />
       <HomePageHeader data={headerHero[0]} video={video[0]} />
       <CollectionRowSlider collections={collectionRowWithData} />
       <MessageFromUniverse
