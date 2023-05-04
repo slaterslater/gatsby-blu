@@ -17,7 +17,6 @@ import HeroToggle from '../components/home/HeroToggle'
 import NewsletterSignUpModal from '../components/NewsletterSignUpModal'
 import MessageFromUniverse from '../components/MessageFromUniverse'
 import UserGeneratedContent from '../components/yotpo/UserGeneratedContent'
-import SiteVerification from '../components/home/SiteVerification'
 
 const IndexPage = ({ data }) => {
   const { siteUrl } = data.site.siteMetadata
@@ -103,7 +102,6 @@ const IndexPage = ({ data }) => {
         />
         <script type="application/ld+json">{websiteLdJSON}</script>
       </SEO>
-      <SiteVerification />
       <HomePageHeader data={headerHero[0]} video={video[0]} />
       <CollectionRowSlider collections={collectionRowWithData} />
       <MessageFromUniverse
