@@ -79,7 +79,7 @@ export const FooterNewsletterSubscribe = ({ color = 'white' }) => {
         }}
         pb={4}
       >
-        designed in toronto. ethically sourced. sign up today for the latest
+        designed in canada. ethically sourced. sign up today for the latest
         news, updates, and collection launches.
       </Text>
       <Motion

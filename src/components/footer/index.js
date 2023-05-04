@@ -1,6 +1,5 @@
 import { Text, Container, Flex, Box, Grid } from 'theme-ui'
 import React from 'react'
-import { StaticImage } from 'gatsby-plugin-image'
 import ThemeLink from '../app/ThemeLink'
 import {
   CollapsibleFooterSection,
@@ -123,26 +122,20 @@ const Footer = props => (
       sx={{
         bg: 'white',
         flexDirection: ['column', 'column', 'row'],
-        justifyContent: ['center', 'center', 'left'],
+        // justifyContent: ['center', 'center', 'left'],
+        justifyContent: 'center',
         'a, span': { display: 'block' },
       }}
       px={[5, 5, 6, 7]}
       py={4}
     >
-      <StaticImage
-        objectFit="contain"
-        src="../../images/globe-logo.png"
-        height={65}
-        width={179}
-        alt="2021 report on business canada's top growing companies"
-      />
       <Grid
         sx={{
           gridTemplateColumns: ['1fr 1fr', '1fr 1fr', 'repeat(4, max-content)'],
           alignItems: 'center',
           columnGap: 6,
         }}
-        pt={[5, 5, 0]}
+        // pt={[5, 5, 0]}
         pl={[0, 5]}
       >
         <Text variant="caps" sx={{ justifySelf: 'right' }} py={3}>
