@@ -97,6 +97,10 @@ const IndexPage = ({ data }) => {
   return (
     <Layout>
       <SEO title="shop online jewelry">
+        <meta
+          name="google-site-verification"
+          content={process.env.GATSBY_GOOGLE_SITE_VERIFICATION}
+        />
         <script type="application/ld+json">{websiteLdJSON}</script>
       </SEO>
       <SiteVerification />
