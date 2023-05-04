@@ -57,7 +57,10 @@ const ProductSEO = ({ product, rating, reviews = [] }) => {
           review => `
           {
             "@type": "Review",
-            "author": "${review.name}",
+            "author": {
+              "@type": "Person",
+              "name": "${review.name}"
+            },
             "datePublished": "${review.createdAt}",
             "reviewBody": "${escapeDoubleQuoteString(review.content)}",
             "name": "${escapeDoubleQuoteString(review.title)}",
