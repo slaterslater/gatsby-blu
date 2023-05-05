@@ -16,9 +16,10 @@ const PageTemplate = ({ path }) => {
   })
 
   const { page } = data || {}
+  const tempTitle = handle ? handle.replaceAll('-', ' ') : ''
 
   useAnalytics('viewPage')
-  if (!page) return <Helmet title={handle.replaceAll('-', ' ')} />
+  if (!page) return <Helmet title={tempTitle} />
   return (
     <PageView
       title={page.title}
