@@ -11,7 +11,7 @@ dayjs.extend(advancedFormat)
 
 const EventDateTime = ({ dateAndTimes }) => {
   const { date, endTime, startTime } = dateAndTimes
-  const day = dayjs(date).format('MMMM Do YYYY')
+  const day = dayjs(date).format('MMMM Do')
   const time = t => {
     const [hh, mm] = t.split(':')
     return `${hh % 12 || 12}:${mm}${hh < 12 ? 'am' : 'pm'}`
@@ -126,11 +126,12 @@ const Event = ({ details, index }) => {
             sx={{
               justifyContent: 'flex-end',
               transform: 'translateY(-45px)',
+              height: 80,
             }}
           >
             <GatsbyImage
               id="badge"
-              image={badge.image.asset.gatsbyImageData}
+              image={badge?.image.asset.gatsbyImageData}
               alt=""
             />
           </Flex>
