@@ -2,6 +2,7 @@ import React from 'react'
 import { useQuery } from 'urql'
 // import { graphql } from 'gatsby'
 import { useMatch } from '@reach/router'
+import { Helmet } from 'react-helmet'
 import { useAnalytics } from '../../lib/useAnalytics'
 import PageView from '../../views/PageView'
 import { PAGE_QUERY } from '../../queries/page'
@@ -17,7 +18,7 @@ const PageTemplate = ({ path }) => {
   const { page } = data || {}
 
   useAnalytics('viewPage')
-  if (!page) return null
+  if (!page) return <Helmet title={handle.replaceAll('-', ' ')} />
   return (
     <PageView
       title={page.title}
