@@ -8,6 +8,7 @@ import Layout from '../components/layout'
 import ElementSlider from '../components/ElementSlider'
 import CalendlyLink from '../components/consultation/CalendlyLink'
 import FAQ from '../components/consultation/FAQ'
+import Banner from '../components/content/Banner'
 
 const CalendlyConsultationPage = ({ data, location }) => {
   const { calendars } = data.sanityConsultation
@@ -68,13 +69,39 @@ const CalendlyConsultationPage = ({ data, location }) => {
       description="Let us work with you throughout your engagement ring consultation on finding your beloved by bluboho engagement ring or wedding band"
       isBeloved
     >
-      <Flex sx={{ justifyContent: 'stretch', maxHeight: 400 }}>
+      <Banner height={400}>
         <StaticImage
           src="../images/consultation/consultation-booking-header.webp"
           alt="Book a Consultation Appointment"
           placeholder="blurred"
         />
+      </Banner>
+      <Flex
+        sx={{
+          textAlign: 'center',
+          justifyContent: 'center',
+          flexDirection: 'column',
+          a: {
+            color: 'primary',
+            textDecoration: 'none',
+            fontWeight: 'bold',
+          },
+        }}
+        mx="auto"
+        py={9}
+      >
+        <Text variant="h2">text us to book</Text>
+        <Text variant="caps" sx={{ fontSize: 1 }} mt={4}>
+          queen st. store <a href="sms:+16473478743">647-347-8743</a>
+        </Text>
       </Flex>
+      <Banner height={450}>
+        <StaticImage
+          src="../images/consultation/consultation-booking-header-2.webp"
+          alt="Book a Consultation Appointment"
+          placeholder="blurred"
+        />
+      </Banner>
       <Container as="main" sx={{ maxWidth: 1400 }} p={0}>
         <Box py={[6, 8]} sx={{ width: '100%', textAlign: 'center' }}>
           <Heading as="h1" variant="h2">
