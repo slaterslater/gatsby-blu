@@ -140,6 +140,7 @@ const BelovedHomePage = ({ data }) => {
               backgroundSize: 'auto 85%',
               backgroundPosition: 'left center',
               backgroundRepeat: 'no-repeat',
+              img: { objectFit: 'contain !important' },
             }}
             py={2}
             mx="auto"
@@ -281,7 +282,7 @@ export const query = graphql`
         }
         imageMobile {
           asset {
-            gatsbyImageData(placeholder: BLURRED, width: 400)
+            gatsbyImageData(placeholder: BLURRED, height: 700)
           }
         }
       }
