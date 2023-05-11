@@ -101,7 +101,12 @@ const Event = ({ details, index }) => {
             </span>
           </Flex>
           <Button
-            sx={{ minWidth: 230, minHeight: 45, fontSize: 1 }}
+            sx={{
+              minWidth: 230,
+              minHeight: 45,
+              fontSize: 1,
+              textTransform: 'uppercase !important',
+            }}
             as={Link}
             href={link.path}
             variant="inverted"
