@@ -20,9 +20,9 @@ const Countdown = () => {
   const { text, startDate, stopDate } = data.sanitySiteAnnouncements.countdown
   if (!(text && startDate && stopDate)) return null
 
-  const deadline = dayjs(stopDate)
-  const days = deadline.diff(dayjs(), 'day')
   const tooEarly = dayjs().isBefore(startDate, 'day')
+  const difference = dayjs(stopDate).diff(dayjs(), 'day', true)
+  const days = Math.ceil(difference)
 
   if (days < 1 || tooEarly) return null
 
