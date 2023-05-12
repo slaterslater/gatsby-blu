@@ -53,11 +53,11 @@ export const query = graphql`
             gatsbyImageData(placeholder: BLURRED, width: 415, height: 525)
           }
         }
-        overlay {
-          asset {
-            gatsbyImageData(placeholder: BLURRED, width: 360, height: 415)
-          }
-        }
+        #overlay {
+        #  asset {
+        #    gatsbyImageData(placeholder: BLURRED, width: 360, height: 415)
+        #  }
+        #}
       }
     }
   }

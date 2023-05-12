@@ -61,7 +61,7 @@ const Socials = ({ people }) => (
 )
 
 const BridalStory = ({ details, index = 0 }) => {
-  const { title, quote, people, image, overlay } = details
+  const { title, quote, people, image } = details
   const flexStagger = index % 2 ? 'row-reverse' : 'row'
   const consultation = [
     { to: '/book-a-consultation', text: 'book an engagement consultation' },
@@ -91,6 +91,7 @@ const BridalStory = ({ details, index = 0 }) => {
       )}
       <Flex
         sx={{
+          justifyContent: 'space-around',
           flexDirection: ['column', flexStagger],
           width: '100%',
           maxWidth: 1230,
@@ -98,18 +99,18 @@ const BridalStory = ({ details, index = 0 }) => {
         mx="auto"
         py={[0, 5, 6]}
       >
-        <Flex
+        {/* <Flex
           sx={{
             alignItems: 'stretch',
             flexDirection: ['column', 'column', flexStagger],
             flex: 1,
           }}
-        >
-          <GatsbyImage
-            image={image.asset.gatsbyImageData}
-            alt="names || socials"
-          />
-          <Box
+        > */}
+        <GatsbyImage
+          image={image.asset.gatsbyImageData}
+          alt="names || socials"
+        />
+        {/* <Box
             sx={{
               alignSelf: index % 2 ? 'flex-start' : 'flex-end',
               width: [210, 210, 'auto'],
@@ -124,14 +125,15 @@ const BridalStory = ({ details, index = 0 }) => {
             mx={[3, 3, '-20px']}
           >
             <GatsbyImage image={overlay.asset.gatsbyImageData} alt="" />
-          </Box>
-        </Flex>
+          </Box> */}
+        {/* </Flex> */}
         <Box
           mx={['auto', 5]}
           px={[4, 0]}
           sx={{
             width: ['100%', '50%'],
-            maxWidth: 365,
+            // maxWidth: 365,
+            maxWidth: 630,
           }}
         >
           <Heading as="h2" variant="h2" pt={[5, 0]} pb={6}>
