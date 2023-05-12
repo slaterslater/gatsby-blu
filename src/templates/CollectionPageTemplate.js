@@ -5,8 +5,16 @@ import { useLatestCollection } from '../hooks/collection'
 import { useMetafieldValue } from '../hooks/useMetafield'
 
 const CollectionPageTemplate = ({ data, pageContext, ...props }) => {
-  const { products, handle, image, title, description, seo, metafields } =
-    data.shopifyCollection
+  const {
+    products,
+    handle,
+    image,
+    title,
+    description,
+    descriptionHtml,
+    seo,
+    metafields,
+  } = data.shopifyCollection
   const { content } = data.sanityCollectionSeo || {}
   const isBeloved = useMetafieldValue('isBeloved', metafields)
   const { collectionProducts, collectionImages } = useLatestCollection(
@@ -20,6 +28,7 @@ const CollectionPageTemplate = ({ data, pageContext, ...props }) => {
       title={title.toLowerCase()}
       handle={handle}
       description={description.toLowerCase()}
+      descriptionHtml={descriptionHtml}
       image={image}
       collectionImages={collectionImages}
       products={collectionProducts}
@@ -38,6 +47,7 @@ export const query = graphql`
     shopifyCollection(handle: { eq: $handle }) {
       title
       description
+      descriptionHtml
       handle
       metafields {
         key

@@ -1,6 +1,7 @@
 import { Link, Flex, Box, Text, Heading } from 'theme-ui'
 import React, { useMemo, useState } from 'react'
 import { GatsbyImage } from 'gatsby-plugin-image'
+import styled from '@emotion/styled'
 
 // const ShopifyHeaderImage = ({ image, altText }) => {
 //   const imageData = useShopifyImage({ image })
@@ -12,6 +13,37 @@ import { GatsbyImage } from 'gatsby-plugin-image'
 //     />
 //   )
 // }
+
+const DescriptionHtml = styled.div`
+  padding: 0 8px;
+  margin-top: 16px;
+  color: var(--theme-ui-colors-black);
+  font-size: 12px;
+  font-weight: medium;
+  line-height: 1.5;
+  text-align: center;
+
+  h3,
+  img,
+  ul,
+  li {
+    display: none;
+  }
+  p,
+  div,
+  span {
+    font-family: var(--theme-ui-font-body);
+    line-height: 2.5;
+    margin: 0 0 1em;
+    letter-spacing: 0.1em;
+  }
+  a {
+    color: var(--theme-ui-colors-black);
+    color: #14191f;
+    text-decoration: none;
+    font-weight: 550;
+  }
+`
 
 const HeaderImage = ({ image, altText }) => {
   // gatsby image data returns images, shopify images do not
@@ -33,6 +65,8 @@ const HeaderImage = ({ image, altText }) => {
 
 const RevealText = ({ children, chars = 250, ...props }) => {
   const [expanded, setExpanded] = useState(false)
+
+  console.log({ children })
 
   const truncatedText = useMemo(() => {
     const lastSpaceIndex = children.slice(0, chars).lastIndexOf(' ')
@@ -65,7 +99,13 @@ const RevealText = ({ children, chars = 250, ...props }) => {
   )
 }
 
-const CollectionPageHeader = ({ title, description, image, children }) => (
+const CollectionPageHeader = ({
+  title,
+  description,
+  descriptionHtml,
+  image,
+  children,
+}) => (
   <Flex
     mx="auto"
     sx={{
@@ -81,14 +121,19 @@ const CollectionPageHeader = ({ title, description, image, children }) => (
         sx={{
           textAlign: 'center',
           width: '100%',
-          maxWidth: 375,
+          maxWidth: 450,
+          // maxWidth: 375,
           mx: 'auto',
         }}
       >
         <Heading variant="h2" as="h1">
           {title}
         </Heading>
-        {description && (
+        {descriptionHtml ? (
+          <DescriptionHtml
+            dangerouslySetInnerHTML={{ __html: descriptionHtml }}
+          />
+        ) : (
           <RevealText
             as="p"
             mx="auto"

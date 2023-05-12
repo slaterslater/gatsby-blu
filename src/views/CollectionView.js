@@ -26,6 +26,7 @@ const CollectionPage = ({
   seo,
   title,
   description,
+  descriptionHtml,
   products,
   handle,
   hasFilters,
@@ -54,6 +55,7 @@ const CollectionPage = ({
         <CollectionPageHeader
           title={title}
           description={description}
+          descriptionHtml={descriptionHtml}
           image={image}
         />
       )}
