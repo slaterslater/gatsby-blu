@@ -20,8 +20,9 @@ const DescriptionHtml = styled.div`
   color: var(--theme-ui-colors-black);
   font-size: 12px;
   font-weight: medium;
-  line-height: 1.5;
+  line-height: 2.5;
   text-align: center;
+  letter-spacing: 0.1em;
 
   h3,
   img,
@@ -65,8 +66,6 @@ const HeaderImage = ({ image, altText }) => {
 
 const RevealText = ({ children, chars = 250, ...props }) => {
   const [expanded, setExpanded] = useState(false)
-
-  console.log({ children })
 
   const truncatedText = useMemo(() => {
     const lastSpaceIndex = children.slice(0, chars).lastIndexOf(' ')
