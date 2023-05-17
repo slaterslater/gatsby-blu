@@ -19,8 +19,9 @@ const CalendlyLink = ({
       order,
       borderTop: '1px solid',
       borderBottom: '1px solid',
-      borderTopColor: order === 0 ? 'border' : 'white',
-      borderBottomColor: 'border',
+      // borderTopColor: order === 0 ? 'border' : 'white',
+      // borderBottomColor: 'border',
+      borderColor: 'transparent',
       alignItems: 'center',
       cursor: 'pointer',
     }}

@@ -119,7 +119,8 @@ const CalendlyConsultationPage = ({ data, location }) => {
             maxWidth: 825,
             alignContent: 'center',
             '.active': {
-              borderColor: 'black',
+              borderTopColor: 'black',
+              borderBottomColor: ['transparent', 'black'],
             },
           }}
         >
