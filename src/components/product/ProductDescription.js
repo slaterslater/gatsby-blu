@@ -61,7 +61,7 @@ export const ProductDescription = props => {
 
   // hide text if length greater than 500
   const [open, setOpen] = useState(previewText.length < 500)
-
+  if (!descriptionHtml) return null
   return (
     <Box>
       <Heading as="h2" variant="caps" pb={4} px={2}>
