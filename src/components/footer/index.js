@@ -85,9 +85,7 @@ const Footer = props => (
               borderColor: ['white', 'transparent'],
             }}
           >
-            <FooterLink to="/pages/the-bluboho-origin-story">
-              the origin story
-            </FooterLink>
+            <FooterLink to="/our-origin-story">the origin story</FooterLink>
             <FooterLink to="/careers">careers</FooterLink>
             <FooterLink to="/pages/how-to-care-for-gold-jewelry ">
               jewelry care &amp; wear

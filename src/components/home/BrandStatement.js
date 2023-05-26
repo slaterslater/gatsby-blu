@@ -20,7 +20,7 @@ const BrandStatement = props => (
       on
     </Text>
     <ThemeLink
-      to="/pages/the-bluboho-origin-story"
+      to="/our-origin-story"
       variant="caps"
       aria-label="our origin story"
       sx={{ textDecoration: 'underline' }}
