@@ -145,6 +145,7 @@ export function useCart(onAdded = () => {}) {
       ],
     }))
 
+    console.log({ lineItems })
     const cart = await addCheckoutLineItem({
       checkoutId,
       lineItems,

@@ -25,9 +25,14 @@ export const useLatestCollection = (handle, initialProducts) => {
 
   const collectionProducts = useMemo(() => {
     const latestProducts = getCollectionProducts(products)
-    return (latestProducts || initialProducts).filter(
-      ({ tags }) => !tags.includes('hidden')
-    )
+    const updatedProducts = initialProducts.map(product => {
+      const update = latestProducts?.find(({ id }) => id === product.id)
+      return {
+        ...product,
+        ...update,
+      }
+    })
+    return updatedProducts.filter(({ tags }) => !tags.includes('hidden'))
   }, [products, initialProducts])
 
   return {
