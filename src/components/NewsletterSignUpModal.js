@@ -25,7 +25,8 @@ const NewsletterSignUpModal = () => {
     setOn(false)
   }
 
-  const URL = '/bluboho-online-fine-jewelry-signup'
+  // const URL = '/bluboho-online-fine-jewelry-signup'
+  const URL = '/newsletter'
 
   return (
     <AnimatePresence>
@@ -83,7 +84,7 @@ const NewsletterSignUpModal = () => {
               close
             </Button>
             <GatsbyLink to={URL}>
-              <Image src="/homepage-pop-up-contemplation-cards.webp" alt="" />
+              <Image src="/homepage-pop-up-sample-sale.webp" alt="" />
             </GatsbyLink>
           </MotionBox>
         </MotionDialogOverlay>
