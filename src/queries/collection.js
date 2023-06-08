@@ -42,6 +42,7 @@ export const COLLECTION_PAGE_QUERY = gql`
       description
       metafields(
         identifiers: [
+          { namespace: "custom", key: "hidden" }
           { namespace: "my_fields", key: "collection_image_1" }
           { namespace: "my_fields", key: "collection_image_2" }
           { namespace: "my_fields", key: "collection_image_3" }

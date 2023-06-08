@@ -128,11 +128,12 @@ const CollectionPageHeader = ({
         <Heading variant="h2" as="h1">
           {title}
         </Heading>
-        {descriptionHtml ? (
+        {descriptionHtml && (
           <DescriptionHtml
             dangerouslySetInnerHTML={{ __html: descriptionHtml }}
           />
-        ) : (
+        )}
+        {!descriptionHtml && description && (
           <RevealText
             as="p"
             mx="auto"

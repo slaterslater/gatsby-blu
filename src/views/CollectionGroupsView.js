@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useLocation } from '@reach/router'
 import { Container, Grid, Box } from 'theme-ui'
 import { parse } from 'qs'
@@ -13,6 +13,7 @@ import { useLatestCollection } from '../hooks/collection'
 import { useShopifyImage } from '../hooks/shopifyImage'
 import CollectionSEO from '../components/collection/CollectionSEO'
 import PageContentSEO from '../components/PageContentSEO'
+import PasswordCheck from '../components/collection/PasswordCheck'
 
 const sortCollections = (nodes, arr) =>
   nodes.sort((a, b) => arr.indexOf(a.handle) - arr.indexOf(b.handle))
@@ -123,16 +124,24 @@ const CollectionGroupsView = ({
   handle,
   content,
   isBeloved,
+  password,
 }) => {
+  const [shouldShow, setShouldShow] = useState(!password)
+
   const location = useLocation()
-  const currentParams = parse(location.search.replace('?', ''))
+  const { sort } = parse(location.search.replace('?', ''))
 
-  const sortedCollections = sortCollections(collections, collectionOrder)
-  const allProducts = collections.flatMap(node => node.products)
+  const sortedCollections = useMemo(() => {
+    if (!shouldShow) return []
+    return sortCollections(collections, collectionOrder)
+  }, [collections, collectionOrder, shouldShow])
 
-  const sortedProducts = currentParams.sort
-    ? sortProducts({ products: allProducts, sort: currentParams.sort })
-    : null
+  const products = useMemo(() => collections.flatMap(node => node.products), [])
+
+  const sortedProducts = useMemo(() => {
+    if (!shouldShow || !sort) return null
+    return sortProducts({ products, sort })
+  }, [products, sort, shouldShow])
 
   return (
     <Layout isBeloved={isBeloved}>
@@ -140,7 +149,7 @@ const CollectionGroupsView = ({
         title={pageTitle}
         description={pageDescription}
         image={seoGatsbyImage}
-        products={allProducts}
+        products={products}
         handle={handle}
       />
       <CollectionPageHeader
@@ -148,12 +157,19 @@ const CollectionGroupsView = ({
         description={pageDescription}
         image={headerImage}
       />
-      <Container pt={0} as="main">
+      <Container pt={0} as="main" sx={{ minHeight: '40vh' }}>
         <CollectionFilterAndSort
           title={pageTitle}
-          productCount={allProducts.length}
+          productCount={products.length}
         />
         <Grid>
+          {!shouldShow && (
+            <PasswordCheck
+              handle={handle}
+              password={password}
+              setShouldShow={setShouldShow}
+            />
+          )}
           {!sortedProducts &&
             sortedCollections.map((collection, i) => (
               <CollectionGroup

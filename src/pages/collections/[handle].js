@@ -5,6 +5,7 @@ import CollectionView, {
 } from '../../views/CollectionView'
 import NotFoundView from '../../views/404'
 import { COLLECTION_PAGE_QUERY } from '../../queries/collection'
+import { useMetafieldValue } from '../../hooks/useMetafield'
 
 const ClientCollectionPage = ({ params: { handle } }) => {
   const [{ data }] = useQuery({
@@ -12,21 +13,25 @@ const ClientCollectionPage = ({ params: { handle } }) => {
     variables: { handle },
   })
 
-  if (data?.collection) {
-    const products = getCollectionProducts(data.collection.products)
-    return (
-      <CollectionView
-        handle={handle}
-        title={data.collection.title}
-        description={data.collection.description}
-        products={products}
-        hasFilters
-      />
-    )
-  }
+  if (!data) return false
 
-  if (data && !data.collection) return <NotFoundView />
-  return false
+  const { title, description, metafields } = data?.collection || {}
+  const isHidden = metafields
+    .filter(field => !!field)
+    .some(({ key, value }) => key === 'hidden' && value === 'true')
+
+  if (!data.collection || isHidden) return <NotFoundView />
+
+  const products = getCollectionProducts(data.collection.products)
+  return (
+    <CollectionView
+      handle={handle}
+      title={title}
+      description={description}
+      products={products}
+      hasFilters
+    />
+  )
 }
 
 export default ClientCollectionPage
