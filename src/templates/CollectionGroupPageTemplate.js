@@ -12,6 +12,8 @@ const CollectionPageTemplate = ({ pageContext, path, data }) => {
     headerImage,
     slug,
     isBeloved,
+    hasPassword,
+    password,
   } = data.sanityCollectionGroupPage
   const { content } = data.sanityCollectionSeo || {}
   const collectionsWithGroupData = data.allShopifyCollection.nodes.map(node => {
@@ -37,6 +39,7 @@ const CollectionPageTemplate = ({ pageContext, path, data }) => {
       handle={slug.current}
       content={content}
       isBeloved={isBeloved}
+      password={hasPassword ? password : null}
     />
   )
 }
@@ -47,6 +50,8 @@ export const query = graphql`
   query CollectionGroupPageQuery($handle: String!, $collections: [String]!) {
     sanityCollectionGroupPage(slug: { current: { eq: $handle } }) {
       isBeloved
+      hasPassword
+      password
       collections {
         handle
         title

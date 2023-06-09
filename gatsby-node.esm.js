@@ -148,6 +148,10 @@ async function createCollectionPages({ graphql, actions }) {
       allShopifyCollection {
         nodes {
           handle
+          metafields {
+            key
+            value
+          }
         }
       }
       allSanityCollectionGroupPage {
@@ -164,16 +168,20 @@ async function createCollectionPages({ graphql, actions }) {
     node => node.slug.current
   )
 
-  data.allShopifyCollection.nodes.forEach(({ handle }) => {
-    if (!collectionGroupSlugs.includes(handle)) {
-      actions.createPage({
-        path: `/collections/${handle}`,
-        component: collectionTemplate,
-        context: {
-          handle,
-        },
-      })
-    }
+  data.allShopifyCollection.nodes.forEach(({ handle, metafields }) => {
+    const isGroupPage = collectionGroupSlugs.includes(handle)
+    const isHidden = metafields.some(
+      ({ key, value }) => key === 'hidden' && value === 'true'
+    )
+
+    if (isHidden || isGroupPage) return
+    actions.createPage({
+      path: `/collections/${handle}`,
+      component: collectionTemplate,
+      context: {
+        handle,
+      },
+    })
   })
 }
 
