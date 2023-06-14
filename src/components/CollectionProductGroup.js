@@ -93,7 +93,7 @@ const CollectionProductGroup = ({
       }}
       pt={4}
     >
-      {showDetails && (
+      {showDetails && title && (
         <CollectionDetails
           title={title}
           description={description}
