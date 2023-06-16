@@ -11,14 +11,15 @@ const MotionDialogContent = motion(DialogContent)
 const MotionBox = motion(Box)
 
 const NewsletterSignUpModal = () => {
-  const [isOn, setOn] = useState(false)
-  const { dismissPrompt, shouldPrompt } = useContext(NewsletterContext)
   const text = useRef(null)
+  const [isOn, setOn] = useState(false)
+  const { dismissPrompt, shouldPrompt, hasDismissed } =
+    useContext(NewsletterContext)
 
   useTimeout(() => {
     if (!shouldPrompt) return
     setOn(true)
-  }, 8000)
+  }, 3500)
 
   const handleDismiss = () => {
     dismissPrompt()
@@ -30,7 +31,7 @@ const NewsletterSignUpModal = () => {
 
   return (
     <AnimatePresence>
-      {isOn && shouldPrompt && (
+      {isOn && shouldPrompt && !hasDismissed && (
         <MotionDialogOverlay
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -39,6 +40,7 @@ const NewsletterSignUpModal = () => {
           style={{
             zIndex: 11,
             background: 'backgroundShade',
+            overflow: 'hidden',
           }}
         >
           <MotionBox

@@ -28,7 +28,7 @@ export const NewsletterContext = createContext(initialValues)
 const NewsletterProvider = props => {
   const { accessToken } = useContext(AuthContext)
   const [isSubscribed, setIsSubscribed] = useState(false)
-  const [hasDismissed, setHasDismissed] = useState()
+  const [hasDismissed, setHasDismissed] = useState(false)
   const [hasDismissedBeloved, setHasDismissedBeloved] = useState()
 
   const [{ data }] = useQuery({
@@ -62,7 +62,7 @@ const NewsletterProvider = props => {
   }, [setHasDismissedBeloved])
 
   useEffect(() => {
-    setHasDismissed(!!store.get(STORAGE_DISMISSED_NEWSLETTER_PROMPT))
+    // setHasDismissed(!!store.get(STORAGE_DISMISSED_NEWSLETTER_PROMPT)) will show at least once until Jun 21
     setHasDismissedBeloved(
       !!store.get(STORAGE_DISMISSED_BELOVED_NEWSLETTER_PROMPT)
     )
@@ -73,7 +73,9 @@ const NewsletterProvider = props => {
       value={{
         isSubscribed,
         subscribe,
-        shouldPrompt: isSubscribed ? false : !hasDismissed,
+        shouldPrompt: !isSubscribed,
+        hasDismissed, // will show at least once until Jun 21
+        // shouldPrompt: isSubscribed ? false : !hasDismissed,
         dismissPrompt,
         dismissBelovedPrompt,
         shouldPromptBeloved: isSubscribed ? false : !hasDismissedBeloved,
