@@ -27,7 +27,8 @@ const NewsletterSignUpModal = () => {
   }
 
   // const URL = '/bluboho-online-fine-jewelry-signup'
-  const URL = '/newsletter'
+  // const URL = '/newsletter'
+  const URL = '/sample-sale'
 
   return (
     <AnimatePresence>
@@ -79,8 +80,10 @@ const NewsletterSignUpModal = () => {
                 fontSize: 0,
                 fontWeight: 600,
                 letterSpacing: 'wider',
-                transform: ['translateY(20px)', 'translateY(25px)'],
+                // transform: ['translateY(20px)', 'translateY(25px)'],
+                transform: 'translate(60px, -30px)',
               }}
+              // p={5}
               mr={[6, 8]}
             >
               close
