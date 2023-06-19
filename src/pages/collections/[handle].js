@@ -15,7 +15,7 @@ const ClientCollectionPage = ({ params: { handle } }) => {
 
   if (!data) return false
 
-  const { title, description, metafields } = data?.collection || {}
+  const { title, description, metafields = [] } = data?.collection || {}
   const isHidden = metafields
     .filter(field => !!field)
     .some(({ key, value }) => key === 'hidden' && value === 'true')
