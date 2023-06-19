@@ -149,17 +149,21 @@ const QuestionAnswer = ({ faq, index, expanded, setExpanded }) => {
 }
 
 const calendars = [
+  // {
+  //   title: '2616 yonge st, toronto | 20 min',
+  //   path: 'ringconsultation/link-bracelets',
+  // },
+  // {
+  //   title: '293 Lakeshore Rd E, Oakville | 15 min',
+  //   path: 'bluboho-oakville/linked-permanent-bracelets',
+  // },
+  // {
+  //   title: '2207 4 St SW, Calgary, | 20 min',
+  //   path: 'calgary-4/getlinked',
+  // },
   {
-    title: '2616 yonge st, toronto | 20 min',
-    path: 'ringconsultation/link-bracelets',
-  },
-  {
-    title: '293 Lakeshore Rd E, Oakville | 15 min',
-    path: 'bluboho-oakville/linked-permanent-bracelets',
-  },
-  {
-    title: '2207 4 St SW, Calgary, | 20 min',
-    path: 'calgary-4/getlinked',
+    title: '350 Queen St W, Toronto, | 15 min',
+    path: 'ringconsultation/bluboho-queen-st-lets-get-linked',
   },
 ]
 
