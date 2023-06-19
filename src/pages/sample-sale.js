@@ -27,7 +27,7 @@ const ReleaseDate = () => (
 const SampleSalePage = () => (
   <Layout
     title="sample sale signup"
-    description="sign up because the last time we did this it sold out in 2 weeks"
+    description="sign up because the last time we did this it sold out in 1 day"
   >
     <Flex
       mx="auto"
