@@ -62,7 +62,7 @@ const NewsletterProvider = props => {
   }, [setHasDismissedBeloved])
 
   useEffect(() => {
-    // setHasDismissed(!!store.get(STORAGE_DISMISSED_NEWSLETTER_PROMPT)) will show at least once until Jun 21
+    setHasDismissed(!!store.get(STORAGE_DISMISSED_NEWSLETTER_PROMPT))
     setHasDismissedBeloved(
       !!store.get(STORAGE_DISMISSED_BELOVED_NEWSLETTER_PROMPT)
     )
@@ -73,9 +73,7 @@ const NewsletterProvider = props => {
       value={{
         isSubscribed,
         subscribe,
-        shouldPrompt: !isSubscribed,
-        hasDismissed, // will show at least once until Jun 21
-        // shouldPrompt: isSubscribed ? false : !hasDismissed,
+        shouldPrompt: isSubscribed ? false : !hasDismissed,
         dismissPrompt,
         dismissBelovedPrompt,
         shouldPromptBeloved: isSubscribed ? false : !hasDismissedBeloved,

@@ -13,8 +13,7 @@ const MotionBox = motion(Box)
 const NewsletterSignUpModal = () => {
   const text = useRef(null)
   const [isOn, setOn] = useState(false)
-  const { dismissPrompt, shouldPrompt, hasDismissed } =
-    useContext(NewsletterContext)
+  const { dismissPrompt, shouldPrompt } = useContext(NewsletterContext)
 
   useTimeout(() => {
     if (!shouldPrompt) return
@@ -26,13 +25,13 @@ const NewsletterSignUpModal = () => {
     setOn(false)
   }
 
-  // const URL = '/bluboho-online-fine-jewelry-signup'
+  const URL = '/bluboho-online-fine-jewelry-signup'
   // const URL = '/newsletter'
-  const URL = '/sample-sale'
+  // const URL = '/sample-sale'
 
   return (
     <AnimatePresence>
-      {isOn && shouldPrompt && !hasDismissed && (
+      {isOn && shouldPrompt && (
         <MotionDialogOverlay
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -89,7 +88,8 @@ const NewsletterSignUpModal = () => {
               close
             </Button>
             <GatsbyLink to={URL}>
-              <Image src="/homepage-pop-up-sample-sale.webp" alt="" />
+              <Image src="/homepage-pop-up-contemplation-cards.webp" alt="" />
+              {/* <Image src="/homepage-pop-up-sample-sale.webp" alt="" /> */}
             </GatsbyLink>
           </MotionBox>
         </MotionDialogOverlay>
