@@ -81,7 +81,7 @@ export const useProductGalleryImages = () => {
   ]
 
   const { url } = packagingImages.find(
-    ({ type }) => type === giftPackagingImageStyle.toLowerCase()
+    ({ type }) => type === giftPackagingImageStyle.trim().toLowerCase()
   )
 
   return [
@@ -145,7 +145,7 @@ export const useProductGalleryMedia = () => {
   ]
 
   const { url } = packagingImages.find(
-    ({ type }) => type === giftPackagingImageStyle.toLowerCase()
+    ({ type }) => type === giftPackagingImageStyle.trim().toLowerCase()
   )
 
   return [
