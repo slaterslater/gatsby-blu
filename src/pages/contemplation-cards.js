@@ -3,10 +3,11 @@ import { GatsbyImage } from 'gatsby-plugin-image'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { Box, Button, Container, Divider, Grid, Heading, Text } from 'theme-ui'
 import { gql, useQuery } from 'urql'
+import { AnimatePresence, useAnimation } from 'framer-motion'
 import Layout from '../components/layout'
 import MessageFromUniverse from '../components/MessageFromUniverse'
 import ContemplationCard from '../components/product/ContemplationCard'
-import ProductListItem from '../components/product/ListItem'
+import ProductListItem, { DragBox } from '../components/product/ListItem'
 import ProductModal from '../components/product/ProductModal'
 
 const ContemplationCardPage = ({ data }) => {
@@ -195,18 +196,17 @@ const ContemplationCardPage = ({ data }) => {
           }}
           mx="auto"
         >
-          {cards.map(({ image, title }, i) => (
-            <Box
+          {cards.map(({ title, image, backImage }, i) => (
+            <DoubleSidedCard
               key={`card-grid-${i}`}
+              title={title}
               onClick={() => scrollToCard(i)}
-              sx={{ order: cardOrder[i] }}
-            >
-              <GatsbyImage
-                image={image.asset.gatsbyImageData}
-                alt=""
-                title={title}
-              />
-            </Box>
+              order={cardOrder[i]}
+              frontImage={image.asset.gatsbyImageData}
+              // check that images are uploaded and then remove
+              // validation should ensure all cards have a back
+              backImage={backImage?.asset?.gatsbyImageData}
+            />
           ))}
         </Grid>
       </Container>
@@ -233,8 +233,19 @@ export const query = graphql`
           asset {
             gatsbyImageData(
               placeholder: BLURRED
-              #width: 250
-              #height: 425
+              width: 250
+              height: 425
+              #layout: FIXED
+            )
+          }
+        }
+        backImage {
+          asset {
+            gatsbyImageData(
+              #aspectRatio: 0.6
+              placeholder: BLURRED
+              width: 250
+              height: 425
               #layout: FIXED
             )
           }
@@ -253,3 +264,44 @@ export const query = graphql`
     }
   }
 `
+
+const DoubleSidedCard = ({ title, onClick, order, frontImage, backImage }) => {
+  const priControls = useAnimation()
+  const altControls = useAnimation()
+
+  const imageControl = (a, b) => {
+    a.start({ opacity: 0, zIndex: 0 })
+    b.start({ zIndex: 2 })
+    a.start({ opacity: 1 })
+  }
+
+  // check that images are uploaded and then remove
+  // validation should ensure all cards have a back
+  if (!backImage) {
+    return (
+      <Box onClick={onClick} sx={{ order: 900 }}>
+        <GatsbyImage image={frontImage} alt="" title={title} />
+      </Box>
+    )
+  }
+
+  return (
+    <Grid onClick={onClick} sx={{ order, overflow: 'hidden' }}>
+      <AnimatePresence>
+        <DragBox
+          primary
+          controls={priControls}
+          shuffleImg={() => imageControl(priControls, altControls)}
+        >
+          <GatsbyImage image={frontImage} alt="" />
+        </DragBox>
+        <DragBox
+          controls={altControls}
+          shuffleImg={() => imageControl(altControls, priControls)}
+        >
+          <GatsbyImage image={backImage} alt="" />
+        </DragBox>
+      </AnimatePresence>
+    </Grid>
+  )
+}

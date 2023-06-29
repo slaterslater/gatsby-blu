@@ -24,7 +24,13 @@ const Dot = ({ full }) => (
   />
 )
 
-const DragBox = ({ children, primary = false, controls, shuffleImg, bg }) => {
+export const DragBox = ({
+  children,
+  primary = false,
+  controls,
+  shuffleImg,
+  bg = 'white',
+}) => {
   const swipeConfidenceThreshold = 10000
   const swipePower = (offset, velocity) => Math.abs(offset) * velocity
 
@@ -86,7 +92,6 @@ export const CollectionThumbnail = ({ title, primary, alternate }) => {
       <Grid>
         <AnimatePresence>
           <DragBox
-            key={`thumbnail-${title}-1`}
             primary
             controls={priControls}
             shuffleImg={() => imageControl(priControls, altControls)}
@@ -98,7 +103,6 @@ export const CollectionThumbnail = ({ title, primary, alternate }) => {
             />
           </DragBox>
           <DragBox
-            key={`thumbnail-${title}-2`}
             controls={altControls}
             shuffleImg={() => imageControl(altControls, priControls)}
             bg={bg}
