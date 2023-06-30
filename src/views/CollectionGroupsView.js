@@ -49,6 +49,7 @@ const CollectionGroup = ({
   consultation,
   products,
   index = 0,
+  badges,
   ...props
 }) => {
   const { collectionProducts, collectionImages } = useLatestCollection(
@@ -90,6 +91,7 @@ const CollectionGroup = ({
             images={product.images}
             collectionTitle={pageTitle}
             collectionPath={pagePath}
+            badges={badges}
           />
         </Box>
       ))}
@@ -125,6 +127,7 @@ const CollectionGroupsView = ({
   content,
   isBeloved,
   password,
+  badges,
 }) => {
   const [shouldShow, setShouldShow] = useState(!password)
 
@@ -178,6 +181,7 @@ const CollectionGroupsView = ({
                 pagePath={pagePath}
                 index={i}
                 consultation={consultation}
+                badges={badges}
                 {...collection}
               />
             ))}
@@ -188,6 +192,7 @@ const CollectionGroupsView = ({
               title=""
               description=""
               products={sortedProducts}
+              badges={badges}
             />
           )}
         </Grid>
