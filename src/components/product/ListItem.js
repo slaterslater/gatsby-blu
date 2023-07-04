@@ -143,7 +143,10 @@ const ProductItemLabel = ({ tags, metafields, soldOut }) => {
   const labelMetaField = metafields.find(({ key }) => key === 'label')
 
   const { value, updatedAt } = labelMetaField || {}
-  const labelText = value?.match(/\w+/) || labelTag?.replace('__label:', '')
+
+  const labelText = value
+    ? JSON.parse(value)[0]
+    : labelTag?.replace('__label:', '')
 
   const numWeeksOld = dayjs().diff(updatedAt, 'week')
   const restockedWeeksAgo = value === 'restocked' && numWeeksOld > 2
