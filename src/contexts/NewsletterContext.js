@@ -63,9 +63,9 @@ const NewsletterProvider = props => {
 
   useEffect(() => {
     setHasDismissed(!!store.get(STORAGE_DISMISSED_NEWSLETTER_PROMPT))
-    setHasDismissedBeloved(
-      !!store.get(STORAGE_DISMISSED_BELOVED_NEWSLETTER_PROMPT)
-    )
+    // setHasDismissedBeloved(
+    //   !!store.get(STORAGE_DISMISSED_BELOVED_NEWSLETTER_PROMPT)
+    // )
   }, [])
 
   return (

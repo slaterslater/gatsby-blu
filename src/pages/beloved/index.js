@@ -155,10 +155,9 @@ const BelovedHomePage = ({ data }) => {
             onClick={() => navigate(headerHero[0].button.path)}
             sx={{
               width: ['calc(100% - 32px)', 530],
-              // maxWidth: ['100%', 530],
               display: 'block',
               transform: ['translateY(-35px)', 'translateY(-180px)'],
-              // marginBottom: '-35px',
+              textTransform: 'uppercase',
             }}
             mx="auto"
             mb={4}
