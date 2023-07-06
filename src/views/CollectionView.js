@@ -36,6 +36,7 @@ const CollectionPage = ({
   card,
   content,
   isBeloved,
+  badges,
 }) => {
   useAnalytics('viewItemList', products, title, handle)
 
@@ -66,6 +67,7 @@ const CollectionPage = ({
           collectionTitle={title}
           collectionPath={`/collections/${handle}`}
           collectionImages={collectionImages}
+          badges={badges}
         />
         {content && <PageContentSEO title={title} content={content} />}
       </Container>

@@ -92,6 +92,7 @@ export const CollectionThumbnail = ({ title, primary, alternate }) => {
       <Grid>
         <AnimatePresence>
           <DragBox
+            key={`${title}-dragbox-1`}
             primary
             controls={priControls}
             shuffleImg={() => imageControl(priControls, altControls)}
@@ -103,6 +104,7 @@ export const CollectionThumbnail = ({ title, primary, alternate }) => {
             />
           </DragBox>
           <DragBox
+            key={`${title}-dragbox-2`}
             controls={altControls}
             shuffleImg={() => imageControl(altControls, priControls)}
             bg={bg}
@@ -170,6 +172,7 @@ const ProductListItemInner = ({
   tags,
   availableForSale,
   metafields = [],
+  badge,
 }) => (
   <Box as="article" sx={{ position: 'relative', zIndex: 1 }} pb={[5, 6]}>
     <ProductItemLabel
@@ -185,6 +188,27 @@ const ProductListItemInner = ({
         primary={firstImage}
         alternate={secondImage}
       />
+      {badge && (
+        <Box
+          sx={{
+            maxWidth: '18%',
+            maxHeight: '18%',
+            marginLeft: 'auto',
+            marginRight: 2,
+            zIndex: 3,
+            transform: 'translateY(calc(-100% - 10px))',
+            // transform: 'translateY(-125%)',
+            marginBottom: '-20%',
+            // marginBottom: 'calc(-20% - 4px)',
+            // marginBottom: 'calc(-100% - 10px)',
+          }}
+        >
+          <GatsbyImage
+            image={badge.image.asset.gatsbyImageData}
+            alt={badge.name}
+          />
+        </Box>
+      )}
       <Flex
         pt={2}
         sx={{

@@ -16,6 +16,7 @@ const CollectionPageTemplate = ({ pageContext, path, data }) => {
     password,
   } = data.sanityCollectionGroupPage
   const { content } = data.sanityCollectionSeo || {}
+  const badges = data.allSanityProductBadge.nodes
   const collectionsWithGroupData = data.allShopifyCollection.nodes.map(node => {
     const group = collections.find(
       groupNode => groupNode.handle === node.handle
@@ -40,6 +41,7 @@ const CollectionPageTemplate = ({ pageContext, path, data }) => {
       content={content}
       isBeloved={isBeloved}
       password={hasPassword ? password : null}
+      badges={badges}
     />
   )
 }
@@ -108,6 +110,16 @@ export const query = graphql`
               currencyCode
               amount
             }
+          }
+        }
+      }
+    }
+    allSanityProductBadge(filter: { name: { regex: "/^visit/" } }) {
+      nodes {
+        name
+        image {
+          asset {
+            gatsbyImageData(width: 85, placeholder: BLURRED, height: 85)
           }
         }
       }

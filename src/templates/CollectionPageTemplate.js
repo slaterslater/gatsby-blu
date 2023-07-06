@@ -16,6 +16,7 @@ const CollectionPageTemplate = ({ data, pageContext, ...props }) => {
     metafields,
   } = data.shopifyCollection
   const { content } = data.sanityCollectionSeo || {}
+  const badges = data.allSanityProductBadge.nodes
   const isBeloved = useMetafieldValue('isBeloved', metafields)
   const { collectionProducts, collectionImages } = useLatestCollection(
     handle,
@@ -35,6 +36,7 @@ const CollectionPageTemplate = ({ data, pageContext, ...props }) => {
       card={data.card}
       content={content}
       isBeloved={isBeloved === 'true'}
+      badges={badges}
       hasFilters
     />
   )
@@ -119,6 +121,16 @@ export const query = graphql`
             placeholder: BLURRED
             layout: FIXED
           )
+        }
+      }
+    }
+    allSanityProductBadge(filter: { name: { regex: "/^visit/" } }) {
+      nodes {
+        name
+        image {
+          asset {
+            gatsbyImageData(width: 85, placeholder: BLURRED, height: 85)
+          }
         }
       }
     }

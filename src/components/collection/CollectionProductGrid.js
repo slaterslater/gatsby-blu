@@ -56,6 +56,7 @@ const ProductGrid = ({
   title,
   description,
   collectionImages,
+  badges,
 }) => {
   const sortedProducts = useSortedProducts(products)
   const prodLen = sortedProducts.length
@@ -89,6 +90,7 @@ const ProductGrid = ({
             images={product.images}
             collectionTitle={collectionTitle}
             collectionPath={collectionPath}
+            badges={badges}
           />
         </Box>
       ))}
