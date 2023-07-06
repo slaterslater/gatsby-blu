@@ -43,6 +43,8 @@ const HomePageHeader = ({ data, video }) => {
     img => img?.asset.gatsbyImageData
   )
 
+  const { mobileVideo, desktopVideo } = video || {}
+
   const artDirectedImages = useMemo(() => {
     if (!mobileImageData) return image1Data
     return withArtDirection(image1Data, [
@@ -55,15 +57,15 @@ const HomePageHeader = ({ data, video }) => {
 
   return (
     <HeroOuter data={{ heading, subheading, button }}>
-      {video?.mobileVideo && (
+      {mobileVideo && (
         <Video
-          video={video.mobileVideo}
+          video={mobileVideo}
           sx={{ display: ['block', 'none'], height: 450 }}
         />
       )}
-      {video?.desktopVideo && (
+      {desktopVideo && (
         <Video
-          video={video.desktopVideo}
+          video={desktopVideo}
           sx={{ display: ['none', 'block'], height: 600 }}
         />
       )}

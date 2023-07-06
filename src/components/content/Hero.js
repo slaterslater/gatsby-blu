@@ -57,11 +57,12 @@ export const HeroOuter = ({ children, data, align = 'right' }) => {
           textAlign: 'center',
           zIndex: 2,
           fontFamily: 'heading',
-          textTransform: 'lowercase',
+          textTransform: 'uppercase',
           border: '1px solid',
           borderColor: 'cream',
           borderRadius: 2,
           marginBottom: ['-20px', '-60px'],
+          fontSize: 2,
         }}
         mx="auto"
         mb={4}
