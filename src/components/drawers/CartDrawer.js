@@ -11,7 +11,10 @@ import OrderNote from '../OrderNote'
 import { useAnalytics } from '../../lib/useAnalytics'
 import { CurrencyContext } from '../../contexts/CurrencyContext'
 import { AuthContext } from '../../contexts/AuthContext'
-import { AssociateCustomerWithCheckout } from '../../mutations/cart'
+import {
+  AssociateCustomerWithCheckout,
+  RemoveCheckoutLineItem,
+} from '../../mutations/cart'
 
 const EmptyCart = () => (
   <Box py={5} px={4} sx={{ textAlign: 'center' }}>
@@ -28,15 +31,19 @@ const CartDrawer = ({ onClose }) => {
   const { checkoutId } = useContext(StoreContext)
   const { countryCode } = useContext(CurrencyContext)
   const { accessToken } = useContext(AuthContext)
+
   const [{ data, fetching }] = useQuery({
     query: CHECKOUT_QUERY,
     variables: { checkoutId, countryCode },
   })
+
   const { webUrl: checkoutUrl } = data?.node || {}
+  const lineItems = data?.node.lineItems?.edges || []
 
   const [, associateCustomerWithCheckout] = useMutation(
     AssociateCustomerWithCheckout
   )
+  const [, removeLineItem] = useMutation(RemoveCheckoutLineItem)
 
   useEffect(() => {
     if ((accessToken, checkoutId)) {
@@ -46,6 +53,14 @@ const CartDrawer = ({ onClose }) => {
       })
     }
   }, [accessToken, checkoutId, associateCustomerWithCheckout])
+
+  // remove items that are no longer for sale
+  useEffect(() => {
+    lineItems.forEach(item => {
+      if (item.node.variant) return
+      removeLineItem({ checkoutId, lineItemIds: [item.node.id] })
+    })
+  }, [lineItems])
 
   return (
     <Flex
@@ -69,8 +84,8 @@ const CartDrawer = ({ onClose }) => {
       {data && (
         <>
           <Box sx={{ flex: 1, overflowY: 'auto' }}>
-            {!data.node.lineItems?.edges.length && <EmptyCart />}
-            {data.node.lineItems.edges.map(({ node }) => (
+            {!lineItems.length && <EmptyCart />}
+            {lineItems.map(({ node }) => (
               <Box key={node.id} py={4} px={3}>
                 <CartLineItem item={node} />
               </Box>

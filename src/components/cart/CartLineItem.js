@@ -1,14 +1,11 @@
-import { Flex, IconButton, Text, Box, Label } from 'theme-ui'
+import { Flex, IconButton, Text, Box } from 'theme-ui'
 import React, { useContext } from 'react'
 import { IoIosRemove, IoIosAdd } from 'react-icons/io'
 import { FiTrash } from 'react-icons/fi'
 import { useMutation } from 'urql'
 import LineItem from '../LineItem'
 import LineItemPrice from '../LineItemPrice'
-import {
-  UpdateCheckoutLineItem,
-  RemoveCheckoutLineItem,
-} from '../../mutations/cart'
+import { UpdateCheckoutLineItem } from '../../mutations/cart'
 import { StoreContext } from '../../contexts/StoreContext'
 import WrapSeparatelyOption from '../WrapSeparatelyOption'
 import { useSendAnalytics } from '../../lib/useAnalytics'
@@ -18,7 +15,7 @@ const CartLineItem = ({ onRemoveItem, item, imgSize }) => {
   const [updateLineItemResult, updateLineItem] = useMutation(
     UpdateCheckoutLineItem
   )
-  const [, removeLineItem] = useMutation(RemoveCheckoutLineItem)
+  // const [, removeLineItem] = useMutation(RemoveCheckoutLineItem)
 
   const sendAnalytics = useSendAnalytics('removeFromCart')
 
