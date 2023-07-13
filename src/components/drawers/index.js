@@ -44,6 +44,7 @@ function setHeight() {
 }
 
 const Drawers = ({ children }) => {
+  // const [openDrawer, setOpenDrawer] = useState('cart')
   const [openDrawer, setOpenDrawer] = useState('')
   const [productHandle, setProductHandle] = useState('')
 
