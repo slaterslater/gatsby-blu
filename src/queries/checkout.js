@@ -68,5 +68,30 @@ export const CHECKOUT_QUERY = gql`
         ...CheckoutFields
       }
     }
+    collection(handle: "you-might-also-like") {
+      products(first: 50) {
+        nodes {
+          id
+          title
+          images(first: 1) {
+            nodes {
+              altText
+              url
+              height
+              width
+              id
+            }
+          }
+          variants(first: 1) {
+            nodes {
+              id
+              priceV2: price {
+                amount
+              }
+            }
+          }
+        }
+      }
+    }
   }
 `

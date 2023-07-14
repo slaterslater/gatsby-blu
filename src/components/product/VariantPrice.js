@@ -3,7 +3,7 @@ import { useFormattedPrice } from '../FormattedPrice'
 import { ProductContext } from './ProductContext'
 
 export const useVariantPrice = variant => {
-  const { quantity } = useContext(ProductContext)
+  const { quantity = 1 } = useContext(ProductContext)
 
   const price = variant.priceV2?.amount || variant.price
 

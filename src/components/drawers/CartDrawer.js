@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import { Box, Flex, Text, Divider, IconButton, Button } from 'theme-ui'
+import { Box, Flex, Text, Divider, IconButton } from 'theme-ui'
 import { IoIosClose } from 'react-icons/io'
 import { useMutation, useQuery } from 'urql'
 import { StoreContext } from '../../contexts/StoreContext'
@@ -15,6 +15,7 @@ import {
   AssociateCustomerWithCheckout,
   RemoveCheckoutLineItem,
 } from '../../mutations/cart'
+import AddOns from '../cart/AddOns'
 
 const EmptyCart = () => (
   <Box py={5} px={4} sx={{ textAlign: 'center' }}>
@@ -54,7 +55,6 @@ const CartDrawer = ({ onClose }) => {
     }
   }, [accessToken, checkoutId, associateCustomerWithCheckout])
 
-  // remove items that are no longer for sale
   useEffect(() => {
     lineItems.forEach(item => {
       if (item.node.variant) return
@@ -70,11 +70,12 @@ const CartDrawer = ({ onClose }) => {
         alignItems: 'stretch',
         position: 'relative',
       }}
+      pb={3}
     >
       {data && <CartTag checkout={data.node} />}
       <Box>
         <Flex p={4} sx={{ alignItems: 'center' }}>
-          <Text sx={{ fontSize: 3, flex: 1 }}>Your Cart</Text>
+          <Text sx={{ fontSize: 3, flex: 1 }}>Your Bag</Text>
           <IconButton p={0} ml={6} onClick={onClose}>
             <Text as={IoIosClose} size={24} />
           </IconButton>
@@ -91,18 +92,20 @@ const CartDrawer = ({ onClose }) => {
               </Box>
             ))}
           </Box>
-          <Box>
-            <OrderNote initialNote={data.node.note} />
-            <OrderSummary
-              subtotalPriceV2={data.node.subtotalPriceV2}
-              totalPriceV2={data.node.totalPriceV2}
-              requiresShipping={data.node.requiresShipping}
-              shippingRates={data.node.availableShippingRates}
-              loading={fetching}
-              note={data.node.note}
-            />
-            <CheckoutButton href={checkoutUrl} />
-          </Box>
+          <AddOns
+            products={data.collection?.products.nodes || []}
+            checkoutId={checkoutId}
+          />
+          <OrderNote initialNote={data.node.note} />
+          <OrderSummary
+            subtotalPriceV2={data.node.subtotalPriceV2}
+            totalPriceV2={data.node.totalPriceV2}
+            requiresShipping={data.node.requiresShipping}
+            shippingRates={data.node.availableShippingRates}
+            loading={fetching}
+            note={data.node.note}
+          />
+          <CheckoutButton href={checkoutUrl} />
         </>
       )}
     </Flex>
