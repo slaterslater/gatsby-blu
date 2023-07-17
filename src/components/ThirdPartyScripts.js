@@ -80,6 +80,37 @@ const ThirdPartScripts = () => {
       {process.env.GATSBY_BING_TAG_ID && (
         <script>{`(function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:"${process.env.GATSBY_BING_TAG_ID}", tm:"shpfy_ui"};o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)})(window,document,"script","//bat.bing.com/bat.js","uetq");`}</script>
       )}
+      {process.env.GATSBY_BING_TAG_ID && process.env.GATSBY_BING_TAG_ID && (
+        <script type="text/javascript">
+          {`
+            adroll_adv_id = ${process.env.GATSBY_ADROLL_ADV_ID};
+            adroll_pix_id = ${process.env.GATSBY_ADROLL_PIX_ID};
+            adroll_version = "2.0";
+
+            (function(w, d, e, o, a) {
+                w.__adroll_loaded = true;
+                w.adroll = w.adroll || [];
+                w.adroll.f = [ 'setProperties', 'identify', 'track' ];
+                var roundtripUrl = "https://s.adroll.com/j/" + adroll_adv_id
+                        + "/roundtrip.js";
+                for (a = 0; a < w.adroll.f.length; a++) {
+                    w.adroll[w.adroll.f[a]] = w.adroll[w.adroll.f[a]] || (function(n) {
+                        return function() {
+                            w.adroll.push([ n, arguments ])
+                        }
+                    })(w.adroll.f[a])
+                }
+
+                e = d.createElement('script');
+                o = d.getElementsByTagName('script')[0];
+                e.async = 1;
+                e.src = roundtripUrl;
+                o.parentNode.insertBefore(e, o);
+            })(window, document);
+            adroll.track("pageView");
+          `}
+        </script>
+      )}
     </Helmet>
   )
 }
