@@ -83,8 +83,8 @@ const ThirdPartScripts = () => {
       {process.env.GATSBY_ADROLL_ADV_ID && process.env.GATSBY_ADROLL_PIX_ID && (
         <script type="text/javascript">
           {`
-            adroll_adv_id = ${process.env.GATSBY_ADROLL_ADV_ID};
-            adroll_pix_id = ${process.env.GATSBY_ADROLL_PIX_ID};
+            adroll_adv_id = "${process.env.GATSBY_ADROLL_ADV_ID}";
+            adroll_pix_id = "${process.env.GATSBY_ADROLL_PIX_ID}";
             adroll_version = "2.0";
 
             (function(w, d, e, o, a) {

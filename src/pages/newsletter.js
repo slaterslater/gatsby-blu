@@ -41,8 +41,7 @@ const NewsletterPage = props => {
           }}
           pb={4}
         >
-          designed in canada. ethically sourced. sign up today for the latest
-          news, updates, and collection launches.
+          sign up today for the latest news, updates, and collection launches.
         </Text>
         {/* <NewsletterSubscribe color="primary" />
       <SmsSubscribe color="primary" /> */}
