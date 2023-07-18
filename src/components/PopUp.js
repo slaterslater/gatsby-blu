@@ -13,7 +13,7 @@ const MotionDialogContent = motion(DialogContent)
 const MotionBox = motion(Box)
 
 const PopUp = ({ popup, dismissPrompt = () => {}, shouldPrompt = true }) => {
-  const { title, path, image, timeout } = popup
+  const { title, path, image, timeout } = popup || {}
   const [isOn, setOn] = useState(false)
 
   useTimeout(() => {
@@ -25,6 +25,8 @@ const PopUp = ({ popup, dismissPrompt = () => {}, shouldPrompt = true }) => {
     dismissPrompt()
     setOn(false)
   }
+
+  if (!popup) return null
 
   return (
     <AnimatePresence>
