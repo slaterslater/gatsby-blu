@@ -1,6 +1,6 @@
 import { graphql, navigate, Link as GatsbyLink } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
-import React from 'react'
+import React, { useContext } from 'react'
 import {
   AspectRatio,
   Box,
@@ -15,7 +15,8 @@ import { MobileSlider } from '../../components/content/CollectionRow'
 import HomeLocations from '../../components/home/Locations'
 import Layout from '../../components/layout'
 import Banner from '../../components/content/Banner'
-import BelovedNewsletterSignUpModal from '../../components/BelovedNewsletterSignUpModal'
+import { NewsletterContext } from '../../contexts/NewsletterContext'
+import PopUp from '../../components/PopUp'
 
 const lastWordUpperCase = text => {
   const words = text.split(' ')
@@ -93,9 +94,12 @@ const Spotlights = ({ spotlights }) => (
 )
 
 const BelovedHomePage = ({ data }) => {
-  const { headerHero, collectionRow, spotlights, features } =
+  const { headerHero, popup, collectionRow, spotlights, features } =
     data.sanityBelovedHomePage
   const locations = data.allSanityLocation.nodes
+
+  const { dismissBelovedPrompt, shouldPromptBeloved } =
+    useContext(NewsletterContext)
 
   const [f1, f2] = features
   const [s1, s2, s3, s4] = spotlights
@@ -258,7 +262,11 @@ const BelovedHomePage = ({ data }) => {
       >
         {lastWordUpperCase(`book an appointment`)}
       </Button>
-      <BelovedNewsletterSignUpModal />
+      <PopUp
+        popup={popup[0]}
+        dismissPrompt={dismissBelovedPrompt}
+        shouldPrompt={shouldPromptBeloved}
+      />
     </Layout>
   )
 }
@@ -282,6 +290,16 @@ export const query = graphql`
         imageMobile {
           asset {
             gatsbyImageData(placeholder: BLURRED, height: 700)
+          }
+        }
+      }
+      popup {
+        title
+        path
+        timeout
+        image {
+          asset {
+            gatsbyImageData(placeholder: BLURRED)
           }
         }
       }
