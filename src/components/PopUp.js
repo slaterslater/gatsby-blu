@@ -1,37 +1,34 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { DialogOverlay, DialogContent } from '@reach/dialog'
-import React, { useContext, useRef, useState } from 'react'
-import { Box, Button, Link } from 'theme-ui'
+import React, { useState } from 'react'
+import { Box, IconButton, Link } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
-import { StaticImage } from 'gatsby-plugin-image'
+import { GatsbyImage } from 'gatsby-plugin-image'
+import { IoMdCloseCircleOutline } from 'react-icons/io'
+import { PropTypes } from 'prop-types'
 import { useTimeout } from '../lib/useTimeout'
-import { NewsletterContext } from '../contexts/NewsletterContext'
 
 const MotionDialogOverlay = motion(DialogOverlay)
 const MotionDialogContent = motion(DialogContent)
 const MotionBox = motion(Box)
 
-const BelovedNewsletterSignUpModal = () => {
+const PopUp = ({ popup, dismissPrompt = () => {}, shouldPrompt = true }) => {
+  const { title, path, image, timeout } = popup
   const [isOn, setOn] = useState(false)
-  const { dismissBelovedPrompt, shouldPromptBeloved } =
-    useContext(NewsletterContext)
-  const text = useRef(null)
 
   useTimeout(() => {
-    if (!shouldPromptBeloved) return
+    if (!shouldPrompt) return
     setOn(true)
-  }, 4500)
+  }, timeout * 1000)
 
   const handleDismiss = () => {
-    dismissBelovedPrompt()
+    dismissPrompt()
     setOn(false)
   }
 
-  const URL = '/beloved/newsletter-signup'
-
   return (
     <AnimatePresence>
-      {isOn && shouldPromptBeloved && (
+      {isOn && (
         <MotionDialogOverlay
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -40,16 +37,16 @@ const BelovedNewsletterSignUpModal = () => {
           style={{
             zIndex: 11,
             background: 'backgroundShade',
+            overflow: 'hidden',
           }}
         >
           <MotionBox
             as={MotionDialogContent}
-            ref={text}
             initial={{ y: '5px', opacity: 0 }}
             animate={{ y: '0', opacity: 1 }}
             exit={{ y: '20px', opacity: 0 }}
             transition={{ min: 0, max: 100, bounceDamping: 9, delay: '200ms' }}
-            aria-label="newsletter signup"
+            aria-label={title}
             m={[0, '10vh auto']}
             mt={['60px', '10vh']}
             mx="auto"
@@ -65,31 +62,30 @@ const BelovedNewsletterSignUpModal = () => {
               '.offScreen': { position: 'absolute', left: '-9999em' },
             }}
           >
-            <Link as={GatsbyLink} to={URL} className="offScreen">
-              join our list to get exclusive access
+            <Link as={GatsbyLink} to={path} className="offScreen">
+              {title}
             </Link>
-            <Button
+            <IconButton
               type="button"
-              variant="link"
+              aria-label="Close"
               onClick={handleDismiss}
               sx={{
-                color: 'cream',
+                outline: 'none',
                 alignSelf: 'flex-end',
-                textTransform: 'uppercase',
-                fontSize: 0,
-                fontWeight: 600,
-                letterSpacing: 'wider',
-                // transform: ['translateY(20px)', 'translateY(25px)'],
+                height: 0,
+                transform: 'translateY(60px)',
+                zIndex: 100,
+                svg: {
+                  backgroundColor: 'cream',
+                  borderRadius: '50%',
+                },
               }}
-              mr={[6, 8]}
+              mr={[2, 6]}
             >
-              close
-            </Button>
-            <GatsbyLink to={URL}>
-              <StaticImage
-                src="../images/popup/beloved-homepage-pop-up.webp"
-                alt=""
-              />
+              <IoMdCloseCircleOutline size={24} />
+            </IconButton>
+            <GatsbyLink to={path}>
+              <GatsbyImage image={image.asset.gatsbyImageData} alt="" />
             </GatsbyLink>
           </MotionBox>
         </MotionDialogOverlay>
@@ -98,4 +94,10 @@ const BelovedNewsletterSignUpModal = () => {
   )
 }
 
-export default BelovedNewsletterSignUpModal
+PopUp.propTypes = {
+  popup: PropTypes.object.isRequired,
+  dismissPrompt: PropTypes.func.isRequired,
+  shouldPrompt: PropTypes.bool.isRequired,
+}
+
+export default PopUp

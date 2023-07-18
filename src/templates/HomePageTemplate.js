@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useContext, useMemo } from 'react'
 import { graphql, navigate } from 'gatsby'
 import Layout from '../components/layout'
 import OnePercentCallout from '../components/content/OnePercentCallout'
@@ -14,9 +14,10 @@ import HomePageHeader from '../components/home/HomePageHeader'
 import CollectionRowSlider from '../components/home/CollectionRowSlider'
 import Socials from '../components/home/SocialBlocks'
 import HeroToggle from '../components/home/HeroToggle'
-import NewsletterSignUpModal from '../components/NewsletterSignUpModal'
 import MessageFromUniverse from '../components/MessageFromUniverse'
 import UserGeneratedContent from '../components/yotpo/UserGeneratedContent'
+import { NewsletterContext } from '../contexts/NewsletterContext'
+import PopUp from '../components/PopUp'
 
 const IndexPage = ({ data }) => {
   const { siteUrl } = data.site.siteMetadata
@@ -48,6 +49,7 @@ const IndexPage = ({ data }) => {
   const {
     headerHero,
     video,
+    popup,
     innerHero,
     collectionRow,
     spotlights,
@@ -93,6 +95,8 @@ const IndexPage = ({ data }) => {
     [reviews, products]
   )
 
+  const { dismissPrompt, shouldPrompt } = useContext(NewsletterContext)
+
   return (
     <Layout>
       <SEO title="shop online jewelry">
@@ -122,7 +126,11 @@ const IndexPage = ({ data }) => {
       <HomeLocations locations={locations} />
       <Medallions />
       <Socials />
-      <NewsletterSignUpModal />
+      <PopUp
+        popup={popup[0]}
+        dismissPrompt={dismissPrompt}
+        shouldPrompt={shouldPrompt}
+      />
     </Layout>
   )
 }
@@ -180,6 +188,16 @@ export const query = graphql`
           }
         }
         imageMobile {
+          asset {
+            gatsbyImageData(placeholder: BLURRED)
+          }
+        }
+      }
+      popup {
+        title
+        path
+        timeout
+        image {
           asset {
             gatsbyImageData(placeholder: BLURRED)
           }
