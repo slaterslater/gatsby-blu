@@ -64,7 +64,7 @@ const SapphiresPage = () => (
       <Box className="section">
         <Heading as="h1" variant="h2" mt={[6, 8]} mb={5}>
           we are best in the world at crafting unique engagement rings using
-          ethically-sourced montana sapphires.
+          montana sapphires.
         </Heading>
         <Text as="p">
           revered throughout history for their beauty, sapphires have been a
@@ -77,11 +77,6 @@ const SapphiresPage = () => (
           are predominantly sourced from montana, and we want to share some
           information about what makes a montana sapphire engagement ring so
           special.
-        </Text>
-        <Text as="p" sx={{ maxWidth: 720 }}>
-          <strong>the ethical choice</strong>: we work closely with our stone
-          cutters, vendors, and artisans to ensure that every point of the
-          supply chain is aligned with our sustainable and ethical values
         </Text>
         <Text as="p" px={7}>
           <strong>

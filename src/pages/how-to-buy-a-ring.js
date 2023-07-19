@@ -153,23 +153,17 @@ const HowToBuyPage = () => (
           </Text>
           <Text as="p">
             our rings are made with style and substance, crafted with care and
-            intention to represent your story. when you're deciding where to buy
-            an engagement ring, consider the benefits of shopping with your
-            values: we are leaders in creating sustainably sourced, ethically
-            made sapphire engagement rings, handmade in toronto— many of which
-            are one of a kind and will never be replicated. our rings each come
-            with a unique name and deeply meaningful storytelling, making them a
-            truly unique engagement ring in every way.
+            intention to represent your story. we love creating one of a kind
+            rings with the most unique stones, that will never be replicated.
+            when you're deciding where to buy an engagement ring, consider the
+            benefits of shopping with your values: we are leaders in creating
+            sustainably minded, ethically made sapphire engagement rings,
+            handmade in Toronto. our rings each come with a unique name and
+            deeply meaningful storytelling, making them a truly unique
+            engagement ring in every way.
           </Text>
         </Box>
         <Box>
-          <Text as="p">
-            read more{' '}
-            <GatsbyLink to="/sustainable-practices">
-              about our sustainable practices
-            </GatsbyLink>
-            .
-          </Text>
           <Text as="p">
             see{' '}
             <GatsbyLink to="/bridal-stories">

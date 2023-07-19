@@ -188,7 +188,7 @@ const ProductListItemInner = ({
         primary={firstImage}
         alternate={secondImage}
       />
-      {badge && (
+      {/* {badge && (
         <Box
           sx={{
             maxWidth: '18%',
@@ -208,7 +208,7 @@ const ProductListItemInner = ({
             alt={badge.name}
           />
         </Box>
-      )}
+      )} */}
       <Flex
         pt={2}
         sx={{

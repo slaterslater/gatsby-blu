@@ -227,7 +227,7 @@ const CalendlyConsultationPage = ({ data, location }) => {
           />
           <FAQ
             question="do bluboho engagement rings come with a warranty?"
-            answer="you will be part of the bluboho family for life. you can come in anytime for complimentary ring cleanings with our ultrasonic. you can also send your ring to our designer who made your piece to have a complimentary “check up”. our designer will be able to polish, tighten the prongs, and give your ring a thorough examination to ensure your ring is in tip top shape! we will be able to resize your ring complimentary as well! your ring also comes with a complimentary certificate of authenticity which verifies the rings specifications, that the stones have been ethically sourced, and the gold is made from recycled material."
+            answer="you will be part of the bluboho family for life. you can come in anytime for complimentary ring cleanings with our ultrasonic. you can also send your ring to our designer who made your piece to have a complimentary “check up”. our designer will be able to polish, tighten the prongs, and give your ring a thorough examination to ensure your ring is in tip top shape! we will be able to resize your ring complimentary as well! your ring also comes with a complimentary certificate of authenticity which verifies the rings specifications, and that the gold is made from recycled material."
           />
           <FAQ
             question="what does “one of a kind” mean?"

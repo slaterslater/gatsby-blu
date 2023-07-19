@@ -8,8 +8,8 @@ import { Breadcrumbs } from '../components/Breadcrumbs'
 
 const DiamondsPage = () => (
   <Layout
-    title=" Ethical Engagement Rings: Choosing Sustainable Diamonds"
-    description="How to choose ethical diamonds for the engagement rings? Our guide to diamonds is here to help to navigate the world of shopping for conflict-free rings- 4C's, Kimberley Process and beyond."
+    title="Engagement Rings: Choosing Sustainable Diamonds"
+    description="How to choose diamonds for the engagement rings? Our guide to diamonds is here to help to navigate the world of shopping for conflict-free rings- 4C's, Kimberley Process and beyond."
     isBeloved
   >
     <Container
@@ -109,9 +109,8 @@ const DiamondsPage = () => (
         conflict-free diamonds
       </Heading>
       <Text as="p">
-        we are committed to using ethically sourced diamonds for all our pieces,
-        and are proud to offer conflict-free diamonds in accordance with the
-        kimberley process.
+        we are proud to offer conflict-free diamonds in accordance with the
+        kimberley process for our beloved by bluboho pieces.
       </Text>
       <Text as="p">
         we work closely with all of our diamond suppliers to ensure that the

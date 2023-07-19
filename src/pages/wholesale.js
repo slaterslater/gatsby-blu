@@ -35,12 +35,9 @@ const WholesalePage = ({ data }) => {
           px={2}
           mb={[4, 6]}
         >
-          we are accepting a limited number of applicants for wholesale accounts
-          in 2022 to carry our bluboho jewelry. each piece is designed by our
-          team of creatives. then we lovingly handmake our pieces in toronto
-          using recycled metals and ethically sourced stones. let's get to know
-          each other… take a minute to fill out the information below and we
-          will be in touch. xx
+          we are accepting a limited number of applicants for wholesale
+          accounts. let's get to know each other… take a minute to fill out the
+          information below and we will be in touch. xx
         </Text>
         <Flex
           sx={{

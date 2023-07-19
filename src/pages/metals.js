@@ -280,7 +280,7 @@ const MetalsPage = () => (
         forever.
       </Paragraph>
       <Paragraph>
-        using recycled metals helps us to live out our values by avoiding
+        using recycled metals helps us to live out our values by decreasing
         negative environmental impact; by using recycled gold for our engagement
         rings, we are not contributing to mining for new resources, therefore
         lowering the carbon footprint of our pieces and helping to reduce waste.

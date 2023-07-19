@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useContext, useEffect, useMemo } from 'react'
-import { Box, Flex, Grid, Link } from 'theme-ui'
+import { Box, Flex, Grid } from 'theme-ui'
 import { wrap } from '@popmotion/popcorn'
 import { useQuery, gql } from 'urql'
 import ProductReviewsTopline from './ProductReviewsTopline'
@@ -21,7 +21,7 @@ import SezzleInfo from './sezzleInfo'
 import { useVariantPrice } from './VariantPrice'
 import ColorOptions from './ColorOptions'
 import ServiceButton from './ServiceButton'
-import SampleSaleInput from './SampleSaleInput'
+// import SampleSaleInput from './SampleSaleInput'
 
 const getReviewMetafields = (metafields = []) => {
   const fields = {
@@ -101,7 +101,7 @@ const ProductDetails = () => {
       <ColorOptions />
       <ProductOptions />
       <Engraving />
-      <SampleSaleInput />
+      {/* <SampleSaleInput /> */}
       <AddToCart />
       <ServiceButton />
       <ProductShipping />
