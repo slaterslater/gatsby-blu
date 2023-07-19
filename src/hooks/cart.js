@@ -1,6 +1,7 @@
 import { navigate } from 'gatsby'
 import { useContext } from 'react'
 import { useMutation } from 'urql'
+import dayjs from 'dayjs'
 import { DrawerContext } from '../components/drawers'
 import {
   getProductAttributes,
@@ -13,6 +14,7 @@ import { useSendAnalytics } from '../lib/useAnalytics'
 import useToggle from '../lib/useToggle'
 import { AddCheckoutLineItem } from '../mutations/cart'
 import { useMadeToOrder } from './product'
+import { useMetafieldValue } from './useMetafield'
 
 export function useCart(onAdded = () => {}) {
   const sendAnalytics = useSendAnalytics('addToCart')
@@ -160,26 +162,31 @@ export function useCart(onAdded = () => {}) {
     })
   }
 
-  const getButtonState = () => {
+  const getButtonState = params => {
     const defaults = {
       handleClick: addToCart,
       buttonText: `${isPreorder ? 'pre-order' : 'Add To Bag'} - ${price}`,
       disabled: false,
     }
+    const { sellAfter: sellAfterDate, apptOnly: mustMakeAppointment } = params
+
     const productIsNew = product.tags.some(tag => tag.toLowerCase() === 'new')
-    const byAppointmentOnly = product.metafields?.some(
-      ({ key, value }) => key === 'appt_only' && value === 'true'
-    )
-    const gotoBookingsPage = () => navigate('/book-a-consultation')
+    const shouldSell = dayjs().isAfter(sellAfterDate)
 
     switch (true) {
       case fetching:
         return { ...defaults, disabled: true }
-      case byAppointmentOnly:
+      case mustMakeAppointment:
         return {
           ...defaults,
-          handleClick: gotoBookingsPage,
+          handleClick: () => navigate('/book-a-consultation'),
           buttonText: 'Book Consultation',
+        }
+      case !shouldSell:
+        return {
+          ...defaults,
+          disabled: true,
+          buttonText: `available ${dayjs(sellAfterDate).format('MMM D')}`,
         }
       case !selectedVariant:
         return { ...defaults, disabled: true }
@@ -202,7 +209,13 @@ export function useCart(onAdded = () => {}) {
     }
   }
 
-  const { handleClick, disabled, buttonText } = getButtonState()
+  const apptOnly = useMetafieldValue('appt_only', product.metafields) === 'true'
+  const sellAfter = useMetafieldValue('sell_after', product.metafields)
+
+  const { handleClick, disabled, buttonText } = getButtonState({
+    sellAfter,
+    apptOnly,
+  })
 
   return { handleClick, disabled, buttonText, isOn, toggleOn, addStackToCart }
 }
