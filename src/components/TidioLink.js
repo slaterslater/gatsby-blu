@@ -26,11 +26,18 @@ const TidioLink = () => {
 
   useEffect(() => {
     if (!isAvailable) return
+    const iframe = document.querySelector('#tidio-chat')
+    iframe.style.cssText = `
+      position: fixed; 
+      z-index:2;
+    `
     if (isOpen) {
       window.tidioChatApi.show()
       window.tidioChatApi.open()
+      // iframe.style.display = 'block'
     } else {
       window.tidioChatApi?.close()
+      // iframe.style.display = 'none'
     }
   }, [isAvailable, isOpen])
 
