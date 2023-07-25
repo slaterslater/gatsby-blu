@@ -46,10 +46,9 @@ export function useCart(onAdded = () => {}) {
       lineItems,
     })
     const addedItem =
-      cart.data.checkoutLineItemsAdd.checkout.lineItems.edges.find(
-        ({ node }) => node.variant.id === lineItems[0].variantId
-      ).node
-
+      cart.data.checkoutLineItemsAdd.checkout.lineItems.nodes.find(
+        item => item.variant.id === lineItems[0].variantId
+      )
     if (shouldOpen) setOpenDrawer('cart')
     onAdded()
     sendAnalytics(addedItem)
@@ -156,9 +155,9 @@ export function useCart(onAdded = () => {}) {
     // send analytics for each
     stackVariants.forEach(item => {
       const addedItem =
-        cart.data.checkoutLineItemsAdd.checkout.lineItems.edges.find(
-          ({ node }) => node.variant.id === item.shopifyId
-        ).node
+        cart.data.checkoutLineItemsAdd.checkout.lineItems.nodes.find(
+          ({ variant }) => variant.id === item.shopifyId
+        )
       sendAnalytics(addedItem)
     })
   }

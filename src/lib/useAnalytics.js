@@ -128,20 +128,20 @@ const events = {
 
     sendGtagEvent('view_cart', {
       currency: checkout?.totalPriceV2.currencyCode,
-      items: checkout?.lineItems.edges.map(({ node }) => ({
-        item_id: node.id,
-        item_name: node.title,
-        item_variant: node.variant?.title,
-        quantity: node.quantity,
-        price: node.variant?.priceV2.amount * node.quantity,
-        currency: node.variant?.priceV2.currencyCode,
+      items: checkout?.lineItems.nodes.map(item => ({
+        item_id: item.id,
+        item_name: item.title,
+        item_variant: item.variant?.title,
+        quantity: item.quantity,
+        price: item.variant?.priceV2.amount * item.quantity,
+        currency: item.variant?.priceV2.currencyCode,
       })),
       value: checkout?.totalPriceV2.amount,
     })
     sendAWEvent('page_view', {
       ecomm_pagetype: 'cart',
-      ecomm_prodid: checkout?.lineItems.edges.map(
-        ({ node }) => node.variant?.product.id
+      ecomm_prodid: checkout?.lineItems.nodes.map(
+        item => item.variant?.product.id
       ),
     })
   },

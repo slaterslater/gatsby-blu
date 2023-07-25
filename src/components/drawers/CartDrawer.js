@@ -33,18 +33,29 @@ const CartDrawer = ({ onClose }) => {
   const { countryCode } = useContext(CurrencyContext)
   const { accessToken } = useContext(AuthContext)
 
-  const [{ data, fetching }] = useQuery({
-    query: CHECKOUT_QUERY,
-    variables: { checkoutId, countryCode },
-  })
-
-  const { webUrl: checkoutUrl } = data?.node || {}
-  const lineItems = data?.node.lineItems?.edges || []
-
   const [, associateCustomerWithCheckout] = useMutation(
     AssociateCustomerWithCheckout
   )
   const [, removeLineItem] = useMutation(RemoveCheckoutLineItem)
+
+  const [{ data, fetching }, reexecuteQuery] = useQuery({
+    query: CHECKOUT_QUERY,
+    variables: { checkoutId, countryCode },
+  })
+
+  const refreshCheckout = () =>
+    reexecuteQuery({ requestPolicy: 'network-only' })
+
+  const { checkout } = data || {}
+  const lineItems = checkout?.lineItems?.nodes || []
+
+  // remove lineitems if product doesn't exist anymore
+  useEffect(() => {
+    lineItems.forEach(item => {
+      if (item.variant) return
+      removeLineItem({ checkoutId, lineItemIds: [item.id] })
+    })
+  }, [lineItems])
 
   useEffect(() => {
     if ((accessToken, checkoutId)) {
@@ -54,13 +65,6 @@ const CartDrawer = ({ onClose }) => {
       })
     }
   }, [accessToken, checkoutId, associateCustomerWithCheckout])
-
-  useEffect(() => {
-    lineItems.forEach(item => {
-      if (item.node.variant) return
-      removeLineItem({ checkoutId, lineItemIds: [item.node.id] })
-    })
-  }, [lineItems])
 
   return (
     <Flex
@@ -72,7 +76,7 @@ const CartDrawer = ({ onClose }) => {
       }}
       pb={3}
     >
-      {data && <CartTag checkout={data.node} />}
+      {data && <CartTag checkout={checkout} />}
       <Box>
         <Flex p={4} sx={{ alignItems: 'center' }}>
           <Text sx={{ fontSize: 3, flex: 1 }}>Your Bag</Text>
@@ -86,26 +90,26 @@ const CartDrawer = ({ onClose }) => {
         <>
           <Box sx={{ flex: 1, overflowY: 'auto' }}>
             {!lineItems.length && <EmptyCart />}
-            {lineItems.map(({ node }) => (
-              <Box key={node.id} py={4} px={3}>
-                <CartLineItem item={node} />
+            {lineItems.map(item => (
+              <Box key={item.id} py={4} px={3}>
+                <CartLineItem item={item} onRemoveItem={refreshCheckout} />
               </Box>
             ))}
           </Box>
           <AddOns
-            products={data.collection?.products.nodes || []}
+            products={data.addons?.products.nodes || []}
             checkoutId={checkoutId}
           />
-          <OrderNote initialNote={data.node.note} />
+          <OrderNote initialNote={checkout.note} />
           <OrderSummary
-            subtotalPriceV2={data.node.subtotalPriceV2}
-            totalPriceV2={data.node.totalPriceV2}
-            requiresShipping={data.node.requiresShipping}
-            shippingRates={data.node.availableShippingRates}
+            subtotalPriceV2={checkout.subtotalPriceV2}
+            totalPriceV2={checkout.totalPriceV2}
+            requiresShipping={checkout.requiresShipping}
+            shippingRates={checkout.availableShippingRates}
+            note={checkout.note}
             loading={fetching}
-            note={data.node.note}
           />
-          <CheckoutButton href={checkoutUrl} />
+          <CheckoutButton href={checkout.webUrl} />
         </>
       )}
     </Flex>

@@ -6,34 +6,35 @@ export const CHECKOUT_FRAGMENT = gql`
     webUrl
     completedAt
     lineItems(first: 250) {
-      edges {
-        node {
+      nodes {
+        id
+        quantity
+        title
+        customAttributes {
+          key
+          value
+        }
+        variant {
           id
-          quantity
           title
-          customAttributes {
-            key
-            value
+          priceV2 {
+            amount
+            currencyCode
           }
-          variant {
+          product {
             id
-            title
-            priceV2 {
-              amount
-              currencyCode
-            }
-            product {
-              id
-            }
-            availableForSale
-            title
-            image {
-              altText
-              url
-              height
-              width
-              id
-            }
+          }
+          availableForSale
+          title
+          image {
+            altText
+            url
+            height
+            width
+            id
+          }
+          upgrade: metafield(namespace: "custom", key: "upgrade") {
+            id: value
           }
         }
       }
@@ -59,29 +60,37 @@ export const CHECKOUT_FRAGMENT = gql`
   }
 `
 
+export const UPSELL_PRODUCT_FRAGMENT = gql`
+  fragment UpsellProductFields on Product {
+    id
+    title
+    images(first: 1) {
+      nodes {
+        altText
+        url
+        height
+        width
+        id
+      }
+    }
+  }
+`
+
 export const CHECKOUT_QUERY = gql`
   ${CHECKOUT_FRAGMENT}
+  ${UPSELL_PRODUCT_FRAGMENT}
   query CheckoutQuery($checkoutId: ID!, $countryCode: CountryCode)
   @inContext(country: $countryCode) {
-    node(id: $checkoutId) {
+    checkout: node(id: $checkoutId) {
       ... on Checkout {
         ...CheckoutFields
       }
     }
-    collection(handle: "you-might-also-like") {
+    addons: collection(handle: "you-might-also-like") {
+      #addons: collection(handle: "gifts-under-300") {
       products(first: 50) {
         nodes {
-          id
-          title
-          images(first: 1) {
-            nodes {
-              altText
-              url
-              height
-              width
-              id
-            }
-          }
+          ...UpsellProductFields
           variants(first: 1) {
             nodes {
               id
@@ -90,6 +99,25 @@ export const CHECKOUT_QUERY = gql`
               }
             }
           }
+        }
+      }
+    }
+  }
+`
+
+export const UPGRADE_QUERY = gql`
+  ${UPSELL_PRODUCT_FRAGMENT}
+  query CheckoutQuery($id: ID!, $countryCode: CountryCode)
+  @inContext(country: $countryCode) {
+    upgrade: node(id: $id) {
+      ... on ProductVariant {
+        id
+        availableForSale
+        priceV2: price {
+          amount
+        }
+        product {
+          ...UpsellProductFields
         }
       }
     }
