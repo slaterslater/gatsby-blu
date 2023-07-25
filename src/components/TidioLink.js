@@ -29,7 +29,7 @@ const TidioLink = () => {
     const iframe = document.querySelector('#tidio-chat')
     iframe.style.cssText = `
       position: fixed; 
-      z-index:2;
+      z-index: 11;
     `
     if (isOpen) {
       window.tidioChatApi.show()
@@ -49,7 +49,8 @@ const TidioLink = () => {
       onClick={() => setOpen(prev => !prev)}
       disabled={isAvailable}
       sx={{
-        display: isAvailable ? 'flex' : 'none',
+        // display: isAvailable ? 'flex' : 'none',
+        display: 'none',
         cursor: 'pointer',
         alignItems: 'center',
         justifyContent: 'center',
