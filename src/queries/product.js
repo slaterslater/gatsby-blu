@@ -72,6 +72,7 @@ export const PRODUCT_METAFIELDS_FRAGMENT = gql`
   fragment ProductMetafields on Product {
     metafields(
       identifiers: [
+        { namespace: "custom", key: "sell_after" }
         { namespace: "custom", key: "label" }
         { namespace: "custom", key: "appt_only" }
         { namespace: "my_fields", key: "made_to_order" }
