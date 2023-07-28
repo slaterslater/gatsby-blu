@@ -171,7 +171,9 @@ export function useCart(onAdded = () => {}) {
     const { sellAfter: sellAfterDate, apptOnly: mustMakeAppointment } = params
 
     const productIsNew = product.tags.some(tag => tag.toLowerCase() === 'new')
-    const shouldSell = dayjs().isAfter(sellAfterDate)
+    const shouldSell = sellAfterDate ? dayjs().isAfter(sellAfterDate) : true
+
+    console.log({ sellAfterDate, shouldSell })
 
     switch (true) {
       case fetching:
@@ -182,12 +184,12 @@ export function useCart(onAdded = () => {}) {
           handleClick: () => navigate('/book-a-consultation'),
           buttonText: 'Book Consultation',
         }
-      // case !shouldSell:
-      //   return {
-      //     ...defaults,
-      //     disabled: true,
-      //     buttonText: `available ${dayjs(sellAfterDate).format('MMM D')}`,
-      //   }
+      case !shouldSell:
+        return {
+          ...defaults,
+          disabled: true,
+          buttonText: `available ${dayjs(sellAfterDate).format('MMM D')}`,
+        }
       case !selectedVariant:
         return { ...defaults, disabled: true }
       case !selectedVariant.availableForSale && !product.willRestock:
