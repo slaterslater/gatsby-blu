@@ -46,13 +46,13 @@ const StoreProvider = props => {
   }
 
   useEffect(() => {
-    if ((!fetching && !data && error) || (data && !data.node)) {
+    if ((!fetching && !data && error) || (data && !data.checkout)) {
       // if we couldn't fetch the checkout id remove it and create another one
       store.remove('checkoutId')
       createCheckoutAndStoreId()
     }
 
-    if (!fetching && data?.node?.completedAt) {
+    if (!fetching && data?.checkout?.completedAt) {
       store.remove('checkoutId')
       createCheckoutAndStoreId()
     }
@@ -68,28 +68,31 @@ const StoreProvider = props => {
     }
   }, [])
 
-  const dataCheckoutId = data?.node?.id
+  const dataCheckoutId = data?.checkout?.id
 
   useEffect(() => {
     const replaceCheckout = async () => {
       console.log('replacing checkout')
 
-      const { lineItems } = data.node
+      const { lineItems } = data.checkout
 
-      const nextLineItems = lineItems.edges.map(({ node }) => {
-        const item = {
-          variantId: node.variant.id,
-          quantity: node.quantity,
+      const nextLineItems = lineItems.nodes.map(
+        ({ variant, quantity, customAttributes }) => {
+          const item = {
+            variantId: variant.id,
+            quantity,
+          }
+
+          if (customAttributes.length) {
+            item.customAttributes = customAttributes.map(({ key, value }) => ({
+              key,
+              value,
+            }))
+          }
+
+          return item
         }
-
-        if (node.customAttributes.length) {
-          item.customAttributes = node.customAttributes.map(
-            ({ key, value }) => ({ key, value })
-          )
-        }
-
-        return item
-      })
+      )
 
       createCheckoutAndStoreId({
         lineItems: nextLineItems,
@@ -98,7 +101,7 @@ const StoreProvider = props => {
     if (
       currencyCode !== undefined &&
       dataCheckoutId &&
-      data.node.totalPriceV2.currencyCode !== currencyCode
+      data.checkout.totalPriceV2.currencyCode !== currencyCode
     ) {
       replaceCheckout()
       // create a new checkout with the new currency code and the previous line items

@@ -1,4 +1,4 @@
-import { Box, Flex } from 'theme-ui'
+import { Flex } from 'theme-ui'
 import React, { useContext } from 'react'
 import { useQuery } from 'urql'
 import { StoreContext } from '../../contexts/StoreContext'
@@ -13,8 +13,8 @@ const CartBadge = props => {
 
   if (!data && fetching) return false
 
-  const itemCount = data?.node?.lineItems?.edges?.reduce(
-    (acc, { node }) => acc + node.quantity,
+  const itemCount = data?.checkout?.lineItems?.nodes?.reduce(
+    (acc, item) => acc + item.quantity,
     0
   )
 
