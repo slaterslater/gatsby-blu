@@ -5,7 +5,10 @@ import { parse } from 'qs'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import Layout from '../components/layout'
 import CollectionProductGroup from '../components/CollectionProductGroup'
-import { sortProducts } from '../components/collection/CollectionProductGrid'
+import {
+  sortProducts,
+  useSortedFilteredProducts,
+} from '../components/collection/CollectionProductGrid'
 import CollectionProduct from '../components/CollectionProduct'
 import CollectionFilterAndSort from '../components/collection/CollectionFilterAndSort'
 import CollectionPageHeader from '../components/CollectionPageHeader'
@@ -131,8 +134,8 @@ const CollectionGroupsView = ({
 }) => {
   const [shouldShow, setShouldShow] = useState(!password)
 
-  const location = useLocation()
-  const { sort } = parse(location.search.replace('?', ''))
+  // const location = useLocation()
+  // const { sort } = parse(location.search.replace('?', ''))
 
   const sortedCollections = useMemo(() => {
     if (!shouldShow) return []
@@ -141,10 +144,15 @@ const CollectionGroupsView = ({
 
   const products = useMemo(() => collections.flatMap(node => node.products), [])
 
-  const sortedProducts = useMemo(() => {
-    if (!shouldShow || !sort) return null
-    return sortProducts({ products, sort })
-  }, [products, sort, shouldShow])
+  // const sortedProducts = useMemo(() => {
+  //   if (!shouldShow || !sort) return null
+  //   return sortProducts({ products, sort })
+  // }, [products, sort, shouldShow])
+  // const sortedProducts = currentParams.sort
+  //   ? sortProducts({ products: allProducts, sort: currentParams.sort })
+  //   : null
+
+  const sortedProducts = useSortedFilteredProducts(products)
 
   return (
     <Layout isBeloved={isBeloved}>
@@ -163,7 +171,8 @@ const CollectionGroupsView = ({
       <Container pt={0} as="main" sx={{ minHeight: '40vh' }}>
         <CollectionFilterAndSort
           title={pageTitle}
-          productCount={products.length}
+          products={sortedProducts}
+          // productCount={products.length}
         />
         <Grid>
           {!shouldShow && (

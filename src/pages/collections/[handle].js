@@ -8,6 +8,7 @@ import { COLLECTION_PAGE_QUERY } from '../../queries/collection'
 import { useMetafieldValue } from '../../hooks/useMetafield'
 
 const ClientCollectionPage = ({ params: { handle } }) => {
+  console.log('CLIENT COLLECTION PAGE')
   const [{ data }] = useQuery({
     query: COLLECTION_PAGE_QUERY,
     variables: { handle },

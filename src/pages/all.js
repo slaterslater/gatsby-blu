@@ -7,9 +7,14 @@ import { PAGINATED_COLLECTION_PRODUCTS_QUERY } from '../queries/collection'
 import SearchProduct from '../components/SearchProduct'
 import { CurrencyContext } from '../contexts/CurrencyContext'
 import CollectionPageHeader from '../components/CollectionPageHeader'
+import CollectionFilterAndSort from '../components/collection/CollectionFilterAndSort'
 
 const Page = ({ cursor, isLastPage, onLoadMore }) => {
   const { countryCode } = useContext(CurrencyContext)
+
+  // 2D0
+  // a function that makes the query based on filter/sort?
+
   const [{ data, fetching }] = useQuery({
     query: PAGINATED_COLLECTION_PRODUCTS_QUERY,
     variables: { handle: 'all', after: cursor, countryCode },
@@ -60,6 +65,7 @@ const AllProductsPage = props => {
         <StaticImage src="../images/all-product-page-header.webp" />
       </CollectionPageHeader>
       <Container>
+        {/* <CollectionFilterAndSort title={title} productCount={0} /> */}
         <Grid
           py={[3, 4, 5]}
           sx={{

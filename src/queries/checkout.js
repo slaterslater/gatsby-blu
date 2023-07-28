@@ -87,7 +87,6 @@ export const CHECKOUT_QUERY = gql`
       }
     }
     addons: collection(handle: "you-might-also-like") {
-      #addons: collection(handle: "gifts-under-300") {
       products(first: 50) {
         nodes {
           ...UpsellProductFields

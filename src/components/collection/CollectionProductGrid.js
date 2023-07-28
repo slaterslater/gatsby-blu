@@ -29,15 +29,51 @@ export const sortProducts = ({ products, sort }) =>
     }
   })
 
-const useSortedProducts = products => {
+const filterProducts = ({ products, filters }) => {
+  const productSet = new Set()
+
+  products.forEach(product => {
+    const filtersMetafield = product.metafields.find(
+      ({ key }) => key === 'filters'
+    )
+    if (!filtersMetafield) return
+
+    const productFilterOptions = JSON.parse(filtersMetafield.value)
+    const isMatch = filters.some(option =>
+      productFilterOptions.includes(option)
+    )
+    if (isMatch) productSet.add(product)
+  })
+
+  return Array.from(productSet)
+}
+
+export const useSortedFilteredProducts = products => {
   const { search } = useLocation()
-  const { sort } = parse(search.replace('?', ''))
+  const { sort, ...filter } = parse(search.replace('?', ''))
 
-  return useMemo(() => {
-    if (!sort) return products
+  // filter products
+  const filteredProducts = useMemo(() => {
+    const filters = Object.keys(filter).reduce((selectedFilters, label) => {
+      const options = filter[label].split(' ')
+      options.forEach(option => {
+        const selectedFilter = `${label}: ${option}`
+        selectedFilters.push(selectedFilter)
+      })
+      return selectedFilters
+    }, [])
 
-    return sortProducts({ products, sort })
-  }, [sort, products])
+    if (!filters.length) return products
+    return filterProducts({ products, filters })
+  }, [filter, products])
+
+  // sort products
+  const sortedFilteredProducts = useMemo(() => {
+    if (!sort) return filteredProducts
+    return sortProducts({ products: filteredProducts, sort })
+  }, [sort, filteredProducts])
+
+  return sortedFilteredProducts
 }
 
 const CollectionImage = ({ image, tall = false }) => {
@@ -58,7 +94,7 @@ const ProductGrid = ({
   collectionImages,
   badges,
 }) => {
-  const sortedProducts = useSortedProducts(products)
+  const sortedProducts = useSortedFilteredProducts(products)
   const prodLen = sortedProducts.length
 
   const collectionImageOrder = i => {

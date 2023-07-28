@@ -89,3 +89,5 @@ export const COLLECTION_PAGE_QUERY = gql`
     }
   }
 `
+// 2DO this should take a fragment and return a full query?
+export const getSortFilterQuery = () => {}
