@@ -70,6 +70,7 @@ export const COLLECTION_PAGE_QUERY = gql`
             variants(first: 50) {
               edges {
                 node {
+                  id
                   priceV2 {
                     currencyCode
                     amount

@@ -38,7 +38,7 @@ const Layout = ({ title, description, children, isBeloved = false }) => (
             minWidth: 380,
             flexDirection: 'column',
             alignItems: 'stretch',
-            overflow: 'hidden',
+            // overflow: 'hidden',
             background: isBeloved ? 'url("/beloved-bg.webp")' : null,
             backgroundSize: '100%',
           }}

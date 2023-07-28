@@ -65,7 +65,7 @@ export const query = graphql`
       }
       products {
         # availableForSale ADDED TO VARIANTS
-        id
+        id: shopifyId
         handle
         title
         vendor

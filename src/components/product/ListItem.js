@@ -131,7 +131,7 @@ export const CollectionThumbnail = ({ title, primary, alternate }) => {
   )
 }
 
-const ProductItemLabel = ({ tags, metafields, soldOut }) => {
+export const ProductItemLabel = ({ tags, metafields, soldOut }) => {
   // if (soldOut)
   //   return (
   //     <Badge
@@ -173,6 +173,7 @@ const ProductListItemInner = ({
   availableForSale,
   metafields = [],
   badge,
+  showLabel,
 }) => (
   <Box as="article" sx={{ position: 'relative', zIndex: 1 }} pb={[5, 6]}>
     <ProductItemLabel

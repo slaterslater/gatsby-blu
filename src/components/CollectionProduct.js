@@ -35,6 +35,7 @@ const CollectionProduct = ({
   collectionPath,
   images,
   badges,
+  showLabel = true,
 }) => {
   const [price, hasRange] = useProductPrice(product)
   const title = useProductTitle(product.title)
@@ -57,6 +58,7 @@ const CollectionProduct = ({
       availableForSale={availableForSale}
       metafields={metafields}
       badge={badge}
+      showLabel={showLabel}
     />
   )
 }
