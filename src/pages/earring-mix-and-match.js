@@ -19,9 +19,7 @@ const CustomSetPage = ({ data }) => {
   const availableProducts = useMemo(
     () =>
       collectionProducts.filter(({ availableForSale, tags }) => {
-        const isMixable = tags.some(
-          tag => !tag.toLowerCase().includes('no-mixing')
-        )
+        const isMixable = !tags.some(tag => tag.match(/no-mixing/gi))
         return availableForSale && isMixable
       }),
     [collectionProducts]
@@ -101,7 +99,7 @@ const CustomSetPage = ({ data }) => {
           pt={4}
         >
           {availableProducts.map(product => {
-            const { metafields, priceRangeV2 } = product
+            const { metafields, priceRangeV2, title } = product
             const { images } = products.find(({ id }) => id === product.id)
             const thumb = images[images.length - 1] // last img is single piece
             const singleEarring = {
@@ -111,6 +109,8 @@ const CustomSetPage = ({ data }) => {
               ),
               thumb,
             }
+            if (title.toUpperCase().includes('WISHBONE EARRINGS'))
+              console.log(product.tags)
             singleEarring.priceRangeV2.maxVariantPrice.amount =
               singleEarring.priceRangeV2.minVariantPrice.amount
 
