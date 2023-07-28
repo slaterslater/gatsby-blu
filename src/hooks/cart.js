@@ -174,8 +174,6 @@ export function useCart(onAdded = () => {}) {
     const productIsNew = product.tags.some(tag => tag.toLowerCase() === 'new')
     const shouldSell = sellAfterDate ? dayjs().isAfter(sellAfterDate) : true
 
-    console.log({ sellAfterDate, shouldSell })
-
     switch (true) {
       case fetching:
         return { ...defaults, disabled: true }

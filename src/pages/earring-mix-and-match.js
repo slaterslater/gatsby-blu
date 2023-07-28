@@ -17,7 +17,13 @@ const CustomSetPage = ({ data }) => {
   const { collectionProducts } = useLatestCollection(handle, products)
 
   const availableProducts = useMemo(
-    () => collectionProducts.filter(({ availableForSale }) => availableForSale),
+    () =>
+      collectionProducts.filter(({ availableForSale, tags }) => {
+        const isMixable = tags.some(
+          tag => !tag.toLowerCase().includes('no-mixing')
+        )
+        return availableForSale && isMixable
+      }),
     [collectionProducts]
   )
   const addToSet = product => {
