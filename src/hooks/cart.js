@@ -182,12 +182,12 @@ export function useCart(onAdded = () => {}) {
           handleClick: () => navigate('/book-a-consultation'),
           buttonText: 'Book Consultation',
         }
-      case !shouldSell:
-        return {
-          ...defaults,
-          disabled: true,
-          buttonText: `available ${dayjs(sellAfterDate).format('MMM D')}`,
-        }
+      // case !shouldSell:
+      //   return {
+      //     ...defaults,
+      //     disabled: true,
+      //     buttonText: `available ${dayjs(sellAfterDate).format('MMM D')}`,
+      //   }
       case !selectedVariant:
         return { ...defaults, disabled: true }
       case !selectedVariant.availableForSale && !product.willRestock:
