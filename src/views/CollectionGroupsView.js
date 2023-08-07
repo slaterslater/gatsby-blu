@@ -1,14 +1,9 @@
 import React, { useMemo, useState } from 'react'
-import { useLocation } from '@reach/router'
 import { Container, Grid, Box } from 'theme-ui'
-import { parse } from 'qs'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import Layout from '../components/layout'
 import CollectionProductGroup from '../components/CollectionProductGroup'
-import {
-  sortProducts,
-  useSortedFilteredProducts,
-} from '../components/collection/CollectionProductGrid'
+import { useSortedFilteredProducts } from '../components/collection/CollectionProductGrid'
 import CollectionProduct from '../components/CollectionProduct'
 import CollectionFilterAndSort from '../components/collection/CollectionFilterAndSort'
 import CollectionPageHeader from '../components/CollectionPageHeader'
@@ -134,23 +129,12 @@ const CollectionGroupsView = ({
 }) => {
   const [shouldShow, setShouldShow] = useState(!password)
 
-  // const location = useLocation()
-  // const { sort } = parse(location.search.replace('?', ''))
-
   const sortedCollections = useMemo(() => {
     if (!shouldShow) return []
     return sortCollections(collections, collectionOrder)
   }, [collections, collectionOrder, shouldShow])
 
   const products = useMemo(() => collections.flatMap(node => node.products), [])
-
-  // const sortedProducts = useMemo(() => {
-  //   if (!shouldShow || !sort) return null
-  //   return sortProducts({ products, sort })
-  // }, [products, sort, shouldShow])
-  // const sortedProducts = currentParams.sort
-  //   ? sortProducts({ products: allProducts, sort: currentParams.sort })
-  //   : null
 
   const sortedProducts = useSortedFilteredProducts(products)
 
@@ -171,7 +155,7 @@ const CollectionGroupsView = ({
       <Container pt={0} as="main" sx={{ minHeight: '40vh' }}>
         <CollectionFilterAndSort
           title={pageTitle}
-          products={sortedProducts}
+          products={products}
           // productCount={products.length}
         />
         <Grid>

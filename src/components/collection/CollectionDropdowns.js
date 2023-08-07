@@ -156,8 +156,8 @@ const FilterForm = ({
         <Text variant="caps">Filters</Text>
         <Divider />
         {filterOptions.map(({ label, options }, i) => (
-          <>
-            <Accordion title={label} key={`filter-group-${i}`}>
+          <React.Fragment key={`filter-group-${i}`}>
+            <Accordion title={label}>
               <Box
                 role="group"
                 aria-labelledby="checkbox-group"
@@ -178,7 +178,7 @@ const FilterForm = ({
               </Box>
             </Accordion>
             <Divider />
-          </>
+          </React.Fragment>
         ))}
         <Box sx={{ justifyContent: 'center', textAlign: 'center' }} mt={5}>
           <Submit

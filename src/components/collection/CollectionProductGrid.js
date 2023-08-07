@@ -73,7 +73,10 @@ export const useSortedFilteredProducts = products => {
     return sortProducts({ products: filteredProducts, sort })
   }, [sort, filteredProducts])
 
-  return sortedFilteredProducts
+  // return null if no sort and no filter
+  return sortedFilteredProducts.length !== products.length
+    ? sortedFilteredProducts
+    : null
 }
 
 const CollectionImage = ({ image, tall = false }) => {
