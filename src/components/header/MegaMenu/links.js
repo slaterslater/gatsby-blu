@@ -1,8 +1,10 @@
 import { Button, Text } from 'theme-ui'
+import { Link as GatsbyLink } from 'gatsby'
 
 export const HeaderLink = props => (
   <Button
     type="button"
+    as={GatsbyLink}
     p={0}
     {...props}
     sx={{
