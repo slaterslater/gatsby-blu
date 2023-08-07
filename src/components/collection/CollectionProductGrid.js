@@ -97,7 +97,7 @@ const ProductGrid = ({
   collectionImages,
   badges,
 }) => {
-  const sortedProducts = useSortedFilteredProducts(products)
+  const sortedProducts = useSortedFilteredProducts(products) || products
   const prodLen = sortedProducts.length
 
   const collectionImageOrder = i => {
