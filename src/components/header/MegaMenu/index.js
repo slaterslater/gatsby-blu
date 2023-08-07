@@ -19,6 +19,7 @@ const MegaMenu = () => {
         nodes {
           groups {
             title
+            path
             subGroup {
               title
               links {
@@ -150,9 +151,11 @@ const MegaMenu = () => {
             aria-haspopup
             key={`${menu.title}-top-link`}
             isCurrent={menu.title === currentMenu}
+            path={menu.path}
             onMouseOver={() => {
               setMenuOpen(true)
               setCurrentMenu(menu.title)
+              if (menu.path) setMenuOpen(false)
             }}
           >
             {menu.title}

@@ -51,6 +51,26 @@ const NavGroup = ({ menu, closeDrawer, children }) => (
   </Accordion>
 )
 
+const NavLink = ({ children, ...props }) => (
+  <>
+    <Link
+      p={4}
+      sx={{
+        display: 'block',
+        letterSpacing: 'caps',
+        textTransform: 'uppercase',
+        fontWeight: 'heading',
+        textDecoration: 'none',
+        fontSize: 0,
+      }}
+      {...props}
+    >
+      {children}
+    </Link>
+    <Divider />
+  </>
+)
+
 const NavigationDrawer = ({ onClose }) => {
   const closeDrawer = () => onClose()
   const searchInput = useRef(null)
@@ -60,6 +80,7 @@ const NavigationDrawer = ({ onClose }) => {
         nodes {
           groups {
             title
+            path
             subGroup {
               title
               links {
@@ -170,15 +191,21 @@ const NavigationDrawer = ({ onClose }) => {
           />
         </Flex>
         <Divider />
-        {megaMenu.map(menu => (
-          <NavGroup
-            key={`drawer-title-${menu.title}`}
-            menu={menu}
-            closeDrawer={closeDrawer}
-          >
-            {menu.title}
-          </NavGroup>
-        ))}
+        {megaMenu.map(menu =>
+          menu.path ? (
+            <NavLink as={GatsbyLink} to={menu.path}>
+              {menu.title}
+            </NavLink>
+          ) : (
+            <NavGroup
+              key={`drawer-title-${menu.title}`}
+              menu={menu}
+              closeDrawer={closeDrawer}
+            >
+              {menu.title}
+            </NavGroup>
+          )
+        )}
         {!shouldRenew && isLoggedIn && (
           <NavGroup
             key="drawer-account"
@@ -188,21 +215,9 @@ const NavigationDrawer = ({ onClose }) => {
             {`${their} Account`}
           </NavGroup>
         )}
-        <Link
-          onClick={toggleSignIn}
-          p={4}
-          sx={{
-            display: 'block',
-            letterSpacing: 'caps',
-            textTransform: 'uppercase',
-            fontWeight: 'heading',
-            textDecoration: 'none',
-            fontSize: 0,
-          }}
-        >
+        <NavLink onClick={toggleSignIn}>
           {shouldRenew || !isLoggedIn ? 'Sign in' : 'Logout'}
-        </Link>
-        <Divider />
+        </NavLink>
       </Box>
     </Flex>
   )
