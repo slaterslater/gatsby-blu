@@ -29,8 +29,7 @@ export default async function (req, res) {
     </div>
   `
 
-    const to = ['anthony@bluboho.com']
-    // const to = ['guestexperience@bluboho.com', 'maddie@bluboho.com']
+    const to = ['guestexperience@bluboho.com', 'maddie@bluboho.com']
     const from = `<noreply@bluboho.com>`
     const subject = `beloved signup - ${email}`
 
