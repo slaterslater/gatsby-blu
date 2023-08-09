@@ -46,6 +46,8 @@ const CustomSetChoice = ({ customSet, setCustomSet }) => {
     setCustomSet(modifedSet)
   }
 
+  const SIZE = [100, 110, 125]
+
   return (
     <Box
       sx={{
@@ -83,8 +85,8 @@ const CustomSetChoice = ({ customSet, setCustomSet }) => {
               <Box
                 sx={{
                   borderRadius: '50%',
-                  width: [85, 90, 100],
-                  height: [85, 90, 100],
+                  width: SIZE,
+                  height: SIZE,
                   overflow: 'hidden',
                 }}
               >
