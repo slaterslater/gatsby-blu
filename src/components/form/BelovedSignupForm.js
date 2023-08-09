@@ -14,6 +14,8 @@ import { countries } from '../../data/smsCountries'
 import { CallingCodeField, PhoneNumberField } from '../SmsForm'
 
 const initialValues = {
+  firstName: '',
+  lastName: '',
   email: '',
   callingCode: '',
   phoneNumber: '',
@@ -22,6 +24,8 @@ const initialValues = {
 
 const validationSchema = object({
   decepticons: string(),
+  firstName: string().required(),
+  lastName: string().required(),
   email: string()
     .email('invalid email')
     .when('phoneNumber', {
@@ -128,6 +132,8 @@ const BelovedSignupForm = ({
       >
         <Box as="fieldset">
           <HoneypotControl name="decepticons" />
+          <InputField name="firstName" label="first name" />
+          <InputField name="lastName" label="last name" />
           <InputField name="email" label="email" />
           {withPhone && (
             <>
