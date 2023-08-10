@@ -50,22 +50,24 @@ const filterProducts = ({ products, filters }) => {
 
 export const useSortedFilteredProducts = products => {
   const { search } = useLocation()
-  const { sort, ...filter } = parse(search.replace('?', ''))
+  const { sort, ...params } = parse(search.replace('?', ''))
 
   // filter products
   const filteredProducts = useMemo(() => {
-    const filters = Object.keys(filter).reduce((selectedFilters, label) => {
-      const options = filter[label].split(' ')
-      options.forEach(option => {
-        const selectedFilter = `${label}: ${option}`
-        selectedFilters.push(selectedFilter)
-      })
-      return selectedFilters
-    }, [])
+    const filters = Object.keys(params)
+      .filter(label => ['shape', 'colour', 'setting'].includes(label))
+      .reduce((selectedFilters, label) => {
+        const options = params[label].split(' ')
+        options.forEach(option => {
+          const selectedFilter = `${label}: ${option}`
+          selectedFilters.push(selectedFilter)
+        })
+        return selectedFilters
+      }, [])
 
     if (!filters.length) return products
     return filterProducts({ products, filters })
-  }, [filter, products])
+  }, [params, products])
 
   // sort products
   const sortedFilteredProducts = useMemo(() => {
