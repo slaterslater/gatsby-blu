@@ -78,13 +78,13 @@ CollectionPage.propTypes = {
   description: PropTypes.string,
   products: PropTypes.arrayOf(PropTypes.shape({})),
   hasFilters: PropTypes.bool.isRequired,
-  image: PropTypes.shape({
-    src: PropTypes.string,
-    altText: PropTypes.string,
-  }),
+  // image: PropTypes.shape({
+  //   // src: PropTypes.string,
+  //   // altText: PropTypes.string,
+  // }),
 }
 CollectionPage.defaultProps = {
-  image: {},
+  // image: {},
   description: '',
 }
 

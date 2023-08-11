@@ -4,7 +4,7 @@ import { Link as GatsbyLink } from 'gatsby'
 export const HeaderLink = props => (
   <Button
     type="button"
-    as={GatsbyLink}
+    as={props.path ? GatsbyLink : Button}
     p={0}
     {...props}
     sx={{
@@ -36,9 +36,7 @@ export const MegaMenuLink = ({
         height: '100%',
         fontSize: 0,
         borderBottom: '1px solid',
-        // borderColor: isCurrent ? 'white' : 'black',
         borderColor: isCurrent ? 'rgba(0,0,0,1)' : 'rgba(0,0,0,0)',
-        // transform: 'translateY(1px)',
         transition: 'border-color .1s',
         position: 'relative',
         zIndex: 10,

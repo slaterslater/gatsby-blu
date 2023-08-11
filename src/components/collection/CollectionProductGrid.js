@@ -6,7 +6,7 @@ import { useLocation } from '@reach/router'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import CollectionProduct from '../CollectionProduct'
 import CollectionProductGroup from '../CollectionProductGroup'
-import BookAConsultationCallout from '../content/BookAConsultationCallout'
+// import BookAConsultationCallout from '../content/BookAConsultationCallout'
 import { useShopifyImage } from '../../hooks/shopifyImage'
 
 export const sortProducts = ({ products, sort }) =>
@@ -135,9 +135,9 @@ const ProductGrid = ({
           />
         </Box>
       ))}
-      {collectionPath?.includes('bridal') && (
+      {/* {collectionPath?.includes('bridal') && (
         <BookAConsultationCallout sx={{ order: 7, gridColumn: 'span 2' }} />
-      )}
+      )} */}
       {orderedImages.map((image, i) => (
         <Box
           key={`collection-image-${i}`}

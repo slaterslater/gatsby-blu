@@ -25,10 +25,14 @@ const FormattedPrice = ({ priceV2 }) => {
 }
 
 FormattedPrice.propTypes = {
-  priceV2: PropTypes.shape({
-    amount: PropTypes.string.isRequired,
-    currencyCode: PropTypes.string.isRequired,
-  }).isRequired,
+  priceV2: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+    PropTypes.shape({
+      amount: PropTypes.string.isRequired,
+      // currencyCode: PropTypes.string.isRequired,
+    }),
+  ]).isRequired,
 }
 
 export default FormattedPrice
