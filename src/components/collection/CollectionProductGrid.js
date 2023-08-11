@@ -1,85 +1,10 @@
 import React, { useMemo } from 'react'
-import { parse } from 'qs'
 import { Box } from 'theme-ui'
-import { DateTime } from 'luxon'
-import { useLocation } from '@reach/router'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import CollectionProduct from '../CollectionProduct'
 import CollectionProductGroup from '../CollectionProductGroup'
 // import BookAConsultationCallout from '../content/BookAConsultationCallout'
 import { useShopifyImage } from '../../hooks/shopifyImage'
-
-export const sortProducts = ({ products, sort }) =>
-  products.sort((a, b) => {
-    switch (sort) {
-      case 'latest':
-        return DateTime.fromISO(b.updatedAt) - DateTime.fromISO(a.updatedAt)
-      case 'price-asc':
-        return (
-          a.priceRangeV2.minVariantPrice.amount -
-          b.priceRangeV2.minVariantPrice.amount
-        )
-      case 'price-desc':
-        return (
-          b.priceRangeV2.minVariantPrice.amount -
-          a.priceRangeV2.minVariantPrice.amount
-        )
-      default:
-        return 0
-    }
-  })
-
-const filterProducts = ({ products, filters }) => {
-  const productSet = new Set()
-
-  products.forEach(product => {
-    const filtersMetafield = product.metafields.find(
-      ({ key }) => key === 'filters'
-    )
-    if (!filtersMetafield) return
-
-    const productFilterOptions = JSON.parse(filtersMetafield.value)
-    const isMatch = filters.some(option =>
-      productFilterOptions.includes(option)
-    )
-    if (isMatch) productSet.add(product)
-  })
-
-  return Array.from(productSet)
-}
-
-export const useSortedFilteredProducts = products => {
-  const { search } = useLocation()
-  const { sort, ...params } = parse(search.replace('?', ''))
-
-  // filter products
-  const filteredProducts = useMemo(() => {
-    const filters = Object.keys(params)
-      .filter(label => ['shape', 'colour', 'setting'].includes(label))
-      .reduce((selectedFilters, label) => {
-        const options = params[label].split(' ')
-        options.forEach(option => {
-          const selectedFilter = `${label}: ${option}`
-          selectedFilters.push(selectedFilter)
-        })
-        return selectedFilters
-      }, [])
-
-    if (!filters.length) return products
-    return filterProducts({ products, filters })
-  }, [params, products])
-
-  // sort products
-  const sortedFilteredProducts = useMemo(() => {
-    if (!sort) return filteredProducts
-    return sortProducts({ products: filteredProducts, sort })
-  }, [sort, filteredProducts])
-
-  // return null if no sort and no filter
-  return sortedFilteredProducts.length !== products.length
-    ? sortedFilteredProducts
-    : null
-}
 
 const CollectionImage = ({ image, tall = false }) => {
   const imageData = useShopifyImage({
@@ -99,32 +24,32 @@ const ProductGrid = ({
   collectionImages,
   badges,
 }) => {
-  const sortedProducts = useSortedFilteredProducts(products) || products
-  const prodLen = sortedProducts.length
-
-  const collectionImageOrder = i => {
-    const n = i % 4
-    const x = n ? n + 1 : 5
-    return i * 5 + x
-  }
-
   // determine max num of images to show based on sortedProducts length
   // calculate order to insert images into product grid
   const orderedImages = useMemo(() => {
+    const prodLen = products.length
     const colImgLen = collectionImages?.length
     if (!colImgLen) return []
+
+    const collectionImageOrder = i => {
+      const n = i % 4
+      const x = n ? n + 1 : 5
+      return i * 5 + x
+    }
+
     let imageNum = Math.floor(prodLen / 10) * 2
     if ([8, 9].some(n => n === prodLen % 10)) imageNum += 1
     imageNum = colImgLen > imageNum ? imageNum : colImgLen
+
     return Array.from({ length: imageNum }).map((_, i) => ({
       ...collectionImages[i],
       order: collectionImageOrder(i),
     }))
-  }, [prodLen, collectionImages])
+  }, [products, collectionImages])
 
   return (
     <CollectionProductGroup title={title} key={collectionTitle}>
-      {sortedProducts.map((product, i) => (
+      {products.map((product, i) => (
         <Box key={product.id} sx={{ order: i }}>
           <CollectionProduct
             product={product}

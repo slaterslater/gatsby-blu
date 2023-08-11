@@ -83,6 +83,7 @@ export const DropdownFilter = ({
           px={3}
         >
           <FilterForm
+            key={JSON.stringify(selectedFilters)}
             filterOptions={filterOptions}
             currentPath={currentPath}
             selectedFilters={selectedFilters}
@@ -144,7 +145,7 @@ const FilterForm = ({
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={async (values, actions) => {
+      onSubmit={async values => {
         const filterString = stringify(values, {
           arrayFormat: 'comma',
         }).replaceAll('%2C', '+')

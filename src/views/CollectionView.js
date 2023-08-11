@@ -9,16 +9,7 @@ import CollectionPageHeader from '../components/CollectionPageHeader'
 import ContemplationCard from '../components/product/ContemplationCard'
 import CollectionSEO from '../components/collection/CollectionSEO'
 import PageContentSEO from '../components/PageContentSEO'
-
-export const getCollectionProducts = products => {
-  if (!products) return undefined
-  return products.edges.map(({ node }) => ({
-    ...node,
-    variants: node.variants.edges.map(({ node: n }) => n),
-    images: node.images.edges.map(({ node: n }) => n),
-    metafields: node.metafields.filter(metafield => !!metafield),
-  }))
-}
+import { useSortedFilteredProducts } from '../hooks/collection'
 
 const CollectionPage = ({
   seo,
@@ -37,6 +28,8 @@ const CollectionPage = ({
   badges,
 }) => {
   useAnalytics('viewItemList', products, title, handle)
+
+  const sortedProducts = useSortedFilteredProducts(products)
 
   return (
     <Layout isBeloved={isBeloved}>
@@ -61,7 +54,7 @@ const CollectionPage = ({
       <Container pt={0}>
         <CollectionFilterAndSort title={title} products={products} />
         <ProductGrid
-          products={products}
+          products={sortedProducts || products}
           collectionTitle={title}
           collectionPath={`/collections/${handle}`}
           collectionImages={collectionImages}
