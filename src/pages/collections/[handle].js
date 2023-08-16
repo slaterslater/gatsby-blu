@@ -1,11 +1,10 @@
 import React from 'react'
 import { useQuery } from 'urql'
-import CollectionView, {
-  getCollectionProducts,
-} from '../../views/CollectionView'
+import CollectionView from '../../views/CollectionView'
 import NotFoundView from '../../views/404'
 import { COLLECTION_PAGE_QUERY } from '../../queries/collection'
-import { useMetafieldValue } from '../../hooks/useMetafield'
+import { getCollectionProducts } from '../../hooks/collection'
+// import { useMetafieldValue } from '../../hooks/useMetafield'
 
 const ClientCollectionPage = ({ params: { handle } }) => {
   console.log('CLIENT COLLECTION PAGE')

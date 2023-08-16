@@ -69,6 +69,7 @@ export const query = graphql`
         handle
         title
         vendor
+        createdAt
         images {
           gatsbyImageData(placeholder: BLURRED, width: 360)
         }

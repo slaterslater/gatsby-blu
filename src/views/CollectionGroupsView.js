@@ -1,13 +1,16 @@
 import React, { useMemo, useState } from 'react'
 import { Container, Grid, Box } from 'theme-ui'
 import { GatsbyImage } from 'gatsby-plugin-image'
+import { useLocation } from '@reach/router'
 import Layout from '../components/layout'
 import CollectionProductGroup from '../components/CollectionProductGroup'
-import { useSortedFilteredProducts } from '../components/collection/CollectionProductGrid'
 import CollectionProduct from '../components/CollectionProduct'
 import CollectionFilterAndSort from '../components/collection/CollectionFilterAndSort'
 import CollectionPageHeader from '../components/CollectionPageHeader'
-import { useLatestCollection } from '../hooks/collection'
+import {
+  useLatestCollection,
+  useSortedFilteredProducts,
+} from '../hooks/collection'
 import { useShopifyImage } from '../hooks/shopifyImage'
 import CollectionSEO from '../components/collection/CollectionSEO'
 import PageContentSEO from '../components/PageContentSEO'
@@ -137,6 +140,7 @@ const CollectionGroupsView = ({
   const products = useMemo(() => collections.flatMap(node => node.products), [])
 
   const sortedProducts = useSortedFilteredProducts(products)
+  const { search } = useLocation()
 
   return (
     <Layout isBeloved={isBeloved}>
@@ -180,6 +184,7 @@ const CollectionGroupsView = ({
             ))}
           {sortedProducts && (
             <CollectionGroup
+              key={search}
               pageTitle={pageTitle}
               pagePath={pagePath}
               title=""
