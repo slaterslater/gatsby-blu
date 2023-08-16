@@ -4,7 +4,7 @@ import { Link as GatsbyLink } from 'gatsby'
 export const HeaderLink = props => (
   <Button
     type="button"
-    as={props.path ? GatsbyLink : Button}
+    as={props.to ? GatsbyLink : Button}
     p={0}
     {...props}
     sx={{
