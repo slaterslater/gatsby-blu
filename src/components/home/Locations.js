@@ -14,7 +14,7 @@ const LocationBox = ({ to, text, width, children, showButtons }) => (
       height: '100%',
       alignSelf: 'stretch',
     }}
-    px={4}
+    // px={4}
   >
     <Flex sx={{ flex: 1, alignItems: 'flex-end', width }} mb={5}>
       {children}
@@ -45,7 +45,7 @@ const HomeLocations = ({ locations, showButtons = true }) => (
       Store Locations
     </Heading>
     <MobileSlider
-      minCardWidth={320}
+      minCardWidth={150}
       nodes={locations.map(({ id, name, slug, storeImage }) => {
         const { height, width } = storeImage.asset.gatsbyImageData
         return (

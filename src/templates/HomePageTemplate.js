@@ -1,5 +1,5 @@
-import React, { useContext, useMemo } from 'react'
-import { graphql, navigate } from 'gatsby'
+import React, { useContext } from 'react'
+import { navigate } from 'gatsby'
 import Layout from '../components/layout'
 import OnePercentCallout from '../components/content/OnePercentCallout'
 import SEO from '../components/seo'
@@ -18,9 +18,12 @@ import MessageFromUniverse from '../components/MessageFromUniverse'
 import UserGeneratedContent from '../components/yotpo/UserGeneratedContent'
 import { NewsletterContext } from '../contexts/NewsletterContext'
 import PopUp from '../components/PopUp'
+import ProductRowSlider from '../components/home/ProductRowSlider'
+import useSite from '../lib/useSite'
 
-const IndexPage = ({ data }) => {
-  const { siteUrl } = data.site.siteMetadata
+const IndexPage = ({ pageContext }) => {
+  useAnalytics('viewHome')
+  const { siteUrl } = useSite()
 
   const websiteLdJSON = `
     {
@@ -38,64 +41,21 @@ const IndexPage = ({ data }) => {
         }
     }
   `
-
-  useAnalytics('viewHome')
-
-  const collections = data.allShopifyCollection.nodes
-  const collectionGroupPages = data.allSanityCollectionGroupPage.nodes
-  const locations = data.allSanityLocation.nodes
-  const products = data.allShopifyProduct.nodes
-  const cards = data.allSanityCard.nodes
+  const { dismissPrompt, shouldPrompt } = useContext(NewsletterContext)
   const {
+    productRow,
+    collectionRow,
+    reviews,
     headerHero,
+    secondHero,
     video,
     popup,
     innerHero,
-    collectionRow,
     spotlights,
-    reviews,
     zodiac,
-  } = data.sanityHomePage
-
-  const collectionRowWithData = useMemo(
-    () =>
-      collectionRow.map(collection => {
-        if (collection.title) return collection
-        const collectionData = collections.find(
-          ({ handle }) => handle === collection.handle
-        )
-        const collectionGroupPage = collectionGroupPages.find(
-          ({ slug }) => slug.current === collection.handle
-        )
-        return {
-          ...collection,
-          ...collectionData,
-          ...collectionGroupPage,
-        }
-      }),
-    [collections, collectionGroupPages, collectionRow]
-  )
-
-  const reviewsWithProductData = useMemo(
-    () =>
-      reviews
-        .map(review => {
-          const productData = products.find(
-            ({ handle }) => handle === review.productHandle
-          )
-          return {
-            ...review,
-            product: {
-              ...productData,
-              title: review.productTitle || productData.title,
-            },
-          }
-        })
-        .filter(({ product }) => product.handle),
-    [reviews, products]
-  )
-
-  const { dismissPrompt, shouldPrompt } = useContext(NewsletterContext)
+    locations,
+    cards,
+  } = pageContext
 
   return (
     <Layout>
@@ -106,8 +66,10 @@ const IndexPage = ({ data }) => {
         />
         <script type="application/ld+json">{websiteLdJSON}</script>
       </SEO>
-      <HomePageHeader data={headerHero[0]} video={video[0]} />
-      <CollectionRowSlider collections={collectionRowWithData} />
+      <HomePageHeader data={headerHero} video={video} />
+      <ProductRowSlider products={productRow} />
+      <HomePageHeader data={secondHero} />
+      <CollectionRowSlider collections={collectionRow} />
       <MessageFromUniverse
         cards={cards}
         onWheelSpin={n => {
@@ -117,17 +79,17 @@ const IndexPage = ({ data }) => {
         mb={[3, 8]}
       />
       <Spotlight spotlights={spotlights} />
-      <HomepageReviews reviews={reviewsWithProductData} />
+      <HomepageReviews reviews={reviews} />
       <UserGeneratedContent />
       <OnePercentCallout />
       <BrandStatement />
       <HeroToggle heros={innerHero} />
-      <Zodiac sign={zodiac[0]} />
+      <Zodiac sign={zodiac} />
       <HomeLocations locations={locations} />
       <Medallions />
       <Socials />
       <PopUp
-        popup={popup[0]}
+        popup={popup}
         dismissPrompt={dismissPrompt}
         shouldPrompt={shouldPrompt}
       />
@@ -136,165 +98,3 @@ const IndexPage = ({ data }) => {
 }
 
 export default IndexPage
-
-export const query = graphql`
-  query ($collections: [String!], $products: [String!]) {
-    site {
-      siteMetadata {
-        siteUrl
-      }
-    }
-    sanityHomePage {
-      headerHero {
-        heading
-        subheading
-        button {
-          text
-          path
-        }
-        image1 {
-          asset {
-            gatsbyImageData(placeholder: BLURRED)
-          }
-        }
-        imageMobile {
-          asset {
-            gatsbyImageData(placeholder: BLURRED, width: 500)
-          }
-        }
-      }
-      video {
-        mobileVideo {
-          asset {
-            url
-          }
-        }
-        desktopVideo {
-          asset {
-            url
-          }
-        }
-      }
-      innerHero {
-        heading
-        subheading
-        button {
-          text
-          path
-        }
-        image1 {
-          asset {
-            gatsbyImageData(placeholder: BLURRED)
-          }
-        }
-        imageMobile {
-          asset {
-            gatsbyImageData(placeholder: BLURRED)
-          }
-        }
-      }
-      popup {
-        title
-        path
-        timeout
-        image {
-          asset {
-            gatsbyImageData(placeholder: BLURRED)
-          }
-        }
-      }
-      collectionRow {
-        title
-        handle
-        image {
-          asset {
-            gatsbyImageData(placeholder: BLURRED, width: 300)
-          }
-        }
-      }
-      spotlights {
-        button {
-          text
-          path
-        }
-        image {
-          asset {
-            gatsbyImageData(placeholder: BLURRED, width: 500)
-          }
-        }
-      }
-      reviews {
-        author
-        content
-        score
-        productHandle
-        productTitle
-      }
-      zodiac {
-        name
-        description
-        collectionHandle
-        backgroundColor {
-          hex
-        }
-        image {
-          asset {
-            gatsbyImageData(placeholder: BLURRED)
-          }
-        }
-      }
-    }
-    allShopifyCollection(filter: { handle: { in: $collections } }) {
-      nodes {
-        handle
-        title
-      }
-    }
-    allSanityCollectionGroupPage(
-      filter: { slug: { current: { in: $collections } } }
-    ) {
-      nodes {
-        title
-        slug {
-          current
-        }
-      }
-    }
-    allShopifyProduct(filter: { handle: { in: $products } }) {
-      nodes {
-        title
-        handle
-        images {
-          gatsbyImageData(placeholder: BLURRED, width: 300)
-        }
-      }
-    }
-    allSanityLocation(
-      filter: { isPopup: { ne: true }, isTempClosed: { ne: true } }
-    ) {
-      nodes {
-        id
-        name
-        slug {
-          current
-        }
-        storeImage {
-          asset {
-            gatsbyImageData(placeholder: BLURRED, width: 200)
-          }
-        }
-      }
-    }
-    allSanityCard {
-      nodes {
-        id
-        collectionHandle
-        image {
-          asset {
-            gatsbyImageData(placeholder: BLURRED, width: 155)
-          }
-        }
-      }
-    }
-  }
-`

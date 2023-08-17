@@ -61,6 +61,7 @@ const MessageFromUniverse = ({ cards, onWheelSpin, children, ...props }) => {
           maxWidth: 1200,
           gridTemplateColumns: ['1fr', '1fr', '50% 50%'],
           columnGap: 6,
+          overflow: 'hidden',
         }}
         mt={6}
         mx="auto"

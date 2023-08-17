@@ -396,30 +396,232 @@ async function createGiftGuidePages({ graphql, actions }) {
 async function createHomePage({ graphql, actions }) {
   const { data } = await graphql(`
     {
-      allSanityHomePage {
-        nodes {
-          collectionRow {
-            handle
+      sanityHomePage {
+        headerHero {
+          heading
+          subheading
+          button {
+            text
+            path
           }
-          reviews {
-            productHandle
+          image1 {
+            asset {
+              gatsbyImageData(placeholder: BLURRED)
+            }
+          }
+          imageMobile {
+            asset {
+              gatsbyImageData(placeholder: BLURRED, width: 500)
+            }
+          }
+        }
+        video {
+          mobileVideo {
+            asset {
+              url
+            }
+          }
+          desktopVideo {
+            asset {
+              url
+            }
+          }
+        }
+        innerHero {
+          heading
+          subheading
+          button {
+            text
+            path
+          }
+          image1 {
+            asset {
+              gatsbyImageData(placeholder: BLURRED)
+            }
+          }
+          imageMobile {
+            asset {
+              gatsbyImageData(placeholder: BLURRED)
+            }
+          }
+        }
+        popup {
+          title
+          path
+          timeout
+          image {
+            asset {
+              gatsbyImageData(placeholder: BLURRED)
+            }
+          }
+        }
+        productRow {
+          title
+          handle
+        }
+        collectionRow {
+          title
+          handle
+          image {
+            asset {
+              gatsbyImageData(placeholder: BLURRED, width: 300)
+            }
+          }
+        }
+        spotlights {
+          button {
+            text
+            path
+          }
+          image {
+            asset {
+              gatsbyImageData(placeholder: BLURRED, width: 500)
+            }
+          }
+        }
+        reviews {
+          author
+          content
+          score
+          productHandle
+          productTitle
+        }
+        zodiac {
+          name
+          description
+          collectionHandle
+          backgroundColor {
+            hex
+          }
+          image {
+            asset {
+              gatsbyImageData(placeholder: BLURRED)
+            }
+          }
+        }
+      }
+      allShopifyCollection {
+        nodes {
+          handle
+          title
+        }
+      }
+      allSanityCollectionGroupPage {
+        nodes {
+          title
+          slug {
+            current
+          }
+        }
+      }
+      allShopifyProduct {
+        nodes {
+          title
+          handle
+          tags
+          images {
+            gatsbyImageData(placeholder: BLURRED, width: 300)
+          }
+          priceRangeV2 {
+            minVariantPrice {
+              amount
+            }
+            maxVariantPrice {
+              amount
+            }
+          }
+        }
+      }
+      allSanityLocation(
+        filter: { isPopup: { ne: true }, isTempClosed: { ne: true } }
+      ) {
+        nodes {
+          id
+          name
+          slug {
+            current
+          }
+          storeImage {
+            asset {
+              gatsbyImageData(placeholder: BLURRED, width: 200)
+            }
+          }
+        }
+      }
+      allSanityCard {
+        nodes {
+          id
+          collectionHandle
+          image {
+            asset {
+              gatsbyImageData(placeholder: BLURRED, width: 155)
+            }
           }
         }
       }
     }
   `)
   if (!data) return
-  const { collectionRow, reviews } = data.allSanityHomePage.nodes[0]
+  // const homepage = data.allSanityHomePage.nodes[0]
+  const products = data.allShopifyProduct.nodes
+  const collections = data.allShopifyCollection.nodes
+  const collectionGroupPages = data.allSanityCollectionGroupPage.nodes
+  // const { productRow, collectionRow, reviews } = data.allSanityHomePage.nodes[0]
+  const { headerHero, video, popup, innerHero, spotlights, zodiac } =
+    data.sanityHomePage
 
-  const collections = collectionRow.map(({ handle }) => handle)
-  const products = reviews.map(({ productHandle }) => productHandle)
+  const collectionRow = data.sanityHomePage.collectionRow
+    .map(collection => {
+      if (collection.title) return collection
+      const collectionData = collections.find(
+        ({ handle }) => handle === collection.handle
+      )
+      const collectionGroupPage = collectionGroupPages.find(
+        ({ slug }) => slug.current === collection.handle
+      )
+      return {
+        ...collection,
+        ...collectionData,
+        ...collectionGroupPage,
+      }
+    })
+    .filter(collection => !!collection)
+
+  const reviews = data.sanityHomePage.reviews
+    .map(review => {
+      const productData = products.find(
+        ({ handle }) => handle === review.productHandle
+      )
+      return {
+        ...review,
+        product: {
+          ...productData,
+          title: review.productTitle || productData.title,
+        },
+      }
+    })
+    .filter(({ product }) => product.handle)
+
+  const productRow = data.sanityHomePage.productRow
+    .map(({ handle }) => products.find(product => handle === product.handle))
+    .filter(product => !!product)
 
   actions.createPage({
     path: `/`,
     component: path.resolve('./src/templates/HomePageTemplate.js'),
     context: {
-      collections,
-      products,
+      collectionRow,
+      productRow,
+      reviews,
+      headerHero: headerHero[0],
+      secondHero: headerHero[1],
+      video: video[0],
+      popup: popup[0],
+      zodiac: zodiac[0],
+      innerHero,
+      spotlights,
+      locations: data.allSanityLocation.nodes,
+      cards: data.allSanityCard.nodes,
     },
   })
 }
