@@ -6,7 +6,6 @@ import ProductGrid from '../components/collection/CollectionProductGrid'
 import CollectionFilterAndSort from '../components/collection/CollectionFilterAndSort'
 import { useAnalytics } from '../lib/useAnalytics'
 import CollectionPageHeader from '../components/CollectionPageHeader'
-import ContemplationCard from '../components/product/ContemplationCard'
 import CollectionSEO from '../components/collection/CollectionSEO'
 import PageContentSEO from '../components/PageContentSEO'
 import { useSortedFilteredProducts } from '../hooks/collection'
@@ -41,9 +40,7 @@ const CollectionPage = ({
         products={products}
         handle={handle}
       />
-      {card ? (
-        <ContemplationCard card={card} isPageHeader />
-      ) : (
+      {!card && (
         <CollectionPageHeader
           title={title}
           description={description}
@@ -59,6 +56,7 @@ const CollectionPage = ({
           collectionPath={`/collections/${handle}`}
           collectionImages={collectionImages}
           badges={badges}
+          card={card}
         />
         {content && <PageContentSEO title={title} content={content} />}
       </Container>

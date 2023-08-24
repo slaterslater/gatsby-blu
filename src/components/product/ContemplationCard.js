@@ -14,7 +14,7 @@ const SubTitle = ({ title, subtitle, as }) => (
   </Box>
 )
 
-const ContemplationCard = ({ card, isPageHeader = false }) => {
+const ContemplationCard = ({ card, isCollectionPage = false }) => {
   if (!card) return null
   const {
     title,
@@ -28,8 +28,13 @@ const ContemplationCard = ({ card, isPageHeader = false }) => {
     stones,
     icons,
   } = card
+
+  const collectionGridStyles = isCollectionPage
+    ? { order: 3, gridColumn: '1/-1', marginBottom: 4 }
+    : null
+
   return (
-    <Box bg="bbBackground">
+    <Box bg="bbBackground" sx={collectionGridStyles}>
       <Grid
         sx={{
           rowGap: 8,
@@ -86,7 +91,7 @@ const ContemplationCard = ({ card, isPageHeader = false }) => {
           <SubTitle
             title={`the ${title}`}
             subtitle={subtitle}
-            as={isPageHeader ? 'h1' : null}
+            as={isCollectionPage ? 'h1' : null}
           />
           <Text
             as="p"
@@ -100,14 +105,14 @@ const ContemplationCard = ({ card, isPageHeader = false }) => {
             variant="inverted"
             sx={{ textAlign: 'center', fontSize: 1, maxWidth: 250 }}
             to={
-              isPageHeader
+              isCollectionPage
                 ? `/contemplation-cards`
                 : `/collections/${collectionHandle}`
             }
             mx={['auto', 'auto', 'auto', 0]}
             mt={5}
           >
-            {isPageHeader ? 'pick a card' : `shop ${title}`}
+            {isCollectionPage ? 'pick a card' : `shop ${title}`}
           </Button>
         </Box>
       </Grid>
