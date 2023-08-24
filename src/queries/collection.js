@@ -75,6 +75,10 @@ export const COLLECTION_PAGE_QUERY = gql`
                     currencyCode
                     amount
                   }
+                  selectedOptions {
+                    name
+                    value
+                  }
                 }
               }
             }

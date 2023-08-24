@@ -83,6 +83,10 @@ export const query = graphql`
         image {
           gatsbyImageData(placeholder: BLURRED)
         }
+        metafields {
+          key
+          value
+        }
         products {
           id
           handle
@@ -101,6 +105,11 @@ export const query = graphql`
           variants {
             availableForSale
             price
+            shopifyId
+            selectedOptions {
+              name
+              value
+            }
           }
           priceRangeV2 {
             minVariantPrice {

@@ -24,6 +24,7 @@ const CollectionPage = ({
   card,
   content,
   isBeloved,
+  allowQuickAdd,
   badges,
 }) => {
   useAnalytics('viewItemList', products, title, handle)
@@ -55,6 +56,7 @@ const CollectionPage = ({
           collectionTitle={title}
           collectionPath={`/collections/${handle}`}
           collectionImages={collectionImages}
+          allowQuickAdd={allowQuickAdd}
           badges={badges}
           card={card}
         />

@@ -15,6 +15,7 @@ import { useShopifyImage } from '../hooks/shopifyImage'
 import CollectionSEO from '../components/collection/CollectionSEO'
 import PageContentSEO from '../components/PageContentSEO'
 import PasswordCheck from '../components/collection/PasswordCheck'
+import { useMetafieldValue } from '../hooks/useMetafield'
 
 const sortCollections = (nodes, arr) =>
   nodes.sort((a, b) => arr.indexOf(a.handle) - arr.indexOf(b.handle))
@@ -51,8 +52,10 @@ const CollectionGroup = ({
   products,
   index = 0,
   badges,
+  metafields,
   ...props
 }) => {
+  const allowQuickAdd = useMetafieldValue('allow_quick_add', metafields)
   const { collectionProducts, collectionImages } = useLatestCollection(
     handle,
     products
@@ -93,6 +96,7 @@ const CollectionGroup = ({
             collectionTitle={pageTitle}
             collectionPath={pagePath}
             badges={badges}
+            allowQuickAdd={allowQuickAdd !== 'false'}
           />
         </Box>
       ))}

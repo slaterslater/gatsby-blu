@@ -35,12 +35,14 @@ const CollectionProduct = ({
   collectionPath,
   images,
   badges = [],
+  allowQuickAdd,
   showLabel = true,
 }) => {
   const [price, hasRange] = useProductPrice(product)
   const title = useProductTitle(product.title)
   const [firstImage, secondImage] = images
-  const { handle, tags, availableForSale, metafields } = product
+  const { handle, tags, availableForSale, metafields, options, variants } =
+    product
   const visitTag = tags.find(tag => tag.startsWith('visit'))?.replace('-', ' ')
   const badge = badges.find(({ name }) => name === visitTag)
   // console.log({ visitBadge, badges, tags })
@@ -57,8 +59,11 @@ const CollectionProduct = ({
       tags={tags}
       availableForSale={availableForSale}
       metafields={metafields}
+      allowQuickAdd={allowQuickAdd}
       badge={badge}
       showLabel={showLabel}
+      options={options}
+      variants={variants}
     />
   )
 }
