@@ -8,7 +8,7 @@ import ThemeLink from '../app/ThemeLink'
 import { MobileSlider } from '../content/CollectionRow'
 
 const CollectionRowSlider = ({ collections, minCardWidth = 230, ...props }) => (
-  <Container variant="wide" mt={[5, 6, 7, 8]}>
+  <Container variant="wide" mt={[5, 6]}>
     <MobileSlider
       minCardWidth={minCardWidth}
       nodes={collections.map(({ image, title, handle }) => (

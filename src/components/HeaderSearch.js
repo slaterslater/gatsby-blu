@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import useKeyPress from 'react-use-keypress'
-import { Box, Grid, Flex, Button, Input, Text } from 'theme-ui'
+import { Box, Grid, Flex, Button } from 'theme-ui'
 import PropTypes from 'prop-types'
 import { IoIosClose, IoIosSearch } from 'react-icons/io'
 import { Configure, InstantSearch, connectHits } from 'react-instantsearch-core'
@@ -17,8 +17,8 @@ import SuggestedSearches from './search/SuggestedSearches'
 
 const SearchHits = connectHits(({ hits }) =>
   hits.map(hit => (
-    <Flex sx={{ justifyContent: 'center' }}>
-      <InstantSearchProduct key={`hit-${hit.id}`} hit={hit} />
+    <Flex sx={{ justifyContent: 'center' }} key={hit.id}>
+      <InstantSearchProduct hit={hit} />
     </Flex>
   ))
 )

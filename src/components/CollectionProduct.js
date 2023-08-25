@@ -34,7 +34,7 @@ const CollectionProduct = ({
   collectionTitle,
   collectionPath,
   images,
-  badges,
+  badges = [],
   showLabel = true,
 }) => {
   const [price, hasRange] = useProductPrice(product)

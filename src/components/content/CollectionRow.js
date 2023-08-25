@@ -27,7 +27,8 @@ export const MobileSlider = ({ nodes, minCardWidth, gap = 2, ...props }) => (
           mx={gap}
           sx={{
             scrollSnapAlign: 'start',
-            minWidth: [minCardWidth, 0],
+            // minWidth: [minCardWidth, 0],
+            minWidth: minCardWidth,
             flex: 1,
           }}
         >

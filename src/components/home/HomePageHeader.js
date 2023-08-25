@@ -36,14 +36,15 @@ const Video = ({ video, ...props }) => {
   )
 }
 
-const HomePageHeader = ({ data, video }) => {
+const HomePageHeader = ({ data, video = {} }) => {
+  if (!data) return null
   const { heading, subheading, button, image1, imageMobile } = data
 
   const [image1Data, mobileImageData] = [image1, imageMobile].map(
     img => img?.asset.gatsbyImageData
   )
 
-  const { mobileVideo, desktopVideo } = video || {}
+  const { mobileVideo, desktopVideo } = video
 
   const artDirectedImages = useMemo(() => {
     if (!mobileImageData) return image1Data
