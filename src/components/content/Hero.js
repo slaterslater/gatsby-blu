@@ -50,10 +50,10 @@ export const HeroOuter = ({ children, data, align = 'right' }) => {
       <Text
         bg="bbBackground"
         sx={{
-          width: ['calc(100% - 32px)', 530],
+          width: ['calc(100% - 32px)', 'max-content'],
           display: 'block',
           position: 'relative',
-          transform: ['translateY(-35px)', 'translateY(-160px)'],
+          transform: ['translateY(-65px)', 'translateY(-120px)'],
           textAlign: 'center',
           zIndex: 2,
           fontFamily: 'heading',
@@ -66,8 +66,8 @@ export const HeroOuter = ({ children, data, align = 'right' }) => {
         }}
         mx="auto"
         mb={4}
-        px={4}
-        py={5}
+        px={7}
+        py={3}
       >
         {button.text}
       </Text>

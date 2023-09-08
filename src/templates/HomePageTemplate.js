@@ -20,6 +20,7 @@ import { NewsletterContext } from '../contexts/NewsletterContext'
 import PopUp from '../components/PopUp'
 import ProductRowSlider from '../components/home/ProductRowSlider'
 import useSite from '../lib/useSite'
+import ProductRowTitle from '../components/home/ProductRowTitle'
 
 const IndexPage = ({ pageContext }) => {
   useAnalytics('viewHome')
@@ -43,6 +44,7 @@ const IndexPage = ({ pageContext }) => {
   `
   const { dismissPrompt, shouldPrompt } = useContext(NewsletterContext)
   const {
+    productRowTitle,
     productRow,
     collectionRow,
     reviews,
@@ -67,6 +69,7 @@ const IndexPage = ({ pageContext }) => {
         <script type="application/ld+json">{websiteLdJSON}</script>
       </SEO>
       <HomePageHeader data={headerHero} video={video} />
+      <ProductRowTitle title={productRowTitle} />
       <ProductRowSlider products={productRow} />
       <HomePageHeader data={secondHero} />
       <CollectionRowSlider collections={collectionRow} />

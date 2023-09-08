@@ -455,6 +455,7 @@ async function createHomePage({ graphql, actions }) {
             }
           }
         }
+        productRowTitle
         productRow {
           title
           handle
@@ -567,8 +568,15 @@ async function createHomePage({ graphql, actions }) {
   const collections = data.allShopifyCollection.nodes
   const collectionGroupPages = data.allSanityCollectionGroupPage.nodes
   // const { productRow, collectionRow, reviews } = data.allSanityHomePage.nodes[0]
-  const { headerHero, video, popup, innerHero, spotlights, zodiac } =
-    data.sanityHomePage
+  const {
+    headerHero,
+    video,
+    productRowTitle,
+    popup,
+    innerHero,
+    spotlights,
+    zodiac,
+  } = data.sanityHomePage
 
   const collectionRow = data.sanityHomePage.collectionRow
     .map(collection => {
@@ -611,6 +619,7 @@ async function createHomePage({ graphql, actions }) {
     component: path.resolve('./src/templates/HomePageTemplate.js'),
     context: {
       collectionRow,
+      productRowTitle,
       productRow,
       reviews,
       headerHero: headerHero[0],
