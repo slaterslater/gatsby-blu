@@ -50,7 +50,8 @@ export const HeroOuter = ({ children, data, align = 'right' }) => {
       <Text
         bg="bbBackground"
         sx={{
-          width: ['calc(100% - 32px)', 'max-content'],
+          width: 'max-content',
+          // width: ['calc(100% - 32px)', 'max-content'],
           display: 'block',
           position: 'relative',
           transform: ['translateY(-65px)', 'translateY(-120px)'],
