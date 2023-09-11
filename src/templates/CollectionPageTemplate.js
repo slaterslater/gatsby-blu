@@ -18,6 +18,7 @@ const CollectionPageTemplate = ({ data, pageContext, ...props }) => {
   const { content } = data.sanityCollectionSeo || {}
   const badges = data.allSanityProductBadge.nodes
   const isBeloved = useMetafieldValue('isBeloved', metafields)
+  const allowQuickAdd = useMetafieldValue('allow_quick_add', metafields)
   const { collectionProducts, collectionImages } = useLatestCollection(
     handle,
     products
@@ -36,6 +37,7 @@ const CollectionPageTemplate = ({ data, pageContext, ...props }) => {
       card={data.card}
       content={content}
       isBeloved={isBeloved === 'true'}
+      allowQuickAdd={allowQuickAdd !== 'false'}
       badges={badges}
       hasFilters
     />
@@ -87,6 +89,11 @@ export const query = graphql`
         variants {
           availableForSale
           price
+          shopifyId
+          selectedOptions {
+            name
+            value
+          }
         }
         priceRangeV2 {
           minVariantPrice {

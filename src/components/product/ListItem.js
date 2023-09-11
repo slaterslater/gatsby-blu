@@ -7,6 +7,7 @@ import dayjs from 'dayjs'
 import FormattedPrice from '../FormattedPrice'
 import { useShopifyImage } from '../../hooks/shopifyImage'
 import { usePageContext } from '../../contexts/PageContext'
+import ProductQuickAdd from './ProductQuickAdd'
 
 const MotionBox = motion(Box)
 
@@ -30,18 +31,33 @@ export const DragBox = ({
   controls,
   shuffleImg,
   bg = 'white',
+  isQuickAdding = false,
+  setIsQuickAdding,
 }) => {
   const swipeConfidenceThreshold = 10000
   const swipePower = (offset, velocity) => Math.abs(offset) * velocity
 
+  const [isHovered, setIsHovered] = useState(false)
+  const opacity = (primary && isQuickAdding) || isHovered ? 0 : 1
+
+  const toggleOpacity = () => {
+    if (!primary) return
+    setIsQuickAdding(false)
+    setIsHovered(!isHovered)
+  }
+
   return (
     <MotionBox
       sx={{
+        position: 'relative',
         gridArea: '1 / 1 / -1 / -1',
         zIndex: primary ? 1 : 0,
         bg,
+        opacity,
       }}
-      whileHover={primary ? { opacity: 0 } : null}
+      // whileHover={primary ? { opacity: 0 } : null}
+      onMouseOver={toggleOpacity}
+      onMouseOut={toggleOpacity}
       animate={controls}
       drag="x"
       dragConstraints={{ left: 0, right: 0 }}
@@ -63,7 +79,13 @@ export const ThumbnailImage = ({ image, fallbackAlt = '' }) => {
   return <GatsbyImage image={imageData} alt={image.altText || fallbackAlt} />
 }
 
-export const CollectionThumbnail = ({ title, primary, alternate }) => {
+export const CollectionThumbnail = ({
+  title,
+  primary,
+  alternate,
+  isQuickAdding,
+  setIsQuickAdding,
+}) => {
   const priControls = useAnimation()
   const altControls = useAnimation()
 
@@ -97,6 +119,8 @@ export const CollectionThumbnail = ({ title, primary, alternate }) => {
             controls={priControls}
             shuffleImg={() => imageControl(priControls, altControls)}
             bg={bg}
+            isQuickAdding={isQuickAdding}
+            setIsQuickAdding={setIsQuickAdding}
           >
             <ThumbnailImage
               fallbackAlt={`${title} lightbox photo`}
@@ -172,24 +196,51 @@ const ProductListItemInner = ({
   tags,
   availableForSale,
   metafields = [],
+  allowQuickAdd,
   badge,
   showLabel,
-}) => (
-  <Box as="article" sx={{ position: 'relative', zIndex: 1 }} pb={[5, 6]}>
-    <ProductItemLabel
-      tags={tags}
-      metafields={metafields}
-      soldOut={!availableForSale}
-    />
-    <Flex
-      sx={{ flexDirection: 'column', position: 'relative', overflow: 'hidden' }}
-    >
-      <CollectionThumbnail
-        title={title}
-        primary={firstImage}
-        alternate={secondImage}
+  options,
+  variants,
+}) => {
+  const [isQuickAdding, setIsQuickAdding] = useState(false)
+  return (
+    <Box as="article" sx={{ position: 'relative', zIndex: 1 }} pb={[5, 6]}>
+      <ProductItemLabel
+        tags={tags}
+        metafields={metafields}
+        soldOut={!availableForSale}
       />
-      {/* {badge && (
+      <Flex
+        sx={{
+          flexDirection: 'column',
+          position: 'relative',
+          overflow: 'hidden',
+        }}
+      >
+        <Box
+          sx={{
+            position: 'relative',
+            '#quickAdd': { display: 'none' },
+            ':hover > #quickAdd': { display: ['none', 'none', 'flex'] },
+          }}
+        >
+          <CollectionThumbnail
+            title={title}
+            primary={firstImage}
+            alternate={secondImage}
+            isQuickAdding={isQuickAdding}
+            setIsQuickAdding={setIsQuickAdding}
+          />
+          {allowQuickAdd && (
+            <ProductQuickAdd
+              variants={variants}
+              metafields={metafields}
+              isQuickAdding={isQuickAdding}
+              setIsQuickAdding={setIsQuickAdding}
+            />
+          )}
+        </Box>
+        {/* {badge && (
         <Box
           sx={{
             maxWidth: '18%',
@@ -210,47 +261,48 @@ const ProductListItemInner = ({
           />
         </Box>
       )} */}
-      <Flex
-        pt={2}
-        sx={{
-          flex: 1,
-          flexDirection: 'column',
-          alignItems: 'space-between',
-        }}
-      >
-        <Box mb="auto" sx={{ alignSelf: 'top', textAlign: 'center' }}>
-          <Text
-            variant="small"
-            sx={{
-              fontWeight: 'bold',
-              color: 'darkerGray',
-              letterSpacing: 'widest',
-            }}
-          >
-            {title}
-          </Text>
-        </Box>
-        <Flex pt={2} sx={{ justifyContent: 'center' }}>
-          {hasRange && (
-            <Text variant="caps" pr={1} sx={{ color: 'darkGray' }}>
-              From
+        <Flex
+          pt={2}
+          sx={{
+            flex: 1,
+            flexDirection: 'column',
+            alignItems: 'space-between',
+          }}
+        >
+          <Box mb="auto" sx={{ alignSelf: 'top', textAlign: 'center' }}>
+            <Text
+              variant="small"
+              sx={{
+                fontWeight: 'bold',
+                color: 'darkerGray',
+                letterSpacing: 'widest',
+              }}
+            >
+              {title}
             </Text>
-          )}
-          <Text
-            as="p"
-            variant="caps"
-            sx={{
-              fontWeight: 500,
-              color: '#454545',
-            }}
-          >
-            <FormattedPrice priceV2={price} />
-          </Text>
+          </Box>
+          <Flex pt={2} sx={{ justifyContent: 'center' }}>
+            {hasRange && (
+              <Text variant="caps" pr={1} sx={{ color: 'darkGray' }}>
+                From
+              </Text>
+            )}
+            <Text
+              as="p"
+              variant="caps"
+              sx={{
+                fontWeight: 500,
+                color: '#454545',
+              }}
+            >
+              <FormattedPrice priceV2={price} />
+            </Text>
+          </Flex>
         </Flex>
       </Flex>
-    </Flex>
-  </Box>
-)
+    </Box>
+  )
+}
 
 const ProductListItem = ({ to, linkState, ...props }) => {
   if (!to) return <ProductListItemInner {...props} />

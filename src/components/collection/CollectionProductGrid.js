@@ -23,6 +23,7 @@ const ProductGrid = ({
   title,
   description,
   collectionImages,
+  allowQuickAdd,
   badges,
   card,
 }) => {
@@ -58,6 +59,7 @@ const ProductGrid = ({
             images={product.images}
             collectionTitle={collectionTitle}
             collectionPath={collectionPath}
+            allowQuickAdd={allowQuickAdd}
             badges={badges}
           />
         </Box>
