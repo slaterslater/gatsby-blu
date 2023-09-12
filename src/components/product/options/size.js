@@ -31,7 +31,7 @@ const ProductSizes = ({ option }) => {
         <Heading as="div" variant="caps" sx={{ fontSize: 9 }}>
           select size
         </Heading>
-        <SizingHelp />
+        {/* <SizingHelp /> */}
       </Flex>
       <Flex
         sx={{
