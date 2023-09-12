@@ -119,20 +119,22 @@ export const query = graphql`
       image {
         asset {
           gatsbyImageData(
-            width: 250
-            height: 425
+            #width: 250
+            #height: 425
             placeholder: BLURRED
-            layout: FIXED
+            #layout: FIXED
           )
         }
       }
       icons {
         asset {
           gatsbyImageData(
-            width: 285
-            height: 75
+            #width: 285
+            #height: 75
             placeholder: BLURRED
-            layout: FIXED
+            #layout: FIXED
+            height: 80
+            layout: CONSTRAINED
           )
         }
       }

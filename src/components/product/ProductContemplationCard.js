@@ -14,7 +14,7 @@ const SubTitle = ({ title, subtitle, as }) => (
   </Box>
 )
 
-const ContemplationCard = ({ card, isCollectionPage = false }) => {
+const ProductContemplationCard = ({ card }) => {
   if (!card) return null
   const {
     title,
@@ -29,12 +29,12 @@ const ContemplationCard = ({ card, isCollectionPage = false }) => {
     icons,
   } = card
 
-  const collectionGridStyles = isCollectionPage
-    ? { order: 3, gridColumn: '1/-1', marginBottom: 4 }
-    : null
+  // const collectionGridStyles = isCollectionPage
+  //   ? { order: 3, gridColumn: '1/-1', marginBottom: 4 }
+  //   : null
 
   return (
-    <Box bg="bbBackground" sx={collectionGridStyles}>
+    <Box bg="bbBackground">
       <Grid
         sx={{
           rowGap: 8,
@@ -91,7 +91,7 @@ const ContemplationCard = ({ card, isCollectionPage = false }) => {
           <SubTitle
             title={`the ${title}`}
             subtitle={subtitle}
-            as={isCollectionPage ? 'h1' : null}
+            // as={isCollectionPage ? 'h1' : null}
           />
           <Text
             as="p"
@@ -104,15 +104,17 @@ const ContemplationCard = ({ card, isCollectionPage = false }) => {
             as={Link}
             variant="inverted"
             sx={{ textAlign: 'center', fontSize: 1, maxWidth: 250 }}
-            to={
-              isCollectionPage
-                ? `/contemplation-cards`
-                : `/collections/${collectionHandle}`
-            }
+            // to={
+            //   isCollectionPage
+            //     ? `/contemplation-cards`
+            //     : `/collections/${collectionHandle}`
+            // }
+            to={`/collections/${collectionHandle}`}
             mx={['auto', 'auto', 'auto', 0]}
             mt={5}
           >
-            {isCollectionPage ? 'pick a card' : `shop ${title}`}
+            {/* {isCollectionPage ? 'pick a card' : `shop ${title}`} */}
+            {`shop ${title}`}
           </Button>
         </Box>
       </Grid>
@@ -120,4 +122,4 @@ const ContemplationCard = ({ card, isCollectionPage = false }) => {
   )
 }
 
-export default ContemplationCard
+export default ProductContemplationCard
