@@ -32,7 +32,7 @@ export const DragBox = ({
   shuffleImg,
   bg = 'white',
   isQuickAdding = false,
-  setIsQuickAdding,
+  setIsQuickAdding = () => {},
 }) => {
   const swipeConfidenceThreshold = 10000
   const swipePower = (offset, velocity) => Math.abs(offset) * velocity
