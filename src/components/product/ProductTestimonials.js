@@ -4,8 +4,10 @@ import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import { Box, Flex, Heading, IconButton } from 'theme-ui'
 import { wrap } from '@popmotion/popcorn'
 import BridalStory from '../BridalStory'
+import { usePageContext } from '../../contexts/PageContext'
 
 const ProductTestimonials = () => {
+  const { isBeloved } = usePageContext()
   const data = useStaticQuery(graphql`
     {
       allSanityStory(
@@ -61,7 +63,7 @@ const ProductTestimonials = () => {
       >
         reviews
       </Heading>
-      <Box bg="bbBackground" px={[5, 6, 6, 7]} pb={5}>
+      <Box bg={isBeloved ? 'bbBackground' : null} px={[5, 6, 6, 7]} pb={5}>
         {story && <BridalStory key={story.id} details={story} />}
         <Flex sx={{ justifyContent: 'center', gap: 4 }}>
           <IconButton type="button" onClick={() => setCurrentReview(-1)}>
