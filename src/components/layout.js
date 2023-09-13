@@ -20,15 +20,16 @@ import SEO from './seo'
 import RecentlyViewedProductsProvider from '../contexts/RecentlyViewedProductsContext'
 import Drawers from './drawers'
 import Countdown from './Countdown'
-import BelovedHeader from './BelovedHeader'
+// import BelovedHeader from './BelovedHeader'
 import { PageProvider } from '../contexts/PageContext'
-import SiteNav from './SiteNav'
+// import SiteNav from './SiteNav'
 
 const ThirdPartyScripts = loadable(() => import('./ThirdPartyScripts'))
 const TidioLink = loadable(() => import('./TidioLink'))
 
 const Layout = ({ title, description, children, isBeloved = false }) => (
-  <PageProvider isBeloved={isBeloved}>
+  // <PageProvider isBeloved={isBeloved}>
+  <PageProvider isBeloved={false}>
     <RecentlyViewedProductsProvider>
       <Drawers>
         <SEO title={title} description={description} />
@@ -38,23 +39,22 @@ const Layout = ({ title, description, children, isBeloved = false }) => (
             minWidth: 380,
             flexDirection: 'column',
             alignItems: 'stretch',
-            // overflow: 'hidden',
-            background: isBeloved ? 'url("/beloved-bg.webp")' : null,
+            // background: isBeloved ? 'url("/beloved-bg.webp")' : null,
             backgroundSize: '100%',
           }}
         >
-          <Box sx={{ display: ['block', 'block', 'none'] }}>
-            <Announcements />
-          </Box>
-          <SiteNav />
+          {/* <Box sx={{ display: ['block', 'block', 'none'] }}> */}
+          <Announcements />
+          {/* </Box>
+          <SiteNav /> */}
           {/* maybe just one header and use context? */}
-          {isBeloved && <BelovedHeader />}
+          {/* {isBeloved && <BelovedHeader />}
           {!isBeloved && (
-            <>
-              <Header />
-              <Countdown />
-            </>
-          )}
+            <> */}
+          <Header />
+          <Countdown />
+          {/* </>
+          )} */}
           {children}
           <Footer />
         </Flex>
