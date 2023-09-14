@@ -73,6 +73,7 @@ const IndexPage = ({ pageContext }) => {
       <ProductRowSlider products={productRow} />
       <HomePageHeader data={secondHero} />
       <CollectionRowSlider collections={collectionRow} />
+      <BrandStatement />
       <MessageFromUniverse
         cards={cards}
         onWheelSpin={n => {
@@ -85,7 +86,6 @@ const IndexPage = ({ pageContext }) => {
       <HomepageReviews reviews={reviews} />
       <UserGeneratedContent />
       <OnePercentCallout />
-      <BrandStatement />
       <HeroToggle heros={innerHero} />
       <Zodiac sign={zodiac} />
       <HomeLocations locations={locations} />

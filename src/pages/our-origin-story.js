@@ -218,10 +218,10 @@ const OriginStoryPage = () => (
         minimize our impact through all of our actions, big and small.
       </Paragraph>
     </Copy>
-    <BigButton
+    {/* <BigButton
       text="learn more about our sustainable practices"
       to="/sustainable-practices"
-    />
+    /> */}
     <Flex sx={{ justifyContent: 'center', maxWidth: 1000 }} mx="auto" mt={4}>
       <StaticImage src="../images/our-origin-story/banner-04.webp" alt="" />
     </Flex>

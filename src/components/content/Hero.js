@@ -62,7 +62,10 @@ export const HeroOuter = ({ children, data, align = 'right' }) => {
           border: '1px solid',
           borderColor: 'cream',
           borderRadius: 2,
-          marginBottom: ['-20px', '-60px'],
+          // height: 50,
+          // marginBottom: ['-20px', '-60px'],
+          // marginBottom: ['-45px', '-45px'],
+          marginBottom: '-45px',
           fontSize: 2,
         }}
         mx="auto"
