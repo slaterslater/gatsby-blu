@@ -54,6 +54,7 @@ const CollectionContemplationCard = ({ card }) => {
       >
         <Box
           sx={{
+            display: ['none', 'block', 'block'],
             // alignContent: 'center',
             // order: 0,
             boxShadow: '2px 2px 10px 5px lightgrey',
