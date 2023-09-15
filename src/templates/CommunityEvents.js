@@ -16,7 +16,8 @@ const EventDateTime = ({ dateAndTimes }) => {
     const [hh, mm] = t.split(':')
     return `${hh % 12 || 12}:${mm}${hh < 12 ? 'am' : 'pm'}`
   }
-  const timeRange = `${time(startTime)} - ${time(endTime)}`
+  const timeRange =
+    endTime && startTime ? `${time(startTime)} - ${time(endTime)}` : 'all day'
   return (
     <Text as="li">
       {day}, {timeRange}
