@@ -15,7 +15,7 @@ const CollectionContemplationCard = ({ card }) => {
     stones,
     icons,
   } = card
-  console.log('CollectionContemplationCard', { card })
+
   return (
     <Box
       sx={{
@@ -36,7 +36,7 @@ const CollectionContemplationCard = ({ card }) => {
           // maxWidth: 1444,
           // gridTemplateColumns: ['1fr', 'repeat(2, minmax(250px, 1fr))'],
           // gridTemplateColumns: ['1fr', 'repeat(2, minmax(1fr, 1fr))'],
-          gridTemplateColumns: ['1fr', 'max-content 1fr'],
+          gridTemplateColumns: ['1fr', '1fr minmax(250px, 1fr)'],
           textAlign: 'center',
           span: { display: 'block' },
           // '.flexCol': {
@@ -63,10 +63,12 @@ const CollectionContemplationCard = ({ card }) => {
             // height: 'calc(25vw)',
             height: ['calc(50vw)', 'calc(50vw)', 'calc(25vw)'],
             // maxWidth: 250,
-            width: 'max-content',
+            // width: 'max-content',
+            maxWidth: 250,
             img: {
               borderRadius: 15,
               height: ['calc(50vw)', 'calc(50vw)', 'calc(25vw)'],
+              objectFit: 'contain',
             },
           }}
           my="auto"

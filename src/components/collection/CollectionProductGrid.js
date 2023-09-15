@@ -69,7 +69,7 @@ const ProductGrid = ({
         <BookAConsultationCallout sx={{ order: 7, gridColumn: 'span 2' }} />
       )} */}
       {/* {card && <ContemplationCard card={card} isCollectionPage />} */}
-      {/* {card && <CollectionContemplationCard card={card} />} */}
+      {card && <CollectionContemplationCard card={card} />}
       {orderedImages.map((image, i) => (
         <Box
           key={`collection-image-${i}`}
