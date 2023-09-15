@@ -53,11 +53,11 @@ export const DragBox = ({
         gridArea: '1 / 1 / -1 / -1',
         zIndex: primary ? 1 : 0,
         bg,
-        opacity,
+        // opacity,
       }}
-      // whileHover={primary ? { opacity: 0 } : null}
-      onMouseOver={toggleOpacity}
-      onMouseOut={toggleOpacity}
+      whileHover={primary ? { opacity: 0 } : null}
+      // onMouseOver={toggleOpacity}
+      // onMouseOut={toggleOpacity}
       animate={controls}
       drag="x"
       dragConstraints={{ left: 0, right: 0 }}
@@ -231,14 +231,14 @@ const ProductListItemInner = ({
             isQuickAdding={isQuickAdding}
             setIsQuickAdding={setIsQuickAdding}
           />
-          {allowQuickAdd && (
+          {/* {allowQuickAdd && (
             <ProductQuickAdd
               variants={variants}
               metafields={metafields}
               isQuickAdding={isQuickAdding}
               setIsQuickAdding={setIsQuickAdding}
             />
-          )}
+          )} */}
         </Box>
         {/* {badge && (
         <Box
