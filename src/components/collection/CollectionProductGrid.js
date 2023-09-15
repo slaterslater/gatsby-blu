@@ -5,7 +5,8 @@ import CollectionProduct from '../CollectionProduct'
 import CollectionProductGroup from '../CollectionProductGroup'
 // import BookAConsultationCallout from '../content/BookAConsultationCallout'
 import { useShopifyImage } from '../../hooks/shopifyImage'
-import ContemplationCard from '../product/ContemplationCard'
+// import ContemplationCard from '../product/ProductContemplationCard'
+import CollectionContemplationCard from './CollectionContemplationCard'
 
 const CollectionImage = ({ image, tall = false }) => {
   const imageData = useShopifyImage({
@@ -67,7 +68,8 @@ const ProductGrid = ({
       {/* {collectionPath?.includes('bridal') && (
         <BookAConsultationCallout sx={{ order: 7, gridColumn: 'span 2' }} />
       )} */}
-      {card && <ContemplationCard card={card} isCollectionPage />}
+      {/* {card && <ContemplationCard card={card} isCollectionPage />} */}
+      {card && <CollectionContemplationCard card={card} />}
       {orderedImages.map((image, i) => (
         <Box
           key={`collection-image-${i}`}

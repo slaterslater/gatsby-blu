@@ -76,10 +76,11 @@ const IndexPage = ({ pageContext }) => {
       <BrandStatement />
       <MessageFromUniverse
         cards={cards}
-        onWheelSpin={n => {
-          const handle = cards[n]?.collectionHandle
-          navigate(`/collections/${handle}`)
-        }}
+        onWheelSpin={n =>
+          navigate(`/contemplation-cards`, {
+            state: { cardIndex: n },
+          })
+        }
         mb={[3, 8]}
       />
       <Spotlight spotlights={spotlights} />

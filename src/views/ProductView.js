@@ -10,7 +10,7 @@ import ProductReviews from '../components/product/ProductReviews'
 import ProductImageGallery from '../components/product/ProductImageGallery'
 import ProductRecentRecommendations from '../components/product/ProductRecentRecommendations'
 import ProductProvider from '../components/product/ProductContext'
-import ContemplationCard from '../components/product/ContemplationCard'
+import ProductContemplationCard from '../components/product/ProductContemplationCard'
 import ProductTestimonials from '../components/product/ProductTestimonials'
 import UserGeneratedContent from '../components/yotpo/UserGeneratedContent'
 import PageContentSEO from '../components/PageContentSEO'
@@ -73,7 +73,7 @@ const ProductView = ({ product, alternates, badges, stack, card, content }) => {
           </Box>
         </Grid>
       </Container>
-      <ContemplationCard card={card} />
+      <ProductContemplationCard card={card} />
       <Container>
         <ProductRecentRecommendations tags={tags} />
         {!isOOAK && (

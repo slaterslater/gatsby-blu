@@ -1,21 +1,31 @@
 import { graphql, Link } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Box, Button, Container, Divider, Grid, Heading, Text } from 'theme-ui'
 import { gql, useQuery } from 'urql'
 import { AnimatePresence, useAnimation } from 'framer-motion'
 import Layout from '../components/layout'
 import MessageFromUniverse from '../components/MessageFromUniverse'
-import ContemplationCard from '../components/product/ContemplationCard'
+import ProductContemplationCard from '../components/product/ProductContemplationCard'
 import ProductListItem, { DragBox } from '../components/product/ListItem'
 import ProductModal from '../components/product/ProductModal'
 
-const ContemplationCardPage = ({ data }) => {
+const ContemplationCardPage = ({ data, location }) => {
   const cards = data.allSanityCard.nodes
   const pickedCardRef = useRef(null)
-  const [pickedCardIndex, setPickedCardIndex] = useState(null)
+  const [pickedCardIndex, setPickedCardIndex] = useState(
+    location.state?.cardIndex
+  )
   const [cardOrder, setCardOrder] = useState([])
   const pickedCard = cards[pickedCardIndex]
+  // const cardIndex = location.state?.cardIndex
+
+  const scrollToCard = n => {
+    const top = pickedCardRef.current.offsetTop
+    // const top = pickedCardRef.current.offsetTop + 40
+    window.scrollTo({ top, behavior: 'smooth' })
+    setPickedCardIndex(n)
+  }
 
   // random shuffle
   useEffect(() => {
@@ -31,13 +41,9 @@ const ContemplationCardPage = ({ data }) => {
 
     // return array
     setCardOrder(array)
+    // get cardindex from location state
+    if (pickedCardIndex) scrollToCard(pickedCardIndex)
   }, [cards])
-
-  const scrollToCard = n => {
-    const top = pickedCardRef.current.offsetTop + 40
-    window.scrollTo({ top, behavior: 'smooth' })
-    setPickedCardIndex(n)
-  }
 
   const { collectionHandle } = pickedCard || {}
   const [{ data: collectionData }] = useQuery({
@@ -120,7 +126,7 @@ const ContemplationCardPage = ({ data }) => {
         }}
         ref={pickedCardRef}
       />
-      <ContemplationCard card={cards[pickedCardIndex]} />
+      <ProductContemplationCard card={cards[pickedCardIndex]} />
       <Container pt={0}>
         {products && (
           <Grid
@@ -203,9 +209,7 @@ const ContemplationCardPage = ({ data }) => {
               onClick={() => scrollToCard(i)}
               order={cardOrder[i]}
               frontImage={image.asset.gatsbyImageData}
-              // check that images are uploaded and then remove
-              // validation should ensure all cards have a back
-              backImage={backImage?.asset?.gatsbyImageData}
+              backImage={backImage.asset.gatsbyImageData}
             />
           ))}
         </Grid>
@@ -289,6 +293,7 @@ const DoubleSidedCard = ({ title, onClick, order, frontImage, backImage }) => {
     <Grid onClick={onClick} sx={{ order, overflow: 'hidden' }}>
       <AnimatePresence>
         <DragBox
+          key="card-frontside"
           primary
           controls={priControls}
           shuffleImg={() => imageControl(priControls, altControls)}
@@ -296,6 +301,7 @@ const DoubleSidedCard = ({ title, onClick, order, frontImage, backImage }) => {
           <GatsbyImage image={frontImage} alt="" />
         </DragBox>
         <DragBox
+          key="card-backside"
           controls={altControls}
           shuffleImg={() => imageControl(altControls, priControls)}
         >
