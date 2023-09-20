@@ -47,7 +47,7 @@ const Footer = props => (
               email us
             </FooterA>
             <FooterA href="tel:+1 647-273-6297">call us</FooterA>
-            <FooterText>mon - sun &nbsp; 9am - 5pm EST</FooterText>
+            <FooterText>mon - fri &nbsp; 9am - 5pm EST</FooterText>
             <FooterLink to="/locations">visit us</FooterLink>
             <FooterLink to="/book-a-consultation">
               book virtual appointment
