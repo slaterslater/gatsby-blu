@@ -75,25 +75,40 @@ const CalendlyConsultationPage = ({ data, location }) => (
         placeholder="blurred"
       />
     </Banner>
-    <Flex
+    <Box
       sx={{
-        textAlign: 'center',
-        justifyContent: 'center',
-        flexDirection: 'column',
+        // textAlign: 'center',
+        // justifyContent: 'center',
+        // flexDirection: 'column',
+        fontSize: 1,
+        span: { marginTop: 4, display: 'block' },
         a: {
           color: 'primary',
           textDecoration: 'none',
+          textTransform: 'lowercase',
           fontWeight: 'bold',
         },
       }}
       mx="auto"
-      py={9}
+      py={8}
     >
-      <Text variant="h2">text us to book</Text>
-      <Text variant="caps" sx={{ fontSize: 1 }} mt={4}>
-        queen st. store <a href="sms:+16473478743">647-347-8743</a>
-      </Text>
-    </Flex>
+      <Text variant="h2">Book your appointment with us today</Text>
+      <Box sx={{ width: 'max-content' }} mx="auto" mt={5}>
+        <Text variant="caps">
+          email{' '}
+          <a href="mailto:guestexperience@bluboho.com">
+            guestexperience@bluboho.com
+          </a>
+        </Text>
+        <Text variant="caps">
+          text or call <a href="sms:+16473478743">647-347-8743</a>
+        </Text>
+        <Text variant="caps">
+          DM{' '}
+          <a href="https://www.instagram.com/bluboho">@blubohorefinedjewelry</a>
+        </Text>
+      </Box>
+    </Box>
     <Banner height={450}>
       <StaticImage
         src="../images/consultation/consultation-booking-header-2.webp"
