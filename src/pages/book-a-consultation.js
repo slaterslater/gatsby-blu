@@ -80,6 +80,7 @@ const CalendlyConsultationPage = ({ data, location }) => (
         // textAlign: 'center',
         // justifyContent: 'center',
         // flexDirection: 'column',
+        h1: { textAlign: 'center' },
         fontSize: 1,
         span: { marginTop: 4, display: 'block' },
         a: {
@@ -90,10 +91,17 @@ const CalendlyConsultationPage = ({ data, location }) => (
         },
       }}
       mx="auto"
+      px={4}
       py={8}
     >
-      <Text variant="h2">Book your appointment with us today</Text>
-      <Box sx={{ width: 'max-content' }} mx="auto" mt={5}>
+      <Text as="h1" variant="h2">
+        Book your appointment with us today
+      </Text>
+      <Box
+        sx={{ width: 'max-content', textAlign: ['left', 'center'] }}
+        mx="auto"
+        mt={5}
+      >
         <Text variant="caps">
           email{' '}
           <a href="mailto:guestexperience@bluboho.com">
