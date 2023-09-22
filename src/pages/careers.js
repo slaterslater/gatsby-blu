@@ -20,7 +20,7 @@ import Banner from '../components/content/Banner'
 const MotionBox = motion(Box)
 
 const Career = ({ position, isOpen, handleClick }) => {
-  const { title, location, description, url } = position
+  const { title, location, description, url, pdf } = position
   return (
     <Box
       as="li"
@@ -96,12 +96,12 @@ const Career = ({ position, isOpen, handleClick }) => {
                 alignItems: ['center', 'flex-start'],
               }}
             >
-              <Text
+              {/* <Text
                 as="p"
                 pt={5}
                 variant="copy"
                 sx={{ fontWeight: 'body' }}
-              >{`location: ${location}`}</Text>
+              >{`location: ${location}`}</Text> */}
               <Text
                 variant="copy"
                 as="p"
@@ -113,13 +113,14 @@ const Career = ({ position, isOpen, handleClick }) => {
                   textAlign: ['center', 'left'],
                   whiteSpace: 'pre-line',
                 }}
-                py={5}
+                pt={5}
+                pb={2}
               >
                 {description}
               </Text>
               <Button
                 as={Link}
-                href={url}
+                href={url || pdf.asset.url}
                 target="_blank"
                 title={`information regarding ${title}`}
                 variant="link"
@@ -160,6 +161,11 @@ const CareersPage = () => {
           location
           description
           url
+          pdf {
+            asset {
+              url
+            }
+          }
         }
       }
     }
