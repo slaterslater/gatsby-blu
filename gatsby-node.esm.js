@@ -470,6 +470,7 @@ async function createHomePage({ graphql, actions }) {
           }
         }
         spotlights {
+          title
           button {
             text
             path

@@ -4,7 +4,7 @@ import { GatsbyImage } from 'gatsby-plugin-image'
 import PropTypes from 'prop-types'
 import ThemeLink from '../app/ThemeLink'
 
-export const SpotlightCard = ({ title, path, children }) => (
+export const SpotlightCard = ({ title, button, children }) => (
   <Flex
     p={6}
     sx={{ textAlign: 'center', bg: 'cream', flexDirection: 'column' }}
@@ -14,11 +14,11 @@ export const SpotlightCard = ({ title, path, children }) => (
       {title}
     </Heading>
     <ThemeLink
-      to={path}
+      to={button.path}
       variant="caps"
       sx={{ fontSize: 1, textDecoration: 'underline' }}
     >
-      Shop now
+      {button.text}
     </ThemeLink>
   </Flex>
 )
@@ -32,9 +32,9 @@ const Spotlight = ({ spotlights }) => (
         justifyContent: 'center',
       }}
     >
-      {spotlights.map(({ image, button: { text, path } }, i) => (
-        <SpotlightCard title={text} path={path} key={`spotlight-${i}`}>
-          <GatsbyImage image={image.asset.gatsbyImageData} alt={text} />
+      {spotlights.map(({ title, button, image }, i) => (
+        <SpotlightCard title={title} button={button} key={`spotlight-${i}`}>
+          <GatsbyImage image={image.asset.gatsbyImageData} alt={title} />
         </SpotlightCard>
       ))}
     </Grid>
