@@ -91,8 +91,7 @@ const ThirdPartScripts = () => {
                 w.__adroll_loaded = true;
                 w.adroll = w.adroll || [];
                 w.adroll.f = [ 'setProperties', 'identify', 'track' ];
-                var roundtripUrl = "https://s.adroll.com/j/" + adroll_adv_id
-                        + "/roundtrip.js";
+                var roundtripUrl = "https://s.adroll.com/j/" + adroll_adv_id + "/roundtrip.js";
                 for (a = 0; a < w.adroll.f.length; a++) {
                     w.adroll[w.adroll.f[a]] = w.adroll[w.adroll.f[a]] || (function(n) {
                         return function() {

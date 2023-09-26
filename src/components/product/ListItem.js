@@ -178,9 +178,23 @@ export const ProductItemLabel = ({ tags, metafields, soldOut }) => {
   const restockedWeeksAgo = value === 'restocked' && numWeeksOld > 2
 
   if (!labelText || restockedWeeksAgo) return null
+
+  const [bg, color] =
+    labelText.toLowerCase() === 'sold'
+      ? ['primary', 'cream']
+      : ['cream', 'primary']
+
   return (
     <Badge
-      sx={{ bg: 'cream', position: 'absolute', top: 1, left: 1, zIndex: 10 }}
+      sx={{
+        bg,
+        color,
+        position: 'absolute',
+        top: 1,
+        left: 1,
+        zIndex: 10,
+        borderRadius: '2px',
+      }}
     >
       {labelText}
     </Badge>
