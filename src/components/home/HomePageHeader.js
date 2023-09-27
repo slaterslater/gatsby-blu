@@ -40,9 +40,16 @@ const HomePageHeader = ({ data, video = {} }) => {
   if (!data) return null
   const { heading, subheading, button, image1, imageMobile } = data
 
-  const [image1Data, mobileImageData] = [image1, imageMobile].map(
-    img => img?.asset.gatsbyImageData
-  )
+  // const [image1Data, mobileImageData] = [image1, imageMobile].map(
+  //   img => img?.asset.gatsbyImageData
+  // )
+  const [image1Data, mobileImageData] = [image1, imageMobile].map(img => {
+    if (!img) return null
+    return {
+      ...img.asset.gatsbyImageData,
+      hotspot: img.hotspot,
+    }
+  })
 
   const { mobileVideo, desktopVideo } = video
 
@@ -87,7 +94,15 @@ const HomePageHeader = ({ data, video = {} }) => {
           overflow: 'hidden',
         }}
       >
-        <GatsbyImage image={artDirectedImages} alt="" />
+        <GatsbyImage
+          image={artDirectedImages}
+          alt=""
+          imgStyle={{
+            objectPosition: `${artDirectedImages.hotspot?.x * 100}% ${
+              artDirectedImages.hotspot?.y * 100
+            }%`,
+          }}
+        />
       </Grid>
     </HeroOuter>
   )

@@ -408,6 +408,10 @@ async function createHomePage({ graphql, actions }) {
             asset {
               gatsbyImageData(placeholder: BLURRED)
             }
+            hotspot {
+              x
+              y
+            }
           }
           imageMobile {
             asset {
