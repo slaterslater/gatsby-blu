@@ -143,8 +143,9 @@ const OnePercentForThePlanet = props => (
         <Body px={[4, 0]} sx={{ lineHeight: 'body' }}>
           our packaging is designed from recycled, reusable and compostable
           materials. in store only: to minimize package consumption, we offer $5
-          off your purchase if you bring your packaging back to be reused or if
-          you wear your piece out, and opt out of packaging.
+          off your purchase if you bring your packaging back to be reused (1
+          package redeemable per transaction). or if you wear your piece out,
+          and opt out of packaging all together.
         </Body>
       </Container>
       <Container sx={{ maxWidth: 990 }} sx={{ textAlign: 'center' }}>
@@ -215,7 +216,7 @@ const OnePercentForThePlanet = props => (
               OFFERING REPAIR & RESIZING SERVICES
             </CapsHeading>
             <Body>
-              we work to resize pieces that don’t fit and mend any of the damage
+              we work to resize pieces that don't fit and mend any of the damage
               that can come from long-term wear. we are here to disrupt the fast
               fashion trend and encourage a buy less, buy better mentality. this
               means we are producing less waste and your pieces become heirloom
