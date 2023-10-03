@@ -143,9 +143,9 @@ const OnePercentForThePlanet = props => (
         <Body px={[4, 0]} sx={{ lineHeight: 'body' }}>
           our packaging is designed from recycled, reusable and compostable
           materials. in store only: to minimize package consumption, we offer $5
-          off your purchase if you bring your packaging back to be reused (1
-          package redeemable per transaction). or if you wear your piece out,
-          and opt out of packaging all together.
+          off your purchase if you bring your packaging back to be reused in
+          good condition (1 package redeemable per transaction). or if you wear
+          your piece out, and opt out of packaging all together.
         </Body>
       </Container>
       <Container sx={{ maxWidth: 990 }} sx={{ textAlign: 'center' }}>
