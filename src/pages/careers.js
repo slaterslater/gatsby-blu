@@ -170,7 +170,7 @@ const CareersPage = () => {
       }
     }
   `)
-  const { positions } = data.sanityCareer
+  const { positions } = data.sanityCareer || {}
   return (
     <Layout
       title="careers"
