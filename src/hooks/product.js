@@ -2,6 +2,7 @@ import { useMemo, useContext } from 'react'
 import { parse } from 'qs'
 import { useLocation } from '@reach/router'
 import { useQuery } from 'urql'
+import dayjs from 'dayjs'
 import { PRODUCT_QUERY } from '../queries/product'
 import { useAnalytics } from '../lib/useAnalytics'
 import { CurrencyContext } from '../contexts/CurrencyContext'
@@ -188,4 +189,22 @@ export const useMadeToOrder = () => {
   if (isSize10 || tags.includes('made-to-order')) return weeks['made-to-order']
 
   return null
+}
+
+export const useProductLabel = ({ tags, metafields }) => {
+  if (!tags && !metafields) return null
+  const labelTag = tags.find(tag => tag.includes('__label'))
+  const labelMetaField = metafields.find(({ key }) => key === 'label')
+
+  const { value, updatedAt } = labelMetaField || {}
+
+  const labelText = value
+    ? JSON.parse(value)[0]
+    : labelTag?.replace('__label:', '')
+
+  const numWeeksOld = dayjs().diff(updatedAt, 'week')
+  const restockedWeeksAgo = value === 'restocked' && numWeeksOld > 2
+
+  if (!labelText || restockedWeeksAgo) return null
+  return labelText.toLowerCase()
 }

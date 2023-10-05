@@ -8,6 +8,7 @@ import FormattedPrice from '../FormattedPrice'
 import { useShopifyImage } from '../../hooks/shopifyImage'
 import { usePageContext } from '../../contexts/PageContext'
 import ProductQuickAdd from './ProductQuickAdd'
+import { useProductLabel } from '../../hooks/product'
 
 const MotionBox = motion(Box)
 
@@ -33,12 +34,14 @@ export const DragBox = ({
   bg = 'white',
   isQuickAdding = false,
   setIsQuickAdding = () => {},
+  // // isSold = false,
+  // opacity = 1,
 }) => {
   const swipeConfidenceThreshold = 10000
   const swipePower = (offset, velocity) => Math.abs(offset) * velocity
 
   const [isHovered, setIsHovered] = useState(false)
-  const opacity = (primary && isQuickAdding) || isHovered ? 0 : 1
+  // const opacity = (primary && isQuickAdding) || isHovered ? 0 : 1
 
   const toggleOpacity = () => {
     if (!primary) return
@@ -85,6 +88,7 @@ export const CollectionThumbnail = ({
   alternate,
   isQuickAdding,
   setIsQuickAdding,
+  isSold,
 }) => {
   const priControls = useAnimation()
   const altControls = useAnimation()
@@ -126,6 +130,18 @@ export const CollectionThumbnail = ({
               fallbackAlt={`${title} lightbox photo`}
               image={primary}
             />
+            {isSold && (
+              <Box
+                sx={{
+                  position: 'absolute',
+                  height: '100%',
+                  width: '100%',
+                  bg: 'bbBackground',
+                  top: 0,
+                  opacity: 0.6,
+                }}
+              />
+            )}
           </DragBox>
           <DragBox
             key="dragbox-2"
@@ -135,7 +151,7 @@ export const CollectionThumbnail = ({
           >
             <ThumbnailImage
               fallbackAlt={`${title} on body}`}
-              image={alternate}
+              image={isSold ? primary : alternate}
             />
           </DragBox>
         </AnimatePresence>
@@ -155,7 +171,7 @@ export const CollectionThumbnail = ({
   )
 }
 
-export const ProductItemLabel = ({ tags, metafields, soldOut }) => {
+export const ProductItemLabel = ({ label, tags, metafields, soldOut }) => {
   // if (soldOut)
   //   return (
   //     <Badge
@@ -165,24 +181,10 @@ export const ProductItemLabel = ({ tags, metafields, soldOut }) => {
   //     </Badge>
   //   )
 
-  const labelTag = tags.find(tag => tag.includes('__label'))
-  const labelMetaField = metafields.find(({ key }) => key === 'label')
-
-  const { value, updatedAt } = labelMetaField || {}
-
-  const labelText = value
-    ? JSON.parse(value)[0]
-    : labelTag?.replace('__label:', '')
-
-  const numWeeksOld = dayjs().diff(updatedAt, 'week')
-  const restockedWeeksAgo = value === 'restocked' && numWeeksOld > 2
-
-  if (!labelText || restockedWeeksAgo) return null
+  if (!label) return null
 
   const [bg, color] =
-    labelText.toLowerCase() === 'sold'
-      ? ['primary', 'cream']
-      : ['cream', 'primary']
+    label === 'sold' ? ['primary', 'cream'] : ['cream', 'primary']
 
   return (
     <Badge
@@ -196,7 +198,7 @@ export const ProductItemLabel = ({ tags, metafields, soldOut }) => {
         borderRadius: '2px',
       }}
     >
-      {labelText}
+      {label}
     </Badge>
   )
 }
@@ -217,13 +219,11 @@ const ProductListItemInner = ({
   variants,
 }) => {
   const [isQuickAdding, setIsQuickAdding] = useState(false)
+  const label = useProductLabel({ tags, metafields })
+
   return (
     <Box as="article" sx={{ position: 'relative', zIndex: 1 }} pb={[5, 6]}>
-      <ProductItemLabel
-        tags={tags}
-        metafields={metafields}
-        soldOut={!availableForSale}
-      />
+      <ProductItemLabel label={label} soldOut={!availableForSale} />
       <Flex
         sx={{
           flexDirection: 'column',
@@ -244,6 +244,7 @@ const ProductListItemInner = ({
             alternate={secondImage}
             isQuickAdding={isQuickAdding}
             setIsQuickAdding={setIsQuickAdding}
+            isSold={label === 'sold'}
           />
           {/* {allowQuickAdd && (
             <ProductQuickAdd
