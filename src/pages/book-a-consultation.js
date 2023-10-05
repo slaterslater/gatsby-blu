@@ -109,7 +109,7 @@ const CalendlyConsultationPage = ({ data, location }) => (
           </a>
         </Text>
         <Text variant="caps">
-          text or call <a href="sms:+16473478743">647-347-8743</a>
+          text or call <a href="sms:+16472736297">647-273-6297</a>
         </Text>
         <Text variant="caps">
           DM <a href="https://www.instagram.com/bluboho">@bluboho</a>
