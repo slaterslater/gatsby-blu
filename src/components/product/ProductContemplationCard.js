@@ -33,6 +33,8 @@ const ProductContemplationCard = ({ card }) => {
   //   ? { order: 3, gridColumn: '1/-1', marginBottom: 4 }
   //   : null
 
+  console.log({ text })
+
   return (
     <Box bg="bbBackground">
       <Grid
@@ -95,7 +97,7 @@ const ProductContemplationCard = ({ card }) => {
           />
           <Text
             as="p"
-            sx={{ lineHeight: 2, maxWidth: 600 }}
+            sx={{ lineHeight: 2, maxWidth: 600, whiteSpace: 'pre-line' }}
             mx={[null, 'auto', null]}
           >
             {text}

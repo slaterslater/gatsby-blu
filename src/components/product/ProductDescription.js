@@ -73,7 +73,12 @@ export const ProductDescription = props => {
         />
       )}
       {!open && (
-        <Text as="p" variant="copy" sx={{ fontSize: 0 }} px={2}>
+        <Text
+          as="p"
+          variant="copy"
+          sx={{ fontSize: 0, whiteSpace: 'pre-line' }}
+          px={2}
+        >
           {truncate(previewText, { length: 310 })}
           <Button
             variant="link"
