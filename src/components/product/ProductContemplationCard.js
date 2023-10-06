@@ -29,12 +29,6 @@ const ProductContemplationCard = ({ card }) => {
     icons,
   } = card
 
-  // const collectionGridStyles = isCollectionPage
-  //   ? { order: 3, gridColumn: '1/-1', marginBottom: 4 }
-  //   : null
-
-  console.log({ text })
-
   return (
     <Box bg="bbBackground">
       <Grid
@@ -90,14 +84,15 @@ const ProductContemplationCard = ({ card }) => {
             textAlign: ['center', 'center', 'center', 'left'],
           }}
         >
-          <SubTitle
-            title={`the ${title}`}
-            subtitle={subtitle}
-            // as={isCollectionPage ? 'h1' : null}
-          />
+          <SubTitle title={`the ${title}`} subtitle={subtitle} />
           <Text
             as="p"
-            sx={{ lineHeight: 2, maxWidth: 600, whiteSpace: 'pre-line' }}
+            sx={{
+              lineHeight: 2,
+              maxWidth: 600,
+              width: '100%',
+              whiteSpace: 'pre-line',
+            }}
             mx={[null, 'auto', null]}
           >
             {text}
@@ -106,16 +101,10 @@ const ProductContemplationCard = ({ card }) => {
             as={Link}
             variant="inverted"
             sx={{ textAlign: 'center', fontSize: 1, maxWidth: 250 }}
-            // to={
-            //   isCollectionPage
-            //     ? `/contemplation-cards`
-            //     : `/collections/${collectionHandle}`
-            // }
             to={`/collections/${collectionHandle}`}
             mx={['auto', 'auto', 'auto', 0]}
             mt={5}
           >
-            {/* {isCollectionPage ? 'pick a card' : `shop ${title}`} */}
             {`shop ${title}`}
           </Button>
         </Box>
