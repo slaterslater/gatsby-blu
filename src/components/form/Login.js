@@ -10,7 +10,7 @@ import { CustomerAccessTokenCreate } from '../../mutations/auth'
 const initialValues = { email: '', password: '' }
 const validationSchema = yup.object({
   email: yup.string().email().required(),
-  password: yup.string().required(),
+  password: yup.string().min(6).max(80).required(),
 })
 
 const LoginForm = ({ toOrigin }) => {
