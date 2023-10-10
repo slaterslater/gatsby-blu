@@ -56,6 +56,7 @@ const ResetPasswordPage = props => {
             name="password"
             label="enter your new password"
             id="reset_password"
+            maxlength="80"
           />
           <SubmitButton>Reset Password</SubmitButton>
         </Form>
