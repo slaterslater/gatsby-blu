@@ -39,10 +39,8 @@ const Video = ({ video, ...props }) => {
 const HomePageHeader = ({ data, video = {} }) => {
   if (!data) return null
   const { heading, subheading, button, image1, imageMobile } = data
+  const { mobileVideo, desktopVideo } = video
 
-  // const [image1Data, mobileImageData] = [image1, imageMobile].map(
-  //   img => img?.asset.gatsbyImageData
-  // )
   const [image1Data, mobileImageData] = [image1, imageMobile].map(img => {
     if (!img) return null
     return {
@@ -51,17 +49,14 @@ const HomePageHeader = ({ data, video = {} }) => {
     }
   })
 
-  const { mobileVideo, desktopVideo } = video
-
-  const artDirectedImages = useMemo(() => {
-    if (!mobileImageData) return image1Data
-    return withArtDirection(image1Data, [
-      {
-        media: '(max-width: 40em)',
-        image: mobileImageData,
-      },
-    ])
-  }, [image1Data, mobileImageData])
+  const artDirectedImages = mobileImageData
+    ? withArtDirection(image1Data, [
+        {
+          media: '(max-width: 40em)',
+          image: mobileImageData,
+        },
+      ])
+    : image1Data
 
   return (
     <HeroOuter data={{ heading, subheading, button }}>
