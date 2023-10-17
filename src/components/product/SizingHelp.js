@@ -25,7 +25,7 @@ const SizingContent = ({ type }) => (
           src="../../images/sizing-help/ring-desktop.jpg"
         />
         <Flex pt={4} sx={{ justifyContent: 'center' }}>
-          <Link variant="button" href="/bluboho-ring-sizer-guide.pdf" download>
+          <Link variant="button" href="/find-your-ring-size.pdf" download>
             Download Printout
           </Link>
         </Flex>

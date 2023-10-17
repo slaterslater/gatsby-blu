@@ -52,7 +52,7 @@ const CollectionContemplationCard = ({ card }) => {
         px={5}
         py={[5, 5, 0]}
       >
-        <Box
+        {/* <Box
           sx={{
             display: ['none', 'block', 'block'],
             // alignContent: 'center',
@@ -66,18 +66,47 @@ const CollectionContemplationCard = ({ card }) => {
             // maxWidth: 250,
             // width: 'max-content',
             maxWidth: 250,
+            maxHeight: 425,
             img: {
               borderRadius: 15,
-              height: ['calc(50vw)', 'calc(50vw)', 'calc(25vw)'],
+              // height: ['calc(50vw)', 'calc(50vw)', 'calc(25vw)'],
+              // height: '100%',
+              maxHeight: 425,
               objectFit: 'contain',
             },
           }}
-          my="auto"
+          // my="auto"
           mx="auto"
           // mx={5}
         >
           <GatsbyImage image={image.asset.gatsbyImageData} alt={title} />
-        </Box>
+        </Box> */}
+        <Flex
+          sx={{
+            justifyContent: 'center',
+            alignContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Box
+            sx={{
+              // boxShadow: '2px 2px 10px 5px lightgrey',
+              borderRadius: 15,
+              maxWidth: 250,
+              bg: 'prodBackground',
+              // maxHeight: 425,
+              // maxHeight: 'fit-content',
+              img: {
+                borderRadius: 15,
+                maxHeight: 425,
+                objectFit: 'contain',
+              },
+            }}
+            my={3}
+          >
+            <GatsbyImage image={image.asset.gatsbyImageData} alt={title} />
+          </Box>
+        </Flex>
         <Flex sx={{ flexDirection: 'column' }}>
           <Box sx={{ maxHeight: 80, '*': { objectFit: 'contain' } }}>
             <GatsbyImage image={icons.asset.gatsbyImageData} alt="" />
