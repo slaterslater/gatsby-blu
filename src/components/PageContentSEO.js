@@ -22,6 +22,7 @@ const PageContentSEO = ({ title, content, isCollection = true }) => (
     <Grid
       sx={{
         gap: 6,
+        textTransform: 'lowercase',
         gridTemplateColumns: ['1fr', '1fr', '1fr 1fr'],
         'div, p': {
           display: 'flex',
@@ -66,6 +67,7 @@ const PageContentSEO = ({ title, content, isCollection = true }) => (
           marginBottom: 0,
         },
         a: { color: 'primary', fontWeight: 'bold' },
+        li: { fontSize: 1, letterSpacing: 'wider', marginBottom: 4 },
       }}
       mt={4}
       mb={7}
