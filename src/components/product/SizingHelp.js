@@ -1,4 +1,4 @@
-import { Button, Link, Box, Flex } from 'theme-ui'
+import { Button, Box } from 'theme-ui'
 import React, { useState, useContext } from 'react'
 import { StaticImage } from 'gatsby-plugin-image'
 import { ProductContext } from './ProductContext'
@@ -12,7 +12,7 @@ const SizingContent = ({ type }) => (
       '.deskTop': { display: ['none', 'block'] },
     }}
   >
-    {(type === 'ring' || type === 'band') && (
+    {/* {(type === 'ring' || type === 'band') && (
       <>
         <StaticImage
           className="mobile"
@@ -30,7 +30,7 @@ const SizingContent = ({ type }) => (
           </Link>
         </Flex>
       </>
-    )}
+    )} */}
     {type === 'necklace' && (
       <>
         <StaticImage
@@ -56,20 +56,32 @@ const SizingHelp = () => {
 
   // match Rings, Necklaces, Bands
   const [sizeType] = productType.match(/(ring|necklace|band)/gi) || []
+  const type = sizeType?.toLowerCase() || ''
+  const isRing = type === 'ring' || type === 'band'
+
+  // ring only has pdf so open in new tab
+  const handleClick = () => {
+    if (isRing) {
+      window.open('/find-your-ring-size.pdf', '_blank')
+    } else {
+      setOpen(true)
+    }
+  }
 
   if (!sizeType) return null
+
   return (
     <>
       <Button
         type="button"
-        onClick={() => setOpen(true)}
+        onClick={handleClick}
         variant="link"
         sx={{ fontWeight: '600', fontSize: 0, letterSpacing: 'widest' }}
       >
         sizing help?
       </Button>
       <Modal isOpen={open} setOpen={setOpen}>
-        <SizingContent type={sizeType.toLowerCase()} />
+        <SizingContent type={type} />
       </Modal>
     </>
   )
