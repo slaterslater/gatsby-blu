@@ -90,6 +90,7 @@ const Footer = props => (
             <FooterLink to="/pages/how-to-care-for-gold-jewelry ">
               jewelry care &amp; wear
             </FooterLink>
+            <FooterLink to="/warranty-policy">warranty policy</FooterLink>
             <FooterLink pb={0} to="/wholesale">
               Wholesale
             </FooterLink>
