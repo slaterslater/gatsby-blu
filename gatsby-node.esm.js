@@ -700,6 +700,30 @@ async function createCommunityEventsPage({ actions }) {
   })
 }
 
+async function createSanityPages({ graphql, actions }) {
+  const { data } = await graphql(`
+    {
+      allSanityPage {
+        nodes {
+          slug {
+            current
+          }
+        }
+      }
+    }
+  `)
+
+  data.allSanityPage.nodes.forEach(node => {
+    const { current } = node.slug
+    const component = path.resolve('./src/templates/SanityPageTemplate.js')
+    actions.createPage({
+      path: `/${current}`,
+      component,
+      context: { current },
+    })
+  })
+}
+
 // fetch data from podcast api and create nodes from returned array
 async function createPodcastNodes({ actions, createContentDigest }) {
   const url = `https://www.buzzsprout.com/api/${process.env.BUZZSPROUT_PODCAST_ID}/episodes.json`
@@ -856,5 +880,6 @@ export async function createPages(params) {
     createLocationPages(params),
     createRedirectPages(params),
     createCommunityEventsPage(params),
+    createSanityPages(params),
   ])
 }
