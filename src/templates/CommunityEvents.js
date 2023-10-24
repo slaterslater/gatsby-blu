@@ -17,7 +17,9 @@ const EventDateTime = ({ dateAndTimes }) => {
     return `${hh % 12 || 12}:${mm}${hh < 12 ? 'am' : 'pm'}`
   }
   const timeRange =
-    endTime && startTime ? `${time(startTime)} - ${time(endTime)}` : 'all day'
+    endTime && startTime
+      ? `${time(startTime)} - ${time(endTime)}`
+      : 'contact for details'
   return (
     <Text as="li">
       {day}, {timeRange}
@@ -31,6 +33,7 @@ const Event = ({ details, index }) => {
   const { city, phone, email, street, province } = inStore ? location : details
   const flexDirection = index % 2 ? 'row-reverse' : 'row'
   const bg = index % 2 ? 'white' : 'bbBackground'
+  console.log({ details })
 
   return (
     <Box px={[5, 6]} py={[7, 8]} bg={bg}>
