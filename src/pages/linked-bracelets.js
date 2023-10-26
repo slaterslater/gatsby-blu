@@ -163,7 +163,8 @@ const calendars = [
   // },
   {
     title: '350 Queen St W, Toronto, | 15 min',
-    path: 'ringconsultation/bluboho-queen-st-lets-get-linked',
+    // path: 'ringconsultation/bluboho-queen-st-lets-get-linked',
+    path: 'ringconsultation/link-bracelets',
   },
 ]
 
