@@ -14,6 +14,17 @@ export const CHECKOUT_FRAGMENT = gql`
           key
           value
         }
+        discountAllocations {
+          allocatedAmount {
+            amount
+            currencyCode
+          }
+          discountApplication {
+            ... on AutomaticDiscountApplication {
+              title
+            }
+          }
+        }
         variant {
           id
           title

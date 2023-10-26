@@ -3,49 +3,49 @@ import React from 'react'
 import FormattedPrice from './FormattedPrice'
 
 // handle discount allocations
-export const getDiscountedPrice = (
-  originalTotalPrice,
-  discountAllocations = []
-) => {
-  if (!discountAllocations.length) return undefined
-  const discountTotal = discountAllocations.reduce(
-    (acc, el) => acc + el.allocatedAmount.amount,
+export const getDiscountedPrice = (quantity, originalPrice, discounts = []) => {
+  if (!discounts.length) return undefined
+  const discountTotal = discounts.reduce(
+    (total, discount) => total + discount.allocatedAmount.amount,
     0
   )
   return {
-    ...originalTotalPrice,
-    amount: originalTotalPrice.amount - discountTotal,
+    ...originalPrice,
+    amount: quantity * originalPrice.amount - discountTotal,
   }
 }
 
-const LineItemPrice = ({
-  item,
-  originalTotalPrice,
-  discountAllocations,
-  ...props
-}) => {
-  if (item) return <FormattedPrice priceV2={item.variant?.priceV2 || {}} />
-  const discountedPrice = getDiscountedPrice(
-    originalTotalPrice,
-    discountAllocations
-  )
+const LineItemPrice = ({ quantity, originalPrice, discounts, ...props }) => {
+  if (!discounts.length) return <FormattedPrice priceV2={originalPrice} />
+
+  const discountedPrice = getDiscountedPrice(quantity, originalPrice, discounts)
+
+  // console.log({ discounts })
+  const discountTitle = discounts[0].discountApplication?.title
   return (
-    <Grid
-      sx={{ display: 'inline-grid', gridAutoFlow: 'column', gap: 2 }}
-      {...props}
-    >
-      <Text
-        variant={discountedPrice ? 'strike' : ''}
-        sx={{ color: discountedPrice ? 'darkGray' : 'body' }}
+    <>
+      <Grid
+        sx={{ display: 'inline-grid', gridAutoFlow: 'column', gap: 2 }}
+        {...props}
       >
-        <FormattedPrice priceV2={originalTotalPrice} />
-      </Text>
-      {discountedPrice && (
-        <Text>
-          <FormattedPrice priceV2={discountedPrice} />
+        <Text
+          variant={discountedPrice ? 'strike' : ''}
+          sx={{ color: discountedPrice ? 'darkGray' : 'body' }}
+        >
+          <FormattedPrice priceV2={originalPrice} />
+        </Text>
+        {discountedPrice && (
+          <Text>
+            <FormattedPrice priceV2={discountedPrice} />
+          </Text>
+        )}
+      </Grid>
+      {discountTitle && (
+        <Text as="p" sx={{ fontSize: 0 }}>
+          {discountTitle}
         </Text>
       )}
-    </Grid>
+    </>
   )
 }
 

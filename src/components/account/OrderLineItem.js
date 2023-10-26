@@ -11,8 +11,9 @@ const OrderLineItem = ({ item }) => (
     </Text>
     <Text variant="caps" sx={{ justifySelf: 'end' }}>
       <LineItemPrice
-        originalTotalPrice={item.originalTotalPrice}
-        discountAllocations={item.discountAllocations}
+        quantity={item.quantity}
+        originalPrice={item.originalTotalPrice}
+        discounts={item.discountAllocations}
         sx={{ display: 'grid', gridAutoFlow: 'row' }}
       />
     </Text>
