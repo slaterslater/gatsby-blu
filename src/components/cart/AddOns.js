@@ -4,6 +4,7 @@ import { Box, Button, Flex, Grid, IconButton, Text } from 'theme-ui'
 import { useMutation } from 'urql'
 import { BiCaretLeft, BiCaretRight } from 'react-icons/bi'
 import { wrap } from '@popmotion/popcorn'
+import { Link as GatsbyLink } from 'gatsby'
 import { useShopifyImage } from '../../hooks/shopifyImage'
 import { useProductTitle } from '../ProductTitle'
 import { AddCheckoutLineItem } from '../../mutations/cart'
@@ -32,7 +33,9 @@ const AddOnProduct = ({ product, addOntoCart, currencyCode }) => {
       }}
       mx="auto"
     >
-      <GatsbyImage image={imageData} alt="" />
+      <GatsbyLink to={`/products/${product.handle}`}>
+        <GatsbyImage image={imageData} alt="" />
+      </GatsbyLink>
       <Flex
         sx={{
           textAlign: 'center',

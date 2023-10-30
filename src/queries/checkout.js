@@ -64,6 +64,7 @@ export const UPSELL_PRODUCT_FRAGMENT = gql`
   fragment UpsellProductFields on Product {
     id
     title
+    handle
     images(first: 1) {
       nodes {
         altText

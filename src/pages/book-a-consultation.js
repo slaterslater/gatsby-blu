@@ -1,4 +1,13 @@
-import { Container, Box, Heading, Flex, Text } from 'theme-ui'
+import {
+  Container,
+  Box,
+  Heading,
+  Flex,
+  Text,
+  Grid,
+  Button,
+  Link,
+} from 'theme-ui'
 import React, { useState, useEffect, useRef } from 'react'
 import { StaticImage } from 'gatsby-plugin-image'
 import { InlineWidget } from 'react-calendly'
@@ -75,20 +84,22 @@ const CalendlyConsultationPage = ({ data, location }) => (
         placeholder="blurred"
       />
     </Banner>
-    <Box
+    <Container
       sx={{
         // textAlign: 'center',
         // justifyContent: 'center',
         // flexDirection: 'column',
         h1: { textAlign: 'center' },
+
         fontSize: 1,
-        span: { marginTop: 4, display: 'block' },
-        a: {
-          color: 'primary',
-          textDecoration: 'none',
-          textTransform: 'lowercase',
-          fontWeight: 'bold',
-        },
+        // span: { marginTop: 4, display: 'block' },
+        span: { textTransform: 'lowercase' },
+        // a: {
+        //   color: 'primary',
+        //   textDecoration: 'none',
+        //   textTransform: 'lowercase',
+        //   fontWeight: 'bold',
+        // },
       }}
       mx="auto"
       px={4}
@@ -97,7 +108,60 @@ const CalendlyConsultationPage = ({ data, location }) => (
       <Text as="h1" variant="h2">
         Book your appointment with us today
       </Text>
-      <Box
+      <Grid
+        sx={{
+          gap: 6,
+          gridTemplateColumns: ['1fr', '1fr', '1fr 1fr 1fr'],
+          width: '100%',
+          div: {
+            width: '100%',
+            maxWidth: 400,
+            margin: 'auto',
+          },
+          a: {
+            textAlign: 'center',
+            display: 'block',
+            textDecoration: 'none',
+            fontWeight: 'bold',
+            letterSpacing: 'wider',
+            fontSize: 0,
+          },
+          'div > a:nth-child(1)': {
+            fontFamily: 'heading',
+            fontSize: 3,
+            fontWeight: 'body',
+            letterSpacing: 'widest',
+            marginBottom: [3, 3, 4],
+            padding: 4,
+          },
+        }}
+        mt={6}
+      >
+        <Box>
+          <Link
+            variant="button"
+            href="mailto:mailto:guestexperience@bluboho.com"
+          >
+            email
+          </Link>
+          <Link href="mailto:mailto:guestexperience@bluboho.com">
+            guestexperience@bluboho.com
+          </Link>
+        </Box>
+        <Box>
+          <Link variant="button" href="sms:+16472736297">
+            call <span>or</span> text
+          </Link>
+          <Link href="sms:+16472736297">647-273-6297</Link>
+        </Box>
+        <Box>
+          <Link variant="button" href="https://www.instagram.com/bluboho">
+            dm <span>us on instagram</span>
+          </Link>
+          <Link href="https://www.instagram.com/bluboho">@bluboho</Link>
+        </Box>
+      </Grid>
+      {/* <Box
         sx={{ width: 'max-content', textAlign: ['left', 'center'] }}
         mx="auto"
         mt={5}
@@ -114,8 +178,8 @@ const CalendlyConsultationPage = ({ data, location }) => (
         <Text variant="caps">
           DM <a href="https://www.instagram.com/bluboho">@bluboho</a>
         </Text>
-      </Box>
-    </Box>
+      </Box> */}
+    </Container>
     <Banner height={450}>
       <StaticImage
         src="../images/consultation/consultation-booking-header-2.webp"
