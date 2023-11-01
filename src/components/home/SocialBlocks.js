@@ -19,11 +19,11 @@ const socials = [
     icon: FaFacebook,
     href: 'https://www.facebook.com/blubohojewelry',
   },
-  {
-    title: 'pinterest',
-    icon: FaPinterest,
-    href: 'https://www.pinterest.ca/bluboho',
-  },
+  // {
+  //   title: 'pinterest',
+  //   icon: FaPinterest,
+  //   href: 'https://www.pinterest.ca/bluboho',
+  // },
 ]
 const swipeConfidenceThreshold = 10000
 const swipePower = (offset, velocity) => Math.abs(offset) * velocity
