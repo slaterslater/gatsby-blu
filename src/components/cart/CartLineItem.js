@@ -28,7 +28,7 @@ const CartLineItem = ({ onRemoveItem, item, imgSize }) => {
     UpdateCheckoutLineItem
   )
 
-  const { id, quantity, variant } = item
+  const { id, quantity, variant, discountAllocations } = item
   const variantId = variant.upgrade?.id
 
   const [{ data }] = useQuery({
@@ -64,8 +64,12 @@ const CartLineItem = ({ onRemoveItem, item, imgSize }) => {
     <>
       <LineItem item={item} imgSize={imgSize}>
         <Box sx={{ order: 1 }}>
-          <Text as="p">
-            <LineItemPrice item={item} />
+          <Text>
+            <LineItemPrice
+              quantity={quantity}
+              originalPrice={item.variant.priceV2}
+              discounts={discountAllocations}
+            />
           </Text>
         </Box>
         <Flex
