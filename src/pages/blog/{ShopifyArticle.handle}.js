@@ -24,7 +24,7 @@ const BlogTemplate = ({ data }) => {
             <FormattedDate iso={publishedAt} format="DATE_FULL" />
           </Text>
         </Box>
-        <Heading>{title}</Heading>
+        <Heading as="h1">{title}</Heading>
         <ShopifyHtml
           dangerouslySetInnerHTML={{
             __html: contentHtml,
