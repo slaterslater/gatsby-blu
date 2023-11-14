@@ -77,7 +77,7 @@ const PageContentSEO = ({ title, content, isCollection = true }) => (
           {heading && <Heading as="h3">{heading}</Heading>}
           {quote && <Text mx="auto">{quote}</Text>}
           {blocks && <BlockContent blocks={blocks} />}
-          {image && <GatsbyImage image={image.asset.gatsbyImageData} alt="" />}
+          {image && <GatsbyImage image={image.asset?.gatsbyImageData} alt="" />}
         </React.Fragment>
       ))}
     </Grid>
