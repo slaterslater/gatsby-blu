@@ -146,6 +146,7 @@ const CollectionPageHeader = ({
               letterSpacing: 'wider',
               maxWidth: `${image ? 375 : '80%'}`,
               textAlign: 'center',
+              whiteSpace: 'pre-line',
             }}
           >
             {description}
