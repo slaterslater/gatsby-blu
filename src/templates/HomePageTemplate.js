@@ -91,7 +91,7 @@ const IndexPage = ({ pageContext }) => {
       <Zodiac sign={zodiac} />
       <HomeLocations locations={locations} />
       <Medallions />
-      <Socials />
+      {/* <Socials /> */}
       <PopUp
         popup={popup}
         dismissPrompt={dismissPrompt}

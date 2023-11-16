@@ -17,7 +17,8 @@ const AnnouncementText = ({ text, subtext }) => (
 
 const Announcement = ({ text, subtext, to, message, isVisible }) => {
   const [isOpen, setIsOpen] = useState(false)
-  return isVisible ? (
+  if (!isVisible) return null
+  return (
     <motion.div
       initial={{ opacity: 0, y: -3 }}
       animate={{ opacity: 1, y: 0 }}
@@ -56,7 +57,7 @@ const Announcement = ({ text, subtext, to, message, isVisible }) => {
         )}
       </Box>
     </motion.div>
-  ) : null
+  )
 }
 
 Announcement.propTypes = {
@@ -104,8 +105,10 @@ const Announcements = () => {
         alignItems: 'center',
         marginBottom: '-1px',
       }}
-      bg="cream"
-      color="primary"
+      // bg="cream"
+      bg="#355039"
+      color="cream"
+      // color="primary"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >

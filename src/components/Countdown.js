@@ -37,6 +37,7 @@ const Countdown = () => {
           maxWidth: '100%',
           height: 35,
           position: 'relative',
+          overflow: 'hidden',
         }}
       >
         <MotionBox
