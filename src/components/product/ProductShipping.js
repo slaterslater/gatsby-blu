@@ -9,7 +9,7 @@ export const ProductShipping = props => {
   if (currencyCode === 'CAD')
     return (
       <Box px={2} pb={2}>
-        <Text
+        {/* <Text
           as="small"
           sx={{
             fontSize: 0,
@@ -21,7 +21,7 @@ export const ProductShipping = props => {
           mb={3}
         >
           free shipping canada-wide over $75
-        </Text>
+        </Text> */}
         <ProductAvailabilityButton />
       </Box>
     )

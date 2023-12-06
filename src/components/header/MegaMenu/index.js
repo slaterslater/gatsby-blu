@@ -25,6 +25,7 @@ const MegaMenu = () => {
               links {
                 text
                 path
+                isHighlighted
               }
             }
             navFeature {

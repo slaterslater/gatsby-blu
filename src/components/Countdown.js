@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 import { motion, AnimatePresence } from 'framer-motion'
-import { graphql, useStaticQuery } from 'gatsby'
+import { graphql, useStaticQuery, Link as GatsbyLink } from 'gatsby'
 import React from 'react'
 import { Box, Flex, Text } from 'theme-ui'
 
@@ -12,12 +12,14 @@ const Countdown = () => {
           text
           startDate
           stopDate
+          path
         }
       }
     }
   `)
 
-  const { text, startDate, stopDate } = data.sanitySiteAnnouncements.countdown
+  const { text, startDate, stopDate, path } =
+    data.sanitySiteAnnouncements.countdown
   if (!(text && startDate && stopDate)) return null
 
   const tooEarly = dayjs().isBefore(startDate, 'day')
@@ -32,12 +34,15 @@ const Countdown = () => {
   return (
     <AnimatePresence>
       <Box
+        as={path ? GatsbyLink : Box}
+        to={path}
         sx={{
           width: '100vw',
           maxWidth: '100%',
           height: 35,
           position: 'relative',
           overflow: 'hidden',
+          color: 'primary',
         }}
       >
         <MotionBox
