@@ -16,3 +16,8 @@ export const useVariantPrice = variant => {
 const VariantPrice = ({ variant }) => useVariantPrice(variant)
 
 export default VariantPrice
+
+export const useVariantCompareAtPrice = variant =>
+  useFormattedPrice({
+    ...variant.compareAtPrice,
+  })

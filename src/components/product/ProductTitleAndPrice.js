@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Box, Text, Grid, Heading } from 'theme-ui'
-import { useVariantPrice } from './VariantPrice'
+import { useVariantPrice, useVariantCompareAtPrice } from './VariantPrice'
 import ProductTitle from '../ProductTitle'
 import { ProductContext } from './ProductContext'
 import { useProductMetalColor } from '../../hooks/product'
@@ -14,8 +14,12 @@ export const ProductTitleAndPrice = ({
     selectedVariant,
   } = useContext(ProductContext)
 
+  const variant = selectedVariant || variants[0]
+
   const productMetalColor = useProductMetalColor(options)
-  const variantPrice = useVariantPrice(selectedVariant || variants[0])
+  const variantPrice = useVariantPrice(variant)
+  const compareAtPrice = useVariantCompareAtPrice(variant)
+
   const byAppointmentOnly = metafields?.some(
     ({ key, value }) => key === 'appt_only' && value === 'true'
   )
@@ -55,18 +59,23 @@ export const ProductTitleAndPrice = ({
           </Heading>
         )}
       </Box>
-      <Text
-        id="price"
-        sx={{
-          letterSpacing: 'widest',
-          fontWeight: 'body',
-          whiteSpace: 'nowrap',
-          lineHeight: 1,
-          fontSize: priceFontSize,
-        }}
-      >
-        {price}
-      </Text>
+      <Grid>
+        <Text sx={{ color: 'error', textDecoration: 'line-through' }}>
+          {compareAtPrice}
+        </Text>
+        <Text
+          id="price"
+          sx={{
+            letterSpacing: 'widest',
+            fontWeight: 'body',
+            whiteSpace: 'nowrap',
+            lineHeight: 1,
+            fontSize: priceFontSize,
+          }}
+        >
+          {price}
+        </Text>
+      </Grid>
     </Grid>
   )
 }

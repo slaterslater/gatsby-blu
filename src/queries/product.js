@@ -198,6 +198,10 @@ export const PRODUCT_QUERY = gql`
               value
             }
             quantityAvailable
+            compareAtPrice {
+              amount
+              currencyCode
+            }
             priceV2 {
               amount
               currencyCode
