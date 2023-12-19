@@ -60,9 +60,11 @@ export const ProductTitleAndPrice = ({
         )}
       </Box>
       <Grid>
-        <Text sx={{ color: 'error', textDecoration: 'line-through' }}>
-          {compareAtPrice}
-        </Text>
+        {compareAtPrice && (
+          <Text sx={{ color: 'error', textDecoration: 'line-through' }}>
+            {compareAtPrice}
+          </Text>
+        )}
         <Text
           id="price"
           sx={{
