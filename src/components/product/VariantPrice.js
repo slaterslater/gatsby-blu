@@ -21,5 +21,5 @@ export const useVariantCompareAtPrice = variant => {
   const compareAtPrice = useFormattedPrice({
     ...variant.compareAtPrice,
   })
-  return compareAtPrice.endsWith('$0') ? null : compareAtPrice
+  return compareAtPrice?.endsWith('$0') ? null : compareAtPrice
 }
