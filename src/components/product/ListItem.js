@@ -311,18 +311,19 @@ const ProductListItemInner = ({
               sx={{
                 fontWeight: 500,
                 color: compareAtPrice ? 'error' : '#454545',
+                textAlign: 'center',
+                '#comparePrice': {
+                  display: 'inline-block',
+                  width: '100%',
+                  textDecoration: 'line-through',
+                  color: 'primary',
+                },
               }}
             >
               {compareAtPrice && (
-                <Box
-                  sx={{
-                    textDecoration: 'line-through',
-                    color: 'primary',
-                    marginRight: 2,
-                  }}
-                >
+                <span id="comparePrice">
                   <FormattedPrice priceV2={compareAtPrice} />
-                </Box>
+                </span>
               )}
               <FormattedPrice priceV2={price} />
             </Text>
