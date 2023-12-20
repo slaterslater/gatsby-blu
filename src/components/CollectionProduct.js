@@ -4,15 +4,18 @@ import ProductListItem from './product/ListItem'
 import { useMetafieldValue } from '../hooks/useMetafield'
 
 export const useProductPrice = product => {
-  const { metafields, priceRangeV2 } = product
+  const { metafields, priceRangeV2, compareAtPriceRange } = product
   const minVariantPrice = priceRangeV2.minVariantPrice.amount
   const hasRange = minVariantPrice !== priceRangeV2.maxVariantPrice.amount
+  const compareAmount = compareAtPriceRange?.maxVariantPrice.amount
+  const compareAtPrice = compareAmount !== '0.0' ? compareAmount : null
 
   const byAppointmentOnly = useMetafieldValue('appt_only', metafields)
   const offersPairs = useMetafieldValue('offers_pairs', metafields)
 
-  if (byAppointmentOnly === 'true') return ['', false]
-  if (offersPairs === 'true') return [minVariantPrice * 2, false]
+  if (byAppointmentOnly === 'true') return ['', false, compareAtPrice]
+  if (offersPairs === 'true')
+    return [minVariantPrice * 2, false, compareAtPrice]
 
   // const minVariant = product.variants.find(
   //   variant => variant.price === product.priceRangeV2.minVariantPrice.amount
@@ -26,7 +29,7 @@ export const useProductPrice = product => {
 
   // console.log({ minVariant, product })
 
-  return [minVariantPrice, hasRange]
+  return [minVariantPrice, hasRange, compareAtPrice]
 }
 
 const CollectionProduct = ({
@@ -38,14 +41,13 @@ const CollectionProduct = ({
   allowQuickAdd,
   showLabel = true,
 }) => {
-  const [price, hasRange] = useProductPrice(product)
+  const [price, hasRange, compareAtPrice] = useProductPrice(product)
   const title = useProductTitle(product.title)
   const [firstImage, secondImage] = images
   const { handle, tags, availableForSale, metafields, options, variants } =
     product
   const visitTag = tags.find(tag => tag.startsWith('visit'))?.replace('-', ' ')
   const badge = badges.find(({ name }) => name === visitTag)
-  // console.log({ visitBadge, badges, tags })
 
   return (
     <ProductListItem
@@ -53,6 +55,7 @@ const CollectionProduct = ({
       linkState={{ collectionTitle, collectionPath }}
       hasRange={hasRange}
       price={price}
+      compareAtPrice={compareAtPrice}
       title={title}
       firstImage={firstImage}
       secondImage={secondImage}

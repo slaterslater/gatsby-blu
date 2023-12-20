@@ -61,13 +61,12 @@ export const ProductTitleAndPrice = ({
       </Box>
       <Grid>
         {compareAtPrice && (
-          <Text sx={{ color: 'error', textDecoration: 'line-through' }}>
-            {compareAtPrice}
-          </Text>
+          <Text sx={{ textDecoration: 'line-through' }}>{compareAtPrice}</Text>
         )}
         <Text
           id="price"
           sx={{
+            color: compareAtPrice ? 'error' : 'primary',
             letterSpacing: 'widest',
             fontWeight: 'body',
             whiteSpace: 'nowrap',
