@@ -210,6 +210,7 @@ const ProductListItemInner = ({
   title,
   hasRange,
   price,
+  compareAtPrice,
   tags,
   availableForSale,
   metafields = [],
@@ -303,14 +304,27 @@ const ProductListItemInner = ({
                 From
               </Text>
             )}
+
             <Text
               as="p"
               variant="caps"
               sx={{
                 fontWeight: 500,
-                color: '#454545',
+                color: compareAtPrice ? 'error' : '#454545',
+                textAlign: 'center',
+                '#comparePrice': {
+                  display: 'inline-block',
+                  width: '100%',
+                  textDecoration: 'line-through',
+                  color: 'primary',
+                },
               }}
             >
+              {compareAtPrice && (
+                <span id="comparePrice">
+                  <FormattedPrice priceV2={compareAtPrice} />
+                </span>
+              )}
               <FormattedPrice priceV2={price} />
             </Text>
           </Flex>

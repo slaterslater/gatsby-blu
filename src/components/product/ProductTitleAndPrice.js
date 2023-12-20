@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
-import { Box, Text, Grid, Heading } from 'theme-ui'
-import { useVariantPrice } from './VariantPrice'
+import { Box, Text, Grid, Heading, Flex } from 'theme-ui'
+import { useVariantPrice, useVariantCompareAtPrice } from './VariantPrice'
 import ProductTitle from '../ProductTitle'
 import { ProductContext } from './ProductContext'
 import { useProductMetalColor } from '../../hooks/product'
@@ -14,8 +14,12 @@ export const ProductTitleAndPrice = ({
     selectedVariant,
   } = useContext(ProductContext)
 
+  const variant = selectedVariant || variants[0]
+
   const productMetalColor = useProductMetalColor(options)
-  const variantPrice = useVariantPrice(selectedVariant || variants[0])
+  const variantPrice = useVariantPrice(variant)
+  const compareAtPrice = useVariantCompareAtPrice(variant)
+
   const byAppointmentOnly = metafields?.some(
     ({ key, value }) => key === 'appt_only' && value === 'true'
   )
@@ -55,18 +59,24 @@ export const ProductTitleAndPrice = ({
           </Heading>
         )}
       </Box>
-      <Text
-        id="price"
+      <Flex
         sx={{
-          letterSpacing: 'widest',
-          fontWeight: 'body',
-          whiteSpace: 'nowrap',
-          lineHeight: 1,
-          fontSize: priceFontSize,
+          flexDirection: 'column',
+          textAlign: 'right',
+          '#price': {
+            color: compareAtPrice ? 'error' : 'primary',
+            letterSpacing: 'widest',
+            fontWeight: 'body',
+            whiteSpace: 'nowrap',
+            lineHeight: 1,
+            fontSize: priceFontSize,
+          },
+          '#compare': { textDecoration: 'line-through', marginBottom: 1 },
         }}
       >
-        {price}
-      </Text>
+        {compareAtPrice && <Text id="compare">{compareAtPrice}</Text>}
+        <Text id="price">{price}</Text>
+      </Flex>
     </Grid>
   )
 }

@@ -12,6 +12,12 @@ export const PRODUCT_PRICE_RANGE_FRAGMENT = gql`
         currencyCode
       }
     }
+    compareAtPriceRange {
+      maxVariantPrice {
+        amount
+        currencyCode
+      }
+    }
   }
 `
 
@@ -198,6 +204,10 @@ export const PRODUCT_QUERY = gql`
               value
             }
             quantityAvailable
+            compareAtPrice {
+              amount
+              currencyCode
+            }
             priceV2 {
               amount
               currencyCode

@@ -85,7 +85,6 @@ const FeatureBox = ({ title, feature1, feature2, hoverImage }) => {
 
 export const SubMenu = ({ menu }) => {
   const [hoverImage, setHoverImage] = useState(null)
-  console.log({ menu })
   return (
     <Flex>
       {menu.subGroup.map(list => (
