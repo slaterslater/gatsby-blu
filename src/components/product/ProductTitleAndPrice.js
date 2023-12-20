@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Box, Text, Grid, Heading } from 'theme-ui'
+import { Box, Text, Grid, Heading, Flex } from 'theme-ui'
 import { useVariantPrice, useVariantCompareAtPrice } from './VariantPrice'
 import ProductTitle from '../ProductTitle'
 import { ProductContext } from './ProductContext'
@@ -59,24 +59,24 @@ export const ProductTitleAndPrice = ({
           </Heading>
         )}
       </Box>
-      <Grid>
-        {compareAtPrice && (
-          <Text sx={{ textDecoration: 'line-through' }}>{compareAtPrice}</Text>
-        )}
-        <Text
-          id="price"
-          sx={{
+      <Flex
+        sx={{
+          flexDirection: 'column',
+          textAlign: 'right',
+          '#price': {
             color: compareAtPrice ? 'error' : 'primary',
             letterSpacing: 'widest',
             fontWeight: 'body',
             whiteSpace: 'nowrap',
             lineHeight: 1,
             fontSize: priceFontSize,
-          }}
-        >
-          {price}
-        </Text>
-      </Grid>
+          },
+          '#compare': { textDecoration: 'line-through', marginBottom: 1 },
+        }}
+      >
+        {compareAtPrice && <Text id="compare">{compareAtPrice}</Text>}
+        <Text id="price">{price}</Text>
+      </Flex>
     </Grid>
   )
 }
