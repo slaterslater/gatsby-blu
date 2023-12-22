@@ -67,10 +67,9 @@ const Countdown = () => {
               key={`ticker-${k}`}
               sx={{
                 bg: 'cream',
-                fontSize: 1,
                 fontWeight: 'bold',
                 letterSpacing: 'wider',
-                // span: { textTransform: 'uppercase' },
+                span: { fontSize: ['8px', 0] },
               }}
               py={2}
             >
