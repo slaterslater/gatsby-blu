@@ -18,8 +18,11 @@ const VariantPrice = ({ variant }) => useVariantPrice(variant)
 export default VariantPrice
 
 export const useVariantCompareAtPrice = variant => {
+  const { quantity = 1 } = useContext(ProductContext)
+
   const compareAtPrice = useFormattedPrice({
     ...variant.compareAtPrice,
+    amount: variant.compareAtPrice?.amount * quantity,
   })
   return compareAtPrice?.endsWith('$0') ? null : compareAtPrice
 }
