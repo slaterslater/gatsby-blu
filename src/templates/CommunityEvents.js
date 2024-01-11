@@ -154,7 +154,7 @@ const CommunityEventsPage = ({ data }) => (
     title="upcoming in-store events | discover bluboho refined jewelry"
     description="discover upcoming events and workshops at bluboho. be the first to preview new collections, celebrate special moments, and engage in hands-on experiences. join the bluboho community for a day of creativity, inspiration, and connection. discover the latest in fine jewelry and immerse yourself in the magic of bluboho."
   >
-    <Banner height={450}>
+    {/* <Banner height={450}>
       <StaticImage
         className="desktop"
         src="../images/events/header-lg.webp"
@@ -167,17 +167,18 @@ const CommunityEventsPage = ({ data }) => (
         alt=""
         placeholder="blurred"
       />
-    </Banner>
+    </Banner> */}
     <Heading
       as="h1"
       variant="h2"
       sx={{
         textAlign: 'center',
         fontSize: [6, 7],
-        color: 'white',
-        transform: 'translateY(-285px)',
-        height: 0,
+        // color: 'white',
+        // transform: 'translateY(-285px)',
+        // height: 0,
       }}
+      py={4}
     >
       community
       <br /> events
