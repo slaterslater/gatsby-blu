@@ -116,7 +116,7 @@ async function createProductPages({ graphql, actions }) {
     // get contemplation card
     const card = product.metafields.find(({ key }) => key === 'card')
     // return card ? regex matching case insensitive title : pattern that always fails
-    const cardTitleExp = card ? `/${JSON.parse(card.value)[0]}/i` : '/^\b$/'
+    const cardTitleExp = card ? `/^${JSON.parse(card.value)[0]}$/i` : '/^\b$/'
 
     const [productIdentifier] = product.shopifyId.match(/\d+$/)
 
