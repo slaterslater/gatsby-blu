@@ -22,7 +22,6 @@ const NavGroup = ({ menu, closeDrawer, children }) => (
             textDecoration: 'none',
             color: 'inherit',
             letterSpacing: 'wider',
-            textTransform: 'lowercase',
             '&:hover': { textDecoration: 'underline' },
             paddingTop: 2,
             paddingBottom: 2,
@@ -39,6 +38,11 @@ const NavGroup = ({ menu, closeDrawer, children }) => (
             as={GatsbyLink}
             to={link.path}
             onClick={closeDrawer}
+            sx={
+              link.isHighlighted
+                ? { textTransform: 'uppercase', fontWeight: 'bold' }
+                : { textTransform: 'lowercase', fontWeight: 'normal' }
+            }
           >
             {link.text}
           </Link>
@@ -86,6 +90,7 @@ const NavigationDrawer = ({ onClose }) => {
               links {
                 text
                 path
+                isHighlighted
               }
             }
           }
