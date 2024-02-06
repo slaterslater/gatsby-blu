@@ -21,6 +21,7 @@ import SezzleInfo from './sezzleInfo'
 import { useVariantPrice } from './VariantPrice'
 import ColorOptions from './ColorOptions'
 import ServiceButton from './ServiceButton'
+import ProductPickerRows from './ProductPickerRows'
 // import SampleSaleInput from './SampleSaleInput'
 
 const getReviewMetafields = (metafields = []) => {
@@ -102,6 +103,7 @@ const ProductDetails = () => {
       <ProductOptions />
       <Engraving />
       {/* <SampleSaleInput /> */}
+      <ProductPickerRows />
       <AddToCart />
       <ServiceButton />
       <ProductShipping />

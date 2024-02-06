@@ -9,7 +9,7 @@ import { useViewProductAnalytics } from '../hooks/product'
 const ProductPageTemplate = ({ data, pageContext, ...props }) => {
   const { product, alternates, badges, stack, card, rating, reviews } = data
   const { content } = data.sanityCollectionSeo || {}
-  const { isBeloved } = pageContext
+  const { isBeloved, pickers } = pageContext
 
   useViewProductAnalytics(product)
 
@@ -19,6 +19,7 @@ const ProductPageTemplate = ({ data, pageContext, ...props }) => {
       <ProductView
         product={product}
         alternates={alternates}
+        pickers={pickers}
         badges={badges.nodes}
         stack={stack.nodes}
         card={card}

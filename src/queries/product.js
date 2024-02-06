@@ -261,3 +261,23 @@ export const ALTERNATES_QUERY = gql`
 //     }
 //   }
 // `
+
+export const PRODUCT_PICKER_QUERY = gql`
+  query ($ids: [ID!]!) {
+    nodes(ids: $ids) {
+      ... on Product {
+        title
+        handle
+        availableForSale
+        images(first: 1) {
+          nodes {
+            url
+            height
+            width
+            altText
+          }
+        }
+      }
+    }
+  }
+`

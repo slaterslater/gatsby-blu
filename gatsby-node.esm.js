@@ -65,10 +65,41 @@ async function createProductPages({ graphql, actions }) {
           name
         }
       }
+      allSanityProductPicker {
+        nodes {
+          title
+          products {
+            handle
+            title
+          }
+        }
+      }
     }
   `)
   const badgeNames = data.allSanityProductBadge.nodes.map(badge => badge.name)
   const products = data.allShopifyProduct.nodes
+  // refactor this below.
+  // pickers should just be the nodes array
+  // the actual array of ids is determined by the metafield value
+  // const pickers = data.allSanityProductPicker.nodes
+  const productPickers = data.allSanityProductPicker.nodes.map(picker => {
+    const { title } = picker
+    const ids = picker.products
+      .map(({ handle }) => {
+        const pick = products.find(prod => prod.handle === handle)
+        return pick ? pick.shopifyId : undefined
+      })
+      .filter(id => Boolean(id))
+    return {
+      title,
+      ids,
+    }
+  })
+
+  // MAYBE
+  // i should just create a object of title: [id]
+  // and then just apply the array id array if applica
+
   products.forEach(product => {
     const alternatesFromTags = formatMetalAlternatesFromTags(product.tags || [])
     const alternatesFromMetafields = formatMetalAlternatesFromMetafields(
@@ -120,6 +151,69 @@ async function createProductPages({ graphql, actions }) {
 
     const [productIdentifier] = product.shopifyId.match(/\d+$/)
 
+    // add metafields as list of strings
+    // add 1 valid a 1 bogus
+    // productPickers should be an array of obj.
+    // obj key is picker title in sanity.
+    // obj value is an array of ids
+    // maybe doesn't need to be a reduce. can be map?
+    // does no metafield value mean that picker value is null?
+
+    // const productPickers = product.metafields
+    //   .find(({ key }) => key === 'product_pickers')
+    //   .reduce((arr, pickerTitle) => {
+    //     const productHandle = JSON.parse(productHandle.value)
+    //     const productPick = products.find(
+    //       ({ handle }) => handle === productHandle
+    //     )
+    //     // for each pick find the related picker and return an array of picker obj
+    //     return arr
+    //   }, [])
+
+    const pickerMetafield = product.metafields.find(
+      ({ key }) => key === 'product_pickers'
+    )
+    // const = productPickersMetafield?  JSON.parse(productPickersMetafield)  []
+
+    const pickerTitles = pickerMetafield
+      ? JSON.parse(pickerMetafield.value)
+      : []
+
+    // this should just grab the array which is done 1x instead of ad hoc
+    const pickers = pickerTitles.map(title =>
+      productPickers.find(picker => picker.title === title)
+    )
+    //   const picker = pickers.find(pick => pick.title === title)
+    //   // const handles = f.products.map(({ handle }) => handle)
+    //   const ids = picker.products
+    //     .map(({ handle }) => {
+    //       const pick = products.find(prod => prod.handle === handle)
+    //       return pick ? pick.shopifyId : undefined
+    //     })
+    //     .filter(id => Boolean(id))
+    //   return {
+    //     title,
+    //     ids,
+    //   }
+    // })
+
+    // return {
+    //   [title]: handles,
+    // const productPickerIds = productPickersTitles
+
+    // if (x.length) console.error(x)
+    // .map(field => {
+    //   if (field) {
+    //     console.error(field, typeof field)
+    //   }
+    //   return { title: [] }
+    // })
+    // .map(field => formatIdStr(field.value))
+    // .map(field => field.value)
+    // const ids = colorAlternates ? JSON.parse(colorAlternates.value) : []
+
+    // console.log(productPickers)
+
     actions.createPage({
       path: `/products/${product.handle}`,
       component: productTemplate,
@@ -133,6 +227,7 @@ async function createProductPages({ graphql, actions }) {
         cardTitleExp,
         productIdentifier,
         isBeloved,
+        pickers,
       },
     })
   })
