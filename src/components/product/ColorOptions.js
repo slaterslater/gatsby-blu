@@ -77,7 +77,7 @@ const ColorOptions = () => {
       </Flex>
       <Flex>
         {swatches?.map(swatch => (
-          <ColorSwatch swatch={swatch} />
+          <ColorSwatch key={swatch.handle} swatch={swatch} />
         ))}
       </Flex>
     </Box>

@@ -15,7 +15,15 @@ import ProductTestimonials from '../components/product/ProductTestimonials'
 import UserGeneratedContent from '../components/yotpo/UserGeneratedContent'
 import PageContentSEO from '../components/PageContentSEO'
 
-const ProductView = ({ product, alternates, badges, stack, card, content }) => {
+const ProductView = ({
+  product,
+  alternates,
+  pickers,
+  badges,
+  stack,
+  card,
+  content,
+}) => {
   const location = useLocation()
   const {
     handle,
@@ -48,6 +56,7 @@ const ProductView = ({ product, alternates, badges, stack, card, content }) => {
       initial={product}
       handle={product.handle}
       alternates={alternates}
+      pickers={pickers}
       badges={badges}
       stack={stack}
     >
