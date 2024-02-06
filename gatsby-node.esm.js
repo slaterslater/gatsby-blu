@@ -87,9 +87,11 @@ async function createProductPages({ graphql, actions }) {
         return pick ? pick.shopifyId : undefined
       })
       .filter(id => Boolean(id))
+    const handles = picker.products.map(({ handle }) => handle)
     return {
       title,
       ids,
+      handles,
     }
   })
 
@@ -145,16 +147,8 @@ async function createProductPages({ graphql, actions }) {
     const [productIdentifier] = product.shopifyId.match(/\d+$/)
 
     // determine the pickers if any
-    const pickerMetafield = product.metafields.find(
-      ({ key }) => key === 'product_pickers'
-    )
-
-    const pickerTitles = pickerMetafield
-      ? JSON.parse(pickerMetafield.value)
-      : []
-
-    const pickers = pickerTitles.map(title =>
-      productPickers.find(picker => picker.title === title)
+    const pickers = productPickers.filter(picker =>
+      picker.handles.includes(product.handle)
     )
 
     actions.createPage({
