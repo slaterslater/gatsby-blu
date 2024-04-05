@@ -60,7 +60,7 @@ const LocationPageTemplate = ({ data }) => {
         ]}
       />
       <Heading as="h2" sx={{ zIndex: -100, position: 'absolute' }}>
-        {`${name} jewelry store details`}
+        {`${name} details`}
       </Heading>
       <Container
         as="main"
