@@ -1,12 +1,13 @@
 import React from 'react'
 import { Link as GatsbyLink } from 'gatsby'
-import { Flex, Grid, Image } from 'theme-ui'
+import { Box, Flex, Grid, Image } from 'theme-ui'
 import Announcements from './Announcements'
-import { usePageContext } from '../contexts/PageContext'
 
-const SiteNav = () => {
-  const { isBeloved } = usePageContext()
-  return (
+const SiteNav = () => (
+  <>
+    <Box sx={{ display: ['block', 'block', 'none'] }}>
+      <Announcements />
+    </Box>
     <Grid
       bg="cream"
       sx={{
@@ -19,7 +20,8 @@ const SiteNav = () => {
           justifyContent: 'center',
           alignItems: 'center',
         },
-        '#bluboho': { bg: isBeloved ? 'bbBackground' : 'white' },
+        // '#bluboho': { bg: isBeloved ? 'bbBackground' : 'white' },
+        '#bluboho': { bg: 'white' },
         '#beloved': { bg: 'navy' },
         '#desktop-announcements': {
           display: ['none', 'none', 'flex'],
@@ -38,7 +40,7 @@ const SiteNav = () => {
         <Announcements />
       </Flex>
     </Grid>
-  )
-}
+  </>
+)
 
 export default SiteNav

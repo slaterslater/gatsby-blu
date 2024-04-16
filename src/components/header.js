@@ -1,4 +1,4 @@
-import { Flex, Box, Image, Link, Grid, IconButton, Heading } from 'theme-ui'
+import { Flex, Box, Grid, IconButton } from 'theme-ui'
 import { Link as GatsbyLink, navigate } from 'gatsby'
 import { IoIosMenu } from 'react-icons/io'
 import { AiOutlineUser } from 'react-icons/ai'
@@ -13,11 +13,15 @@ import CartBadge from './cart/CartBadge'
 import { AuthContext } from '../contexts/AuthContext'
 import WishlistBadge from './header/WishlistBadge'
 import CurrencyPicker from './CurrencyPicker'
+import { usePageContext } from '../contexts/PageContext'
 
 const Header = () => {
   const [searchOpen, setSearchOpen] = useState(false)
   const { setOpenDrawer } = useContext(DrawerContext)
   const { isLoggedIn, shouldRenew } = useContext(AuthContext)
+  const { isBeloved } = usePageContext()
+
+  const color = isBeloved ? 'cream' : 'black'
 
   return (
     <Box
@@ -30,19 +34,19 @@ const Header = () => {
     >
       <Box
         as="header"
-        bg="white"
         sx={{
+          bg: isBeloved ? 'navy' : 'white',
           position: 'relative',
           zIndex: 2,
           borderBottom: '1px solid',
-          borderColor: 'border',
+          borderColor: isBeloved ? 'black' : 'border',
         }}
       >
         <Grid
           sx={{
             height: [64, 96],
-            // gridTemplateColumns: 'repeat(3, 1fr)',
-            gridTemplateColumns: '1fr 180px 1fr',
+            gridTemplateColumns: '1fr 225px',
+            // gridTemplateColumns: '1fr 180px 1fr',
             alignItems: 'center',
             gap: 4,
             position: 'relative',
@@ -60,7 +64,7 @@ const Header = () => {
           >
             <Box as={IoIosMenu} color="black" size={24} />
           </IconButton>
-          <GatsbyLink id="bluboho" to="/" title="bluboho homepage">
+          {/* <GatsbyLink id="bluboho" to="/" title="bluboho homepage">
             <Image
               src="/bluboho-logo-01.svg"
               alt=""
@@ -68,7 +72,7 @@ const Header = () => {
               px={4}
               py={3}
             />
-          </GatsbyLink>
+          </GatsbyLink> */}
           <Flex
             sx={{
               alignItems: 'center',
@@ -90,7 +94,7 @@ const Header = () => {
               >
                 <Box
                   as={AiOutlineUser}
-                  color="black"
+                  color={color}
                   size={24}
                   sx={{ transform: 'translateY(1px)' }}
                 />
@@ -102,28 +106,30 @@ const Header = () => {
               >
                 <Box
                   as={BiSearchAlt2}
-                  color="black"
+                  color={color}
                   size={24}
                   sx={{ transform: 'translateY(1px)' }}
                 />
               </IconButton>
-              <Box sx={{ position: 'relative' }}>
-                <WishlistBadge />
-                <IconButton
-                  onClick={() =>
-                    shouldRenew || !isLoggedIn
-                      ? navigate('/account/login', {
-                          state: { toOrigin: '/account/wishlist' },
-                        })
-                      : navigate('/account/wishlist')
-                  }
-                  aria-label="Wishlist"
-                >
-                  <Box as={FiHeart} color="black" size={21} />
-                </IconButton>
-              </Box>
+              {!isBeloved && (
+                <Box sx={{ position: 'relative' }}>
+                  <WishlistBadge />
+                  <IconButton
+                    onClick={() =>
+                      shouldRenew || !isLoggedIn
+                        ? navigate('/account/login', {
+                            state: { toOrigin: '/account/wishlist' },
+                          })
+                        : navigate('/account/wishlist')
+                    }
+                    aria-label="Wishlist"
+                  >
+                    <Box as={FiHeart} color="black" size={21} />
+                  </IconButton>
+                </Box>
+              )}
             </Box>
-            <CurrencyPicker />
+            {!isBeloved && <CurrencyPicker />}
             <Box sx={{ position: 'relative' }}>
               <CartBadge />
               <IconButton
@@ -131,7 +137,7 @@ const Header = () => {
                 onClick={() => setOpenDrawer('cart')}
                 aria-label="Cart"
               >
-                <Box as={RiShoppingBagLine} color="black" size={24} />
+                <Box as={RiShoppingBagLine} color={color} size={24} />
               </IconButton>
             </Box>
           </Flex>

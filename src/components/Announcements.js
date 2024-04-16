@@ -105,8 +105,10 @@ const Announcements = () => {
         alignItems: 'center',
         marginBottom: '-1px',
       }}
-      bg="primary"
-      color="cream"
+      color="primary"
+      bg="cream"
+      // bg="primary"
+      // color="cream"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >

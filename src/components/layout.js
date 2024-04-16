@@ -11,25 +11,22 @@ import '@reach/menu-button/styles.css'
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Box, Flex } from 'theme-ui'
+import { Flex } from 'theme-ui'
 import loadable from '@loadable/component'
-import Announcements from './Announcements'
 import Header from './header'
 import Footer from './footer'
 import SEO from './seo'
 import RecentlyViewedProductsProvider from '../contexts/RecentlyViewedProductsContext'
 import Drawers from './drawers'
 import Countdown from './Countdown'
-// import BelovedHeader from './BelovedHeader'
 import { PageProvider } from '../contexts/PageContext'
-// import SiteNav from './SiteNav'
+import SiteNav from './SiteNav'
 
 const ThirdPartyScripts = loadable(() => import('./ThirdPartyScripts'))
 const TidioLink = loadable(() => import('./TidioLink'))
 
 const Layout = ({ title, description, children, isBeloved = false }) => (
-  // <PageProvider isBeloved={isBeloved}>
-  <PageProvider isBeloved={false}>
+  <PageProvider isBeloved={isBeloved}>
     <RecentlyViewedProductsProvider>
       <Drawers>
         <SEO title={title} description={description} />
@@ -39,22 +36,13 @@ const Layout = ({ title, description, children, isBeloved = false }) => (
             minWidth: 380,
             flexDirection: 'column',
             alignItems: 'stretch',
-            // background: isBeloved ? 'url("/beloved-bg.webp")' : null,
+            background: isBeloved ? 'url("/beloved-bg.webp")' : null,
             backgroundSize: '100%',
           }}
         >
-          {/* <Box sx={{ display: ['block', 'block', 'none'] }}> */}
-          <Announcements />
-          {/* </Box>
-          <SiteNav /> */}
-          {/* maybe just one header and use context? */}
-          {/* {isBeloved && <BelovedHeader />}
-          {!isBeloved && (
-            <> */}
+          <SiteNav />
           <Header />
           <Countdown />
-          {/* </>
-          )} */}
           {children}
           <Footer />
         </Flex>

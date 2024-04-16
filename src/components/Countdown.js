@@ -3,8 +3,10 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { graphql, useStaticQuery, Link as GatsbyLink } from 'gatsby'
 import React from 'react'
 import { Box, Flex, Text } from 'theme-ui'
+import { usePageContext } from '../contexts/PageContext'
 
 const Countdown = () => {
+  const { isBeloved } = usePageContext()
   const data = useStaticQuery(graphql`
     {
       sanitySiteAnnouncements {
@@ -20,7 +22,8 @@ const Countdown = () => {
 
   const { text, startDate, stopDate, path } =
     data.sanitySiteAnnouncements.countdown
-  if (!(text && startDate && stopDate)) return null
+  // if (!(text && startDate && stopDate)) return null
+  if (isBeloved || !text || !startDate || !stopDate) return null
 
   const tooEarly = dayjs().isBefore(startDate, 'day')
   const difference = dayjs(stopDate).diff(dayjs(), 'day', true)
