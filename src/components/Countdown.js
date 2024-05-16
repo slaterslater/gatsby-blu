@@ -21,8 +21,7 @@ const Countdown = () => {
   `)
 
   const { text, startDate, stopDate, path } =
-    data.sanitySiteAnnouncements.countdown
-  // if (!(text && startDate && stopDate)) return null
+    data.sanitySiteAnnouncements.countdown || {}
   if (isBeloved || !text || !startDate || !stopDate) return null
 
   const tooEarly = dayjs().isBefore(startDate, 'day')
