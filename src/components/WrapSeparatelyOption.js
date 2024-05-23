@@ -57,7 +57,7 @@ const WrapSeparatelyOption = ({ item }) => {
           disabled={fetching}
           sx={{ height: 20, width: 20 }}
         />
-        wrap separately
+        is this a gift?
       </Label>
     </Flex>
   )
