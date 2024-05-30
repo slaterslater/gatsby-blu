@@ -49,11 +49,13 @@ const ColorOptions = () => {
   )
 
   if (!initialProductColor) return <></>
+
+  console.log({ data })
   const swatches = data?.nodes
     .filter(node => !!node)
     .map(node => ({
       title: node.title,
-      color: node.productColor.value,
+      color: node.productColor?.value || 'error',
       isCurrent: false,
       handle: node.handle,
     }))
