@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { Box, Flex, Heading } from 'theme-ui'
 import { useQuery } from 'urql'
+import PropTypes from 'prop-types'
 import { ALTERNATES_QUERY } from '../../queries/product'
 import { ProductContext } from './ProductContext'
 import ThemeLink from '../app/ThemeLink'
@@ -33,6 +34,15 @@ const ColorSwatch = ({ swatch }) => {
   )
 }
 
+ColorSwatch.propTypes = {
+  swatch: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    isCurrent: PropTypes.bool.isRequired,
+    color: PropTypes.string.isRequired,
+    handle: PropTypes.string.isRequired,
+  }).isRequired,
+}
+
 const ColorOptions = () => {
   const {
     product: { title, handle, metafields, productColor, colorAlternates },
@@ -50,7 +60,6 @@ const ColorOptions = () => {
 
   if (!initialProductColor) return <></>
 
-  console.log({ data })
   const swatches = data?.nodes
     .filter(node => !!node)
     .map(node => ({
