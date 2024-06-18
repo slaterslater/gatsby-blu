@@ -22,7 +22,7 @@ import { useVariantPrice } from './VariantPrice'
 import ColorOptions from './ColorOptions'
 import ServiceButton from './ServiceButton'
 import ProductPickerRows from './ProductPickerRows'
-// import SampleSaleInput from './SampleSaleInput'
+import SampleSaleInput from './SampleSaleInput'
 
 const getReviewMetafields = (metafields = []) => {
   const fields = {
@@ -102,7 +102,7 @@ const ProductDetails = () => {
       <ColorOptions />
       <ProductOptions />
       <Engraving />
-      {/* <SampleSaleInput /> */}
+      <SampleSaleInput />
       <ProductPickerRows />
       <AddToCart />
       <ServiceButton />
