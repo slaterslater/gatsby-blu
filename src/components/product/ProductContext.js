@@ -49,6 +49,8 @@ const ProductProvider = ({
     variables: { handle, countryCode },
   })
 
+  console.log({ initial })
+
   const [value, updateValue] = useImmer({
     product: initial,
     selectOption: () => {},
@@ -66,7 +68,7 @@ const ProductProvider = ({
 
   // update product from async request
   useEffect(() => {
-    if (!data) return
+    if (!data?.product) return
     const newData = getProduct(data.product)
     // latestProduct has fewer metafields than initial...
     const latestProduct = {
@@ -81,7 +83,7 @@ const ProductProvider = ({
         latestProduct.variants
       )
     })
-  }, [data, updateValue])
+  }, [initial, data, updateValue])
 
   const selectOption = (name, value, quantity = 1) => {
     // update selected options
