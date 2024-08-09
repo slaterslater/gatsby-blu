@@ -99,8 +99,45 @@ const CalendlyConsultationPage = ({ data, location }) => {
         py={8}
       >
         <Text as="h1" variant="h2" pb={6}>
-          Book your appointment with us today
+          book a complimentary appointment with one of our jewelry experts!
         </Text>
+        <Box
+          // as="p"
+          mx="auto"
+          px="3"
+          mb={7}
+          sx={{
+            fontSize: 1,
+            letterSpacing: 'wider',
+            maxWidth: 625,
+            lineHeight: 'body',
+            p: { paddingBottom: 3 },
+            ul: { lineHeight: 2, paddingBottom: 3 },
+          }}
+        >
+          <p>
+            <strong>please note</strong>: all of our one of a kind engagement
+            rings live at our queen street store. for appointments at any of our
+            other locations, please select a date and time at least 3-4 days in
+            advance.
+          </p>
+          <strong>to book an appointment:</strong>
+          <ul>
+            <li>select the date and time of your choosing</li>
+            <li>
+              next, enter your information, and select the location you prefer
+            </li>
+            <li>
+              please be sure to include the rings you would like to see, so we
+              can deliver them on time for your appointment
+            </li>
+          </ul>
+          <p>
+            we're here to help answer all of your questions. let your dreams of
+            the perfect engagement ring or jewelry stack become a reality. reach
+            out to our team through one the options below.
+          </p>
+        </Box>
         <Flex
           ref={calendlyPicker}
           mt={[0, 6]}
