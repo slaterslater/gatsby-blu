@@ -1,26 +1,16 @@
-import {
-  Container,
-  Box,
-  Heading,
-  Flex,
-  Text,
-  Grid,
-  Button,
-  Link,
-} from 'theme-ui'
-import React, { useState, useEffect, useRef } from 'react'
+import { Container, Box, Heading, Text, Grid, Link } from 'theme-ui'
+import React, { useState, useEffect } from 'react'
 import { StaticImage } from 'gatsby-plugin-image'
 import { InlineWidget } from 'react-calendly'
 import PropTypes from 'prop-types'
 import { graphql } from 'gatsby'
 import Layout from '../components/layout'
-import ElementSlider from '../components/ElementSlider'
+// import ElementSlider from '../components/ElementSlider'
 import CalendlyLink from '../components/consultation/CalendlyLink'
 import FAQ from '../components/consultation/FAQ'
 import Banner from '../components/content/Banner'
 
 const CalendlyConsultationPage = ({ data, location }) => {
-  console.log({ data })
   const calendars = data.sanityConsultation.calendars.filter(({ active }) =>
     Boolean(active)
   )
@@ -44,17 +34,10 @@ const CalendlyConsultationPage = ({ data, location }) => {
   // //     placeholder="blurred"
   // //   />,
   // // ]
-  const [fixedHeight, setFixedHeight] = useState('auto')
   const [current, setCurrent] = useState({ index: 0, ...calendars[0] })
-  const calendlyPicker = useRef(null)
 
   useEffect(() => {
-    // calculate height
-    const max = calendlyPicker.current.offsetHeight - 160 // calendars - (heading + text)
-    // setFixedHeight(max > 630 ? max : 630) // 630 = iframe + heading
-    setFixedHeight(max > 740 ? max : 740) // 630 = iframe + heading
-
-    // set inital calendar
+    // // set inital calendar
     const initialSlug = location.state?.consultation
     if (initialSlug) {
       const calendar = calendars.find(({ slug }) => initialSlug === slug)
@@ -99,59 +82,19 @@ const CalendlyConsultationPage = ({ data, location }) => {
         py={8}
       >
         <Text as="h1" variant="h2" pb={6}>
-          book a complimentary appointment with one of our jewelry experts!
+          book your appointment with us today
         </Text>
-        <Box
-          // as="p"
-          mx="auto"
-          px="3"
-          mb={7}
-          sx={{
-            fontSize: 1,
-            letterSpacing: 'wider',
-            maxWidth: 625,
-            lineHeight: 'body',
-            p: { paddingBottom: 3 },
-            ul: { lineHeight: 2, paddingBottom: 3 },
-          }}
-        >
-          <p>
-            <strong>please note</strong>: all of our one of a kind engagement
-            rings live at our queen street store. for appointments at any of our
-            other locations, please select a date and time at least 3-4 days in
-            advance.
-          </p>
-          <strong>to book an appointment:</strong>
-          <ul>
-            <li>select the date and time of your choosing</li>
-            <li>
-              next, enter your information, and select the location you prefer
-            </li>
-            <li>
-              please be sure to include the rings you would like to see, so we
-              can deliver them on time for your appointment
-            </li>
-          </ul>
-          <p>
-            we're here to help answer all of your questions. let your dreams of
-            the perfect engagement ring or jewelry stack become a reality. reach
-            out to our team through one the options below.
-          </p>
-        </Box>
-        <Flex
-          ref={calendlyPicker}
+        <Grid
           mt={[0, 6]}
           mx="auto"
           px={5}
           sx={{
-            flexDirection: 'column',
-            flexWrap: 'wrap',
-            height: ['auto', fixedHeight],
+            gridTemplateColumns: ['1fr', '1fr', '1fr 1fr'],
             maxWidth: 825,
             alignContent: 'center',
             '.active': {
               borderTopColor: 'black',
-              borderBottomColor: ['transparent', 'black'],
+              borderBottomColor: ['transparent', 'transparent', 'black'],
             },
           }}
         >
@@ -170,6 +113,7 @@ const CalendlyConsultationPage = ({ data, location }) => {
               key={`calendly-${i}`}
               calendar={calendar}
               order={i}
+              // order={4}
               isActive={current.index === i}
               handleChange={() => {
                 setCurrent({
@@ -181,7 +125,7 @@ const CalendlyConsultationPage = ({ data, location }) => {
               {calendar.title.toLowerCase()}
             </CalendlyLink>
           ))}
-          <Text
+          {/* <Text
             as="p"
             my={6}
             mx={[0, 3]}
@@ -197,13 +141,54 @@ const CalendlyConsultationPage = ({ data, location }) => {
           >
             {`book a complimentary appointment with one of our jewelry experts who are here to help answer all of your questions. let your dreams of the perfect engagement ring or jewelry stack become a reality.\n
             for appointments at any of our other locations, please reach out to our team through one the options below`}
-          </Text>
+          </Text> */}
+          <Box
+            mx="auto"
+            px="3"
+            mb={7}
+            sx={{
+              order: calendars.length + 1,
+              fontSize: 1,
+              letterSpacing: 'wider',
+              maxWidth: 625,
+              lineHeight: 'body',
+              ul: { lineHeight: 2 },
+            }}
+          >
+            <p>
+              book a complimentary appointment with one of our jewelry experts!
+            </p>
+            <p>
+              <strong>please note</strong>: all of our one of a kind engagement
+              rings live at our queen street store. for appointments at any of
+              our other locations, please select a date and time at least 3-4
+              days in advance.
+            </p>
+            <strong>to book an appointment:</strong>
+            <ul>
+              <li>select the date and time of your choosing</li>
+              <li>
+                next, enter your information, and select the location you prefer
+              </li>
+              <li>
+                please be sure to include the rings you would like to see, so we
+                can deliver them on time for your appointment
+              </li>
+            </ul>
+            <p>
+              we're here to help answer all of your questions. let your dreams
+              of the perfect engagement ring or jewelry stack become a reality.
+              reach out to our team through one the options below.
+            </p>
+          </Box>
           <Box
             mx={3}
             sx={{
-              height: [500, `calc(100% - 30px)`], // 30 = heading
-              width: ['auto', '50%'],
-              order: [current.index, calendars.length + 2],
+              minHeight: 500,
+              height: '100%',
+              order: current.index,
+              gridColumn: [null, null, 2],
+              gridRow: [null, null, `1 / ${calendars.length + 3}`],
               borderBottom: ['1px solid', 'none'],
               borderColor: 'border',
             }}
@@ -212,7 +197,7 @@ const CalendlyConsultationPage = ({ data, location }) => {
               variant="caps"
               pb={3}
               sx={{
-                display: ['none', 'block'],
+                display: ['none', 'none', 'block'],
                 width: '100%',
                 textAlign: 'center',
                 fontSize: 1,
@@ -233,7 +218,7 @@ const CalendlyConsultationPage = ({ data, location }) => {
               }}
             />
           </Box>
-        </Flex>
+        </Grid>
         <Heading as="h2" variant="h2" sx={{ textAlign: 'center' }} mt={[5, 0]}>
           contact us to book a consultation
         </Heading>

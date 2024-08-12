@@ -52,6 +52,7 @@ CalendlyLink.propTypes = {
   //   title: PropTypes.string,
   //   slug: PropTypes.string,
   // }),
+  children: PropTypes.any,
   order: PropTypes.number,
   isActive: PropTypes.bool,
   handleChange: PropTypes.func,
