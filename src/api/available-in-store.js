@@ -7,17 +7,21 @@ const graphQLClient = getClient()
 
 const ProductAvailableInStore = gql`
   query ($handle: String!) {
-    productByHandle(handle: $handle) {
+    productByHandle(handle: "bubble-ring-10k-gold") {
       totalInventory
       variants(first: 10) {
         edges {
           node {
             inventoryItem {
-              locationsCount
+              locationsCount {
+                count
+              }
               inventoryLevels(first: 20) {
                 edges {
                   node {
-                    available
+                    quantities(names: "available") {
+                      quantity
+                    }
                     location {
                       id
                       name
