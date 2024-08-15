@@ -72,17 +72,18 @@ const AvailabilityDrawer = ({ onClose, handle }) => {
       const locationsWithAvailability = nodes.reduce((total, { node }) => {
         node.inventoryItem.inventoryLevels.edges
           .filter(
-            ({ node: { available, location } }) =>
-              !!available &&
+            ({ node: { quantities, location } }) =>
+              quantities[0].quantity > 0 &&
               !hiddenLocations.includes(location.name.toLowerCase())
           )
-          .forEach(({ node: { available, location } }) => {
+          .forEach(({ node: { quantities, location } }) => {
             const {
               id,
               name: shopName,
               address: { zip },
             } = location
             const store = total.find(spot => spot.id === id)
+            const available = quantities[0].quantity
             if (store) {
               store.available += available
             } else {

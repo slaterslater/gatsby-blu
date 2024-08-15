@@ -49,8 +49,6 @@ const ProductProvider = ({
     variables: { handle, countryCode },
   })
 
-  console.log({ initial })
-
   const [value, updateValue] = useImmer({
     product: initial,
     selectOption: () => {},
