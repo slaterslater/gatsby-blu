@@ -5,7 +5,10 @@ const storeEmails = {
 }
 
 function createRecipientList(body) {
-  if (body.subject.includes('love story')) return ['beloved@bluboho.com']
+  // shareTheLoveForm
+  if (body.subject.includes('love story'))
+    return ['beloved@bluboho.com', 'guestexpereince@bluboho.com']
+  // wholesale inquiry
   if (body.subject.includes('wholesale')) return ['wholesale@bluboho.com']
 
   const mailList = ['guestexperience@bluboho.com']
