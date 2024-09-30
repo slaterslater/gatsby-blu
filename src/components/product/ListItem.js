@@ -116,7 +116,7 @@ export const CollectionThumbnail = ({
   }
   return (
     <>
-      <Grid>
+      <Grid sx={{ aspectRatio: '1', overflow: 'hidden' }}>
         <AnimatePresence>
           <DragBox
             key="dragbox-1"
