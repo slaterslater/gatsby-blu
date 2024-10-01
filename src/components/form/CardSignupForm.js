@@ -14,13 +14,13 @@ const initialValues = {
   email: '',
   callingCode: '',
   phoneNumber: '',
-  address1: '',
-  region: '',
-  city: '',
-  code: '',
+  // address1: '',
+  // region: '',
+  // city: '',
+  // code: '',
 }
 
-const codeRegex = /^(\d{5}|[a-z]\d[a-z]\s?\d[a-z]\d)$/i
+// const codeRegex = /^(\d{5}|[a-z]\d[a-z]\s?\d[a-z]\d)$/i
 
 const validationSchema = object({
   decepticons: string(),
@@ -29,10 +29,10 @@ const validationSchema = object({
   last_name: string().trim().required('required'),
   email: string().email('invalid email').required('required'),
   phoneNumber: string().trim().min(10).required('required'),
-  address1: string().trim().required('required'),
-  region: string().trim().required('required'),
-  city: string().trim().required('required'),
-  code: string().matches(codeRegex, 'invalid').required('required'),
+  // address1: string().trim().required('required'),
+  // region: string().trim().required('required'),
+  // city: string().trim().required('required'),
+  // code: string().matches(codeRegex, 'invalid').required('required'),
 })
 
 const CardSignupForm = ({ onSuccess }) => (
@@ -102,12 +102,12 @@ const CardSignupForm = ({ onSuccess }) => (
         </Box>
         <InputField name="email" label="email" />
         <PhoneNumberInput />
-        <InputField name="address1" label="address" />
+        {/* <InputField name="address1" label="address" />
         <Box className="flex" sx={{ 'div:nth-of-type(1)': { flex: 1 } }}>
           <InputField name="city" label="city" />
           <InputField name="region" label="prov / state" />
           <InputField name="code" label="code / zip" maxLength="7" />
-        </Box>
+        </Box> */}
         <Flex sx={{ justifyContent: 'center' }}>
           <SubmitButton sx={{ width: '100%', maxWidth: 360 }} mt={5}>
             send

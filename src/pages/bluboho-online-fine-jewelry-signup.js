@@ -28,12 +28,13 @@ const SignupPage = () => {
         <Text
           as="p"
           variant="copy"
-          sx={{ textAlign: 'center', maxWidth: 450, fontSize: 0 }}
+          sx={{ textAlign: 'center', maxWidth: 470, fontSize: 0 }}
           mx="auto"
           my={4}
         >
-          subscribe to our email and sms and we'll send you three surprise
-          contemplation cards — your very own message from the universe.
+          subscribe to our email and sms and we'll send you a little something
+          to welcome you to our family, and help you out with your first
+          purchase from us!
         </Text>
         {success && (
           <CalloutBox

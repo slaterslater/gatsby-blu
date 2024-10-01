@@ -13,22 +13,23 @@ export default async function (req, res) {
     email,
     callingCode,
     phoneNumber,
-    address1,
-    city,
-    region,
-    code,
+    // address1,
+    // city,
+    // region,
+    // code,
   } = req.body
 
   const phone_number = `+${callingCode}${phoneNumber}`
-  const zip = code.toUpperCase()
+  // const zip = code.toUpperCase()
+  // <li>${address1}</li>
+  // <li>${city}, ${region}, ${zip}</li>
 
   const html = `
     <div style="padding: 24px; border: 1px solid #e7e7e7; border-radius: 4px;max-width: 480px;">
         <p style="padding-bottom: 4px;margin: 0;">Please send  3 contemplation cards to:</p>
         <ul style="list-style-type: none; padding-bottom: 16px;">
           <li>${first_name} ${last_name}</li>
-          <li>${address1}</li>
-          <li>${city}, ${region}, ${zip}</li>
+
           <br />
           <li>${email}</li>
           <li>${phone_number}</li>
@@ -60,10 +61,10 @@ export default async function (req, res) {
         email,
         phone_number,
         sms_consent: true,
-        address1,
-        city,
-        region,
-        zip,
+        // address1,
+        // city,
+        // region,
+        // zip,
       },
     ]
 
