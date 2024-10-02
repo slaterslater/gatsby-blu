@@ -50,29 +50,60 @@ export default async function (req, res) {
   }
 
   try {
-    // add profile to klaviyo list
+    // // add profile to klaviyo list
     const API_KEY = process.env.GATSBY_KLAVIYO_API_KEY
     const LIST_ID = 'Yu5H7v'
-    const url = `https://a.klaviyo.com/api/v2/list/${LIST_ID}/subscribe?api_key=${API_KEY}`
-    const profiles = [
-      {
-        first_name,
-        last_name,
-        email,
-        phone_number,
-        sms_consent: true,
-        // address1,
-        // city,
-        // region,
-        // zip,
-      },
-    ]
 
-    await axios.post(url, { profiles })
+    const options = {
+      method: 'POST',
+      url: 'https://a.klaviyo.com/api/profile-subscription-bulk-create-jobs/',
+      headers: {
+        accept: 'application/json',
+        revision: '2024-07-15',
+        'content-type': 'application/json',
+        Authorization: `Klaviyo-API-Key ${API_KEY}`,
+      },
+      data: {
+        data: {
+          type: 'profile-subscription-bulk-create-job',
+          attributes: {
+            profiles: {
+              data: [
+                {
+                  type: 'profile',
+                  attributes: {
+                    subscriptions: {
+                      email: { marketing: { consent: 'SUBSCRIBED' } },
+                      sms: { marketing: { consent: 'SUBSCRIBED' } },
+                    },
+                    email,
+                    phone_number,
+                  },
+                },
+              ],
+            },
+            historical_import: false,
+          },
+          relationships: {
+            list: { data: { type: 'list', id: LIST_ID } },
+          },
+        },
+      },
+    }
+
+    await axios(options)
+
     return res
       .status(201)
       .json({ message: 'email sent and profile added to klaviyo' })
-  } catch {
-    return res.status(400).json({ message: 'ERROR - in klaviyo step' })
+  } catch (error) {
+    return res.status(400).json({ message: 'ERROR - in klaviyo step', error })
+    // if (error.response) {
+    //   console.error('Error data:', error.response.data)
+    //   console.error('Error status:', error.response.status)
+    //   console.error('Error headers:', error.response.headers)
+    // } else {
+    //   console.error('Error message:', error.message)
+    // }
   }
 }
