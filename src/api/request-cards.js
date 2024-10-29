@@ -1,15 +1,15 @@
 /* eslint-disable camelcase */
 import axios from 'axios'
-import { nanoid } from 'nanoid'
-import { sendMail } from '../lib/sendMail'
+// import { nanoid } from 'nanoid'
+// import { sendMail } from '../lib/sendMail'
 
 export default async function (req, res) {
   if (req.body.decepticons)
     return res.status(400).json({ message: 'ERROR - decepticons' })
 
   const {
-    first_name,
-    last_name,
+    // first_name,
+    // last_name,
     email,
     callingCode,
     phoneNumber,
@@ -24,30 +24,30 @@ export default async function (req, res) {
   // <li>${address1}</li>
   // <li>${city}, ${region}, ${zip}</li>
 
-  const html = `
-    <div style="padding: 24px; border: 1px solid #e7e7e7; border-radius: 4px;max-width: 480px;">
-        <p style="padding-bottom: 4px;margin: 0;">Please send  3 contemplation cards to:</p>
-        <ul style="list-style-type: none; padding-bottom: 16px;">
-          <li>${first_name} ${last_name}</li>
+  // const html = `
+  //   <div style="padding: 24px; border: 1px solid #e7e7e7; border-radius: 4px;max-width: 480px;">
+  //       <p style="padding-bottom: 4px;margin: 0;">Please send  3 contemplation cards to:</p>
+  //       <ul style="list-style-type: none; padding-bottom: 16px;">
+  //         <li>${first_name} ${last_name}</li>
 
-          <br />
-          <li>${email}</li>
-          <li>${phone_number}</li>
-        </ul>  
-        <p style="padding-bottom: 4px;margin: 0;">Make sure to note the guest's information and the date cards were sent out on the Clienteling Tracker</p>
-    </div>
-  `
+  //         <br />
+  //         <li>${email}</li>
+  //         <li>${phone_number}</li>
+  //       </ul>
+  //       <p style="padding-bottom: 4px;margin: 0;">Make sure to note the guest's information and the date cards were sent out on the Clienteling Tracker</p>
+  //   </div>
+  // `
 
-  const to = ['guestexperience@bluboho.com']
-  const from = '<noreply@bluboho.com>'
-  // eslint-disable-next-line prettier/prettier
-  const subject = `${first_name} would like to receive contemplation cards - ${nanoid(6)}`
+  // const to = ['guestexperience@bluboho.com']
+  // const from = '<noreply@bluboho.com>'
+  // // eslint-disable-next-line prettier/prettier
+  // const subject = `${first_name} would like to receive contemplation cards - ${nanoid(6)}`
 
-  try {
-    await sendMail({ to, from, subject, html })
-  } catch {
-    return res.status(400).json({ message: 'ERROR - in sendMail step' })
-  }
+  // try {
+  //   await sendMail({ to, from, subject, html })
+  // } catch {
+  //   return res.status(400).json({ message: 'ERROR - in sendMail step' })
+  // }
 
   try {
     // // add profile to klaviyo list
