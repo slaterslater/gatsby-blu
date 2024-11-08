@@ -129,7 +129,7 @@ const MegaMenu = () => {
   return (
     <Box
       sx={{
-        display: ['none', 'none', 'flex'],
+        display: ['none', 'none', 'none', 'flex'], // collapse into nav drawer because too many menus
         alignSelf: 'stretch',
       }}
       onMouseLeave={() => {
@@ -138,11 +138,11 @@ const MegaMenu = () => {
       }}
     >
       <Grid
-        pl={6}
+        pl={4}
         sx={{
           alignSelf: 'stretch',
           gap: 5,
-          gridTemplateColumns: 'repeat(4, max-content)',
+          gridTemplateColumns: `repeat(${megaMenu.length}, max-content)`,
           alignItems: 'stretch',
         }}
       >

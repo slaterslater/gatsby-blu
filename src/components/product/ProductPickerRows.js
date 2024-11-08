@@ -14,7 +14,7 @@ const SIZE = 50
 
 const ProductPickerRows = () => {
   const { pickers } = useContext(ProductContext)
-  if (!pickers.length) return null
+  if (!pickers?.length) return null
   return pickers.map((picker, i) => (
     <PickerRow key={`picker-${i}`} ids={picker.ids} />
   ))

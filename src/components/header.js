@@ -58,7 +58,7 @@ const Header = () => {
             p={0}
             ml={4}
             type="button"
-            sx={{ display: ['block', 'block', 'none'] }}
+            sx={{ display: ['block', 'block', 'block', 'none'] }}
             onClick={() => setOpenDrawer('navigation')}
             aria-label="Menu"
           >
