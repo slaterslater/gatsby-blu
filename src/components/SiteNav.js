@@ -9,7 +9,6 @@ const SiteNav = () => (
       <Announcements />
     </Box>
     <Grid
-      bg="cream"
       sx={{
         margin: '-1px',
         gap: 0,
@@ -20,7 +19,6 @@ const SiteNav = () => (
           justifyContent: 'center',
           alignItems: 'center',
         },
-        // '#bluboho': { bg: isBeloved ? 'bbBackground' : 'white' },
         '#bluboho': { bg: 'white' },
         '#beloved': { bg: 'navy' },
         '#desktop-announcements': {

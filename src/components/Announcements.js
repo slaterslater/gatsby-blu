@@ -78,13 +78,26 @@ const Announcements = () => {
           path
           message
         }
+        announcementStyles {
+          backgroundColor {
+            hex
+          }
+          textColor {
+            hex
+          }
+        }
       }
     }
   `)
-  const { announcements } = data.sanitySiteAnnouncements
+  const { announcements, announcementStyles } = data.sanitySiteAnnouncements
+  const [{ backgroundColor, textColor }] = announcementStyles
+  const color = textColor?.hex ?? 'primary'
+  const bg = backgroundColor?.hex ?? 'cream'
+
   const [delay] = useState(5000)
   const [isPaused, setIsPaused] = useState(false)
   const [current, setCurrent] = useState(0)
+
   useInterval(
     () => {
       setCurrent(curr => {
@@ -104,11 +117,10 @@ const Announcements = () => {
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: '-1px',
+        width: '100%',
       }}
-      color="primary"
-      bg="cream"
-      // bg="primary"
-      // color="cream"
+      color={color}
+      bg={bg}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
