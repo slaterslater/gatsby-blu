@@ -90,7 +90,7 @@ const Announcements = () => {
     }
   `)
   const { announcements, announcementStyles } = data.sanitySiteAnnouncements
-  const [{ backgroundColor, textColor }] = announcementStyles
+  const { backgroundColor, textColor } = announcementStyles[0] || {}
   const color = textColor?.hex ?? 'primary'
   const bg = backgroundColor?.hex ?? 'cream'
 
