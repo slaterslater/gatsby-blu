@@ -66,6 +66,10 @@ const IndexPage = ({ pageContext }) => {
           name="google-site-verification"
           content={process.env.GATSBY_GOOGLE_SITE_VERIFICATION}
         />
+        <meta
+          name="google-site-verification"
+          content={process.env.GATSBY_GOOGLE_SITE_VERIFICATION_2}
+        />
         <script type="application/ld+json">{websiteLdJSON}</script>
       </SEO>
       <HomePageHeader data={headerHero} video={video} />
