@@ -25,7 +25,7 @@ const LocationPageTemplate = ({ data }) => {
   } = data.sanityLocation
   const storeWillOpen = DateTime.fromISO(openingDate).toFormat('LLLL yyyy')
   const mapRef = useRef(null)
-  const [mapSrc] = map.match(/https:\/\/.[^"]+/)
+  const [mapSrc] = map?.match(/https:\/\/.[^"]+/) ?? []
   const descRegExp = /\s*\+\s*/g
 
   return (
@@ -171,31 +171,33 @@ const LocationPageTemplate = ({ data }) => {
         >
           {text}
         </Text>
-        <Box
-          sx={{
-            width: '100%',
-            height: '100%',
-            maxWidth: 950,
-          }}
-          px={[0, 5, 8]}
-          mx="auto"
-        >
+        {mapSrc && (
           <Box
-            as="iframe"
-            id="map"
-            ref={mapRef}
-            src={mapSrc}
             sx={{
               width: '100%',
-              height: [300, 450, 600],
-              border: 'none',
+              height: '100%',
+              maxWidth: 950,
             }}
-            allowFullScreen
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            py={6}
-          />
-        </Box>
+            px={[0, 5, 8]}
+            mx="auto"
+          >
+            <Box
+              as="iframe"
+              id="map"
+              ref={mapRef}
+              src={mapSrc}
+              sx={{
+                width: '100%',
+                height: [300, 450, 600],
+                border: 'none',
+              }}
+              allowFullScreen
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              py={6}
+            />
+          </Box>
+        )}
       </Container>
     </Layout>
   )
