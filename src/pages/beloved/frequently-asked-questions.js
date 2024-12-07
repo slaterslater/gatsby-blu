@@ -1,6 +1,6 @@
 import { StaticImage } from 'gatsby-plugin-image'
 import React from 'react'
-import { Container, Flex, Grid, Heading, NavLink, Text } from 'theme-ui'
+import { Box, Container, Flex, Grid, Heading, NavLink, Text } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
 import Banner from '../../components/content/Banner'
 import Layout from '../../components/layout'
@@ -8,7 +8,8 @@ import BrownButton from '../../components/BrownButton'
 import { Breadcrumbs } from '../../components/Breadcrumbs'
 
 const faqs = [
-  `what is the best stone for an engagement ring`,
+  `What is the Best Stone for an Engagement Ring?`,
+  `What is the Best Metal for an Engagement Ring?`,
   `how do i choose the right ring?`,
   `how do i determine the right ring size for my partner?`,
   `is your gold recycled, and are your sapphires and diamonds conflict-free?`,
@@ -77,16 +78,17 @@ const BelovedFAQpage = () => (
           marginBottom: 5,
           paddingLeft: 6,
           paddingRight: 6,
-          listStyleType: ['disc', 'none'],
+          listStyleType: 'none',
+          // listStyleType: ['disc', 'none'],
         },
         li: {
           bg: '#eeece1',
           fontSize: 1,
           letterSpacing: 'wider',
           lineHeight: 'body',
-          textAlign: ['left', 'center'],
+          // textAlign: ['left', 'center'],
           paddingBottom: 2,
-          ':before': { content: [null, '"•\\00a0\\00a0\\00a0"'], fontSize: 1 },
+          // ':before': { content: [null, '"•\\00a0\\00a0\\00a0"'], fontSize: 1 },
         },
         'li::marker': { fontSize: '8px' },
       }}
@@ -145,11 +147,11 @@ const BelovedFAQpage = () => (
         page for a step-by-step guide on how to get started, and take a peek at
         our engagement ring FAQs below for any lingering questions.
       </Paragraph>
-      <Paragraph maxWidth="100%">
+      {/* <Paragraph maxWidth="100%">
         have a more specific question? get in touch and{' '}
         <GatsbyLink to="/book-a-consultation">make an appointment</GatsbyLink>{' '}
         so we can answer all your questions in real time.
-      </Paragraph>
+      </Paragraph> */}
       <Grid
         as="nav"
         sx={{
@@ -180,12 +182,22 @@ const BelovedFAQpage = () => (
           </NavLink>
         ))}
       </Grid>
-      <Heading as="h2">what is the best stone for an engagement ring</Heading>
+      <Heading as="h2">What is the Best Stone for an Engagement Ring?</Heading>
       <Paragraph>
         the type of gemstone you'd like in your ethically sourced engagement
         ring is perhaps the first big decision you'll make in the process.
         though everyone has their own preference, we define “best” as the most
         durable, sustainable, and beautiful.
+      </Paragraph>
+      <Paragraph>
+        there are several options for the shape of the center stone, such as:
+        <br />
+        round
+        <br />
+        oval <br />
+        square <br />
+        rectangle <br />
+        marquis
       </Paragraph>
       <Paragraph>
         Though we work in a variety of stones, we specialize in{' '}
@@ -203,10 +215,10 @@ const BelovedFAQpage = () => (
         learn more about <GatsbyLink to="/sapphires">our sapphires</GatsbyLink>{' '}
         and <GatsbyLink to="/diamonds">our diamonds</GatsbyLink>.
       </Paragraph>
-      <BrownButton
+      {/* <BrownButton
         to="/book-a-consultation"
         text="book an engagement consultation"
-      />
+      /> */}
       <Grid
         sx={{
           maxWidth: 1200,
@@ -230,6 +242,43 @@ const BelovedFAQpage = () => (
           placeholder="blurred"
         />
       </Grid>
+      <Heading as="h2">What is the Best Metal for an Engagement Ring?</Heading>
+      <Paragraph>
+        there are several metal options to consider for your engagement ring:
+      </Paragraph>
+      {/* <Paragraph> */}
+      <ul>
+        <li>
+          <strong>Yellow Gold</strong> - a classic and traditional choice for an
+          engagement ring, always beautiful and elegant for any wearer that will
+          last the test of time.
+        </li>
+        <li>
+          <strong>Rose Gold</strong> - considered a more romantic style, with
+          its rosy and warm hues in the metal, making it truly unique. the rose
+          hue is created in the metal by an increase of copper alloys.
+        </li>
+        <li>
+          <strong>White Gold</strong> - a more luxurious option, with its
+          brilliant white colour, offering a more modern, stylish appearance.
+          white gold is also more durable than yellow or rose gold. note that
+          nickel is used to create that white colour in the gold, which is an
+          allergen for those with metal sensitivities.
+        </li>
+        <li>
+          <strong>Platinum</strong> - more durable than gold, holding up to
+          scratches and wear and tear, and is the most allergy-friendly metals.
+        </li>
+      </ul>
+      {/* </Paragraph> */}
+      <Paragraph>
+        we make all of our rings in 14k recycled gold as it is not only more
+        affordable, but more durable as an everyday piece. along with proper
+        {` `}
+        <GatsbyLink to="/wear-and-care">wear and care</GatsbyLink>, we want to
+        make sure you can enjoy your engagement ring for a lifetime and beyond.
+      </Paragraph>
+
       <Heading as="h2">How do I choose the right ring? </Heading>
       <Paragraph>
         Much like finding your beloved, choosing the right ring is mostly based
