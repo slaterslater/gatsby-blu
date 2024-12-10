@@ -10,15 +10,21 @@ import { Breadcrumbs } from '../../components/Breadcrumbs'
 const faqs = [
   `What is the Best Stone for an Engagement Ring?`,
   `What is the Best Metal for an Engagement Ring?`,
+  `What's the Difference Between an Engagement and a Wedding Ring?`,
   `how do i choose the right ring?`,
   `how do i determine the right ring size for my partner?`,
   `is your gold recycled, and are your sapphires and diamonds conflict-free?`,
-  `what is your return policy if she says no or if she doesn't like the ring?`,
-  `i'm on a deadline — can i place a rush order?`,
+  `Can I Just Walk in, or Do I Need an Appointment?`,
+  `I'm on a Deadline — Can I Place a Rush Order?`,
+  `Can I Get my Ring Engraved?`,
   `how much should i spend on a ring?`,
   `do you offer payment plans? do i have to pay a deposit/pay upfront?`,
+  `Does my Ring Come with an Appraisal?`,
+  `what is your return policy if she says no or if she doesn't like the ring?`,
   `help! i broke/damaged my ring, what now?`,
   `how should i take care of my jewelry?`,
+  `Can I Customize a Ring?`,
+  `Do your Rings Have a Warranty?`,
   `can you set my heirloom stones in one of your settings?`,
 ]
 
@@ -28,7 +34,7 @@ const scrollToAnswer = e => {
   answers.forEach(answer => {
     const match = answer.innerText.toLowerCase() === e.target.text.toLowerCase()
     if (!match) return
-    const top = answer.offsetTop - 20
+    const top = answer.offsetTop - 110
     window.scrollTo({ top, behavior: 'smooth' })
   })
 }
@@ -246,7 +252,6 @@ const BelovedFAQpage = () => (
       <Paragraph>
         there are several metal options to consider for your engagement ring:
       </Paragraph>
-      {/* <Paragraph> */}
       <ul>
         <li>
           <strong>Yellow Gold</strong> - a classic and traditional choice for an
@@ -270,7 +275,6 @@ const BelovedFAQpage = () => (
           scratches and wear and tear, and is the most allergy-friendly metals.
         </li>
       </ul>
-      {/* </Paragraph> */}
       <Paragraph>
         we make all of our rings in 14k recycled gold as it is not only more
         affordable, but more durable as an everyday piece. along with proper
@@ -278,19 +282,47 @@ const BelovedFAQpage = () => (
         <GatsbyLink to="/wear-and-care">wear and care</GatsbyLink>, we want to
         make sure you can enjoy your engagement ring for a lifetime and beyond.
       </Paragraph>
-
+      <Heading as="h2">
+        What's the Difference Between an Engagement and a Wedding Ring?
+      </Heading>
+      <Paragraph>
+        traditionally, an engagement ring is given when a couple decides to get
+        married, often with a proposal and an offering of a ring. this ring is
+        commonly the centerpiece of a wedding stack, while a wedding ring is
+        exchanged at the wedding ceremony, representing the official bond of
+        marriage. the wedding ring can be a simpler style than the engagement
+        ring, but this is subjective. both rings are often worn together as
+        symbols of love and commitment. that being said, engagement rings can
+        also be used as wedding rings, depending on your personal preference.
+      </Paragraph>
       <Heading as="h2">How do I choose the right ring? </Heading>
       <Paragraph>
         Much like finding your beloved, choosing the right ring is mostly based
         on feeling and instinct— when you find it, you'll know.
       </Paragraph>
       <Paragraph>
-        When you book an appointment with one of our experts, you'll get
-        one-on-one guidance, advice, and personalized recommendations based on
-        your partner's tastes and preferences— our goal is to make the selection
-        process easy, memorable, and fun.
+        When you{' '}
+        <GatsbyLink to="/book-a-consultation">book an appointment</GatsbyLink>{' '}
+        with one of our experts, you'll get one-on-one guidance, advice, and
+        personalized recommendations based on your partner's tastes and
+        preferences— our goal is to make the selection process easy, memorable,
+        and fun.
       </Paragraph>
-      <Heading as="h3">some good starting points to consider: </Heading>
+      <Paragraph>
+        <strong>some good starting points to consider:</strong>
+        <br />
+        what colours does she love?
+        <br />
+        is her style more classic, contemporary, or unique?
+        <br />
+        when it comes to her lifestyle, is she very active, adventurous, or
+        outdoorsy?
+        <br />
+        what kind of jewellery does she already wear and love?
+        <br />
+        is it elaborate or more simple and subdued?
+      </Paragraph>
+      {/* <Heading as="h3">some good starting points to consider: </Heading>
       <ul>
         <li>What colours does she love? </li>
         <li>Is her style more classic, contemporary, or unique? </li>
@@ -299,7 +331,7 @@ const BelovedFAQpage = () => (
           outdoorsy?
         </li>
         <li>What kind of jewelry does she already wear and love?</li>
-      </ul>
+      </ul> */}
       <Grid
         sx={{
           maxWidth: 1200,
@@ -373,6 +405,83 @@ const BelovedFAQpage = () => (
         <GatsbyLink to="/diamonds">our diamonds</GatsbyLink> are always
         ethically sourced in compliance with the kimberley process.
       </Paragraph>
+
+      <Heading as="h2">
+        Can I Just Walk in, or Do I Need an Appointment?
+      </Heading>
+      <Paragraph>
+        we don't mind if you make an appointment or walk into our store
+        spontaneously, we are thrilled to see you either way! that being said,
+        booking an appointment is a great way to ensure we have items ready for
+        you that you are interested in seeing in person or wanting to try on.
+        book an appointment with one of our expert connectors today.
+      </Paragraph>
+
+      <Heading as="h2">i'm on a deadline — can i place a rush order?</Heading>
+      <Paragraph>
+        yes— in many cases, we can accommodate a rush order. typically our
+        special orders and resizing take 4-6 weeks. if you need to pick up your
+        rings in less than six weeks, it is considered a rush order. rush fees
+        start at a minimum of $100, and your fee will be determined and
+        communicated by our experts.
+      </Paragraph>
+      <Paragraph>
+        typical rush orders take 3-4 weeks; shorter turnarounds can be discussed
+        on a case-by-case basis. please make sure that you let us know your
+        preferred <strong>pick-up date</strong> for the ring instead of the date
+        of the wedding. this way, we can ensure that you have your rings well in
+        advance, leaving you free to focus on preparing for your big day.
+      </Paragraph>
+
+      <Heading as="h2">Can I Get my Ring Engraved?</Heading>
+      <Paragraph>
+        depending on the ring size and the type of engraving you wishe to have
+        done, yes! one of our connectors or our guest experience team would be
+        happy to help you!
+      </Paragraph>
+
+      <Heading as="h2">How much should I spend on a ring?</Heading>
+      <Paragraph>
+        We've created our own way of doing things, and here, there are no rules!
+      </Paragraph>
+      <Paragraph>
+        Ultimately, it doesn't matter what anyone says you “should” spend. We
+        offer gorgeous pieces in a wide price range, and we love them all
+        equally.
+      </Paragraph>
+      <Paragraph>
+        Find the ring that makes you excited to get down on one knee— the one
+        that gives you the feeling”, that you can't wait to see your love wear
+        for the rest of your lives. The perfect ring is one that gives you this
+        feeling and is affordable to you.
+      </Paragraph>
+      <Paragraph>
+        Looking to break the mold and create your own love story? Read about our{' '}
+        <GatsbyLink to="/blog/affordable-engagement-rings-that-break-tradition-but-not-the-bank">
+          on-traditional engagement ring options
+        </GatsbyLink>
+        .
+      </Paragraph>
+
+      <Heading as="h2">
+        do you offer payment plans? do i have to pay a deposit/pay upfront?
+      </Heading>
+      <Paragraph>
+        We're here to help! Talk to our team about how we can work with you to
+        accommodate your budget and timelines.{' '}
+        <GatsbyLink to="/book-a-consultation">
+          Book your free consultation
+        </GatsbyLink>
+        .
+      </Paragraph>
+
+      <Heading as="h2">Does my Ring Come with an Appraisal?</Heading>
+      <Paragraph>
+        All of our artist cut engagement rings include an appraisal with the
+        ring. ur other engagement rings can include a certificate or an
+        appraisal upon request for a fee.
+      </Paragraph>
+
       <Heading as="h2">
         what is your return policy if she says no or if she doesn't like the
         ring?
@@ -398,54 +507,7 @@ const BelovedFAQpage = () => (
         shortlist of their favourite rings in the appointment for you to choose
         from— a failsafe surprise!
       </Paragraph>
-      <Heading as="h2">i'm on a deadline — can i place a rush order?</Heading>
-      <Paragraph>
-        yes— in many cases, we can accommodate a rush order. typically our
-        special orders and resizing take 4-6 weeks. if you need to pick up your
-        rings in less than six weeks, it is considered a rush order. rush fees
-        start at a minimum of $100, and your fee will be determined and
-        communicated by our experts.
-      </Paragraph>
-      <Paragraph>
-        typical rush orders take 3-4 weeks; shorter turnarounds can be discussed
-        on a case-by-case basis. please make sure that you let us know your
-        preferred <strong>pick-up date</strong> for the ring instead of the date
-        of the wedding. this way, we can ensure that you have your rings well in
-        advance, leaving you free to focus on preparing for your big day.
-      </Paragraph>
-      <Heading as="h2">How much should I spend on a ring?</Heading>
-      <Paragraph>
-        We've created our own way of doing things, and here, there are no rules!
-      </Paragraph>
-      <Paragraph>
-        Ultimately, it doesn't matter what anyone says you “should” spend. We
-        offer gorgeous pieces in a wide price range, and we love them all
-        equally.
-      </Paragraph>
-      <Paragraph>
-        Find the ring that makes you excited to get down on one knee— the one
-        that gives you the feeling”, that you can't wait to see your love wear
-        for the rest of your lives. The perfect ring is one that gives you this
-        feeling and is affordable to you.
-      </Paragraph>
-      <Paragraph>
-        Looking to break the mold and create your own love story? Read about our{' '}
-        <GatsbyLink to="/blog/affordable-engagement-rings-that-break-tradition-but-not-the-bank">
-          on-traditional engagement ring options
-        </GatsbyLink>
-        .
-      </Paragraph>
-      <Heading as="h2">
-        do you offer payment plans? do i have to pay a deposit/pay upfront?
-      </Heading>
-      <Paragraph>
-        We're here to help! Talk to our team about how we can work with you to
-        accommodate your budget and timelines.{' '}
-        <GatsbyLink to="/book-a-consultation">
-          Book your free consultation
-        </GatsbyLink>
-        .
-      </Paragraph>
+
       <Heading as="h2">help! i broke/damaged my ring, what now?</Heading>
       <Paragraph>
         Not to worry— it happens! Our pieces are designed to be as durable as
@@ -457,18 +519,41 @@ const BelovedFAQpage = () => (
         We want your rings to last a lifetime, becoming a part of your love
         story. Read our{' '}
         <GatsbyLink to="/beloved/wear-and-care">
-          golden rules for wear and care here
+          golden rules for wear and care
         </GatsbyLink>
         .
       </Paragraph>
+
+      <Heading as="h2">Can I Customize a Ring?</Heading>
+      <Paragraph>
+        absolutely! please note that if you are ordering a ring with no
+        customization outside of metal or ring size, the average time is 4-5
+        weeks. we would be happy to discuss options with you! please contact our
+        guest experience team or meet with one of our connectors in store to
+        discuss options. we average 6-8 weeks for a custom engagement ring to be
+        made for production time.{' '}
+        <GatsbyLink to="/book-a-consultation">book an appointment</GatsbyLink>{' '}
+        to start the process with us.
+      </Paragraph>
+
+      <Heading as="h2">Do your Rings Have a Warranty?</Heading>
+      <Paragraph>
+        yes, all of our engagement and beloved wedding rings have a{' '}
+        <GatsbyLink to="/warranty-policy">warranty policy</GatsbyLink> in place.
+        if you have any questions about your ring, or would like to give your
+        ring a routine check up, please contact our guest services team at{' '}
+        <a href="mailto:guestservices@bluboho.com">guestservices@bluboho.com</a>
+      </Paragraph>
+
       <Heading as="h2">
         can you set my heirloom stones in one of your settings?
       </Heading>
       <Paragraph pb={7}>
         We don't work with heirloom stones at this time— however, if you love
         our signature beloved by bluboho settings, we can source your dream
-        stone to pair with it! Get in touch to find out more about custom stone
-        sourcing.
+        stone to pair with it!{' '}
+        <GatsbyLink to="/book-a-consultation">Get in touch</GatsbyLink> to find
+        out more about custom stone sourcing.
       </Paragraph>
     </Container>
   </Layout>
