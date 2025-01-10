@@ -1,7 +1,7 @@
 import { Container, Box, Heading, Text, Grid, Link } from 'theme-ui'
 import React, { useState, useEffect } from 'react'
 import { StaticImage } from 'gatsby-plugin-image'
-import { InlineWidget } from 'react-calendly'
+import { useCalendlyEventListener, InlineWidget } from 'react-calendly'
 import PropTypes from 'prop-types'
 import { graphql } from 'gatsby'
 import Layout from '../components/layout'
@@ -45,18 +45,27 @@ const CalendlyConsultationPage = ({ data, location }) => {
       setCurrent(calendar)
     }
 
-    // send gtag if event booked
-    const isCalendlyEventBooked = e =>
-      e.origin === 'https://calendly.com' &&
-      e.data.event === 'calendly.event_scheduled'
+    // const isCalendlyEventBooked = e =>
+    //   e.origin === 'https://calendly.com' &&
+    //   e.data.event === 'calendly.event_scheduled'
 
-    window.addEventListener('message', e => {
-      if (!isCalendlyEventBooked(e) || !window.gtag) return
+    // window.addEventListener('message', e => {
+    //   if (!isCalendlyEventBooked(e) || !window.gtag) return
+    //   window.gtag('event', 'conversion', {
+    //     send_to: `${process.env.GATSBY_AW_CONVERSION_ID}/nweJCJmXtoYDEIu39dgD`,
+    //   })
+    // })
+  }, [])
+
+  // send gtag if event booked
+  useCalendlyEventListener({
+    onEventScheduled: () => {
+      if (!window.gtag) return
       window.gtag('event', 'conversion', {
         send_to: `${process.env.GATSBY_AW_CONVERSION_ID}/nweJCJmXtoYDEIu39dgD`,
       })
-    })
-  }, [])
+    },
+  })
 
   return (
     <Layout
@@ -144,8 +153,8 @@ const CalendlyConsultationPage = ({ data, location }) => {
           </Text> */}
           <Box
             mx="auto"
-            px="3"
             mb={7}
+            px={3}
             sx={{
               order: calendars.length + 1,
               fontSize: 1,
@@ -219,7 +228,8 @@ const CalendlyConsultationPage = ({ data, location }) => {
             />
           </Box>
         </Grid>
-        <Heading as="h2" variant="h2" sx={{ textAlign: 'center' }} mt={[5, 0]}>
+        {/* <Heading as="h2" variant="h2" sx={{ textAlign: 'center' }} mt={[5, 0]}> */}
+        <Heading as="h2" variant="h2" sx={{ textAlign: 'center' }} mt={5}>
           contact us to book a consultation
         </Heading>
         <Grid

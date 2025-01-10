@@ -109,6 +109,7 @@ module.exports = {
         trackingIds: [
           process.env.GA_TRACKING_ID,
           process.env.GA4_TRACKING_ID,
+          process.env.GA4_TRACKING_ID_2,
           process.env.AW_CONVERSION_ID,
         ],
       },
