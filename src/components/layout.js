@@ -23,7 +23,7 @@ import { PageProvider } from '../contexts/PageContext'
 import SiteNav from './SiteNav'
 
 const ThirdPartyScripts = loadable(() => import('./ThirdPartyScripts'))
-const TidioLink = loadable(() => import('./TidioLink'))
+// const TidioLink = loadable(() => import('./TidioLink'))
 
 const Layout = ({ title, description, children, isBeloved = false }) => (
   <PageProvider isBeloved={isBeloved}>
@@ -46,7 +46,7 @@ const Layout = ({ title, description, children, isBeloved = false }) => (
           {children}
           <Footer />
         </Flex>
-        <TidioLink />
+        {/* <TidioLink /> */}
       </Drawers>
       <ThirdPartyScripts />
     </RecentlyViewedProductsProvider>

@@ -14,13 +14,13 @@ const ThirdPartScripts = () => {
   // if (!loaded) return <></>
   return (
     <Helmet>
-      {process.env.GATSBY_TIDIO_KEY && (
+      {/* {process.env.GATSBY_TIDIO_KEY && (
         <script
           async
           key="gatsby-plugin-tidio"
           src={`//code.tidio.co/${process.env.GATSBY_TIDIO_KEY}.js`}
         />
-      )}
+      )} */}
       {process.env.GATSBY_PINTEREST_BASE_CODE && (
         <script type="text/javascript">
           {`
