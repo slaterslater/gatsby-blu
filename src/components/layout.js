@@ -12,7 +12,6 @@ import '@reach/menu-button/styles.css'
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Flex } from 'theme-ui'
-import loadable from '@loadable/component'
 import Header from './header'
 import Footer from './footer'
 import SEO from './seo'
@@ -21,8 +20,9 @@ import Drawers from './drawers'
 import Countdown from './Countdown'
 import { PageProvider } from '../contexts/PageContext'
 import SiteNav from './SiteNav'
+import ThirdPartyScripts from './ThirdPartyScripts'
 
-const ThirdPartyScripts = loadable(() => import('./ThirdPartyScripts'))
+// const ThirdPartyScripts = loadable(() => import('./ThirdPartyScripts'))
 // const TidioLink = loadable(() => import('./TidioLink'))
 
 const Layout = ({ title, description, children, isBeloved = false }) => (

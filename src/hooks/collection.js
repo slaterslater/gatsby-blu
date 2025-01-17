@@ -68,7 +68,7 @@ export const useCollectionFilterAndSortOptions = products => {
 
   const data = useStaticQuery(graphql`
     {
-      allShopifyProductMetafield(filter: { key: { eq: "filters" } }) {
+      allShopifyMetafield(filter: {ownerType: {eq: COLLECTION}}) {
         nodes {
           value
         }

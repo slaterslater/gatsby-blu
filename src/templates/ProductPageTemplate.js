@@ -65,10 +65,18 @@ export const query = graphql`
         name
         values
       }
-      images {
-        src
-        gatsbyImageData(placeholder: BLURRED)
-      }
+      #images {
+      # src
+      # gatsbyImageData(placeholder: BLURRED)
+      #}
+      media {
+        ... on ShopifyMediaImage {
+          image {
+            src
+            gatsbyImageData(placeholder: BLURRED)
+          }
+        }
+      }  
       metafields {
         key
         value
@@ -140,8 +148,15 @@ export const query = graphql`
           key
           value
         }
-        images {
-          gatsbyImageData(placeholder: BLURRED, width: 80)
+        #images {
+        #  gatsbyImageData(placeholder: BLURRED, width: 80)
+        #}
+        media {
+          ... on ShopifyMediaImage {
+            image {
+              gatsbyImageData(placeholder: BLURRED, width: 80)
+            }
+          }
         }
         variants {
           shopifyId
