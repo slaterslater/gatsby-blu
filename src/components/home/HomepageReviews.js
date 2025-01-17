@@ -12,7 +12,7 @@ import { MobileSlider } from '../content/CollectionRow'
 const MotionBox = motion(Box)
 
 const Review = ({ starPercentage, excerpt, author, product }) => {
-  const image = product.images[0].gatsbyImageData
+  const image = product.media[0].image.gatsbyImageData
   if (!image) return
   return (
     <AnimatePresence>

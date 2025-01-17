@@ -557,9 +557,16 @@ async function createHomePage({ graphql, actions }) {
           title
           handle
           tags
-          images {
-            gatsbyImageData(placeholder: BLURRED, width: 300)
+          #images {
+          #  gatsbyImageData(placeholder: BLURRED, width: 300)
+          #}
+           media {
+          ... on ShopifyMediaImage {
+            image {
+              gatsbyImageData(placeholder: BLURRED, width: 360)
+            }
           }
+        }
           priceRangeV2 {
             minVariantPrice {
               amount

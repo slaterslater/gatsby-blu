@@ -17,7 +17,7 @@ module.exports = {
     author: `@bluboho`,
     siteUrl,
   },
-  flags: { PARALLEL_SOURCING: true },
+  flags: { PARALLEL_SOURCING: true, DEV_SSR: true },
   plugins: [
     `gatsby-plugin-netlify`,
     // {

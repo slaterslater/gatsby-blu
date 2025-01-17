@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react'
-import algoliasearch from 'algoliasearch/lite'
+// import algoliasearch from 'algoliasearch/lite'
+import { liteClient as algoliasearch } from 'algoliasearch/lite'
 import { connectStats, connectSearchBox } from 'react-instantsearch-dom'
 import { Text, Input, Button } from 'theme-ui'
 import ProductListItem from '../product/ListItem'
