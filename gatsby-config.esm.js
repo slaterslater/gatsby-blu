@@ -200,7 +200,7 @@ module.exports = {
           siteUrl + path,
       },
     },
-    `gatsby-plugin-loadable-components-ssr`,
+    // `gatsby-plugin-loadable-components-ssr`,
     {
       resolve: 'gatsby-source-yotpo',
       options: {
