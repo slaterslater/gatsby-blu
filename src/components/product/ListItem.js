@@ -10,7 +10,7 @@ import { usePageContext } from '../../contexts/PageContext'
 import ProductQuickAdd from './ProductQuickAdd'
 import { useProductLabel } from '../../hooks/product'
 
-const MotionBox = motion(Box)
+const MotionBox = motion.create(Box)
 
 const Dot = ({ full }) => (
   <MotionBox

@@ -10,7 +10,7 @@ import { GatsbyImage } from 'gatsby-plugin-image'
 import { getShopifyImage } from '../../lib/get-shopify-image'
 import ProductVideo from './ProductVideo'
 
-const MotionBox = motion(Box)
+const MotionBox = motion.create(Box)
 const Dot = ({ full, ...props }) => (
   <MotionBox
     sx={{

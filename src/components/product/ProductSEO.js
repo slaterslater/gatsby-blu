@@ -11,7 +11,7 @@ const ProductSEO = ({ product, rating, reviews = [] }) => {
   const { title: seoTitle, description: seoDesc } = product.seo || {}
   const description = seoDesc || product.description
   const productUrl = `${siteUrl}/products/${product.handle}`
-  const ldJSONSrc = getSrcWithSize(product.images[0]?.src, '1024x_crop_center')
+  const ldJSONSrc = getSrcWithSize(product.media[0]?.image.src, '1024x_crop_center')
   const { score = 0, totalReviews = 0 } = rating || {}
   const productLdJSON = `
     {
@@ -86,7 +86,7 @@ const ProductSEO = ({ product, rating, reviews = [] }) => {
     <SEO
       title={seoTitle || product.title.toLowerCase()}
       description={description}
-      shopifyImage={product.images[0]}
+      shopifyImage={product.media[0].images}
       meta={product.tags.includes('hidden') ? noIndex : []}
     >
       <link rel="canonical" href={productUrl} />

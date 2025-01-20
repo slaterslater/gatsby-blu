@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import useInterval from '../lib/useInterval'
 
-const MotionBox = motion(Box)
+const MotionBox = motion.create(Box)
 const Dot = ({ full, ...props }) => (
   <MotionBox
     sx={{

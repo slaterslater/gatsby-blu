@@ -31,7 +31,7 @@ const Countdown = () => {
   if (days < 1 || tooEarly) return null
 
   const message = text.replace('#days', `${days} day${days > 1 ? 's' : ''}`)
-  const MotionBox = motion(Flex)
+  const MotionBox = motion.create(Flex)
 
   return (
     <AnimatePresence>

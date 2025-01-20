@@ -7,7 +7,7 @@ import { wrap } from '@popmotion/popcorn'
 import useInterval from '../../lib/useInterval'
 import { HeroOuter } from '../content/Hero'
 
-const MotionBox = motion(Box)
+const MotionBox = motion.create(Box)
 
 const HeroToggle = ({ heros, delay = 6000 }) => {
   const [isPaused, setIsPaused] = useState(false)

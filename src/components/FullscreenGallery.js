@@ -7,9 +7,9 @@ import RemoteShopifyImage from './RemoteShopifyImage'
 // import FluidShopifyImage from './FluidShopifyImage'
 import ProductVideo from './product/ProductVideo'
 
-const MotionBox = motion(Box)
-const MotionButton = motion(IconButton)
-const MotionFlex = motion(Flex)
+const MotionBox = motion.create(Box)
+const MotionButton = motion.create(IconButton)
+const MotionFlex = motion.create(Flex)
 
 const ControlButton = props => (
   <MotionButton

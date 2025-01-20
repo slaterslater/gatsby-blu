@@ -6,7 +6,7 @@ import { NewsletterContext } from '../contexts/NewsletterContext'
 import { NewsletterSignUp } from './NewsletterForm'
 import { useTimeout } from '../lib/useTimeout'
 
-const Outer = motion(Box)
+const Outer = motion.create(Box)
 
 const NewsletterSignUpPrompt = props => {
   const [isOn, setOn] = useState(false)

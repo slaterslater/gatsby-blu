@@ -4,7 +4,7 @@ import { Box, Flex, Text, Grid } from 'theme-ui'
 import { motion } from 'framer-motion'
 import FormattedPrice from '../FormattedPrice'
 
-const MotionBox = motion(Box)
+const MotionBox = motion.create(Box)
 
 const SummaryItem = ({ bold, term, children }) => (
   <Flex>

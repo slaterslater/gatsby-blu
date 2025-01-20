@@ -122,10 +122,9 @@ export const useProductGalleryMedia = () => {
 
   if (!media) return []
 
+  // maybe need to include video post gatsby 5 update?
   const productGalleryMedia =
-    media?.edges.map(({ node }) => {
-      const { image } = node
-      if (!image) return node
+    media.map(({ image }) => {
       return {
         ...image,
         altText: image.altText || title,

@@ -17,7 +17,7 @@ import PropTypes from 'prop-types'
 import Layout from '../components/layout'
 import Banner from '../components/content/Banner'
 
-const MotionBox = motion(Box)
+const MotionBox = motion.create(Box)
 
 const Career = ({ position, isOpen, handleClick }) => {
   const { title, location, description, url, pdf } = position
