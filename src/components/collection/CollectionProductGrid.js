@@ -57,7 +57,7 @@ const ProductGrid = ({
         <Box key={product.id} sx={{ order: i }}>
           <CollectionProduct
             product={product}
-            images={product.images}
+            media={product.media}
             collectionTitle={collectionTitle}
             collectionPath={collectionPath}
             allowQuickAdd={allowQuickAdd}

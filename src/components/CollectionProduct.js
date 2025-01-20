@@ -36,14 +36,15 @@ const CollectionProduct = ({
   product,
   collectionTitle,
   collectionPath,
-  images,
+  media,
   badges = [],
   allowQuickAdd,
   showLabel = true,
 }) => {
   const [price, hasRange, compareAtPrice] = useProductPrice(product)
   const title = useProductTitle(product.title)
-  const [firstImage, secondImage] = images
+  const [firstImage, secondImage] = media.map(m => m.image)
+  console.log({firstImage, secondImage})
   const { handle, tags, availableForSale, metafields, options, variants } =
     product
   const visitTag = tags.find(tag => tag.startsWith('visit'))?.replace('-', ' ')
