@@ -82,13 +82,13 @@ const FullscreenGallery = ({ isOpen, initialPage, onClose, media }) => {
             position: 'absolute',
           }}
         >
-          {media[currentPage].__typename === 'Image' && (
+          {media[currentPage].mediaContentType === 'IMAGE' && (
             <RemoteShopifyImage
-              url={media[currentPage].url}
+              url={media[currentPage].image.src}
               sx={{ flex: 1, objectFit: 'contain' }}
             />
           )}
-          {media[currentPage].__typename === 'Video' && (
+          {media[currentPage].mediaContentType === 'VIDEO' && (
             <ProductVideo video={media[currentPage]} enableTogglePlayback />
           )}
         </MotionFlex>

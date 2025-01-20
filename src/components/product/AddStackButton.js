@@ -22,9 +22,9 @@ const AddStackButton = () => {
 
   const stackImages = useMemo(
     () =>
-      stack?.map(({ title, images }) => ({
+      stack?.map(({ title, media }) => ({
         alt: title,
-        image: images[0],
+        image: media[0].image,
       })),
     [stack]
   )

@@ -6,6 +6,7 @@ import MobileGallery from './MobileGallery'
 import { useProductGalleryMedia } from '../../hooks/product'
 import ShopifyGatsbyImage from '../ShopifyGatsbyImage'
 import ProductVideo from './ProductVideo'
+import { GatsbyImage } from 'gatsby-plugin-image'
 
 const GalleryImage = ({ image }) => (
   <ShopifyGatsbyImage
@@ -55,14 +56,14 @@ const ProductImageGallery = () => {
             <Button
               type="button"
               variant="unset"
-              key={mediaType.id}
+              key={`media-${i}`}
               sx={{ cursor: 'pointer' }}
               onClick={() => setGalleryState({ isOpen: true, initialPage: i })}
             >
-              {mediaType.__typename === 'Image' && (
-                <GalleryImage image={mediaType} />
+              {mediaType.mediaContentType === 'IMAGE' && (
+                <GalleryImage image={mediaType.image} />
               )}
-              {mediaType.__typename === 'Video' && (
+              {mediaType.mediaContentType === 'VIDEO' && (
                 <ProductVideo video={mediaType} />
               )}
             </Button>

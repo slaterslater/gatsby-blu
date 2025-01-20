@@ -93,7 +93,7 @@ export const useProductGalleryImages = () => {
       width: 3000,
       altText: 'packaging',
       id: 'product_packaging_style',
-      __typename: 'Image',
+      mediaContentType: 'IMAGE',
     },
   ]
 }
@@ -123,15 +123,16 @@ export const useProductGalleryMedia = () => {
   if (!media) return []
 
   // maybe need to include video post gatsby 5 update?
-  const productGalleryMedia =
-    media.map(({ image }) => {
-      return {
-        ...image,
-        altText: image.altText || title,
-      }
-    }) || []
+  // const productGalleryMedia =
+  //   media.map(({image}) => {
+  //     return {
+  //       ...image,
+  //       altText: image.altText || title,
+  //     }
+  //   }) || []
 
-  if (!giftPackagingImageStyle) return productGalleryMedia
+  // if (!giftPackagingImageStyle) return productGalleryMedia
+  if (!giftPackagingImageStyle) return media
 
   const packagingImages = [
     {
@@ -148,16 +149,19 @@ export const useProductGalleryMedia = () => {
     ({ type }) => type === giftPackagingImageStyle.trim().toLowerCase()
   )
 
+  const image = {
+    url,
+    height: 3000,
+    width: 3000,
+    altText: 'packaging',
+    id: 'product_packaging_style',
+    mediaContentType: 'IMAGE',
+  }
+
   return [
-    ...productGalleryMedia,
-    {
-      url,
-      height: 3000,
-      width: 3000,
-      altText: 'packaging',
-      id: 'product_packaging_style',
-      __typename: 'Image',
-    },
+    // ...productGalleryMedia,
+    ...media,
+    {image},
   ]
 }
 

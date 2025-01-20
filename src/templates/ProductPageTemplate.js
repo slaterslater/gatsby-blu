@@ -71,9 +71,17 @@ export const query = graphql`
       #}
       media {
         ... on ShopifyMediaImage {
+          mediaContentType
           image {
             src
             gatsbyImageData(placeholder: BLURRED)
+          }
+        }
+       ... on ShopifyVideo {
+          mediaContentType
+          sources {
+            format
+            url
           }
         }
       }  

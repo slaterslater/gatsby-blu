@@ -20,7 +20,10 @@ export const Breadcrumbs = ({
     ? { path: '/beloved', text: 'beloved by bluboho' }
     : { path: '/', text: 'home' }
 
-  const crumbs = [home, ...links]
+  const crumbs = [home, ...links].map(link => ({
+    text: link.text.toLowerCase(),
+    path: link.path.toLowerCase(),
+  }))
 
   const breadcrumbLdJSON = `
   {

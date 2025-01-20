@@ -2,9 +2,9 @@ import {
   IUrlBuilderArgs,
   IGetImageDataArgs,
   getImageData,
-} from 'gatsby-plugin-image';
+} from "gatsby-plugin-image"
 
-const validFormats = new Set(['jpg', 'png', 'webp', 'auto']);
+const validFormats = new Set(["jpg", "png", "webp", "auto"])
 
 export interface ShopifyImage {
   width: number
@@ -13,8 +13,8 @@ export interface ShopifyImage {
 }
 export interface IGetShopifyImageArgs
   extends Omit<
-  IGetImageDataArgs,
-  'urlBuilder' | 'baseUrl' | 'formats' | 'sourceWidth' | 'sourceHeight'
+    IGetImageDataArgs,
+    "urlBuilder" | "baseUrl" | "formats" | "sourceWidth" | "sourceHeight"
   > {
   image: ShopifyImage
 }
@@ -28,21 +28,21 @@ export function urlBuilder({
     console.warn(
       `${format} is not a valid format. Valid formats are: ${[
         ...validFormats,
-      ].join(', ')}`
+      ].join(", ")}`,
     )
-    format = 'auto';
+    format = "auto"
   }
 
-  let [basename, version] = baseUrl.split('?');
+  let [basename, version] = baseUrl.split("?")
 
-  const dot = basename.lastIndexOf('.');
-  let ext = '';
+  const dot = basename.lastIndexOf(".")
+  let ext = ""
   if (dot !== -1) {
     ext = basename.slice(dot + 1)
     basename = basename.slice(0, dot)
   }
-  let suffix = '';
-  if (format === ext || format === 'auto') {
+  let suffix = ""
+  if (format === ext || format === "auto") {
     suffix = `.${ext}`
   } else {
     suffix = `.${ext}.${format}`
@@ -52,11 +52,9 @@ export function urlBuilder({
 }
 
 export function getShopifyImage({ image, ...args }: IGetShopifyImageArgs) {
-  const {
-    url: baseUrl,
-    width: sourceWidth,
-    height: sourceHeight,
-  } = image
+  const { url: baseUrl, width: sourceWidth, height: sourceHeight } = image
+
+  console.log({ get: image })
 
   return getImageData({
     ...args,
@@ -64,6 +62,6 @@ export function getShopifyImage({ image, ...args }: IGetShopifyImageArgs) {
     sourceWidth,
     sourceHeight,
     urlBuilder,
-    formats: ['auto'],
+    formats: ["auto"],
   })
 }

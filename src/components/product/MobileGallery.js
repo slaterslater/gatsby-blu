@@ -43,22 +43,22 @@ const MobileGallery = ({ media, hasDots = true, onImageClick }) => {
     setCurrentPage([index, index > currentPage ? 1 : -1])
   }
 
-  const imageData = useMemo(() => {
-    if (mediaType.__typename !== 'Image') return null
-    const image = {
-      ...mediaType,
-      height: 640,
-      width: 640,
-    }
-    return getShopifyImage({ image })
-  }, [imageIndex, JSON.stringify(mediaType)])
+  // const imageData = useMemo(() => {
+  //   if (mediaType.mediaContentType !== 'IMAGE') return null
+  //   const image = {
+  //     ...mediaType.image,
+  //     height: 640,
+  //     width: 640,
+  //   }
+  //   return getShopifyImage({ image })
+  // }, [imageIndex, JSON.stringify(mediaType)])
 
   return (
     <Box>
       <AspectRatio ratio={1}>
         <AnimatePresence initial={false}>
           <MotionBox
-            key={`mobile-${mediaType.__typename}-${imageIndex + 1}`}
+            key={`mobile-${mediaType.mediaContentType}-${imageIndex + 1}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -79,10 +79,11 @@ const MobileGallery = ({ media, hasDots = true, onImageClick }) => {
             }}
             onClick={() => onImageClick(imageIndex)}
           >
-            {mediaType.__typename === 'Image' && (
-              <GatsbyImage image={imageData} alt={mediaType.altText || ''} />
+            {mediaType.mediaContentType === 'IMAGE' && (
+              // <GatsbyImage image={imageData} alt={mediaType.altText || ''} />
+              <GatsbyImage image={mediaType.image.gatsbyImageData} alt={mediaType.altText || ''} />
             )}
-            {mediaType.__typename === 'Video' && (
+            {mediaType.mediaContentType === 'VIDEO' && (
               <ProductVideo video={mediaType} />
             )}
           </MotionBox>

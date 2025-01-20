@@ -131,13 +131,14 @@ export const PRODUCT_QUERY = gql`
         edges {
           node {
             ... on Video {
-              id
+              mediaContentType
               sources {
                 format
                 url
               }
             }
             ... on MediaImage {
+              mediaContentType
               image {
                 altText
                 url
