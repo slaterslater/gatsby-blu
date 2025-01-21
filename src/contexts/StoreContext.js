@@ -1,7 +1,7 @@
 import React, { useContext, createContext, useEffect, useState } from 'react'
 import { useQuery, useMutation } from 'urql'
 import store from 'store'
-import { CreateCheckout } from '../mutations/cart'
+import { CartCreate, CreateCheckout } from '../mutations/cart'
 import { CHECKOUT_QUERY } from '../queries/checkout'
 import { CurrencyContext } from './CurrencyContext'
 
@@ -26,22 +26,25 @@ const StoreProvider = props => {
   })
 
   const [createResult, createCheckout] = useMutation(CreateCheckout)
+  // const [createResult, createCheckout] = useMutation(CartCreate)
 
   const createCheckoutAndStoreId = async checkoutVariables => {
     try {
       const { data, error } = await createCheckout({
         ...checkoutVariables,
+        // lines: [],
         countryCode,
         buyerIdentity: { countryCode },
       })
 
+      // console.log('create', {data})
       if (data) {
         const { id } = data.checkoutCreate.checkout
         setCheckoutId(id)
         store.set(STORAGE_CHECKOUT_ID, id)
       }
     } catch (e) {
-      console.error('error creating checkout')
+      console.error('error creating checkout', {e})
     }
   }
 

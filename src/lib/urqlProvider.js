@@ -23,17 +23,16 @@
 import { Client, Provider, cacheExchange, fetchExchange } from 'urql';
 
 const API_VERSION = process.env.GATSBY_SHOPIFY_API_VERSION
-const SHOPIFY_GRAPHQL_URL = `${process.env.GATSBY_SHOPIFY_CHECKOUT_BASE}/api/${API_VERSION}/graphql.json`
-const SHOPIFY_STOREFRONT_ACCESS_TOKEN =
-  process.env.GATSBY_SHOPIFY_STOREFRONT_KEY
+const SHOP_NAME = process.env.GATSBY_SHOPIFY_SHOP_NAME
+const url = `https://${SHOP_NAME}/api/${API_VERSION}/graphql.json`
 
 const client = new Client({
-  url: 'https://bluboho-development.myshopify.com/api/2024-04/graphql.json',
+  url,
   exchanges: [cacheExchange, fetchExchange],
   fetchOptions: () => ({
     headers: {
       'Content-Type': 'application/json',
-      'X-Shopify-Storefront-Access-Token': SHOPIFY_STOREFRONT_ACCESS_TOKEN,
+      'X-Shopify-Storefront-Access-Token': process.env.GATSBY_SHOPIFY_STOREFRONT_KEY,
     },
   }),
 });

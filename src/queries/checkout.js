@@ -1,5 +1,6 @@
 import gql from 'graphql-tag'
 
+// DEPRECIATED
 export const CHECKOUT_FRAGMENT = gql`
   fragment CheckoutFields on Checkout {
     id
@@ -69,6 +70,90 @@ export const CHECKOUT_FRAGMENT = gql`
       currencyCode
     }
   }
+`
+
+export const CART_FRAGMENT = gql`
+fragment CartFields on Cart {
+  id
+  createdAt
+  updatedAt
+  lines(first: 250) {
+    edges {
+      node {
+        id
+        quantity
+        merchandise {
+          ... on ProductVariant {
+            id
+            title
+            price {
+              amount
+              currencyCode
+            }
+            product {
+              id
+            }
+            availableForSale
+            image {
+              altText
+              url
+              height
+              width
+              id
+            }
+            customAttributes: metafields(namespace: "custom", key: "upgrade") {
+              value
+            }
+          }
+        }
+        attributes {
+          key
+          value
+        }
+        discountAllocations {
+          allocatedAmount {
+            amount
+            currencyCode
+          }
+          discountApplication {
+            ... on AutomaticDiscountApplication {
+              title
+            }
+          }
+        }
+      }
+    }
+  }
+  note
+  buyerIdentity {
+    email
+    phone
+    countryCode
+  }
+  cost {
+    subtotalAmount {
+      amount
+      currencyCode
+    }
+    totalAmount {
+      amount
+      currencyCode
+    }
+  }
+  deliveryGroups(first: 10) {
+    edges {
+      node {
+        deliveryOptions {
+          title
+          cost {
+            amount
+            currencyCode
+          }
+        }
+      }
+    }
+  }
+}
 `
 
 export const UPSELL_PRODUCT_FRAGMENT = gql`

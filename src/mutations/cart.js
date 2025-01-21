@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import { CHECKOUT_FRAGMENT } from '../queries/checkout'
+import { CART_FRAGMENT, CHECKOUT_FRAGMENT } from '../queries/checkout'
 
 const ERROR_FRAGMENT = gql`
   fragment ErrorFields on CheckoutUserError {
@@ -24,6 +24,24 @@ export const CreateCheckout = gql`
       }
     }
   }
+`
+
+export const CartCreate = gql`
+  ${CART_FRAGMENT}
+mutation (
+  $countryCode: CountryCode!
+  $buyerIdentity: CartBuyerIdentityInput!
+  $lines: [CartLineInput!]
+) @inContext(country: $countryCode) {
+  cartCreate(
+      input: { lines: $lines, buyerIdentity: $buyerIdentity }
+    ) {
+    cart {
+      id
+      #...CartFields
+    }
+  }
+}
 `
 
 export const UpdateCheckoutLineItem = gql`
