@@ -99,7 +99,7 @@ const PopUp = ({ popup, dismissPrompt = () => {}, shouldPrompt = true }) => {
 PopUp.propTypes = {
   popup: PropTypes.object.isRequired,
   dismissPrompt: PropTypes.func.isRequired,
-  shouldPrompt: PropTypes.bool.isRequired,
+  shouldPrompt: PropTypes.bool,
 }
 
 export default PopUp

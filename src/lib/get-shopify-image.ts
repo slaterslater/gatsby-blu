@@ -54,8 +54,6 @@ export function urlBuilder({
 export function getShopifyImage({ image, ...args }: IGetShopifyImageArgs) {
   const { url: baseUrl, width: sourceWidth, height: sourceHeight } = image
 
-  console.log({ get: image })
-
   return getImageData({
     ...args,
     baseUrl,
