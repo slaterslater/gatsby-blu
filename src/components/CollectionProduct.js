@@ -49,6 +49,8 @@ const CollectionProduct = ({
   const visitTag = tags.find(tag => tag.startsWith('visit'))?.replace('-', ' ')
   const badge = badges.find(({ name }) => name === visitTag)
 
+  console.log({media})
+
   return (
     <ProductListItem
       to={`/products/${handle}`}
