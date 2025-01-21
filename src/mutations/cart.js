@@ -37,8 +37,7 @@ mutation (
       input: { lines: $lines, buyerIdentity: $buyerIdentity }
     ) {
     cart {
-      id
-      #...CartFields
+      ...CartFields
     }
   }
 }

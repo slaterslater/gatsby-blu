@@ -74,86 +74,60 @@ export const CHECKOUT_FRAGMENT = gql`
 
 export const CART_FRAGMENT = gql`
 fragment CartFields on Cart {
-  id
-  createdAt
-  updatedAt
-  lines(first: 250) {
-    edges {
-      node {
+			id
+      note
+    checkoutUrl
+    lines(first: 250) {
+      nodes {
         id
         quantity
-        merchandise {
-          ... on ProductVariant {
-            id
-            title
-            price {
-              amount
-              currencyCode
-            }
-            product {
-              id
-            }
-            availableForSale
-            image {
-              altText
-              url
-              height
-              width
-              id
-            }
-            customAttributes: metafields(namespace: "custom", key: "upgrade") {
-              value
-            }
-          }
-        }
         attributes {
           key
           value
         }
         discountAllocations {
-          allocatedAmount {
+          discountedAmount {
             amount
             currencyCode
           }
-          discountApplication {
-            ... on AutomaticDiscountApplication {
-              title
-            }
-          }
         }
-      }
-    }
-  }
-  note
-  buyerIdentity {
-    email
-    phone
-    countryCode
-  }
-  cost {
-    subtotalAmount {
-      amount
-      currencyCode
-    }
-    totalAmount {
-      amount
-      currencyCode
-    }
-  }
-  deliveryGroups(first: 10) {
-    edges {
-      node {
-        deliveryOptions {
+        merchandise {
+          ... on ProductVariant {
+          id
           title
-          cost {
+          price {
             amount
             currencyCode
           }
+          product {
+            id
+          }
+          availableForSale
+          title
+          image {
+            altText
+            url
+            height
+            width
+            id
+          }
+          upgrade: metafield(namespace: "custom", key: "upgrade") {
+            id: value
+          }
         }
       }
-    }
-  }
-}
+		cost {
+      subtotalAmount {
+        amount
+        currencyCode
+      }
+      totalAmount {
+        amount
+        currencyCode
+      }
+    }    
+  }    
+    } }
 `
 
 export const UPSELL_PRODUCT_FRAGMENT = gql`
@@ -176,9 +150,9 @@ export const UPSELL_PRODUCT_FRAGMENT = gql`
 export const CHECKOUT_QUERY = gql`
   ${CHECKOUT_FRAGMENT}
   ${UPSELL_PRODUCT_FRAGMENT}
-  query CheckoutQuery($checkoutId: ID!, $countryCode: CountryCode)
+  query CheckoutQuery($cartId: ID!, $countryCode: CountryCode)
   @inContext(country: $countryCode) {
-    checkout: node(id: $checkoutId) {
+    checkout: node(id: $cartId) {
       ... on Checkout {
         ...CheckoutFields
       }

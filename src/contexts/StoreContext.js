@@ -1,47 +1,44 @@
 import React, { useContext, createContext, useEffect, useState } from 'react'
 import { useQuery, useMutation } from 'urql'
 import store from 'store'
-import { CartCreate, CreateCheckout } from '../mutations/cart'
+import { CartCreate } from '../mutations/cart'
 import { CHECKOUT_QUERY } from '../queries/checkout'
 import { CurrencyContext } from './CurrencyContext'
 
-const STORAGE_CHECKOUT_ID = 'checkoutId'
+const STORAGE_CART_ID = 'cartId'
 
 const initialValues = {
   cart: [],
   addProductToCart: () => {},
-  checkoutId: undefined,
+  cartId: undefined,
 }
 
 export const StoreContext = createContext(initialValues)
 
 const StoreProvider = props => {
   const { currencyCode, countryCode } = useContext(CurrencyContext)
-  const [checkoutId, setCheckoutId] = useState(initialValues.checkoutId)
+  const [cartId, setCartId] = useState(initialValues.cartId)
 
   const [{ data, fetching, error }] = useQuery({
     query: CHECKOUT_QUERY,
-    variables: { checkoutId },
-    pause: !checkoutId,
+    variables: { cartId },
+    pause: !cartId,
   })
 
-  const [createResult, createCheckout] = useMutation(CreateCheckout)
-  // const [createResult, createCheckout] = useMutation(CartCreate)
+  const [createResult, createCheckout] = useMutation(CartCreate)
 
   const createCheckoutAndStoreId = async checkoutVariables => {
     try {
       const { data, error } = await createCheckout({
         ...checkoutVariables,
-        // lines: [],
         countryCode,
         buyerIdentity: { countryCode },
       })
 
-      // console.log('create', {data})
       if (data) {
-        const { id } = data.checkoutCreate.checkout
-        setCheckoutId(id)
-        store.set(STORAGE_CHECKOUT_ID, id)
+        const { id } = data.cartCreate.cart
+        setCartId(id)
+        store.set(STORAGE_CART_ID, id)
       }
     } catch (e) {
       console.error('error creating checkout', {e})
@@ -49,11 +46,22 @@ const StoreProvider = props => {
   }
 
   useEffect(() => {
-    if ((!fetching && !data && error) || (data && !data.checkout)) {
+    if ((!fetching && !data && error) || (data && !data.cart)) {
       // if we couldn't fetch the checkout id remove it and create another one
-      store.remove('checkoutId')
+      store.remove(STORAGE_CART_ID)
       createCheckoutAndStoreId()
     }
+
+    /*
+    will have to use this for 
+query($checkoutId: ID!) {
+  order(id: $checkoutId) {
+    id
+    createdAt
+    financialStatus
+  }
+}
+    */
 
     if (!fetching && data?.checkout?.completedAt) {
       store.remove('checkoutId')
@@ -63,19 +71,19 @@ const StoreProvider = props => {
 
   useEffect(() => {
     // when the component mounts
-    const currentCheckoutId = store.get(STORAGE_CHECKOUT_ID)
-    if (!currentCheckoutId) {
+    const currentCartId = store.get(STORAGE_CART_ID)
+    if (!currentCartId) {
       createCheckoutAndStoreId()
     } else {
-      setCheckoutId(currentCheckoutId)
+      setCartId(currentCartId)
     }
   }, [])
 
-  const dataCheckoutId = data?.checkout?.id
+  const dataCartId = data?.cart?.id
 
   useEffect(() => {
     const replaceCheckout = async () => {
-      console.log('replacing checkout')
+      console.log('replacing cart')
 
       const { lineItems } = data.checkout
 
@@ -103,20 +111,20 @@ const StoreProvider = props => {
     }
     if (
       currencyCode !== undefined &&
-      dataCheckoutId &&
-      data.checkout.totalPriceV2.currencyCode !== currencyCode
+      dataCartId &&
+      data.cart.cost.totalAmount.currencyCode !== currencyCode
     ) {
       replaceCheckout()
       // create a new checkout with the new currency code and the previous line items
       // store the new checkout as the checkout
     }
-  }, [dataCheckoutId, currencyCode])
+  }, [dataCartId, currencyCode])
 
   return (
     <StoreContext.Provider
       value={{
         ...initialValues,
-        checkoutId,
+        cartId,
       }}
       {...props}
     />
