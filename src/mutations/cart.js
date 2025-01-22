@@ -2,13 +2,14 @@ import gql from 'graphql-tag'
 import { CART_FRAGMENT, CHECKOUT_FRAGMENT } from '../queries/checkout'
 
 const ERROR_FRAGMENT = gql`
-  fragment ErrorFields on CheckoutUserError {
+  fragment ErrorFields on CartUserError {
     code
     field
     message
   }
 `
 
+// DEPRECIATED
 export const CreateCheckout = gql`
   ${CHECKOUT_FRAGMENT}
   mutation (
@@ -60,7 +61,7 @@ export const UpdateCheckoutLineItem = gql`
     }
   }
 `
-
+// DEPRECIATED
 export const AddCheckoutLineItem = gql`
   ${CHECKOUT_FRAGMENT}
   ${ERROR_FRAGMENT}
@@ -73,6 +74,26 @@ export const AddCheckoutLineItem = gql`
         ...CheckoutFields
       }
       checkoutUserErrors {
+        ...ErrorFields
+      }
+    }
+  }
+`
+
+// [GraphQL] Type mismatch on variable $lines and argument lines ([CartLineInput!]! / [CartLineUpdateInput!]!)
+
+export const AddCartLineItem = gql`
+  ${CART_FRAGMENT}
+  ${ERROR_FRAGMENT}
+  mutation AddCartLineItem(
+    $cartId: ID!
+    $lines: [CartLineInput!]!
+  ) {
+    cartLinesAdd(cartId: $cartId, lines: $lines) {
+      cart {
+        ...CartFields
+      }
+      userErrors {
         ...ErrorFields
       }
     }

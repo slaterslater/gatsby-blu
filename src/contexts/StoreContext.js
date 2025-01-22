@@ -25,7 +25,9 @@ const StoreProvider = props => {
     pause: !cartId,
   })
 
-  // console.log({data}) // remove
+  const dataCartId = data?.cart?.id
+  // const isSame = dataCartId === data?.cart?.id
+  // console.log({cart: data?.cart, id: data?.cart?.id, isSame, dataCartId}) // remove
 
   const [createResult, createCheckout] = useMutation(CartCreate)
 
@@ -74,6 +76,7 @@ query($checkoutId: ID!) {
   useEffect(() => {
     // when the component mounts
     const currentCartId = store.get(STORAGE_CART_ID)
+    store.remove(STORAGE_CART_ID)
     if (!currentCartId) {
       createCheckoutAndStoreId()
     } else {
@@ -81,7 +84,7 @@ query($checkoutId: ID!) {
     }
   }, [])
 
-  const dataCartId = data?.cart?.id
+  // const dataCartId = data?.cart?.id
 
   useEffect(() => {
     const replaceCheckout = async () => {

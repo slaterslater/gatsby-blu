@@ -12,7 +12,7 @@ import { useVariantPrice } from '../components/product/VariantPrice'
 import { StoreContext } from '../contexts/StoreContext'
 import { useSendAnalytics } from '../lib/useAnalytics'
 import useToggle from '../lib/useToggle'
-import { AddCheckoutLineItem } from '../mutations/cart'
+import { AddCartLineItem, AddCheckoutLineItem } from '../mutations/cart'
 import { useMadeToOrder } from './product'
 import { useMetafieldValue } from './useMetafield'
 
@@ -20,34 +20,36 @@ export function useCart(onAdded = () => {}) {
   const sendAnalytics = useSendAnalytics('addToCart')
   const [isOn, toggleOn] = useToggle()
   const { setOpenDrawer } = useContext(DrawerContext)
-  const { checkoutId } = useContext(StoreContext)
+  const { cartId } = useContext(StoreContext)
 
   const { selectedVariant, product, quantity, customAttributes, stack } =
     useContext(ProductContext)
+
+    // console.log({ selectedVariant, product, quantity, customAttributes, stack })
   const price = useVariantPrice(selectedVariant || product.variants[0])
   const isPreorder = !!useProductPreorderMessage(product.metafields)
   const madeToOrder = useMadeToOrder()
 
-  const [{ data, fetching }, addCheckoutLineItem] =
-    useMutation(AddCheckoutLineItem)
+  const [{ data, fetching }, addCartLineItem] =
+    useMutation(AddCartLineItem)
 
   const addToCart = async (shouldOpen = true) => {
-    const lineItems = [{ quantity, variantId: selectedVariant.shopifyId }]
+    const lines = [{ quantity, merchandiseId: selectedVariant.shopifyId }]
     const nextAttributes = [
       ...(customAttributes || []),
       ...getProductAttributes(product, madeToOrder),
     ]
 
     if (nextAttributes.length) {
-      lineItems[0].customAttributes = nextAttributes
+      lines[0].attributes = nextAttributes  // ?
     }
-    const cart = await addCheckoutLineItem({
-      checkoutId,
-      lineItems,
+    const cart = await addCartLineItem({
+      cartId,
+      lines,
     })
     const addedItem =
-      cart.data.checkoutLineItemsAdd.checkout.lineItems.nodes.find(
-        item => item.variant.id === lineItems[0].variantId
+      cart.data.cartLinesAdd.cart.lines.nodes.find(
+        item => item.merchandise.id === lines[0].merchandiseId
       )
     if (shouldOpen) setOpenDrawer('cart')
     onAdded()
