@@ -13,7 +13,10 @@ import { metals } from '../data/metals'
 export const getProduct = product => ({
   ...product,
   shopifyId: product.id,
-  images: product.images.edges.map(({ node }) => node),
+  media: product.media.nodes.map(({image, mediaContentType}) => ({
+    image,
+    mediaContentType
+  })),
   variants: product.variants.edges.map(({ node }) => ({
     ...node,
     shopifyId: node.id,

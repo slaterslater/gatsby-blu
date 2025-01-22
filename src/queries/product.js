@@ -128,8 +128,7 @@ export const PRODUCT_QUERY = gql`
         values
       }
       media(first: 25) {
-        edges {
-          node {
+          nodes {
             ... on Video {
               mediaContentType
               sources {
@@ -149,7 +148,6 @@ export const PRODUCT_QUERY = gql`
             }
           }
         }
-      }
       images(first: 25) {
         edges {
           node {
