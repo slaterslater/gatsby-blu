@@ -88,7 +88,7 @@ export const query = graphql`
           value
         }
         products {
-          id
+          id: shopifyId
           handle
           title
           vendor
