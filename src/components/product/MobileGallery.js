@@ -9,6 +9,7 @@ import { GatsbyImage } from 'gatsby-plugin-image'
 
 import { getShopifyImage } from '../../lib/get-shopify-image'
 import ProductVideo from './ProductVideo'
+import ShopifyGatsbyImage from '../ShopifyGatsbyImage'
 
 const MotionBox = motion.create(Box)
 const Dot = ({ full, ...props }) => (
@@ -81,7 +82,12 @@ const MobileGallery = ({ media, hasDots = true, onImageClick }) => {
           >
             {mediaType.mediaContentType === 'IMAGE' && (
               // <GatsbyImage image={imageData} alt={mediaType.altText || ''} />
-              <GatsbyImage image={mediaType.image.gatsbyImageData} alt={mediaType.altText || ''} />
+              // <GatsbyImage image={mediaType.image.gatsbyImageData} alt={mediaType.altText || ''} />
+              <ShopifyGatsbyImage
+                  image={mediaType.image}
+                  getImageProps={{ width: 640, height:640 }}
+                  style={{ aspectRatio: '1' }}
+                />
             )}
             {mediaType.mediaContentType === 'VIDEO' && (
               <ProductVideo video={mediaType} />

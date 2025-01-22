@@ -31,7 +31,9 @@ const client = new Client({
   exchanges: [cacheExchange, fetchExchange],
   fetchOptions: () => ({
     headers: {
+      // 'Content-Type': 'application/graphql',
       'Content-Type': 'application/json',
+      // 'Content-Type': 'application/graphql+json,',
       'X-Shopify-Storefront-Access-Token': process.env.GATSBY_SHOPIFY_STOREFRONT_KEY,
     },
   }),

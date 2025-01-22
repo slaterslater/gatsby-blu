@@ -2,7 +2,7 @@ import React, { useContext, createContext, useEffect, useState } from 'react'
 import { useQuery, useMutation } from 'urql'
 import store from 'store'
 import { CartCreate } from '../mutations/cart'
-import { CHECKOUT_QUERY } from '../queries/checkout'
+import { CART_QUERY, CHECKOUT_QUERY } from '../queries/checkout'
 import { CurrencyContext } from './CurrencyContext'
 
 const STORAGE_CART_ID = 'cartId'
@@ -20,10 +20,12 @@ const StoreProvider = props => {
   const [cartId, setCartId] = useState(initialValues.cartId)
 
   const [{ data, fetching, error }] = useQuery({
-    query: CHECKOUT_QUERY,
+    query: CART_QUERY,
     variables: { cartId },
     pause: !cartId,
   })
+
+  // console.log({data}) // remove
 
   const [createResult, createCheckout] = useMutation(CartCreate)
 
@@ -63,7 +65,7 @@ query($checkoutId: ID!) {
 }
     */
 
-    if (!fetching && data?.checkout?.completedAt) {
+    if (!fetching && data?.checkout?.completedAt) { // this needs to be updated as cart doesn't have completedAt
       store.remove('checkoutId')
       createCheckoutAndStoreId()
     }
@@ -85,35 +87,41 @@ query($checkoutId: ID!) {
     const replaceCheckout = async () => {
       console.log('replacing cart')
 
-      const { lineItems } = data.checkout
+      const { lines } = data.cart
 
-      const nextLineItems = lineItems.nodes.map(
-        ({ variant, quantity, customAttributes }) => {
-          const item = {
-            variantId: variant.id,
-            quantity,
-          }
+      // const nextLineItems = lines.nodes.map(
+      //   ({ variant, quantity, attributes }) => {
+      //     const item = {
+      //       variantId: variant.id,
+      //       quantity,
+      //     }
 
-          if (customAttributes.length) {
-            item.customAttributes = customAttributes.map(({ key, value }) => ({
-              key,
-              value,
-            }))
-          }
+      //     if (customAttributes.length) {
+      //       item.customAttributes = customAttributes.map(({ key, value }) => ({
+      //         key,
+      //         value,
+      //       }))
+      //     }
 
-          return item
-        }
-      )
+      //     return item
+      //   }
+      // )
 
       createCheckoutAndStoreId({
-        lineItems: nextLineItems,
+        // lines: nextLineItems,
+        lines: []
       })
     }
-    if (
-      currencyCode !== undefined &&
-      dataCartId &&
-      data.cart.cost.totalAmount.currencyCode !== currencyCode
-    ) {
+
+    const cartCurrency = data?.cart.cost.totalAmount.currencyCode
+    const isValidCurrency = currencyCode !== undefined && (cartCurrency === currencyCode || cartCurrency === 'XXX')
+    
+    if (dataCartId && !isValidCurrency) {
+    // if (
+    //   currencyCode !== undefined &&
+    //   dataCartId &&
+    //   data?.cart.cost.totalAmount.currencyCode !== currencyCode
+    // ) {
       replaceCheckout()
       // create a new checkout with the new currency code and the previous line items
       // store the new checkout as the checkout
