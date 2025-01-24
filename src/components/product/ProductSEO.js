@@ -86,7 +86,7 @@ const ProductSEO = ({ product, rating, reviews = [] }) => {
     <SEO
       title={seoTitle || product.title.toLowerCase()}
       description={description}
-      shopifyImage={product.media[0].images}
+      shopifyImage={product.media[0]?.images}
       meta={product.tags.includes('hidden') ? noIndex : []}
     >
       <link rel="canonical" href={productUrl} />

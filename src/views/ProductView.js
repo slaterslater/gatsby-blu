@@ -94,7 +94,7 @@ const ProductView = ({
                 sku: legacyResourceId,
                 product_description: description,
                 product_url: location?.href,
-                product_image_url: media[0].image.src,
+                product_image_url: media[0]?.image.src,
               }}
             />
             <UserGeneratedContent />
