@@ -6,7 +6,7 @@ import { StoreContext } from '../../contexts/StoreContext'
 import CartLineItem from '../cart/CartLineItem'
 import { OrderSummary } from '../cart/OrderSummary'
 import CheckoutButton from '../cart/CheckoutButton'
-import { CHECKOUT_QUERY } from '../../queries/checkout'
+import { CART_QUERY } from '../../queries/checkout'
 import OrderNote from '../OrderNote'
 import { useAnalytics } from '../../lib/useAnalytics'
 import { CurrencyContext } from '../../contexts/CurrencyContext'
@@ -23,13 +23,13 @@ const EmptyCart = () => (
   </Box>
 )
 
-const CartTag = ({ checkout }) => {
-  useAnalytics('viewCart', checkout)
+const CartTag = ({ cart }) => {
+  useAnalytics('viewCart', cart)
   return false
 }
 
 const CartDrawer = ({ onClose }) => {
-  const { checkoutId } = useContext(StoreContext)
+  const { cartId } = useContext(StoreContext)
   const { countryCode } = useContext(CurrencyContext)
   const { accessToken } = useContext(AuthContext)
 
@@ -39,32 +39,32 @@ const CartDrawer = ({ onClose }) => {
   const [, removeLineItem] = useMutation(RemoveCheckoutLineItem)
 
   const [{ data, fetching }, reexecuteQuery] = useQuery({
-    query: CHECKOUT_QUERY,
-    variables: { checkoutId, countryCode },
+    query: CART_QUERY,
+    variables: { cartId, countryCode },
   })
 
   const refreshCheckout = () =>
     reexecuteQuery({ requestPolicy: 'network-only' })
 
-  const { checkout } = data || {}
-  const lineItems = checkout?.lineItems?.nodes || []
+  const { cart } = data || {}
+  const lines = cart?.lines?.nodes || []
 
   // remove lineitems if product doesn't exist anymore
   useEffect(() => {
-    lineItems.forEach(item => {
+    lines.forEach(item => {
       if (item.variant) return
-      removeLineItem({ checkoutId, lineItemIds: [item.id] })
+      removeLineItem({ cartId, lineIds: [item.id] })
     })
-  }, [lineItems])
+  }, [lines])
 
-  useEffect(() => {
-    if ((accessToken, checkoutId)) {
-      associateCustomerWithCheckout({
-        checkoutId,
-        customerAccessToken: accessToken,
-      })
-    }
-  }, [accessToken, checkoutId, associateCustomerWithCheckout])
+  // useEffect(() => {
+  //   if ((accessToken, cartId)) {
+  //     associateCustomerWithCheckout({
+  //       cartId,
+  //       customerAccessToken: accessToken,
+  //     })
+  //   }
+  // }, [accessToken, cartId, associateCustomerWithCheckout])
 
   return (
     <Flex
@@ -76,7 +76,7 @@ const CartDrawer = ({ onClose }) => {
       }}
       pb={3}
     >
-      {data && <CartTag checkout={checkout} />}
+      {data && <CartTag cart={cart} />}
       <Box>
         <Flex p={4} sx={{ alignItems: 'center' }}>
           <Text sx={{ fontSize: 3, flex: 1 }}>Your Bag</Text>
@@ -89,8 +89,8 @@ const CartDrawer = ({ onClose }) => {
       {data && (
         <>
           <Box sx={{ flex: 1, overflowY: 'auto' }}>
-            {!lineItems.length && <EmptyCart />}
-            {lineItems.map(item => (
+            {!lines.length && <EmptyCart />}
+            {lines.map(item => (
               <Box key={item.id} py={4} px={3}>
                 <CartLineItem item={item} onRemoveItem={refreshCheckout} />
               </Box>
@@ -98,18 +98,18 @@ const CartDrawer = ({ onClose }) => {
           </Box>
           <AddOns
             products={data.addons?.products.nodes || []}
-            checkoutId={checkoutId}
+            cartId={cartId}
           />
-          <OrderNote initialNote={checkout.note} />
+          <OrderNote initialNote={cart.note} />
           <OrderSummary
-            subtotalPriceV2={checkout.subtotalPriceV2}
-            totalPriceV2={checkout.totalPriceV2}
-            requiresShipping={checkout.requiresShipping}
-            shippingRates={checkout.availableShippingRates}
-            note={checkout.note}
+            subtotalPriceV2={cart.cost.subtotalAmount}
+            totalPriceV2={cart.cost.totalAmount}
+            // requiresShipping={checkout.requiresShipping}
+            // shippingRates={checkout.availableShippingRates}
+            note={cart.note}
             loading={fetching}
           />
-          <CheckoutButton href={checkout.webUrl} />
+          <CheckoutButton href={cart.checkoutUrl} />
         </>
       )}
     </Flex>

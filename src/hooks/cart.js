@@ -12,7 +12,7 @@ import { useVariantPrice } from '../components/product/VariantPrice'
 import { StoreContext } from '../contexts/StoreContext'
 import { useSendAnalytics } from '../lib/useAnalytics'
 import useToggle from '../lib/useToggle'
-import { AddCartLineItem, AddCheckoutLineItem } from '../mutations/cart'
+import { AddCartLineItem, AddCartLines, AddCheckoutLineItem } from '../mutations/cart'
 import { useMadeToOrder } from './product'
 import { useMetafieldValue } from './useMetafield'
 
@@ -30,8 +30,8 @@ export function useCart(onAdded = () => {}) {
   const isPreorder = !!useProductPreorderMessage(product.metafields)
   const madeToOrder = useMadeToOrder()
 
-  const [{ data, fetching }, addCartLineItem] =
-    useMutation(AddCartLineItem)
+  const [{ data, fetching }, addCartLines] =
+    useMutation(AddCartLines)
 
   const addToCart = async (shouldOpen = true) => {
     const lines = [{ quantity, merchandiseId: selectedVariant.shopifyId }]
@@ -43,7 +43,7 @@ export function useCart(onAdded = () => {}) {
     if (nextAttributes.length) {
       lines[0].attributes = nextAttributes  // ?
     }
-    const cart = await addCartLineItem({
+    const cart = await addCartLines({
       cartId,
       lines,
     })
@@ -132,10 +132,10 @@ export function useCart(onAdded = () => {}) {
         ({ shopifyId, availableForSale }) => availableForSale && shopifyId
       )
 
-    const lineItems = stackVariants.map(variant => ({
-      variantId: variant.shopifyId,
+    const lines = stackVariants.map(variant => ({
+      merchandiseId: variant.shopifyId,
       quantity: variant.quantity,
-      customAttributes: [
+      attributes: [
         ...variant.customAttributes,
         ...getProductAttributes(
           {
@@ -146,10 +146,9 @@ export function useCart(onAdded = () => {}) {
       ],
     }))
 
-    console.log({ lineItems })
-    const cart = await addCheckoutLineItem({
-      checkoutId,
-      lineItems,
+    const cart = await addCartLines({
+      cartId,
+      lines,
     })
 
     setOpenDrawer('cart')
@@ -157,8 +156,8 @@ export function useCart(onAdded = () => {}) {
     // send analytics for each
     stackVariants.forEach(item => {
       const addedItem =
-        cart.data.checkoutLineItemsAdd.checkout.lineItems.nodes.find(
-          ({ variant }) => variant.id === item.shopifyId
+        cart.data.cartLinesAdd.cart.lines.nodes.find(
+          ({ merchandise }) => merchandise.id === item.shopifyId
         )
       sendAnalytics(addedItem)
     })

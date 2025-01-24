@@ -2,46 +2,33 @@ import { Flex, Box, Button, Checkbox, Label } from 'theme-ui'
 import React, { useContext } from 'react'
 import { useMutation } from 'urql'
 import { IoIosCheckmark } from 'react-icons/io'
-import { UpdateCheckoutLineItem } from '../mutations/cart'
+import { UpdateCartLine, UpdateCheckoutLineItem } from '../mutations/cart'
 import { StoreContext } from '../contexts/StoreContext'
 
 const WrapSeparatelyOption = ({ item }) => {
-  const { checkoutId } = useContext(StoreContext)
-  const isSeparate = !!item.customAttributes.find(
+  const { cartId } = useContext(StoreContext)
+  const isSeparate = !!item.attributes.find(
     attr => attr.key === 'wrapping'
   )
 
-  const [{ fetching }, updateLineItem] = useMutation(UpdateCheckoutLineItem)
+  const [{ fetching }, updateLineItem] = useMutation(UpdateCartLine)
 
   const toggleWrapping = () => {
+    let attributes = item.attributes.map(attr => ({ key: attr.key, value: attr.value }))
     if (isSeparate) {
-      updateLineItem({
-        checkoutId,
-        lineItems: [
-          {
-            id: item.id,
-            customAttributes: item.customAttributes
-              .map(attr => ({ key: attr.key, value: attr.value }))
-              .filter(attribute => attribute.key !== 'wrapping'),
-          },
-        ],
-      })
+      attributes.filter(attribute => attribute.key !== 'wrapping')
     } else {
-      updateLineItem({
-        checkoutId,
-        lineItems: [
-          {
-            id: item.id,
-            customAttributes: item.customAttributes
-              .map(attr => ({ key: attr.key, value: attr.value }))
-              .concat({
-                key: 'wrapping',
-                value: 'wrap separately',
-              }),
-          },
-        ],
+      attributes.concat({
+        key: 'wrapping',
+        value: 'wrap separately',
       })
     }
+    
+    const lines = [{
+      id: item.id,
+      attributes,
+    }]
+    updateLineItem({cartId, lines})
   }
 
   return (

@@ -160,20 +160,20 @@ module.exports = {
         // password: process.env.SHOPIFY_STOREFRONT_KEY,
         password: process.env.SHOPIFY_STOREFRONT_PASSWORD,
         shopifyConnections: ['collections'],
-        // apiVersion: process.env.GATSBY_SHOPIFY_API_VERSION,
+        apiVersion: process.env.GATSBY_SHOPIFY_API_VERSION,
         // paginationSize: 80,
         // collections: ['shop'],
         downloadImages: false,
         // shopifyQueries: shopifySourceQueries,
       },
     },
-    {
-      resolve: '@sentry/gatsby',
-      options: {
-        dsn: process.env.SENTRY_DSN,
-        sampleRate: 0.7,
-      },
-    },
+    // {
+    //   resolve: '@sentry/gatsby',
+    //   options: {
+    //     dsn: process.env.SENTRY_DSN,
+    //     sampleRate: 0.7,
+    //   },
+    // },
     {
       resolve: 'gatsby-plugin-sitemap',
       options: {

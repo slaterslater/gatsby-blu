@@ -1,17 +1,15 @@
 import React, { useContext } from 'react'
-
 import { Form, Formik, Field } from 'formik'
 import { Flex, Box, Textarea } from 'theme-ui'
 import { useMutation } from 'urql'
 import RevealBox from './RevealBox'
 import { StoreContext } from '../contexts/StoreContext'
-import { CHECKOUT_QUERY } from '../queries/checkout'
 import SubmitButton from './app/formik/SubmitButton'
-import { UpdateCheckoutAttributes } from '../mutations/cart'
+import { UpdateCartNote } from '../mutations/cart'
 
 const OrderNote = ({ initialNote }) => {
-  const { checkoutId } = useContext(StoreContext)
-  const [, updateCheckoutAttributes] = useMutation(UpdateCheckoutAttributes)
+  const { cartId } = useContext(StoreContext)
+  const [, updateCartNote] = useMutation(UpdateCartNote)
 
   return (
     <Box px={4}>
@@ -22,7 +20,7 @@ const OrderNote = ({ initialNote }) => {
               initialValues={{ note: initialNote }}
               onSubmit={async (input, { setSubmitting }) => {
                 try {
-                  await updateCheckoutAttributes({ checkoutId, input })
+                  await updateCartNote({ cartId, note: input.note })
                   setSubmitting(false)
                   toggle()
                 } catch (e) {

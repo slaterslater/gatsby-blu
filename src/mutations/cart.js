@@ -43,7 +43,7 @@ mutation (
   }
 }
 `
-
+// DEPRECIATED
 export const UpdateCheckoutLineItem = gql`
   ${CHECKOUT_FRAGMENT}
   ${ERROR_FRAGMENT}
@@ -56,6 +56,23 @@ export const UpdateCheckoutLineItem = gql`
         ...CheckoutFields
       }
       checkoutUserErrors {
+        ...ErrorFields
+      }
+    }
+  }
+`
+export const UpdateCartLine = gql`
+  ${CART_FRAGMENT}
+  ${ERROR_FRAGMENT}
+  mutation UpdateCartLine(
+    $cartId: ID!
+    $lines: [CartLineUpdateInput!]!
+  ) {
+    cartLinesUpdate(cartId: $cartId, lines: $lines) {
+      cart {
+        ...CartFields
+      }
+      userErrors {
         ...ErrorFields
       }
     }
@@ -80,12 +97,10 @@ export const AddCheckoutLineItem = gql`
   }
 `
 
-// [GraphQL] Type mismatch on variable $lines and argument lines ([CartLineInput!]! / [CartLineUpdateInput!]!)
-
-export const AddCartLineItem = gql`
+export const AddCartLines = gql`
   ${CART_FRAGMENT}
   ${ERROR_FRAGMENT}
-  mutation AddCartLineItem(
+  mutation AddCartLines(
     $cartId: ID!
     $lines: [CartLineInput!]!
   ) {
@@ -99,7 +114,7 @@ export const AddCartLineItem = gql`
     }
   }
 `
-
+// DEPRECIATED
 export const RemoveCheckoutLineItem = gql`
   ${CHECKOUT_FRAGMENT}
   ${ERROR_FRAGMENT}
@@ -112,6 +127,23 @@ export const RemoveCheckoutLineItem = gql`
         ...CheckoutFields
       }
       checkoutUserErrors {
+        ...ErrorFields
+      }
+    }
+  }
+`
+export const RemoveCartLine = gql`
+  ${CART_FRAGMENT}
+  ${ERROR_FRAGMENT}
+  mutation RemoveCartLine($cartId: ID!, $lineIds: [ID!]!) {
+    cartLinesRemove(
+      cartId: $cartId
+      lineIds: $lineIds
+    ) {
+      cart {
+        ...CartFields
+      }
+      userErrors {
         ...ErrorFields
       }
     }
@@ -141,7 +173,7 @@ export const AssociateCustomerWithCheckout = gql`
     }
   }
 `
-
+// DEPRECIATED
 export const UpdateCheckoutAttributes = gql`
   ${CHECKOUT_FRAGMENT}
   ${ERROR_FRAGMENT}
@@ -151,6 +183,21 @@ export const UpdateCheckoutAttributes = gql`
         ...CheckoutFields
       }
       checkoutUserErrors {
+        ...ErrorFields
+      }
+    }
+  }
+`
+
+export const UpdateCartNote = gql`
+  ${CART_FRAGMENT}
+  ${ERROR_FRAGMENT}
+  mutation UpdateCartNote($cartId: ID!, $note: String!) {
+    cartNoteUpdate(cartId: $cartId, note: $note) {
+      cart {
+        ...CartFields
+      }
+      userErrors {
         ...ErrorFields
       }
     }

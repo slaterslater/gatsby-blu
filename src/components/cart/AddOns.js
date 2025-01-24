@@ -73,7 +73,7 @@ const AddOnProduct = ({ product, addOntoCart, currencyCode }) => {
   )
 }
 
-const AddOns = ({ products, checkoutId }) => {
+const AddOns = ({ products, cartId }) => {
   const MAX = products.length - 1
   const SIZE = 4 // number of products to recommend
 
@@ -103,7 +103,7 @@ const AddOns = ({ products, checkoutId }) => {
   const addOntoCart = async variantId => {
     const lineItems = [{ quantity: 1, variantId }]
     const cart = await addCheckoutLineItem({
-      checkoutId,
+      cartId,
       lineItems,
     })
     // do something with analytics?

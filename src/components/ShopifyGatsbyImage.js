@@ -11,7 +11,6 @@ const ShopifyGatsbyImage = ({
 }) => {
   const shopifyImage  = useShopifyImage({ image, width: getImageProps.width })
   const imageData = image.gatsbyImageData || shopifyImage
-
   return (
     <GatsbyImage
       image={imageData}

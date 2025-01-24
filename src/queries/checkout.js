@@ -111,6 +111,7 @@ fragment CartFields on Cart {
             }
             product {
               id
+              title
             }
             availableForSale
             title
