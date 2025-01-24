@@ -179,12 +179,17 @@ module.exports = {
       options: {
         query: `
         {
-          site {
-            siteMetadata {
-              siteUrl
-            }
-          }
-          allSitePage(filter: {context: {hidden: {ne: true}}}) {
+          #site {
+          #  siteMetadata {
+          #    siteUrl
+          #  }
+          #}
+          #allSitePage(filter: {context: {hidden: {ne: true}}}) {
+          #  nodes {
+          #    path
+          #  }
+          #}
+          allSitePage {
             nodes {
               path
             }
@@ -193,6 +198,7 @@ module.exports = {
         `,
         excludes: ['/account'],
         filterPages: ({ path }) => path.includes('['),
+        resolveSiteUrl: () => siteUrl,
         resolvePagePath: ({ path }) =>
           // const pathWithTrailingSlash = path.endsWith('/') ? path : `${path}/`
           // return siteUrl + pathWithTrailingSlash

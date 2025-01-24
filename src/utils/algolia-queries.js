@@ -17,13 +17,23 @@ const productQuery = `
         handle
         # availableForSale MOVED TO VARIANT
         vendor
-        images {
-          id
-          src
-          altText
-          height
-          width
-        }
+        #images {
+        #  id
+        #  src
+        #  altText
+        #  height
+        #  width
+        #}
+        media {
+          ... on ShopifyMediaImage {
+            image {
+              src
+              altText
+              height
+              width
+            }
+          }
+        }      
         tags
         # metafields {
         #   key
