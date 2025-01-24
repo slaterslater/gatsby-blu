@@ -7,7 +7,7 @@ import { wrap } from '@popmotion/popcorn'
 import { Link as GatsbyLink } from 'gatsby'
 import { useShopifyImage } from '../../hooks/shopifyImage'
 import { useProductTitle } from '../ProductTitle'
-import { AddCheckoutLineItem } from '../../mutations/cart'
+import { AddCartLines, AddCheckoutLineItem } from '../../mutations/cart'
 import { useFormattedPrice } from '../FormattedPrice'
 import { CurrencyContext } from '../../contexts/CurrencyContext'
 
@@ -86,7 +86,7 @@ const AddOns = ({ products, cartId }) => {
   const { currencyCode } = useContext(CurrencyContext)
 
   const [{ data, fetching }, addCheckoutLineItem] =
-    useMutation(AddCheckoutLineItem)
+    useMutation(AddCartLines)
 
   const addOns = useMemo(() => {
     if (!products.length) return []
@@ -100,11 +100,11 @@ const AddOns = ({ products, cartId }) => {
     return Array.from(randomNums).map(n => products[n])
   }, [])
 
-  const addOntoCart = async variantId => {
-    const lineItems = [{ quantity: 1, variantId }]
+  const addOntoCart = async merchandiseId => {
+    const lines = [{ quantity: 1, merchandiseId }]
     const cart = await addCheckoutLineItem({
       cartId,
-      lineItems,
+      lines,
     })
     // do something with analytics?
   }

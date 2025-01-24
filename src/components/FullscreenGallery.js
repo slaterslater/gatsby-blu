@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react'
 import RemoteShopifyImage from './RemoteShopifyImage'
 // import FluidShopifyImage from './FluidShopifyImage'
 import ProductVideo from './product/ProductVideo'
+import ShopifyGatsbyImage from './ShopifyGatsbyImage'
 
 const MotionBox = motion.create(Box)
 const MotionButton = motion.create(IconButton)
@@ -41,6 +42,8 @@ const FullscreenGallery = ({ isOpen, initialPage, onClose, media }) => {
   useEffect(() => {
     setCurrentPage([initialPage, 0])
   }, [initialPage])
+
+  const mediaType = media[currentPage]
 
   return (
     <MotionBox
@@ -82,11 +85,16 @@ const FullscreenGallery = ({ isOpen, initialPage, onClose, media }) => {
             position: 'absolute',
           }}
         >
-          {media[currentPage].mediaContentType === 'IMAGE' && (
-            <RemoteShopifyImage
-              url={media[currentPage].image.src}
-              sx={{ flex: 1, objectFit: 'contain' }}
-            />
+          {mediaType.mediaContentType === 'IMAGE' && (
+            // <RemoteShopifyImage
+            //   url={media[currentPage].image.src}
+            //   sx={{ flex: 1, objectFit: 'contain' }}
+            // />
+            <ShopifyGatsbyImage
+                image={mediaType.image}
+                getImageProps={{ width: 900 }}
+                // style={{ aspectRatio: '1' }}
+              />
           )}
           {media[currentPage].mediaContentType === 'VIDEO' && (
             <ProductVideo video={media[currentPage]} enableTogglePlayback />

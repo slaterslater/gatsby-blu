@@ -9,8 +9,11 @@ const ShopifyGatsbyImage = ({
   gatsbyImageProps = {},
   style = {},
 }) => {
-  const shopifyImage  = useShopifyImage({ image, width: getImageProps.width })
-  const imageData = image.gatsbyImageData || shopifyImage
+  let imageData = image.gatsbyImageData
+  if (!imageData) {
+    imageData = useShopifyImage({ image, width: getImageProps.width })
+  }
+
   return (
     <GatsbyImage
       image={imageData}
