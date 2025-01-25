@@ -54,6 +54,9 @@ const productQuery = `
           availableForSale
           price
         }
+        internal {
+          contentDigest
+        }
       }
     }
   }
