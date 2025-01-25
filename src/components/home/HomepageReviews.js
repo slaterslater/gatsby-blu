@@ -9,10 +9,10 @@ import ThemeLink from '../app/ThemeLink'
 import { MobileSlider } from '../content/CollectionRow'
 // import ShopifyGatsbyImage from '../ShopifyGatsbyImage'
 
-const MotionBox = motion(Box)
+const MotionBox = motion.create(Box)
 
 const Review = ({ starPercentage, excerpt, author, product }) => {
-  const image = product.images[0].gatsbyImageData
+  const image = product.media[0].image.gatsbyImageData
   if (!image) return
   return (
     <AnimatePresence>

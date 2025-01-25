@@ -203,8 +203,15 @@ export const query = graphql`
         handle
         title
         vendor
-        images {
-          gatsbyImageData(placeholder: BLURRED, width: 360)
+        #images {
+        #  gatsbyImageData(placeholder: BLURRED, width: 360)
+        #}
+        media {
+          ... on ShopifyMediaImage {
+            image {
+              gatsbyImageData(placeholder: BLURRED, width: 360)
+            }
+          }
         }
         tags
         metafields {

@@ -128,16 +128,16 @@ export const PRODUCT_QUERY = gql`
         values
       }
       media(first: 25) {
-        edges {
-          node {
+          nodes {
             ... on Video {
-              id
+              mediaContentType
               sources {
                 format
                 url
               }
             }
             ... on MediaImage {
+              mediaContentType
               image {
                 altText
                 url
@@ -148,7 +148,6 @@ export const PRODUCT_QUERY = gql`
             }
           }
         }
-      }
       images(first: 25) {
         edges {
           node {

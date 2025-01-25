@@ -1,5 +1,6 @@
 import gql from 'graphql-tag'
 
+// DEPRECIATED
 export const CHECKOUT_FRAGMENT = gql`
   fragment CheckoutFields on Checkout {
     id
@@ -71,6 +72,66 @@ export const CHECKOUT_FRAGMENT = gql`
   }
 `
 
+export const CART_FRAGMENT = gql`
+fragment CartFields on Cart {
+			id
+      note
+      checkoutUrl
+      cost {
+        subtotalAmount {
+          amount
+          currencyCode
+        }
+        totalAmount {
+          amount
+          currencyCode
+        }
+      }
+      lines(first: 250) {
+        nodes {
+          id
+          quantity
+          attributes {
+            key
+            value
+          }
+          discountAllocations {
+            discountedAmount {
+              amount
+              currencyCode
+            }
+          }
+          merchandise {
+            ... on ProductVariant {
+            id
+            title
+            price {
+              amount
+              currencyCode
+            }
+            product {
+              id
+              title
+            }
+            availableForSale
+            title
+            image {
+              altText
+              url
+              height
+              width
+              id
+            }
+            upgrade: metafield(namespace: "custom", key: "upgrade") {
+              id: value
+            }
+          }
+        }	    
+      }    
+    } 
+  }
+`
+
 export const UPSELL_PRODUCT_FRAGMENT = gql`
   fragment UpsellProductFields on Product {
     id
@@ -87,15 +148,43 @@ export const UPSELL_PRODUCT_FRAGMENT = gql`
     }
   }
 `
-
+// DEPRECIATED
 export const CHECKOUT_QUERY = gql`
   ${CHECKOUT_FRAGMENT}
   ${UPSELL_PRODUCT_FRAGMENT}
-  query CheckoutQuery($checkoutId: ID!, $countryCode: CountryCode)
+  query CheckoutQuery($cartId: ID!, $countryCode: CountryCode)
   @inContext(country: $countryCode) {
-    checkout: node(id: $checkoutId) {
+    checkout: node(id: $cartId) {
       ... on Checkout {
         ...CheckoutFields
+      }
+    }
+    addons: collection(handle: "you-might-also-like") {
+      products(first: 50) {
+        nodes {
+          ...UpsellProductFields
+          variants(first: 1) {
+            nodes {
+              id
+              priceV2: price {
+                amount
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`
+
+export const CART_QUERY = gql`
+  ${CART_FRAGMENT}
+  ${UPSELL_PRODUCT_FRAGMENT}
+  query CartQuery($cartId: ID!, $countryCode: CountryCode)
+  @inContext(country: $countryCode) {
+    cart: node(id: $cartId) {
+      ... on Cart {
+        ...CartFields
       }
     }
     addons: collection(handle: "you-might-also-like") {

@@ -5,7 +5,7 @@ const VariantOption = ({ isSelected, isHidden = false, ...props }) => (
   <Button
     type="button"
     variant="secondary"
-    whileHover={{ scale: 1.05 }}
+    // whileHover={{ scale: 1.05 }}
     px={1}
     sx={{
       border: '1px solid',

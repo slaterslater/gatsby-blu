@@ -5,9 +5,9 @@ import { useProductTitle } from './ProductTitle'
 import { useShopifyImage } from '../hooks/shopifyImage'
 
 const getItemOptionDescription = item => {
-  const title = item.variant?.title?.toLowerCase().replace(/\s\//, ', ')
+  const title = item.merchandise?.title?.toLowerCase().replace(/\s\//, ', ')
   if (!title || title === 'default title') return ''
-  const fractionalSize = item.customAttributes
+  const fractionalSize = item.attributes
     .find(({ key }) => key === 'size')
     ?.value.split('')
     .pop()
@@ -17,18 +17,19 @@ const getItemOptionDescription = item => {
 const LineItem = ({ item, imgSize, children }) => {
   const optionsDescription = getItemOptionDescription(item)
 
-  const title = useProductTitle(item.title)
+  const title = useProductTitle(item.merchandise.product.title)
+  // const title = useProductTitle(item.title)
 
-  const imageData = useShopifyImage({ image: item.variant?.image, width: 80 })
+  const imageData = useShopifyImage({ image: item.merchandise?.image, width: 80 })
 
   return (
     <Grid sx={{ gridTemplateColumns: `${imgSize}px 1fr`, gap: 3 }}>
       <Box>
-        {item.variant?.image ? (
+        {item.merchandise?.image ? (
           <GatsbyImage
             image={imageData}
             style={{ objectFit: 'contain' }}
-            alt={item.variant.image.altText || ''}
+            alt={item.merchandise.image.altText || ''}
           />
         ) : (
           <Box height={80} width={80} sx={{ bg: 'border' }} />
@@ -45,7 +46,7 @@ const LineItem = ({ item, imgSize, children }) => {
             </Text>
           </Box>
         )}
-        {item.customAttributes
+        {item.attributes
           .filter(attribute => !['wrapping', 'size'].includes(attribute.key))
           .map(attribute => (
             <Box key={`${item.id}-${attribute.name}-${attribute.value}`}>

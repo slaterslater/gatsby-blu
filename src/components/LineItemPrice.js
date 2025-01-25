@@ -6,7 +6,7 @@ import FormattedPrice from './FormattedPrice'
 export const getDiscountedPrice = (quantity, originalPrice, discounts = []) => {
   if (!discounts.length) return undefined
   const discountTotal = discounts.reduce(
-    (total, discount) => total + discount.allocatedAmount.amount,
+    (total, discount) => total + discount.discountedAmount.amount,
     0
   )
   return {
@@ -19,9 +19,13 @@ const LineItemPrice = ({ quantity, originalPrice, discounts, ...props }) => {
   if (!discounts.length) return <FormattedPrice priceV2={originalPrice} />
 
   const discountedPrice = getDiscountedPrice(quantity, originalPrice, discounts)
-
-  // console.log({ discounts })
   const discountTitle = discounts[0].discountApplication?.title
+
+  const price = {
+    ...originalPrice,
+    amount: quantity * originalPrice.amount
+  }
+
   return (
     <>
       <Grid
@@ -32,7 +36,7 @@ const LineItemPrice = ({ quantity, originalPrice, discounts, ...props }) => {
           variant={discountedPrice ? 'strike' : ''}
           sx={{ color: discountedPrice ? 'darkGray' : 'body' }}
         >
-          <FormattedPrice priceV2={originalPrice} />
+          <FormattedPrice priceV2={price} />
         </Text>
         {discountedPrice && (
           <Text>

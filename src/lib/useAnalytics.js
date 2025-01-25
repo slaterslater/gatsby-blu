@@ -124,11 +124,11 @@ const events = {
     sendTripleEvent('AddToCart', { item: lineItem.id, q: 1 })
   },
   viewCart: payload => {
-    const checkout = payload
+    const cart = payload
 
     sendGtagEvent('view_cart', {
-      currency: checkout?.totalPriceV2.currencyCode,
-      items: checkout?.lineItems.nodes.map(item => ({
+      currency: cart?.cost.totalAmount.currencyCode,
+      items: cart?.lines.nodes.map(item => ({
         item_id: item.id,
         item_name: item.title,
         item_variant: item.variant?.title,
@@ -136,29 +136,29 @@ const events = {
         price: item.variant?.priceV2.amount * item.quantity,
         currency: item.variant?.priceV2.currencyCode,
       })),
-      value: checkout?.totalPriceV2.amount,
+      value: cart?.cost.totalAmount,
     })
     sendAWEvent('page_view', {
       ecomm_pagetype: 'cart',
-      ecomm_prodid: checkout?.lineItems.nodes.map(
-        item => item.variant?.product.id
+      ecomm_prodid: cart?.lines.nodes.map(
+        item => item.merchandise?.product.id
       ),
     })
   },
   removeFromCart: payload => {
     const lineItem = payload
     sendGtagEvent('remove_from_cart', {
-      currency: lineItem.variant.priceV2.currencyCode,
+      currency: lineItem.merchandise.price.currencyCode,
       items: [
         {
           item_id: lineItem.id,
-          item_name: lineItem.title,
-          price: lineItem.variant.priceV2.amount * lineItem.quantity,
+          item_name: lineItem.merchandise.product.title,
+          price: lineItem.merchandise.price.amount * lineItem.quantity,
           quantity: lineItem.quantity,
-          currency: lineItem.variant.priceV2.currencyCode,
+          currency: lineItem.merchandise.price.currencyCode,
         },
       ],
-      value: lineItem.variant.priceV2.amount,
+      value: lineItem.merchandise.price.amount,
     })
   },
   viewItemList: (products, title, handle) => {

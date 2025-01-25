@@ -17,9 +17,14 @@ module.exports = {
     author: `@bluboho`,
     siteUrl,
   },
-  flags: { PARALLEL_SOURCING: true },
+  flags: { 
+    PARALLEL_SOURCING: true, 
+    DEV_SSR: true,
+    // FAST_DEV: true,
+  },
   plugins: [
-    `gatsby-plugin-netlify`,
+    `gatsby-adapter-netlify`,
+    // `gatsby-plugin-netlify`,
     // {
     //   resolve: `gatsby-plugin-netlify`,
     //   options: {
@@ -60,6 +65,9 @@ module.exports = {
         appId: process.env.GATSBY_ALGOLIA_APP_ID,
         apiKey: process.env.ALGOLIA_ADMIN_KEY,
         queries: algoliaQueries,
+        enablePartialUpdates: true,
+        matchFields: ['internal.contentDigest'],
+
       },
     },
     `gatsby-plugin-theme-ui`,
@@ -156,31 +164,36 @@ module.exports = {
         // password: process.env.SHOPIFY_STOREFRONT_KEY,
         password: process.env.SHOPIFY_STOREFRONT_PASSWORD,
         shopifyConnections: ['collections'],
-        // apiVersion: process.env.GATSBY_SHOPIFY_API_VERSION,
+        apiVersion: process.env.GATSBY_SHOPIFY_API_VERSION,
         // paginationSize: 80,
         // collections: ['shop'],
         downloadImages: false,
         // shopifyQueries: shopifySourceQueries,
       },
     },
-    {
-      resolve: '@sentry/gatsby',
-      options: {
-        dsn: process.env.SENTRY_DSN,
-        sampleRate: 0.7,
-      },
-    },
+    // {
+    //   resolve: '@sentry/gatsby',
+    //   options: {
+    //     dsn: process.env.SENTRY_DSN,
+    //     sampleRate: 0.7,
+    //   },
+    // },
     {
       resolve: 'gatsby-plugin-sitemap',
       options: {
         query: `
         {
-          site {
-            siteMetadata {
-              siteUrl
-            }
-          }
-          allSitePage(filter: {context: {hidden: {ne: true}}}) {
+          #site {
+          #  siteMetadata {
+          #    siteUrl
+          #  }
+          #}
+          #allSitePage(filter: {context: {hidden: {ne: true}}}) {
+          #  nodes {
+          #    path
+          #  }
+          #}
+          allSitePage {
             nodes {
               path
             }
@@ -189,6 +202,7 @@ module.exports = {
         `,
         excludes: ['/account'],
         filterPages: ({ path }) => path.includes('['),
+        resolveSiteUrl: () => siteUrl,
         resolvePagePath: ({ path }) =>
           // const pathWithTrailingSlash = path.endsWith('/') ? path : `${path}/`
           // return siteUrl + pathWithTrailingSlash
@@ -200,7 +214,7 @@ module.exports = {
           siteUrl + path,
       },
     },
-    `gatsby-plugin-loadable-components-ssr`,
+    // `gatsby-plugin-loadable-components-ssr`,
     {
       resolve: 'gatsby-source-yotpo',
       options: {

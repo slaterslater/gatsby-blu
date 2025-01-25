@@ -88,13 +88,20 @@ export const query = graphql`
           value
         }
         products {
-          id
+          id: shopifyId
           handle
           title
           vendor
           createdAt
-          images {
-            gatsbyImageData(placeholder: BLURRED)
+          #images {
+          # gatsbyImageData(placeholder: BLURRED)
+          #}
+          media {
+            ... on ShopifyMediaImage {
+              image {
+                gatsbyImageData(placeholder: BLURRED)
+              }
+            }
           }
           tags
           metafields {

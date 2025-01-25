@@ -8,9 +8,9 @@ import { IoMdCloseCircleOutline } from 'react-icons/io'
 import { PropTypes } from 'prop-types'
 import { useTimeout } from '../lib/useTimeout'
 
-const MotionDialogOverlay = motion(DialogOverlay)
-const MotionDialogContent = motion(DialogContent)
-const MotionBox = motion(Box)
+const MotionDialogOverlay = motion.create(DialogOverlay)
+const MotionDialogContent = motion.create(DialogContent)
+const MotionBox = motion.create(Box)
 
 const PopUp = ({ popup, dismissPrompt = () => {}, shouldPrompt = true }) => {
   const { title, path, image, timeout } = popup || {}
@@ -99,7 +99,7 @@ const PopUp = ({ popup, dismissPrompt = () => {}, shouldPrompt = true }) => {
 PopUp.propTypes = {
   popup: PropTypes.object.isRequired,
   dismissPrompt: PropTypes.func.isRequired,
-  shouldPrompt: PropTypes.bool.isRequired,
+  shouldPrompt: PropTypes.bool,
 }
 
 export default PopUp

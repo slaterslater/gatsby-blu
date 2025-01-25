@@ -7,7 +7,9 @@ import LineItem from '../LineItem'
 import LineItemPrice from '../LineItemPrice'
 import {
   AddCheckoutLineItem,
+  RemoveCartLine,
   RemoveCheckoutLineItem,
+  UpdateCartLine,
   UpdateCheckoutLineItem,
 } from '../../mutations/cart'
 import { StoreContext } from '../../contexts/StoreContext'
@@ -18,22 +20,22 @@ import { CurrencyContext } from '../../contexts/CurrencyContext'
 import { UPGRADE_QUERY } from '../../queries/checkout'
 
 const CartLineItem = ({ onRemoveItem, item, imgSize }) => {
-  const { checkoutId } = useContext(StoreContext)
+  const { cartId } = useContext(StoreContext)
   const { countryCode } = useContext(CurrencyContext)
   const sendAnalytics = useSendAnalytics('removeFromCart')
 
   const [, addCheckoutLineItem] = useMutation(AddCheckoutLineItem)
-  const [, removeLineItem] = useMutation(RemoveCheckoutLineItem)
+  const [, removeLineItem] = useMutation(RemoveCartLine)
   const [updateLineItemResult, updateLineItem] = useMutation(
-    UpdateCheckoutLineItem
+    UpdateCartLine
   )
 
-  const { id, quantity, variant, discountAllocations } = item
-  const variantId = variant.upgrade?.id
+  const { id, quantity, merchandise, discountAllocations } = item
+  const merchandiseId = merchandise.upgrade?.id
 
   const [{ data }] = useQuery({
     query: UPGRADE_QUERY,
-    variables: { id: variantId, countryCode },
+    variables: { id: merchandiseId, countryCode },
   })
 
   const { upgrade } = data || {}
@@ -41,8 +43,8 @@ const CartLineItem = ({ onRemoveItem, item, imgSize }) => {
   const updateQuantity = async delta => {
     try {
       await updateLineItem({
-        checkoutId,
-        lineItems: [{ id, quantity: quantity + delta }],
+        cartId,
+        lines: [{ id, quantity: quantity + delta }],
       })
     } catch (e) {
       console.log('update quantity error')
@@ -67,7 +69,7 @@ const CartLineItem = ({ onRemoveItem, item, imgSize }) => {
           <Text>
             <LineItemPrice
               quantity={quantity}
-              originalPrice={item.variant.priceV2}
+              originalPrice={item.merchandise.price}
               discounts={discountAllocations}
             />
           </Text>
@@ -100,9 +102,9 @@ const CartLineItem = ({ onRemoveItem, item, imgSize }) => {
             </Box>
             <IconButton
               disabled={
-                !variant ||
+                !merchandise ||
                 updateLineItemResult.fetching ||
-                !variant.availableForSale
+                !merchandise.availableForSale
               }
               type="button"
               onClick={() => updateQuantity(1)}
@@ -115,8 +117,8 @@ const CartLineItem = ({ onRemoveItem, item, imgSize }) => {
             type="button"
             onClick={() => {
               sendAnalytics(item)
-              // removeLineItem({ checkoutId, lineItemIds: [item.id] })
-              updateQuantity(-1 * quantity)
+              removeLineItem({ cartId, lineIds: [item.id] })
+              // updateQuantity(-1 * quantity)
             }}
             sx={{ cursor: 'pointer' }}
           >

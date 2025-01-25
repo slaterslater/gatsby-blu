@@ -92,7 +92,7 @@ const CollectionGroup = ({
         <Box key={product.id} sx={{ order: i }}>
           <CollectionProduct
             product={product}
-            images={product.images}
+            media={product.media}
             collectionTitle={pageTitle}
             collectionPath={pagePath}
             badges={badges}

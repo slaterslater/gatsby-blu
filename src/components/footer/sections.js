@@ -60,7 +60,7 @@ export const FooterSection = ({
 
 export const FooterNewsletterSubscribe = ({ color = 'white' }) => {
   const [success, setSuccess] = useState(false)
-  const Motion = motion(Box)
+  const Motion = motion.create(Box)
   useEffect(() => {
     if (success)
       setTimeout(() => {

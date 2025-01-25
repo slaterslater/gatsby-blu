@@ -3,9 +3,9 @@ import { DialogOverlay, DialogContent } from '@reach/dialog'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Box, useThemeUI, Button } from 'theme-ui'
 
-const MotionDialogOverlay = motion(DialogOverlay)
-const MotionDialogContent = motion(DialogContent)
-const MotionBox = motion(Box)
+const MotionDialogOverlay = motion.create(DialogOverlay)
+const MotionDialogContent = motion.create(DialogContent)
+const MotionBox = motion.create(Box)
 
 const Modal = ({
   isOpen,

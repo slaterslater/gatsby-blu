@@ -67,7 +67,7 @@ const faqs = [
   },
 ]
 
-const MotionBox = motion(Box)
+const MotionBox = motion.create(Box)
 
 const QuestionAnswer = ({ faq, index, expanded, setExpanded }) => {
   const { question, answer } = faq

@@ -7,7 +7,7 @@ import { wrap } from '@popmotion/popcorn'
 import { HiChevronLeft, HiChevronRight } from 'react-icons/hi'
 import { GatsbyImage } from 'gatsby-plugin-image'
 
-const MotionBox = motion(Box)
+const MotionBox = motion.create(Box)
 const Dot = ({ full, ...props }) => (
   <MotionBox
     sx={{

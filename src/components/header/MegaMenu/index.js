@@ -6,7 +6,7 @@ import { MegaMenuLink } from './links'
 import { SubMenu } from './sub-menu'
 import { usePageContext } from '../../../contexts/PageContext'
 
-const MotionBox = motion(Box)
+const MotionBox = motion.create(Box)
 
 const MegaMenu = () => {
   const [menuOpen, setMenuOpen] = useState(false)

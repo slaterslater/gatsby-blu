@@ -68,7 +68,7 @@ export const useCollectionFilterAndSortOptions = products => {
 
   const data = useStaticQuery(graphql`
     {
-      allShopifyProductMetafield(filter: { key: { eq: "filters" } }) {
+      allShopifyMetafield(filter: {ownerType: {eq: COLLECTION}}) {
         nodes {
           value
         }
@@ -77,9 +77,11 @@ export const useCollectionFilterAndSortOptions = products => {
   `)
 
   const filterOptions = useMemo(() => {
-    const filtersFromProducts = data.allShopifyProductMetafield.nodes.reduce(
+    const filtersFromProducts = data.allShopifyMetafield.nodes.reduce(
       (filters, metafield) => {
-        const values = JSON.parse(metafield.value)
+        // console.log({metafield})
+        // const values = JSON.parse(metafield.value)
+        const values = metafield.value.split(',')
         values.forEach(value => {
           // find at least one product with this value other skip it
           const isProductWithFilterValue = products.some(({ metafields }) =>
@@ -195,7 +197,8 @@ const filterProducts = ({ products, filters }) => {
     )
     if (!filtersMetafield) return
 
-    const productFilterOptions = JSON.parse(filtersMetafield.value)
+    // const productFilterOptions = JSON.parse(filtersMetafield.value)
+    const productFilterOptions = filtersMetafield.value.split(',')
     const isMatch = filters.some(option =>
       productFilterOptions.includes(option)
     )

@@ -14,8 +14,8 @@ const ProductRowSlider = ({ products }) => {
     >
       <MobileSlider
         minCardWidth={250}
-        nodes={products.map(product => (
-          <CollectionProduct product={product} images={[product.images[0]]} />
+        nodes={products.filter(Boolean).map(product => (
+          <CollectionProduct product={product} media={[product.media[0]]} />
         ))}
       />
     </Container>

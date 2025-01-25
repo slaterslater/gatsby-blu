@@ -23,7 +23,7 @@ const SearchHits = connectHits(({ hits }) =>
   ))
 )
 
-const MotionBox = motion(Box)
+const MotionBox = motion.create(Box)
 
 const HeaderSearch = ({ isOpen, onClose }) => {
   useKeyPress('Escape', () => {

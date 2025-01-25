@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { wrap } from '@popmotion/popcorn'
 import { HiChevronLeft, HiChevronRight } from 'react-icons/hi'
 
-const MotionBox = motion(Box)
+const MotionBox = motion.create(Box)
 const Dot = ({ full, ...props }) => (
   <MotionBox
     sx={{

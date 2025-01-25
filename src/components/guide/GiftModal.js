@@ -10,9 +10,9 @@ import ThemeLink from '../app/ThemeLink'
 import GiftProductGallery from './GiftProductGallery'
 import MetalOptions from '../product/MetalOptions'
 
-const MotionDialogOverlay = motion(DialogOverlay)
-const MotionDialogContent = motion(DialogContent)
-const MotionBox = motion(Box)
+const MotionDialogOverlay = motion.create(DialogOverlay)
+const MotionDialogContent = motion.create(DialogContent)
+const MotionBox = motion.create(Box)
 
 const GiftModal = ({
   justifyContent,

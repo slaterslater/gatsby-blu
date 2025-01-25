@@ -27,7 +27,7 @@ const socials = [
 ]
 const swipeConfidenceThreshold = 10000
 const swipePower = (offset, velocity) => Math.abs(offset) * velocity
-const MotionBox = motion(Box)
+const MotionBox = motion.create(Box)
 
 const SocialBlocks = () => {
   const [[current, direction], setCurrent] = useState([0, 0])

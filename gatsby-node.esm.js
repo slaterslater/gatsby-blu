@@ -557,9 +557,16 @@ async function createHomePage({ graphql, actions }) {
           title
           handle
           tags
-          images {
-            gatsbyImageData(placeholder: BLURRED, width: 300)
+          #images {
+          #  gatsbyImageData(placeholder: BLURRED, width: 300)
+          #}
+           media {
+          ... on ShopifyMediaImage {
+            image {
+              gatsbyImageData(placeholder: BLURRED, width: 360)
+            }
           }
+        }
           priceRangeV2 {
             minVariantPrice {
               amount
@@ -905,8 +912,8 @@ export async function createPages(params) {
     createCollectionPages(params),
     createBlogPages(params),
     createCollectionGroupPages(params),
-    createPodcastIndexPages(params),
-    createPodcastEpisodePages(params),
+    // createPodcastIndexPages(params),
+    // createPodcastEpisodePages(params),
     createGiftGuidePages(params),
     createHomePage(params),
     createLocationPages(params),
