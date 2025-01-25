@@ -65,6 +65,7 @@ const CartDrawer = ({ onClose }) => {
   //     })
   //   }
   // }, [accessToken, cartId, associateCustomerWithCheckout])
+  console.log({cart})
 
   return (
     <Flex
