@@ -65,6 +65,9 @@ module.exports = {
         appId: process.env.GATSBY_ALGOLIA_APP_ID,
         apiKey: process.env.ALGOLIA_ADMIN_KEY,
         queries: algoliaQueries,
+        enablePartialUpdates: true,
+        matchFields: ['internal.contentDigest'],
+
       },
     },
     `gatsby-plugin-theme-ui`,
