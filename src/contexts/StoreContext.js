@@ -38,12 +38,10 @@ const StoreProvider = props => {
       })
 
       if (data) {
-        console.log('success', {data})
         const { id } = data.cartCreate.cart
         setCartId(id)
         store.set(STORAGE_CART_ID, id)
       }
-      console.log('welp')
     } catch (e) {
       console.error('error creating checkout', {e})
     }
