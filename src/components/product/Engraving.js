@@ -9,7 +9,6 @@ import { ProductContext } from './ProductContext'
 
 const AutoSave = () => {
   const ctx = useFormikContext()
-  console.log({ ctx })
   // would like to prevent bad char from being saved
   // would like previous entries to be deleted if dirty
   useEffect(() => {
@@ -113,7 +112,6 @@ const EngravingForm = ({ chars, hasLocation, onSubmit }) => {
       validationSchema={validationSchema}
       initialValues={initialValues}
       onSubmit={async (values, { setSubmitting, resetForm }) => {
-        console.log(values)
         await onSubmit(values)
         resetForm({ values })
         setSubmitting(false)

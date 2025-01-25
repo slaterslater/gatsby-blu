@@ -38,10 +38,12 @@ const StoreProvider = props => {
       })
 
       if (data) {
+        console.log('success', {data})
         const { id } = data.cartCreate.cart
         setCartId(id)
         store.set(STORAGE_CART_ID, id)
       }
+      console.log('welp')
     } catch (e) {
       console.error('error creating checkout', {e})
     }
@@ -77,7 +79,7 @@ const StoreProvider = props => {
           }
 
           if (attributes.length) {
-            item.cattributes = attributes.map(({ key, value }) => ({
+            item.attributes = attributes.map(({ key, value }) => ({
               key,
               value,
             }))
