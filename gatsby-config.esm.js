@@ -23,7 +23,7 @@ module.exports = {
     // FAST_DEV: true,
   },
   plugins: [
-    `gatsby-plugin-netlify`,
+    // `gatsby-plugin-netlify`,
     // {
     //   resolve: `gatsby-plugin-netlify`,
     //   options: {
