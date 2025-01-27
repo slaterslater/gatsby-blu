@@ -1,8 +1,8 @@
 import { camelize } from 'inflected'
-import { Box } from 'theme-ui'
+import { Box, Text } from 'theme-ui'
 import React from 'react'
 
-const MetalOptionSwatch = ({ metal, isCurrent }) => {
+const MetalOptionSwatch = ({ metal, text, isCurrent }) => {
   const colour = camelize(metal.replace(' ', '_'), false)
 
   return (
@@ -24,7 +24,18 @@ const MetalOptionSwatch = ({ metal, isCurrent }) => {
           borderColor: 'bbBeige',
           borderRadius: '50%',
         }}
-      />
+      >
+        {text && <Text 
+          sx={{
+            height: 16,
+            fontSize:'6px',
+            display: 'flex',  
+            justifyContent:'center',
+            alignItems:'center',
+            textTransform:'uppercase'
+          }}>{text}
+        </Text>}
+      </Box>
     </Box>
   )
 }

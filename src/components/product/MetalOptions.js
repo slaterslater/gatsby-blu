@@ -6,16 +6,16 @@ import { ProductContext } from './ProductContext'
 import { metals } from '../../data/metals'
 import { useProductMetalColor } from '../../hooks/product'
 
-const MetalOption = ({ title, handle, metal, isCurrent, ...props }) => {
+const MetalOption = ({ title, handle, metal, text, isCurrent, ...props }) => {
   if (!metal) return false
 
   if (isCurrent)
-    return <MetalOptionSwatch isCurrent={isCurrent} metal={metal} {...props} />
+    return <MetalOptionSwatch isCurrent={isCurrent} metal={metal} text={text} {...props} />
 
   return (
-    <ThemeLink aria-label={title} to={`../${handle}`} {...props}>
+    <ThemeLink aria-label={title} to={`../${handle}`} sx={{textDecoration: 'none'}} {...props}>
       {/* <ThemeLink aria-label={title} to={`/products/${handle}`} {...props}> */}
-      <MetalOptionSwatch metal={metal} />
+      <MetalOptionSwatch metal={metal} text={text} />
     </ThemeLink>
   )
 }

@@ -27,7 +27,8 @@ const DrawerOuter = ({ origin, ...props }) => (
       height: 'calc(var(--vh, 1vh) * 100)',
       maxWidth: '90vw',
       position: 'fixed',
-      zIndex: 101,
+      // zIndex: 101,
+      zIndex: 9999999999,
       alignItems: 'stretch',
     }}
     {...props}
