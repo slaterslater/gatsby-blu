@@ -50,7 +50,7 @@ const Layout = ({ title, description, children, isBeloved = false }) => (
         {/* <TidioLink /> */}
       </Drawers>
       <ThirdPartyScripts />
-      <Script id="gorgias-chat-widget-install-v3" src={`https://config.gorgias.chat/bundle-loader/${GATSBY_GORGIAS_ID}`} />
+      <Script id="gorgias-chat-widget-install-v3" src={`https://config.gorgias.chat/bundle-loader/${process.env.GATSBY_GORGIAS_ID}`} />
     </RecentlyViewedProductsProvider>
   </PageProvider>
 )
