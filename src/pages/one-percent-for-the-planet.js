@@ -44,6 +44,7 @@ const Body = props => (
       textAlign: 'center',
       lineHeight: 3,
       letterSpacing: 'wider',
+      a : {color: 'primary'},
       ...(props.sx || {}),
     }}
   />
@@ -106,7 +107,7 @@ const OnePercentForThePlanet = props => (
           ALL THE WAYS WE ARE WORKING TO BE BETTER:
         </CapsHeading>
         <Body>
-          we are members of 1% for the Planet, a global network of 4000
+          <a href="https://www.onepercentfortheplanet.org/membership">we are members of 1% for the Planet</a>, a global network of 4000
           businesses in 90 countries that pledge a minimum of 1% of sales to
           organizations working to find solutions to the environmental crisis.
         </Body>
