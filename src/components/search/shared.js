@@ -55,13 +55,14 @@ export const InstantSearchInput = connectSearchBox(
 export const InstantSearchProduct = ({ hit }) => {
   const title = useProductTitle(hit.title)
   const [price, hasRange] = useProductPrice(hit)
+  const [firstImage, secondImage] = hit.media?.map(m => m.image) ?? []
 
   return (
     <ProductListItem
       title={title}
       to={`/products/${hit.handle}`}
-      firstImage={hit.images[0]}
-      secondImage={hit.images[1]}
+      firstImage={firstImage}
+      secondImage={secondImage}
       price={price}
       hasRange={hasRange}
       tags={hit.tags}

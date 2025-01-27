@@ -77,8 +77,10 @@ export const DragBox = ({
 }
 
 export const ThumbnailImage = ({ image, fallbackAlt = '' }) => {
-  const imageData =
-    useShopifyImage({ image, width: 360 }) || image.gatsbyImageData
+  let imageData = image?.gatsbyImageData
+  if (!imageData) {
+    imageData = useShopifyImage({ image, width: 360 })
+  }
   if (!imageData) return null
   return <GatsbyImage image={imageData} alt={image.altText || fallbackAlt} />
 }
