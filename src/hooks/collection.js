@@ -15,7 +15,8 @@ export const getCollectionProducts = products => {
   return products.edges.map(({ node }) => ({
     ...node,
     variants: node.variants.edges.map(({ node: n }) => n),
-    images: node.images.edges.map(({ node: n }) => n),
+    // images: node.images.edges.map(({ node: n }) => n),
+    media: node.images.edges.map(({node}) => ({image: {...node}})),
     metafields: node.metafields.filter(metafield => !!metafield),
   }))
 }
