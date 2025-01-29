@@ -123,6 +123,9 @@ export const query = graphql`
           name
           values
         }
+        metafield (namespace: "custom", key: "metal_option_text"){
+          value
+        }
         variants {
           selectedOptions {
             name

@@ -5,6 +5,7 @@ import MetalOptionSwatch from '../MetalOptionSwatch'
 import { ProductContext } from './ProductContext'
 import { metals } from '../../data/metals'
 import { useProductMetalColor } from '../../hooks/product'
+import { useMetafieldValue } from '../../hooks/useMetafield'
 
 const MetalOption = ({ title, handle, metal, text, isCurrent, ...props }) => {
   if (!metal) return false
@@ -24,35 +25,42 @@ const MetalOptions = () => {
   const { product, alternates } = useContext(ProductContext)
   const productMetalColor = useProductMetalColor(product.options)
   const [title, setTitle] = useState(productMetalColor)
+  const productMetalText = useMetafieldValue('metal_option_text', product.metafields)
 
   const colors = useMemo(() => {
     if (!productMetalColor) return []
     const alternateMetalColors =
       alternates?.nodes
-        .filter(alternate => {
-          const prodId = product.id.replace('Shopify__Product__', '')
-          return alternate !== null && alternate.id !== prodId
-        })
+        // .filter(alternate => {
+        //   const prodId = product.id.replace('Shopify__Product__', '')
+        //   return alternate !== null && alternate.id !== prodId
+        // })
         .map(alternate => ({
           metal: useProductMetalColor(alternate.options),
           isCurrent: false,
           handle: alternate.handle,
+          text: alternate.metafield?.value
         }))
         .filter(alternate => alternate.metal) || []
 
     return [
-      { metal: productMetalColor, isCurrent: true },
+      { metal: productMetalColor, text: productMetalText, isCurrent: true },
       ...alternateMetalColors,
-    ].sort((a, b) => metals.indexOf(a.metal) - metals.indexOf(b.metal))
+    // ].sort((a, b) => metals.indexOf(a.metal) - metals.indexOf(b.metal))
+    ].sort((a, b) => {
+      const metalComparison = metals.indexOf(a.metal) - metals.indexOf(b.metal);
+      if (metalComparison !== 0) return metalComparison;
+      return a.text.localeCompare(b.text);
+    });
   }, [product, alternates, productMetalColor])
 
   return (
     <Flex>
-      {colors?.map(({ isCurrent, metal, handle }) => (
+      {colors?.map(({ isCurrent, metal, text, handle }) => (
         <MetalOption
           title={title}
           key={`metal-option-${metal}`}
-          {...{ isCurrent, metal, handle }}
+          {...{ isCurrent, metal, text, handle }}
           onMouseOver={() => setTitle(metal)}
           onMouseLeave={() => setTitle(productMetalColor)}
         />
