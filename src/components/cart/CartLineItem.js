@@ -6,11 +6,9 @@ import { useMutation, useQuery } from 'urql'
 import LineItem from '../LineItem'
 import LineItemPrice from '../LineItemPrice'
 import {
-  AddCheckoutLineItem,
+  AddCartLines,
   RemoveCartLine,
-  RemoveCheckoutLineItem,
   UpdateCartLine,
-  UpdateCheckoutLineItem,
 } from '../../mutations/cart'
 import { StoreContext } from '../../contexts/StoreContext'
 import WrapSeparatelyOption from '../WrapSeparatelyOption'
@@ -24,7 +22,7 @@ const CartLineItem = ({ onRemoveItem, item, imgSize }) => {
   const { countryCode } = useContext(CurrencyContext)
   const sendAnalytics = useSendAnalytics('removeFromCart')
 
-  const [, addCheckoutLineItem] = useMutation(AddCheckoutLineItem)
+  const [, addCheckoutLineItem] = useMutation(AddCartLines)
   const [, removeLineItem] = useMutation(RemoveCartLine)
   const [updateLineItemResult, updateLineItem] = useMutation(
     UpdateCartLine
@@ -40,6 +38,10 @@ const CartLineItem = ({ onRemoveItem, item, imgSize }) => {
 
   const { upgrade } = data || {}
 
+  const removeFromCart = async () => {
+    await removeLineItem({ cartId, lineIds: [item.id] })
+  }
+
   const updateQuantity = async delta => {
     try {
       await updateLineItem({
@@ -52,12 +54,11 @@ const CartLineItem = ({ onRemoveItem, item, imgSize }) => {
   }
 
   const repalaceItemWithUpgrade = async () => {
-    const lineItems = [{ quantity, variantId }]
     await addCheckoutLineItem({
-      checkoutId,
-      lineItems,
+      cartId,
+      lines: [{ quantity, merchandiseId }],
     })
-    await removeLineItem({ checkoutId, lineItemIds: [id] })
+    removeFromCart()
     onRemoveItem()
     // do something with analytics?
   }
@@ -117,8 +118,7 @@ const CartLineItem = ({ onRemoveItem, item, imgSize }) => {
             type="button"
             onClick={() => {
               sendAnalytics(item)
-              removeLineItem({ cartId, lineIds: [item.id] })
-              // updateQuantity(-1 * quantity)
+              removeFromCart()
             }}
             sx={{ cursor: 'pointer' }}
           >
@@ -129,7 +129,7 @@ const CartLineItem = ({ onRemoveItem, item, imgSize }) => {
       </LineItem>
       {upgrade?.availableForSale && (
         <LineItemUpgrade
-          currentAmount={item.variant.priceV2.amount}
+          currentAmount={item.merchandise.price.amount}
           upgrade={upgrade}
           repalaceItemWithUpgrade={repalaceItemWithUpgrade}
         />

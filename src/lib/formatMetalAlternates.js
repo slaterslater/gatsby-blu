@@ -12,8 +12,10 @@ const getShopifyId = tag => {
 export const formatMetalAlternatesFromTags = (tags = []) =>
   tags.filter(tag => tag.includes('__metal-alternate-of')).map(getShopifyId)
 
-export const formatMetalAlternatesFromMetafields = (metafields = []) =>
-  metafields
+export const formatMetalAlternatesFromMetafields = (metafields = []) => {
+  const metalOptions = metafields.find(({key}) => key === 'metal_options')
+  if (metalOptions) return JSON.parse(metalOptions.value)
+  return metafields
     .filter(field => field.key.startsWith('metal_option_'))
-    // .map(field => formatIdStr(field.value))
     .map(field => field.value)
+}
