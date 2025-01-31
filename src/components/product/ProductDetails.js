@@ -93,12 +93,13 @@ const ProductDetails = () => {
   return (
     <Grid sx={{ gridAutoFlow: 'row', gap: 4 }}>
       <ProductTitleAndPrice />
-      <Flex sx={{ height: 35 }}>
+      {/* <Flex sx={{ height: 35 }}>
         <MetalOptions />
         <Box sx={{ alignSelf: 'flex-end' }} ml="auto" pr={1}>
           <SezzleInfo variantPrice={variantPrice} />
         </Box>
-      </Flex>
+      </Flex> */}
+      <MetalOptions />
       <ColorOptions />
       <ProductOptions />
       <Engraving />

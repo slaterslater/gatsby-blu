@@ -55,7 +55,7 @@ const MetalOptions = () => {
   }, [product, alternates, productMetalColor])
 
   return (
-    <Flex>
+    <Flex sx={{height:35}}>
       {colors?.map(({ isCurrent, metal, text, handle }) => (
         <MetalOption
           title={title}
