@@ -53,7 +53,10 @@ const Modal = ({
             variant="link"
             onClick={handleDismiss}
             title="close"
-            ml="auto"
+            sx={{
+              marginLeft:'auto',
+              transform: 'translate(10px, -10px)'
+            }}
           >
             <IoClose />
           </Button>

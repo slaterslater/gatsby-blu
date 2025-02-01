@@ -13,7 +13,7 @@ const ShopifyGatsbyImage = ({
   if (!imageData) {
     imageData = useShopifyImage({ image, width: getImageProps.width })
   }
-
+  
   return (
     <GatsbyImage
       image={imageData}
