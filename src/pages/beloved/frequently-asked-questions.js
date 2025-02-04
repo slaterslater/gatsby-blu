@@ -8,14 +8,16 @@ import BrownButton from '../../components/BrownButton'
 import { Breadcrumbs } from '../../components/Breadcrumbs'
 
 const faqs = [
-  `What is the Best Stone for an Engagement Ring?`,
+  `What is the Best Stone for an Engagement Ring? Does it Have to be a Diamond? Can I Use Any Stone I Like?`,
   `What is the Best Metal for an Engagement Ring?`,
   `What's the Difference Between an Engagement and a Wedding Ring?`,
   `how do i choose the right ring?`,
   `how do i determine the right ring size for my partner?`,
   `is your gold recycled, and are your sapphires and diamonds conflict-free?`,
   `Can I Just Walk in, or Do I Need an Appointment?`,
+  `How Long Before My Proposal Should I Purchase my Engagement Ring?`,
   `I'm on a Deadline — Can I Place a Rush Order?`,
+  `What Are the Benefits of Buying an Engagement Ring Online?`,
   `Can I Get my Ring Engraved?`,
   `how much should i spend on a ring?`,
   `do you offer payment plans? do i have to pay a deposit/pay upfront?`,
@@ -135,7 +137,7 @@ const BelovedFAQpage = () => (
         py={7}
       >
         <Heading as="h1" variant="h2">
-          frequently asked questions
+          Engagement Ring Frequently Asked Questions
         </Heading>
         <StaticImage
           id="headerImg"
@@ -188,34 +190,26 @@ const BelovedFAQpage = () => (
           </NavLink>
         ))}
       </Grid>
-      <Heading as="h2">What is the Best Stone for an Engagement Ring?</Heading>
+      <Heading as="h2">What is the Best Stone for an Engagement Ring? Does it Have to be a Diamond? Can I Use Any Stone I Like?</Heading>
       <Paragraph>
-        the type of gemstone you'd like in your ethically sourced engagement
-        ring is perhaps the first big decision you'll make in the process.
-        though everyone has their own preference, we define “best” as the most
-        durable, sustainable, and beautiful.
+      the type of gemstone you'd like in your ethically sourced engagement ring is perhaps the first big decision you'll make in the process. though everyone has their own preference, we define “best” as the most durable, sustainable, and beautiful. 
       </Paragraph>
       <Paragraph>
         there are several options for the shape of the center stone, such as:
         <br />
-        round
-        <br />
+        round <br />
         oval <br />
         square <br />
         rectangle <br />
         marquis
       </Paragraph>
+      <Paragraph>all of our stones are ethically and sustainably sourced, and they have uniquely beautiful properties, making each stone one-of-a-kind, just like your love.</Paragraph>
       <Paragraph>
         Though we work in a variety of stones, we specialize in{' '}
         <GatsbyLink to="/sapphires">
           montana sapphire engagement rings
         </GatsbyLink>
-        , which are beloved for their soulful array of colours and shades, and
-        we also use antique or recycled diamonds. we recommend these stones
-        because they score among the highest on the mohs hardness scale. They
-        are best suited to daily wear and will last generations as future
-        heirlooms, they are ethically and sustainably sourced, and they have
-        uniquely beautiful properties.
+        , which are beloved for their soulful array of colours and shades. we also use antique or recycled diamonds, and are happy to source stones for your dream custom ring. we recommend diamond and sapphire stones because they score among the highest on the Mohs hardness scale, and are best suited to daily wear and will last generations as future heirlooms. other stones, such as emerald or opal, though beautiful, are not necessarily as durable as sapphire or diamond, which limits its wearability and longevity. feel free to <GatsbyLink to="/book-a-consultation/">contact us</GatsbyLink> to see what we can find for you to make your ring dreams come true.
       </Paragraph>
       <Paragraph>
         learn more about <GatsbyLink to="/sapphires">our sapphires</GatsbyLink>{' '}
@@ -417,6 +411,15 @@ const BelovedFAQpage = () => (
         book an appointment with one of our expert connectors today.
       </Paragraph>
 
+      <Heading as="h2">How Long Before My Proposal Should I Purchase my Engagement Ring?</Heading>
+      <Paragraph>some guests have waited years between ordering and their proposal, while others have proposed the same day they receive the ring. timelines for purchasing your ring should be based on your own timeline and limitations (if any). there is no right (or wrong) answer to this question, but there are some factors that need to be taken into consideration:</Paragraph>
+      <ul>
+        <li>a brand new ring takes 4-6 weeks to make, starting from day of production</li>
+        <li>a custom engagement ring can take 6-8 weeks from day of production, which does not include stone sourcing time and choosing your stone </li>
+        <li>are you organizing a destination proposal? you will want to make sure your ring is ready before you leave</li>
+        <li>are we shipping the ring to you? please take into consideration shipping times, including items being shipped internationally, as delays can occur.</li>
+      </ul>
+      <Paragraph>if you have any concerns about shipping or timelines for your ring, you can contact our guest experience team <a href='mailto:guestexperience@bluboho.com'>guestexperience@bluboho.com</a> and they will be happy to assist you.</Paragraph>
       <Heading as="h2">i'm on a deadline — can i place a rush order?</Heading>
       <Paragraph>
         yes— in many cases, we can accommodate a rush order. typically our
@@ -432,7 +435,14 @@ const BelovedFAQpage = () => (
         of the wedding. this way, we can ensure that you have your rings well in
         advance, leaving you free to focus on preparing for your big day.
       </Paragraph>
-
+      <Heading as="h2">What Are the Benefits of Buying an Engagement Ring Online?</Heading>
+      <Paragraph>We understand that not everyone can make it into <GatsbyLink to="/locations/">our stores</GatsbyLink> to visit and purchase the ring of their dreams, so we are happy to help with an online purchase! although a purchase this important may seem daunting, not being done face to face, there are benefits to this option:</Paragraph>
+      <ul>
+        <li><strong>Wider Selection</strong> - all of our one-of-a-kind engagement rings, as well as our wedding bands are available to view online</li>
+        <li><strong>Guest Experience</strong> - our online connectors are happy to help with any questions you may have</li>
+        <li><strong>Discretion</strong> - ordering your ring online helps with the surprise of it all. you can order the ring fro the comfort of your home, and no one but you and us will know (and we can keep a secret!)</li>
+        <li><strong>Virtual Appointments</strong> - for those that wish to have a closer look at our rings, we can coordinate a virtual appointment to see rings via facetime or video chat. <GatsbyLink to="/book-a-consultation/">contact us</GatsbyLink> to set up a personalized appointment</li>
+      </ul>
       <Heading as="h2">Can I Get my Ring Engraved?</Heading>
       <Paragraph>
         depending on the ring size and the type of engraving you wishe to have
