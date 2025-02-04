@@ -22,7 +22,7 @@ const formKeys = {
   message: 'message',
 }
 
-const resolutionOptions = ['Another Item', 'Store Credit']
+const resolutionOptions = ['Another Item', 'Store Credit', 'Return']
 
 const initialValues = Object.keys(formKeys).reduce(
   (acc, el) => ({ ...acc, [formKeys[el]]: '' }),
