@@ -29,17 +29,17 @@ const CartLineItem = ({ onRemoveItem, item, imgSize }) => {
   )
 
   const { id, quantity, merchandise, discountAllocations } = item
-  const merchandiseId = merchandise.upgrade?.id
+  const upgradeId = merchandise.upgrade?.id
 
   const [{ data }] = useQuery({
     query: UPGRADE_QUERY,
-    variables: { id: merchandiseId, countryCode },
+    variables: { id: upgradeId, countryCode },
   })
 
   const { upgrade } = data || {}
 
   const removeFromCart = async () => {
-    await removeLineItem({ cartId, lineIds: [item.id] })
+    await removeLineItem({ cartId, lineIds: [id] })
   }
 
   const updateQuantity = async delta => {
@@ -56,7 +56,10 @@ const CartLineItem = ({ onRemoveItem, item, imgSize }) => {
   const repalaceItemWithUpgrade = async () => {
     await addCheckoutLineItem({
       cartId,
-      lines: [{ quantity, merchandiseId }],
+      lines: [{ 
+        quantity, 
+        merchandiseId: upgradeId 
+      }],
     })
     removeFromCart()
     onRemoveItem()
