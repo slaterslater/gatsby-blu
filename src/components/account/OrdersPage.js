@@ -51,7 +51,7 @@ const OrdersPage = () => {
             node: {
               orderNumber,
               financialStatus,
-              totalPriceV2,
+              totalPrice,
               fulfillmentStatus,
             },
           }) => (
@@ -62,7 +62,7 @@ const OrdersPage = () => {
               <Text>{financialStatus.toLowerCase()}</Text>
               <Text>{fulfillmentStatus.toLowerCase()}</Text>
               <Text>
-                <FormattedPrice priceV2={totalPriceV2} />
+                <FormattedPrice priceV2={totalPrice} />
               </Text>
             </Grid>
           )

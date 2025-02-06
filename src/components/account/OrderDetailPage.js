@@ -59,8 +59,8 @@ const OrderDetailPage = props => {
             <Flex sx={{ justifyContent: 'flex-end' }}>
               <Box sx={{ minWidth: '320px' }}>
                 <OrderSummary
-                  subtotalPriceV2={order.subtotalPriceV2}
-                  totalPriceV2={order.totalPriceV2}
+                  subtotalPriceV2={order.subtotalPrice}
+                  totalPriceV2={order.totalPrice}
                   requiresShipping
                 />
               </Box>

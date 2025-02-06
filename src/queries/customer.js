@@ -20,11 +20,11 @@ export const CUSTOMER_QUERY = gql`
               formattedArea
               zip
             }
-            subtotalPriceV2 {
+            subtotalPrice {
               amount
               currencyCode
             }
-            totalPriceV2 {
+            totalPrice {
               amount
               currencyCode
             }
