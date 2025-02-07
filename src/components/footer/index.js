@@ -43,9 +43,7 @@ const Footer = props => (
               borderColor: ['white', 'transparent'],
             }}
           >
-            <FooterA href="mailto:guestexperience@bluboho.com">
-              email us
-            </FooterA>
+            <FooterLink to="/contact-us">contact us</FooterLink>
             <FooterA href="tel:+1 647-273-6297">call us</FooterA>
             <FooterText>mon - fri &nbsp; 9am - 5pm EST</FooterText>
             <FooterLink to="/locations">visit us</FooterLink>

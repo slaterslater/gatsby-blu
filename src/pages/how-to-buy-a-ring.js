@@ -467,9 +467,9 @@ const HowToBuyPage = () => (
           <Text as="p" sx={{ maxWidth: [320, 400] }} mx={['auto', 0]}>
             if you have any additional questions about figuring out your
             partner's ring size, get in touch with us at{' '}
-            <a href="mailto:guestexperience@bluboho.com">
-              guestexperience@bluboho.com
-            </a>
+            <GatsbyLink to="/contact-us">
+              guestexperience
+            </GatsbyLink>
             <br />
             or ask your expert during your{' '}
             <GatsbyLink to="/book-a-consultation">

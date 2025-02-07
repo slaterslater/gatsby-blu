@@ -346,9 +346,7 @@ const WearAndCarePage = () => (
       </Heading>
       <Text as="p" variant="copy">
         to submit a repair request by email, contact us at{' '}
-        <a href="mailto:guestexperience@bluboho.com">
-          guestexperience@bluboho.com
-        </a>{' '}
+        <GatsbyLink to="/contact-us">guestexperience</GatsbyLink>{' '}
         with the following information:
       </Text>
       <ul className="center last">

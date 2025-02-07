@@ -82,11 +82,11 @@ const ServiceDrawer = ({ onClose }) => (
       call us
       <CgArrowLongRight />
     </Link>
-    <Link role="button" href="mailto:guestexperience@bluboho.com">
+    <Box role="button" as={GatsbyLink} to="/contact-us">
       <HiOutlineMail size={20} />
-      email us
+      contact us
       <CgArrowLongRight />
-    </Link>
+    </Box>
     <Box role="button" as={GatsbyLink} to="/book-a-consultation">
       <GiBigDiamondRing size={20} />
       book a consultation
