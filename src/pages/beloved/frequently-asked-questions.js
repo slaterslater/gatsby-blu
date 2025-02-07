@@ -419,7 +419,7 @@ const BelovedFAQpage = () => (
         <li>are you organizing a destination proposal? you will want to make sure your ring is ready before you leave</li>
         <li>are we shipping the ring to you? please take into consideration shipping times, including items being shipped internationally, as delays can occur.</li>
       </ul>
-      <Paragraph>if you have any concerns about shipping or timelines for your ring, you can contact our guest experience team <a href='mailto:guestexperience@bluboho.com'>guestexperience@bluboho.com</a> and they will be happy to assist you.</Paragraph>
+      <Paragraph>if you have any concerns about shipping or timelines for your ring, you can contact our guest experience team <GatsbyLink to="/contact-us">guestexperience</GatsbyLink> and they will be happy to assist you.</Paragraph>
       <Heading as="h2">i'm on a deadline — can i place a rush order?</Heading>
       <Paragraph>
         yes— in many cases, we can accommodate a rush order. typically our
