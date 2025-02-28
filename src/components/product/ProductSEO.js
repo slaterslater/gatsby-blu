@@ -26,7 +26,7 @@ const ProductSEO = ({ product, rating, reviews = [] }) => {
       "image": "${ldJSONSrc}",
       "category": "${product.productType}",
       "url": "${productUrl}",
-      "sku": "${product.variants[0].sku}",
+      "sku": "${product.variants[0]?.sku ?? 'n/a'}",
       "offers": [${product.variants
         .map(
           variant => `
