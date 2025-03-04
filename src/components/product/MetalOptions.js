@@ -31,10 +31,6 @@ const MetalOptions = () => {
     if (!productMetalColor) return []
     const alternateMetalColors =
       alternates?.nodes
-        // .filter(alternate => {
-        //   const prodId = product.id.replace('Shopify__Product__', '')
-        //   return alternate !== null && alternate.id !== prodId
-        // })
         .map(alternate => ({
           metal: useProductMetalColor(alternate.options),
           isCurrent: false,
@@ -46,11 +42,10 @@ const MetalOptions = () => {
     return [
       { metal: productMetalColor, text: productMetalText, isCurrent: true },
       ...alternateMetalColors,
-    // ].sort((a, b) => metals.indexOf(a.metal) - metals.indexOf(b.metal))
     ].sort((a, b) => {
       const metalComparison = metals.indexOf(a.metal) - metals.indexOf(b.metal);
       if (metalComparison !== 0) return metalComparison;
-      return a.text.localeCompare(b.text);
+      return (a.text ?? "").localeCompare(b.text ?? "");
     });
   }, [product, alternates, productMetalColor])
 

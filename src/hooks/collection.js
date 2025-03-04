@@ -32,13 +32,13 @@ export const useLatestCollection = (handle, initialProducts) => {
   const collectionImages = useMemo(() => {
     if (!metafields) return []
     return metafields
-      .filter(metafield => metafield?.key.startsWith('collection_image'))
-      .map(({ key, reference: { image } }) => ({
-        key,
-        ...image,
+      .filter(metafield => metafield?.key?.startsWith('collection_image'))
+      .map(({ key, reference }) => ({
+        key: key || "",
+        ...(reference?.image || {}),
       }))
-      .sort((a, b) => a.key.localeCompare(b.key))
-  }, [metafields])
+      .sort((a, b) => a.key.localeCompare(b.key));
+  }, [metafields]);
 
   const collectionProducts = useMemo(() => {
     const latestProducts = getCollectionProducts(products)
