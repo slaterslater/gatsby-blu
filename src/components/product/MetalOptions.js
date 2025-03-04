@@ -1,5 +1,5 @@
 import React, { useContext, useMemo, useState } from 'react'
-import { Flex } from 'theme-ui'
+import { Flex, Grid } from 'theme-ui'
 import ThemeLink from '../app/ThemeLink'
 import MetalOptionSwatch from '../MetalOptionSwatch'
 import { ProductContext } from './ProductContext'
@@ -50,7 +50,11 @@ const MetalOptions = () => {
   }, [product, alternates, productMetalColor])
 
   return (
-    <Flex sx={{height:35}}>
+    <Grid sx={{
+      height: 26,
+      gridTemplateColumns: 'repeat(auto-fit, 26px)',
+      gap: '2px',
+    }}>
       {colors?.map(({ isCurrent, metal, text, handle }) => (
         <MetalOption
           title={title}
@@ -60,7 +64,7 @@ const MetalOptions = () => {
           onMouseLeave={() => setTitle(productMetalColor)}
         />
       ))}
-    </Flex>
+    </Grid>
   )
 }
 

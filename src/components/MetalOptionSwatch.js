@@ -11,15 +11,13 @@ const MetalOptionSwatch = ({ metal, text, isCurrent }) => {
         borderRadius: '50%',
         border: '1px solid',
         borderColor: isCurrent ? '#c4c4c4' : 'transparent',
-        height: 22,
-        width: 22,
       }}
     >
       <Box
         sx={{
           bg: colour,
-          height: 20,
-          width: 20,
+          height: 24,
+          width: 24,
           border: '2px solid',
           borderColor: 'bbBeige',
           borderRadius: '50%',
@@ -27,12 +25,13 @@ const MetalOptionSwatch = ({ metal, text, isCurrent }) => {
       >
         {text && <Text 
           sx={{
-            height: 16,
-            fontSize:'6px',
+            height: '100%',
+            fontSize: '8px',
             display: 'flex',  
             justifyContent:'center',
             alignItems:'center',
-            textTransform:'uppercase'
+            textTransform:'uppercase',
+            lineHeight:0
           }}>{text}
         </Text>}
       </Box>
