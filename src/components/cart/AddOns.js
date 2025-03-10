@@ -7,7 +7,7 @@ import { wrap } from '@popmotion/popcorn'
 import { Link as GatsbyLink } from 'gatsby'
 import { useShopifyImage } from '../../hooks/shopifyImage'
 import { useProductTitle } from '../ProductTitle'
-import { AddCartLines, AddCheckoutLineItem } from '../../mutations/cart'
+import { AddCartLines } from '../../mutations/cart'
 import { useFormattedPrice } from '../FormattedPrice'
 import { CurrencyContext } from '../../contexts/CurrencyContext'
 
@@ -85,7 +85,7 @@ const AddOns = ({ products, cartId }) => {
 
   const { currencyCode } = useContext(CurrencyContext)
 
-  const [{ data, fetching }, addCheckoutLineItem] =
+  const [{ data, fetching }, addCartLines] =
     useMutation(AddCartLines)
 
   const addOns = useMemo(() => {
@@ -102,7 +102,7 @@ const AddOns = ({ products, cartId }) => {
 
   const addOntoCart = async merchandiseId => {
     const lines = [{ quantity: 1, merchandiseId }]
-    const cart = await addCheckoutLineItem({
+    const cart = await addCartLines({
       cartId,
       lines,
     })

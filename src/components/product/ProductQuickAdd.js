@@ -3,7 +3,7 @@ import { Box, Button, Flex } from 'theme-ui'
 import { useMutation } from 'urql'
 import { useMetafieldValue } from '../../hooks/useMetafield'
 import { metals } from '../../data/metals'
-import { AddCheckoutLineItem } from '../../mutations/cart'
+import { AddCartLines } from '../../mutations/cart'
 import { StoreContext } from '../../contexts/StoreContext'
 import { DrawerContext } from '../drawers'
 
@@ -13,17 +13,17 @@ const ProductQuickAdd = ({
   isQuickAdding,
   setIsQuickAdding,
 }) => {
-  const { checkoutId } = useContext(StoreContext)
+  const { cartId } = useContext(StoreContext)
   const { setOpenDrawer } = useContext(DrawerContext)
   const [isOn, setIsOn] = useState(false)
   const offersPairs = useMetafieldValue('offers_pairs', metafields)
-  const [{ data, fetching }, addCheckoutLineItem] =
-    useMutation(AddCheckoutLineItem)
+  const [{ data, fetching }, addCartLines] =
+    useMutation(AddCartLines)
 
-  const quickAddToCart = async lineItems => {
-    const cart = await addCheckoutLineItem({
-      checkoutId,
-      lineItems,
+  const quickAddToCart = async lines => {
+    const cart = await addCartLines({
+      cartId,
+      lines,
     })
     setOpenDrawer('cart')
     // do something with analytics?
@@ -123,7 +123,7 @@ const ProductQuickAdd = ({
           buttons.map(({ variantId, text, borderColor, quantity }, i) => (
             <Button
               key={`quickadd-${i}`}
-              onClick={() => quickAddToCart({ variantId, quantity })}
+              onClick={() => quickAddToCart({ merchandiseId: variantId, quantity })}
               variant="inverted"
               sx={{
                 borderColor,

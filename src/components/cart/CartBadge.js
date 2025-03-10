@@ -2,18 +2,18 @@ import { Flex } from 'theme-ui'
 import React, { useContext } from 'react'
 import { useQuery } from 'urql'
 import { StoreContext } from '../../contexts/StoreContext'
-import { CHECKOUT_QUERY } from '../../queries/checkout'
+import { CART_QUERY } from '../../queries/checkout'
 
 const CartBadge = props => {
-  const { checkoutId } = useContext(StoreContext)
+  const { cartId } = useContext(StoreContext)
   const [{ data, fetching }] = useQuery({
-    query: CHECKOUT_QUERY,
-    variables: { checkoutId },
+    query: CART_QUERY,
+    variables: { cartId },
   })
 
   if (!data && fetching) return false
 
-  const itemCount = data?.checkout?.lineItems?.nodes?.reduce(
+  const itemCount = data?.cart?.lines?.nodes?.reduce(
     (acc, item) => acc + item.quantity,
     0
   )

@@ -100,8 +100,8 @@ const CustomSetPage = ({ data }) => {
         >
           {availableProducts.map(product => {
             const { metafields, priceRangeV2, title } = product
-            const { images } = products.find(({ id }) => id === product.id)
-            const thumb = images[images.length - 1] // last img is single piece
+            const { media } = products.find(({ id }) => id === product.id)
+            const thumb = media[media.length - 1]?.image // last img is single piece
             const singleEarring = {
               ...product,
               metafields: metafields.filter(
@@ -110,7 +110,6 @@ const CustomSetPage = ({ data }) => {
               thumb,
             }
             if (title.toUpperCase().includes('WISHBONE EARRINGS'))
-              console.log(product.tags)
             singleEarring.priceRangeV2.maxVariantPrice.amount =
               singleEarring.priceRangeV2.minVariantPrice.amount
 

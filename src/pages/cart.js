@@ -3,36 +3,40 @@ import React, { useContext, useEffect } from 'react'
 import { useQuery, useMutation } from 'urql'
 import { OutboundLink } from 'gatsby-plugin-google-gtag'
 import Layout from '../components/layout'
-import { CHECKOUT_QUERY } from '../queries/checkout'
+import { CART_QUERY } from '../queries/checkout'
 import CartLineItem from '../components/cart/CartLineItem'
 import { OrderSummary } from '../components/cart/OrderSummary'
 import { StoreContext } from '../contexts/StoreContext'
 import { AuthContext } from '../contexts/AuthContext'
-import { AssociateCustomerWithCheckout } from '../mutations/cart'
+import { CartBuyerIdentityUpdate } from '../mutations/cart'
 import { CurrencyContext } from '../contexts/CurrencyContext'
 
 const ShoppingCartPage = props => {
-  const { checkoutId } = useContext(StoreContext)
+  const { cartId } = useContext(StoreContext)
   const { countryCode } = useContext(CurrencyContext)
   const { accessToken } = useContext(AuthContext)
   const [{ data, fetching }] = useQuery({
-    query: CHECKOUT_QUERY,
-    variables: { checkoutId, countryCode },
-    pause: !checkoutId,
+    query: CART_QUERY,
+    variables: { cartId, countryCode },
+    pause: !cartId,
   })
 
-  const [, associateCustomerWithCheckout] = useMutation(
-    AssociateCustomerWithCheckout
+  const [, associateCustomerWithCart] = useMutation(
+    CartBuyerIdentityUpdate
   )
 
   useEffect(() => {
-    if ((accessToken, checkoutId)) {
-      associateCustomerWithCheckout({
-        checkoutId,
+    if ((accessToken, cartId, countryCode)) {
+      const buyerIdentity = {
         customerAccessToken: accessToken,
+        countryCode
+      }
+      associateCustomerWithCart({
+        cartId,
+        buyerIdentity
       })
     }
-  }, [accessToken, checkoutId, associateCustomerWithCheckout])
+  }, [accessToken, cartId, associateCustomerWithCart])
 
   return (
     <Layout title="cart">
