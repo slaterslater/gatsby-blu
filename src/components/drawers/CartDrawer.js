@@ -12,8 +12,8 @@ import { useAnalytics } from '../../lib/useAnalytics'
 import { CurrencyContext } from '../../contexts/CurrencyContext'
 import { AuthContext } from '../../contexts/AuthContext'
 import {
-  AssociateCustomerWithCheckout,
-  RemoveCheckoutLineItem,
+  CartBuyerIdentityUpdate,
+  RemoveCartLine,
 } from '../../mutations/cart'
 import AddOns from '../cart/AddOns'
 
@@ -33,10 +33,10 @@ const CartDrawer = ({ onClose }) => {
   const { countryCode } = useContext(CurrencyContext)
   const { accessToken } = useContext(AuthContext)
 
-  const [, associateCustomerWithCheckout] = useMutation(
-    AssociateCustomerWithCheckout
+  const [, associateCustomerWithCart] = useMutation(
+    CartBuyerIdentityUpdate
   )
-  const [, removeLineItem] = useMutation(RemoveCheckoutLineItem)
+  const [, removeLineItem] = useMutation(RemoveCartLine)
 
   const [{ data, fetching }, reexecuteQuery] = useQuery({
     query: CART_QUERY,
@@ -52,19 +52,23 @@ const CartDrawer = ({ onClose }) => {
   // remove lineitems if product doesn't exist anymore
   useEffect(() => {
     lines.forEach(item => {
-      if (item.variant) return
+      if (item.merchandise) return
       removeLineItem({ cartId, lineIds: [item.id] })
     })
   }, [lines])
 
-  // useEffect(() => {
-  //   if ((accessToken, cartId)) {
-  //     associateCustomerWithCheckout({
-  //       cartId,
-  //       customerAccessToken: accessToken,
-  //     })
-  //   }
-  // }, [accessToken, cartId, associateCustomerWithCheckout])
+  useEffect(() => {
+    if ((accessToken, cartId, countryCode)) {
+      const buyerIdentity = {
+        customerAccessToken: accessToken,
+        countryCode
+      }
+      associateCustomerWithCart({
+        cartId,
+        buyerIdentity
+      })
+    }
+  }, [accessToken, cartId, associateCustomerWithCart])
 
   return (
     <Flex

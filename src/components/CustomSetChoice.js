@@ -5,14 +5,14 @@ import { IoClose } from 'react-icons/io5'
 import FormattedPrice from './FormattedPrice'
 import { ThumbnailImage } from './product/ListItem'
 import { DrawerContext } from './drawers'
-import { AddCheckoutLineItem } from '../mutations/cart'
+import { AddCartLines } from '../mutations/cart'
 import { getProductAttributes } from './product/AddToCart/util'
 import { StoreContext } from '../contexts/StoreContext'
 
 const CustomSetChoice = ({ customSet, setCustomSet }) => {
-  const { checkoutId } = useContext(StoreContext)
+  const { cartId } = useContext(StoreContext)
   const { setOpenDrawer } = useContext(DrawerContext)
-  const [, addCheckoutLineItem] = useMutation(AddCheckoutLineItem)
+  const [, addCartLines] = useMutation(AddCartLines)
 
   const setPrice = useMemo(() => {
     const total = customSet.reduce((sum, product) => {
@@ -25,15 +25,16 @@ const CustomSetChoice = ({ customSet, setCustomSet }) => {
   if (customSet.length === 0) return null
 
   const addSetToBag = async () => {
-    const lineItems = customSet.map(({ variants, metafields }) => ({
-      variantId: variants[0].id,
+    console.log({customSet})
+    const lines = customSet.map(({ variants, metafields }) => ({
+      merchandiseId: variants[0].id,
       quantity: 1,
-      customAttributes: getProductAttributes({ metafields }),
+      attributes: getProductAttributes({ metafields }),
     }))
 
-    const cart = await addCheckoutLineItem({
-      checkoutId,
-      lineItems,
+    const cart = await addCartLines({
+      cartId,
+      lines,
     })
 
     // analytics here ?

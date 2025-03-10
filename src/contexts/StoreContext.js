@@ -2,7 +2,7 @@ import React, { useContext, createContext, useEffect, useState } from 'react'
 import { useQuery, useMutation } from 'urql'
 import store from 'store'
 import { CartCreate } from '../mutations/cart'
-import { CART_QUERY, CHECKOUT_QUERY } from '../queries/checkout'
+import { CART_QUERY } from '../queries/checkout'
 import { CurrencyContext } from './CurrencyContext'
 
 const STORAGE_CART_ID = 'cartId'

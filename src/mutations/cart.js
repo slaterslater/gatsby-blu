@@ -150,6 +150,7 @@ export const RemoveCartLine = gql`
   }
 `
 
+// DEPRECIATED
 export const AssociateCustomerWithCheckout = gql`
   ${CHECKOUT_FRAGMENT}
   ${ERROR_FRAGMENT}
@@ -173,6 +174,22 @@ export const AssociateCustomerWithCheckout = gql`
     }
   }
 `
+
+export const CartBuyerIdentityUpdate = gql`
+  ${CART_FRAGMENT}
+  ${ERROR_FRAGMENT}
+  mutation cartBuyerIdentityUpdate($buyerIdentity: CartBuyerIdentityInput!, $cartId: ID!) {
+    cartBuyerIdentityUpdate(buyerIdentity: $buyerIdentity, cartId: $cartId) {
+      cart {
+        ...CartFields
+      }
+      userErrors {
+        ...ErrorFields
+      }
+    }
+  }
+`
+
 // DEPRECIATED
 export const UpdateCheckoutAttributes = gql`
   ${CHECKOUT_FRAGMENT}

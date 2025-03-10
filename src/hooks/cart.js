@@ -12,7 +12,7 @@ import { useVariantPrice } from '../components/product/VariantPrice'
 import { StoreContext } from '../contexts/StoreContext'
 import { useSendAnalytics } from '../lib/useAnalytics'
 import useToggle from '../lib/useToggle'
-import { AddCartLineItem, AddCartLines, AddCheckoutLineItem } from '../mutations/cart'
+import { AddCartLines } from '../mutations/cart'
 import { useMadeToOrder } from './product'
 import { useMetafieldValue } from './useMetafield'
 
