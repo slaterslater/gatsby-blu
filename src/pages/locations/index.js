@@ -159,7 +159,7 @@ export default LocationIndexPage
 
 export const query = graphql`
   {
-    allSanityLocation(sort: { fields: isTempClosed }) {
+    allSanityLocation(sort: {isTempClosed: ASC}){
       nodes {
         id
         name

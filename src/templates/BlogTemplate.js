@@ -82,12 +82,7 @@ export default BlogTemplate
 
 export const query = graphql`
   query BlogPage($limit: Int!, $skip: Int!) {
-    allShopifyArticle(
-      limit: $limit
-      skip: $skip
-      # filter: { blog: { title: { eq: "blog" } } }
-      sort: { fields: [publishedAt], order: DESC }
-    ) {
+    allShopifyArticle(limit: $limit, skip: $skip, sort: {publishedAt: DESC}) {
       totalCount
       nodes {
         id

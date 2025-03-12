@@ -221,13 +221,11 @@ async function createBlogPages({ graphql, actions }) {
   const component = path.resolve('./src/templates/BlogTemplate.js')
 
   const { data } = await graphql(`
-    {
-      allShopifyArticle(
-        sort: { fields: [publishedAt], order: DESC } # filter: { blog: { title: { eq: "blog" } } }
-      ) {
-        totalCount
-      }
-    }
+ {
+  allShopifyArticle(sort: {publishedAt: DESC}) {
+    totalCount
+  }
+}
   `)
 
   const perPage = 12

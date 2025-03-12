@@ -8,7 +8,6 @@ import CollectionPageHeader from '../components/CollectionPageHeader'
 
 const SanityPageTemplate = ({ data }) => {
   const { isBeloved, seo, title, description, image, content } = data.sanityPage
-  console.log({ content })
   return (
     <Layout
       isBeloved={isBeloved}

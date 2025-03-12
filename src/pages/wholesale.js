@@ -103,7 +103,7 @@ export const query = graphql`
 query{
   allFile(
     filter: {relativeDirectory: {eq: "wholesale"}, name: {regex: "/wholesale_\\d/"}}
-    sort: {order: ASC, fields: name}
+    sort: {name: ASC}
   ) {
     nodes {
       childImageSharp {
