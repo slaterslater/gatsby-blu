@@ -23,15 +23,24 @@ export const logBadGiftGuideData = (
   })
 
   const errors = bad
-    .map(
-      ({ handle, collection, boxNum, prodNum }) => `
-      gift guide: ${guideHandle}
-      collection: ${collection}
-      box: ${boxNum}
-      set: ${prodNum}
-      handle: ${handle}\n`
-    )
-    .join('\n')
+    .map(({ handle, collection, boxNum, prodNum }) => ({
+      guideHandle,
+      collection,
+      box: boxNum,
+      set: prodNum,
+      handle,
+    }))
+  // const errors = bad
+  //   .map(
+  //     ({ handle, collection, boxNum, prodNum }) => `
+  //     gift guide: ${guideHandle}
+  //     collection: ${collection}
+  //     box: ${boxNum}
+  //     set: ${prodNum}
+  //     handle: ${handle}\n`
+  //   )
+  //   .join('\n')
 
-  console.error(errors)
+  // console.error(errors)
+  return errors
 }

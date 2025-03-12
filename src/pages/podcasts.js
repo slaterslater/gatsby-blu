@@ -116,7 +116,7 @@ export const query = graphql`
   query ($skip: Int = 0, $limit: Int = 6) {
     podcasts: allPodcast(
       filter: { episode_number: { gt: 0 } }
-      sort: { fields: published_at, order: DESC }
+      sort: {published_at: DESC}
       skip: $skip
       limit: $limit
     ) {

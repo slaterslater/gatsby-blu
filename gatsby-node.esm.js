@@ -221,13 +221,11 @@ async function createBlogPages({ graphql, actions }) {
   const component = path.resolve('./src/templates/BlogTemplate.js')
 
   const { data } = await graphql(`
-    {
-      allShopifyArticle(
-        sort: { fields: [publishedAt], order: DESC } # filter: { blog: { title: { eq: "blog" } } }
-      ) {
-        totalCount
-      }
-    }
+ {
+  allShopifyArticle(sort: {publishedAt: DESC}) {
+    totalCount
+  }
+}
   `)
 
   const perPage = 12
@@ -359,6 +357,7 @@ async function createGiftGuidePages({ graphql, actions }) {
   `)
   const guides = data.allSanityGiftGuide.nodes
   const allShopifyProducts = data.allShopifyProduct.nodes
+  const errors = []
   if (guides.length === 0) return
   guides.forEach(guide => {
     const {
@@ -393,8 +392,12 @@ async function createGiftGuidePages({ graphql, actions }) {
       if (!found) badHandles.push(handle)
       return !!found
     })
-    // log any handles that can't be found
-    logBadGiftGuideData(badHandles, guideHandle, giftCollections)
+
+    // push any handles that can't be found to errors
+    if (badHandles.length) {
+      const errorMessage = logBadGiftGuideData(badHandles, guideHandle, giftCollections)
+      errors.push(errorMessage)
+    }
 
     // get alternates
     const alternates = allHandles.reduce((allAlternates, product) => {
@@ -423,6 +426,17 @@ async function createGiftGuidePages({ graphql, actions }) {
       },
     })
   })
+  // write path to deploy logs and create error page
+  if (errors.length){
+    const template = 'gift-guide'
+    console.error(template)
+
+    actions.createPage({
+      path: `/errors/${template}`,
+      component: path.resolve('./src/templates/ErrorLogTemplate.js'),
+      context: { errors},
+    })
+  }
 }
 
 async function createHomePage({ graphql, actions }) {

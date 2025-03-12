@@ -1,5 +1,5 @@
 import dotenv from 'dotenv'
-import shopifySourceQueries from './src/utils/shopifySourceQueries'
+// import shopifySourceQueries from './src/utils/shopifySourceQueries'
 import { algoliaQueries } from './src/utils/algolia-queries'
 
 dotenv.config({
@@ -158,17 +158,11 @@ module.exports = {
     {
       resolve: `gatsby-source-shopify`,
       options: {
-        // The domain name of your Shopify shop.
         storeUrl: process.env.SHOPIFY_SHOP_NAME,
-        // The storefront access token
-        // password: process.env.SHOPIFY_STOREFRONT_KEY,
         password: process.env.SHOPIFY_STOREFRONT_PASSWORD,
-        shopifyConnections: ['collections'],
         apiVersion: process.env.GATSBY_SHOPIFY_API_VERSION,
-        // paginationSize: 80,
-        // collections: ['shop'],
+        shopifyConnections: ['collections'],
         downloadImages: false,
-        // shopifyQueries: shopifySourceQueries,
       },
     },
     // {

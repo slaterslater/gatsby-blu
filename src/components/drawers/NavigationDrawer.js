@@ -80,7 +80,7 @@ const NavigationDrawer = ({ onClose }) => {
   const searchInput = useRef(null)
   const query = useStaticQuery(graphql`
     {
-      allSanityMegaMenu(sort: { fields: _createdAt, order: ASC }) {
+      allSanityMegaMenu(sort: {_createdAt: ASC}) {
         nodes {
           groups {
             title

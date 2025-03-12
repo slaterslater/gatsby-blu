@@ -11,7 +11,7 @@ const ProductTestimonials = () => {
   const data = useStaticQuery(graphql`
     {
       allSanityStory(
-        sort: { fields: _createdAt, order: DESC }
+        sort: {_createdAt: DESC}
         filter: {
           people: { elemMatch: { wearing: { regex: "/one.*of.*a.*kind/ig" } } }
         }

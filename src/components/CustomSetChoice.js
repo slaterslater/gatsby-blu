@@ -25,7 +25,6 @@ const CustomSetChoice = ({ customSet, setCustomSet }) => {
   if (customSet.length === 0) return null
 
   const addSetToBag = async () => {
-    console.log({customSet})
     const lines = customSet.map(({ variants, metafields }) => ({
       merchandiseId: variants[0].id,
       quantity: 1,

@@ -197,7 +197,7 @@ export const query = graphql`
   query ($today: Date!) {
     allSanityEvent(
       filter: { dates: { elemMatch: { date: { gte: $today } } } }
-      sort: { fields: dates___date, order: ASC }
+      sort: {dates: {date: ASC}}
     ) {
       nodes {
         badge {
