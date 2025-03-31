@@ -7666,28 +7666,6 @@ gatsby-cli@^5.14.0:
     yoga-layout-prebuilt "^1.10.0"
     yurnalist "^2.1.0"
 
-gatsby-core-utils@4.15.0-next.0, gatsby-core-utils@^4.15.0-next.0:
-  version "4.15.0-next.0"
-  resolved "https://registry.yarnpkg.com/gatsby-core-utils/-/gatsby-core-utils-4.15.0-next.0.tgz#aaa6643049dc66984bc2c65ece9abc3ac2f33d29"
-  integrity sha512-DLy4sSplzOL3LhUHH3zZG/5pGc1LeimEKTuD+CD4JUYRFQuiMn4qL0+xzOzObCbGstGtZdhhD7cz0dpJ1rn5DQ==
-  dependencies:
-    "@babel/runtime" "^7.20.13"
-    ci-info "2.0.0"
-    configstore "^5.0.1"
-    fastq "^1.15.0"
-    file-type "^16.5.4"
-    fs-extra "^11.2.0"
-    got "^11.8.6"
-    hash-wasm "^4.11.0"
-    import-from "^4.0.0"
-    lmdb "2.5.3"
-    lock "^1.1.0"
-    node-object-hash "^2.3.10"
-    proper-lockfile "^4.1.2"
-    resolve-from "^5.0.0"
-    tmp "^0.2.1"
-    xdg-basedir "^4.0.0"
-
 gatsby-core-utils@^4.14.0, gatsby-core-utils@^4.5.0:
   version "4.14.0"
   resolved "https://registry.yarnpkg.com/gatsby-core-utils/-/gatsby-core-utils-4.14.0.tgz#d044327b9399f0449674f8abf1037d1a3ab4e84e"
@@ -7968,21 +7946,6 @@ gatsby-plugin-typescript@^5.14.0:
     "@babel/runtime" "^7.20.13"
     babel-plugin-remove-graphql-queries "^5.14.0"
 
-gatsby-plugin-utils@4.15.0-next.0:
-  version "4.15.0-next.0"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-utils/-/gatsby-plugin-utils-4.15.0-next.0.tgz#9245d4d8608b325b22883277918a95236fa1577e"
-  integrity sha512-A2ToxRTWOidx/IkhXuPQi75N9KntS0fxTLwi4VTrCLunPm9fOs6wMe9DFSrG97BOC+fn9U+OUFfsw5YPBgUoGQ==
-  dependencies:
-    "@babel/runtime" "^7.20.13"
-    fastq "^1.16.0"
-    fs-extra "^11.2.0"
-    gatsby-core-utils "^4.15.0-next.0"
-    gatsby-sharp "^1.15.0-next.0"
-    graphql-compose "^9.0.10"
-    import-from "^4.0.0"
-    joi "^17.11.0"
-    mime "^3.0.0"
-
 gatsby-plugin-utils@^4.14.0, gatsby-plugin-utils@^4.5.0:
   version "4.14.0"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-utils/-/gatsby-plugin-utils-4.14.0.tgz#5ba6f5a92ba3a79d5b66ab59c8243d4504418782"
@@ -8017,28 +7980,6 @@ gatsby-sharp@^1.14.0:
   integrity sha512-2lZg8NEg5M8jzkMYZouf0I5e1TVpwjtEiKg48R4dGOhYqDKGfENVJWRnvYtw12zNfgBgQ/gUryG7Zj7qMLVANA==
   dependencies:
     sharp "^0.32.6"
-
-gatsby-sharp@^1.15.0-next.0:
-  version "1.15.0-next.0"
-  resolved "https://registry.yarnpkg.com/gatsby-sharp/-/gatsby-sharp-1.15.0-next.0.tgz#a5a0def32845c62f8debd289f30c5bd10006317e"
-  integrity sha512-lH6KXHW9zZs1AJaVbJOegVxIq8sboi8CUXq8GJV57dZr8JT1PUeMDrK1mDNqDB3jpfhklWdyE7lxhsL9VHfKCQ==
-  dependencies:
-    sharp "^0.32.6"
-
-gatsby-source-filesystem@5.15.0-next.0:
-  version "5.15.0-next.0"
-  resolved "https://registry.yarnpkg.com/gatsby-source-filesystem/-/gatsby-source-filesystem-5.15.0-next.0.tgz#da2dc40ffb08440d55ddf2f4091d24f47079ed2d"
-  integrity sha512-rV8YSPiX/pYB53qN/cYA/HDhrwzPIJte1094LwjbPDJFcGA3zkEJLsyl4RJ74S+j2JhWvt+k9RQyUN6sogOZMQ==
-  dependencies:
-    "@babel/runtime" "^7.20.13"
-    chokidar "^3.5.3"
-    file-type "^16.5.4"
-    fs-extra "^11.2.0"
-    gatsby-core-utils "^4.15.0-next.0"
-    mime "^3.0.0"
-    pretty-bytes "^5.6.0"
-    valid-url "^1.0.9"
-    xstate "^4.38.0"
 
 gatsby-source-filesystem@^5.14.0:
   version "5.14.0"
@@ -8078,15 +8019,15 @@ gatsby-source-sanity@^7.9.1:
     through2 "^4.0.2"
     url-parse "^1.5.10"
 
-gatsby-source-shopify@9.0.0-canary.0:
-  version "9.0.0-canary.0"
-  resolved "https://registry.yarnpkg.com/gatsby-source-shopify/-/gatsby-source-shopify-9.0.0-canary.0.tgz#adeda18c60c6330a1aa84fbb7d4c963b737257fb"
-  integrity sha512-xBqX70NWXum2fpHKH6Jsx/CYXlE7uPOrGwxyxVSr2CgjFd/ZRG5tYpy2eipkRFAY1cPsvyLr4aYnCkgmQoxAhA==
+gatsby-source-shopify@10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/gatsby-source-shopify/-/gatsby-source-shopify-10.0.0.tgz#8fc4b8a95c8b8ac40dc50121ad6755b33af57167"
+  integrity sha512-x/iIb2Nrp+6MmmyniaA1NZgdI4XTBz2RuLRpcfB4u4Bxgn1AeEI2BzwlFRmDTid4bp8sViWokBZy1GSvYmJqHg==
   dependencies:
     "@babel/runtime" "^7.20.13"
-    gatsby-core-utils "4.15.0-next.0"
-    gatsby-plugin-utils "4.15.0-next.0"
-    gatsby-source-filesystem "5.15.0-next.0"
+    gatsby-core-utils "^4.14.0"
+    gatsby-plugin-utils "^4.14.0"
+    gatsby-source-filesystem "^5.14.0"
     node-fetch "^2.6.11"
     sharp "^0.32.6"
     shift-left "^0.1.5"
