@@ -17,8 +17,8 @@ import { ProductTitleAndPrice } from './ProductTitleAndPrice'
 import RelatedProducts from './RelatedProducts'
 import ProductBadges from './ProductBadges'
 import { CurrencyContext } from '../../contexts/CurrencyContext'
-import SezzleInfo from './sezzleInfo'
-import { useVariantPrice } from './VariantPrice'
+// import SezzleInfo from './sezzleInfo'
+// import { useVariantPrice } from './VariantPrice'
 import ColorOptions from './ColorOptions'
 import ServiceButton from './ServiceButton'
 import ProductPickerRows from './ProductPickerRows'
@@ -40,8 +40,8 @@ const getReviewMetafields = (metafields = []) => {
 
 const ProductDetails = () => {
   const { product, selectedVariant } = useContext(ProductContext)
-  const variant = selectedVariant || product.variants[0]
-  const variantPrice = useVariantPrice(variant)
+  // const variant = selectedVariant || product.variants[0]
+  // const variantPrice = useVariantPrice(variant)
   const { currencyCode, setCurrency } = useContext(CurrencyContext)
   const { handle, metafields, tags } = product
   const { total, average, collectionHandle } = getReviewMetafields(metafields)
