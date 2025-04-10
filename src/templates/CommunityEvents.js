@@ -30,7 +30,8 @@ const EventDateTime = ({ dateAndTimes }) => {
 const Event = ({ details, index }) => {
   const { image, title, badge, description, link, dates, location, inStore } =
     details
-  const { city, phone, email, street, province } = inStore ? location : details
+  const store = location ?? {}   
+  const { city, phone, email, street, province } = inStore ? store : details
   const flexDirection = index % 2 ? 'row-reverse' : 'row'
   const bg = index % 2 ? 'white' : 'bbBackground'
 
@@ -80,7 +81,7 @@ const Event = ({ details, index }) => {
           >
             <h3>location:</h3>
             <span>
-              {street} <br /> {`${city}, ${province}`}
+              {street} <br /> {`${city ?? ''}, ${province ?? ''}`}
             </span>
             <h3>date &amp; time:</h3>
             <ol>
@@ -90,7 +91,7 @@ const Event = ({ details, index }) => {
             </ol>
           </Grid>
           <h3>for more information</h3>
-          <Flex
+          {phone && email && <Flex
             sx={{
               flexDirection: ['column', 'row'],
               a: { marginRight: 4 },
@@ -102,7 +103,7 @@ const Event = ({ details, index }) => {
             <span>
               <strong>email:</strong> <a href={`mailto:${email}`}>{email}</a>
             </span>
-          </Flex>
+          </Flex>}
           <Button
             sx={{
               minWidth: 230,
