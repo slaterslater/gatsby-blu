@@ -150,7 +150,9 @@ export const useProductGalleryMedia = () => {
 
   const { url } = packagingImages.find(
     ({ type }) => type === giftPackagingImageStyle.trim().toLowerCase()
-  )
+  ) ?? {}
+
+  if (!url) return media
 
   const image = {
     url,
