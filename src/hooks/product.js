@@ -157,14 +157,13 @@ export const useProductGalleryMedia = () => {
     height: 3000,
     width: 3000,
     altText: 'packaging',
-    id: 'product_packaging_style',
-    mediaContentType: 'IMAGE',
+    id: 'product_packaging_style', 
   }
 
   return [
     // ...productGalleryMedia,
     ...media,
-    {image},
+    {image, mediaContentType: 'IMAGE'},
   ]
 }
 
