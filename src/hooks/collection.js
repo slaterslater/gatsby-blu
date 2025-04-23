@@ -3,19 +3,15 @@ import { useQuery } from 'urql'
 import { useLocation } from '@reach/router'
 import { parse, stringify } from 'qs'
 import dayjs from 'dayjs'
-import { graphql, useStaticQuery } from 'gatsby'
 import { pick } from 'lodash'
 import { CurrencyContext } from '../contexts/CurrencyContext'
 import { COLLECTION_PAGE_QUERY } from '../queries/collection'
-// import { getCollectionProducts } from '../views/CollectionView'
-// import { metals } from '../../data/metals'
 
 export const getCollectionProducts = products => {
   if (!products) return undefined
   return products.edges.map(({ node }) => ({
     ...node,
     variants: node.variants.edges.map(({ node: n }) => n),
-    // images: node.images.edges.map(({ node: n }) => n),
     media: node.images.edges.map(({node}) => ({image: {...node}})),
     metafields: node.metafields.filter(metafield => !!metafield),
   }))
@@ -67,30 +63,12 @@ export const useCollectionFilterAndSortOptions = products => {
   const { sort, ...params } = currentParams
   const currentPath = pathWithParams({ sort })
 
-  const data = useStaticQuery(graphql`
-    {
-      allShopifyMetafield(filter: {ownerType: {eq: COLLECTION}}) {
-        nodes {
-          value
-        }
-      }
-    }
-  `)
-
-  const filterOptions = useMemo(() => {
-    const filtersFromProducts = data.allShopifyMetafield.nodes.reduce(
-      (filters, metafield) => {
-        // console.log({metafield})
-        // const values = JSON.parse(metafield.value)
-        const values = metafield.value.split(',')
+  const filterOptions = useMemo(() => products.reduce(
+      (filters, product) => {
+        const metafield = product.metafields?.find(mf => mf.key === 'filters')
+        if (!metafield) return filters
+        const values = JSON.parse(metafield.value)
         values.forEach(value => {
-          // find at least one product with this value other skip it
-          const isProductWithFilterValue = products.some(({ metafields }) =>
-            metafields.some(
-              field => field.key === 'filters' && field.value.includes(value)
-            )
-          )
-          if (!isProductWithFilterValue) return
           const [label, option] = value.split(': ')
           const currentFilter = filters.find(filter => filter.label === label)
           if (currentFilter) {
@@ -102,18 +80,8 @@ export const useCollectionFilterAndSortOptions = products => {
           }
         })
         return filters
-      },
-      []
-    )
-
-    return [
-      // {
-      //   label: 'metal',
-      //   options: metals.map(metal => metal.replaceAll(' ', '-')),
-      // },
-      ...filtersFromProducts,
-    ]
-  }, [data, products])
+      },[]
+    ), [products])
 
   const selectedFilters = pick(
     params,
@@ -198,8 +166,7 @@ const filterProducts = ({ products, filters }) => {
     )
     if (!filtersMetafield) return
 
-    // const productFilterOptions = JSON.parse(filtersMetafield.value)
-    const productFilterOptions = filtersMetafield.value.split(',')
+    const productFilterOptions = JSON.parse(filtersMetafield.value)
     const isMatch = filters.some(option =>
       productFilterOptions.includes(option)
     )

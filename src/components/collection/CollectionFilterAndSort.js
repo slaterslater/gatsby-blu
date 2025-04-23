@@ -16,6 +16,8 @@ const CollectionFilterAndSort = ({ title, products }) => {
   const { currentPath, currentSortOptions, filterOptions, selectedFilters } =
     useCollectionFilterAndSortOptions(products)
 
+  // console.log({ currentPath, currentSortOptions, filterOptions, selectedFilters })
+
   return (
     <>
       <Box
