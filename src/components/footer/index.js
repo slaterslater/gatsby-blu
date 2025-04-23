@@ -8,8 +8,24 @@ import {
 } from './sections'
 import { FooterA, FooterLink, FooterText } from './links'
 import CurrencyPicker from '../CurrencyPicker'
+import { useStaticQuery, graphql } from 'gatsby'
 
-const Footer = props => (
+const Footer = props => {
+  const data = useStaticQuery(graphql`
+      {
+        allSanityLocation(sort: {postalCode: ASC}) {
+          nodes {
+            id
+            slug {
+              current
+            }
+            name
+          }
+        }
+      }
+    `)
+  const locations = data?.allSanityLocation.nodes  
+  return (
   <>
     <Box as="footer" mt="auto" sx={{ bg: 'primary' }} p={[0, 6, 6, 7]}>
       <Container
@@ -29,7 +45,8 @@ const Footer = props => (
               '1fr',
               '1fr 1fr',
               '1fr 1fr',
-              'repeat(3, 2fr) 1fr',
+              // 'repeat(3, 2fr) 1fr',
+              '1fr 1fr 1fr',
             ],
             gap: [5, 6],
             rowGap: [5, 7],
@@ -46,13 +63,21 @@ const Footer = props => (
             <FooterLink to="/contact-us">contact us</FooterLink>
             <FooterA href="tel:+1 647-273-6297">call us</FooterA>
             <FooterText>mon - fri &nbsp; 9am - 5pm EST</FooterText>
-            <FooterLink to="/locations">visit us</FooterLink>
             <FooterLink to="/book-a-consultation">
               book virtual appointment
             </FooterLink>
             <FooterLink pb={0} to="/newsletter">
               subscribe
             </FooterLink>
+          </CollapsibleFooterSection>
+          <CollapsibleFooterSection
+            title="Locations"
+            sx={{
+              borderBottom: '1px solid',
+              borderColor: ['white', 'transparent'],
+            }}
+          >
+            {locations.map(({id, slug, name}) => <FooterLink key={id} to={`/locations/${slug.current}`}>{name}</FooterLink>)}
           </CollapsibleFooterSection>
           <CollapsibleFooterSection
             title="Customer Service"
@@ -93,7 +118,13 @@ const Footer = props => (
               Wholesale
             </FooterLink>
           </CollapsibleFooterSection>
-          <CollapsibleFooterSection title="Social">
+          <CollapsibleFooterSection 
+          title="Social"
+          sx={{
+            borderBottom: '1px solid',
+            borderColor: ['white', 'transparent'],
+          }}
+          >
             <FooterA href="https://www.instagram.com/bluboho">
               instagram
             </FooterA>
@@ -104,15 +135,25 @@ const Footer = props => (
               pinterest
             </FooterA>
           </CollapsibleFooterSection>
+            <CollapsibleFooterSection
+          title="subscribe"
+          sx={{
+            // order: [-1, 0],
+            borderBottom: '1px solid',
+            borderColor: ['white', 'transparent'],
+          }}
+        >
+          <FooterNewsletterSubscribe />
+        </CollapsibleFooterSection>
         </Grid>
 
-        <FooterSection
+        {/* <FooterSection
           title="subscribe"
           sx={{ width: '100%', maxWidth: ['auto', 360], order: [-1, 0] }}
           p={[6, 0]}
         >
           <FooterNewsletterSubscribe />
-        </FooterSection>
+        </FooterSection> */}
       </Container>
     </Box>
     <Flex
@@ -154,5 +195,6 @@ const Footer = props => (
     </Flex>
   </>
 )
+}
 
 export default Footer
