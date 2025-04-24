@@ -15,7 +15,7 @@ const AddOnProduct = ({ product, addOntoCart, currencyCode }) => {
   const variant = product.variants.nodes[0]
   const title = useProductTitle(product.title)
   const variantPrice = useFormattedPrice({
-    amount: variant.priceV2.amount,
+    amount: variant?.priceV2?.amount,
     currencyCode,
   })
   const imageData = useShopifyImage({

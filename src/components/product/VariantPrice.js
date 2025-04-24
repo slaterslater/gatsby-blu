@@ -7,7 +7,7 @@ export const useVariantPrice = variant => {
   const { quantity = 1 } = useContext(ProductContext)
   const { currencyCode } = useContext(CurrencyContext)
 
-  const price = variant.priceV2?.amount || variant.price
+  const price = variant?.priceV2?.amount || variant?.price
 
   return useFormattedPrice({
     // ...variant.priceV2,
@@ -24,8 +24,8 @@ export const useVariantCompareAtPrice = variant => {
   const { quantity = 1 } = useContext(ProductContext)
 
   const compareAtPrice = useFormattedPrice({
-    ...variant.compareAtPrice,
-    amount: variant.compareAtPrice?.amount * quantity,
+    ...variant?.compareAtPrice,
+    amount: variant?.compareAtPrice?.amount * quantity,
   })
   return compareAtPrice?.endsWith('$0') ? null : compareAtPrice
 }

@@ -20,7 +20,7 @@ export const useFormattedPrice = ({ amount, currencyCode = 'CAD' }) => {
 
 const FormattedPrice = ({ priceV2 }) => {
   const { currencyCode } = useContext(CurrencyContext)
-  const amount = priceV2.amount || priceV2
+  const amount = priceV2?.amount || priceV2
   return useFormattedPrice({ amount, currencyCode })
 }
 

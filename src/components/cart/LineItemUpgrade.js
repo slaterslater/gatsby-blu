@@ -17,7 +17,7 @@ const LineItemUpgrade = ({
   const [dismissed, setDismissed] = useState(false)
 
   const { product, priceV2 } = upgrade
-  const amount = priceV2.amount - currentAmount
+  const amount = priceV2?.amount - currentAmount
 
   const title = useProductTitle(product.title)
   const priceIncrease = useFormattedPrice({

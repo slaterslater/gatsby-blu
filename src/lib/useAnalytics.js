@@ -22,6 +22,7 @@ const getShopifyProductId = (product, variant) => {
       return `shopify_CA_${productId}_${variantId}`
     }
     default: {
+      console.log({product})
       const [firstVariant] = product.variants
       const variantId = getAdminId(firstVariant.id)
 
@@ -99,14 +100,14 @@ const events = {
     const lineItem = payload
     // GA4
     sendGtagEvent('add_to_cart', {
-      currency: lineItem.variant?.priceV2.currencyCode,
+      currency: lineItem.variant?.priceV2?.currencyCode,
       value: lineItem.variant?.priceV2.amount,
       items: [
         {
           item_name: lineItem.title,
           item_id: lineItem.id,
-          currency: lineItem.variant?.priceV2.currencyCode,
-          price: lineItem.variant?.priceV2.amount,
+          currency: lineItem.variant?.priceV2?.currencyCode,
+          price: lineItem.variant?.priceV2?.amount,
           quantity: 1,
           item_variant: lineItem.variant?.title,
         },
@@ -133,8 +134,8 @@ const events = {
         item_name: item.title,
         item_variant: item.variant?.title,
         quantity: item.quantity,
-        price: item.variant?.priceV2.amount * item.quantity,
-        currency: item.variant?.priceV2.currencyCode,
+        price: item.variant?.priceV2?.amount * item.quantity,
+        currency: item.variant?.priceV2?.currencyCode,
       })),
       value: cart?.cost.totalAmount,
     })
