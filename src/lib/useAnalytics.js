@@ -22,9 +22,8 @@ const getShopifyProductId = (product, variant) => {
       return `shopify_CA_${productId}_${variantId}`
     }
     default: {
-      console.log({product})
       const [firstVariant] = product.variants
-      const variantId = getAdminId(firstVariant.id)
+      const variantId = getAdminId(firstVariant?.id)
 
       return `shopify_CA_${productId}_${variantId}`
     }
