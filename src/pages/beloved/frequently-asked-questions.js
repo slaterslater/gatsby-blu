@@ -1,11 +1,12 @@
 import { StaticImage } from 'gatsby-plugin-image'
-import React from 'react'
-import { Box, Container, Flex, Grid, Heading, NavLink, Text } from 'theme-ui'
+import React, { useEffect } from 'react'
+import { Container, Flex, Grid, Heading, NavLink, Text } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
 import Banner from '../../components/content/Banner'
 import Layout from '../../components/layout'
 import BrownButton from '../../components/BrownButton'
 import { Breadcrumbs } from '../../components/Breadcrumbs'
+import { useLocation } from '@reach/router'
 
 const faqs = [
   `What is the Best Stone for an Engagement Ring? Does it Have to be a Diamond? Can I Use Any Stone I Like?`,
@@ -31,14 +32,10 @@ const faqs = [
 ]
 
 // match faq in nav to faq in body of page
-const scrollToAnswer = e => {
+const scrollToAnswer = n => {
   const answers = document.querySelectorAll('h2')
-  answers.forEach(answer => {
-    const match = answer.innerText.toLowerCase() === e.target.text.toLowerCase()
-    if (!match) return
-    const top = answer.offsetTop - 110
-    window.scrollTo({ top, behavior: 'smooth' })
-  })
+  const top = answers[n-1].offsetTop - 110
+  window.scrollTo({ top, behavior: 'smooth' })
 }
 
 const Paragraph = ({ children, maxWidth = 900, ...props }) => (
@@ -47,7 +44,19 @@ const Paragraph = ({ children, maxWidth = 900, ...props }) => (
   </Text>
 )
 
-const BelovedFAQpage = () => (
+const BelovedFAQpage = () => {
+  
+  const {hash} = useLocation()
+
+  // go to faq if hash ie: #3
+  useEffect(() => {
+    if (!hash) return
+    const num = hash.substring(1)
+    scrollToAnswer(num)
+  }, []);
+
+  
+  return (
   <Layout
     title="FAQ - Frequently Asked Questions"
     description="what is the best stone for an engagement ring? what is the average price range for an engagement ring? do you offer payment plans? do i have to pay a deposit/pay upfront? what is bluboho return policy?"
@@ -185,7 +194,8 @@ const BelovedFAQpage = () => (
         pt={5}
       >
         {faqs.map((faq, i) => (
-          <NavLink key={`faq-${i}`} onClick={scrollToAnswer} p={3}>
+          // <NavLink key={`faq-${i}`} onClick={scrollToAnswer} p={3}>
+          <NavLink key={`faq-${i}`} onClick={()=> {scrollToAnswer(i+1)}} p={3}>
             {faq}
           </NavLink>
         ))}
@@ -568,5 +578,6 @@ const BelovedFAQpage = () => (
     </Container>
   </Layout>
 )
+}
 
 export default BelovedFAQpage

@@ -94,7 +94,7 @@ const Announcements = () => {
   const color = textColor?.hex ?? 'primary'
   const bg = backgroundColor?.hex ?? 'cream'
 
-  const [delay] = useState(5000)
+  const [delay] = useState(5000.00)
   const [isPaused, setIsPaused] = useState(false)
   const [current, setCurrent] = useState(0)
 
