@@ -9,6 +9,7 @@ import Layout from '../components/layout'
 import CalendlyLink from '../components/consultation/CalendlyLink'
 import FAQ from '../components/consultation/FAQ'
 import Banner from '../components/content/Banner'
+import { navigate } from 'gatsby'
 
 const CalendlyConsultationPage = ({ data, location }) => {
   const calendars = data.sanityConsultation.calendars.filter(({ active }) =>
@@ -44,26 +45,21 @@ const CalendlyConsultationPage = ({ data, location }) => {
       calendar.index = calendars.indexOf(calendar)
       setCurrent(calendar)
     }
-
-    // const isCalendlyEventBooked = e =>
-    //   e.origin === 'https://calendly.com' &&
-    //   e.data.event === 'calendly.event_scheduled'
-
-    // window.addEventListener('message', e => {
-    //   if (!isCalendlyEventBooked(e) || !window.gtag) return
-    //   window.gtag('event', 'conversion', {
-    //     send_to: `${process.env.GATSBY_AW_CONVERSION_ID}/nweJCJmXtoYDEIu39dgD`,
-    //   })
-    // })
   }, [])
+
+  const thanks = () => {
+    console.log('thanks')
+    
+  }
 
   // send gtag if event booked
   useCalendlyEventListener({
     onEventScheduled: () => {
       if (!window.gtag) return
       window.gtag('event', 'conversion', {
-        send_to: `${process.env.GATSBY_AW_CONVERSION_ID}/nweJCJmXtoYDEIu39dgD`,
+        send_to: `${process.env.GA4_TRACKING_ID_3}/EsniCJWkwsMaEJ3SgMEq`,
       })
+      navigate('/book-a-consultation-confirmation')
     },
   })
 
