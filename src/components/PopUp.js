@@ -47,7 +47,7 @@ const PopUp = ({ popup, dismissPrompt = () => {}, shouldPrompt = true }) => {
             initial={{ y: '5px', opacity: 0 }}
             animate={{ y: '0', opacity: 1 }}
             exit={{ y: '20px', opacity: 0 }}
-            transition={{ min: 0, max: 100, bounceDamping: 9, delay: '200ms' }}
+            transition={{ min: 0, max: 100, bounceDamping: 9, delay: 200 }}
             aria-label={title}
             m={[0, '10vh auto']}
             mt={['60px', '10vh']}

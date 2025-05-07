@@ -51,7 +51,7 @@ const CurrencyProvider = props => {
       setCountryCode(storageCurrency.slice(0, 2))
     }
 
-    setCurrencyFromGeolocation()
+    // setCurrencyFromGeolocation()
   }, [])
 
   useEffect(() => {
