@@ -27,6 +27,8 @@ const CollectionPageTemplate = ({ pageContext, path, data }) => {
     }
   })
 
+  console.log({d:  data.sanityCollectionGroupPage})
+
   return (
     <CollectionGroupsView
       pageTitle={title}
@@ -35,8 +37,8 @@ const CollectionPageTemplate = ({ pageContext, path, data }) => {
       collectionOrder={collections.map(item => item.handle)}
       collections={collectionsWithGroupData}
       pagePath={path}
-      seoGatsbyImage={seoImage?.asset.gatsbyImageData}
-      headerImage={headerImage?.asset.gatsbyImageData}
+      seoGatsbyImage={seoImage?.asset?.gatsbyImageData}
+      headerImage={headerImage?.asset?.gatsbyImageData}
       handle={slug.current}
       content={content}
       isBeloved={isBeloved}
