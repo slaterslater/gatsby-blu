@@ -114,7 +114,7 @@ const MegaMenu = () => {
               nextLink.image = shopifyCollection.image.gatsbyImageData
             }
             if (groupPage) {
-              nextLink.image = groupPage.image?.asset.gatsbyImageData
+              nextLink.image = groupPage.image?.asset?.gatsbyImageData
             }
             if (card) {
               nextLink.image = card.image.asset.gatsbyImageData

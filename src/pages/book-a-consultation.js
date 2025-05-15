@@ -47,11 +47,6 @@ const CalendlyConsultationPage = ({ data, location }) => {
     }
   }, [])
 
-  const thanks = () => {
-    console.log('thanks')
-    
-  }
-
   // send gtag if event booked
   useCalendlyEventListener({
     onEventScheduled: () => {
