@@ -575,12 +575,21 @@ async function createHomePage({ graphql, actions }) {
           #  gatsbyImageData(placeholder: BLURRED, width: 300)
           #}
            media {
-          ... on ShopifyMediaImage {
-            image {
-              gatsbyImageData(placeholder: BLURRED, width: 360)
+          #... on ShopifyMediaImage {
+          #  image {
+          #    gatsbyImageData(placeholder: BLURRED, width: 360)
+          #  }
+          #}
+           ... on ShopifyMediaImage {
+              mediaContentType
+                image {
+                  src
+                  width
+                  height
+                  gatsbyImageData(placeholder: BLURRED)
+                }
             }
           }
-        }
           priceRangeV2 {
             minVariantPrice {
               amount
