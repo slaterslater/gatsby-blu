@@ -448,7 +448,7 @@ const BelovedFAQpage = () => {
       <Heading as="h2">What Are the Benefits of Buying an Engagement Ring Online?</Heading>
       <Paragraph>We understand that not everyone can make it into <GatsbyLink to="/locations/">our stores</GatsbyLink> to visit and purchase the ring of their dreams, so we are happy to help with an online purchase! although a purchase this important may seem daunting, not being done face to face, there are benefits to this option:</Paragraph>
       <ul>
-        <li><strong>Wider Selection</strong> - all of our one-of-a-kind engagement rings, as well as our wedding bands are available to view online</li>
+        <li><strong>Wider Selection</strong> - all of our <GatsbyLink to="/collections/engagement-rings">one-of-a-kind engagement rings</GatsbyLink>, as well as our <GatsbyLink to="/collections/wedding-bands">wedding bands</GatsbyLink> are available to view online</li>
         <li><strong>Guest Experience</strong> - our online connectors are happy to help with any questions you may have</li>
         <li><strong>Discretion</strong> - ordering your ring online helps with the surprise of it all. you can order the ring fro the comfort of your home, and no one but you and us will know (and we can keep a secret!)</li>
         <li><strong>Virtual Appointments</strong> - for those that wish to have a closer look at our rings, we can coordinate a virtual appointment to see rings via facetime or video chat. <GatsbyLink to="/book-a-consultation/">contact us</GatsbyLink> to set up a personalized appointment</li>

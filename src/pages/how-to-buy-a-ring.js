@@ -445,11 +445,10 @@ const HowToBuyPage = () => (
             <strong>TWO</strong>: if in doubt, too big is better than too small.
           </Text>
           <Text as="p">
-            <strong>THREE</strong>: use a placeholder ring such as our{' '}
-            <GatsbyLink to="/products/marry-me-ring">marry me</GatsbyLink> or{' '}
-            <GatsbyLink to="/products/marry-me-ring-14k-yellow-gold-white-diamond">
+            <strong>THREE</strong>: use a placeholder ring such as our
+            <GatsbyLink to="/collections/all-wedding-bands">
               beloved rings
-            </GatsbyLink>{' '}
+            </GatsbyLink>
             to propose, and then come in together to pick your forever ring.
             within one year of purchasing one of these rings, you can receive a
             credit for an engagement ring from the beloved one-of-a-kind or
@@ -460,7 +459,7 @@ const HowToBuyPage = () => (
               $100 credit on engagement ring purchases up to the value of $4997
             </Text>
             <Text as="li">
-              $398 credit (the full value of the marry me/beloved ring) on
+              $398 credit (the full value of the beloved ring) on
               engagement ring purchases of $4998+
             </Text>
           </Box>
