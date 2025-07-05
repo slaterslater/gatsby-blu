@@ -106,7 +106,7 @@ const CalendlyConsultationPage = ({ data, location }) => {
             mx={['auto', 3]}
             sx={{ fontSize: 1, display: 'block' }}
           >
-            choose your appointment
+            choose your location
           </Text>
           {calendars.map((calendar, i) => (
             <CalendlyLink

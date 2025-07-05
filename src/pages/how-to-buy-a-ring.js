@@ -355,13 +355,9 @@ const HowToBuyPage = () => (
           alt=""
         />
         <Box>
-          <Heading as="h3">certifications</Heading>
-          <Text as="p">
-            each one-of-a-kind engagement ring comes with a complimentary
-            certificate of authenticity signed by our in-house gemmologist,
-            outlining the specifications of your ring and the story upon which
-            it was based.
-          </Text>
+          <Heading as="h3">certifications & appraisals</Heading>
+          <Text as="p">certificate of authenticity - outlines ring specs, price, and authenticates its design by bluboho. available upon request for all rings sold in store or online.</Text>
+          <Text as="p">appraisals - a detailed summary of your ring specs, for insurance purposes. complimentary on rings over $10k. available upon request for all rings for a fee of $150</Text>
         </Box>
         <StaticImage
           placeholder="blurred"
