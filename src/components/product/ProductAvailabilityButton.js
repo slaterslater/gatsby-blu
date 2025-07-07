@@ -25,7 +25,7 @@ const ProductAvailabilityButton = () => {
   // }, [buttonText, viewed, setOpenDrawer])
 
   return (
-    <Flex sx={{ gap: 3, alignItems: 'baseline' }} pb={4}>
+    <Flex sx={{ gap: 3, alignItems: 'baseline' }} pb={2}>
       <Text
         as="small"
         sx={{
