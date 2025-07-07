@@ -441,11 +441,11 @@ const HowToBuyPage = () => (
             <strong>TWO</strong>: if in doubt, too big is better than too small.
           </Text>
           <Text as="p">
-            <strong>THREE</strong>: use a placeholder ring such as our
+            <strong>THREE</strong>: use a placeholder ring such as our{' '}
             <GatsbyLink to="/collections/all-wedding-bands">
               beloved rings
             </GatsbyLink>
-            to propose, and then come in together to pick your forever ring.
+            {' '}to propose, and then come in together to pick your forever ring.
             within one year of purchasing one of these rings, you can receive a
             credit for an engagement ring from the beloved one-of-a-kind or
             beloved endless collections:
