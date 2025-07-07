@@ -201,18 +201,24 @@ const LinkedBraceletsPage = () => {
     })
   }, [])
 
+  const imageAltText = [
+    'Woman Finishing up her Permanant Bracelet',
+    'Permanant Bracelet Appointment in Progress',
+    'Permanant Being Fused with a Tungsten Soldering Machine'
+  ]
+
   const images = Array.from({ length: 3 }).map((_, i) => (
     <Image
       key={`linked-bracelet-image-${i}`}
       src={require(`../images/linked-bracelets/bg${i + 1}.jpg`).default}
-      alt=""
+      alt={imageAltText[i]}
       sx={{ objectFit: 'cover', aspectRatio: 1, width: '100%' }}
     />
   ))
 
   return (
     <Layout
-      title="linked bracelets"
+      title="linked permanent bracelets"
       description="mark the most meaningful and long-lasting of connections"
     >
       <Flex

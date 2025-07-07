@@ -42,7 +42,7 @@ const LocationPageTemplate = ({ data }) => {
           sx={{ fontSize: 4, textAlign: 'center' }}
           py={7}
         >
-          {name}
+          {name} jewellery store
         </Heading>
       </Flex>
       <Breadcrumbs

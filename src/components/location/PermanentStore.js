@@ -26,7 +26,7 @@ const PermanentStore = ({ location }) => {
         sx={{ width: '100%', textAlign: 'center', display: 'block' }}
       >
         <Heading as="h2" variant="h2" my={6}>
-          {name}
+          {name} jewellery store
         </Heading>
       </Link>
       {isTempClosed && (

@@ -86,7 +86,7 @@ const BelovedFAQpage = () => {
           paddingBottom: 3,
         },
         p: { textAlign: 'center', lineHeight: 2, bg: '#eeece1' },
-        'p a': { color: 'primary', fontWeight: 'heading' },
+        'p a, li a': { color: 'primary', fontWeight: 'heading' },
         ul: {
           padding: 0,
           maxWidth: 800,

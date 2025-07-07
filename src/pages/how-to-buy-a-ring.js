@@ -442,6 +442,10 @@ const HowToBuyPage = () => (
           </Text>
           <Text as="p">
             <strong>THREE</strong>: use a placeholder ring such as our{' '}
+            <GatsbyLink to="/products/supernova-ring-14k-gold-white-diamond">
+              supernova ring
+            </GatsbyLink>
+            {' or '}
             <GatsbyLink to="/collections/all-wedding-bands">
               beloved rings
             </GatsbyLink>
