@@ -357,7 +357,7 @@ const HowToBuyPage = () => (
         <Box>
           <Heading as="h3">certifications & appraisals</Heading>
           <Text as="p">certificate of authenticity - outlines ring specs, price, and authenticates its design by bluboho. available upon request for all rings sold in store or online.</Text>
-          <Text as="p">appraisals - a detailed summary of your ring specs, for insurance purposes. complimentary on rings over $10k. available upon request for all rings for a fee of $150</Text>
+          <Text as="p">appraisals - a detailed summary of your ring specs, for insurance purposes. included on rings over $10k. available upon request for all rings, for a fee of $150.</Text>
         </Box>
         <StaticImage
           placeholder="blurred"
