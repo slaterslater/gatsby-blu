@@ -52,6 +52,7 @@ const colors = {
   white: '#FFFFFF',
   whiteGold: '#EDE9D8',
   yellowGold: '#e9d68f',
+  solidGold: '#e9d68f',
   sterlingSilver: '#c7c7c7',
   roseGold: '#e0c5ae',
   error: '#f8382a',

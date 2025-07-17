@@ -54,6 +54,7 @@ const MetalOptions = () => {
       height: 26,
       gridTemplateColumns: 'repeat(auto-fit, 26px)',
       gap: '2px',
+      flex: 1
     }}>
       {colors?.map(({ isCurrent, metal, text, handle }) => (
         <MetalOption
