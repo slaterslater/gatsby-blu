@@ -9,6 +9,7 @@ import { useShopifyImage } from '../../hooks/shopifyImage'
 import { usePageContext } from '../../contexts/PageContext'
 import ProductQuickAdd from './ProductQuickAdd'
 import { useProductLabel } from '../../hooks/product'
+import { IoIosStar } from 'react-icons/io'
 
 const MotionBox = motion.create(Box)
 
@@ -221,6 +222,7 @@ const ProductListItemInner = ({
   showLabel,
   options,
   variants,
+  rating
 }) => {
   const [isQuickAdding, setIsQuickAdding] = useState(false)
   const label = useProductLabel({ tags, metafields })
@@ -300,7 +302,7 @@ const ProductListItemInner = ({
               {title}
             </Text>
           </Box>
-          <Flex pt={2} sx={{ justifyContent: 'center' }}>
+          <Flex py={2} sx={{ justifyContent: 'center' }}>
             {hasRange && (
               <Text variant="caps" pr={1} sx={{ color: 'darkGray' }}>
                 From
@@ -330,6 +332,10 @@ const ProductListItemInner = ({
               <FormattedPrice priceV2={price} />
             </Text>
           </Flex>
+          {rating && <Flex sx={{justifyContent: 'center', alignItems:'center', color: 'primary', fontSize: 1,}}>
+            <IoIosStar />&nbsp;
+            {`${rating.average_score} (${rating.total_reviews})`}
+          </Flex>}
         </Flex>
       </Flex>
     </Box>

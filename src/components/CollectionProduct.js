@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useProductTitle } from './ProductTitle'
 import ProductListItem from './product/ListItem'
 import { useMetafieldValue } from '../hooks/useMetafield'
+import axios from 'axios'
 
 export const useProductPrice = product => {
   const { metafields, priceRangeV2, compareAtPriceRange } = product
@@ -48,6 +49,29 @@ const CollectionProduct = ({
     product
   const visitTag = tags.find(tag => tag.startsWith('visit'))?.replace('-', ' ')
   const badge = badges.find(({ name }) => name === visitTag)
+  
+  const [productIdentifier] = product.id?.match(/\d+$/) || []
+
+  const [rating, setRating] = useState(null)
+
+  useEffect(() => {
+    if (!productIdentifier) return 
+    const KEY = process.env.GATSBY_YOTPO_APP_KEY
+    const url = `https://api-cdn.yotpo.com/products/${KEY}/${productIdentifier}/bottomline`
+    
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(url);
+        const {bottomline} = res.data.response
+        if (bottomline.total_reviews === 0) return
+        setRating(bottomline);
+      } catch (err) {
+        console.error({title, err})
+      }
+    };
+
+    fetchData()
+  }, [productIdentifier])
 
   return (
     <ProductListItem
@@ -67,6 +91,7 @@ const CollectionProduct = ({
       showLabel={showLabel}
       options={options}
       variants={variants}
+      rating={rating}
     />
   )
 }
